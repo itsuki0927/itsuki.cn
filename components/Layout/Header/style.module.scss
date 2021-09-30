@@ -1,10 +1,12 @@
+@import '../../../styles/variables.scss';
+
 .header {
   height: 64px;
   position: relative;
   z-index: 10;
   max-width: 100%;
-  box-shadow: rgb(240, 241, 242) 0px 2px 8px;
-  background: white;
+  box-shadow: $gray-4 0px 2px 8px;
+  background: $gray-1;
 }
 
 .main {
@@ -28,7 +30,7 @@
   text-align: center;
   &.selected {
     &::after {
-      border-bottom: 2px solid #1890ff;
+      border-bottom: 2px solid $primary;
     }
   }
   &::after {
@@ -44,9 +46,9 @@
   }
 
   &:hover {
-    color: #1890ff;
+    color: $primary;
     &::after {
-      border-bottom: 2px solid #1890ff;
+      border-bottom: 2px solid $primary;
     }
   }
 }

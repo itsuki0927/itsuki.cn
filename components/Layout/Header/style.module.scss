@@ -1,0 +1,52 @@
+.header {
+  height: 64px;
+  position: relative;
+  z-index: 10;
+  max-width: 100%;
+  box-shadow: rgb(240, 241, 242) 0px 2px 8px;
+  background: white;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar {
+  text-align: right;
+  line-height: 64px;
+}
+
+.item {
+  min-width: 64px;
+  height: 64px;
+  line-height: 64px;
+  padding: 0px 12px;
+  display: inline-block;
+  transition: color 0.3s ease 0s;
+  position: relative;
+  text-align: center;
+  &.selected {
+    &::after {
+      border-bottom: 2px solid #1890ff;
+    }
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 12px;
+    bottom: auto;
+    left: 12px;
+    border-width: 2px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+  }
+
+  &:hover {
+    color: #1890ff;
+    &::after {
+      border-bottom: 2px solid #1890ff;
+    }
+  }
+}

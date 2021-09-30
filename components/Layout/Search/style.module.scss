@@ -1,0 +1,19 @@
+.search {
+  flex: auto;
+
+  .main {
+    display: flex;
+    line-height: 64px;
+
+    .icon {
+      margin-right: 15px;
+    }
+
+    input {
+      width: 100%;
+      outline: none;
+      border: none;
+      line-height: 30px;
+    }
+  }
+}

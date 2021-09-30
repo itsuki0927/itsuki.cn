@@ -1,0 +1,16 @@
+.logo {
+  width: 200px;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 64px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  img {
+    height: 32px;
+  }
+  span {
+    margin-left: 12px;
+  }
+}

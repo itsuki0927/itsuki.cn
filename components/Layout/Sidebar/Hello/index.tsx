@@ -1,4 +1,4 @@
-import Card from '../../../Card';
+import Card from '@/components/Card';
 
 const Hello = () => {
   return <Card>上午好, Itsuki</Card>;

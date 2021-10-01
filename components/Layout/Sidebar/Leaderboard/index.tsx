@@ -1,5 +1,5 @@
 import { EyeOutlined } from '@ant-design/icons';
-import Card from '../../../Card';
+import Card from '@/components/Card';
 import styles from './style.module.scss';
 
 const Item = () => {

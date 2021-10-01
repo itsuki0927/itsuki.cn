@@ -1,6 +1,6 @@
-import Button from '../../../Button';
+import Button from '@/components/Button';
 import { AppleOutlined, AndroidOutlined, WindowsOutlined, IeOutlined } from '@ant-design/icons';
-import Card from '../../../Card';
+import Card from '@/components/Card';
 
 const Tag = () => {
   return (

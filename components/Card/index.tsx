@@ -4,7 +4,7 @@ import Meta from './Meta';
 
 const getActions = (actions: ReactNode[]) =>
   actions.map((action, index) => (
-    <li style={{ width: `${100 / actions.length}px` }} key={`action-${index}`}>
+    <li style={{ width: `${100 / actions.length}%` }} key={`action-${index}`}>
       <span>{action}</span>
     </li>
   ));

@@ -1,0 +1,275 @@
+@import '../../styles/mixins/clearfix.scss';
+@import '../../styles/variables.scss';
+
+$card-hoverable-hover-border: transparent;
+$card-action-icon-size: 16px;
+
+$card-skeleton-bg: #cfd8dc;
+$gradient-min: fade-in($card-skeleton-bg, 0.1);
+$gradient-max: fade-in($card-skeleton-bg, 0.4);
+
+$background-color-light: hsl(0, 0, 98%);
+
+$card-head-color: #000000d9;
+$card-head-font-size-sm: $font-size-base;
+$card-actions-background: $component-background;
+$card-background: $component-background;
+$card-radius: $border-radius-base;
+$card-head-extra-color: $text-color;
+
+.card {
+  position: relative;
+  background: $card-background;
+  border-radius: 2px;
+
+  &-small {
+    > .card-head {
+      min-height: 36px;
+      padding: 0 12px;
+      font-size: $card-head-font-size-sm;
+
+      > .card-head-wrapper {
+        > .card-head-title {
+          padding: 12px 0;
+        }
+        > .card-extra {
+          padding: 12px 0;
+          font-size: $card-head-font-size-sm;
+        }
+      }
+    }
+    > .card-body {
+      padding: 12px;
+    }
+  }
+
+  &-rtl {
+    direction: rtl;
+  }
+
+  &-hoverable {
+    cursor: pointer;
+    transition: box-shadow 0.3s, border-color 0.3s;
+
+    &:hover {
+      border-color: transparent;
+      box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px 0 rgba(0, 0, 0, 0.12),
+        0 5px 12px 4px rgba(0, 0, 0, 0.09);
+    }
+  }
+
+  &-bordered {
+    border: 1px solid $border-color-split;
+  }
+
+  &-head {
+    @include clearfix;
+    min-height: 48px;
+    margin-bottom: -1px;
+    padding: 0 24px;
+    color: $card-head-color;
+    font-weight: 500;
+    font-size: $font-size-lg;
+    background: transparent;
+    border-bottom: 1px solid $border-color-split;
+    border-radius: 2px 2px 0 0;
+
+    &-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    &-title {
+      display: inline-block;
+      flex: 1;
+      padding: 16px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &-extra {
+    float: right;
+    margin-left: auto;
+    padding: 16px 0;
+    color: $card-head-extra-color;
+    font-weight: normal;
+    font-size: $font-size-base;
+
+    .card-rtl & {
+      margin-right: auto;
+      margin-left: 0;
+    }
+  }
+
+  &-body {
+    @include clearfix;
+    padding: 24px;
+  }
+
+  &-bordered &-cover {
+    margin-top: -1px;
+    margin-right: -1px;
+    margin-left: -1px;
+  }
+
+  &-cover {
+    > * {
+      display: block;
+      width: 100%;
+    }
+
+    img {
+      border-radius: $card-radius $card-radius 0 0;
+    }
+  }
+
+  &-actions {
+    @include clearfix;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: $card-actions-background;
+    border-top: 1px solid $border-color-split;
+
+    & > li {
+      float: left;
+      margin: 12px 0;
+      color: $text-color-secondary;
+      text-align: center;
+
+      .card-rtl & {
+        float: right;
+      }
+
+      > span {
+        position: relative;
+        display: block;
+        min-width: 32px;
+        font-size: $font-size-base;
+        line-height: 1.57;
+        cursor: pointer;
+
+        &:hover {
+          color: $primary;
+          transition: color 0.3s;
+        }
+
+        a:not(.btn),
+        > .iconfont {
+          display: inline-block;
+          width: 100%;
+          color: $text-color-secondary;
+          line-height: 22px;
+          transition: color 0.3s;
+
+          &:hover {
+            color: $primary;
+          }
+        }
+
+        > .iconfont {
+          font-size: $card-action-icon-size;
+          line-height: 22px;
+        }
+      }
+
+      &:not(:last-child) {
+        border-right: 1px solid $border-color-split;
+
+        .card-rtl & {
+          border-right: none;
+          border-left: 1px solid $border-color-split;
+        }
+      }
+    }
+  }
+
+  &-type-inner &-head {
+    padding: 0 24px;
+    background: $background-color-light;
+
+    &-title {
+      padding: 12px 0;
+      font-size: $font-size-base;
+    }
+  }
+
+  &-type-inner &-body {
+    padding: 16px 24px;
+  }
+
+  &-type-inner &-extra {
+    padding: 12px + 1.5px 0;
+  }
+
+  &-meta {
+    @include clearfix;
+    margin: -4px 0;
+
+    &-avatar {
+      float: left;
+      padding-right: 16px;
+
+      .card-rtl & {
+        float: right;
+        padding-right: 0;
+        padding-left: 16px;
+      }
+    }
+
+    &-detail {
+      overflow: hidden;
+      > div:not(:last-child) {
+        margin-bottom: 8px;
+      }
+    }
+
+    &-title {
+      overflow: hidden;
+      color: $card-head-color;
+      font-weight: 500;
+      font-size: $font-size-lg;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    &-description {
+      color: $text-color-secondary;
+    }
+  }
+
+  &-loading {
+    overflow: hidden;
+  }
+
+  &-loading &-body {
+    user-select: none;
+  }
+
+  &-loading-content {
+    p {
+      margin: 0;
+    }
+  }
+
+  &-loading-block {
+    height: 14px;
+    margin: 4px 0;
+    background: linear-gradient(90deg, $gradient-min, $gradient-max, $gradient-min);
+    background-size: 600% 600%;
+    border-radius: 2px;
+    animation: card-loading 1.4s ease infinite;
+  }
+}
+
+@keyframes card-loading {
+  0%,
+  100% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}

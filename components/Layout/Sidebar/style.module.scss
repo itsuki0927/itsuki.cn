@@ -1,0 +1,7 @@
+.sidebar {
+  width: 350px;
+  margin-left: 24px;
+  :global(.card) {
+    margin-bottom: 24px;
+  }
+}

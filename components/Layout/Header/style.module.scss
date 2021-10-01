@@ -1,12 +1,17 @@
 @import '../../../styles/variables.scss';
 
+$header-height: 64px;
+$header-background: $white;
+$header-line-height: $header-height;
+$nav-item-width: 64px;
+
 .header {
-  height: 64px;
+  height: $header-height;
   position: relative;
   z-index: 10;
   max-width: 100%;
   box-shadow: $gray-4 0px 2px 8px;
-  background: $gray-1;
+  background: $header-background;
 }
 
 .main {
@@ -16,13 +21,13 @@
 
 .navbar {
   text-align: right;
-  line-height: 64px;
+  line-height: $header-line-height;
 }
 
 .item {
-  min-width: 64px;
-  height: 64px;
-  line-height: 64px;
+  min-width: $nav-item-width;
+  height: $header-line-height;
+  line-height: $header-line-height;
   padding: 0px 12px;
   display: inline-block;
   transition: color 0.3s ease 0s;

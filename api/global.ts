@@ -1,5 +1,5 @@
 import { Category } from '@/entities/category';
-import { SearchResponse } from '@/entities/http';
+import { SearchResponse } from '@/entities/response/base';
 import { Tag } from '@/entities/tag';
 import request from '@/utils/request';
 

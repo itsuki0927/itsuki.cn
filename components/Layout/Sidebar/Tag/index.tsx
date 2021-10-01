@@ -1,25 +1,33 @@
 import Button from '@/components/Button';
-import { AppleOutlined, AndroidOutlined, WindowsOutlined, IeOutlined } from '@ant-design/icons';
 import Card from '@/components/Card';
+import { Tag } from '@/entities/tag';
+import { AndroidOutlined } from '@ant-design/icons';
+import { getTags } from 'api/global';
+import { useEffect, useState } from 'react';
 
-const Tag = () => {
+const SidebarTag = () => {
+  const [tags, setTags] = useState<Tag[]>([]);
+
+  useEffect(() => {
+    getTags().then(res => {
+      setTags(res.data);
+    });
+  }, []);
+
   return (
     <Card title='Tag' style={{ width: 320 }}>
-      <Button icon={<AndroidOutlined />} size='small' style={{ marginRight: 15, marginBottom: 15 }}>
-        {' '}
-        Android
-      </Button>
-      <Button icon={<AppleOutlined />} size='small' style={{ marginRight: 15, marginBottom: 15 }}>
-        Apple
-      </Button>
-      <Button icon={<WindowsOutlined />} size='small' style={{ marginRight: 15, marginBottom: 15 }}>
-        Windows
-      </Button>
-      <Button icon={<IeOutlined />} size='small' style={{ marginRight: 15, marginBottom: 15 }}>
-        IE
-      </Button>
+      {tags.map(item => (
+        <Button
+          key={item.id}
+          icon={<AndroidOutlined />}
+          size='small'
+          style={{ marginRight: 15, marginBottom: 15 }}
+        >
+          {item.name}
+        </Button>
+      ))}
     </Card>
   );
 };
 
-export default Tag;
+export default SidebarTag;

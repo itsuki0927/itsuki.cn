@@ -33,11 +33,7 @@ $nav-item-width: 64px;
   transition: color 0.3s ease 0s;
   position: relative;
   text-align: center;
-  &.selected {
-    &::after {
-      border-bottom: 2px solid $primary;
-    }
-  }
+  cursor: pointer;
   &::after {
     content: '';
     position: absolute;
@@ -50,7 +46,8 @@ $nav-item-width: 64px;
     transition: border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
   }
 
-  &:hover {
+  &:hover,
+  &.active {
     color: $primary;
     &::after {
       border-bottom: 2px solid $primary;

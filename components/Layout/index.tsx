@@ -1,7 +1,7 @@
-import { FC } from 'react';
 import Head from 'next/head';
-import Header from './Header';
+import { FC } from 'react';
 import Footer from './Footer';
+import Header from './Header';
 import Main from './Main';
 
 const Layout: FC = ({ children }) => {

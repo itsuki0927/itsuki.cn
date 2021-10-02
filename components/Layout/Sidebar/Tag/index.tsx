@@ -15,7 +15,7 @@ const SidebarTag = () => {
   }, []);
 
   return (
-    <Card title='Tag' style={{ width: 320 }}>
+    <Card title='Tag'>
       {tags.map(item => (
         <Button
           key={item.id}

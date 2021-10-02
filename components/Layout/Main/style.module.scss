@@ -1,11 +1,15 @@
+@import '../../../styles/variables.scss';
+
 .main {
   display: flex;
   margin: 24px auto;
+  width: $container-width;
+  position: relative;
   min-height: calc(
     100vh - 64px - 65px - 48px
   ); // 100vh - head height - footer height - margin top & bottom
 }
 
 .mainContent {
-  flex: auto;
+  flex: 1;
 }

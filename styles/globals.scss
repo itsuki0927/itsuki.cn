@@ -23,7 +23,7 @@ a {
 }
 
 .container {
-  width: 1200px;
+  width: $container-width;
   margin: 0 auto;
   position: relative;
 }

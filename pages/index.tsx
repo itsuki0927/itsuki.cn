@@ -49,7 +49,6 @@ const Home = ({ articles }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <div>
       <Alert
-        banner
         style={{ marginBottom: 24 }}
         message='公告'
         description='思考比写代码来的更加珍'

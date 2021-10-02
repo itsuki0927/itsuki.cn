@@ -188,7 +188,7 @@
 
 "@next/swc-darwin-arm64@11.1.2":
   version "11.1.2"
-  resolved "https://registry.npmmirror.com/@next/swc-darwin-arm64/download/@next/swc-darwin-arm64-11.1.2.tgz?cache=0&sync_timestamp=1633053359550&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40next%2Fswc-darwin-arm64%2Fdownload%2F%40next%2Fswc-darwin-arm64-11.1.2.tgz#93226c38db488c4b62b30a53b530e87c969b8251"
+  resolved "https://registry.npmmirror.com/@next/swc-darwin-arm64/download/@next/swc-darwin-arm64-11.1.2.tgz#93226c38db488c4b62b30a53b530e87c969b8251"
   integrity sha1-kyJsONtIjEtiswpTtTDofJabglE=
 
 "@next/swc-darwin-x64@11.1.2":
@@ -198,12 +198,12 @@
 
 "@next/swc-linux-x64-gnu@11.1.2":
   version "11.1.2"
-  resolved "https://registry.npmmirror.com/@next/swc-linux-x64-gnu/download/@next/swc-linux-x64-gnu-11.1.2.tgz?cache=0&sync_timestamp=1633052844760&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40next%2Fswc-linux-x64-gnu%2Fdownload%2F%40next%2Fswc-linux-x64-gnu-11.1.2.tgz#8216b2ae1f21f0112958735c39dd861088108f37"
+  resolved "https://registry.npmmirror.com/@next/swc-linux-x64-gnu/download/@next/swc-linux-x64-gnu-11.1.2.tgz#8216b2ae1f21f0112958735c39dd861088108f37"
   integrity sha1-ghayrh8h8BEpWHNcOd2GEIgQjzc=
 
 "@next/swc-win32-x64-msvc@11.1.2":
   version "11.1.2"
-  resolved "https://registry.npmmirror.com/@next/swc-win32-x64-msvc/download/@next/swc-win32-x64-msvc-11.1.2.tgz?cache=0&sync_timestamp=1633053364159&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40next%2Fswc-win32-x64-msvc%2Fdownload%2F%40next%2Fswc-win32-x64-msvc-11.1.2.tgz#e15824405df137129918205e43cb5e9339589745"
+  resolved "https://registry.npmmirror.com/@next/swc-win32-x64-msvc/download/@next/swc-win32-x64-msvc-11.1.2.tgz#e15824405df137129918205e43cb5e9339589745"
   integrity sha1-4VgkQF3xNxKZGCBeQ8tekzlYl0U=
 
 "@node-rs/helper@1.2.1":
@@ -484,7 +484,7 @@ axe-core@^4.0.2:
 
 axios@^0.22.0:
   version "0.22.0"
-  resolved "https://registry.npmmirror.com/axios/download/axios-0.22.0.tgz?cache=0&sync_timestamp=1633067783421&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Faxios%2Fdownload%2Faxios-0.22.0.tgz#bf702c41fb50fbca4539589d839a077117b79b25"
+  resolved "https://registry.npmmirror.com/axios/download/axios-0.22.0.tgz?cache=0&sync_timestamp=1633067783421&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Faxios%2Fdownload%2Faxios-0.22.0.tgz"
   integrity sha1-v3AsQftQ+8pFOVidg5oHcRe3myU=
   dependencies:
     follow-redirects "^1.14.4"
@@ -1412,7 +1412,7 @@ flatted@^3.1.0:
 
 follow-redirects@^1.14.4:
   version "1.14.4"
-  resolved "https://registry.nlark.com/follow-redirects/download/follow-redirects-1.14.4.tgz?cache=0&sync_timestamp=1631622129411&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ffollow-redirects%2Fdownload%2Ffollow-redirects-1.14.4.tgz#838fdf48a8bbdd79e52ee51fb1c94e3ed98b9379"
+  resolved "https://registry.nlark.com/follow-redirects/download/follow-redirects-1.14.4.tgz?cache=0&sync_timestamp=1631622129411&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ffollow-redirects%2Fdownload%2Ffollow-redirects-1.14.4.tgz"
   integrity sha1-g4/fSKi73XnlLuUfsclOPtmLk3k=
 
 foreach@^2.0.5:

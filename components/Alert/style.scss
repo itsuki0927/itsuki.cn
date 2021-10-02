@@ -1,0 +1,128 @@
+@import '../../styles/variables.scss';
+
+$alert-success-border-color: #b7eb8f;
+$alert-success-bg-color: #f6ffed;
+$alert-success-icon-color: $success;
+
+$alert-info-border-color: #91d5ff;
+$alert-info-bg-color: #e6f7ff;
+$alert-info-icon-color: $primary;
+
+$alert-warning-border-color: #ffe58f;
+$alert-warning-bg-color: #fffbe6;
+$alert-warning-icon-color: $warning;
+
+$alert-error-border-color: #ffccc7;
+$alert-error-bg-color: #fff2f0;
+$alert-error-icon-color: $error;
+
+$alert-message-color: #000000d9;
+$alert-text-color: $text-color;
+
+.alert {
+  box-sizing: border-box;
+  margin: 0;
+  color: #000000d9;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: 'tnum';
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  word-wrap: break-word;
+  border-radius: $border-radius-base;
+
+  &-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &-icon {
+    margin-right: 24px;
+  }
+
+  &-description {
+    display: none;
+    font-size: $font-size-base;
+    line-height: $font-size-base + 8px;
+  }
+
+  &-success {
+    background-color: $alert-success-bg-color;
+    border: 1px solid $alert-success-border-color;
+    .alert-icon {
+      color: $alert-success-icon-color;
+    }
+  }
+
+  &-info {
+    background-color: $alert-info-bg-color;
+    border: 1px solid $alert-info-border-color;
+    .alert-icon {
+      color: $alert-info-icon-color;
+    }
+  }
+
+  &-warning {
+    background-color: $alert-warning-bg-color;
+    border: 1px solid $alert-warning-border-color;
+    .alert-icon {
+      color: $alert-warning-icon-color;
+    }
+  }
+
+  &-error {
+    background-color: $alert-error-bg-color;
+    border: 1px solid $alert-error-border-color;
+
+    .alert-icon {
+      color: $alert-error-icon-color;
+    }
+
+    .alert-description > pre {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  &-action {
+    margin-left: 8px;
+  }
+
+  &-with-description {
+    align-items: flex-start;
+    padding: 15px 15px 15px 24px;
+  }
+
+  &-with-description &-no-icon {
+    padding: 7px 15px;
+  }
+
+  &-with-description &-icon {
+    margin-right: 15px;
+    font-size: 24px;
+  }
+  &-with-description &-message {
+    display: block;
+    margin-bottom: 4px;
+    color: $alert-message-color;
+    font-size: $font-size-lg;
+  }
+
+  &-message {
+    color: $alert-message-color;
+  }
+
+  &-with-description &-description {
+    display: block;
+  }
+
+  &-banner {
+    margin-bottom: 0;
+    border: 0;
+    border-radius: 0;
+  }
+}

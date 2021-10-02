@@ -1,6 +1,7 @@
 import { Article } from '@/entities/article';
 import { EyeOutlined, HeartOutlined, MessageOutlined } from '@ant-design/icons';
 import router from 'next/router';
+import Image from 'next/image';
 import Card from '../Card';
 import styles from './style.module.scss';
 
@@ -13,7 +14,9 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
       hoverable
       onClick={() => router.push(`/article/${article.id}`)}
       className={styles.article}
-      cover={<img alt='example' className={styles.cover} src={article.cover} />}
+      cover={
+        <Image alt='article-cover' width={300} height={312} objectFit='cover' src={article.cover} />
+      }
       actions={[
         <span key='reading'>
           <EyeOutlined className={styles.action} />

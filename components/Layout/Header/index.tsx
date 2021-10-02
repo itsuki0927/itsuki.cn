@@ -1,7 +1,6 @@
 import ActiveLink from '@/components/ActiveLink';
-import { Category } from '@/entities/category';
-import { getCategories } from 'api/global';
-import { useEffect, useMemo, useState } from 'react';
+import AppContext from '@/utils/context';
+import { useContext, useMemo } from 'react';
 import Logo from '../Logo';
 import HeaderSearch from '../Search';
 import styles from './style.module.scss';
@@ -9,23 +8,17 @@ import styles from './style.module.scss';
 const buildPath = (path: string) => `/${path}`;
 
 const Header = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
-
-  useEffect(() => {
-    getCategories().then(res => {
-      setCategories(res.data);
-    });
-  }, []);
+  const context = useContext(AppContext);
 
   const categoriesDom = useMemo(() => {
-    return categories.map(item => (
+    return context?.categories?.map(item => (
       <ActiveLink activeClassName={styles.active} key={item.id} href={buildPath(item.path)}>
         <li className={styles.item}>
           <span>{item.name}</span>
         </li>
       </ActiveLink>
     ));
-  }, [categories]);
+  }, [context?.categories]);
 
   return (
     <header className={styles.header}>

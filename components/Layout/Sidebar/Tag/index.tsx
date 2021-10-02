@@ -1,22 +1,15 @@
 import Button from '@/components/Button';
 import Card from '@/components/Card';
-import { Tag } from '@/entities/tag';
+import AppContext from '@/utils/context';
 import { AndroidOutlined } from '@ant-design/icons';
-import { getTags } from 'api/global';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 const SidebarTag = () => {
-  const [tags, setTags] = useState<Tag[]>([]);
-
-  useEffect(() => {
-    getTags().then(res => {
-      setTags(res.data);
-    });
-  }, []);
+  const context = useContext(AppContext);
 
   return (
     <Card title='Tag'>
-      {tags.map(item => (
+      {context?.tags?.map(item => (
         <Button
           key={item.id}
           icon={<AndroidOutlined />}

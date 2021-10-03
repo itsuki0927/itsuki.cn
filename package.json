@@ -12,6 +12,7 @@
     "@ant-design/icons": "^4.7.0",
     "axios": "^0.22.0",
     "classnames": "^2.3.1",
+    "gravatar": "^1.8.2",
     "highlight.js": "^11.2.0",
     "marked": "^3.0.4",
     "next": "11.1.2",
@@ -21,6 +22,7 @@
     "sass": "^1.42.1"
   },
   "devDependencies": {
+    "@types/gravatar": "^1.8.3",
     "@types/marked": "^3.0.1",
     "@types/nprogress": "^0.2.0",
     "@types/react": "17.0.25",

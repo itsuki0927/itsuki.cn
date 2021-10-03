@@ -10,7 +10,8 @@ $gradient-max: fade-in($card-skeleton-bg, 0.4);
 
 $background-color-light: #fafafa;
 
-$card-head-color: #000000d9;
+// $card-head-color: #000000d9;
+$card-head-color: $text-color;
 $card-head-font-size-sm: $font-size-base;
 $card-actions-background: $component-background;
 $card-background: $component-background;

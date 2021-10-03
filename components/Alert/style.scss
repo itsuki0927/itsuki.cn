@@ -22,7 +22,7 @@ $alert-text-color: $text-color;
 .alert {
   box-sizing: border-box;
   margin: 0;
-  color: #000000d9;
+  color: $text-color;
   font-size: 14px;
   font-variant: tabular-nums;
   line-height: 1.5715;

@@ -1,6 +1,7 @@
 @import '../../styles/variables.scss';
 
 $primary-hover-color: #40a9ff;
+$button-color: #000000d9;
 
 .btn {
   line-height: 1.5715;
@@ -20,7 +21,7 @@ $primary-hover-color: #40a9ff;
   padding: 4px 15px;
   font-size: 14px;
   border-radius: 2px;
-  color: #000000d9;
+  color: $text-color;
   border-color: $gray-5;
   background: $white;
   &:hover {
@@ -40,18 +41,18 @@ $primary-hover-color: #40a9ff;
     }
   }
   &-dashed {
-    color: #000000d9;
+    color: $text-color;
     border-color: $gray-5;
     background: $white;
     border-style: dashed;
   }
   &-text {
-    color: #000000d9;
+    color: $text-color;
     border-color: transparent;
     background: 0 0;
     box-shadow: none;
     &:hover {
-      color: #000000d9;
+      color: $text-color;
       background: rgba(0, 0, 0, 0.018);
       border-color: transparent;
     }

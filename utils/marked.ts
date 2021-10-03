@@ -9,9 +9,8 @@ marked.use({
   smartLists: false,
   smartypants: true,
   highlight(code, language) {
-    const lang = highlight.getLanguage(language);
-    return lang
-      ? highlight.highlight(code, { language, ignoreIllegals: true }).value
+    return highlight.getLanguage(language)
+      ? highlight.highlight(code, { language }).value
       : highlight.highlightAuto(code).value;
   },
 });
@@ -70,13 +69,20 @@ customRenderer.code = function renderCode(code: string, language: string, escape
     .map((_, i) => `<li class='code-line-number'>${i + 1}</li>`.replace(/\s+/g, ' '))
     .join('');
 
+  /**
+   * TODO:
+   * <code>
+   *   {code}
+   * </code>
+   * 为什么这么写会有一个换行
+   */
   return language
-    ? `<pre data-lang=${language}>
-         <ul class='code-lines'>${lineNumbers}</ul>
-         <code class='${(this as any).options.langPrefix}${escape(language)}'>
-           ${escaped ? code : escape(code)}
-         </code>
-       </pre>`
+    ? `<pre  data-lang=${language}>
+        <ul class='code-lines'>${lineNumbers}</ul>
+        <code
+          class='${(this as any).options.langPrefix}${escape(language)}'
+        >${escaped ? code : escape(code)}</code>
+      </pre>`
     : `<pre>
         <ul class='code-lines'>${lineNumbers}</ul>
         <code >${escaped ? code : escape(code)}\n</code>

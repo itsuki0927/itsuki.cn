@@ -1,0 +1,210 @@
+@import './variables.scss';
+
+.markdown-html {
+  p {
+    line-height: 2.2em;
+    text-indent: 2em;
+    margin-bottom: 1em;
+    &.text-center {
+      text-align: center;
+    }
+
+    &.text-right {
+      text-align: right;
+    }
+  }
+
+  a {
+    margin: 0 0.1em;
+    border-bottom: 1px solid transparent;
+    font-weight: bold;
+    display: inline-block;
+    text-indent: 0;
+
+    &.image-link {
+      margin: 0;
+      border: 0;
+    }
+
+    &:hover {
+      text-decoration: none;
+      border-color: initial;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.8em;
+    font-weight: 700;
+    text-indent: 0;
+  }
+
+  blockquote {
+    p {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  ul {
+    list-style-type: square;
+  }
+
+  ul,
+  ol {
+    > li {
+      line-height: 1.8em;
+      padding: 0.5em 0.8em;
+
+      &:hover {
+        background-color: $gray-4;
+      }
+
+      > p {
+        text-indent: 0;
+      }
+
+      > ol {
+        list-style: lower-alpha;
+      }
+
+      > ul,
+      > ol {
+        margin-top: 4px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      &:last-child {
+        > ul,
+        > ol {
+          margin-bottom: -4px;
+        }
+      }
+    }
+  }
+
+  img {
+    max-width: 100%;
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    border-radius: 2px;
+    border: 8px solid $gray-4;
+    opacity: 0.9;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+      transition: all 0.2s;
+    }
+  }
+
+  iframe {
+    width: 100%;
+    margin-bottom: 1em;
+    background-color: $black;
+  }
+
+  code {
+    color: $error;
+    padding: 0.3em 0.4em;
+    margin: 0 0.3em;
+    border-radius: 2px;
+    background-color: $gray-4;
+    font-size: 16px;
+  }
+
+  pre {
+    $code-header-height: 36px;
+    $code-number-width: 36px;
+    $code-row-line-height: 24px;
+    $code-font-size: 16px;
+
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 12px;
+    padding-left: $code-number-width;
+    font-size: 16px;
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    border-radius: 2px;
+
+    &::before {
+      color: $gray-4;
+      content: attr(data-lang) ' CODE';
+      font-family: 'fira code';
+      height: $code-header-height;
+      line-height: $code-header-height;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-weight: 700;
+      background-color: lighten(#000, 30%);
+      text-transform: uppercase;
+    }
+
+    .code-lines {
+      user-select: none;
+      position: absolute;
+      left: 0;
+      top: $code-header-height;
+      bottom: 0;
+      padding: 12px 0;
+      margin-bottom: 0;
+      width: $code-number-width;
+      text-align: center;
+      background-color: rgba(#000, 0.2);
+
+      .code-line-number {
+        padding: 0;
+        position: relative;
+        list-style-type: none;
+        line-height: $code-row-line-height;
+        font-size: 14px;
+        color: $gray-6;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          width: 740px;
+          left: $code-number-width;
+          right: 0;
+          height: 100%;
+          background-color: rgba(154, 154, 154, 0.2);
+          visibility: hidden;
+          opacity: 0;
+        }
+        &:hover {
+          background-color: $white;
+          color: $gray-9;
+          &::before {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    code {
+      margin: 0;
+      padding: 1rem;
+      float: left;
+      width: 100%;
+      height: 100%;
+      display: block;
+      line-height: 24px;
+      color: rgba(#fff, 0.87);
+      background-color: transparent;
+      font-size: 14px;
+    }
+  }
+}

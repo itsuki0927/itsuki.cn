@@ -3,6 +3,8 @@ import '@/components/Button/style.scss';
 import '@/components/Card/style.scss';
 import Layout from '@/components/Layout';
 import '@/styles/globals.scss';
+import '@/styles/reset.scss';
+import '@/styles/markdown.scss';
 import AppContext, { AppContextType } from '@/utils/context';
 import { fetchGlobalData } from 'api/global';
 import type { AppProps } from 'next/app';

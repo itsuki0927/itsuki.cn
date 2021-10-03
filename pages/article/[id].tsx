@@ -1,10 +1,38 @@
-import { useRouter } from 'next/router';
+import { Article } from '@/entities/article';
+import Card from '@/components/Card';
+import { getArticleById } from 'api/article';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import marked from '@/utils/marked';
 
-const ArticlePage = () => {
-  const router = useRouter();
-  const { id } = router.query;
+type StaticProps = {
+  article: Article;
+};
 
-  return <h1>Article-{id}</h1>;
+export const getServerSideProps: GetServerSideProps<StaticProps> = async ({ params }) => {
+  const article = await getArticleById(params?.id as string);
+
+  return {
+    props: {
+      article,
+    },
+  };
+};
+
+const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  return (
+    <div>
+      <Card style={{ marginBottom: 24 }}>
+        <h1>{article.title}</h1>
+
+        <div
+          className='markdown-html'
+          dangerouslySetInnerHTML={{ __html: marked(article.content) }}
+        />
+      </Card>
+
+      <Card></Card>
+    </div>
+  );
 };
 
 export default ArticlePage;

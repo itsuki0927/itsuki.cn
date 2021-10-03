@@ -5,3 +5,7 @@ import request from '@/utils/request';
 /** 获取文章  */
 export const getArticles = () =>
   request.get<SearchResponse<Article>>('/article').then(res => res.data);
+
+/** 根据id获取文章 */
+export const getArticleById = (id: string | number) =>
+  request.get<Article>(`/article/${id}`).then(res => res.data);

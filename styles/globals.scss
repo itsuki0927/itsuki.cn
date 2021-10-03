@@ -11,24 +11,8 @@ body {
   background-color: $gray-2;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .container {
   width: $container-width;
   margin: 0 auto;
   position: relative;
-}
-
-ul,
-li {
-  list-style: none;
 }

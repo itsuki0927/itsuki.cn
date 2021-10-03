@@ -69,6 +69,10 @@ customRenderer.code = function renderCode(code: string, language: string, escape
     .map((_, i) => `<li class='code-line-number'>${i + 1}</li>`.replace(/\s+/g, ' '))
     .join('');
 
+  // 如果一行代码也没有 空格做一个占位符 保证正确显示
+  if (!code) {
+    code = `<span class='hljs-comment'>// empty code</span>`;
+  }
   /**
    * TODO:
    * <code>

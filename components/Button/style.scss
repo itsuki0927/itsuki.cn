@@ -29,7 +29,7 @@ $button-color: #000000d9;
     margin-left: 12px;
   }
 
-  &:hover {
+  &:not(.btn-disabled):hover {
     color: $primary-hover-color;
     border-color: $primary-hover-color;
   }
@@ -39,11 +39,16 @@ $button-color: #000000d9;
     background: $primary;
     text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
     box-shadow: 0 2px #0000000b;
-    &:hover {
+    &:not(.btn-disabled):hover {
       color: $white;
       border-color: $primary-hover-color;
       background: $primary-hover-color;
     }
+  }
+  &-disabled {
+    color: $disabled-color;
+    border-color: $disabled-border-color;
+    background: $disabled-bg-color;
   }
   &-dashed {
     color: $text-color;
@@ -56,7 +61,7 @@ $button-color: #000000d9;
     border-color: transparent;
     background: 0 0;
     box-shadow: none;
-    &:hover {
+    &:not(.btn-disabled):hover {
       color: $text-color;
       background: rgba(0, 0, 0, 0.018);
       border-color: transparent;

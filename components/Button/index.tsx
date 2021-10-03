@@ -55,6 +55,7 @@ const Button: FC<ButtonProps> = ({
       [`btn-${size}`]: size,
       [`btn-${type}`]: type,
       'btn-block': block,
+      'btn-disabled': otherProps.disabled,
     },
     'btn',
     className

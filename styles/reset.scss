@@ -4,7 +4,6 @@ $primary-hover-color: #40a9ff;
 $module-bg: rgba(255, 255, 255, 0.6);
 $module-bg-darker-1: #e8e8e8;
 $module-bg-darker-2: #dedede;
-$text-disabled: rgba(0, 0, 0, 0.38);
 
 :root,
 html {
@@ -348,7 +347,7 @@ button:focus {
 
 input[type='submit']:disabled,
 button:disabled {
-  color: $text-disabled;
+  color: $disabled-color;
   cursor: not-allowed;
 }
 

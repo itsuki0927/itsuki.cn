@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.title {
+  // margin: $margin-lg 0;
+  // font-size: 24px;
+  text-align: center;
+}
+
+.metas {
+  margin-bottom: $margin-lg;
+  .meta {
+    display: flex;
+    align-items: center;
+    margin-bottom: $margin-sm;
+    .label {
+      display: inline-block;
+      width: 80px;
+      line-height: 24px;
+      height: 24px;
+    }
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+}

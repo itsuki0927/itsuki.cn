@@ -42,12 +42,19 @@ const languages = {
   python,
   javascript,
   typescript,
-  js: javascript,
-  ts: typescript,
-  jsx: javascript,
-  tsx: typescript,
+};
+
+const aliasLanguage = {
+  js: 'javascript',
+  jsx: 'javascript',
+  ts: 'typescript',
+  tsx: 'typescript',
 };
 
 Object.keys(languages).forEach(name => hljs.registerLanguage(name, languages[name] as any));
+
+Object.keys(aliasLanguage).forEach(alias =>
+  hljs.registerAliases(alias, { languageName: aliasLanguage[alias] as any })
+);
 
 export default hljs as typeof HLJSApi;

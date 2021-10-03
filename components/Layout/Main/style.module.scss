@@ -2,7 +2,7 @@
 
 .main {
   display: flex;
-  margin: 24px auto;
+  margin: $margin-lg auto;
   width: $container-width;
   position: relative;
   min-height: calc(

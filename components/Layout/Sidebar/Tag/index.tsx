@@ -14,7 +14,7 @@ const SidebarTag = () => {
           key={item.id}
           icon={<AndroidOutlined />}
           size='small'
-          style={{ marginRight: 15, marginBottom: 15 }}
+          style={{ marginBottom: 12 }}
         >
           {item.name}
         </Button>

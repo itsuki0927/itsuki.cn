@@ -1,7 +1,9 @@
+@import '../../styles/variables.scss';
+
 .article {
   width: 300px;
-  margin-bottom: 24px;
-  margin-left: 24px;
+  margin-bottom: $margin-lg;
+  margin-left: $margin-lg;
   flex-grow: 1;
 }
 

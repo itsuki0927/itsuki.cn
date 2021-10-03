@@ -24,6 +24,11 @@ $button-color: #000000d9;
   color: $text-color;
   border-color: $gray-5;
   background: $white;
+
+  & + & {
+    margin-left: 12px;
+  }
+
   &:hover {
     color: $primary-hover-color;
     border-color: $primary-hover-color;

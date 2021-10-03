@@ -41,7 +41,7 @@ $alert-text-color: $text-color;
   }
 
   &-icon {
-    margin-right: 24px;
+    margin-right: $margin-lg;
   }
 
   &-description {
@@ -94,15 +94,15 @@ $alert-text-color: $text-color;
 
   &-with-description {
     align-items: flex-start;
-    padding: 15px 15px 15px 24px;
+    padding: $padding-md $padding-md $padding-md $padding-lg;
   }
 
   &-with-description &-no-icon {
-    padding: 7px 15px;
+    padding: 7px $padding-md;
   }
 
   &-with-description &-icon {
-    margin-right: 15px;
+    margin-right: $margin-md;
     font-size: 24px;
   }
   &-with-description &-message {

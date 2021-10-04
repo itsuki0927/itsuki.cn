@@ -4,6 +4,7 @@ import Card from '../Card';
 import CommentProfile, { CommentProfileType } from './Profile';
 import MarkdownEditor from './Markdown';
 import styles from './style.module.scss';
+import { initialCommentProfile } from '@/constants/comment';
 
 export type EditorProps = {
   onSend: (data: CommentProfileType & { content: string }) => Promise<boolean>;
@@ -11,21 +12,19 @@ export type EditorProps = {
 
 const Editor = ({ onSend }: EditorProps) => {
   const [commentProfile, setCommentProfile] = useState<CommentProfileType>({
-    nickname: '',
-    email: '',
-    website: '',
+    ...initialCommentProfile,
   });
 
   return (
     <Card bodyStyle={{ padding: 0 }} bordered={false}>
-      <div className={styles.wrapper}>
+      <div className={styles.editor}>
         <img
           className={styles.avatar}
           src={getGravatarUrl(commentProfile.email)}
           width={80}
           height={80}
         />
-        <div className={styles.editor}>
+        <div className={styles.wrapper}>
           <CommentProfile value={commentProfile} onChange={setCommentProfile} />
           <MarkdownEditor onSend={content => onSend({ ...commentProfile, content })} />
         </div>

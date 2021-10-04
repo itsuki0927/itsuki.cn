@@ -3,17 +3,17 @@ import { useEffect } from 'react';
 import Button from '../Button';
 import styles from './style.module.scss';
 
-export type CommentInfoType = {
+export type CommentProfileType = {
   nickname: string;
   email: string;
   website: string;
 };
-type CommentInfoProps = {
-  value: CommentInfoType;
-  onChange: (value: CommentInfoType) => void;
+type CommentProfileProps = {
+  value: CommentProfileType;
+  onChange: (value: CommentProfileType) => void;
 };
 
-const CommentInfo = ({ value, onChange }: CommentInfoProps) => {
+const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
   useEffect(() => {
     const initialValue = getJSON('commentInfo');
     if (initialValue) {
@@ -70,4 +70,4 @@ const CommentInfo = ({ value, onChange }: CommentInfoProps) => {
   );
 };
 
-export default CommentInfo;
+export default CommentProfile;

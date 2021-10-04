@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { getGravatarUrl } from 'transformers/gravatar';
 import Card from '../Card';
-import CommentInfo, { CommentInfoType } from './Info';
+import CommentProfile, { CommentProfileType } from './Profile';
 import MarkdownEditor from './Markdown';
 import styles from './style.module.scss';
 
 export type EditorProps = {
-  onSend: (data: CommentInfoType & { content: string }) => Promise<boolean>;
+  onSend: (data: CommentProfileType & { content: string }) => Promise<boolean>;
 };
 
 const Editor = ({ onSend }: EditorProps) => {
-  const [commentInfo, setCommentInfo] = useState<CommentInfoType>({
+  const [commentProfile, setCommentProfile] = useState<CommentProfileType>({
     nickname: '',
     email: '',
     website: '',
@@ -21,13 +21,13 @@ const Editor = ({ onSend }: EditorProps) => {
       <div className={styles.wrapper}>
         <img
           className={styles.avatar}
-          src={getGravatarUrl(commentInfo.email)}
+          src={getGravatarUrl(commentProfile.email)}
           width={80}
           height={80}
         />
         <div className={styles.editor}>
-          <CommentInfo value={commentInfo} onChange={setCommentInfo} />
-          <MarkdownEditor onSend={content => onSend({ ...commentInfo, content })} />
+          <CommentProfile value={commentProfile} onChange={setCommentProfile} />
+          <MarkdownEditor onSend={content => onSend({ ...commentProfile, content })} />
         </div>
       </div>
     </Card>

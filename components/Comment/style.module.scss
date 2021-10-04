@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+
+.comment {
+  .liking {
+    &.liked {
+      color: $error;
+    }
+  }
+}

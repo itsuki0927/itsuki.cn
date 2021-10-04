@@ -9,3 +9,7 @@ export const getArticles = () =>
 /** 根据id获取文章 */
 export const getArticleById = (id: string | number) =>
   request.get<Article>(`/article/${id}`).then(res => res.data);
+
+/** 更新文章meta */
+export const patchArticleMeta = (id: number, data: { meta: string }) =>
+  request.patch(`/article/${id}`, data).then(res => res.data);

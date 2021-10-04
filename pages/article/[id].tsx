@@ -4,9 +4,10 @@ import Comment from '@/components/Comment';
 import { Article } from '@/entities/article';
 import marked from '@/utils/marked';
 import { AndroidOutlined } from '@ant-design/icons';
-import { getArticleById } from 'api/article';
+import { getArticleById, patchArticleMeta } from 'api/article';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import styles from './style.module.scss';
 
 type StaticProps = {
@@ -24,6 +25,8 @@ export const getServerSideProps: GetServerSideProps<StaticProps> = async ({ para
 };
 
 const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const [liking, setLiking] = useState(article.liking);
+
   const router = useRouter();
   return (
     <div>
@@ -69,7 +72,17 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
         </div>
       </Card>
 
-      <Comment title='评论' comments={article.comments} />
+      <Comment
+        articleId={article.id}
+        title={(comments, length) => <span>{length} 个想法</span>}
+        liking={liking}
+        onLikeArticle={articleId => {
+          return patchArticleMeta(articleId, { meta: 'liking' }).then(() => {
+            setLiking(like => like + 1);
+            console.log('success');
+          });
+        }}
+      />
     </div>
   );
 };

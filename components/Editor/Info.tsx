@@ -4,7 +4,7 @@ import Button from '../Button';
 import styles from './style.module.scss';
 
 export type CommentInfoType = {
-  name: string;
+  nickname: string;
   email: string;
   website: string;
 };
@@ -32,9 +32,9 @@ const CommentInfo = ({ value, onChange }: CommentInfoProps) => {
   return (
     <div style={{ display: 'flex', marginBottom: 12 }}>
       <input
-        name='name'
+        name='nickname'
         onChange={e => handleInput(e)}
-        value={value.name}
+        value={value.nickname}
         className={styles.input}
         placeholder='昵称'
       />

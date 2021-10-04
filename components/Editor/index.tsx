@@ -1,18 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import gravatar from 'gravatar';
+import { useEffect, useRef, useState } from 'react';
 import Card from '../Card';
 import CommentInfo, { CommentInfoType } from './Info';
 import MarkdownEditor from './Markdown';
 import styles from './style.module.scss';
 
 export type EditorProps = {
-  onSend: (data: CommentInfoType & { content: string; avatar: string }) => Promise<boolean>;
+  onSend: (data: CommentInfoType & { content: string }) => Promise<boolean>;
 };
 
 const Editor = ({ onSend }: EditorProps) => {
   const [commentInfo, setCommentInfo] = useState<CommentInfoType>({
-    name: '',
+    nickname: '',
     email: '',
     website: '',
   });
@@ -28,9 +27,7 @@ const Editor = ({ onSend }: EditorProps) => {
         <img className={styles.avatar} src={avatarRef.current} width={80} height={80} />
         <div className={styles.editor}>
           <CommentInfo value={commentInfo} onChange={setCommentInfo} />
-          <MarkdownEditor
-            onSend={content => onSend({ ...commentInfo, content, avatar: avatarRef.current! })}
-          />
+          <MarkdownEditor onSend={content => onSend({ ...commentInfo, content })} />
         </div>
       </div>
     </Card>

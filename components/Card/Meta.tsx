@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { CSSProperties, FC, ReactNode } from 'react';
 
 export interface CardMetaProps {
@@ -24,7 +25,7 @@ const Meta: FC<CardMetaProps> = ({ avatar, title, description, className, style 
     ) : null;
 
   return (
-    <div className={className} style={style}>
+    <div className={classNames('card-meta', className)} style={style}>
       {avatarDom}
       {metaDetail}
     </div>

@@ -1,5 +1,5 @@
-import gravatar from 'gravatar';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { getGravatarUrl } from 'transformers/gravatar';
 import Card from '../Card';
 import CommentInfo, { CommentInfoType } from './Info';
 import MarkdownEditor from './Markdown';
@@ -15,16 +15,16 @@ const Editor = ({ onSend }: EditorProps) => {
     email: '',
     website: '',
   });
-  const avatarRef = useRef<string>();
-
-  useEffect(() => {
-    avatarRef.current = gravatar.url('2309899048@qq.com', {}, true);
-  }, []);
 
   return (
     <Card bodyStyle={{ padding: 0 }} bordered={false}>
       <div className={styles.wrapper}>
-        <img className={styles.avatar} src={avatarRef.current} width={80} height={80} />
+        <img
+          className={styles.avatar}
+          src={getGravatarUrl(commentInfo.email)}
+          width={80}
+          height={80}
+        />
         <div className={styles.editor}>
           <CommentInfo value={commentInfo} onChange={setCommentInfo} />
           <MarkdownEditor onSend={content => onSend({ ...commentInfo, content })} />

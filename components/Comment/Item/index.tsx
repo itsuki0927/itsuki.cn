@@ -1,9 +1,9 @@
 import markedToHtml from '@/utils/marked';
 import { HeartOutlined, SelectOutlined } from '@ant-design/icons';
+import { getGravatarUrl } from 'transformers/gravatar';
 import { parseUA } from 'transformers/ua';
-import gravatar from 'gravatar';
-import styles from './style.module.scss';
 import Card from '../../Card';
+import styles from './style.module.scss';
 
 type CommentCardProps = {
   comment: any;
@@ -50,7 +50,7 @@ const CommentCard = ({ comment }: CommentCardProps) => {
         description={descriptionDom}
         avatar={
           <img
-            src={gravatar.url(comment.email, { protocol: 'https' })}
+            src={getGravatarUrl(comment.email)}
             width={80}
             height={80}
             className={styles.avatar}

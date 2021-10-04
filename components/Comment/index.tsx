@@ -1,15 +1,15 @@
 import { postComment } from '@/api/comment';
-import { parseUA } from 'transformers/ua';
+import { Comment } from '@/entities/comment';
 import Card from '../Card';
 import Editor from '../Editor';
 import CommentCard from './Item';
 
 type CommentProps = {
   title: string;
-  comments: any[];
+  comments: Comment[];
 };
 
-const Comment = ({ title, comments }: CommentProps) => {
+const CommentList = ({ title, comments }: CommentProps) => {
   return (
     <Card title={title}>
       {comments?.map(item => {
@@ -27,4 +27,4 @@ const Comment = ({ title, comments }: CommentProps) => {
   );
 };
 
-export default Comment;
+export default CommentList;

@@ -1,3 +1,4 @@
+import { Comment } from '@/entities/comment';
 import markedToHtml from '@/utils/marked';
 import { HeartOutlined, SelectOutlined } from '@ant-design/icons';
 import { getGravatarUrl } from 'transformers/gravatar';
@@ -6,11 +7,11 @@ import Card from '../../Card';
 import styles from './style.module.scss';
 
 type CommentCardProps = {
-  comment: any;
+  comment: Comment;
 };
 
 const CommentCard = ({ comment }: CommentCardProps) => {
-  const ua = parseUA(comment.agent);
+  const { result } = parseUA(comment.agent);
 
   const titleDom = (
     <div>
@@ -22,8 +23,8 @@ const CommentCard = ({ comment }: CommentCardProps) => {
   const descriptionDom = (
     <div>
       <span>
-        {ua.result.browser.name} {ua.result.browser.version} {ua.result.os.name}
-        {ua.result.os.version}
+        {result.browser.name} {result.browser.version} {result.os.name}
+        {result.os.version}
       </span>
       <span className={styles.date}>{new Date(comment.createAt).toLocaleString()}</span>
     </div>

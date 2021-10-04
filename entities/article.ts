@@ -2,6 +2,7 @@ import { ArticleOrigin } from '@/constants/article/origin';
 import { ArticleOpen } from '@/constants/article/public';
 import { PublishState } from '@/constants/publish';
 import { Category } from './category';
+import { Comment } from './comment';
 import { IdentifiableEntity } from './response/base';
 import { Tag } from './tag';
 
@@ -21,4 +22,5 @@ export type Article = IdentifiableEntity<{
   commenting: number;
   tags: Tag[];
   categories: Category[];
+  comments: Comment[];
 }>;

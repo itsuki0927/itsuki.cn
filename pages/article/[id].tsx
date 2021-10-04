@@ -69,7 +69,7 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
         </div>
       </Card>
 
-      <Comment title='评论' comments={article.comments!} />
+      <Comment title='评论' comments={article.comments} />
     </div>
   );
 };

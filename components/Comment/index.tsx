@@ -1,6 +1,7 @@
-import { getCommentListByArticleId, postComment } from '@/api/comment';
+import { getCommentListByArticleId, patchCommentMeta, postComment } from '@/api/comment';
 import { Comment } from '@/entities/comment';
-import useLikeHistory from '@/hooks/useLikeHistory';
+import useArticleLike from '@/hooks/useArticleLike';
+import useCommentLike from '@/hooks/useCommentLike';
 import { HeartFilled } from '@ant-design/icons';
 import classNames from 'classnames';
 import { ReactNode, useEffect, useState } from 'react';
@@ -18,7 +19,8 @@ type CommentProps = {
 };
 
 const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) => {
-  const { isArticleLiked, setArticleLike } = useLikeHistory();
+  const { isLiked, setArticleLike } = useArticleLike(articleId);
+  const { isCommentLiked, setCommentLike } = useCommentLike();
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
@@ -35,17 +37,17 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
         <>
           <Button
             type='dashed'
-            disabled={isArticleLiked(articleId)}
+            disabled={isLiked}
             icon={
               <HeartFilled
                 className={classNames(styles.liking, {
-                  [styles.liked]: isArticleLiked(articleId),
+                  [styles.liked]: isLiked,
                 })}
               />
             }
             onClick={() => {
               onLikeArticle(articleId).then(() => {
-                setArticleLike(articleId);
+                setArticleLike();
               });
             }}
           >
@@ -55,7 +57,18 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
       }
     >
       {comments?.map(item => {
-        return <CommentCard comment={item} key={item.id} />;
+        return (
+          <CommentCard
+            onLikeComment={commentId => {
+              return patchCommentMeta(commentId, { meta: 'liking' }).then(() => {
+                setCommentLike(commentId);
+              });
+            }}
+            liked={isCommentLiked(item.id)}
+            comment={item}
+            key={item.id}
+          />
+        );
       })}
       <Editor
         onSend={data => {

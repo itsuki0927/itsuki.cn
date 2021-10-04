@@ -6,3 +6,7 @@ export const postComment = (data: any) => request.post('/comment', data).then(re
 /** 获取指定文章下的评论 */
 export const getCommentListByArticleId = (articleId: number) =>
   request.get(`/comment/${articleId}`).then(res => res.data);
+
+/** 更新评论meta */
+export const patchCommentMeta = (commentId: number, data: { meta: string }) =>
+  request.patch(`/comment/${commentId}`, data).then(res => res.data);

@@ -1,3 +1,4 @@
+import Button from '@/components/Button';
 import { Comment } from '@/entities/comment';
 import markedToHtml from '@/utils/marked';
 import { HeartOutlined, SelectOutlined } from '@ant-design/icons';
@@ -7,10 +8,12 @@ import Card from '../../Card';
 import styles from './style.module.scss';
 
 type CommentCardProps = {
+  liked: boolean;
   comment: Comment;
+  onLikeComment: (commentId: number) => Promise<void>;
 };
 
-const CommentCard = ({ comment }: CommentCardProps) => {
+const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
   const { result } = parseUA(comment.agent);
 
   const titleDom = (
@@ -36,14 +39,25 @@ const CommentCard = ({ comment }: CommentCardProps) => {
       bodyStyle={{ padding: 12 }}
       className={styles.commentCard}
       actions={[
-        <span key='liking' className={styles.action}>
-          <HeartOutlined className={styles.icon} />
+        <Button
+          key='liking'
+          type='text'
+          disabled={liked}
+          icon={<HeartOutlined className={styles.icon} />}
+          onClick={() => {
+            onLikeComment(comment.id);
+          }}
+        >
           {comment.liking}
-        </span>,
-        <span key='liking' className={styles.action}>
-          <SelectOutlined className={styles.icon} />
+        </Button>,
+        <Button
+          key='reply'
+          type='text'
+          icon={<SelectOutlined className={styles.icon} />}
+          onClick={() => {}}
+        >
           回复
-        </span>,
+        </Button>,
       ]}
     >
       <Card.Meta

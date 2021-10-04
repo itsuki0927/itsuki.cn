@@ -19,13 +19,15 @@
     "nprogress": "^0.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "sass": "^1.42.1"
+    "sass": "^1.42.1",
+    "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {
     "@types/gravatar": "^1.8.3",
     "@types/marked": "^3.0.1",
     "@types/nprogress": "^0.2.0",
     "@types/react": "17.0.25",
+    "@types/ua-parser-js": "^0.7.36",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "typescript": "4.4.3"

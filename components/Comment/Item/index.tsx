@@ -3,10 +3,11 @@ import { Comment } from '@/entities/comment';
 import markedToHtml from '@/utils/marked';
 import { HeartFilled, SelectOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { getGravatarUrl } from 'transformers/gravatar';
 import { parseUA } from 'transformers/ua';
 import Card from '../../Card';
+import CommentContext from '../context';
 import styles from './style.module.scss';
 
 type CommentCardProps = {
@@ -17,6 +18,7 @@ type CommentCardProps = {
 
 const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
   const { result } = parseUA(comment.agent);
+  const { setReply } = useContext(CommentContext);
   const [liking, setLiking] = useState(comment.liking);
 
   const titleDom = (
@@ -60,7 +62,9 @@ const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
           key='reply'
           type='text'
           icon={<SelectOutlined className={styles.icon} />}
-          onClick={() => {}}
+          onClick={() => {
+            setReply(comment);
+          }}
         >
           回复
         </Button>,
@@ -78,10 +82,12 @@ const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
           />
         }
       />
-      <div
-        className='markdown-html'
-        dangerouslySetInnerHTML={{ __html: markedToHtml(comment.content) }}
-      ></div>
+      <Card bodyStyle={{ padding: '12px 0px' }} className={styles.content} bordered={false}>
+        <div
+          className='markdown-html'
+          dangerouslySetInnerHTML={{ __html: markedToHtml(comment.content) }}
+        ></div>
+      </Card>
     </Card>
   );
 };

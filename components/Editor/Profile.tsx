@@ -1,8 +1,11 @@
 import { COMMENT_STORAGE_KEY, initialCommentProfile } from '@/constants/comment';
+import markedToHtml from '@/utils/marked';
 import { getJSON, remove, setJSON } from '@/utils/storage';
-import { CheckOutlined, ClearOutlined, EditOutlined } from '@ant-design/icons';
-import { useEffect, useState } from 'react';
+import { CheckOutlined, ClearOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
+import { useContext, useEffect, useState } from 'react';
 import Button from '../Button';
+import Card from '../Card';
+import CommentContext from '../Comment/context';
 import styles from './style.module.scss';
 
 export type CommentProfileType = {
@@ -17,6 +20,7 @@ type CommentProfileProps = {
 
 const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
   const [visible, setVisible] = useState(false);
+  const { reply, setReply } = useContext(CommentContext);
 
   useEffect(() => {
     const initialValue = getJSON(COMMENT_STORAGE_KEY);
@@ -51,6 +55,23 @@ const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
 
   return (
     <div className={styles.profile}>
+      {reply?.id && (
+        <div className={styles.reply}>
+          <p className={styles.profile}>
+            <span className={styles.nickname}>
+              回复:
+              <strong>{` #${reply.nickname}`}</strong>
+            </span>
+            <CloseOutlined className={styles.close} onClick={() => setReply(undefined)} />
+          </p>
+          <Card className={styles.content} bodyStyle={{ padding: '4px 11px' }}>
+            <div
+              className='markdown-html'
+              dangerouslySetInnerHTML={{ __html: markedToHtml(reply.content) }}
+            ></div>
+          </Card>
+        </div>
+      )}
       {!visible && (
         <div className={styles.edit}>
           <input

@@ -14,6 +14,7 @@ export type Comment = IdentifiableEntity<{
   fix: string;
   expand: string;
   parentId: number;
+  parentNickName: string;
   articleId: number;
   articleTitle: string;
   articleDescription: string;

@@ -7,8 +7,8 @@ import classNames from 'classnames';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import Button from '../Button';
 import Card from '../Card';
-import Editor from '../Editor';
 import CommentContext from './context';
+import Editor from './Editor';
 import CommentCard from './Item';
 import styles from './style.module.scss';
 
@@ -25,11 +25,15 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
   const { isCommentLiked, setCommentLike } = useCommentLike();
   const [comments, setComments] = useState<Comment[]>([]);
 
-  useEffect(() => {
+  const fetchCommentList = useCallback(() => {
     getCommentListByArticleId(articleId).then(res => {
       setComments(res);
     });
   }, [articleId]);
+
+  useEffect(() => {
+    fetchCommentList();
+  }, [fetchCommentList]);
 
   const handleLikeComment = useCallback(
     (commentId: number) => {
@@ -84,10 +88,22 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
         {commentDom}
         <Editor
           onSend={data => {
-            return postComment(data).then(data => {
-              console.log('data:', data);
-              return true;
-            });
+            return postComment({
+              ...data,
+              articleId,
+              agent: navigator.userAgent,
+              parentId: reply?.id,
+            })
+              .then(() => {
+                fetchCommentList();
+                return true;
+              })
+              .catch(() => {
+                alert(
+                  `评论发布失败\n1：被 Akismet 过滤\n2：邮箱/IP 被列入黑名单\n3：内容包含黑名单关键词\n
+                  `
+                );
+              });
           }}
         />
       </Card>

@@ -1,11 +1,11 @@
+import Button from '@/components/Button';
+import Card from '@/components/Card';
 import { COMMENT_STORAGE_KEY, initialCommentProfile } from '@/constants/comment';
 import markedToHtml from '@/utils/marked';
 import { getJSON, remove, setJSON } from '@/utils/storage';
 import { CheckOutlined, ClearOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { useContext, useEffect, useState } from 'react';
-import Button from '../Button';
-import Card from '../Card';
-import CommentContext from '../Comment/context';
+import CommentContext from '../context';
 import styles from './style.module.scss';
 
 export type CommentProfileType = {

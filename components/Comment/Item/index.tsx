@@ -1,7 +1,7 @@
 import Button from '@/components/Button';
 import { Comment } from '@/entities/comment';
 import markedToHtml from '@/utils/marked';
-import { HeartFilled, SelectOutlined } from '@ant-design/icons';
+import { AppleOutlined, HeartFilled, IeOutlined, SelectOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { useContext, useState } from 'react';
 import { getGravatarUrl } from 'transformers/gravatar';
@@ -16,6 +16,17 @@ type CommentCardProps = {
   onLikeComment: (commentId: number) => Promise<void>;
 };
 
+const CommentUA = ({ result }: any) => {
+  return (
+    <span className={styles.ua}>
+      {result.browser.name} {result.browser.version.slice(0, result.browser.version.indexOf('.'))}
+      {'  '}
+      {result.os.name}
+      {result.os.version}
+    </span>
+  );
+};
+
 const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
   const { result } = parseUA(comment.agent);
   const { setReply } = useContext(CommentContext);
@@ -24,16 +35,25 @@ const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
   const titleDom = (
     <div>
       <span>{comment.nickname}</span>
+
+      <CommentUA result={result} />
+
+      <span className={styles.ua}>
+        {comment.city} - {comment.province}
+      </span>
+
       <span className={styles.serialNumber}>#11</span>
     </div>
   );
 
   const descriptionDom = (
-    <div>
-      <span>
-        {result.browser.name} {result.browser.version} {result.os.name}
-        {result.os.version}
-      </span>
+    <div className={styles.reply}>
+      {!!comment.parentId && (
+        <span className={styles.nickname}>
+          回复
+          <strong> #{comment.parentNickName}</strong>
+        </span>
+      )}
       <span className={styles.date}>{new Date(comment.createAt).toLocaleString()}</span>
     </div>
   );

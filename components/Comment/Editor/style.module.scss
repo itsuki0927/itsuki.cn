@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import '../../../styles/variables.scss';
 
 $toobar-height: 48px;
 $text-disabled: $gray-5;
@@ -38,7 +38,7 @@ $text-disabled: $gray-5;
         transition: color 0.2s;
         cursor: pointer;
         &:hover {
-          color: $text-color;
+          color: $gray-8;
         }
       }
     }
@@ -46,7 +46,7 @@ $text-disabled: $gray-5;
       padding: 4px 0;
       float: right;
       &:hover {
-        color: $text-color;
+        color: $gray-8;
       }
     }
     .content {

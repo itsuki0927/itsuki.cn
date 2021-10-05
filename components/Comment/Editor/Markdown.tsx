@@ -10,8 +10,8 @@ import {
   UnorderedListOutlined,
 } from '@ant-design/icons';
 import { useRef, useState } from 'react';
-import Button from '../Button';
-import Card from '../Card';
+import Button from '@/components/Button';
+import Card from '@/components/Card';
 import styles from './style.module.scss';
 
 type MarkdownEditorProps = {
@@ -89,6 +89,9 @@ const MarkdownEditor = ({ onSend }: MarkdownEditorProps) => {
               setLoading(true);
               onSend(content).finally(() => {
                 setLoading(false);
+                if (inputRef.current) {
+                  inputRef.current.innerText = '';
+                }
               });
             }}
           >

@@ -1,10 +1,10 @@
+import Card from '@/components/Card';
+import { initialCommentProfile } from '@/constants/comment';
 import { useState } from 'react';
 import { getGravatarUrl } from 'transformers/gravatar';
-import Card from '../Card';
-import CommentProfile, { CommentProfileType } from './Profile';
 import MarkdownEditor from './Markdown';
+import CommentProfile, { CommentProfileType } from './Profile';
 import styles from './style.module.scss';
-import { initialCommentProfile } from '@/constants/comment';
 
 export type EditorProps = {
   onSend: (data: CommentProfileType & { content: string }) => Promise<boolean>;

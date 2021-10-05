@@ -1,5 +1,7 @@
-import { get, setJSON } from '@/utils/storage';
+import { getJSON, setJSON } from '@/utils/storage';
 import { useState } from 'react';
+
+type SetLocalStorageValue<T> = T | ((newValue: T) => T);
 
 /**
  * localStorage hook
@@ -11,10 +13,10 @@ import { useState } from 'react';
 const useLocalStorage = <T = any>(key: string, defaultValue: T) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      const value = get(key);
+      const value = getJSON(key);
 
       if (value) {
-        return JSON.parse(value) as T;
+        return value as T;
       } else {
         setJSON(key, defaultValue);
         return defaultValue;
@@ -24,13 +26,17 @@ const useLocalStorage = <T = any>(key: string, defaultValue: T) => {
     }
   });
 
-  const setValue = (newValue: T) => {
+  const setValue = (newValue: SetLocalStorageValue<T>) => {
     try {
-      setJSON(key, newValue);
-    } catch (error) {}
-    setStoredValue(newValue);
+      const valueToStore = newValue instanceof Function ? newValue(storedValue) : newValue;
+      setJSON(key, valueToStore);
+      setStoredValue({ ...valueToStore });
+    } catch (error) {
+      console.error('useLocalStorage setValue:', error);
+    }
   };
-  return [storedValue, setValue] as [T, (newValue: T) => void];
+
+  return [storedValue, setValue] as const;
 };
 
 export default useLocalStorage;

@@ -1,9 +1,5 @@
+import { initialUserLikeHistory, UserLikeArticles, USER_LIKE_ARTICLE } from '@/constants/like';
 import useLocalStorage from 'hooks/useLocalStorage';
-
-const userLikeHistory = {
-  comments: [] as number[],
-  articles: [] as number[],
-};
 
 /**
  * 文章点赞hook
@@ -11,18 +7,17 @@ const userLikeHistory = {
  * @returns
  */
 const useArticleLike = (articleId: number) => {
-  const [likeHistory, setLikeHistory] = useLocalStorage<typeof userLikeHistory>(
-    'userLikeHistory',
-    userLikeHistory
+  const [likeHistory, setLikeHistory] = useLocalStorage<UserLikeArticles>(
+    USER_LIKE_ARTICLE,
+    initialUserLikeHistory
   );
 
-  const isLiked = likeHistory.articles.includes(articleId);
+  const isLiked = !!likeHistory[articleId];
 
   const setArticleLike = () => {
-    const articles = likeHistory.articles.concat(articleId);
     setLikeHistory({
       ...likeHistory,
-      articles,
+      [articleId]: true,
     });
   };
 

@@ -1,29 +1,23 @@
+import { initialUserLikeHistory, UserLikeComments, USER_LIKE_COMMENT } from '@/constants/like';
 import useLocalStorage from 'hooks/useLocalStorage';
-
-const userLikeHistory = {
-  comments: [] as number[],
-  articles: [] as number[],
-};
 
 /**
  * 评论点赞hook
  *
  * @returns
  */
-const useLikeHistory = () => {
-  const [likeHistory, setLikeHistory] = useLocalStorage<typeof userLikeHistory>(
-    'userLikeHistory',
-    userLikeHistory
+const useCommentLike = () => {
+  const [likeHistory, setLikeHistory] = useLocalStorage<UserLikeComments>(
+    USER_LIKE_COMMENT,
+    initialUserLikeHistory
   );
 
-  const isCommentLiked = (commentId: number) => likeHistory.comments.includes(commentId);
+  const isCommentLiked = (commentId: number) => !!likeHistory[commentId];
 
   const setCommentLike = (commentId: number) => {
-    const comments = likeHistory.comments.concat(commentId);
-    console.log(comments);
     setLikeHistory({
       ...likeHistory,
-      comments,
+      [commentId]: true,
     });
   };
 
@@ -33,4 +27,4 @@ const useLikeHistory = () => {
   } as const;
 };
 
-export default useLikeHistory;
+export default useCommentLike;

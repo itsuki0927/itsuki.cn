@@ -1,7 +1,9 @@
 import Button from '@/components/Button';
 import { Comment } from '@/entities/comment';
 import markedToHtml from '@/utils/marked';
-import { HeartOutlined, SelectOutlined } from '@ant-design/icons';
+import { HeartFilled, SelectOutlined } from '@ant-design/icons';
+import classNames from 'classnames';
+import { useState } from 'react';
 import { getGravatarUrl } from 'transformers/gravatar';
 import { parseUA } from 'transformers/ua';
 import Card from '../../Card';
@@ -15,6 +17,7 @@ type CommentCardProps = {
 
 const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
   const { result } = parseUA(comment.agent);
+  const [liking, setLiking] = useState(comment.liking);
 
   const titleDom = (
     <div>
@@ -43,12 +46,15 @@ const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
           key='liking'
           type='text'
           disabled={liked}
-          icon={<HeartOutlined className={styles.icon} />}
+          className={classNames({
+            [styles.liked]: liked,
+          })}
+          icon={<HeartFilled />}
           onClick={() => {
-            onLikeComment(comment.id);
+            onLikeComment(comment.id).then(() => setLiking(l => l + 1));
           }}
         >
-          {comment.liking}
+          {liking}
         </Button>,
         <Button
           key='reply'

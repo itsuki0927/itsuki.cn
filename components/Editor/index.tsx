@@ -15,6 +15,10 @@ const Editor = ({ onSend }: EditorProps) => {
     ...initialCommentProfile,
   });
 
+  const handleSend = (content: string) => {
+    return onSend({ ...commentProfile, content });
+  };
+
   return (
     <Card bodyStyle={{ padding: 0 }} bordered={false}>
       <div className={styles.editor}>
@@ -26,7 +30,7 @@ const Editor = ({ onSend }: EditorProps) => {
         />
         <div className={styles.wrapper}>
           <CommentProfile value={commentProfile} onChange={setCommentProfile} />
-          <MarkdownEditor onSend={content => onSend({ ...commentProfile, content })} />
+          <MarkdownEditor onSend={handleSend} />
         </div>
       </div>
     </Card>

@@ -5,10 +5,8 @@
   &:last-child {
     margin-bottom: 0;
   }
-  .action {
-    .icon {
-      margin-right: 5px;
-    }
+  .liked {
+    color: $error;
   }
   .serialNumber {
     float: right;

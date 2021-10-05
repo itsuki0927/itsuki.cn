@@ -4,7 +4,7 @@ import useArticleLike from '@/hooks/useArticleLike';
 import useCommentLike from '@/hooks/useCommentLike';
 import { HeartFilled } from '@ant-design/icons';
 import classNames from 'classnames';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import Button from '../Button';
 import Card from '../Card';
 import Editor from '../Editor';
@@ -28,6 +28,28 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
       setComments(res);
     });
   }, [articleId]);
+
+  const handleLikeComment = useCallback(
+    (commentId: number) => {
+      return patchCommentMeta(commentId, { meta: 'liking' }).then(() => {
+        setCommentLike(commentId);
+      });
+    },
+    [setCommentLike]
+  );
+
+  const commentDom = useMemo(() => {
+    return comments.map(item => {
+      return (
+        <CommentCard
+          onLikeComment={handleLikeComment}
+          liked={isCommentLiked(item.id)}
+          comment={item}
+          key={item.id}
+        />
+      );
+    });
+  }, [comments, handleLikeComment, isCommentLiked]);
 
   return (
     <Card
@@ -56,20 +78,7 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
         </>
       }
     >
-      {comments?.map(item => {
-        return (
-          <CommentCard
-            onLikeComment={commentId => {
-              return patchCommentMeta(commentId, { meta: 'liking' }).then(() => {
-                setCommentLike(commentId);
-              });
-            }}
-            liked={isCommentLiked(item.id)}
-            comment={item}
-            key={item.id}
-          />
-        );
-      })}
+      {commentDom}
       <Editor
         onSend={data => {
           return postComment(data).then(data => {

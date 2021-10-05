@@ -113,6 +113,12 @@ h6 {
   margin: 1em 0;
 }
 
+hr {
+  border-top: 1px solid $border-color-split;
+  display: block;
+  margin-bottom: 1em;
+}
+
 small {
   color: $text-color-secondary;
   vertical-align: bottom;

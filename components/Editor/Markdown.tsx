@@ -1,3 +1,4 @@
+import useMount from '@/hooks/useMount';
 import markedToHtml from '@/utils/marked';
 import {
   BoldOutlined,
@@ -8,7 +9,7 @@ import {
   SendOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
-import { FormEvent, useEffect, useRef, useState, ChangeEvent } from 'react';
+import { useRef, useState } from 'react';
 import Button from '../Button';
 import Card from '../Card';
 import styles from './style.module.scss';
@@ -22,7 +23,7 @@ const MarkdownEditor = ({ onSend }: MarkdownEditorProps) => {
   const [preview, setPreview] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useMount(() => {
     // TODO: 先用any顶一会
     function handlePaste(event: any) {
       event.preventDefault();
@@ -37,7 +38,7 @@ const MarkdownEditor = ({ onSend }: MarkdownEditorProps) => {
         inputRef.current = undefined;
       }
     };
-  }, []);
+  });
 
   const handleInsertContent = (insertString: string) => {
     console.log(inputRef.current);

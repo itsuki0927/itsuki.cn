@@ -2,6 +2,7 @@ import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Comment from '@/components/Comment';
 import { Article } from '@/entities/article';
+import useMount from '@/hooks/useMount';
 import marked from '@/utils/marked';
 import { AndroidOutlined } from '@ant-design/icons';
 import { getArticleById, patchArticleMeta } from 'api/article';
@@ -26,6 +27,12 @@ export const getServerSideProps: GetServerSideProps<StaticProps> = async ({ para
 
 const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [liking, setLiking] = useState(article.liking);
+
+  useMount(() => {
+    patchArticleMeta(article.id, { meta: 'reading' }).then(() => {
+      console.log('patch success');
+    });
+  });
 
   const router = useRouter();
   return (

@@ -2,9 +2,10 @@ import '@/components/Alert/style.scss';
 import '@/components/Button/style.scss';
 import '@/components/Card/style.scss';
 import Layout from '@/components/Layout';
+import useMount from '@/hooks/useMount';
 import '@/styles/globals.scss';
-import '@/styles/reset.scss';
 import '@/styles/markdown.scss';
+import '@/styles/reset.scss';
 import AppContext, { AppContextType } from '@/utils/context';
 import { fetchGlobalData } from 'api/global';
 import type { AppProps } from 'next/app';
@@ -47,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const router = useRouter();
 
-  useEffect(() => {
+  useMount(() => {
     dispatch({ type: 'CALL' });
     fetchGlobalData().then(
       data => {
@@ -57,7 +58,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         dispatch({ type: 'ERROR', payload: err });
       }
     );
-  }, []);
+  });
 
   useEffect(() => {
     const handleStart = (url: string) => {

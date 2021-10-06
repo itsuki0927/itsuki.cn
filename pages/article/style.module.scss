@@ -1,9 +1,16 @@
 @import '../../styles/variables.scss';
 
 .title {
-  // margin: $margin-lg 0;
-  // font-size: 24px;
   text-align: center;
+  .origin {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: $white;
+    padding: 6px $padding-lg;
+    font-size: $font-size-base;
+    opacity: 0.7;
+  }
 }
 
 .metas {

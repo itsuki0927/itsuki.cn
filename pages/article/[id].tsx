@@ -1,6 +1,7 @@
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Comment from '@/components/Comment';
+import { ao } from '@/constants/article/origin';
 import { Article } from '@/entities/article';
 import useMount from '@/hooks/useMount';
 import marked from '@/utils/marked';
@@ -35,11 +36,19 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
   });
 
   const router = useRouter();
+  const origin = ao(article.origin);
+
   return (
     <div>
       <Card
-        title={<h1 className={styles.title}>{article.title}</h1>}
-        extra={<span>测试</span>}
+        title={
+          <div className={styles.title}>
+            <h1>{article.title}</h1>
+            <span style={{ background: origin.color }} className={styles.origin}>
+              {origin.name}
+            </span>
+          </div>
+        }
         style={{ marginBottom: 24 }}
       >
         <div

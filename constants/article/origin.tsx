@@ -13,19 +13,19 @@ const articleOriginMap = new Map(
       id: ArticleOrigin.Original,
       name: '原创',
       icon: <EditOutlined />,
-      color: 'green',
+      color: '#52c41a',
     },
     {
       id: ArticleOrigin.Reprint,
       name: '转载',
       icon: <CopyOutlined />,
-      color: 'red',
+      color: '#ff4d4f',
     },
     {
       id: ArticleOrigin.Hybrid,
       name: '混合',
       icon: <PullRequestOutlined />,
-      color: 'orange',
+      color: '#faad14',
     },
   ].map(item => [item.id, item])
 );

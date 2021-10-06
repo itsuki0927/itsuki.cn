@@ -33,9 +33,9 @@ const Header = () => {
               </li>
             </ActiveLink>
             {categoriesDom}
-            <ActiveLink activeClassName={styles.active} href='/code'>
+            <ActiveLink activeClassName={styles.active} href='/snippet'>
               <li className={styles.item}>
-                <span>Code</span>
+                <span>Snippet</span>
               </li>
             </ActiveLink>
             <ActiveLink activeClassName={styles.active} href='/music'>

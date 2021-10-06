@@ -1,10 +1,18 @@
 @import '../../styles/variables.scss';
 
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: -24px;
+}
+
 .article {
   width: 300px;
   margin-bottom: $margin-lg;
   margin-left: $margin-lg;
   flex-grow: 1;
+  max-width: 401px;
 }
 
 .action {

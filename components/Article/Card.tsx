@@ -8,6 +8,7 @@ import styles from './style.module.scss';
 type ArticleCardProps = {
   article: Article;
 };
+
 const ArticleCard = ({ article }: ArticleCardProps) => {
   return (
     <Card
@@ -15,7 +16,8 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
       onClick={() => router.push(`/article/${article.id}`)}
       className={styles.article}
       cover={
-        <Image alt='article-cover' width={300} height={312} objectFit='cover' src={article.cover} />
+        <img alt='article-cover' width={300} height={312} src={article?.cover} />
+        // <img alt='article-cover' width={300} height={312} objectFit='cover' src={article.cover} />
       }
       actions={[
         <span key='reading'>

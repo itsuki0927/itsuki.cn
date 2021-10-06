@@ -13,8 +13,8 @@ export type WrapperResponse<T = any> = {
 };
 
 export type BaseSearchRequest<T = any> = {
-  offset?: number;
-  limit?: number;
+  current?: number;
+  pageSize?: number;
   sortBy?: string;
   sortOrder?: string;
 } & T;

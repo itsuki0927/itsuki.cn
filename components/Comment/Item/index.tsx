@@ -1,7 +1,7 @@
 import Button from '@/components/Button';
 import { Comment } from '@/entities/comment';
 import markedToHtml from '@/utils/marked';
-import { AppleOutlined, HeartFilled, IeOutlined, SelectOutlined } from '@ant-design/icons';
+import { HeartFilled, SelectOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { useContext, useState } from 'react';
 import { getGravatarUrl } from 'transformers/gravatar';
@@ -104,7 +104,7 @@ const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
       />
       <Card bodyStyle={{ padding: '12px 0px' }} className={styles.content} bordered={false}>
         <div
-          className='markdown-html'
+          className='markdown-html comment'
           dangerouslySetInnerHTML={{ __html: markedToHtml(comment.content) }}
         ></div>
       </Card>

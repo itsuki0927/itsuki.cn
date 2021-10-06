@@ -86,7 +86,6 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
         onLikeArticle={articleId => {
           return patchArticleMeta(articleId, { meta: 'liking' }).then(() => {
             setLiking(like => like + 1);
-            console.log('success');
           });
         }}
       />

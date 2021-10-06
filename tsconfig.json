@@ -23,7 +23,8 @@
       "@/api/*": ["api/*"],
       "@/public/*": ["public/*"],
       "@/hooks/*": ["hooks/*"],
-      "@/types/*": ["types/*"]
+      "@/types/*": ["types/*"],
+      "@/transformers/*": ["transformers/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

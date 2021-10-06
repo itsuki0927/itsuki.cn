@@ -1,3 +1,4 @@
+import { purifyDomString } from '@/transformers/purify';
 import marked from 'marked';
 import highlight from './highlight';
 
@@ -97,10 +98,16 @@ customRenderer.text = function renderText(text: string) {
   return text;
 };
 
-const markedToHtml = (markdown: string) => {
+type MarkedOptions = {
+  purify?: boolean;
+};
+
+const markedToHtml = (markdown: string, { purify }: MarkedOptions = {}) => {
   if (!markdown || typeof markdown !== 'string') return '';
 
-  return marked(markdown, {
+  const purifyMarkdown = purify ? purifyDomString(markdown) : markdown;
+
+  return marked(purifyMarkdown, {
     renderer: customRenderer,
   });
 };

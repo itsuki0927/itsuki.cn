@@ -80,6 +80,7 @@ $text-disabled: $gray-5;
       padding: $padding-sm;
       line-height: 20px;
       min-height: 200px;
+      max-width: 682px;
       max-height: 550px;
       overflow: auto;
     }
@@ -93,7 +94,7 @@ $text-disabled: $gray-5;
       padding: 12px;
       height: 100%;
       overflow: auto;
-      background-color: $gray-3;
+      background-color: $white;
     }
   }
 
@@ -101,7 +102,6 @@ $text-disabled: $gray-5;
     border-top: 1px solid $gray-4;
     padding: 7px $padding-sm;
     height: $toobar-height;
-    background-color: $gray-3;
     display: flex;
     justify-content: space-between;
     align-items: center;

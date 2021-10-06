@@ -1,9 +1,11 @@
 @import './variables.scss';
 
 $primary-hover-color: #40a9ff;
-$module-bg: rgba(255, 255, 255, 0.6);
-$module-bg-darker-1: #e8e8e8;
-$module-bg-darker-2: #dedede;
+$module-bg: #ffffff99;
+$border-color: darken($gray-3, 5%);
+$border-color-light: $border-color-split;
+$blockquote-bg-color: $gray-3;
+$th-bg-color: $gray-2;
 
 :root,
 html {
@@ -114,7 +116,7 @@ h6 {
 }
 
 hr {
-  border-top: 1px solid $border-color-split;
+  border-top: 1px solid $border-color-light;
   display: block;
   margin-bottom: 1em;
 }
@@ -168,8 +170,8 @@ ol {
 blockquote {
   margin: 1em 0;
   text-indent: 0em;
-  background-color: $gray-4;
-  border-left: 0.5em solid $gray-5;
+  background-color: $blockquote-bg-color;
+  border-left: 0.5em solid $border-color;
   padding: 0.5em 1em;
   padding-left: 1.5em;
 }
@@ -253,7 +255,7 @@ input:not([type]):focus {
 input[type='file']:focus,
 input[type='radio']:focus,
 input[type='checkbox']:focus {
-  outline: 1px thin $border-color-split;
+  outline: 1px thin $border-color-light;
 }
 
 input[type='text'][disabled],
@@ -272,13 +274,13 @@ input[type='tel'][disabled],
 input[type='color'][disabled],
 select[disabled],
 textarea[disabled] {
-  background-color: $border-color-split;
+  background-color: $border-color-light;
   color: $text-color-secondary;
   cursor: not-allowed;
 }
 
 input:not([type])[disabled] {
-  background-color: $border-color-split;
+  background-color: $border-color-light;
   color: $text-color-secondary;
   cursor: not-allowed;
 }
@@ -286,7 +288,7 @@ input:not([type])[disabled] {
 input[readonly],
 select[readonly],
 textarea[readonly] {
-  border-color: $border-color-split;
+  border-color: $border-color-light;
   color: $text-color-secondary;
 }
 
@@ -371,8 +373,8 @@ caption {
 }
 
 thead th {
-  background-color: $gray-4;
-  border: 1px solid $border-color-split;
+  background-color: $th-bg-color;
+  border: 1px solid $border-color;
   text-align: left;
 }
 
@@ -383,7 +385,7 @@ tr {
 th,
 td {
   vertical-align: inherit;
-  border: 1px solid $border-color-split;
+  border: 1px solid $border-color-light;
   padding: 0.5em 1em;
   vertical-align: inherit;
 }

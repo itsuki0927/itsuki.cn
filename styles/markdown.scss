@@ -62,7 +62,7 @@
       padding: 0.5em 0.8em;
 
       &:hover {
-        background-color: $gray-4;
+        background-color: $gray-3;
       }
 
       > p {
@@ -97,7 +97,7 @@
     display: block;
     text-align: center;
     border-radius: 2px;
-    border: 8px solid $gray-4;
+    border: 8px solid $gray-3;
     opacity: 0.9;
     cursor: pointer;
     &:hover {
@@ -117,7 +117,7 @@
     padding: 0.3em 0.4em;
     margin: 0 0.3em;
     border-radius: 2px;
-    background-color: $gray-4;
+    background-color: $gray-3;
     font-size: 16px;
   }
 
@@ -137,7 +137,7 @@
     border-radius: 2px;
 
     &::before {
-      color: $gray-4;
+      color: $gray-3;
       content: attr(data-lang) ' CODE';
       font-family: 'fira code';
       height: $code-header-height;
@@ -205,6 +205,58 @@
       color: rgba(#fff, 0.87);
       background-color: transparent;
       font-size: 14px;
+    }
+  }
+
+  &.comment {
+    line-height: 2em;
+    word-wrap: break-word;
+    font-size: 13px;
+
+    p {
+      text-indent: 0;
+      line-height: 2em;
+      &:last-child {
+        margin: 0;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      border-bottom: 1px solid;
+    }
+
+    img {
+      margin: 0.5rem 0;
+      max-width: 100%;
+    }
+
+    ul,
+    ol {
+      padding-left: 2em;
+
+      > li {
+        padding: 0.2em 0.5em;
+      }
+    }
+
+    pre {
+      $code-header-height: 2.8rem;
+      padding-left: 0;
+      padding-top: $code-header-height;
+      margin-top: 1rem;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap-reverse;
+
+      .code-lines {
+        display: none;
+      }
+
+      code {
+        line-height: 1.8;
+        background-color: transparent;
+      }
     }
   }
 }

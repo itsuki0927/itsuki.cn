@@ -4,17 +4,26 @@ import AppContext from '@/utils/context';
 import { AndroidOutlined } from '@ant-design/icons';
 import { useContext } from 'react';
 
+const buttonStyle = {
+  marginBottom: 12,
+};
+
+const cardBodyStyle = {
+  paddingBottom: 12,
+};
+
 const SidebarTag = () => {
   const context = useContext(AppContext);
 
   return (
-    <Card title='Tag'>
+    <Card title='Tag' bodyStyle={cardBodyStyle}>
       {context?.tags?.map(item => (
         <Button
+          type='dashed'
           key={item.id}
           icon={<AndroidOutlined />}
           size='small'
-          style={{ marginBottom: 12 }}
+          style={buttonStyle}
         >
           {item.name}
         </Button>

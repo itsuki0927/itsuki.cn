@@ -5,7 +5,7 @@ import Logo from '../Logo';
 import HeaderSearch from '../Search';
 import styles from './style.module.scss';
 
-const buildPath = (path: string) => `/${path}`;
+const buildPath = (path: string) => `/category/${path}`;
 
 const Header = () => {
   const context = useContext(AppContext);

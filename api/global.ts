@@ -17,16 +17,6 @@ export const getSystemSettings = () => request.get<SystemSettings>('/config').th
 // 获取parse后的全局配置
 export const fetchSystemSettings = () =>
   getSystemSettings().then(data => {
-    if (data.keywordBlackList) {
-      data.keywordBlackList = (data.keywordBlackList as string).split(',');
-    }
-    if (data.ipBlackList) {
-      data.ipBlackList = (data.ipBlackList as string).split(',');
-    }
-    if (data.emailBlackList) {
-      data.emailBlackList = (data.emailBlackList as string).split(',');
-    }
-
     return data;
   });
 

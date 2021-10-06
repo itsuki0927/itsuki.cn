@@ -9,5 +9,6 @@ export type AppContextType = {
   categories?: Category[];
 };
 const AppContext = createContext<AppContextType>({});
+AppContext.displayName = 'AppContext';
 
 export default AppContext;

@@ -1,32 +1,33 @@
-import { Category } from '@/entities/category';
 import classNames from 'classnames';
 import { useMemo } from 'react';
-import Card from '../../Card';
+import Card from '../Card';
 import styles from './style.module.scss';
+import { getExpandsValue } from './util';
 
+type BannerDataProps = {
+  name: string;
+  description: string;
+  path: string;
+  count: number;
+  sort: number;
+  parentId: number;
+  expand?: string;
+};
 type BannerProps = {
-  category?: Category;
+  data?: BannerDataProps;
 };
 
-export const getExpandsValue = (expands: any, key: string) => {
-  if (!expands || !expands.length) {
-    return null;
-  }
-  const targetExtend = expands.find((t: any) => t.name === key);
-  return targetExtend ? targetExtend.value : null;
-};
-
-const Banner = ({ category }: BannerProps) => {
-  console.log(category);
+const Banner = ({ data }: BannerProps) => {
+  console.log(data);
 
   const expands = useMemo(() => {
-    if (category?.expand) {
-      return JSON.parse(category.expand);
+    if (data?.expand) {
+      return JSON.parse(data.expand);
     }
     return null;
-  }, [category?.expand]);
+  }, [data?.expand]);
 
-  if (!category) return <Card>loading...</Card>;
+  if (!data) return <Card>loading...</Card>;
 
   const renderIcon = () => {
     const value = getExpandsValue(expands, 'icon');
@@ -48,7 +49,7 @@ const Banner = ({ category }: BannerProps) => {
       ></div>
       <div className={styles.content}>
         {renderIcon()}
-        <p className={styles.description}>{category?.description}</p>
+        <p className={styles.description}>{data?.description}</p>
       </div>
     </Card>
   );

@@ -32,6 +32,7 @@ const useLocalStorage = <T = any>(key: string, defaultValue: T) => {
       setJSON(key, valueToStore);
       setStoredValue({ ...valueToStore });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('useLocalStorage setValue:', error);
     }
   };

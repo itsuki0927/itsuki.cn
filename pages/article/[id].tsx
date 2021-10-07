@@ -30,9 +30,7 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
   const [liking, setLiking] = useState(article.liking);
 
   useMount(() => {
-    patchArticleMeta(article.id, { meta: 'reading' }).then(() => {
-      console.log('patch success');
-    });
+    patchArticleMeta(article.id, { meta: 'reading' });
   });
 
   const router = useRouter();

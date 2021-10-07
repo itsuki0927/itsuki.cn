@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import '@/components/Alert/style.scss';
 import '@/components/Button/style.scss';
 import '@/components/Card/style.scss';

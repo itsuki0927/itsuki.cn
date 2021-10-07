@@ -20,7 +20,6 @@ const ArticleList = ({ query, pagination }: ArticleWrapperProps) => {
 
   const fetchArticles = async (params?: ArticleSearchRequest) => {
     const articles = await getArticles(params);
-    console.log('articles:', articles);
     setArticles(articles);
   };
 

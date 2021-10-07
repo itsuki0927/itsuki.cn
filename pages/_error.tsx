@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Error from 'next/error';
 
 const ErrorPage = ({ statusCode }: any) => {

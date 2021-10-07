@@ -19,7 +19,6 @@ export const getServerSideProps: GetServerSideProps<StaticProps> = async ({ para
 const Category = ({ name }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const context = useContext(AppContext);
   const category = useMemo(() => {
-    console.log('context', context);
     return context?.categories?.find(item => item.path === name);
   }, [name, context]);
 

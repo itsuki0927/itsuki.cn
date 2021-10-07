@@ -18,8 +18,6 @@ type BannerProps = {
 };
 
 const Banner = ({ data }: BannerProps) => {
-  console.log(data);
-
   const expands = useMemo(() => {
     if (data?.expand) {
       return JSON.parse(data.expand);

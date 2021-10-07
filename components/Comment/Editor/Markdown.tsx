@@ -41,7 +41,6 @@ const MarkdownEditor = ({ onSend }: MarkdownEditorProps) => {
   });
 
   const handleInsertContent = (insertString: string) => {
-    console.log(inputRef.current);
     if (inputRef.current) {
       const text = inputRef.current.innerText + insertString;
       inputRef.current.innerText = text;

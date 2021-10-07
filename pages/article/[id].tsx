@@ -65,7 +65,12 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
         <div className={styles.meta}>
           <span className={styles.label}>相关分类 : </span>
           {article.categories.map(item => (
-            <Button type='link' key={item.id} size='small'>
+            <Button
+              type='link'
+              key={item.id}
+              size='small'
+              onClick={() => router.push(`/category/${item.path}`)}
+            >
               {item.name}
             </Button>
           ))}

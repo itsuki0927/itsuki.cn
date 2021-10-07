@@ -1,4 +1,4 @@
-import ArticleWrapper from '@/components/Article';
+import ArticeList from '@/components/Article';
 import Banner from '@/components/Banner';
 import AppContext from '@/utils/context';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
@@ -31,7 +31,7 @@ const Category = ({ name }: InferGetServerSidePropsType<typeof getServerSideProp
 
       <Banner data={category} />
 
-      <ArticleWrapper query={{ category: category?.id, pageSize: 2 }} />
+      <ArticeList query={{ category: category?.id }} />
     </div>
   );
 };

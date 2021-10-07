@@ -4,7 +4,7 @@ import { Article } from '@/entities/article';
 import { ArticleSearchRequest } from '@/entities/request/article';
 import { SearchResponse } from '@/entities/response/base';
 import React, { useEffect, useState } from 'react';
-import { pickPaginationPropsFromQuery } from '../Pagination/util';
+import { CurrentPageSizeProps, pickPaginationPropsFromQuery } from '../Pagination/util';
 import ArticleCard from './Card';
 import ArticleListWrapper from './List';
 
@@ -25,7 +25,7 @@ const ArticleList = ({ query, pagination }: ArticleWrapperProps) => {
   };
 
   const handleChange = (current: number) => {
-    fetchArticles({ ...(query || {}), current });
+    fetchArticles({ ...(query || {}), current, pageSize: query?.pageSize || 8 });
   };
 
   useEffect(() => {
@@ -39,7 +39,14 @@ const ArticleList = ({ query, pagination }: ArticleWrapperProps) => {
   }
 
   return (
-    <ArticleListWrapper articles={articles} onChange={handleChange} pagination={paginationProps} />
+    <ArticleListWrapper
+      articles={articles}
+      onChange={handleChange}
+      pagination={{
+        ...paginationProps,
+        pageSize: (paginationProps as CurrentPageSizeProps).pageSize || 8,
+      }}
+    />
   );
 };
 export default ArticleList;

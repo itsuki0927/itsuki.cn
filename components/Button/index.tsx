@@ -63,7 +63,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <button className={classString} onClick={handleClick} {...otherProps}>
       {icon}
-      <span>{children}</span>
+      {children && <span>{children}</span>}
     </button>
   );
 };

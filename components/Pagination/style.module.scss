@@ -1,0 +1,12 @@
+@import '../../styles/variables.scss';
+
+.pagination {
+  .item {
+    &.active,
+    &:not(:disabled):hover {
+      border-color: $primary;
+      color: $primary;
+      background-color: $white;
+    }
+  }
+}

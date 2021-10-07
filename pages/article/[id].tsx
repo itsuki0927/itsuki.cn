@@ -74,7 +74,13 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
         <div className={styles.meta}>
           <span className={styles.label}>相关标签 : </span>
           {article.tags.map(item => (
-            <Button key={item.id} size='small' icon={<AndroidOutlined />}>
+            <Button
+              key={item.id}
+              type='dashed'
+              size='small'
+              icon={<AndroidOutlined />}
+              onClick={() => router.push(`/tag/${item.name}`)}
+            >
               {item.name}
             </Button>
           ))}

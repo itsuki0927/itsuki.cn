@@ -1,6 +1,8 @@
 import { Article } from '@/entities/article';
 import { SearchResponse } from '@/entities/response/base';
 import Card from '../Card';
+import Empty from '../Empty';
+import Loading from '../Loading';
 import Pagination from '../Pagination';
 import { CurrentPageSizeProps } from '../Pagination/util';
 import ArticleCard from './Card';
@@ -13,10 +15,16 @@ type ArticleListWrapperProps = {
 };
 
 const ArticleListWrapper = ({ articles, onChange, pagination }: ArticleListWrapperProps) => {
+  if (articles === undefined) return <Loading />;
+
+  if (articles.total === 0) {
+    return <Empty />;
+  }
+
   return (
     <>
       <div className={styles.list}>
-        {articles?.data?.map(article => (
+        {articles.data?.map(article => (
           <ArticleCard article={article} key={article.id} />
         ))}
       </div>

@@ -10,6 +10,12 @@ $nav-item-width: 64px;
   max-width: 100%;
   box-shadow: $gray-4 0px 2px 8px;
   background: $header-background;
+
+  ul,
+  li {
+    // 移除reset.scss 带的margin-bottom: 1em
+    margin-bottom: 0;
+  }
 }
 
 .main {

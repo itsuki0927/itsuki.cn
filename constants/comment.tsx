@@ -1,5 +1,5 @@
 // comment localStorage key
-export const COMMENT_STORAGE_KEY = 'commentProfile';
+export const USER_COMMENT_PROFILE = 'USER_COMMENT_PROFILE';
 
 // 默认用户信息
 export const initialCommentProfile = {

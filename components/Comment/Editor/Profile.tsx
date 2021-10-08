@@ -1,6 +1,6 @@
 import Button from '@/components/Button';
 import Card from '@/components/Card';
-import { COMMENT_STORAGE_KEY, initialCommentProfile } from '@/constants/comment';
+import { USER_COMMENT_PROFILE, initialCommentProfile } from '@/constants/comment';
 import markedToHtml from '@/utils/marked';
 import { getJSON, remove, setJSON } from '@/utils/storage';
 import { CheckOutlined, ClearOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
@@ -23,7 +23,7 @@ const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
   const { reply, setReply } = useContext(CommentContext);
 
   useEffect(() => {
-    const initialValue = getJSON(COMMENT_STORAGE_KEY);
+    const initialValue = getJSON(USER_COMMENT_PROFILE);
     if (initialValue) {
       onChange(initialValue);
       setVisible(true);
@@ -44,12 +44,12 @@ const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
       return;
     }
     setVisible(true);
-    setJSON(COMMENT_STORAGE_KEY, value);
+    setJSON(USER_COMMENT_PROFILE, value);
   };
 
   const handleClear = () => {
     setVisible(false);
-    remove(COMMENT_STORAGE_KEY);
+    remove(USER_COMMENT_PROFILE);
     onChange({ ...initialCommentProfile });
   };
 

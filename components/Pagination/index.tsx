@@ -40,6 +40,7 @@ const Pagination = ({
   const buttons = Array.from({ length: pageTotal }, (_, i) => (
     <Button
       type='text'
+      key={`page-${i + 1}`}
       className={classNames(styles.item, {
         [styles.active]: current === i + 1,
       })}

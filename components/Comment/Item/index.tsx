@@ -73,15 +73,15 @@ const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
           })}
           icon={<HeartFilled />}
           onClick={() => {
-            onLikeComment(comment.id).then(() => setLiking(l => l + 1));
+            onLikeComment(comment.id).then(() => setLiking((l) => l + 1));
           }}
         >
-          {liking}
+          <span>{liking}</span>
         </Button>,
         <Button
           key='reply'
           type='text'
-          icon={<SelectOutlined className={styles.icon} />}
+          icon={<SelectOutlined />}
           onClick={() => {
             setReply(comment);
           }}

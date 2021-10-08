@@ -15,6 +15,8 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
+    // 禁止 log
+    'no-console': 'error',
     // 导入扩展名
     'import/extensions': [
       'error',

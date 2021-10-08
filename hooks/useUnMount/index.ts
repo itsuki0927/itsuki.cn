@@ -1,5 +1,5 @@
-import { EmptyFunction } from '@/types/fn';
 import { useEffect } from 'react';
+import { EmptyFunction } from '@/types/fn';
 
 /**
  * componentDidUnMount
@@ -11,6 +11,7 @@ const useUnMount = (onUnMountHandler: EmptyFunction) => {
     () => () => {
       onUnMountHandler();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 };

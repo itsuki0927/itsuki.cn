@@ -52,7 +52,7 @@ customRenderer.link = function renderLink(hrefProp: string, title: string, text:
 
 // 解析图片
 customRenderer.image = function renderImage(url: string, title: string, text: string) {
-  return `<img src=${url} />`;
+  return `<img src=${url} title=${title} alt=${title || text}/>`;
 };
 
 // 解析代码
@@ -64,7 +64,9 @@ customRenderer.code = function renderCode(
   if ((this as any).options.highlight) {
     const output = (this as any).options.highlight(code, language);
     if (output !== null) {
+      // eslint-disable-next-line no-param-reassign
       code = output;
+      // eslint-disable-next-line no-param-reassign
       escaped = true;
     }
   }
@@ -76,6 +78,7 @@ customRenderer.code = function renderCode(
 
   // 如果一行代码也没有 空格做一个占位符 保证正确显示
   if (!code) {
+    // eslint-disable-next-line no-param-reassign
     code = "<span class='hljs-comment'>// empty code</span>";
   }
   /**

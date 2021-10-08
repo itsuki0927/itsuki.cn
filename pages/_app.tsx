@@ -65,6 +65,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     );
   });
 
+  console.log('test');
   useEffect(() => {
     const handleStart = (url: string) => {
       console.log(`[Loading: ${url}]`);

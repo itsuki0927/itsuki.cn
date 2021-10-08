@@ -52,11 +52,11 @@ const aliasLanguage = {
 };
 
 Object.keys(languages).forEach(name =>
-  hljs.registerLanguage(name, languages[name] as any)
+  hljs.registerLanguage(name, (languages as any)[name])
 );
 
 Object.keys(aliasLanguage).forEach(alias =>
-  hljs.registerAliases(alias, { languageName: aliasLanguage[alias] as any })
+  hljs.registerAliases(alias, { languageName: (aliasLanguage as any)[alias] })
 );
 
 export default hljs as typeof HLJSApi;

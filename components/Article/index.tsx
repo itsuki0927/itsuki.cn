@@ -16,11 +16,14 @@ type ArticleWrapperProps = {
 };
 
 const ArticleList = ({ query, pagination }: ArticleWrapperProps) => {
+  const isCancel = React.useRef(false);
   const [articles, setArticles] = useState<SearchResponse<Article>>();
 
   const fetchArticles = async (params?: ArticleSearchRequest) => {
     const temp = await getArticles(params);
-    setArticles(temp);
+    if (!isCancel.current) {
+      setArticles(temp);
+    }
   };
 
   const handleChange = (current: number) => {
@@ -29,6 +32,9 @@ const ArticleList = ({ query, pagination }: ArticleWrapperProps) => {
 
   useEffect(() => {
     fetchArticles(query);
+    return () => {
+      isCancel.current = true;
+    };
   }, [query]);
 
   const paginationProps =

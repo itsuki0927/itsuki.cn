@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import '@/components/Alert/style.scss';
 import '@/components/Button/style.scss';
 import '@/components/Card/style.scss';
@@ -65,14 +64,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     );
   });
 
-  console.log('test');
   useEffect(() => {
     const handleStart = (url: string) => {
+      // eslint-disable-next-line no-console
       console.log(`[Loading: ${url}]`);
       setLoading(true);
       NProgress.start();
     };
     const handleStop = () => {
+      // eslint-disable-next-line no-console
       console.log('[Loaded]');
       setLoading(false);
       NProgress.done();

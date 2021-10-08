@@ -14,16 +14,16 @@
   flex-grow: 1;
   max-width: 401px;
 
+  .cover {
+    opacity: 0.8;
+    transition: all 0.2s ease;
+  }
+
   &:hover {
     .cover {
       opacity: 1;
       transform: scale(1.05);
     }
-  }
-
-  .cover {
-    opacity: 0.8;
-    transition: all 0.2s ease;
   }
 }
 

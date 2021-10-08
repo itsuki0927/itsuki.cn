@@ -3,6 +3,8 @@ module.exports = {
   '*.ts?(x)': () => 'tsc -p tsconfig.json --noEmit --pretty',
   // eslint 检查
   '*.ts?(x)': 'yarn check-lint',
+  // scss 检查
+  '*.scss': 'yarn stylelint',
   // code 格式化
   '*.{ts,tsx,scss,md}': 'yarn format',
 };

@@ -8,7 +8,7 @@ $nav-item-width: 64px;
   position: relative;
   z-index: 10;
   max-width: 100%;
-  box-shadow: $gray-4 0px 2px 8px;
+  box-shadow: $gray-4 0 2px 8px;
   background: $header-background;
 
   ul,
@@ -32,12 +32,13 @@ $nav-item-width: 64px;
   min-width: $nav-item-width;
   height: $header-height;
   line-height: $header-height;
-  padding: 0px 12px;
+  padding: 0 12px;
   display: inline-block;
   transition: color 0.3s ease 0s;
   position: relative;
   text-align: center;
   cursor: pointer;
+
   &::after {
     content: '';
     position: absolute;
@@ -53,6 +54,7 @@ $nav-item-width: 64px;
   &:hover,
   &.active {
     color: $primary;
+
     &::after {
       border-bottom: 2px solid $primary;
     }

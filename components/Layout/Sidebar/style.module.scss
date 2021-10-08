@@ -3,6 +3,7 @@
 .sidebar {
   width: 350px;
   margin-left: $margin-lg;
+
   :global(.card) {
     margin-bottom: $margin-lg;
   }

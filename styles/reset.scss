@@ -1,7 +1,7 @@
 @import './variables.scss';
 
 $primary-hover-color: #40a9ff;
-$module-bg: #ffffff99;
+$module-bg: #fff9;
 $border-color: darken($gray-3, 5%);
 $border-color-light: $border-color-split;
 $blockquote-bg-color: $gray-3;
@@ -38,11 +38,24 @@ html {
 
 a {
   text-decoration: none;
+  color: $primary;
+
+  &:hover,
+  &:focus {
+    color: $primary-hover-color;
+  }
 }
 
 b,
 strong {
   font-weight: bolder;
+}
+
+textarea {
+  background: $component-background;
+  display: block;
+  margin-bottom: 1em;
+  max-width: 100%;
 }
 
 button,
@@ -52,12 +65,6 @@ textarea {
   font-family: inherit;
   font-style: inherit;
   font-weight: inherit;
-}
-
-button,
-input,
-select,
-textarea {
   background-color: transparent;
   color: inherit;
 }
@@ -143,15 +150,6 @@ code {
   font-family: 'fira code';
 }
 
-a {
-  color: $primary;
-
-  &:hover,
-  &:focus {
-    color: $primary-hover-color;
-  }
-}
-
 dl {
   margin-bottom: 1em;
 }
@@ -169,7 +167,7 @@ ol {
 
 blockquote {
   margin: 1em 0;
-  text-indent: 0em;
+  text-indent: 0;
   background-color: $blockquote-bg-color;
   border-left: 0.5em solid $border-color;
   padding: 0.5em 1em;
@@ -227,6 +225,15 @@ input:not([type]) {
   background-clip: padding-box;
   display: inline-block;
   text-align: left;
+}
+
+select {
+  -webkit-appearance: menulist-button;
+  vertical-align: sub;
+}
+
+select[multiple] {
+  height: auto;
 }
 
 input[type='text']:focus,
@@ -305,24 +312,8 @@ input[type='checkbox']:focus:invalid:focus {
   outline-color: $error;
 }
 
-select {
-  -webkit-appearance: menulist-button;
-  vertical-align: sub;
-}
-
-select[multiple] {
-  height: auto;
-}
-
 label {
   line-height: 2;
-}
-
-textarea {
-  background: $component-background;
-  display: block;
-  margin-bottom: 1em;
-  max-width: 100%;
 }
 
 input[type='submit'],
@@ -361,6 +352,13 @@ button:disabled {
 
 // specify the border styling of tables
 
+th,
+td {
+  border: 1px solid $border-color-light;
+  padding: 0.5em 1em;
+  vertical-align: inherit;
+}
+
 table {
   width: 100%;
   margin-bottom: 1em;
@@ -380,14 +378,6 @@ thead th {
 
 tr {
   margin-bottom: 8px;
-}
-
-th,
-td {
-  vertical-align: inherit;
-  border: 1px solid $border-color-light;
-  padding: 0.5em 1em;
-  vertical-align: inherit;
 }
 
 tfoot tr {

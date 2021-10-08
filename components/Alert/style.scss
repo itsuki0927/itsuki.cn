@@ -53,6 +53,7 @@ $alert-text-color: $text-color;
   &-success {
     background-color: $alert-success-bg-color;
     border: 1px solid $alert-success-border-color;
+
     .alert-icon {
       color: $alert-success-icon-color;
     }
@@ -61,6 +62,7 @@ $alert-text-color: $text-color;
   &-info {
     background-color: $alert-info-bg-color;
     border: 1px solid $alert-info-border-color;
+
     .alert-icon {
       color: $alert-info-icon-color;
     }
@@ -69,6 +71,7 @@ $alert-text-color: $text-color;
   &-warning {
     background-color: $alert-warning-bg-color;
     border: 1px solid $alert-warning-border-color;
+
     .alert-icon {
       color: $alert-warning-icon-color;
     }
@@ -105,15 +108,16 @@ $alert-text-color: $text-color;
     margin-right: $margin-md;
     font-size: 24px;
   }
+
+  &-message {
+    color: $alert-message-color;
+  }
+
   &-with-description &-message {
     display: block;
     margin-bottom: 4px;
     color: $alert-message-color;
     font-size: $font-size-lg;
-  }
-
-  &-message {
-    color: $alert-message-color;
   }
 
   &-with-description &-description {

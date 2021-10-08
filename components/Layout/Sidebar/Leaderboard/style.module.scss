@@ -8,6 +8,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.018);
   }
@@ -18,10 +19,12 @@
     flex: 1;
     font-size: 14px;
     transition: color 0.2s;
+
     &:hover {
       color: $primary;
     }
   }
+
   .right {
     line-height: 46px;
     color: $gray-7;

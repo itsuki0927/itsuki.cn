@@ -2,6 +2,7 @@
 
 .title {
   text-align: center;
+
   .origin {
     position: absolute;
     left: 0;
@@ -15,16 +16,19 @@
 
 .metas {
   margin-bottom: $margin-lg;
+
   .meta {
     display: flex;
     align-items: center;
     margin-bottom: $margin-sm;
+
     .label {
       display: inline-block;
       width: 80px;
       line-height: 24px;
       height: 24px;
     }
+
     &:last-child {
       margin-bottom: 0;
     }

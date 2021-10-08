@@ -22,8 +22,10 @@ $text-disabled: $gray-5;
 .profile {
   margin-bottom: $margin-sm;
   max-width: 682px;
+
   .reply {
     margin-bottom: $margin-sm;
+
     .profile {
       border: 1px solid $border-color-split;
       padding: 4px 11px;
@@ -32,35 +34,44 @@ $text-disabled: $gray-5;
       font-size: $font-size-base;
       line-height: $line-height-base;
       transition: color 0.3s;
+
       &:hover {
         background-color: $gray-2;
       }
+
       .nickname strong {
         transition: color 0.2s;
         cursor: pointer;
+
         &:hover {
           color: $gray-8;
         }
       }
     }
+
     .close {
       padding: 4px 0;
       float: right;
+
       &:hover {
         color: $gray-8;
       }
     }
+
     .content {
       max-height: 400px;
       overflow: auto;
     }
   }
+
   .edit {
     display: flex;
   }
+
   .nickname {
     text-align: right;
     margin-bottom: 0;
+
     > span {
       color: $gray-8;
       margin-right: $margin-sm;
@@ -77,6 +88,7 @@ $text-disabled: $gray-5;
   .markdownContent {
     position: relative;
     overflow: hidden;
+
     .textarea {
       padding: $padding-sm;
       line-height: 20px;

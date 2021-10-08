@@ -1,6 +1,8 @@
 import Card from '@/components/Card';
+import Loading from '@/components/Loading';
 import { EyeOutlined } from '@ant-design/icons';
 import Image from 'next/image';
+import { useState } from 'react';
 import styles from './style.module.scss';
 
 const Item = () => {
@@ -16,15 +18,10 @@ const Item = () => {
   );
 };
 const LeaderBoard = () => {
+  const [loading, setLoading] = useState(true);
   return (
     <Card title='排行榜' bodyStyle={{ padding: '12px 12px' }}>
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
+      {loading ? '玩命敲代码中...' : <Item />}
     </Card>
   );
 };

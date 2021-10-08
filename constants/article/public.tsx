@@ -31,4 +31,4 @@ const articleOpenMap = new Map(
 
 export const ap = (state: ArticleOpen) => articleOpenMap.get(state)!;
 
-export const articleOpens = [...articleOpenMap.values()];
+export const articleOpens = Array.from<ReturnType<typeof ap>>(articleOpenMap.values());

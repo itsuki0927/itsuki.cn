@@ -32,4 +32,4 @@ const articleOriginMap = new Map(
 
 export const ao = (state: ArticleOrigin) => articleOriginMap.get(state)!;
 
-export const articleOrigins = [...articleOriginMap.values()];
+export const articleOrigins = Array.from<ReturnType<typeof ao>>(articleOriginMap.values());

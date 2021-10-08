@@ -16,4 +16,4 @@ const publishStateMap = new Map(
 
 export const ps = (state: PublishState) => publishStateMap.get(state)!;
 
-export const publishStates = [...publishStateMap.values()];
+export const publishStates = Array.from<ReturnType<typeof ps>>(publishStateMap.values());

@@ -27,8 +27,8 @@ yarn check-types ||
     false;
 )
 
-# If everything passes... Now we can commit
+# If everything passes... Now we can push
 # echo '🤔🤔🤔🤔... Alright... Code looks good to me... Trying to build now. 🤔🤔🤔🤔'
 
-# If everything passes... Now we can commit
+# If everything passes... Now we can push
 echo '✅✅✅✅ You win this time... I am pushing this now. ✅✅✅✅'

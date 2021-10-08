@@ -31,6 +31,8 @@
     "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.2.0",
+    "@commitlint/config-conventional": "^13.2.0",
     "@types/dompurify": "^2.3.1",
     "@types/gravatar": "^1.8.3",
     "@types/marked": "^3.0.1",

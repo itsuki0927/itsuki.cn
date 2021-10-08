@@ -3,6 +3,7 @@
 .prettierrc.js
 lint-staged.config.js
 next.config.js
+commitlint.config.js
 
 #
 .gitignore

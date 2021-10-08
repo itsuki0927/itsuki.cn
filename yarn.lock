@@ -4368,6 +4368,11 @@ styled-jsx@4.0.1:
     stylis "3.5.4"
     stylis-rule-sheet "0.0.10"
 
+stylelint-config-prettier@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.npm.taobao.org/stylelint-config-prettier/download/stylelint-config-prettier-8.0.2.tgz#da9de33da4c56893cbe7e26df239a7374045e14e"
+  integrity sha1-2p3jPaTFaJPL5+Jt8jmnN0BF4U4=
+
 stylelint-config-recommended@^5.0.0:
   version "5.0.0"
   resolved "https://registry.nlark.com/stylelint-config-recommended/download/stylelint-config-recommended-5.0.0.tgz#fb5653f495a60b4938f2ad3e77712d9e1039ae78"

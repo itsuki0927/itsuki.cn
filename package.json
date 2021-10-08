@@ -10,8 +10,10 @@
     "prepare": "husky install",
     "format": "prettier --write . '**/*.{ts,js,tsx,md,scss}'",
     "fix": "next lint --fix .",
+    "stylelint-check": "stylelint-config-prettier-check",
     "check-lint": "next lint --fix",
-    "check-format": "prettier --check ."
+    "check-format": "prettier --check .",
+    "check-style": "stylelint --fix"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -50,6 +52,7 @@
     "lint-staged": "^11.2.0",
     "prettier": "^2.4.1",
     "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.21.0",

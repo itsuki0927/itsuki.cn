@@ -2,11 +2,11 @@ import BackTop from '@/components/BackTop';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Comment from '@/components/Comment';
+import Tag from '@/components/Tag';
 import { ao } from '@/constants/article/origin';
 import { Article } from '@/entities/article';
 import useMount from '@/hooks/useMount';
 import marked from '@/utils/marked';
-import { AndroidOutlined } from '@ant-design/icons';
 import { getArticleById, patchArticleMeta } from 'api/article';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
@@ -81,15 +81,7 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
         <div className={styles.meta}>
           <span className={styles.label}>相关标签 : </span>
           {article.tags.map(item => (
-            <Button
-              key={item.id}
-              type='dashed'
-              size='small'
-              icon={<AndroidOutlined />}
-              onClick={() => router.push(`/tag/${item.name}`)}
-            >
-              {item.name}
-            </Button>
+            <Tag key={item.id} tag={item} />
           ))}
         </div>
 

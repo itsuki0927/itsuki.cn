@@ -29,7 +29,7 @@ export type NativeButtonProps = {
 } & BaseButtonProps &
   Omit<React.ButtonHTMLAttributes<any>, 'type' | 'onClick'>;
 
-type ButtonProps = Partial<AnchorButtonProps & NativeButtonProps>;
+export type ButtonProps = Partial<AnchorButtonProps & NativeButtonProps>;
 
 const Button: FC<ButtonProps> = ({
   size = 'default',

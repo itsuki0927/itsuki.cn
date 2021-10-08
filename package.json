@@ -6,14 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "next:lint": "next lint",
+    "lint": "eslint .",
     "prepare": "husky install",
     "format": "prettier --write . '**/*.{ts,js,tsx,md,scss}'",
-    "fix": "next lint --fix .",
+    "fix": "eslint --fix .",
     "stylelint-check": "stylelint-config-prettier-check",
-    "check-lint": "next lint --fix",
+    "check-lint": "eslint --fix",
     "check-format": "prettier --check .",
-    "check-style": "stylelint --fix"
+    "check-style": "stylelint --fix",
+    "check-types": "tsc -p ./tsconfig.json --noEmit --pretty"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",

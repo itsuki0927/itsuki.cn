@@ -1,4 +1,13 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# 提交前检查整个项目有没有 ts 语法错误
+# 用这种方式 HACK lint-staged.config.js 检查会出现错误
+# yarn check-types ||
+# (
+#     echo '🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
+#             Are you seriously trying to write that? Make the changes required above.'
+#     false;
+# )
+
 yarn lint-staged

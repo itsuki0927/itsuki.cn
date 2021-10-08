@@ -8,8 +8,10 @@ const Layout: FC = ({ children }) => {
   return (
     <div>
       <Head>
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link rel='preconnect' href='https://fonts.gstatic.com' />
         <link
-          href='https://at.alicdn.com/t/font_2836612_r142759jz8.css?spm=a313x.7781069.1998910419.39&file=font_2836612_r142759jz8.css'
+          href='https://fonts.googleapis.com/css2?family=Fira+Code&display=swap'
           rel='stylesheet'
         />
       </Head>

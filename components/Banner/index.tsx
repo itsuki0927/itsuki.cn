@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import { useMemo } from 'react';
 import Card from '../Card';
+import Icon from '../Icon';
 import styles from './style.module.scss';
 import { getExpandsValue } from './util';
 
@@ -30,7 +30,7 @@ const Banner = ({ data }: BannerProps) => {
 
     if (value === null) return null;
 
-    return <i className={classNames('iconfont', `icon-${value}`, styles.logo)}></i>;
+    return <Icon name={value} className={styles.logo}></Icon>;
   };
 
   const currentBackgroundImage = getExpandsValue(expands, 'background');

@@ -44,7 +44,8 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
           <div className={styles.title}>
             <h1>{article.title}</h1>
             <span style={{ background: origin.color }} className={styles.origin}>
-              {origin.name}
+              {origin.icon}
+              <span style={{ marginLeft: 8 }}>{origin.name}</span>
             </span>
           </div>
         }

@@ -1,11 +1,11 @@
+import { HeartFilled } from '@ant-design/icons';
+import classNames from 'classnames';
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { getCommentListByArticleId, patchCommentMeta, postComment } from '@/api/comment';
 import { Comment } from '@/entities/comment';
 import useArticleLike from '@/hooks/useArticleLike';
 import useCommentLike from '@/hooks/useCommentLike';
 import { purifyDomString } from '@/transformers/purify';
-import { HeartFilled } from '@ant-design/icons';
-import classNames from 'classnames';
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import Button from '../Button';
 import Card from '../Card';
 import CommentContext from './context';
@@ -37,26 +37,25 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
   }, [fetchCommentList]);
 
   const handleLikeComment = useCallback(
-    (commentId: number) => {
-      return patchCommentMeta(commentId, { meta: 'liking' }).then(() => {
+    (commentId: number) =>
+      patchCommentMeta(commentId, { meta: 'liking' }).then(() => {
         setCommentLike(commentId);
-      });
-    },
+      }),
     [setCommentLike]
   );
 
-  const commentDom = useMemo(() => {
-    return comments.map(item => {
-      return (
+  const commentDom = useMemo(
+    () =>
+      comments.map(item => (
         <CommentCard
           onLikeComment={handleLikeComment}
           liked={isCommentLiked(item.id)}
           comment={item}
           key={item.id}
         />
-      );
-    });
-  }, [comments, handleLikeComment, isCommentLiked]);
+      )),
+    [comments, handleLikeComment, isCommentLiked]
+  );
 
   return (
     <CommentContext.Provider value={{ reply, setReply }}>
@@ -81,15 +80,16 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
                 });
               }}
             >
-              {liking}个人
+              {liking}
+              个人
             </Button>
           </>
         }
       >
         {commentDom}
         <Editor
-          onSend={({ content, ...data }) => {
-            return postComment({
+          onSend={({ content, ...data }) =>
+            postComment({
               ...data,
               content: purifyDomString(content),
               articleId,
@@ -105,9 +105,9 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
                   `评论发布失败\n1：被 Akismet 过滤\n2：邮箱/IP 被列入黑名单\n3：内容包含黑名单关键词\n
                    `
                 );
-                return Promise.reject('评论失败');
-              });
-          }}
+                return Promise.reject(new Error('评论失败'));
+              })
+          }
         />
       </Card>
     </CommentContext.Provider>

@@ -14,7 +14,11 @@ type ArticleListWrapperProps = {
   pagination?: CurrentPageSizeProps | false;
 };
 
-const ArticleListWrapper = ({ articles, onChange, pagination }: ArticleListWrapperProps) => {
+const ArticleListWrapper = ({
+  articles,
+  onChange,
+  pagination,
+}: ArticleListWrapperProps) => {
   if (articles === undefined) return <Loading />;
 
   if (articles.total === 0) {

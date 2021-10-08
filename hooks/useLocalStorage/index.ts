@@ -28,7 +28,8 @@ const useLocalStorage = <T = any>(key: string, defaultValue: T) => {
 
   const setValue = (newValue: SetLocalStorageValue<T>) => {
     try {
-      const valueToStore = newValue instanceof Function ? newValue(storedValue) : newValue;
+      const valueToStore =
+        newValue instanceof Function ? newValue(storedValue) : newValue;
       setJSON(key, valueToStore);
       setStoredValue({ ...valueToStore });
     } catch (error) {

@@ -1,5 +1,5 @@
-import { Comment } from '@/entities/comment';
 import { createContext } from 'react';
+import { Comment } from '@/entities/comment';
 
 export type CommentContextType = {
   reply: Comment | undefined;

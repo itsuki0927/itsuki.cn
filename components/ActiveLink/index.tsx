@@ -7,7 +7,11 @@ export interface ActiveLinkProps extends LinkProps {
   as?: string;
 }
 
-const ActiveLink: FC<ActiveLinkProps> = ({ children, activeClassName, ...otherProps }) => {
+const ActiveLink: FC<ActiveLinkProps> = ({
+  children,
+  activeClassName,
+  ...otherProps
+}) => {
   const { asPath } = useRouter();
   const child = Children.only(children);
   const childClassName = (child as any).props?.className || '';

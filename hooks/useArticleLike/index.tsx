@@ -1,4 +1,8 @@
-import { initialUserLikeHistory, UserLikeArticles, USER_LIKE_ARTICLE } from '@/constants/like';
+import {
+  initialUserLikeHistory,
+  UserLikeArticles,
+  USER_LIKE_ARTICLE,
+} from '@/constants/like';
 import useLocalStorage from 'hooks/useLocalStorage';
 
 /**

@@ -2,18 +2,18 @@
 import '@/components/Alert/style.scss';
 import '@/components/Button/style.scss';
 import '@/components/Card/style.scss';
-import Layout from '@/components/Layout';
-import Loading from '@/components/Loading';
-import useMount from '@/hooks/useMount';
 import '@/styles/globals.scss';
 import '@/styles/markdown.scss';
 import '@/styles/reset.scss';
-import AppContext, { AppContextType } from '@/utils/context';
 import { fetchGlobalData } from 'api/global';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import { useEffect, useReducer, useState } from 'react';
+import AppContext, { AppContextType } from '@/utils/context';
+import useMount from '@/hooks/useMount';
+import Loading from '@/components/Loading';
+import Layout from '@/components/Layout';
 
 type AppActionType =
   | {
@@ -31,7 +31,7 @@ type State = {
 
 const initialState = {
   error: '',
-  data: undefined,
+  data: {},
   loading: false,
 };
 
@@ -43,6 +43,8 @@ const reducer = (state: State = initialState, action: AppActionType) => {
       return { ...state, loading: true };
     case 'ERROR':
       return { ...state, loading: false, error: action.payload };
+    default:
+      return { ...state };
   }
 };
 
@@ -85,6 +87,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       router.events.off('routeChangeError', handleStop);
     };
   }, [router]);
+
+  if (state.loading) {
+    return <Loading />;
+  }
 
   return (
     <AppContext.Provider value={state.data!}>

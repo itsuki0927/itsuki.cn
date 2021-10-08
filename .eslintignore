@@ -1,0 +1,6 @@
+.eslintrc.js
+next.config.js
+.prettierrc.js
+.gitignore
+tsconfig.json
+package.json

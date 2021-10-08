@@ -1,5 +1,5 @@
-import { WrapperResponse } from '@/entities/response/base';
 import axios, { AxiosResponse } from 'axios';
+import { WrapperResponse } from '@/entities/response/base';
 
 const baseURL = `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/${process.env.NEXT_PUBLIC_API_VERSION}`;
 
@@ -8,8 +8,6 @@ const request = axios.create({
   timeout: 10000,
 });
 
-request.interceptors.response.use((res: AxiosResponse<WrapperResponse>) => {
-  return res.data;
-});
+request.interceptors.response.use((res: AxiosResponse<WrapperResponse>) => res.data);
 
 export default request;

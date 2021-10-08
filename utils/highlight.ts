@@ -51,7 +51,9 @@ const aliasLanguage = {
   tsx: 'typescript',
 };
 
-Object.keys(languages).forEach(name => hljs.registerLanguage(name, languages[name] as any));
+Object.keys(languages).forEach(name =>
+  hljs.registerLanguage(name, languages[name] as any)
+);
 
 Object.keys(aliasLanguage).forEach(alias =>
   hljs.registerAliases(alias, { languageName: aliasLanguage[alias] as any })

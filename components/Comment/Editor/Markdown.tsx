@@ -1,5 +1,3 @@
-import useMount from '@/hooks/useMount';
-import markedToHtml from '@/utils/marked';
 import {
   BoldOutlined,
   CodeOutlined,
@@ -10,6 +8,8 @@ import {
   UnorderedListOutlined,
 } from '@ant-design/icons';
 import { useRef, useState } from 'react';
+import useMount from '@/hooks/useMount';
+import markedToHtml from '@/utils/marked';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import styles from './style.module.scss';
@@ -27,6 +27,7 @@ const MarkdownEditor = ({ onSend }: MarkdownEditorProps) => {
     // TODO: 先用any顶一会
     function handlePaste(event: any) {
       event.preventDefault();
+      // eslint-disable-next-line no-param-reassign
       event.target.innerText = event.clipboardData?.getData('text/plain');
     }
     if (inputRef.current) {
@@ -54,13 +55,18 @@ const MarkdownEditor = ({ onSend }: MarkdownEditorProps) => {
         <div
           style={{ display: preview ? 'block' : 'none' }}
           className={`markdown-html ${styles.preview}`}
-          dangerouslySetInnerHTML={{ __html: markedToHtml(inputRef.current?.innerText || '') }}
-        ></div>
+          dangerouslySetInnerHTML={{
+            __html: markedToHtml(inputRef.current?.innerText || ''),
+          }}
+        />
       </div>
 
       <div className={styles.toolbar}>
         <div className={styles.action}>
-          <BoldOutlined className={styles.icon} onClick={() => handleInsertContent('****')} />
+          <BoldOutlined
+            className={styles.icon}
+            onClick={() => handleInsertContent('****')}
+          />
           <OrderedListOutlined className={styles.icon} />
           <UnorderedListOutlined className={styles.icon} />
           <PictureOutlined className={styles.icon} />

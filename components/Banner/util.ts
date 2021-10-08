@@ -5,3 +5,7 @@ export const getExpandsValue = (expands: any, key: string) => {
   const targetExtend = expands.find((t: any) => t.name === key);
   return targetExtend ? targetExtend.value : null;
 };
+
+export default {
+  getExpandsValue,
+};

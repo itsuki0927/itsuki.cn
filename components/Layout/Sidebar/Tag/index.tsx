@@ -1,7 +1,7 @@
+import { useContext } from 'react';
 import Card from '@/components/Card';
 import Tag from '@/components/Tag';
 import AppContext from '@/utils/context';
-import { useContext } from 'react';
 
 const buttonStyle = {
   marginBottom: 12,

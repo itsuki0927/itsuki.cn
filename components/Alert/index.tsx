@@ -1,28 +1,27 @@
-import {
-  ReactNode,
-  MouseEventHandler,
-  CSSProperties,
-  useState,
-  useRef,
-  MouseEvent,
-  createElement,
-  isValidElement,
-  cloneElement,
-} from 'react';
-import CloseOutlined from '@ant-design/icons/CloseOutlined';
-import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
-import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
-import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
-import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import CheckCircleFilled from '@ant-design/icons/CheckCircleFilled';
-import ExclamationCircleFilled from '@ant-design/icons/ExclamationCircleFilled';
-import InfoCircleFilled from '@ant-design/icons/InfoCircleFilled';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
 import CloseCircleFilled from '@ant-design/icons/CloseCircleFilled';
+import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
+import ExclamationCircleFilled from '@ant-design/icons/ExclamationCircleFilled';
+import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
+import InfoCircleFilled from '@ant-design/icons/InfoCircleFilled';
+import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
 import classNames from 'classnames';
+import {
+  cloneElement,
+  createElement,
+  CSSProperties,
+  isValidElement,
+  MouseEventHandler,
+  ReactNode,
+} from 'react';
 
 type AnyObject = Record<any, any>;
 
-type RenderProps = undefined | AnyObject | ((originProps: AnyObject) => AnyObject | undefined);
+type RenderProps =
+  | undefined
+  | AnyObject
+  | ((originProps: AnyObject) => AnyObject | undefined);
 
 /**
  * 替换元素
@@ -39,7 +38,10 @@ export function replaceElement(
 ): React.ReactNode {
   if (!isValidElement(element)) return replacement;
 
-  return cloneElement(element, typeof props === 'function' ? props(element.props || {}) : props);
+  return cloneElement(
+    element,
+    typeof props === 'function' ? props(element.props || {}) : props
+  );
 }
 
 const iconMapFilled = {
@@ -100,7 +102,7 @@ const Alert = ({
 
     if (icon) {
       return replaceElement(icon, <span className='alert-icon'>{icon}</span>, () => ({
-        className: classNames(`alert-icon`, {
+        className: classNames('alert-icon', {
           [(icon as any).props.className]: (icon as any).props.className,
         }),
       }));
@@ -110,11 +112,16 @@ const Alert = ({
 
   const isShowIcon = banner && showIcon === undefined ? true : showIcon;
 
-  const classString = classNames('alert', `alert-${type}`, {
-    'alert-with-description': !!description,
-    'alert-no-icon': !isShowIcon,
-    'alert-banner': !!banner,
-  });
+  const classString = classNames(
+    'alert',
+    `alert-${type}`,
+    {
+      'alert-with-description': !!description,
+      'alert-no-icon': !isShowIcon,
+      'alert-banner': !!banner,
+    },
+    className
+  );
 
   return (
     <div
@@ -124,6 +131,7 @@ const Alert = ({
       onMouseLeave={onMouseLeave}
       onClick={onClick}
       role='alert'
+      aria-hidden='true'
     >
       {isShowIcon ? renderIconType() : null}
       <div className='alert-content'>

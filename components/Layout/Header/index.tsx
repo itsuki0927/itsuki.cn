@@ -1,6 +1,6 @@
+import { useContext, useMemo } from 'react';
 import ActiveLink from '@/components/ActiveLink';
 import AppContext from '@/utils/context';
-import { useContext, useMemo } from 'react';
 import Logo from '../Logo';
 import HeaderSearch from '../Search';
 import styles from './style.module.scss';
@@ -10,15 +10,21 @@ const buildPath = (path: string) => `/category/${path}`;
 const Header = () => {
   const context = useContext(AppContext);
 
-  const categoriesDom = useMemo(() => {
-    return context?.categories?.map(item => (
-      <ActiveLink activeClassName={styles.active} key={item.id} href={buildPath(item.path)}>
-        <li className={styles.item}>
-          <span>{item.name}</span>
-        </li>
-      </ActiveLink>
-    ));
-  }, [context?.categories]);
+  const categoriesDom = useMemo(
+    () =>
+      context?.categories?.map(item => (
+        <ActiveLink
+          activeClassName={styles.active}
+          key={item.id}
+          href={buildPath(item.path)}
+        >
+          <li className={styles.item}>
+            <span>{item.name}</span>
+          </li>
+        </ActiveLink>
+      )),
+    [context.categories]
+  );
 
   return (
     <header className={styles.header}>

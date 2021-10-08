@@ -42,7 +42,9 @@ const Button: FC<ButtonProps> = ({
   onClick,
   ...otherProps
 }) => {
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>
+  ) => {
     if (loading || otherProps.disabled) {
       e.preventDefault();
       return;
@@ -61,7 +63,7 @@ const Button: FC<ButtonProps> = ({
     className
   );
   return (
-    <button className={classString} onClick={handleClick} {...otherProps}>
+    <button type='button' className={classString} onClick={handleClick} {...otherProps}>
       {icon}
       {children && <span>{children}</span>}
     </button>

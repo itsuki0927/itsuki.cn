@@ -9,7 +9,12 @@ export enum PublishState {
 const publishStateMap = new Map(
   [
     { id: PublishState.Draft, name: '草稿', icon: <EditOutlined />, color: 'orange' },
-    { id: PublishState.Published, name: '已发布', icon: <CheckOutlined />, color: 'green' },
+    {
+      id: PublishState.Published,
+      name: '已发布',
+      icon: <CheckOutlined />,
+      color: 'green',
+    },
     { id: PublishState.Recycle, name: '回收站', icon: <DeleteOutlined />, color: 'red' },
   ].map(item => [item.id, item])
 );

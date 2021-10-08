@@ -1,4 +1,5 @@
-export const setJSON = (key: string, val: any) => localStorage.setItem(key, JSON.stringify(val));
+export const setJSON = (key: string, val: any) =>
+  localStorage.setItem(key, JSON.stringify(val));
 
 export const getJSON = (key: string) => {
   const value = localStorage.getItem(key);

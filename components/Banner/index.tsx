@@ -21,7 +21,7 @@ const Banner = ({ data }: BannerProps) => {
       return JSON.parse(data.expand);
     }
     return null;
-  }, [data?.expand]);
+  }, [data]);
 
   if (!data) return <Card>loading...</Card>;
 
@@ -30,7 +30,7 @@ const Banner = ({ data }: BannerProps) => {
 
     if (value === null) return null;
 
-    return <Icon name={value} className={styles.logo}></Icon>;
+    return <Icon name={value} className={styles.logo} />;
   };
 
   const currentBackgroundImage = getExpandsValue(expands, 'background');
@@ -42,7 +42,7 @@ const Banner = ({ data }: BannerProps) => {
           backgroundImage: `url(${currentBackgroundImage})`,
         }}
         className={styles.background}
-      ></div>
+      />
       <div className={styles.content}>
         {renderIcon()}
         <p className={styles.description}>{data?.description}</p>

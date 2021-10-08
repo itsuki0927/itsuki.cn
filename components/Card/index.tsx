@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import { CSSProperties, FC, ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import Meta from './Meta';
 
 const getActions = (actions: ReactNode[]) =>
-  actions.map((action, index) => (
-    <li style={{ width: `${100 / actions.length}%` }} key={`action-${index}`}>
+  actions.map(action => (
+    <li style={{ width: `${100 / actions.length}%` }} key={`action-${action}`}>
       <span>{action}</span>
     </li>
   ));
@@ -53,7 +53,7 @@ const Card: CardInterface = ({
   const loadingBlockStyle =
     bodyStyle.padding === 0 || bodyStyle.padding === '0px' ? { padding: 24 } : undefined;
 
-  const block = <div className='card-loading-block'></div>;
+  const block = <div className='card-loading-block' />;
 
   const loadingBlock = <div style={loadingBlockStyle}>{block}</div>;
 
@@ -79,7 +79,9 @@ const Card: CardInterface = ({
   );
 
   const actionDom =
-    actions && actions.length ? <ul className='card-actions'>{getActions(actions)}</ul> : null;
+    actions && actions.length ? (
+      <ul className='card-actions'>{getActions(actions)}</ul>
+    ) : null;
 
   const classString = classNames(
     'card',

@@ -1,5 +1,5 @@
-import { purifyDomString } from '@/transformers/purify';
 import marked from 'marked';
+import { purifyDomString } from '@/transformers/purify';
 import highlight from './highlight';
 
 marked.use({
@@ -56,7 +56,11 @@ customRenderer.image = function renderImage(url: string, title: string, text: st
 };
 
 // 解析代码
-customRenderer.code = function renderCode(code: string, language: string, escaped: boolean) {
+customRenderer.code = function renderCode(
+  code: string,
+  language: string,
+  escaped: boolean
+) {
   if ((this as any).options.highlight) {
     const output = (this as any).options.highlight(code, language);
     if (output !== null) {
@@ -72,7 +76,7 @@ customRenderer.code = function renderCode(code: string, language: string, escape
 
   // 如果一行代码也没有 空格做一个占位符 保证正确显示
   if (!code) {
-    code = `<span class='hljs-comment'>// empty code</span>`;
+    code = "<span class='hljs-comment'>// empty code</span>";
   }
   /**
    * TODO:
@@ -84,9 +88,9 @@ customRenderer.code = function renderCode(code: string, language: string, escape
   return language
     ? `<pre  data-lang=${language}>
         <ul class='code-lines'>${lineNumbers}</ul>
-        <code
-          class='${(this as any).options.langPrefix}${escape(language)}'
-        >${escaped ? code : escape(code)}</code>
+        <code class='${(this as any).options.langPrefix}${escape(language)}'>${
+        escaped ? code : escape(code)
+      }</code>
       </pre>`
     : `<pre>
         <ul class='code-lines'>${lineNumbers}</ul>

@@ -12,7 +12,8 @@ const Hello = () => {
   );
   return (
     <Card className={styles.hello} bodyStyle={{ padding: '12px 24px' }}>
-      今天{zhDayName(new Date())},{' '}
+      今天
+      {zhDayName(new Date())},{' '}
       <span className={styles.nickname}>
         <strong>{commentProfile.nickname || '旅客'}</strong>
       </span>

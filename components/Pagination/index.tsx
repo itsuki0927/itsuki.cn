@@ -30,7 +30,7 @@ const Pagination = ({
       setPageSize(pageSizeProp);
       setCurrent(1);
     }
-  }, [pageSizeProp]);
+  }, [pageSize, pageSizeProp]);
 
   const handleChangeCurrent = (currentParam: number) => {
     setCurrent(currentParam);

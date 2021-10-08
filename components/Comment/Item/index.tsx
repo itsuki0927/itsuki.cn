@@ -1,11 +1,11 @@
-import Button from '@/components/Button';
-import { Comment } from '@/entities/comment';
-import markedToHtml from '@/utils/marked';
 import { HeartFilled, SelectOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { useContext, useState } from 'react';
 import { getGravatarUrl } from 'transformers/gravatar';
 import { parseUA } from 'transformers/ua';
+import markedToHtml from '@/utils/marked';
+import { Comment } from '@/entities/comment';
+import Button from '@/components/Button';
 import Card from '../../Card';
 import CommentContext from '../context';
 import styles from './style.module.scss';
@@ -16,16 +16,15 @@ type CommentCardProps = {
   onLikeComment: (commentId: number) => Promise<void>;
 };
 
-const CommentUA = ({ result }: any) => {
-  return (
-    <span className={styles.ua}>
-      {result.browser.name} {result.browser.version.slice(0, result.browser.version.indexOf('.'))}
-      {'  '}
-      {result.os.name}
-      {result.os.version}
-    </span>
-  );
-};
+const CommentUA = ({ result }: any) => (
+  <span className={styles.ua}>
+    {result.browser.name}{' '}
+    {result.browser.version.slice(0, result.browser.version.indexOf('.'))}
+    {'  '}
+    {result.os.name}
+    {result.os.version}
+  </span>
+);
 
 const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
   const { result } = parseUA(comment.agent);
@@ -39,7 +38,7 @@ const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
       <CommentUA result={result} />
 
       <span className={styles.ua}>
-        {comment.city} - {comment.province}
+        {comment.city} -{comment.province}
       </span>
 
       <span className={styles.serialNumber}>#11</span>
@@ -73,7 +72,7 @@ const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
           })}
           icon={<HeartFilled />}
           onClick={() => {
-            onLikeComment(comment.id).then(() => setLiking((l) => l + 1));
+            onLikeComment(comment.id).then(() => setLiking(l => l + 1));
           }}
         >
           <span>{liking}</span>
@@ -99,14 +98,19 @@ const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
             width={80}
             height={80}
             className={styles.avatar}
+            alt='avatar'
           />
         }
       />
-      <Card bodyStyle={{ padding: '12px 0px' }} className={styles.content} bordered={false}>
+      <Card
+        bodyStyle={{ padding: '12px 0px' }}
+        className={styles.content}
+        bordered={false}
+      >
         <div
           className='markdown-html comment'
           dangerouslySetInnerHTML={{ __html: markedToHtml(comment.content) }}
-        ></div>
+        />
       </Card>
     </Card>
   );

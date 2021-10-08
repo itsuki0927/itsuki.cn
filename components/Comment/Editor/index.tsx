@@ -1,7 +1,7 @@
-import Card from '@/components/Card';
-import { initialCommentProfile } from '@/constants/comment';
 import { useState } from 'react';
 import { getGravatarUrl } from 'transformers/gravatar';
+import Card from '@/components/Card';
+import { initialCommentProfile } from '@/constants/comment';
 import MarkdownEditor from './Markdown';
 import CommentProfile, { CommentProfileType } from './Profile';
 import styles from './style.module.scss';
@@ -15,9 +15,7 @@ const Editor = ({ onSend }: EditorProps) => {
     ...initialCommentProfile,
   });
 
-  const handleSend = (content: string) => {
-    return onSend({ ...commentProfile, content });
-  };
+  const handleSend = (content: string) => onSend({ ...commentProfile, content });
 
   return (
     <Card bodyStyle={{ padding: 0 }} bordered={false}>
@@ -27,6 +25,7 @@ const Editor = ({ onSend }: EditorProps) => {
           src={getGravatarUrl(commentProfile.email)}
           width={80}
           height={80}
+          alt='cover'
         />
         <div className={styles.wrapper}>
           <CommentProfile value={commentProfile} onChange={setCommentProfile} />

@@ -1,6 +1,11 @@
-import { PaginationProps } from './';
+import { PaginationProps } from '.';
 
-export const paginationKeys = ['pageSize', 'current', 'defaultCurrent', 'defaultPageSize'] as const;
+export const paginationKeys = [
+  'pageSize',
+  'current',
+  'defaultCurrent',
+  'defaultPageSize',
+] as const;
 
 export type CurrentPageSizeProps = Pick<
   PaginationProps,
@@ -18,6 +23,7 @@ export const pickPaginationPropsFromQuery = (query?: any) => {
 
   return paginationKeys.reduce<CurrentPageSizeProps>((o, k) => {
     if (query[k]) {
+      // eslint-disable-next-line no-param-reassign
       o[k] = query[k];
     }
     return o;

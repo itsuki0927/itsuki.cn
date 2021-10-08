@@ -1,3 +1,7 @@
+import { getArticleById, patchArticleMeta } from 'api/article';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import BackTop from '@/components/BackTop';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
@@ -7,10 +11,6 @@ import { ao } from '@/constants/article/origin';
 import { Article } from '@/entities/article';
 import useMount from '@/hooks/useMount';
 import marked from '@/utils/marked';
-import { getArticleById, patchArticleMeta } from 'api/article';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 import styles from './style.module.scss';
 
 type StaticProps = {
@@ -27,7 +27,9 @@ export const getServerSideProps: GetServerSideProps<StaticProps> = async ({ para
   };
 };
 
-const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ArticlePage = ({
+  article,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [liking, setLiking] = useState(article.liking);
 
   useMount(() => {
@@ -95,11 +97,11 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
         articleId={article.id}
         title={(comments, length) => <span>{length} 个想法</span>}
         liking={liking}
-        onLikeArticle={articleId => {
-          return patchArticleMeta(articleId, { meta: 'liking' }).then(() => {
+        onLikeArticle={articleId =>
+          patchArticleMeta(articleId, { meta: 'liking' }).then(() => {
             setLiking(like => like + 1);
-          });
-        }}
+          })
+        }
       />
 
       <BackTop />

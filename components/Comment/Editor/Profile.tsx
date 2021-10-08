@@ -1,10 +1,15 @@
+import {
+  CheckOutlined,
+  ClearOutlined,
+  CloseOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
+import { useContext, useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import { USER_COMMENT_PROFILE, initialCommentProfile } from '@/constants/comment';
 import markedToHtml from '@/utils/marked';
 import { getJSON, remove, setJSON } from '@/utils/storage';
-import { CheckOutlined, ClearOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
-import { useContext, useEffect, useState } from 'react';
 import CommentContext from '../context';
 import styles from './style.module.scss';
 
@@ -40,7 +45,7 @@ const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
 
   const handleSave = () => {
     if (Object.values(value).some(v => !v)) {
-      alert(`请输入必填字段`);
+      alert('请输入必填字段');
       return;
     }
     setVisible(true);
@@ -68,7 +73,7 @@ const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
             <div
               className='markdown-html'
               dangerouslySetInnerHTML={{ __html: markedToHtml(reply.content) }}
-            ></div>
+            />
           </Card>
         </div>
       )}

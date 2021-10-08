@@ -1,0 +1,8 @@
+module.exports = {
+  // 检查 ts 是否有语法错误
+  '*.ts?(x)': () => 'tsc -p tsconfig.json --noEmit --pretty',
+  // eslint 检查
+  '*.ts?(x)': 'yarn check-lint',
+  // code 格式化
+  '*.{ts,tsx,scss,md}': 'yarn format',
+};

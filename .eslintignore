@@ -1,6 +1,12 @@
+# config
 .eslintrc.js
-next.config.js
 .prettierrc.js
+lint-staged.config.js
+next.config.js
+
+#
 .gitignore
+
+# json
 tsconfig.json
 package.json

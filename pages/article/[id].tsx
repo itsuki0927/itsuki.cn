@@ -1,3 +1,4 @@
+import BackTop from '@/components/BackTop';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Comment from '@/components/Comment';
@@ -107,6 +108,8 @@ const ArticlePage = ({ article }: InferGetServerSidePropsType<typeof getServerSi
           });
         }}
       />
+
+      <BackTop />
     </div>
   );
 };

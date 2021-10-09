@@ -8,3 +8,7 @@ import gravatar from 'gravatar';
  */
 export const getGravatarUrl = (email: string) =>
   gravatar.url(email, { protocol: 'https' });
+
+export default {
+  getGravatarUrl,
+};

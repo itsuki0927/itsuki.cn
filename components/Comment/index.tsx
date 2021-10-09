@@ -1,6 +1,6 @@
 import { HeartFilled } from '@ant-design/icons';
 import classNames from 'classnames';
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { getCommentListByArticleId, patchCommentMeta, postComment } from '@/api/comment';
 import { Comment } from '@/entities/comment';
 import useArticleLike from '@/hooks/useArticleLike';
@@ -10,6 +10,7 @@ import Button from '../Button';
 import Card from '../Card';
 import CommentContext from './context';
 import Editor from './Editor';
+import { CommentProfileType } from './Editor/Profile';
 import CommentCard from './Item';
 import styles from './style.module.scss';
 
@@ -25,37 +26,48 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
   const { isLiked, setArticleLike } = useArticleLike(articleId);
   const { isCommentLiked, setCommentLike } = useCommentLike();
   const [comments, setComments] = useState<Comment[]>([]);
+  const isCancel = useRef(false);
 
   const fetchCommentList = useCallback(() => {
     getCommentListByArticleId(articleId).then(res => {
-      setComments(res);
+      if (!isCancel.current) {
+        setComments(res);
+      }
     });
   }, [articleId]);
 
   useEffect(() => {
     fetchCommentList();
+
+    return () => {
+      isCancel.current = true;
+    };
   }, [fetchCommentList]);
 
-  const handleLikeComment = useCallback(
-    (commentId: number) =>
-      patchCommentMeta(commentId, { meta: 'liking' }).then(() => {
-        setCommentLike(commentId);
-      }),
-    [setCommentLike]
-  );
+  const handleLikeComment = (commentId: number) =>
+    patchCommentMeta(commentId, { meta: 'liking' }).then(() => {
+      setCommentLike(commentId);
+    });
 
-  const commentDom = useMemo(
-    () =>
-      comments.map(item => (
-        <CommentCard
-          onLikeComment={handleLikeComment}
-          liked={isCommentLiked(item.id)}
-          comment={item}
-          key={item.id}
-        />
-      )),
-    [comments, handleLikeComment, isCommentLiked]
-  );
+  const handleSend = ({ content, ...data }: CommentProfileType & { content: string }) =>
+    postComment({
+      ...data,
+      content: purifyDomString(content),
+      articleId,
+      agent: navigator.userAgent,
+      parentId: reply?.id,
+    })
+      .then(() => {
+        fetchCommentList();
+        return true;
+      })
+      .catch(() => {
+        alert(
+          `评论发布失败\n1：被 Akismet 过滤\n2：邮箱/IP 被列入黑名单\n3：内容包含黑名单关键词\n
+                   `
+        );
+        return Promise.reject(new Error('评论失败'));
+      });
 
   return (
     <CommentContext.Provider value={{ reply, setReply }}>
@@ -86,29 +98,15 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
           </>
         }
       >
-        {commentDom}
-        <Editor
-          onSend={({ content, ...data }) =>
-            postComment({
-              ...data,
-              content: purifyDomString(content),
-              articleId,
-              agent: navigator.userAgent,
-              parentId: reply?.id,
-            })
-              .then(() => {
-                fetchCommentList();
-                return true;
-              })
-              .catch(() => {
-                alert(
-                  `评论发布失败\n1：被 Akismet 过滤\n2：邮箱/IP 被列入黑名单\n3：内容包含黑名单关键词\n
-                   `
-                );
-                return Promise.reject(new Error('评论失败'));
-              })
-          }
-        />
+        {comments.map(item => (
+          <CommentCard
+            onLikeComment={handleLikeComment}
+            liked={isCommentLiked(item.id)}
+            comment={item}
+            key={item.id}
+          />
+        ))}
+        <Editor onSend={handleSend} />
       </Card>
     </CommentContext.Provider>
   );

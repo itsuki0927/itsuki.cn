@@ -4,12 +4,13 @@ import {
   CloseOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
-import { USER_COMMENT_PROFILE, initialCommentProfile } from '@/constants/comment';
+import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
+import useLocalStorage from '@/hooks/useLocalStorage';
 import markedToHtml from '@/utils/marked';
-import { getJSON, remove, setJSON } from '@/utils/storage';
+import { setJSON } from '@/utils/storage';
 import CommentContext from '../context';
 import styles from './style.module.scss';
 
@@ -18,22 +19,11 @@ export type CommentProfileType = {
   email: string;
   website: string;
 };
-type CommentProfileProps = {
-  value: CommentProfileType;
-  onChange: (value: CommentProfileType) => void;
-};
 
-const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
-  const [visible, setVisible] = useState(false);
+const CommentProfile = () => {
+  const [actionVisible, setActionVisible] = useState(false);
   const { reply, setReply } = useContext(CommentContext);
-
-  useEffect(() => {
-    const initialValue = getJSON(USER_COMMENT_PROFILE);
-    if (initialValue) {
-      onChange(initialValue);
-      setVisible(true);
-    }
-  }, [onChange]);
+  const [value, onChange] = useLocalStorage(USER_COMMENT_PROFILE, initialCommentProfile);
 
   const handleInput = (e: any) => {
     const emitValue = {
@@ -48,13 +38,13 @@ const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
       alert('请输入必填字段');
       return;
     }
-    setVisible(true);
+    setActionVisible(true);
     setJSON(USER_COMMENT_PROFILE, value);
   };
 
   const handleClear = () => {
-    setVisible(false);
-    remove(USER_COMMENT_PROFILE);
+    setActionVisible(false);
+    setJSON(USER_COMMENT_PROFILE, initialCommentProfile);
     onChange({ ...initialCommentProfile });
   };
 
@@ -77,7 +67,7 @@ const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
           </Card>
         </div>
       )}
-      {!visible && (
+      {!actionVisible && (
         <div className={styles.edit}>
           <input
             name='nickname'
@@ -109,14 +99,14 @@ const CommentProfile = ({ value, onChange }: CommentProfileProps) => {
         </div>
       )}
 
-      {visible && (
+      {actionVisible && (
         <p className={styles.nickname}>
           <span>{value.nickname}</span>
           <Button
             type='text'
             icon={<EditOutlined />}
             onClick={() => {
-              setVisible(false);
+              setActionVisible(false);
             }}
           >
             编辑

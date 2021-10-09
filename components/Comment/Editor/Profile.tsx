@@ -13,6 +13,7 @@ import markedToHtml from '@/utils/marked';
 import { setJSON } from '@/utils/storage';
 import CommentContext from '../context';
 import styles from './style.module.scss';
+import useMount from '@/hooks/useMount';
 
 export type CommentProfileType = {
   nickname: string;
@@ -24,6 +25,12 @@ const CommentProfile = () => {
   const [actionVisible, setActionVisible] = useState(false);
   const { reply, setReply } = useContext(CommentContext);
   const [value, onChange] = useLocalStorage(USER_COMMENT_PROFILE, initialCommentProfile);
+
+  useMount(() => {
+    if (Object.values(value).every(Boolean)) {
+      setActionVisible(true);
+    }
+  });
 
   const handleInput = (e: any) => {
     const emitValue = {
@@ -93,7 +100,7 @@ const CommentProfile = () => {
             style={{ marginRight: 12 }}
           />
 
-          <Button icon={<CheckOutlined />} onClick={handleSave}>
+          <Button type='dashed' icon={<CheckOutlined />} onClick={handleSave}>
             保存
           </Button>
         </div>

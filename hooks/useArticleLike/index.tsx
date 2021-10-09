@@ -1,9 +1,9 @@
+import useLocalStorage from '@/hooks/useLocalStorage';
 import {
   initialUserLikeHistory,
   UserLikeArticles,
   USER_LIKE_ARTICLE,
 } from '@/constants/like';
-import useLocalStorage from 'hooks/useLocalStorage';
 
 /**
  * 文章点赞hook

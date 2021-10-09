@@ -1,5 +1,5 @@
-import { getJSON, setJSON } from '@/utils/storage';
 import { useState } from 'react';
+import { getJSON, setJSON } from '@/utils/storage';
 
 type SetLocalStorageValue<T> = T | ((newValue: T) => T);
 
@@ -17,10 +17,9 @@ const useLocalStorage = <T = any>(key: string, defaultValue: T) => {
 
       if (value) {
         return value as T;
-      } else {
-        setJSON(key, defaultValue);
-        return defaultValue;
       }
+      setJSON(key, defaultValue);
+      return defaultValue;
     } catch (error) {
       return defaultValue;
     }

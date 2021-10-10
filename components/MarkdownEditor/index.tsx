@@ -42,13 +42,16 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
 
       <div className={styles.markdownContent}>
         <div className={`editor language-markdown ${styles.textarea}`} ref={editorRef} />
-        <div
-          style={{ display: preview ? 'block' : 'none' }}
-          className={`markdown-html ${styles.preview}`}
-          dangerouslySetInnerHTML={{
-            __html: markedToHtml(editorRef.current?.textContent || ''),
-          }}
-        />
+        {preview && (
+          <div
+            className={`markdown-html ${styles.preview}`}
+            dangerouslySetInnerHTML={{
+              __html: markedToHtml(editorRef.current?.textContent || '', {
+                purify: true,
+              }),
+            }}
+          />
+        )}
       </div>
     </Card>
   );

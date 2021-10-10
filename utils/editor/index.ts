@@ -14,7 +14,7 @@ type Position = {
   dir?: '->' | '<-';
 };
 
-type Options = {
+export type MarkdownEditorOptions = {
   tab: string;
   indentOn: RegExp;
   spellcheck: boolean;
@@ -35,9 +35,9 @@ export type MarkdownEditorUtil = ReturnType<typeof markdownEditorUtil>;
 function markdownEditorUtil(
   editor: HTMLElement,
   highlight: (e: HTMLElement, pos?: Position) => void,
-  opt: Partial<Options> = {}
+  opt: Partial<MarkdownEditorOptions> = {}
 ) {
-  const options: Options = {
+  const options: MarkdownEditorOptions = {
     tab: '\t',
     indentOn: /{$/,
     spellcheck: false,
@@ -501,7 +501,7 @@ function markdownEditorUtil(
   return {
     insert,
     insertMarkdownOption,
-    updateOptions(newOptions: Partial<Options>) {
+    updateOptions(newOptions: Partial<MarkdownEditorOptions>) {
       Object.assign(options, newOptions);
     },
     updateCode(code: string) {

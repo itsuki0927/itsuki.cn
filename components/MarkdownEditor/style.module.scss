@@ -1,0 +1,67 @@
+@import '../../styles/variables.scss';
+
+$toobar-height: 32px;
+$text-disabled: $gray-5;
+
+.markdown {
+  position: relative;
+  font-family: 'fira code';
+
+  .markdownContent {
+    position: relative;
+    overflow: hidden;
+
+    .textarea {
+      padding: $padding-sm;
+      line-height: 20px;
+      min-height: 200px;
+      max-width: 682px;
+      max-height: 550px;
+      overflow: auto;
+    }
+
+    .preview {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      padding: 12px;
+      height: 100%;
+      overflow: auto;
+      background-color: $white;
+    }
+  }
+
+  .toolbar {
+    border-bottom: 1px solid $gray-4;
+    padding: 7px $padding-sm;
+    height: $toobar-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .action {
+      &.disabled {
+        background-color: $text-disabled;
+        cursor: not-allowed;
+      }
+    }
+
+    .icon {
+      color: $gray-8;
+      margin-right: $margin-sm;
+      text-align: center;
+      font-size: $font-size-lg;
+      padding: 4px;
+      display: inline-block;
+      transition: all 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        color: $gray-10;
+        background-color: lighten($gray-5, 5%);
+      }
+    }
+  }
+}

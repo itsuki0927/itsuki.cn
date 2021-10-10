@@ -5,7 +5,7 @@
 import { getSelection } from '@/utils/editor/cursor';
 
 // Took from https://stackoverflow.com/questions/4811822/get-a-ranges-start-and-end-offsets-relative-to-its-parent-container/4812022#4812022
-export const getCaretOffset = (element: HTMLDivElement) => {
+export const getCaretOffset = (element: HTMLElement) => {
   let caretOffset = 0;
   const doc = element.ownerDocument || (element as any).document;
   const win = doc.defaultView || (doc as any).parentWindow;
@@ -62,7 +62,7 @@ const createRange = (el: ChildNode, chars: { count: number }, range?: Range): Ra
   return range;
 };
 
-export const setCurrentCursorPosition = (el: HTMLDivElement, chars: any) => {
+export const setCurrentCursorPosition = (el: HTMLElement, chars: any) => {
   if (chars >= 0) {
     const selection = getSelection();
 

@@ -1,12 +1,12 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable import/no-cycle */
 import React, { useCallback, useMemo, useState } from 'react';
-import markedToHtml from '@/utils/marked';
-import styles from './style.module.scss';
-// eslint-disable-next-line import/no-cycle
-import useEditor from './useEditor';
 import { MarkdownEditorOptions } from '@/utils/editor';
-import Toolbar from './Toolbar';
+import markedToHtml from '@/utils/marked';
 import Card from '../Card';
+import styles from './style.module.scss';
+import Toolbar from './Toolbar';
+import useEditor from './useEditor';
 
 export { useEditor };
 
@@ -20,15 +20,16 @@ export type MarkdownEditorProps = {
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
   const [preview, setPreview] = useState(false);
-  const editorRef = useEditor(props);
+  const { editorRef, jarRef } = useEditor(props);
 
   const handleInsertContent = useCallback(
     (tag: string) => {
       if (tag === 'preview') {
         setPreview(!preview);
       }
+      jarRef.current?.insertMarkdownOption(tag);
     },
-    [preview]
+    [jarRef, preview]
   );
 
   const toolbarDom = useMemo(
@@ -41,7 +42,10 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
       {toolbarDom}
 
       <div className={styles.markdownContent}>
-        <div className={`editor language-markdown ${styles.textarea}`} ref={editorRef} />
+        <div
+          className={`editor language-markdown ${styles.textarea}`}
+          ref={editorRef as any}
+        />
         {preview && (
           <div
             className={`markdown-html ${styles.preview}`}

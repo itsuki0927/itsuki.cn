@@ -1,9 +1,9 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import React, { useEffect } from 'react';
 import useMount from '@/hooks/useMount';
-import { MarkdownEditorUtil } from '@/utils/editor';
+import markdownEditorUtil, { MarkdownEditorUtil } from '@/utils/editor';
 import hljs from '@/utils/highlight';
-// eslint-disable-next-line import/no-cycle
 import { MarkdownEditorProps } from '.';
 import { getCaretOffset, setCurrentCursorPosition } from './util';
 
@@ -13,34 +13,28 @@ const highlight = (editor: HTMLElement) => {
 };
 
 const useEditor = (props: MarkdownEditorProps) => {
-  const editorRef = React.useRef<HTMLDivElement>(null);
+  const editorRef = React.useRef<HTMLElement>(null);
   const jarRef = React.useRef<MarkdownEditorUtil | null>(null);
   const [cursorOffset, setCursorOffset] = React.useState(0);
 
-  const initMarkdownEditor = async () => {
-    if (editorRef.current) {
-      const markdownEditorUtil = (await import('@/utils/editor')).default;
-      jarRef.current = markdownEditorUtil(editorRef.current, highlight, {
-        indentOn: /[(\\[{]$/,
-        preserveIdent: true,
-        catchTab: true,
-        addClosing: true,
-        history: true,
-      });
+  const initMarkdownEditor = () => {
+    jarRef.current = markdownEditorUtil(editorRef.current!, highlight, {
+      indentOn: /[(\\[{]$/,
+      preserveIdent: true,
+      catchTab: true,
+      addClosing: true,
+      history: true,
+    });
 
-      jarRef.current.updateCode(props.code);
-      jarRef.current.onUpdate(codeParams => {
-        if (!editorRef.current) return;
-
-        setCursorOffset(getCaretOffset(editorRef.current));
-        props.onChange(codeParams);
-      });
-    }
+    jarRef.current.updateCode(props.code);
+    jarRef.current.onUpdate(codeParams => {
+      if (!editorRef.current) return;
+      setCursorOffset(getCaretOffset(editorRef.current));
+      props.onChange(codeParams);
+    });
   };
 
   useMount(() => {
-    if (!editorRef.current || typeof window === undefined) return;
-
     initMarkdownEditor();
 
     return () => jarRef.current!.destroy();
@@ -48,8 +42,10 @@ const useEditor = (props: MarkdownEditorProps) => {
 
   useEffect(() => {
     if (!jarRef.current || !editorRef.current) return;
-    jarRef.current.updateCode(props.code);
-    setCurrentCursorPosition(editorRef.current, cursorOffset);
+    if (props.code !== editorRef.current.textContent) {
+      jarRef.current.updateCode(props.code);
+      setCurrentCursorPosition(editorRef.current, cursorOffset);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.code]);
 
@@ -59,7 +55,7 @@ const useEditor = (props: MarkdownEditorProps) => {
     jarRef.current.updateOptions(props.options);
   }, [props.options]);
 
-  return editorRef;
+  return { editorRef, jarRef };
 };
 
 export default useEditor;

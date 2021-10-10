@@ -2,6 +2,7 @@ import HLJSApi from 'highlight.js';
 
 import hljs from 'highlight.js/lib/core';
 import go from 'highlight.js/lib/languages/go';
+import markdown from 'highlight.js/lib/languages/markdown';
 import css from 'highlight.js/lib/languages/css';
 import sql from 'highlight.js/lib/languages/sql';
 import php from 'highlight.js/lib/languages/php';
@@ -40,6 +41,7 @@ const languages = {
   nginx,
   stylus,
   python,
+  markdown,
   javascript,
   typescript,
 };

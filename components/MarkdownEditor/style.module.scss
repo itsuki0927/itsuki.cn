@@ -1,7 +1,7 @@
 @import '../../styles/variables.scss';
 
 $toobar-height: 32px;
-$text-disabled: $gray-5;
+$text-disabled: $gray-4;
 
 .markdown {
   position: relative;
@@ -33,6 +33,22 @@ $text-disabled: $gray-5;
     }
   }
 
+  .icon {
+    color: $gray-8;
+    margin-right: $margin-sm;
+    text-align: center;
+    font-size: $font-size-lg;
+    padding: 4px;
+    display: inline-block;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      color: $gray-10;
+      background-color: $text-disabled;
+    }
+  }
+
   .toolbar {
     border-bottom: 1px solid $gray-4;
     padding: 7px $padding-sm;
@@ -45,22 +61,31 @@ $text-disabled: $gray-5;
       &.disabled {
         background-color: $text-disabled;
         cursor: not-allowed;
+        .icon {
+          background-color: inherit;
+          cursor: inherit;
+          color: inherit;
+        }
       }
     }
 
-    .icon {
-      color: $gray-8;
-      margin-right: $margin-sm;
-      text-align: center;
-      font-size: $font-size-lg;
-      padding: 4px;
-      display: inline-block;
-      transition: all 0.3s;
-      cursor: pointer;
+    .preview {
+      border: 1px solid $border-color-split;
+      border-radius: 2px;
 
-      &:hover {
-        color: $gray-10;
-        background-color: lighten($gray-5, 5%);
+      .btn {
+        width: 92px;
+        line-height: $font-size-sm;
+        vertical-align: top;
+        font-size: $font-size-sm;
+        border-radius: 0;
+        margin-left: 0;
+
+        &.active {
+          background-color: $text-disabled;
+          border-color: $text-disabled;
+          color: $black;
+        }
       }
     }
   }

@@ -24,18 +24,20 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
 
   const handleInsertContent = useCallback(
     (tag: string) => {
-      if (tag === 'preview') {
-        setPreview(!preview);
-        return;
-      }
       codeRef.current?.insertMarkdownOption(tag);
     },
-    [codeRef, preview]
+    [codeRef]
   );
 
   const toolbarDom = useMemo(
-    () => <Toolbar onItemClick={handleInsertContent} />,
-    [handleInsertContent]
+    () => (
+      <Toolbar
+        onItemClick={handleInsertContent}
+        preview={preview}
+        onPreview={setPreview}
+      />
+    ),
+    [handleInsertContent, preview]
   );
 
   return (

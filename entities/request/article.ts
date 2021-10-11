@@ -7,4 +7,6 @@ export type ArticleSearchRequest = BaseSearchRequest<{
   tag?: number;
   category?: number;
   content?: number;
+  banner?: number;
+  publish?: number;
 }>;

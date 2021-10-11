@@ -20,16 +20,17 @@ export type MarkdownEditorProps = {
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
   const [preview, setPreview] = useState(false);
-  const { editorRef, jarRef } = useEditor(props);
+  const { editorRef, codeRef } = useEditor(props);
 
   const handleInsertContent = useCallback(
     (tag: string) => {
       if (tag === 'preview') {
         setPreview(!preview);
+        return;
       }
-      jarRef.current?.insertMarkdownOption(tag);
+      codeRef.current?.insertMarkdownOption(tag);
     },
-    [jarRef, preview]
+    [codeRef, preview]
   );
 
   const toolbarDom = useMemo(

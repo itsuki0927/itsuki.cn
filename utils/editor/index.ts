@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import apply from '../apply';
 import debounce from '../debounce';
-import { isEnter, isRedo, isTab, isUndo, preventDefault } from './event';
+import { isEnter, isRedo, isShift, isTab, isUndo, preventDefault } from './event';
 import { findPadding, insert, shouldRecord, visit } from './helper';
 import { textAfterCursor, textBeforeCursor, getSelection } from './cursor';
 
@@ -189,11 +189,11 @@ function markdownEditorUtil(
   }
 
   function legacyNewLineFix(event: KeyboardEvent) {
-    if (isLegacy && isTab(event)) {
+    if (isLegacy && isEnter(event)) {
       preventDefault(event);
       event.stopPropagation();
       if (textAfterCursor(editor) === '') {
-        insert('\n');
+        insert('\n ');
         const pos = save();
         pos.start = --pos.end;
         restore(pos);
@@ -222,7 +222,7 @@ function markdownEditorUtil(
     ) {
       preventDefault(event);
       const pos = save();
-      const wrapText = pos.start === pos.end ? '' : getSelection();
+      const wrapText = pos.start === pos.end ? '' : getSelection().toString();
       const text = event.key + wrapText + close[open.indexOf(event.key)];
       insert(text);
       pos.start++;
@@ -234,7 +234,7 @@ function markdownEditorUtil(
   function handleTabCharacters(event: KeyboardEvent) {
     if (isTab(event)) {
       preventDefault(event);
-      if (event.shiftKey) {
+      if (isShift(event)) {
         const before = textBeforeCursor(editor);
         const [padding, start] = findPadding(before);
         if (padding.length) {
@@ -401,7 +401,7 @@ function markdownEditorUtil(
     focus = true;
   });
 
-  on('focus', () => {
+  on('blur', () => {
     focus = false;
   });
 
@@ -485,13 +485,14 @@ function markdownEditorUtil(
       insertMarkdownUl();
     } else if (tag === 'ol') {
       insertMarkdownOl();
-    } else if (tag === 'code') {
+    } else if (tag === 'blockcode') {
       insertMarkdownCode();
     } else if (tag === 'image') {
       insertMarkdownImage();
     } else if (tag === 'link') {
       insertMarkdownLink();
     }
+    apply(callback, toString());
     if (!recording) {
       recordHistory();
       recording = true;

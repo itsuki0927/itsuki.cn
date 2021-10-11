@@ -479,6 +479,11 @@ function markdownEditorUtil(
   }
 
   function insertMarkdownOption(tag: string) {
+    const s = getSelection();
+    // 如果一开始点击了toolbar, 此时没有聚焦, 就会throw error
+    if (!s.anchorNode || !s.focusNode) {
+      editor.focus();
+    }
     if (tag === 'bold') {
       insertMarkdownBold();
     } else if (tag === 'ul') {

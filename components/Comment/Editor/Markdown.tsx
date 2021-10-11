@@ -20,24 +20,27 @@ const CommentMarkdownEditor = ({ onSend }: MarkdownEditorProps) => {
   return (
     <Card className={styles.markdown} bordered={false} bodyStyle={{ padding: 0 }}>
       <DynamicMarkdown code={content} onChange={setContent} />
-      <Button
-        type='primary'
-        className={styles.send}
-        icon={<SendOutlined />}
-        disabled={loading}
-        onClick={() => {
-          if (!content) {
-            alert('请输入评论内容');
-            return;
-          }
-          setLoading(true);
-          onSend(content).finally(() => {
-            setLoading(false);
-          });
-        }}
-      >
-        {loading ? '发射中...' : '发射'}
-      </Button>
+
+      <div className={styles.actionBar}>
+        <Button
+          type='primary'
+          className={styles.send}
+          icon={<SendOutlined />}
+          disabled={loading}
+          onClick={() => {
+            if (!content) {
+              alert('请输入评论内容');
+              return;
+            }
+            setLoading(true);
+            onSend(content).finally(() => {
+              setLoading(false);
+            });
+          }}
+        >
+          {loading ? '发射中...' : '发射'}
+        </Button>
+      </div>
     </Card>
   );
 };

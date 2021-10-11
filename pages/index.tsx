@@ -2,18 +2,6 @@ import { SoundOutlined } from '@ant-design/icons';
 import Alert from '@/components/Alert';
 import ArticleList from '@/components/Article';
 
-// type StaticProps = {
-//   articles: SearchResponse<Article>;
-// };
-// export const getStaticProps: GetStaticProps<StaticProps> = async () => {
-//   return {
-//     props: {
-//       articles,
-//     },
-//   };
-// };
-
-// const Home = ({ articles }: InferGetStaticPropsType<typeof getStaticProps>) => {
 const Home = () => (
   <div>
     <Alert

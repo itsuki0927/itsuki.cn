@@ -6,6 +6,7 @@ import BackTop from '@/components/BackTop';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Comment from '@/components/Comment';
+import ImagePopup from '@/components/ImagePopup';
 import Tag from '@/components/Tag';
 import { ao } from '@/constants/article/origin';
 import { Article } from '@/entities/article';
@@ -41,6 +42,11 @@ const ArticlePage = ({
 
   return (
     <div>
+      <ImagePopup
+        ref={imagePopup => {
+          (window as any).imagePopup = imagePopup;
+        }}
+      />
       <Card
         title={
           <div className={styles.title}>

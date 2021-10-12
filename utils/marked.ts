@@ -52,7 +52,12 @@ customRenderer.link = function renderLink(hrefProp: string, title: string, text:
 
 // 解析图片
 customRenderer.image = function renderImage(url: string, title: string, text: string) {
-  return `<img src=${url} title=${title} alt=${title || text}/>`;
+  return `<img
+            src=${url}
+            title=${title}
+            onclick="imagePopup && imagePopup.open('${url}')"
+            alt=${title || text}
+          />`;
 };
 
 // 解析代码

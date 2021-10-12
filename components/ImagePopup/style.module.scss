@@ -1,0 +1,26 @@
+@import '../../styles/variables.scss';
+
+.imagePopup {
+  .overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    z-index: 999;
+    pointer-events: auto;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(192, 192, 192, 0.5);
+    transition: opacity 0.1s, visibility 0.1s;
+    backdrop-filter: blur(5px);
+
+    .image {
+      border: 8px solid $gray-2;
+      border-radius: 6px;
+      object-fit: cover;
+      min-width: 400px;
+      max-width: 90%;
+      min-height: 100px;
+      max-height: 90%;
+    }
+  }
+}

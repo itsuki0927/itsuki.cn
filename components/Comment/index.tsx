@@ -8,6 +8,7 @@ import useCommentLike from '@/hooks/useCommentLike';
 import { purifyDomString } from '@/transformers/purify';
 import Button from '../Button';
 import Card from '../Card';
+import Empty from '../Empty';
 import CommentContext from './context';
 import Editor from './Editor';
 import { CommentProfileType } from './Editor/Profile';
@@ -98,14 +99,18 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
           </>
         }
       >
-        {comments.map(item => (
-          <CommentCard
-            onLikeComment={handleLikeComment}
-            liked={isCommentLiked(item.id)}
-            comment={item}
-            key={item.id}
-          />
-        ))}
+        {comments.length ? (
+          comments.map(item => (
+            <CommentCard
+              onLikeComment={handleLikeComment}
+              liked={isCommentLiked(item.id)}
+              comment={item}
+              key={item.id}
+            />
+          ))
+        ) : (
+          <Empty />
+        )}
         <Editor onSend={handleSend} />
       </Card>
     </CommentContext.Provider>

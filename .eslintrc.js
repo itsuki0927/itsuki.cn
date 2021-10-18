@@ -1,3 +1,7 @@
+const OFF = 'off'; // 关闭使用某项规则
+const ERROR = 'error'; // 禁止使用某项规则
+const WARNING = 'warn'; // 警告使用某项规则
+
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
@@ -16,10 +20,12 @@ module.exports = {
   },
   rules: {
     // 禁止 log
-    'no-console': 'error',
+    'no-console': ERROR,
+    // jsx 中使用单引号
+    'jsx-quotes': [ERROR, 'prefer-single'],
     // 导入扩展名
     'import/extensions': [
-      'error',
+      ERROR,
       'never',
       {
         svg: 'always',
@@ -29,20 +35,21 @@ module.exports = {
         jpeg: 'always',
       },
     ],
-    // react 在jsx中不需要导入
-    'react/react-in-jsx-scope': 'off',
-    'react/jsx-uses-react': 'off',
+    // 允许 react 在jsx中不需要导入
+    'react/react-in-jsx-scope': OFF,
+    'react/jsx-uses-react': OFF,
     // 关闭 prop-types
-    'react/prop-types': 'off',
+    'react/prop-types': OFF,
     // 关闭 默认props
-    'react/require-default-props': 'off',
+    'react/require-default-props': OFF,
     //
-    'consistent-return': 'off',
+    'consistent-return': OFF,
     // 允许 {...restProps}
-    'react/jsx-props-no-spreading': 'off',
-    // jsx 中使用单引号
-    'jsx-quotes': ['error', 'prefer-single'],
+    'react/jsx-props-no-spreading': OFF,
+    // 允许 使用位运算
+    'no-bitwise': OFF,
     // TODO: 暂时关闭坚持
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': OFF,
+    'no-param-reassign': WARNING,
   },
 };

@@ -8,7 +8,7 @@ const DynamicAffix = dynamic(() => import('@/components/Affix'), { ssr: false })
 const Main: FC = ({ children }) => (
   <main className={styles.main}>
     <div className={styles.mainContent}>{children}</div>
-    <DynamicAffix top={24}>
+    <DynamicAffix top={88}>
       <Sidebar />
     </DynamicAffix>
   </main>

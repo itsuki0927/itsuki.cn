@@ -2,7 +2,6 @@ import { getArticleById, patchArticleMeta } from 'api/article';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import BackTop from '@/components/BackTop';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Comment from '@/components/Comment';
@@ -109,8 +108,6 @@ const ArticlePage = ({
           })
         }
       />
-
-      <BackTop />
     </div>
   );
 };

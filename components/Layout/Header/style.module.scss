@@ -5,9 +5,11 @@ $nav-item-width: 64px;
 
 .header {
   height: $header-height;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
-  max-width: 100%;
   box-shadow: $gray-4 0 2px 8px;
   background: $header-background;
 

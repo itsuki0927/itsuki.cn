@@ -1,3 +1,4 @@
+import contains from './contains';
 import getWindow from './getWindow';
 import ownerDocument from './ownerDocument';
 
@@ -28,6 +29,8 @@ const getOffset = (node: Element): Offset | DOMRect | null => {
   };
 
   if (!doc) return null;
+
+  if (!contains(docElement, node)) return box;
 
   if (node.getBoundingClientRect) {
     box = node.getBoundingClientRect();

@@ -4,6 +4,7 @@ import '@/components/Card/style.scss';
 import '@/styles/globals.scss';
 import '@/styles/markdown.scss';
 import '@/styles/reset.scss';
+import 'nprogress/nprogress.css';
 import { fetchGlobalData } from 'api/global';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';

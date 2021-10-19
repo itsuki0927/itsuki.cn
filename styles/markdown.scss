@@ -142,7 +142,7 @@
     &::before {
       color: $gray-3;
       content: attr(data-lang) ' CODE';
-      font-family: 'fira code';
+      font-family: 'Fira Code';
       height: $code-header-height;
       line-height: $code-header-height;
       position: absolute;

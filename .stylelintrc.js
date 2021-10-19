@@ -6,11 +6,11 @@ module.exports = {
     'scss/at-rule-no-unknown': true,
     // color另起一行
     // 'declaration-colon-newline-after': null,
-    // 忽略 fira code
+    // 忽略 Fira Code
     'font-family-no-missing-generic-family-keyword': [
       true,
       {
-        ignoreFontFamilies: ['fira code'],
+        ignoreFontFamilies: ['Fira Code', 'Inter'],
       },
     ],
     // 忽略 :global 伪类

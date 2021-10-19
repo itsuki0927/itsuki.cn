@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "pm2": "pm2 start yarn --name 'client' --interpreter bash -- start ",
     "next:lint": "next lint",
     "lint": "eslint .",
     "prepare": "husky install",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.2.0",
     "@commitlint/config-conventional": "^13.2.0",
+    "@next/bundle-analyzer": "^11.1.2",
     "@types/dompurify": "^2.3.1",
     "@types/gravatar": "^1.8.3",
     "@types/marked": "^3.0.1",

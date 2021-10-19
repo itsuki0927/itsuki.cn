@@ -1,29 +1,37 @@
-import React, { useState } from 'react';
-import Slider from 'react-slick';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { getArticles } from '@/api/article';
-import Card from '@/components/Card';
 import { Article } from '@/entities/article';
 import { SearchResponse } from '@/entities/response/base';
-import useMount from '@/hooks/useMount';
-import 'slick-carousel/slick/slick-theme.css';
+import imageTransformer from '@/transformers/image';
 import 'slick-carousel/slick/slick.css';
 import styles from './style.module.scss';
+
+const Slider = dynamic(() => import('react-slick'));
+const Card = dynamic(() => import('@/components/Card'));
 
 const HomeSlider = () => {
   const [articles, setArticles] = useState<SearchResponse<Article>>();
 
-  useMount(() => {
+  useEffect(() => {
+    let isCancel = false;
     getArticles({ publish: 1, banner: 1 }).then(res => {
-      setArticles(res);
+      if (!isCancel) {
+        setArticles(res);
+      }
     });
-  });
+
+    return () => {
+      isCancel = true;
+    };
+  }, []);
 
   return (
     <Slider
       accessibility
-      arrows
+      arrows={false}
       autoplay
       infinite
       autoplaySpeed={5000}
@@ -37,9 +45,10 @@ const HomeSlider = () => {
             <Image
               src={article.cover}
               objectFit='cover'
-              width='100%'
               placeholder='empty'
-              height='300'
+              width='100%'
+              height={300}
+              loader={imageTransformer}
               alt='banner-cover'
             />
           }

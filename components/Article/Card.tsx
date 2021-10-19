@@ -1,6 +1,7 @@
 import { EyeOutlined, HeartOutlined, MessageOutlined } from '@ant-design/icons';
-import router from 'next/router';
 import Image from 'next/image';
+import router from 'next/router';
+import imageTransformer from '@/transformers/image';
 import { Article } from '@/entities/article';
 import Card from '../Card';
 import styles from './style.module.scss';
@@ -22,6 +23,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => (
         objectFit='cover'
         src={article.cover}
         className={styles.cover}
+        loader={imageTransformer}
       />
     }
     actions={[

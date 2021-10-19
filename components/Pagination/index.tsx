@@ -1,6 +1,6 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import Button from '../Button';
 import styles from './style.module.scss';
 
@@ -26,31 +26,44 @@ const Pagination = ({
   const pageTotal = Math.ceil(total / pageSize);
 
   useEffect(() => {
+    if (currentProp !== current || defaultCurrent !== current) {
+      setCurrent(currentProp || defaultCurrent);
+    }
+  }, [current, currentProp, defaultCurrent]);
+
+  useEffect(() => {
     if (pageSizeProp && pageSize !== pageSizeProp) {
       setPageSize(pageSizeProp);
       setCurrent(1);
     }
   }, [pageSize, pageSizeProp]);
 
-  const handleChangeCurrent = (currentParam: number) => {
-    setCurrent(currentParam);
-    onChange?.(currentParam, pageSize);
-  };
+  const handleChangeCurrent = useCallback(
+    (currentParam: number) => {
+      setCurrent(currentParam);
+      onChange?.(currentParam, pageSize);
+    },
+    [onChange, pageSize]
+  );
 
-  const buttons = Array.from({ length: pageTotal }, (_, i) => (
-    <Button
-      type='text'
-      key={`page-${i + 1}`}
-      className={classNames(styles.item, {
-        [styles.active]: current === i + 1,
-      })}
-      onClick={() => {
-        handleChangeCurrent(i + 1);
-      }}
-    >
-      {i + 1}
-    </Button>
-  ));
+  const buttons = useMemo(
+    () =>
+      Array.from({ length: pageTotal }, (_, i) => (
+        <Button
+          type='text'
+          key={`page-${i + 1}`}
+          className={classNames(styles.item, {
+            [styles.active]: current === i + 1,
+          })}
+          onClick={() => {
+            handleChangeCurrent(i + 1);
+          }}
+        >
+          {i + 1}
+        </Button>
+      )),
+    [current, handleChangeCurrent, pageTotal]
+  );
 
   return (
     <div className={styles.pagination}>

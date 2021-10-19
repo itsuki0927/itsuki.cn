@@ -1,7 +1,7 @@
-import { getArticleById, patchArticleMeta } from 'api/article';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { getArticleById, getArticles, patchArticleMeta } from '@/api/article';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Comment from '@/components/Comment';
@@ -17,7 +17,18 @@ type StaticProps = {
   article: Article;
 };
 
-export const getServerSideProps: GetServerSideProps<StaticProps> = async ({ params }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const articles = await getArticles({ publish: 1 });
+
+  const paths = articles.data.map(item => ({ params: { id: `${item.id}` } }));
+
+  return {
+    paths,
+    fallback: false, // 设置的 paths 数组是否是
+  };
+};
+
+export const getStaticProps: GetStaticProps<StaticProps> = async ({ params }) => {
   const article = await getArticleById(params?.id as string);
 
   return {
@@ -27,9 +38,7 @@ export const getServerSideProps: GetServerSideProps<StaticProps> = async ({ para
   };
 };
 
-const ArticlePage = ({
-  article,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ArticlePage = ({ article }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [liking, setLiking] = useState(article.liking);
 
   useMount(() => {

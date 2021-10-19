@@ -9,6 +9,14 @@ const Footer = () => (
         <span>❤️</span>
         <span>by</span>
         Itsuki
+        <a
+          className={styles.link}
+          href='https://beian.miit.gov.cn'
+          target='_blank'
+          rel='noreferrer'
+        >
+          湘ICP备19011111号-1
+        </a>
       </div>
     </Card>
   </footer>

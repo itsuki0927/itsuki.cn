@@ -15,7 +15,7 @@
     "stylelint-check": "stylelint-config-prettier-check",
     "check-lint": "eslint --fix",
     "check-format": "prettier --check .",
-    "check-style": "stylelint --fix",
+    "check-style": "stylelint --fix '**/*.scss'",
     "check-types": "tsc -p ./tsconfig.json --noEmit --pretty"
   },
   "dependencies": {

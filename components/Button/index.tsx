@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { FC, ReactNode } from 'react';
+import styles from './style.module.scss';
 
 export const tuple = <T extends string[]>(...args: T) => args;
 
@@ -54,12 +55,12 @@ const Button: FC<ButtonProps> = ({
 
   const classString = classNames(
     {
-      [`btn-${size}`]: size,
-      [`btn-${type}`]: type,
-      'btn-block': block,
-      'btn-disabled': otherProps.disabled,
+      [styles[size]]: size,
+      [styles[type]]: type,
+      [styles.block]: block,
+      [styles.disabled]: otherProps.disabled,
     },
-    'btn',
+    styles.btn,
     className
   );
   return (

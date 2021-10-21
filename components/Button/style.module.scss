@@ -29,52 +29,52 @@ $button-color: #000000d9;
     margin-left: 12px;
   }
 
-  &:not(.btn-disabled):hover {
+  &:not(.disabled):hover {
     color: $primary-hover-color;
     border-color: $primary-hover-color;
   }
 
-  &-primary {
+  &.primary {
     color: $white;
     border-color: $primary;
     background: $primary;
     text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
     box-shadow: 0 2px #0000000b;
 
-    &:not(.btn-disabled):hover {
+    &:not(.disabled):hover {
       color: $white;
       border-color: $primary-hover-color;
       background: $primary-hover-color;
     }
   }
 
-  &-disabled {
+  &.disabled {
     color: $disabled-color;
     border-color: $disabled-border-color;
     background: $disabled-bg-color;
   }
 
-  &-dashed {
+  &.dashed {
     color: $text-color;
     border-color: $gray-5;
     background: $white;
     border-style: dashed;
   }
 
-  &-text {
+  &.text {
     color: $text-color;
     border-color: transparent;
     background: 0 0;
     box-shadow: none;
 
-    &:not(.btn-disabled):hover {
+    &:not(.disabled):hover {
       color: $text-color;
       background: rgba(0, 0, 0, 0.018);
       border-color: transparent;
     }
   }
 
-  &-link {
+  &.link {
     color: $primary;
     border-color: transparent;
     background: 0 0;
@@ -85,25 +85,27 @@ $button-color: #000000d9;
     }
   }
 
-  &-small {
+  &.small {
     height: 24px;
     padding: 0 7px;
     font-size: 14px;
     border-radius: 2px;
   }
 
-  &-large {
+  &.large {
     height: 40px;
     padding: 6.4px 15px;
     font-size: 16px;
     border-radius: 2px;
   }
 
-  &-block {
+  &.block {
     width: 100%;
   }
 
-  .anticon + span {
-    margin-left: 8px;
+  :global {
+    .anticon + span {
+      margin-left: 8px;
+    }
   }
 }

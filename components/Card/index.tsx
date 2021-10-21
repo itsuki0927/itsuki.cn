@@ -38,7 +38,7 @@ export interface CardInterface extends React.FC<CardProps> {
 const Card: CardInterface = ({
   className,
   id,
-  size,
+  size = 'default',
   type,
   cover,
   actions,
@@ -91,7 +91,7 @@ const Card: CardInterface = ({
       [styles.bordered]: bordered,
       [styles.loading]: loading,
       [styles.hoverable]: hoverable,
-      [styles[size as any]]: !!size,
+      [styles[size]]: !!size,
       [styles.typeInner]: !!type,
     },
     className

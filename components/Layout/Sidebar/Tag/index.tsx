@@ -2,22 +2,23 @@ import { useContext } from 'react';
 import Card from '@/components/Card';
 import Tag from '@/components/Tag';
 import AppContext from '@/utils/context';
-
-const buttonStyle = {
-  marginBottom: 12,
-};
+import styles from './style.module.scss';
 
 const cardBodyStyle = {
   paddingBottom: 12,
+};
+
+const buttonProps = {
+  className: styles.btn,
 };
 
 const SidebarTag = () => {
   const context = useContext(AppContext);
 
   return (
-    <Card title='Tag' bodyStyle={cardBodyStyle}>
+    <Card title='Tag' className={styles.tag} bodyStyle={cardBodyStyle}>
       {context?.tags?.map(item => (
-        <Tag key={item.id} buttonProps={{ style: buttonStyle }} tag={item} />
+        <Tag key={item.id} buttonProps={buttonProps} tag={item} />
       ))}
     </Card>
   );

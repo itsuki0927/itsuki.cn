@@ -1,9 +1,10 @@
 import { SendOutlined } from '@ant-design/icons';
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Card from '@/components/Card';
 import Button from '@/components/Button';
 import styles from './style.module.scss';
+import CommentContext from '../context';
 
 const DynamicMarkdown = dynamic(() => import('@/components/MarkdownEditor'), {
   ssr: false,
@@ -16,6 +17,7 @@ type MarkdownEditorProps = {
 const CommentMarkdownEditor = ({ onSend }: MarkdownEditorProps) => {
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState('');
+  const { setReply } = useContext(CommentContext);
 
   return (
     <Card className={styles.markdown} bordered={false} bodyStyle={{ padding: 0 }}>
@@ -33,9 +35,14 @@ const CommentMarkdownEditor = ({ onSend }: MarkdownEditorProps) => {
               return;
             }
             setLoading(true);
-            onSend(content).finally(() => {
-              setLoading(false);
-            });
+            onSend(content)
+              .then(() => {
+                setContent('');
+                setReply(undefined);
+              })
+              .finally(() => {
+                setLoading(false);
+              });
           }}
         >
           {loading ? '发射中...' : '发射'}

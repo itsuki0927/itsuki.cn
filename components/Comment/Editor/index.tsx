@@ -1,6 +1,6 @@
-import { getGravatarUrl } from 'transformers/gravatar';
 import Card from '@/components/Card';
 import { USER_COMMENT_PROFILE } from '@/constants/comment';
+import { getGravatarUrl } from '@/transformers/gravatar';
 import { getJSON } from '@/utils/storage';
 import MarkdownEditor from './Markdown';
 import CommentProfile, { CommentProfileType } from './Profile';

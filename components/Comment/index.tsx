@@ -64,10 +64,15 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
       })
       .catch(() => {
         alert(
-          `评论发布失败\n1：被 Akismet 过滤\n2：邮箱/IP 被列入黑名单\n3：内容包含黑名单关键词\n
-                   `
+          `评论发布失败\n
+          1：检查邮箱是否符合格式\n
+          2：被 Akismet 过滤\n
+          3：邮箱/IP 被列入黑名单\n
+          4：内容包含黑名单关键词\n
+           `
         );
-        return Promise.reject(new Error('评论失败'));
+        // eslint-disable-next-line prefer-promise-reject-errors
+        return Promise.reject('评论失败');
       });
 
   return (

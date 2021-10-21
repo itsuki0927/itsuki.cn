@@ -9,11 +9,11 @@ import Button from '@/components/Button';
 import Card from '@/components/Card';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import useMount from '@/hooks/useMount';
 import markedToHtml from '@/utils/marked';
 import { setJSON } from '@/utils/storage';
 import CommentContext from '../context';
 import styles from './style.module.scss';
-import useMount from '@/hooks/useMount';
 
 export type CommentProfileType = {
   nickname: string;

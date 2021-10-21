@@ -1,4 +1,3 @@
-import '@/components/Alert/style.scss';
 import '@/components/Button/style.scss';
 import '@/components/Card/style.scss';
 import { fetchGlobalData } from 'api/global';

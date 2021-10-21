@@ -15,6 +15,7 @@ import {
   MouseEventHandler,
   ReactNode,
 } from 'react';
+import styles from './style.module.scss';
 
 type AnyObject = Record<any, any>;
 
@@ -101,24 +102,24 @@ const Alert = ({
     const iconType = (description ? iconMapOutlined : iconMapFilled)[type] || null;
 
     if (icon) {
-      return replaceElement(icon, <span className='alert-icon'>{icon}</span>, () => ({
-        className: classNames('alert-icon', {
+      return replaceElement(icon, <span className={styles.icon}>{icon}</span>, () => ({
+        className: classNames(styles.icon, {
           [(icon as any).props.className]: (icon as any).props.className,
         }),
       }));
     }
-    return createElement(iconType, { className: 'alert-icon' });
+    return createElement(iconType, { className: styles.icon });
   };
 
   const isShowIcon = banner && showIcon === undefined ? true : showIcon;
 
   const classString = classNames(
-    'alert',
-    `alert-${type}`,
+    styles.alert,
+    styles[type],
     {
-      'alert-with-description': !!description,
-      'alert-no-icon': !isShowIcon,
-      'alert-banner': !!banner,
+      [styles.withDescription]: !!description,
+      [styles.noIcon]: !isShowIcon,
+      [styles.banner]: !!banner,
     },
     className
   );
@@ -134,11 +135,11 @@ const Alert = ({
       aria-hidden='true'
     >
       {isShowIcon ? renderIconType() : null}
-      <div className='alert-content'>
-        {message ? <div className='alert-message'>{message}</div> : null}
-        {description ? <div className='alert-description'>{description}</div> : null}
+      <div className={styles.content}>
+        {message ? <div className={styles.message}>{message}</div> : null}
+        {description ? <div className={styles.description}>{description}</div> : null}
       </div>
-      {action ? <div className='alert-action'>{action}</div> : null}
+      {action ? <div className={styles.action}>{action}</div> : null}
     </div>
   );
 };

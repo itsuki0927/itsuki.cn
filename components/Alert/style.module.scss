@@ -35,98 +35,98 @@ $alert-text-color: $text-color;
   word-wrap: break-word;
   border-radius: $border-radius-base;
 
-  &-content {
+  .content {
     flex: 1;
     min-width: 0;
   }
 
-  &-icon {
+  .icon {
     margin-right: $margin-lg;
   }
 
-  &-description {
+  .description {
     display: none;
     font-size: $font-size-base;
     line-height: $font-size-base + 8px;
   }
 
-  &-success {
+  &.success {
     background-color: $alert-success-bg-color;
     border: 1px solid $alert-success-border-color;
 
-    .alert-icon {
+    .icon {
       color: $alert-success-icon-color;
     }
   }
 
-  &-info {
+  &.info {
     background-color: $alert-info-bg-color;
     border: 1px solid $alert-info-border-color;
 
-    .alert-icon {
+    .icon {
       color: $alert-info-icon-color;
     }
   }
 
-  &-warning {
+  &.warning {
     background-color: $alert-warning-bg-color;
     border: 1px solid $alert-warning-border-color;
 
-    .alert-icon {
+    .icon {
       color: $alert-warning-icon-color;
     }
   }
 
-  &-error {
+  &.error {
     background-color: $alert-error-bg-color;
     border: 1px solid $alert-error-border-color;
 
-    .alert-icon {
+    .icon {
       color: $alert-error-icon-color;
     }
 
-    .alert-description > pre {
+    .description > pre {
       margin: 0;
       padding: 0;
     }
   }
 
-  &-action {
-    margin-left: 8px;
-  }
-
-  &-with-description {
-    align-items: flex-start;
-    padding: $padding-md $padding-md $padding-md $padding-lg;
-  }
-
-  &-with-description &-no-icon {
-    padding: 7px $padding-md;
-  }
-
-  &-with-description &-icon {
-    margin-right: $margin-md;
-    font-size: 24px;
-  }
-
-  &-message {
-    color: $alert-message-color;
-  }
-
-  &-with-description &-message {
-    display: block;
-    margin-bottom: 4px;
-    color: $alert-message-color;
-    font-size: $font-size-lg;
-  }
-
-  &-with-description &-description {
-    display: block;
-  }
-
-  &-banner {
+  &.banner {
     margin-bottom: 0;
     border: 0;
     border-radius: 0;
+  }
+
+  .action {
+    margin-left: 8px;
+  }
+
+  .message {
+    color: $alert-message-color;
+  }
+
+  &.withDescription {
+    align-items: flex-start;
+    padding: $padding-md $padding-md $padding-md $padding-lg;
+
+    .noIcon {
+      padding: 7px $padding-md;
+    }
+
+    .message {
+      display: block;
+      margin-bottom: 4px;
+      color: $alert-message-color;
+      font-size: $font-size-lg;
+    }
+
+    .icon {
+      margin-right: $margin-md;
+      font-size: 24px;
+    }
+
+    .description {
+      display: block;
+    }
   }
 }

@@ -18,31 +18,50 @@ $card-background: $component-background;
 $card-radius: $border-radius-base;
 $card-head-extra-color: $text-color;
 
+.meta {
+  @include clearfix;
+
+  margin: -4px 0;
+
+  .avatar {
+    float: left;
+    padding-right: 16px;
+
+    .card.rtl & {
+      float: right;
+      padding-right: 0;
+      padding-left: 16px;
+    }
+  }
+
+  .detail {
+    overflow: hidden;
+
+    > div:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+
+  .title {
+    overflow: hidden;
+    color: $card-head-color;
+    font-weight: 500;
+    font-size: $font-size-lg;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .description {
+    color: $text-color-secondary;
+  }
+}
+
 .card {
   position: relative;
   background: $card-background;
   border-radius: 2px;
 
-  &-rtl {
-    direction: rtl;
-  }
-
-  &-hoverable {
-    cursor: pointer;
-    transition: box-shadow 0.3s, border-color 0.3s;
-
-    &:hover {
-      border-color: transparent;
-      box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px 0 rgba(0, 0, 0, 0.12),
-        0 5px 12px 4px rgba(0, 0, 0, 0.09);
-    }
-  }
-
-  &-bordered {
-    border: 1px solid $border-color-split;
-  }
-
-  &-head {
+  .head {
     @include clearfix;
 
     min-height: 48px;
@@ -55,12 +74,12 @@ $card-head-extra-color: $text-color;
     border-bottom: 1px solid $border-color-split;
     border-radius: 2px 2px 0 0;
 
-    &-wrapper {
+    .wrapper {
       display: flex;
       align-items: center;
     }
 
-    &-title {
+    .title {
       display: inline-block;
       flex: 1;
       padding: 16px 0;
@@ -70,27 +89,13 @@ $card-head-extra-color: $text-color;
     }
   }
 
-  &-extra {
-    float: right;
-    margin-left: auto;
-    padding: 16px 0;
-    color: $card-head-extra-color;
-    font-weight: normal;
-    font-size: $font-size-base;
-
-    .card-rtl & {
-      margin-right: auto;
-      margin-left: 0;
-    }
-  }
-
-  &-body {
+  .body {
     @include clearfix;
 
     padding: $padding-lg;
   }
 
-  &-cover {
+  .cover {
     > * {
       display: block;
       width: 100%;
@@ -101,13 +106,21 @@ $card-head-extra-color: $text-color;
     }
   }
 
-  &-bordered &-cover {
-    margin-top: -1px;
-    margin-right: -1px;
-    margin-left: -1px;
+  .extra {
+    float: right;
+    margin-left: auto;
+    padding: 16px 0;
+    color: $card-head-extra-color;
+    font-weight: normal;
+    font-size: $font-size-base;
+
+    // .card.rtl & {
+    // margin-right: auto;
+    // margin-left: 0;
+    // }
   }
 
-  &-actions {
+  .actions {
     @include clearfix;
 
     margin: 0;
@@ -122,7 +135,16 @@ $card-head-extra-color: $text-color;
       color: $text-color-secondary;
       text-align: center;
 
-      .card-rtl & {
+      &:not(:last-child) {
+        border-right: 1px solid $border-color-split;
+
+        .card-rtl & {
+          border-right: none;
+          border-left: 1px solid $border-color-split;
+        }
+      }
+
+      .card.rtl & {
         float: right;
       }
 
@@ -157,89 +179,74 @@ $card-head-extra-color: $text-color;
           }
         }
       }
-
-      &:not(:last-child) {
-        border-right: 1px solid $border-color-split;
-
-        .card-rtl & {
-          border-right: none;
-          border-left: 1px solid $border-color-split;
-        }
-      }
     }
   }
 
-  &-type-inner &-head {
-    padding: 0 $padding-lg;
-    background: $background-color-light;
+  &.rtl {
+    direction: rtl;
 
-    &-title {
-      padding: 12px 0;
-      font-size: $font-size-base;
+    .extra {
+      margin-right: auto;
+      margin-left: 0;
     }
   }
 
-  &-type-inner &-body {
-    padding: 16px $padding-lg;
+  &.hoverable {
+    cursor: pointer;
+    transition: box-shadow 0.3s, border-color 0.3s;
+
+    &:hover {
+      border-color: transparent;
+      box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px 0 rgba(0, 0, 0, 0.12),
+        0 5px 12px 4px rgba(0, 0, 0, 0.09);
+    }
   }
 
-  &-type-inner &-extra {
-    padding: 12px + 1.5px 0;
+  &.bordered {
+    border: 1px solid $border-color-split;
   }
 
-  &-meta {
-    @include clearfix;
+  &.typeInner {
+    .head {
+      padding: 0 $padding-lg;
+      background: $background-color-light;
 
-    margin: -4px 0;
-
-    &-avatar {
-      float: left;
-      padding-right: 16px;
-
-      .card-rtl & {
-        float: right;
-        padding-right: 0;
-        padding-left: 16px;
+      .title {
+        padding: 12px 0;
+        font-size: $font-size-base;
       }
     }
 
-    &-detail {
-      overflow: hidden;
-
-      > div:not(:last-child) {
-        margin-bottom: 8px;
-      }
+    .body {
+      padding: 16px $padding-lg;
     }
 
-    &-title {
-      overflow: hidden;
-      color: $card-head-color;
-      font-weight: 500;
-      font-size: $font-size-lg;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    &-description {
-      color: $text-color-secondary;
+    .extra {
+      padding: 12px + 1.5px 0;
     }
   }
 
-  &-loading {
+  &.bordered .cover {
+    margin-top: -1px;
+    margin-right: -1px;
+    margin-left: -1px;
+  }
+
+  &.loading {
     overflow: hidden;
   }
 
-  &-loading &-body {
+  &.loading .body {
     user-select: none;
   }
 
-  &-loading-content {
+  .loadingContent {
     p {
       margin: 0;
     }
   }
 
-  &-loading-block {
+  .loadingBlock {
     height: 14px;
     margin: 4px 0;
     background: linear-gradient(90deg, $gradient-min, $gradient-max, $gradient-min);
@@ -248,25 +255,25 @@ $card-head-extra-color: $text-color;
     animation: card-loading 1.4s ease infinite;
   }
 
-  &-small {
-    > .card-head {
+  &.small {
+    > .head {
       min-height: 36px;
       padding: 0 12px;
       font-size: $card-head-font-size-sm;
 
-      > .card-head-wrapper {
-        > .card-head-title {
+      > .wrapper {
+        > .title {
           padding: 12px 0;
         }
 
-        > .card-extra {
+        > .extra {
           padding: 12px 0;
           font-size: $card-head-font-size-sm;
         }
       }
     }
 
-    > .card-body {
+    > .body {
       padding: 12px;
     }
   }

@@ -1,5 +1,4 @@
 import '@/components/Button/style.scss';
-import '@/components/Card/style.scss';
 import { fetchGlobalData } from 'api/global';
 import type { AppProps } from 'next/app';
 import React from 'react';

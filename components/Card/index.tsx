@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { CSSProperties, ReactNode } from 'react';
 import Meta from './Meta';
+import styles from './style.module.scss';
 
 const getActions = (actions: ReactNode[]) =>
   actions.map((action, index) => (
@@ -54,7 +55,7 @@ const Card: CardInterface = ({
   const loadingBlockStyle =
     bodyStyle.padding === 0 || bodyStyle.padding === '0px' ? { padding: 24 } : undefined;
 
-  const block = <div className='card-loading-block' />;
+  const block = <div className={styles.loadingBlock} />;
 
   const loadingBlock = <div style={loadingBlockStyle}>{block}</div>;
 
@@ -62,36 +63,36 @@ const Card: CardInterface = ({
 
   if (title || extra) {
     head = (
-      <div className='card-head' style={headStyle}>
-        <div className='card-head-wrapper'>
-          {title && <div className='card-head-title'>{title}</div>}
-          {extra && <div className='card-head-extra'>{extra}</div>}
+      <div className={styles.head} style={headStyle}>
+        <div className={styles.wrapper}>
+          {title && <div className={styles.title}>{title}</div>}
+          {extra && <div className={styles.extra}>{extra}</div>}
         </div>
       </div>
     );
   }
 
-  const coverDom = cover ? <div className='card-cover'>{cover}</div> : null;
+  const coverDom = cover ? <div className={styles.cover}>{cover}</div> : null;
 
   const body = (
-    <div className='card-body' style={bodyStyle}>
+    <div className={styles.body} style={bodyStyle}>
       {loading ? loadingBlock : children}
     </div>
   );
 
   const actionDom =
     actions && actions.length ? (
-      <ul className='card-actions'>{getActions(actions)}</ul>
+      <ul className={styles.actions}>{getActions(actions)}</ul>
     ) : null;
 
   const classString = classNames(
-    'card',
+    styles.card,
     {
-      'card-bordered': bordered,
-      'card-loading': loading,
-      'card-hoverable': hoverable,
-      [`card-${size}`]: size,
-      [`card-type-${type}`]: type,
+      [styles.bordered]: bordered,
+      [styles.loading]: loading,
+      [styles.hoverable]: hoverable,
+      [styles[size as any]]: !!size,
+      [styles.typeInner]: !!type,
     },
     className
   );

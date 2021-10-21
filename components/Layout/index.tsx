@@ -7,13 +7,13 @@ import Main from './Main';
 const DynamicBackTop = dynamic(() => import('@/components/BackTop'));
 
 const Layout: FC = ({ children }) => (
-  <div>
+  <>
     <Header />
     <Main>{children}</Main>
     <Footer />
 
     <DynamicBackTop />
-  </div>
+  </>
 );
 
 export default Layout;

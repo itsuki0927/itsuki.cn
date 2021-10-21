@@ -17,10 +17,7 @@ export const getSystemSettings = () =>
   request.get<SystemSettings>('/config').then(res => res.data);
 
 // 获取parse后的全局配置
-export const fetchSystemSettings = () =>
-  getSystemSettings().then(data => {
-    return data;
-  });
+export const fetchSystemSettings = () => getSystemSettings().then(data => data);
 
 export const fetchTags = () => getTags().then(res => res.data);
 
@@ -29,7 +26,5 @@ export const fetchCategories = () => getCategories().then(res => res.data);
 // 获取全局数据
 export const fetchGlobalData = () =>
   Promise.all([fetchSystemSettings(), fetchTags(), fetchCategories()]).then(
-    ([settings, tags, categories]) => {
-      return { settings, tags, categories };
-    }
+    ([settings, tags, categories]) => ({ settings, tags, categories })
   );

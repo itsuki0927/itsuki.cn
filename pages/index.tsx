@@ -11,22 +11,27 @@ const HomeSlider = dynamic(() => import('@/components/Page/home/Slider'));
 
 type StaticProps = {
   articles: SearchResponse<Article>;
+  bannerArticles: SearchResponse<Article>;
 };
 export const getStaticProps: GetStaticProps<StaticProps> = async () => {
-  const articles = await getArticles({
-    pageSize: 2000,
-  });
+  const articles = await getArticles({ pageSize: 2000, publish: 1 });
+  const bannerArticles = await getArticles({ publish: 1, banner: 1 });
 
   return {
     props: {
       articles,
+      bannerArticles,
     },
+    revalidate: 10,
   };
 };
 
-const HomePage = ({ articles }: InferGetServerSidePropsType<typeof getStaticProps>) => (
+const HomePage = ({
+  articles,
+  bannerArticles,
+}: InferGetServerSidePropsType<typeof getStaticProps>) => (
   <div className='home'>
-    <HomeSlider />
+    <HomeSlider articles={bannerArticles} />
 
     <Alert
       style={{ marginBottom: 24 }}

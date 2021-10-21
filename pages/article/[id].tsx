@@ -24,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false, // 设置的 paths 数组是否是
+    fallback: 'blocking',
   };
 };
 
@@ -33,8 +33,9 @@ export const getStaticProps: GetStaticProps<StaticProps> = async ({ params }) =>
 
   return {
     props: {
-      article,
+      article: { ...article, content: marked(article.content) },
     },
+    revalidate: 10,
   };
 };
 
@@ -69,7 +70,7 @@ const ArticlePage = ({ article }: InferGetStaticPropsType<typeof getStaticProps>
       >
         <div
           className='markdown-html'
-          dangerouslySetInnerHTML={{ __html: marked(article.content) }}
+          dangerouslySetInnerHTML={{ __html: article.content }}
         />
       </Card>
 

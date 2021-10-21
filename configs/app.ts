@@ -6,3 +6,6 @@ export const RESOURCE_HOST = 'resources.fivewoods.xyz';
 
 // resource 路径
 export const RESOURCE_URL = `https://${RESOURCE_HOST}`;
+
+// ga id
+export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;

@@ -10,5 +10,8 @@ export const RESOURCE_URL = `https://${RESOURCE_HOST}`;
 // ga id
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-// api
+// api url
 export const API_URL = process.env.NEXT_PUBLIC_API_BASE_PATH;
+
+// api version
+export const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION;

@@ -1,19 +1,35 @@
 import dynamic from 'next/dynamic';
-import { FC } from 'react';
+import { useRouter } from 'next/router';
+import React, { FC } from 'react';
+import { Category } from '@/entities/category';
+import { Tag } from '@/entities/tag';
+import { BlogProvider } from '@/helpers/index';
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
 
 const DynamicBackTop = dynamic(() => import('@/components/BackTop'));
 
-const Layout: FC = ({ children }) => (
-  <>
-    <Header />
-    <Main>{children}</Main>
-    <Footer />
+interface Props {
+  pageProps: {
+    pages?: any[];
+    categories: Category[];
+    tags: Tag[];
+  };
+}
 
-    <DynamicBackTop />
-  </>
-);
+const Layout: FC<Props> = ({ children, pageProps: { categories = [] } }) => {
+  const { locale = 'zh-cn' } = useRouter();
+
+  return (
+    <BlogProvider locale={locale}>
+      <Header links={categories} />
+      <Main>{children}</Main>
+      <Footer />
+
+      <DynamicBackTop />
+    </BlogProvider>
+  );
+};
 
 export default Layout;

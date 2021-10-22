@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps, data }: AppProps & { data: AppContextType
     <AppContext.Provider value={data}>
       <GA />
       <PageLoadingProgress />
-      <Layout>
+      <Layout pageProps={pageProps}>
         <Component {...pageProps} />
       </Layout>
     </AppContext.Provider>

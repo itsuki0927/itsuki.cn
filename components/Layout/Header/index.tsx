@@ -1,18 +1,19 @@
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import ActiveLink from '@/components/ActiveLink';
-import AppContext from '@/utils/context';
+import { Category } from '@/entities/category';
 import Logo from '../Logo';
 import HeaderSearch from '../Search';
 import styles from './style.module.scss';
 
 const buildPath = (path: string) => `/category/${path}`;
 
-const Header = () => {
-  const context = useContext(AppContext);
-
+interface HeaderProps {
+  links?: Category[];
+}
+const Header = ({ links }: HeaderProps) => {
   const categoriesDom = useMemo(
     () =>
-      context?.categories?.map(item => (
+      links?.map(item => (
         <ActiveLink
           activeClassName={styles.active}
           key={item.id}
@@ -23,7 +24,7 @@ const Header = () => {
           </li>
         </ActiveLink>
       )),
-    [context.categories]
+    [links]
   );
 
   return (

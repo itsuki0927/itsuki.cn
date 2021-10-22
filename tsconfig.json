@@ -25,7 +25,8 @@
       "@/hooks/*": ["hooks/*"],
       "@/types/*": ["types/*"],
       "@/transformers/*": ["transformers/*"],
-      "@/configs/*": ["configs/*"]
+      "@/configs/*": ["configs/*"],
+      "@/helpers/*": ["helpers/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

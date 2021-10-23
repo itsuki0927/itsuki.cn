@@ -6,12 +6,15 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { Fetcher } from './utils/types';
+import { Fetcher, SWRHook } from './utils/types';
 
 const Blog = createContext<BlogContextValue<any> | Record<string, any>>({});
 
 export type Provider = BlogConfig & {
   fetcher: Fetcher;
+  articles?: {
+    useSearch?: SWRHook<any>;
+  };
 };
 
 export type BlogConfig = {

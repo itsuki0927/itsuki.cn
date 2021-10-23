@@ -18,12 +18,12 @@ interface Props {
   };
 }
 
-const Layout: FC<Props> = ({ children, pageProps: { categories = [] } }) => {
+const Layout: FC<Props> = ({ children, pageProps = { categories: [], tags: [] } }) => {
   const { locale = 'zh-cn' } = useRouter();
 
   return (
     <BlogProvider locale={locale}>
-      <Header links={categories} />
+      <Header links={pageProps.categories} />
       <Main>{children}</Main>
       <Footer />
 

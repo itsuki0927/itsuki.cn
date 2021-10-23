@@ -24,3 +24,22 @@ export type Article = IdentifiableEntity<{
   categories: Category[];
   comments: Comment[];
 }>;
+
+export type SearchArticleBody = {
+  keyword?: string;
+};
+
+export type ArticleTypes = {
+  article: Article;
+  searchBody: SearchArticleBody;
+};
+
+export type GetAllArticlePathsOperation<T extends ArticleTypes = ArticleTypes> = {
+  data: { articles: Pick<T['article'], 'id'>[] };
+  variables: any;
+};
+
+export type GetAllArticlesOperation<T extends ArticleTypes = ArticleTypes> = {
+  data: { articles: T['article'][] };
+  variables: any;
+};

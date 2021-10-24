@@ -1,9 +1,8 @@
-import { fetchGlobalData } from 'api/global';
 import type { AppProps } from 'next/app';
 import React from 'react';
-import GA from '@/components/GA';
-import Layout from '@/components/Layout';
-import PageLoadingProgress from '@/components/PageLoadingProgress';
+import { fetchGlobalData } from '@/api/global';
+import { GA, Layout } from '@/components/common';
+import { PageLoadingProgress } from '@/components/ui';
 import '@/styles/globals.scss';
 import '@/styles/markdown.scss';
 import '@/styles/reset.scss';

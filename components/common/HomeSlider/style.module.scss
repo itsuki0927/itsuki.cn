@@ -1,0 +1,24 @@
+@import 'styles/variables.scss';
+
+.swiper {
+  margin-bottom: $margin-lg;
+  .article {
+    opacity: 0.9;
+    transition: all 0.3s;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+
+    .text {
+      .title {
+        color: $text-color;
+        margin-right: $margin-lg;
+        font-size: $font-size-lg;
+      }
+      .description {
+        color: $gray-7;
+      }
+    }
+  }
+}

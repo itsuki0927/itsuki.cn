@@ -1,12 +1,11 @@
 import { SendOutlined } from '@ant-design/icons';
 import dynamic from 'next/dynamic';
 import React, { useContext, useState } from 'react';
-import Card from '@/components/Card';
-import Button from '@/components/Button';
+import { Card, Button } from '@/components/ui';
 import styles from './style.module.scss';
 import CommentContext from '../context';
 
-const DynamicMarkdown = dynamic(() => import('@/components/MarkdownEditor'), {
+const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
 });
 

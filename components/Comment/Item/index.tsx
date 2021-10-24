@@ -1,12 +1,12 @@
 import { HeartFilled, SelectOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { useContext, useState } from 'react';
-import { getGravatarUrl } from 'transformers/gravatar';
-import { parseUA } from 'transformers/ua';
-import markedToHtml from '@/utils/marked';
+import Button from '@/components/ui/Button';
 import { Comment } from '@/entities/comment';
-import Button from '@/components/Button';
-import Card from '../../Card';
+import { getGravatarUrl } from '@/transformers/gravatar';
+import { parseUA } from '@/transformers/ua';
+import markedToHtml from '@/utils/marked';
+import { Card } from '@/components/ui';
 import CommentContext from '../context';
 import styles from './style.module.scss';
 

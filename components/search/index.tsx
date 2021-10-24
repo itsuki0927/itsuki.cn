@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
+import { ArticleList } from '@/components/article';
+import { Layout } from '@/components/common';
+import { Loading } from '@/components/ui';
 import useSearch from '@/framework/blog/article/use-search';
-import ArticleList from '../Article';
-import Layout from '../Layout';
-import Loading from '../Loading';
 
 const Search = () => {
   const router = useRouter();

@@ -5,8 +5,7 @@ import {
   EditOutlined,
 } from '@ant-design/icons';
 import { useContext, useState } from 'react';
-import Button from '@/components/Button';
-import Card from '@/components/Card';
+import { Button, Card } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import useMount from '@/hooks/useMount';

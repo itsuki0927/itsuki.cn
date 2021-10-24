@@ -2,8 +2,8 @@ import { GetStaticPaths, GetStaticProps, InferGetServerSidePropsType } from 'nex
 import { useContext, useMemo } from 'react';
 import { getArticles } from '@/api/article';
 import { getTags } from '@/api/global';
-import ArticeList from '@/components/Article';
-import Banner from '@/components/Banner';
+import ArticeList from '@/components/article/ArticleList';
+import { Banner } from '@/components/ui';
 import { Article } from '@/entities/article';
 import { SearchResponse } from '@/entities/response/base';
 import AppContext from '@/utils/context';

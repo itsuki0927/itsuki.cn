@@ -5,9 +5,9 @@ import { getArticles } from '@/api/article';
 import { Article } from '@/entities/article';
 import { SearchResponse } from '@/entities/response/base';
 
-const Alert = dynamic(() => import('@/components/Alert'));
-const ArticleList = dynamic(() => import('@/components/Article'));
-const HomeSlider = dynamic(() => import('@/components/Page/home/Slider'));
+const Alert = dynamic(() => import('@/components/ui/Alert'));
+const ArticleList = dynamic(() => import('@/components/article/ArticleList'));
+const HomeSlider = dynamic(() => import('@/components/common/HomeSlider'));
 
 type StaticProps = {
   articles: SearchResponse<Article>;

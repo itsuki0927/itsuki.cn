@@ -1,4 +1,4 @@
-import Card from '@/components/Card';
+import Card from '@/components/ui/Card';
 import { USER_COMMENT_PROFILE } from '@/constants/comment';
 import { getGravatarUrl } from '@/transformers/gravatar';
 import { getJSON } from '@/utils/storage';

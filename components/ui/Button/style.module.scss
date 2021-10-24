@@ -1,0 +1,111 @@
+@import 'styles/variables.scss';
+
+$primary-hover-color: #40a9ff;
+$button-color: #000000d9;
+
+.btn {
+  line-height: 1.5715;
+  position: relative;
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+  background: $white;
+  background-image: none;
+  border: 1px solid transparent;
+  box-shadow: 0 2px #00000004;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  user-select: none;
+  touch-action: manipulation;
+  height: 32px;
+  padding: 4px 15px;
+  font-size: 14px;
+  border-radius: 2px;
+  color: $text-color;
+  border-color: $gray-5;
+
+  & + & {
+    margin-left: 12px;
+  }
+
+  &:not(.disabled):hover {
+    color: $primary-hover-color;
+    border-color: $primary-hover-color;
+  }
+
+  &.primary {
+    color: $white;
+    border-color: $primary;
+    background: $primary;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px #0000000b;
+
+    &:not(.disabled):hover {
+      color: $white;
+      border-color: $primary-hover-color;
+      background: $primary-hover-color;
+    }
+  }
+
+  &.disabled {
+    color: $disabled-color;
+    border-color: $disabled-border-color;
+    background: $disabled-bg-color;
+  }
+
+  &.dashed {
+    color: $text-color;
+    border-color: $gray-5;
+    background: $white;
+    border-style: dashed;
+  }
+
+  &.text {
+    color: $text-color;
+    border-color: transparent;
+    background: 0 0;
+    box-shadow: none;
+
+    &:not(.disabled):hover {
+      color: $text-color;
+      background: rgba(0, 0, 0, 0.018);
+      border-color: transparent;
+    }
+  }
+
+  &.link {
+    color: $primary;
+    border-color: transparent;
+    background: 0 0;
+    box-shadow: none;
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
+
+  &.small {
+    height: 24px;
+    padding: 0 7px;
+    font-size: 14px;
+    border-radius: 2px;
+  }
+
+  &.large {
+    height: 40px;
+    padding: 6.4px 15px;
+    font-size: 16px;
+    border-radius: 2px;
+  }
+
+  &.block {
+    width: 100%;
+  }
+
+  :global {
+    .anticon + span {
+      margin-left: 8px;
+    }
+  }
+}

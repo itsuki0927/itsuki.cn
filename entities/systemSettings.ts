@@ -9,7 +9,7 @@ export type SystemSettings = IdentifiableEntity<{
   description: string;
   domain: string;
   record: string;
-  ipBlackList?: string | string[];
-  emailBlackList?: string | string[];
-  keywordBlackList?: string | string[];
+  ipBlackList: string[];
+  emailBlackList: string[];
+  keywordBlackList: string[];
 }>;

@@ -2,18 +2,18 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 import { Footer, Header, Sidebar } from '@/components/common';
-import { Category } from '@/entities/category';
-import { Tag } from '@/entities/tag';
 import { BlogProvider } from '@/framework/local';
 import styles from './style.module.scss';
+import { SiteInfo } from '@/entities/siteInfo';
 
 const DynamicBackTop = dynamic(() => import('@/components/ui/BackTop'));
 
 interface Props {
   pageProps: {
     pages?: any[];
-    categories: Category[];
-    tags: Tag[];
+    categories: SiteInfo['categories'];
+    tags: SiteInfo['tags'];
+    siteInfo: SiteInfo['siteInfo'];
   };
 }
 

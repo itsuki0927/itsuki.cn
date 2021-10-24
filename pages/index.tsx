@@ -1,24 +1,25 @@
 import { SoundOutlined } from '@ant-design/icons';
-import { GetStaticProps, InferGetServerSidePropsType } from 'next';
+import { InferGetServerSidePropsType } from 'next';
 import dynamic from 'next/dynamic';
-import { getArticles } from '@/api/article';
-import { Article } from '@/entities/article';
-import { SearchResponse } from '@/entities/response/base';
+import { Layout } from '@/components/common';
+import blog from '@/lib/api/blog';
 
 const Alert = dynamic(() => import('@/components/ui/Alert'));
 const ArticleList = dynamic(() => import('@/components/article/ArticleList'));
 const HomeSlider = dynamic(() => import('@/components/common/HomeSlider'));
 
-type StaticProps = {
-  articles: SearchResponse<Article>;
-  bannerArticles: SearchResponse<Article>;
-};
-export const getStaticProps: GetStaticProps<StaticProps> = async () => {
-  const articles = await getArticles({ pageSize: 2000, publish: 1 });
-  const bannerArticles = await getArticles({ publish: 1, banner: 1 });
+export const getStaticProps = async () => {
+  const articles = await blog.getAllArticles();
+  const siteInfo = await blog.getSiteInfo();
+  const bannerArticles = await blog.getAllArticles({
+    variables: {
+      banner: true,
+    },
+  });
 
   return {
     props: {
+      ...siteInfo,
       articles,
       bannerArticles,
     },
@@ -44,5 +45,7 @@ const HomePage = ({
     <ArticleList articles={articles} />
   </div>
 );
+
+HomePage.Layout = Layout;
 
 export default HomePage;

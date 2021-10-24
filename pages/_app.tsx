@@ -1,14 +1,18 @@
 import type { AppProps } from 'next/app';
-import React from 'react';
+import React, { FC } from 'react';
 import { fetchGlobalData } from '@/api/global';
-import { GA, Layout } from '@/components/common';
+import { GA } from '@/components/common';
 import { PageLoadingProgress } from '@/components/ui';
 import '@/styles/globals.scss';
 import '@/styles/markdown.scss';
 import '@/styles/reset.scss';
 import AppContext, { AppContextType } from '@/utils/context';
 
+const Noop: FC = ({ children }) => <>{children}</>;
+
 function MyApp({ Component, pageProps, data }: AppProps & { data: AppContextType }) {
+  const Layout = (Component as any).Layout || Noop;
+
   return (
     <AppContext.Provider value={data}>
       <GA />

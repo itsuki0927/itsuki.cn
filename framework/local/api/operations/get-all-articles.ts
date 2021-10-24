@@ -6,6 +6,8 @@ import { Provider } from '@/framework/local/api';
 
 const getAllArticleQuery = '/article';
 
+const LIMIT = 2000;
+
 export type GetAllArticlesQuery = SearchResponse<Article>;
 
 function getAllArticlesOperation({ blog }: OperationContext<Provider>) {
@@ -36,6 +38,11 @@ function getAllArticlesOperation({ blog }: OperationContext<Provider>) {
     if (variables.search) {
       url.searchParams.append('search', variables.search);
     }
+    if (variables.banner) {
+      url.searchParams.append('banner', '1');
+    }
+    url.searchParams.append('publish', '1');
+    url.searchParams.append('pageSize', String(LIMIT));
     const res = await config.fetch<GetAllArticlesQuery>('GET', url.pathname + url.search);
     return res.data;
   }

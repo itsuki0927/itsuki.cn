@@ -62,5 +62,5 @@ export type GetAllArticlePathsOperation<T extends ArticleTypes = ArticleTypes> =
 
 export type GetAllArticlesOperation<T extends ArticleTypes = ArticleTypes> = {
   data: SearchResponse<T['article']>;
-  variables: any;
+  variables: { search?: string; banner?: true };
 };

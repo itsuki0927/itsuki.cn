@@ -1,9 +1,9 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';
+import { BlogProvider } from '@/framework/local';
 import { Category } from '@/entities/category';
 import { Tag } from '@/entities/tag';
-import { BlogProvider } from '@/helpers/index';
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';

@@ -1,5 +1,5 @@
-import handleFetchResponse from './handle-fetch-response';
-import { Fetcher } from './utils/types';
+import handleFetchResponse from './utils/handle-fetch-response';
+import { Fetcher } from '../blog/utils/types';
 
 const isGet = (method: string) => method.toLowerCase() === 'get';
 

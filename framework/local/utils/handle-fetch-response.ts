@@ -1,4 +1,4 @@
-import { FetcherError } from './utils/errors';
+import { FetcherError } from '@/framework/blog/utils/errors';
 
 export function getError(errors: any[] | null, status: number) {
   errors = errors ?? [{ message: 'fetch error' }];

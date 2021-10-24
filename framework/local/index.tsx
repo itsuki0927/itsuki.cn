@@ -1,4 +1,4 @@
-import { getBlogProvider, useBlog as useCoreBlog } from './context';
+import { getBlogProvider, useBlog as useCoreBlog } from '../blog';
 import { itsukiBlogProvider, ItsukiBlogProvider } from './provider';
 
 export { itsukiBlogProvider };

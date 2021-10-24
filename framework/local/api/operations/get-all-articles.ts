@@ -1,9 +1,12 @@
-import { GetAllArticlesOperation } from '@/entities/article';
-import { BlogAPIConfig } from '@/helpers/api';
-import { Provider } from '@/helpers/api/instance';
-import { OperationContext } from '@/helpers/api/operations';
+import { Article, GetAllArticlesOperation } from '@/entities/article';
+import { SearchResponse } from '@/entities/response/base';
+import { BlogAPIConfig } from '@/framework/blog/api';
+import { OperationContext } from '@/framework/blog/api/operations';
+import { Provider } from '@/framework/local/api';
 
-const getAllArticleQuery = '/api/article';
+const getAllArticleQuery = '/article';
+
+export type GetAllArticlesQuery = SearchResponse<Article>;
 
 function getAllArticlesOperation({ blog }: OperationContext<Provider>) {
   async function getAllArticles<T extends GetAllArticlesOperation>(opts?: {
@@ -29,11 +32,12 @@ function getAllArticlesOperation({ blog }: OperationContext<Provider>) {
     preview?: boolean;
   } = {}): Promise<T['data']> {
     const config = blog.getConfig(cfg);
-    const { data } = await config.fetch(query, { variables });
-
-    return {
-      articles: data,
-    };
+    const url = new URL(query, 'http://a');
+    if (variables.search) {
+      url.searchParams.append('search', variables.search);
+    }
+    const res = await config.fetch<GetAllArticlesQuery>('GET', url.pathname + url.search);
+    return res.data;
   }
 
   return getAllArticles;

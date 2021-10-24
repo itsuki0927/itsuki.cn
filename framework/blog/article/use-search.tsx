@@ -1,31 +1,11 @@
-import { Article } from '@/entities/article';
-import { SearchResponse } from '@/entities/response/base';
-import { Provider } from '../context';
+import { SearchArticlesHook } from '@/entities/article';
+import { Provider } from '..';
 import { SWRFetcher } from '../utils/default-fetcher';
 import type { HookFetcherFn, SWRHook } from '../utils/types';
 import { useHandler, useSWRHook } from '../utils/use-hook';
 
-export type SearchArticleBody = {
-  keyword?: string;
-};
-
-export type ArticleTypes = {
-  article: Article;
-  searchBody: SearchArticleBody;
-};
-
-export type SearchArticlesHook<T extends ArticleTypes = ArticleTypes> = {
-  data: {
-    articles: SearchResponse<T['article']>;
-    found: boolean;
-  };
-  body: T['searchBody'];
-  input: T['searchBody'];
-  fetcherInput: T['searchBody'];
-};
-
 export type UseSearch<
-  H extends SWRHook<SearchArticlesHook> = SWRHook<SearchArticlesHook>
+  H extends SWRHook<SearchArticlesHook<any>> = SWRHook<SearchArticlesHook>
 > = ReturnType<H['useHook']>;
 
 export const fetcher: HookFetcherFn<SearchArticlesHook> = SWRFetcher;
@@ -43,7 +23,7 @@ const useSearch: UseSearch = input => {
 
 export const handler: SWRHook<SearchArticlesHook> = {
   fetchOptions: {
-    url: '/api/article',
+    url: '/api/articles',
     method: 'GET',
   },
   async fetcher({ options, fetch }) {
@@ -51,17 +31,14 @@ export const handler: SWRHook<SearchArticlesHook> = {
       ...options,
     });
 
-    return {
-      articles: data,
-      found: !!data,
-    };
+    return data;
   },
   useHook:
     ({ useData }) =>
     (input = {}) =>
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useData({
-        input: [['keyword', input.keyword]],
+        input: [['search', input.search]],
         swrOptions: {
           revalidateOnFocus: false,
           ...input.swrOptions,

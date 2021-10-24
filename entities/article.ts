@@ -3,7 +3,7 @@ import { ArticleOpen } from '@/constants/article/public';
 import { PublishState } from '@/constants/publish';
 import { Category } from './category';
 import { Comment } from './comment';
-import { IdentifiableEntity } from './response/base';
+import { IdentifiableEntity, SearchResponse } from './response/base';
 import { Tag } from './tag';
 
 export type Article = IdentifiableEntity<{
@@ -25,21 +25,42 @@ export type Article = IdentifiableEntity<{
   comments: Comment[];
 }>;
 
-export type SearchArticleBody = {
-  keyword?: string;
+export type SearchArticlesBody = {
+  search?: string;
+  tag?: string;
+  category?: string;
 };
 
 export type ArticleTypes = {
   article: Article;
-  searchBody: SearchArticleBody;
+  searchBody: SearchArticlesBody;
+};
+
+export type SearchArticlesHook<T extends ArticleTypes = ArticleTypes> = {
+  data: {
+    articles: SearchResponse<T['article']>;
+    found: boolean;
+  };
+  body: T['searchBody'];
+  input: T['searchBody'];
+  fetcherInput: T['searchBody'];
+};
+
+export type ArticlesSchema<T extends ArticleTypes = ArticleTypes> = {
+  endpoint: {
+    options: Record<string, any>;
+    handlers: {
+      getArticles: SearchArticlesHook<T>;
+    };
+  };
 };
 
 export type GetAllArticlePathsOperation<T extends ArticleTypes = ArticleTypes> = {
-  data: { articles: Pick<T['article'], 'id'>[] };
+  data: Pick<T['article'], 'id'>[];
   variables: any;
 };
 
 export type GetAllArticlesOperation<T extends ArticleTypes = ArticleTypes> = {
-  data: { articles: T['article'][] };
+  data: SearchResponse<T['article']>;
   variables: any;
 };

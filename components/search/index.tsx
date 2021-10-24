@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import useSearch from '@/helpers/article/use-search';
+import useSearch from '@/framework/blog/article/use-search';
 import ArticleList from '../Article';
 import Layout from '../Layout';
 import Loading from '../Loading';
@@ -8,7 +8,7 @@ const Search = () => {
   const router = useRouter();
   const keyword = (router.query.keyword ?? '') as string;
   const { data } = useSearch({
-    keyword,
+    search: keyword,
   });
 
   if (!data) {

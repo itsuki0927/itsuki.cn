@@ -1,14 +1,15 @@
-import getAllArticles from '@/api/operations/get-all-articles';
-import { API_URL } from '@/configs/app';
-import { BlogAPI, BlogAPIConfig, getBlogApi as blogApi } from '.';
-import createFetchApi from './fetch-api';
+import { API_URL, API_VERSION } from '@/configs/app';
+import { BlogAPI, BlogAPIConfig, getBlogApi as blogApi } from '@/framework/blog/api';
+import getAllArticles from './operations/get-all-articles';
+import { createFetcher } from './utils/fetch-api';
 
 export const config: BlogAPIConfig = {
   blogUrl: API_URL!,
+  apiVersion: API_VERSION!,
   // locale:'',
   // locales:[]
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  fetch: createFetchApi(() => getBlogApi().getConfig()),
+  fetch: createFetcher(() => getBlogApi().getConfig()),
 };
 
 const operations = {

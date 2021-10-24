@@ -1,5 +1,5 @@
 import fetcher from './fetcher';
-import { handler as useSearch } from './article/use-search';
+import { handler as useSearch } from '../blog/article/use-search';
 
 export const itsukiBlogProvider = {
   locale: 'zh-cn',

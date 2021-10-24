@@ -1,3 +1,3 @@
-import { getBlogApi } from '@/helpers/api/instance';
+import { getBlogApi } from '@/framework/local/api';
 
 export default getBlogApi();

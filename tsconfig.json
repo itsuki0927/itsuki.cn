@@ -26,7 +26,8 @@
       "@/types/*": ["types/*"],
       "@/transformers/*": ["transformers/*"],
       "@/configs/*": ["configs/*"],
-      "@/helpers/*": ["helpers/*"]
+      "@/framework/*": ["framework/*"],
+      "@/lib/*": ["lib/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

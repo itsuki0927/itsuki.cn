@@ -35,10 +35,20 @@ export type Operations<P extends APIProvider> = {
   };
 };
 
+/**
+ * {
+ *    getAllArticles?: (ctx: BlogAPI<P>) => () => Promise<Data>
+ * }
+ */
 export type APIOperations<P extends APIProvider> = {
   [K in keyof Operations<P>]?: (ctx: OperationContext<P>) => Operations<P>[K];
 };
 
+/**
+ * {
+ *    getAllArticles: () => Promise<Data> | () => never
+ * }
+ */
 export type AllOperations<P extends APIProvider> = {
   [K in keyof APIOperations<P>]-?: P['operations'][K] extends (...args: any) => any
     ? ReturnType<P['operations'][K]>

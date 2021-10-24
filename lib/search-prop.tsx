@@ -1,7 +1,9 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { getCategories, getTags } from '@/api/global';
 
-export const getSearchStaticProps = async ({ locale }: GetStaticPropsContext) => {
+export const getSearchStaticProps = async ({
+  locale = 'cn-zh',
+}: GetStaticPropsContext) => {
   const { data: tags } = await getTags();
   const { data: categories } = await getCategories();
 

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Provider, useBlog } from '../context';
+import { Provider, useBlog } from '..';
 import type { MutationHook, PickRequired, SWRHook } from './types';
 import useData from './use-data';
 

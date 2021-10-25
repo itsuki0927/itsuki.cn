@@ -35,13 +35,17 @@ function getAllArticlesOperation({ blog }: OperationContext<Provider>) {
   } = {}): Promise<T['data']> {
     const config = blog.getConfig(cfg);
     const url = new URL(query, 'http://a');
-    if (variables.search) {
-      url.searchParams.append('search', variables.search);
+    const { search, category, tag, banner } = variables;
+    if (search) {
+      url.searchParams.append('search', search);
     }
-    if (variables.tag) {
-      url.searchParams.append('tag', variables.tag);
+    if (category) {
+      url.searchParams.append('category', category);
     }
-    if (variables.banner) {
+    if (tag) {
+      url.searchParams.append('tag', tag);
+    }
+    if (banner) {
       url.searchParams.append('banner', '1');
     }
     url.searchParams.append('publish', '1');

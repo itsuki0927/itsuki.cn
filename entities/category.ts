@@ -1,4 +1,4 @@
-import { IdentifiableEntity } from './response/base';
+import { IdentifiableEntity, SearchResponse } from './response/base';
 
 export type Category = IdentifiableEntity<{
   name: string;
@@ -9,3 +9,9 @@ export type Category = IdentifiableEntity<{
   parentId: number;
   expand?: string;
 }>;
+
+export type GetAllCategoryPathsOperation = {
+  data: { categories: Pick<Category, 'path'>[] };
+};
+
+export type GetAllCategoryPathsQuery = SearchResponse<Category>;

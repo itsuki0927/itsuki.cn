@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 import { GetAllArticlesOperation } from '@/entities/article';
+import { GetAllCategoryPathsOperation } from '@/entities/category';
 import { GetSiteInfoOperation } from '@/entities/siteInfo';
 import { GetAllTagPathsOperation } from '@/entities/tag';
 // eslint-disable-next-line import/no-cycle
@@ -9,7 +10,12 @@ const noop = () => {
   throw new Error('Not implemented');
 };
 
-export const OPERATIONS = ['getAllArticles', 'getSiteInfo', 'getAllTagPaths'] as const;
+export const OPERATIONS = [
+  'getAllArticles',
+  'getSiteInfo',
+  'getAllTagPaths',
+  'getAllCategoryPaths',
+] as const;
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
   // eslint-disable-next-line no-param-reassign
@@ -42,6 +48,12 @@ export type Operations<P extends APIProvider> = {
 
   getAllTagPaths: {
     <T extends GetAllTagPathsOperation>(opts: { config?: P['config'] }): Promise<
+      T['data']
+    >;
+  };
+
+  getAllCategoryPaths: {
+    <T extends GetAllCategoryPathsOperation>(opts: { config?: P['config'] }): Promise<
       T['data']
     >;
   };

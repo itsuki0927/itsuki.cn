@@ -109,7 +109,9 @@ export function getBlogApi<P extends APIProvider>(customProvider: P): BlogAPI<P>
   OPERATIONS.forEach(k => {
     const op = ops[k];
     if (op) {
-      blog[k] = op({ blog }) as AllOperations<P>[typeof k];
+      // TODO: any顶一下
+      // blog[k] = op({ blog }) as AllOperations<P>[typeof k];
+      blog[k] = op({ blog }) as any;
     }
   });
 

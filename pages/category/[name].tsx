@@ -1,18 +1,14 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { useMemo } from 'react';
-import { getArticles } from '@/api/article';
-import { getCategories } from '@/api/global';
 import { ArticleList } from '@/components/article';
 import { Banner } from '@/components/ui';
 import blog from '@/lib/api/blog';
 import { Layout } from '@/components/common';
 
 export const getStaticPaths = async () => {
-  const categories = await getCategories();
+  const { categories } = await blog.getAllCategoryPaths();
 
-  const paths = categories.data.map(item => ({
-    params: { name: item.path },
-  }));
+  const paths = categories.map(category => `/category/${category}`);
 
   return {
     paths,
@@ -21,17 +17,18 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const name = (params?.name ?? '') as string;
+  const category = (params?.name ?? '') as string;
   const siteInfo = await blog.getSiteInfo();
-  const articles = await getArticles({
-    category: name,
-    pageSize: 2000,
+  const articles = await blog.getAllArticles({
+    variables: {
+      category,
+    },
   });
 
   return {
     props: {
       ...siteInfo,
-      name,
+      category,
       articles,
     },
     revalidate: 10,
@@ -39,13 +36,13 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 const CategoryPage = ({
-  name,
+  category: categoryName,
   articles,
   categories = [],
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const category = useMemo(
-    () => categories?.find(item => item.path === name),
-    [categories, name]
+    () => categories.find(item => item.path === categoryName),
+    [categories, categoryName]
   );
 
   return (

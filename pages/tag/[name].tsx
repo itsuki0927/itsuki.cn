@@ -39,7 +39,7 @@ const TagPage = ({
   articles,
   tags = [],
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
-  const tag = useMemo(() => tags?.find(item => item.name === name), [name, tags]);
+  const tag = useMemo(() => tags.find(item => item.name === name), [name, tags]);
 
   return (
     <div>

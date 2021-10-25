@@ -9,6 +9,7 @@ import { Article } from '@/entities/article';
 import useMount from '@/hooks/useMount';
 import marked from '@/utils/marked';
 import styles from './style.module.scss';
+import { Layout } from '@/components/common';
 
 type StaticProps = {
   article: Article;
@@ -118,5 +119,7 @@ const ArticlePage = ({ article }: InferGetStaticPropsType<typeof getStaticProps>
     </div>
   );
 };
+
+ArticlePage.Layout = Layout;
 
 export default ArticlePage;

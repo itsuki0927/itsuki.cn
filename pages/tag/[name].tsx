@@ -5,6 +5,7 @@ import { getTags } from '@/api/global';
 import { ArticleList } from '@/components/article';
 import { Banner } from '@/components/ui';
 import blog from '@/lib/api/blog';
+import { Layout } from '@/components/common';
 
 export const getStaticPaths = async () => {
   const tags = await getTags();
@@ -52,5 +53,7 @@ const TagPage = ({
     </div>
   );
 };
+
+TagPage.Layout = Layout;
 
 export default TagPage;

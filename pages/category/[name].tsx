@@ -5,6 +5,7 @@ import { getCategories } from '@/api/global';
 import { ArticleList } from '@/components/article';
 import { Banner } from '@/components/ui';
 import blog from '@/lib/api/blog';
+import { Layout } from '@/components/common';
 
 export const getStaticPaths = async () => {
   const categories = await getCategories();
@@ -55,5 +56,7 @@ const CategoryPage = ({
     </div>
   );
 };
+
+CategoryPage.Layout = Layout;
 
 export default CategoryPage;

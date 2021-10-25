@@ -24,4 +24,5 @@ const Search = () => {
 };
 
 Search.Layout = Layout;
+
 export default Search;

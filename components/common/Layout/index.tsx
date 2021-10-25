@@ -19,22 +19,18 @@ interface Props {
 
 const DynamicAffix = dynamic(() => import('@/components/ui/Affix'), { ssr: false });
 
-const Main: FC = ({ children }) => (
-  <main className={styles.main}>
-    <div className={styles.mainContent}>{children}</div>
-    <DynamicAffix top={88}>
-      <Sidebar />
-    </DynamicAffix>
-  </main>
-);
-
 const Layout: FC<Props> = ({ children, pageProps = { categories: [], tags: [] } }) => {
   const { locale = 'zh-cn' } = useRouter();
 
   return (
     <BlogProvider locale={locale}>
       <Header links={pageProps.categories} />
-      <Main>{children}</Main>
+      <main className={styles.main}>
+        <div className={styles.mainContent}>{children}</div>
+        <DynamicAffix top={88}>
+          <Sidebar tags={pageProps.tags} />
+        </DynamicAffix>
+      </main>
       <Footer />
 
       <DynamicBackTop />

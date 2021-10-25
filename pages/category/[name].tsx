@@ -1,22 +1,12 @@
-import { GetStaticPaths, GetStaticProps, InferGetServerSidePropsType } from 'next';
-import { useContext, useMemo } from 'react';
+import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
+import { useMemo } from 'react';
 import { getArticles } from '@/api/article';
 import { getCategories } from '@/api/global';
-import ArticeList from '@/components/article/ArticleList';
+import { ArticleList } from '@/components/article';
 import { Banner } from '@/components/ui';
-import { Article } from '@/entities/article';
-import { SearchResponse } from '@/entities/response/base';
-import AppContext from '@/utils/context';
+import blog from '@/lib/api/blog';
 
-type StaticPathProps = {
-  name: string;
-};
-
-type StaticProps = StaticPathProps & {
-  articles: SearchResponse<Article>;
-};
-
-export const getStaticPaths: GetStaticPaths<StaticPathProps> = async () => {
+export const getStaticPaths = async () => {
   const categories = await getCategories();
 
   const paths = categories.data.map(item => ({
@@ -29,8 +19,9 @@ export const getStaticPaths: GetStaticPaths<StaticPathProps> = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<StaticProps> = async context => {
-  const name = (context.params?.name ?? '') as string;
+export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
+  const name = (params?.name ?? '') as string;
+  const siteInfo = await blog.getSiteInfo();
   const articles = await getArticles({
     category: name,
     pageSize: 2000,
@@ -38,6 +29,7 @@ export const getStaticProps: GetStaticProps<StaticProps> = async context => {
 
   return {
     props: {
+      ...siteInfo,
       name,
       articles,
     },
@@ -48,18 +40,18 @@ export const getStaticProps: GetStaticProps<StaticProps> = async context => {
 const CategoryPage = ({
   name,
   articles,
+  categories = [],
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
-  const context = useContext(AppContext);
   const category = useMemo(
-    () => context?.categories?.find(item => item.path === name),
-    [name, context]
+    () => categories?.find(item => item.path === name),
+    [categories, name]
   );
 
   return (
     <div>
       <Banner data={category} />
 
-      <ArticeList articles={articles} />
+      <ArticleList articles={articles} />
     </div>
   );
 };

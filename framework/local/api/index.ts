@@ -1,6 +1,7 @@
 import { API_URL, API_VERSION } from '@/configs/app';
 import { BlogAPI, BlogAPIConfig, getBlogApi as blogApi } from '@/framework/blog/api';
 import getAllArticles from './operations/get-all-articles';
+import getAllTagPaths from './operations/get-all-tag-paths';
 import getSiteInfo from './operations/get-site-info';
 import { createFetcher } from './utils/fetch-api';
 
@@ -16,6 +17,7 @@ export const config: BlogAPIConfig = {
 const operations = {
   getAllArticles,
   getSiteInfo,
+  getAllTagPaths,
 };
 export const provider = { config, operations };
 export type Provider = typeof provider;

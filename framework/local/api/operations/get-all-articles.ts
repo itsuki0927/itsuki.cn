@@ -38,6 +38,9 @@ function getAllArticlesOperation({ blog }: OperationContext<Provider>) {
     if (variables.search) {
       url.searchParams.append('search', variables.search);
     }
+    if (variables.tag) {
+      url.searchParams.append('tag', variables.tag);
+    }
     if (variables.banner) {
       url.searchParams.append('banner', '1');
     }

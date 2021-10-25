@@ -1,18 +1,13 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { useMemo } from 'react';
-import { getArticles } from '@/api/article';
-import { getTags } from '@/api/global';
 import { ArticleList } from '@/components/article';
 import { Banner } from '@/components/ui';
 import blog from '@/lib/api/blog';
 import { Layout } from '@/components/common';
 
 export const getStaticPaths = async () => {
-  const tags = await getTags();
-
-  const paths = tags.data.map(item => ({
-    params: { name: item.name },
-  }));
+  const { tags } = await blog.getAllTagPaths();
+  const paths = tags.map(tag => `/tag/${tag}`);
 
   return {
     paths,
@@ -21,17 +16,18 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const name = (params?.name ?? '') as string;
-  const articles = await getArticles({
-    tag: name,
-    pageSize: 2000,
+  const tag = (params?.name ?? '') as string;
+  const articles = await blog.getAllArticles({
+    variables: {
+      tag,
+    },
   });
   const siteInfo = await blog.getSiteInfo();
 
   return {
     props: {
       ...siteInfo,
-      name,
+      tag,
       articles,
     },
     revalidate: 10,
@@ -39,7 +35,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 const TagPage = ({
-  name,
+  tag: name,
   articles,
   tags = [],
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {

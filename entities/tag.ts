@@ -1,4 +1,4 @@
-import { IdentifiableEntity } from './response/base';
+import { IdentifiableEntity, SearchResponse } from './response/base';
 
 export type Tag = IdentifiableEntity<{
   name: string;
@@ -8,3 +8,9 @@ export type Tag = IdentifiableEntity<{
   sort: number;
   expand?: string;
 }>;
+
+export type GetAllTagPathsOperation = {
+  data: { tags: Pick<Tag, 'name'>[] };
+};
+
+export type GetAllTagPathsQuery = SearchResponse<Tag>;

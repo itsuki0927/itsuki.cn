@@ -17,6 +17,7 @@ export type Article = IdentifiableEntity<{
   open: ArticleOpen;
   publish: PublishState;
   origin: ArticleOrigin;
+  banner: number;
   reading: number;
   liking: number;
   commenting: number;
@@ -62,5 +63,5 @@ export type GetAllArticlePathsOperation<T extends ArticleTypes = ArticleTypes> =
 
 export type GetAllArticlesOperation<T extends ArticleTypes = ArticleTypes> = {
   data: SearchResponse<T['article']>;
-  variables: { search?: string; banner?: true };
+  variables: { search?: string; banner?: true; tag?: string; category?: string };
 };

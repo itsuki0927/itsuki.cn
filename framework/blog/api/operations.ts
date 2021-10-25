@@ -1,5 +1,10 @@
 // eslint-disable-next-line import/no-cycle
-import { GetAllArticlesOperation } from '@/entities/article';
+import {
+  GetAllArticlePathsOperation,
+  GetAllArticlesOperation,
+  GetArticleOperation,
+  PatchArticleMetaOperation,
+} from '@/entities/article';
 import { GetAllCategoryPathsOperation } from '@/entities/category';
 import { GetSiteInfoOperation } from '@/entities/siteInfo';
 import { GetAllTagPathsOperation } from '@/entities/tag';
@@ -11,10 +16,13 @@ const noop = () => {
 };
 
 export const OPERATIONS = [
+  'getArticle',
+  'patchArticleMeta',
   'getAllArticles',
-  'getSiteInfo',
+  'getAllArticlePaths',
   'getAllTagPaths',
   'getAllCategoryPaths',
+  'getSiteInfo',
 ] as const;
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -26,6 +34,18 @@ export const defaultOperations = OPERATIONS.reduce((ops, k) => {
 export type AllowdOperations = typeof OPERATIONS[number];
 
 export type Operations<P extends APIProvider> = {
+  getArticle: {
+    <T extends GetArticleOperation>(opts: { variables: T['variables'] }): Promise<
+      T['data']
+    >;
+  };
+
+  patchArticleMeta: {
+    <T extends PatchArticleMetaOperation>(opts: {
+      variables: T['variables'];
+    }): Promise<void>;
+  };
+
   getAllArticles: {
     <T extends GetAllArticlesOperation>(opts: {
       variables?: T['variables'];
@@ -40,6 +60,10 @@ export type Operations<P extends APIProvider> = {
         preview?: boolean;
       } & OperationOptions
     ): Promise<T['data']>;
+  };
+
+  getAllArticlePaths: {
+    <T extends GetAllArticlePathsOperation>(): Promise<T['data']>;
   };
 
   getSiteInfo: {

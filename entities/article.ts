@@ -30,6 +30,7 @@ export type SearchArticlesBody = {
   search?: string;
   tag?: string;
   category?: string;
+  id?: number;
 };
 
 export type ArticleTypes = {
@@ -56,12 +57,28 @@ export type ArticlesSchema<T extends ArticleTypes = ArticleTypes> = {
   };
 };
 
+export type GetArticleOperation<T extends ArticleTypes = ArticleTypes> = {
+  data: { article: T['article'] };
+  variables: { id: number };
+};
+
 export type GetAllArticlePathsOperation<T extends ArticleTypes = ArticleTypes> = {
-  data: Pick<T['article'], 'id'>[];
+  data: { articles: Pick<T['article'], 'id'>[] };
   variables: any;
+};
+
+type ArticleMetaAllowedOperation = 'liking' | 'reading';
+
+export type PatchArticleMetaOperation<T extends ArticleTypes = ArticleTypes> = {
+  variables: {
+    id: T['article']['id'];
+    meta: ArticleMetaAllowedOperation;
+  };
 };
 
 export type GetAllArticlesOperation<T extends ArticleTypes = ArticleTypes> = {
   data: SearchResponse<T['article']>;
   variables: { search?: string; banner?: true; tag?: string; category?: string };
 };
+
+export type GetAllArticlePathsQuery = SearchResponse<Article>;

@@ -1,5 +1,9 @@
 import { API_URL, API_VERSION } from '@/configs/app';
 import { BlogAPI, BlogAPIConfig, getBlogApi as blogApi } from '@/framework/blog/api';
+// eslint-disable-next-line import/no-cycle
+import getArticle from './operations/get-article';
+import patchArticleMeta from './operations/patch-article-meta';
+import getAllArticlePaths from './operations/get-all-article-paths';
 import getAllArticles from './operations/get-all-articles';
 import getAllCategoryPaths from './operations/get-all-category-paths';
 import getAllTagPaths from './operations/get-all-tag-paths';
@@ -16,10 +20,13 @@ export const config: BlogAPIConfig = {
 };
 
 const operations = {
-  getSiteInfo,
+  getArticle,
+  patchArticleMeta,
   getAllArticles,
+  getAllArticlePaths,
   getAllTagPaths,
   getAllCategoryPaths,
+  getSiteInfo,
 };
 export const provider = { config, operations };
 export type Provider = typeof provider;

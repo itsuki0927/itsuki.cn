@@ -43,14 +43,15 @@ const useData: UseData = (handler, input, fetcherFn, swrOptions) => {
     method?: string,
     ...args: any[]
   ) => {
+    const inputObj = args.reduce((obj, val, i) => {
+      obj[hookInput[i][0]!] = val;
+      return obj;
+    }, {});
     try {
       // 调用的是handler定义的fetcher
       return await handler.fetcher({
         options: { url, query, method },
-        input: args.reduce((obj, val, i) => {
-          obj[hookInput[i][0]!] = val;
-          return obj;
-        }, {}),
+        input: inputObj,
         fetch: fetcherFn,
       });
     } catch (error) {

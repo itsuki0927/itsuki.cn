@@ -1,7 +1,8 @@
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { getCommentListByArticleId, postComment } from '@/api/comment';
+import { ReactNode, useEffect, useState } from 'react';
+import { postComment } from '@/api/comment';
 import { Card, Empty } from '@/components/ui';
 import { Comment } from '@/entities/comment';
+import useComment from '@/framework/local/comment/use-comment';
 import { purifyDomString } from '@/transformers/purify';
 import CommentContext from './context';
 import Editor from './Editor';
@@ -18,24 +19,15 @@ type CommentProps = {
 
 const CommentList = ({ title, liking, articleId }: CommentProps) => {
   const [reply, setReply] = useState<Comment | undefined>();
-  const [comments, setComments] = useState<Comment[]>([]);
-  const isCancel = useRef(false);
-
-  const fetchCommentList = useCallback(() => {
-    getCommentListByArticleId(articleId).then(res => {
-      if (!isCancel.current) {
-        setComments(res);
-      }
-    });
-  }, [articleId]);
+  const { mutate, data: comments, isEmpty, isLoading } = useComment({ articleId });
 
   useEffect(() => {
-    fetchCommentList();
+    mutate();
+  }, [articleId, mutate]);
 
-    return () => {
-      isCancel.current = true;
-    };
-  }, [fetchCommentList]);
+  if (isLoading || !comments) {
+    return <h1>Loading.....</h1>;
+  }
 
   const handleSend = ({ content, ...data }: CommentProfileType & { content: string }) =>
     postComment({
@@ -45,8 +37,8 @@ const CommentList = ({ title, liking, articleId }: CommentProps) => {
       agent: navigator.userAgent,
       parentId: reply?.id,
     })
-      .then(() => {
-        fetchCommentList();
+      .then(async () => {
+        await mutate();
         return true;
       })
       .catch(() => {
@@ -69,10 +61,10 @@ const CommentList = ({ title, liking, articleId }: CommentProps) => {
         title={title(comments, comments.length)}
         extra={<LikeButton articleId={articleId} liking={liking} />}
       >
-        {comments.length ? (
-          comments.map(item => <CommentCard comment={item} key={item.id} />)
-        ) : (
+        {isEmpty ? (
           <Empty />
+        ) : (
+          comments.map(item => <CommentCard comment={item} key={item.id} />)
         )}
         <Editor onSend={handleSend} />
       </Card>

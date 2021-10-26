@@ -1,4 +1,4 @@
-import { CommentSchema } from '@/entities/comment';
+import { CommentSchema, SearchCommentsBody } from '@/entities/comment';
 import { GetAPISchema } from '..';
 import { BlogAPIError } from '../utils/errors';
 import isAllowedOperation from '../utils/is-allowed-operation';
@@ -9,6 +9,7 @@ const commentEndpoints: GetAPISchema<any, CommentSchema>['endpoint']['handler'] 
 
     if (
       !isAllowedOperation(req, res, {
+        GET: handlers.getComment,
         PATCH: handlers.likeComment,
       })
     ) {
@@ -16,8 +17,13 @@ const commentEndpoints: GetAPISchema<any, CommentSchema>['endpoint']['handler'] 
     }
 
     try {
-      const { body } = req;
+      if (req.method === 'GET') {
+        const body = req.query as unknown as SearchCommentsBody;
+        return await handlers.getComment({ ...ctx, body });
+      }
+
       if (req.method === 'PATCH') {
+        const { body } = req;
         return await handlers.likeComment({ ...ctx, body });
       }
     } catch (error) {

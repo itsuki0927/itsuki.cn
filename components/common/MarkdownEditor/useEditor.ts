@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { useEffect, useRef } from 'react';
 import useMount from '@/hooks/useMount';
-import markdownEditorUtil, { MarkdownEditorUtil } from '@/utils/editor';
+import type { MarkdownEditorUtil } from '@/utils/editor';
 import hljs from '@/utils/highlight';
 import { MarkdownEditorProps } from '.';
 
@@ -15,14 +15,18 @@ const useEditor = (props: MarkdownEditorProps) => {
   const editorRef = useRef<HTMLElement>(null);
   const codeRef = useRef<MarkdownEditorUtil | null>(null);
 
-  const initMarkdownEditor = () => {
-    codeRef.current = markdownEditorUtil(editorRef.current!, highlight, {
-      indentOn: /[(\\[{]$/,
-      preserveIdent: true,
-      catchTab: true,
-      addClosing: true,
-      history: true,
-    });
+  const initMarkdownEditor = async () => {
+    codeRef.current = (await import('@/utils/editor')).default(
+      editorRef.current!,
+      highlight,
+      {
+        indentOn: /[(\\[{]$/,
+        preserveIdent: true,
+        catchTab: true,
+        addClosing: true,
+        history: true,
+      }
+    );
 
     codeRef.current.updateCode(props.code);
     codeRef.current.onUpdate(codeParams => {

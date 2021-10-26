@@ -16,6 +16,9 @@ export type Provider = BlogConfig & {
     useSearch?: SWRHook<any>;
     useLikeArticle?: MutationHook<any>;
   };
+  comment?: {
+    useLikeComment?: MutationHook<any>;
+  };
 };
 
 export type BlogConfig = {

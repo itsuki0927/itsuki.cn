@@ -9,11 +9,11 @@ import markedToHtml from '@/utils/marked';
 import { Card } from '@/components/ui';
 import CommentContext from '../context';
 import styles from './style.module.scss';
+import useLikeComment from '@/framework/local/comment/use-like-comment';
+import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';
 
 type CommentCardProps = {
-  liked: boolean;
   comment: Comment;
-  onLikeComment: (commentId: number) => Promise<void>;
 };
 
 const CommentUA = ({ result }: any) => (
@@ -26,10 +26,13 @@ const CommentUA = ({ result }: any) => (
   </span>
 );
 
-const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
+const CommentCard = ({ comment }: CommentCardProps) => {
   const { result } = parseUA(comment.agent);
   const { setReply } = useContext(CommentContext);
+  const likeComment = useLikeComment();
+  const isLiked = useInLikeComments(comment.id);
   const [liking, setLiking] = useState(comment.liking);
+  const [liked, setLiked] = useState(isLiked);
 
   const titleDom = (
     <div>
@@ -72,7 +75,9 @@ const CommentCard = ({ comment, liked, onLikeComment }: CommentCardProps) => {
           })}
           icon={<HeartFilled />}
           onClick={() => {
-            onLikeComment(comment.id).then(() => setLiking(l => l + 1));
+            likeComment({ commentId: comment.id });
+            setLiking(l => l + 1);
+            setLiked(true);
           }}
         >
           <span>{liking}</span>

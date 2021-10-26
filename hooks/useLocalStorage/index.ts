@@ -30,7 +30,7 @@ const useLocalStorage = <T = any>(key: string, defaultValue: T) => {
       const valueToStore =
         newValue instanceof Function ? newValue(storedValue) : newValue;
       setJSON(key, valueToStore);
-      setStoredValue({ ...valueToStore });
+      setStoredValue(valueToStore);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('useLocalStorage setValue:', error);

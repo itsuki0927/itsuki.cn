@@ -1,8 +1,7 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { getCommentListByArticleId, patchCommentMeta, postComment } from '@/api/comment';
+import { getCommentListByArticleId, postComment } from '@/api/comment';
 import { Card, Empty } from '@/components/ui';
 import { Comment } from '@/entities/comment';
-import useCommentLike from '@/hooks/useCommentLike';
 import { purifyDomString } from '@/transformers/purify';
 import CommentContext from './context';
 import Editor from './Editor';
@@ -18,7 +17,6 @@ type CommentProps = {
 };
 
 const CommentList = ({ title, liking, articleId }: CommentProps) => {
-  const { isCommentLiked, setCommentLike } = useCommentLike();
   const [reply, setReply] = useState<Comment | undefined>();
   const [comments, setComments] = useState<Comment[]>([]);
   const isCancel = useRef(false);
@@ -38,11 +36,6 @@ const CommentList = ({ title, liking, articleId }: CommentProps) => {
       isCancel.current = true;
     };
   }, [fetchCommentList]);
-
-  const handleLikeComment = (commentId: number) =>
-    patchCommentMeta(commentId, { meta: 'liking' }).then(() => {
-      setCommentLike(commentId);
-    });
 
   const handleSend = ({ content, ...data }: CommentProfileType & { content: string }) =>
     postComment({
@@ -77,14 +70,7 @@ const CommentList = ({ title, liking, articleId }: CommentProps) => {
         extra={<LikeButton articleId={articleId} liking={liking} />}
       >
         {comments.length ? (
-          comments.map(item => (
-            <CommentCard
-              onLikeComment={handleLikeComment}
-              liked={isCommentLiked(item.id)}
-              comment={item}
-              key={item.id}
-            />
-          ))
+          comments.map(item => <CommentCard comment={item} key={item.id} />)
         ) : (
           <Empty />
         )}

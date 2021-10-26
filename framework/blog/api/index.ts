@@ -8,8 +8,9 @@ import {
   OPERATIONS,
 } from './operations';
 import { APIEndpoint, APIHandler } from './utils/types';
+import { CommentSchema } from '@/entities/comment';
 
-export type APISchemas = ArticlesSchema;
+export type APISchemas = ArticlesSchema | CommentSchema;
 
 export type GetAPISchema<C extends BlogAPI<any>, S extends APISchemas = APISchemas> = {
   schema: S;

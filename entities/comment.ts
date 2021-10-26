@@ -19,3 +19,28 @@ export type Comment = IdentifiableEntity<{
   articleTitle: string;
   articleDescription: string;
 }>;
+
+export type SearchCommentsBody = {
+  articleId: number;
+};
+
+export type CommentTypes = {
+  comment: Comment;
+  searchBody: SearchCommentsBody;
+};
+
+export type CommentSchema<T extends CommentTypes = CommentTypes> = {
+  endpoint: {
+    options: Record<string, any>;
+    handlers: {
+      likeComment: LikeCommentHook<T>;
+    };
+  };
+};
+
+export type LikeCommentHook<T extends CommentTypes = CommentTypes> = {
+  data: void;
+  actionInput: { commentId: T['comment']['id'] };
+  body: { commentId: T['comment']['id'] };
+  fetcherInput: { commentId: T['comment']['id'] };
+};

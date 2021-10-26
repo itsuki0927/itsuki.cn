@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-cycle
-// eslint-disable-next-line import/no-cycle
 import { ArticlesEndpoint } from '.';
 
 const likeArticle: ArticlesEndpoint['handlers']['likeArticle'] = async ({

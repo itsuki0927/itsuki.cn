@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 import useEventListener from '@/hooks/useEventListener';
 import { Offset } from '@/utils/query/getOffset';
-// eslint-disable-next-line import/no-cycle
 import { AffixProps } from './index';
 import throttle from '@/utils/throttle';
 

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { NextApiHandler } from 'next';
 import { ArticlesSchema } from '@/entities/article';
 import {

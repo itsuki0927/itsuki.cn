@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { CommentSchema } from '@/entities/comment';
 import { createEndpoint, GetAPISchema } from '@/framework/blog/api';
 import commentEndpoint from '@/framework/blog/api/endpoints/comment';

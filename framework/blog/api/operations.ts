@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-cycle
 import {
   GetAllArticlePathsOperation,
   GetAllArticlesOperation,
@@ -8,7 +7,6 @@ import {
 import { GetAllCategoryPathsOperation } from '@/entities/category';
 import { GetSiteInfoOperation } from '@/entities/siteInfo';
 import { GetAllTagPathsOperation } from '@/entities/tag';
-// eslint-disable-next-line import/no-cycle
 import { APIProvider, BlogAPI } from '.';
 
 const noop = () => {

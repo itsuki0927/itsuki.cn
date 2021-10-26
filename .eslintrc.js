@@ -48,6 +48,8 @@ module.exports = {
     'react/jsx-props-no-spreading': OFF,
     // 允许 使用位运算
     'no-bitwise': OFF,
+    // 关闭 循环 import
+    'import/no-cycle': OFF,
     // TODO: 暂时关闭坚持
     '@typescript-eslint/explicit-module-boundary-types': OFF,
     'no-param-reassign': WARNING,

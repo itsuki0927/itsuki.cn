@@ -1,6 +1,5 @@
 import { API_URL, API_VERSION } from '@/configs/app';
 import { BlogAPI, BlogAPIConfig, getBlogApi as blogApi } from '@/framework/blog/api';
-// eslint-disable-next-line import/no-cycle
 import getArticle from './operations/get-article';
 import patchArticleMeta from './operations/patch-article-meta';
 import getAllArticlePaths from './operations/get-all-article-paths';

@@ -1,6 +1,5 @@
 import useSWR, { SWRResponse } from 'swr';
 import { BlogError } from './errors';
-// eslint-disable-next-line import/no-cycle
 import {
   Fetcher,
   HookFetcherFn,

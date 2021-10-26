@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { NextApiRequest, NextApiResponse } from 'next';
 import { BlogAPI } from '..';
 

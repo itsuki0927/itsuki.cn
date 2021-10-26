@@ -1,6 +1,5 @@
 import type { SWRConfiguration } from 'swr';
 import { BlogError } from './errors';
-// eslint-disable-next-line import/no-cycle
 import { ResponseState } from './use-data';
 
 export type Override<T, K> = Omit<T, keyof K> & K;

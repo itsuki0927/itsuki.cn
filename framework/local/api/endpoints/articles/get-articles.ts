@@ -1,7 +1,5 @@
-// eslint-disable-next-line import/no-cycle
 import { Article } from '@/entities/article';
 import { SearchResponse } from '@/entities/response/base';
-// eslint-disable-next-line import/no-cycle
 import { ArticlesEndpoint } from '.';
 
 const getArticles: ArticlesEndpoint['handlers']['getArticles'] = async ({

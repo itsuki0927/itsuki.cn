@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { useEffect, useRef } from 'react';
 import useMount from '@/hooks/useMount';

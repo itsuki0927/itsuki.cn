@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-cycle
-// eslint-disable-next-line import/no-cycle
 import { CommentEndpoint, CommentPathPrefix } from '.';
 
 const likeComment: CommentEndpoint['handlers']['likeComment'] = async ({

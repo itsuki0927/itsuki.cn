@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable import/no-cycle */
 import React, { useCallback, useMemo, useState } from 'react';
 import { Card } from '@/components/ui';
 import { MarkdownEditorOptions } from '@/utils/editor';

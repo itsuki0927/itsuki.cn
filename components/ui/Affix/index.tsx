@@ -1,7 +1,6 @@
 import { CSSProperties, forwardRef, ReactNode, useRef } from 'react';
 import mergeRefs from '@/utils/mergeRef';
 import useContainerOffset from './useContainerOffset';
-// eslint-disable-next-line import/no-cycle
 import useFixed from './useFixed';
 import useOffset from './useOffset';
 

@@ -1,11 +1,11 @@
 import { API_URL, API_VERSION } from '@/configs/app';
 import { BlogAPI, BlogAPIConfig, getBlogApi as blogApi } from '@/framework/blog/api';
-import getArticle from './operations/get-article';
-import patchArticleMeta from './operations/patch-article-meta';
+import addArticleRead from './operations/add-article-read';
 import getAllArticlePaths from './operations/get-all-article-paths';
 import getAllArticles from './operations/get-all-articles';
 import getAllCategoryPaths from './operations/get-all-category-paths';
 import getAllTagPaths from './operations/get-all-tag-paths';
+import getArticle from './operations/get-article';
 import getSiteInfo from './operations/get-site-info';
 import { createFetcher } from './utils/fetch-api';
 
@@ -20,7 +20,7 @@ export const config: BlogAPIConfig = {
 
 const operations = {
   getArticle,
-  patchArticleMeta,
+  addArticleRead,
   getAllArticles,
   getAllArticlePaths,
   getAllTagPaths,
@@ -29,6 +29,7 @@ const operations = {
 };
 export const provider = { config, operations };
 export type Provider = typeof provider;
+
 export type ItsukiBlogAPI<P extends Provider = Provider> = BlogAPI<P>;
 
 export function getBlogApi<P extends Provider>(

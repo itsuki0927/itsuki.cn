@@ -2,7 +2,7 @@ import {
   GetAllArticlePathsOperation,
   GetAllArticlesOperation,
   GetArticleOperation,
-  PatchArticleMetaOperation,
+  AddArticleReadOperation,
 } from '@/entities/article';
 import { GetAllCategoryPathsOperation } from '@/entities/category';
 import { GetSiteInfoOperation } from '@/entities/siteInfo';
@@ -15,7 +15,7 @@ const noop = () => {
 
 export const OPERATIONS = [
   'getArticle',
-  'patchArticleMeta',
+  'addArticleRead',
   'getAllArticles',
   'getAllArticlePaths',
   'getAllTagPaths',
@@ -38,8 +38,8 @@ export type Operations<P extends APIProvider> = {
     >;
   };
 
-  patchArticleMeta: {
-    <T extends PatchArticleMetaOperation>(opts: {
+  addArticleRead: {
+    <T extends AddArticleReadOperation>(opts: {
       variables: T['variables'];
     }): Promise<void>;
   };

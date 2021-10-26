@@ -33,9 +33,14 @@ export type SearchArticlesBody = {
   id?: number;
 };
 
+export type LikeArticleBody = {
+  articleId: number;
+};
+
 export type ArticleTypes = {
   article: Article;
   searchBody: SearchArticlesBody;
+  likeBody: LikeArticleBody;
 };
 
 export type SearchArticlesHook<T extends ArticleTypes = ArticleTypes> = {
@@ -50,9 +55,9 @@ export type SearchArticlesHook<T extends ArticleTypes = ArticleTypes> = {
 
 export type LikeArticleHook<T extends ArticleTypes = ArticleTypes> = {
   data: void;
-  actionInput: { articleId: T['article']['id'] };
-  body: { articleId: T['article']['id'] };
-  fetcherInput: { articleId: T['article']['id'] };
+  actionInput: T['likeBody'];
+  body: T['likeBody'];
+  fetcherInput: T['likeBody'];
 };
 
 export type ArticlesSchema<T extends ArticleTypes = ArticleTypes> = {
@@ -67,20 +72,16 @@ export type ArticlesSchema<T extends ArticleTypes = ArticleTypes> = {
 
 export type GetArticleOperation<T extends ArticleTypes = ArticleTypes> = {
   data: { article: T['article'] };
-  variables: { id: number };
+  variables: { articleId: number };
 };
 
 export type GetAllArticlePathsOperation<T extends ArticleTypes = ArticleTypes> = {
   data: { articles: Pick<T['article'], 'id'>[] };
-  variables: any;
 };
 
-type ArticleMetaAllowedOperation = 'liking' | 'reading';
-
-export type PatchArticleMetaOperation<T extends ArticleTypes = ArticleTypes> = {
+export type AddArticleReadOperation = {
   variables: {
-    id: T['article']['id'];
-    meta: ArticleMetaAllowedOperation;
+    articleId: number;
   };
 };
 

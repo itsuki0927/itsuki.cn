@@ -17,12 +17,12 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const id = Number(params?.id);
-  const { article } = await blog.getArticle({ variables: { id } });
+  const articleId = Number(params?.id);
+  const { article } = await blog.getArticle({ variables: { articleId } });
   const siteInfo = await blog.getSiteInfo();
 
-  blog.patchArticleMeta({
-    variables: { id, meta: 'reading' },
+  blog.addArticleRead({
+    variables: { articleId },
   });
 
   return {

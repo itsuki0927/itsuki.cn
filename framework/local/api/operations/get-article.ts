@@ -13,7 +13,7 @@ function getArticleOperation({ blog }: OperationContext<Provider>) {
     const config = blog.getConfig();
     const { data: article } = await config?.fetch<Article>(
       'GET',
-      `${GetArticleQuery}/${variables.id}`
+      `${GetArticleQuery}/${variables.articleId}`
     );
 
     return { article };

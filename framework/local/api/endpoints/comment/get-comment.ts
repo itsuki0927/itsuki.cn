@@ -11,11 +11,7 @@ const getComment: CommentEndpoint['handlers']['getComment'] = async ({
     `${CommentPathPrefix}/${articleId}`
   );
 
-  setTimeout(() => {
-    res.status(200).json({
-      data,
-    });
-  }, 10000);
+  res.status(200).json({ data });
 };
 
 export default getComment;

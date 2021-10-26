@@ -6,6 +6,7 @@ import {
   useMemo,
   useRef,
 } from 'react';
+import { Comment, Article } from '@/entities/index';
 import { Fetcher, MutationHook, SWRHook } from './utils/types';
 
 const Blog = createContext<BlogContextValue<any> | Record<string, any>>({});
@@ -13,12 +14,12 @@ const Blog = createContext<BlogContextValue<any> | Record<string, any>>({});
 export type Provider = BlogConfig & {
   fetcher: Fetcher;
   articles?: {
-    useSearch?: SWRHook<any>;
-    useLikeArticle?: MutationHook<any>;
+    useSearch?: SWRHook<Article.SearchArticlesHook>;
+    useLikeArticle?: MutationHook<Article.LikeArticleHook>;
   };
   comment?: {
-    useComment?: SWRHook<any>;
-    useLikeComment?: MutationHook<any>;
+    useComment?: SWRHook<Comment.GetCommentHook>;
+    useLikeComment?: MutationHook<Comment.LikeCommentHook>;
   };
 };
 

@@ -7,7 +7,7 @@ import fetcher from './fetcher';
 export const itsukiBlogProvider = {
   locale: 'zh-cn',
   fetcher,
-  articles: {
+  article: {
     useSearch,
     useLikeArticle,
   },

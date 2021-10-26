@@ -12,7 +12,7 @@ export const fetcher = mutationFetcher;
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-const fn = (provider: Provider) => provider.articles?.useLikeArticle!;
+const fn = (provider: Provider) => provider.article?.useLikeArticle!;
 
 const useLikeArticle: UseLikeArticle = (...args) => {
   const handler = useHandler(fn);

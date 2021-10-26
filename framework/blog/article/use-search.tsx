@@ -12,7 +12,7 @@ export const fetcher: HookFetcherFn<SearchArticlesHook> = SWRFetcher;
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-const fn = (provider: Provider) => provider.articles?.useSearch!;
+const fn = (provider: Provider) => provider.article?.useSearch!;
 
 const useSearch: UseSearch = input => {
   const handler = useHandler(fn);

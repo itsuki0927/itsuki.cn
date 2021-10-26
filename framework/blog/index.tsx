@@ -13,7 +13,7 @@ const Blog = createContext<BlogContextValue<any> | Record<string, any>>({});
 
 export type Provider = BlogConfig & {
   fetcher: Fetcher;
-  articles?: {
+  article?: {
     useSearch?: SWRHook<Article.SearchArticlesHook>;
     useLikeArticle?: MutationHook<Article.LikeArticleHook>;
   };

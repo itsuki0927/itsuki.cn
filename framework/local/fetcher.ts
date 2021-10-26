@@ -3,15 +3,22 @@ import { Fetcher } from '../blog/utils/types';
 
 const isGet = (method: string) => method.toLowerCase() === 'get';
 
-const fetcher: Fetcher = async ({ url = '', method = 'POST', variables, query }) => {
+const fetcher: Fetcher = async ({
+  url = '',
+  method = 'POST',
+  variables,
+  query,
+  body: bodyProp,
+}) => {
   const { locale, ...rest } = variables ?? {};
 
-  const getBody = (requestMethod: string) =>
-    isGet(requestMethod) ? {} : { body: JSON.stringify({ query, variables: rest }) };
+  const body = isGet(method)
+    ? undefined
+    : JSON.stringify({ query, variables: rest, ...bodyProp });
 
   return handleFetchResponse(
     await fetch(url, {
-      ...getBody(method),
+      body,
       method,
       headers: {
         'Content-Type': 'application/json',

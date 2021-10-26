@@ -1,9 +1,5 @@
 import useLocalStorage from '@/hooks/useLocalStorage';
-import {
-  initialUserLikeHistory,
-  UserLikeComments,
-  USER_LIKE_COMMENT,
-} from '@/constants/like';
+import { initialLikeValue, LikeComments, LikeCommentsKey } from '@/constants/like';
 
 /**
  * 评论点赞hook
@@ -11,9 +7,9 @@ import {
  * @returns
  */
 const useCommentLike = () => {
-  const [likeHistory, setLikeHistory] = useLocalStorage<UserLikeComments>(
-    USER_LIKE_COMMENT,
-    initialUserLikeHistory
+  const [likeHistory, setLikeHistory] = useLocalStorage<LikeComments>(
+    LikeCommentsKey,
+    initialLikeValue
   );
 
   const isCommentLiked = (commentId: number) => !!likeHistory[commentId];

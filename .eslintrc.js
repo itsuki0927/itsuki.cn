@@ -51,5 +51,7 @@ module.exports = {
     // TODO: 暂时关闭坚持
     '@typescript-eslint/explicit-module-boundary-types': OFF,
     'no-param-reassign': WARNING,
+    // 警告 hook 只能在组件/函数中使用
+    'react-hooks/rules-of-hooks': WARNING,
   },
 };

@@ -1,29 +1,25 @@
-import { HeartFilled } from '@ant-design/icons';
-import classNames from 'classnames';
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { getCommentListByArticleId, patchCommentMeta, postComment } from '@/api/comment';
-import { Button, Card, Empty } from '@/components/ui';
+import { Card, Empty } from '@/components/ui';
 import { Comment } from '@/entities/comment';
-import useArticleLike from '@/hooks/useArticleLike';
 import useCommentLike from '@/hooks/useCommentLike';
 import { purifyDomString } from '@/transformers/purify';
 import CommentContext from './context';
 import Editor from './Editor';
 import { CommentProfileType } from './Editor/Profile';
 import CommentCard from './Item';
+import LikeButton from './LikeButton';
 import styles from './style.module.scss';
 
 type CommentProps = {
   title: (comments: Comment[], length: number) => string | ReactNode;
   liking: number;
   articleId: number;
-  onLikeArticle: (articleId: number) => Promise<void>;
 };
 
-const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) => {
-  const [reply, setReply] = useState<Comment | undefined>();
-  const { isLiked, setArticleLike } = useArticleLike(articleId);
+const CommentList = ({ title, liking, articleId }: CommentProps) => {
   const { isCommentLiked, setCommentLike } = useCommentLike();
+  const [reply, setReply] = useState<Comment | undefined>();
   const [comments, setComments] = useState<Comment[]>([]);
   const isCancel = useRef(false);
 
@@ -78,29 +74,7 @@ const CommentList = ({ title, liking, articleId, onLikeArticle }: CommentProps) 
       <Card
         className={styles.comment}
         title={title(comments, comments.length)}
-        extra={
-          <>
-            <Button
-              type='dashed'
-              disabled={isLiked}
-              icon={
-                <HeartFilled
-                  className={classNames(styles.liking, {
-                    [styles.liked]: isLiked,
-                  })}
-                />
-              }
-              onClick={() => {
-                onLikeArticle(articleId).then(() => {
-                  setArticleLike();
-                });
-              }}
-            >
-              {liking}
-              个人
-            </Button>
-          </>
-        }
+        extra={<LikeButton articleId={articleId} liking={liking} />}
       >
         {comments.length ? (
           comments.map(item => (

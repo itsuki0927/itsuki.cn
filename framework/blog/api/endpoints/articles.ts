@@ -7,13 +7,23 @@ const articlesEndpoint: GetAPISchema<any, ArticlesSchema>['endpoint']['handler']
   async ctx => {
     const { req, res, handlers } = ctx;
 
-    if (!isAllowedOperation(req, res, { GET: handlers.getArticles })) {
+    if (
+      !isAllowedOperation(req, res, {
+        GET: handlers.getArticles,
+        PATCH: handlers.likeArticle,
+      })
+    ) {
       return;
     }
 
     try {
       const { body } = req;
-      return await handlers.getArticles({ ...ctx, body });
+      if (req.method === 'GET') {
+        return await handlers.getArticles({ ...ctx, body });
+      }
+      if (req.method === 'PATCH') {
+        return await handlers.likeArticle({ ...ctx, body });
+      }
     } catch (error) {
       const message =
         error instanceof BlogAPIError

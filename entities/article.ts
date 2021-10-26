@@ -48,11 +48,19 @@ export type SearchArticlesHook<T extends ArticleTypes = ArticleTypes> = {
   fetcherInput: T['searchBody'];
 };
 
+export type LikeArticleHook<T extends ArticleTypes = ArticleTypes> = {
+  data: void;
+  actionInput: { articleId: T['article']['id'] };
+  body: { articleId: T['article']['id'] };
+  fetcherInput: { articleId: T['article']['id'] };
+};
+
 export type ArticlesSchema<T extends ArticleTypes = ArticleTypes> = {
   endpoint: {
     options: Record<string, any>;
     handlers: {
       getArticles: SearchArticlesHook<T>;
+      likeArticle: LikeArticleHook<T>;
     };
   };
 };

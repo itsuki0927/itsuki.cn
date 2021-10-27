@@ -7,9 +7,7 @@ import useSearch from '@/framework/blog/article/use-search';
 const Search = () => {
   const router = useRouter();
   const keyword = (router.query.keyword ?? '') as string;
-  const { data } = useSearch({
-    search: keyword,
-  });
+  const { data } = useSearch({ search: keyword });
 
   if (!data) {
     return <Loading />;

@@ -17,11 +17,12 @@ const articlesEndpoint: GetAPISchema<any, ArticlesSchema>['endpoint']['handler']
     }
 
     try {
-      const { body } = req;
       if (req.method === 'GET') {
+        const body = req.query;
         return await handlers.getArticles({ ...ctx, body });
       }
       if (req.method === 'PATCH') {
+        const { body } = req;
         return await handlers.likeArticle({ ...ctx, body });
       }
     } catch (error) {

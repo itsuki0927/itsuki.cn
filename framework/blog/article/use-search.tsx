@@ -23,12 +23,26 @@ const useSearch: UseSearch = input => {
 
 export const handler: SWRHook<SearchArticlesHook> = {
   fetchOptions: {
-    url: '/api/articles',
+    url: '/api/article',
     method: 'GET',
   },
-  async fetcher({ options, fetch }) {
+  async fetcher({ options, fetch, input }) {
+    const url = new URL(options.url!, 'http://a');
+    const { category, search, tag } = input;
+
+    if (category) {
+      url.searchParams.set('category', category);
+    }
+    if (search) {
+      url.searchParams.set('search', search);
+    }
+    if (tag) {
+      url.searchParams.set('tag', tag);
+    }
+
     const data = await fetch({
       ...options,
+      url: url.pathname + url.search,
     });
 
     return data;
@@ -38,7 +52,11 @@ export const handler: SWRHook<SearchArticlesHook> = {
     (input = {}) =>
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useData({
-        input: [['search', input.search]],
+        input: [
+          ['search', input.search],
+          ['category', input.category],
+          ['tag', input.tag],
+        ],
         swrOptions: {
           revalidateOnFocus: false,
           ...input.swrOptions,

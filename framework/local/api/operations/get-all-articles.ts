@@ -37,7 +37,7 @@ function getAllArticlesOperation({ blog }: OperationContext<Provider>) {
     const url = new URL(query, 'http://a');
     const { search, category, tag, banner } = variables;
     if (search) {
-      url.searchParams.append('search', search);
+      url.searchParams.append('name', search);
     }
     if (category) {
       url.searchParams.append('category', category);

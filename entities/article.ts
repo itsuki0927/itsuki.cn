@@ -30,7 +30,6 @@ export type SearchArticlesBody = {
   search?: string;
   tag?: string;
   category?: string;
-  id?: number;
 };
 
 export type LikeArticleBody = {
@@ -87,7 +86,7 @@ export type AddArticleReadOperation = {
 
 export type GetAllArticlesOperation<T extends ArticleTypes = ArticleTypes> = {
   data: SearchResponse<T['article']>;
-  variables: { search?: string; banner?: true; tag?: string; category?: string };
+  variables: SearchArticlesBody & { banner?: true };
 };
 
 export type GetAllArticlePathsQuery = SearchResponse<Article>;

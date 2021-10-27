@@ -1,25 +1,16 @@
-import { Article } from '@/entities/article';
-import { SearchResponse } from '@/entities/response/base';
 import { ArticlesEndpoint } from '.';
 
 const getArticles: ArticlesEndpoint['handlers']['getArticles'] = async ({
   res,
-  config,
   body,
+  blog,
 }) => {
-  const url = new URL('/article', 'http://a');
-  if (body.search) {
-    url.searchParams.append('name', body.search);
-  }
-  const data = await config.fetch<SearchResponse<Article>>(
-    'GET',
-    url.pathname + url.search
-  );
+  const data = await blog.getAllArticles({ variables: body });
 
   return res.status(200).json({
     data: {
-      articles: data.data,
-      found: !!data.data.total,
+      articles: data,
+      found: !!data.total,
     },
   });
 };

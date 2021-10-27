@@ -1,17 +1,15 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import { getCategories, getTags } from '@/api/global';
+import blog from './api/blog';
 
 export const getSearchStaticProps = async ({
   locale = 'cn-zh',
 }: GetStaticPropsContext) => {
-  const { data: tags } = await getTags();
-  const { data: categories } = await getCategories();
+  const siteInfo = await blog.getSiteInfo();
 
   return {
     props: {
-      tags,
-      categories,
       locale,
+      ...siteInfo,
     },
     revalidate: 200,
   };

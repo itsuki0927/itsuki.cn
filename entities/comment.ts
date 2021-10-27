@@ -28,10 +28,21 @@ export type LikeCommentBody = {
   commentId: number;
 };
 
+export type PostCommentBody = {
+  nickname: string;
+  email: string;
+  website: string;
+  content: string;
+  articleId: number;
+  agent: string;
+  parentId?: number;
+};
+
 export type CommentTypes = {
   comment: Comment;
   searchBody: SearchCommentsBody;
   likeBody: LikeCommentBody;
+  postBody: PostCommentBody;
 };
 
 export type CommentSchema<T extends CommentTypes = CommentTypes> = {
@@ -48,19 +59,38 @@ export type GetCommentHook<T extends CommentTypes = CommentTypes> = {
   swrState: { isEmpty: boolean };
 };
 
+export type PostCommentHook<T extends CommentTypes = CommentTypes> = {
+  data: T['comment'];
+  input: {
+    articleId: number;
+  };
+  fetcherInput: T['postBody'];
+  actionInput: T['postBody'];
+};
+
 export type LikeCommentHook<T extends CommentTypes = CommentTypes> = {
   data: void;
   actionInput: T['likeBody'];
-  body: T['likeBody'];
   fetcherInput: T['likeBody'];
 };
 
 export type CommentHandlers<T extends CommentTypes = CommentTypes> = {
   getComment: GetCommentHandler<T>;
-  likeComment: LikeCommentHook<T>;
+  likeComment: LikeCommentHandler<T>;
+  postComment: PostCommentHandler<T>;
 };
 
 export type GetCommentHandler<T extends CommentTypes = CommentTypes> =
   GetCommentHook<T> & {
     body: T['searchBody'];
+  };
+
+export type LikeCommentHandler<T extends CommentTypes = CommentTypes> =
+  LikeCommentHook & {
+    body: T['likeBody'];
+  };
+
+export type PostCommentHandler<T extends CommentTypes = CommentTypes> =
+  PostCommentHook<T> & {
+    body: T['postBody'];
   };

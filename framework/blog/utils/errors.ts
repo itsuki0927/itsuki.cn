@@ -28,7 +28,7 @@ export class BlogError extends Error {
 export class ValidationError extends BlogError {
   constructor(options: ErrorProps) {
     super(options);
-    this.code = 'valdation_error';
+    this.code = 'validation_error';
   }
 }
 

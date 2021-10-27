@@ -20,6 +20,7 @@ export type Provider = BlogConfig & {
   comment?: {
     useComment?: SWRHook<Comment.GetCommentHook>;
     useLikeComment?: MutationHook<Comment.LikeCommentHook>;
+    usePostComment?: MutationHook<Comment.PostCommentHook>;
   };
 };
 

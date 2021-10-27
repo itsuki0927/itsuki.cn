@@ -10,6 +10,7 @@ const commentEndpoints: GetAPISchema<any, CommentSchema>['endpoint']['handler'] 
     if (
       !isAllowedOperation(req, res, {
         GET: handlers.getComment,
+        POST: handlers.postComment,
         PATCH: handlers.likeComment,
       })
     ) {
@@ -20,6 +21,11 @@ const commentEndpoints: GetAPISchema<any, CommentSchema>['endpoint']['handler'] 
       if (req.method === 'GET') {
         const body = req.query as unknown as SearchCommentsBody;
         return await handlers.getComment({ ...ctx, body });
+      }
+
+      if (req.method === 'POST') {
+        const { body } = req;
+        return await handlers.postComment({ ...ctx, body });
       }
 
       if (req.method === 'PATCH') {

@@ -22,10 +22,11 @@ const fetchData = async <T>(opts: {
 
   const json = await res.json();
 
-  if (json.errors) {
+  if (json.status !== 200 && json.success === false) {
+    const { message } = json;
     throw new FetcherError({
-      errors: json.errors ?? [{ message: 'Failed to fetch Bigcommerce API' }],
-      status: res.status,
+      errors: message ? [{ message }] : [{ message: 'Failed to fetch Itsuki Blog API' }],
+      status: json.status,
     });
   }
 
@@ -37,9 +38,9 @@ const fetchData = async <T>(opts: {
    */
   return {
     data: json.data,
-    status: res.status,
-    message: json.message || (json.data && json.data.message),
-    success: res.status === 200 && json.success,
+    status: json.status || res.status,
+    message: json.message || '请求成功',
+    success: json.status === 200 && json.success && res.ok,
   } as FetcherResult<T>;
 };
 

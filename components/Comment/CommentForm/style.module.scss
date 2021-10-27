@@ -1,0 +1,32 @@
+@import 'styles/variables.scss';
+
+.form {
+  display: flex;
+  margin-top: $margin-lg;
+}
+
+.wrapper {
+  flex: 1;
+  margin-left: $margin-sm;
+}
+
+.avatar {
+  border: 4px solid lighten($gray-5, 5%);
+  border-radius: $border-radius-base;
+  margin-top: 45px;
+}
+
+.actionBar {
+  margin-top: $margin-sm;
+  display: flex;
+  justify-content: space-between;
+  .send {
+    width: 120px;
+    vertical-align: top;
+  }
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}

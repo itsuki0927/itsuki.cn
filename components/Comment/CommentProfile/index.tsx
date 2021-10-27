@@ -1,17 +1,9 @@
-import {
-  CheckOutlined,
-  ClearOutlined,
-  CloseOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
-import { useContext, useState } from 'react';
-import { Button, Card } from '@/components/ui';
+import { CheckOutlined, ClearOutlined, EditOutlined } from '@ant-design/icons';
+import { useState } from 'react';
+import { Button } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import useMount from '@/hooks/useMount';
-import markedToHtml from '@/utils/marked';
-import { setJSON } from '@/utils/storage';
-import CommentContext from '../context';
 import styles from './style.module.scss';
 
 export type CommentProfileType = {
@@ -20,13 +12,21 @@ export type CommentProfileType = {
   website: string;
 };
 
-const CommentProfile = () => {
+interface CommentProfileProps {
+  onChange: (value: CommentProfileType) => void;
+  value: CommentProfileType;
+}
+
+const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
   const [actionVisible, setActionVisible] = useState(false);
-  const { reply, setReply } = useContext(CommentContext);
-  const [value, onChange] = useLocalStorage(USER_COMMENT_PROFILE, initialCommentProfile);
+  const [storageValue, setStorageValue] = useLocalStorage(
+    USER_COMMENT_PROFILE,
+    initialCommentProfile
+  );
 
   useMount(() => {
-    if (Object.values(value).every(Boolean)) {
+    if (storageValue !== value && Object.values(storageValue).every(Boolean)) {
+      onChange(storageValue);
       setActionVisible(true);
     }
   });
@@ -45,34 +45,17 @@ const CommentProfile = () => {
       return;
     }
     setActionVisible(true);
-    setJSON(USER_COMMENT_PROFILE, value);
+    setStorageValue(value);
   };
 
   const handleClear = () => {
     setActionVisible(false);
-    setJSON(USER_COMMENT_PROFILE, initialCommentProfile);
-    onChange({ ...initialCommentProfile });
+    onChange(initialCommentProfile);
+    setStorageValue(initialCommentProfile);
   };
 
   return (
     <div className={styles.profile}>
-      {reply?.id && (
-        <div className={styles.reply}>
-          <p className={styles.profile}>
-            <span className={styles.nickname}>
-              回复:
-              <strong>{` #${reply.nickname}`}</strong>
-            </span>
-            <CloseOutlined className={styles.close} onClick={() => setReply(undefined)} />
-          </p>
-          <Card className={styles.content} bodyStyle={{ padding: '4px 11px' }}>
-            <div
-              className='markdown-html'
-              dangerouslySetInnerHTML={{ __html: markedToHtml(reply.content) }}
-            />
-          </Card>
-        </div>
-      )}
       {!actionVisible && (
         <div className={styles.edit}>
           <input

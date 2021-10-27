@@ -1,4 +1,4 @@
-import Comment from '@/components/comment';
+import { CommentView } from '@/components/comment';
 import { ImagePopup } from '@/components/ui';
 import { Article } from '@/entities/article';
 import ArticleContent from '../ArticleContent';
@@ -20,7 +20,7 @@ const ArticleView = ({ article }: ArticleViewProps) => (
 
     <ArticleMeta article={article} />
 
-    <Comment
+    <CommentView
       articleId={article.id}
       title={(comments, length) => <span>{length} 个想法</span>}
       liking={article.liking}

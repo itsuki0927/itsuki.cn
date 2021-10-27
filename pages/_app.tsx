@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { GA } from '@/components/common';
 import { PageLoadingProgress } from '@/components/ui';
 import '@/styles/globals.scss';

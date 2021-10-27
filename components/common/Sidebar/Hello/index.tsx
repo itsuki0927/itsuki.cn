@@ -1,6 +1,6 @@
-import Card from '@/components/ui/Card';
-import { CommentProfileType } from '@/components/comment/Editor/Profile';
-import { USER_COMMENT_PROFILE, initialCommentProfile } from '@/constants/comment';
+import { CommentProfileType } from '@/components/comment/CommentProfile';
+import { Card } from '@/components/ui';
+import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { zhDayName } from '@/transformers/date';
 import styles from './style.module.scss';

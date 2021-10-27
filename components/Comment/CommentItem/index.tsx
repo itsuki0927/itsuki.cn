@@ -1,16 +1,15 @@
 import { HeartFilled, SelectOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { useContext, useState } from 'react';
-import Button from '@/components/ui/Button';
+import { Card, Button } from '@/components/ui';
 import { Comment } from '@/entities/comment';
+import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';
+import useLikeComment from '@/framework/local/comment/use-like-comment';
 import { getGravatarUrl } from '@/transformers/gravatar';
 import { parseUA } from '@/transformers/ua';
 import markedToHtml from '@/utils/marked';
-import { Card } from '@/components/ui';
 import CommentContext from '../context';
 import styles from './style.module.scss';
-import useLikeComment from '@/framework/local/comment/use-like-comment';
-import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';
 
 type CommentCardProps = {
   comment: Comment;
@@ -64,7 +63,7 @@ const CommentCard = ({ comment }: CommentCardProps) => {
     <Card
       key={comment.id}
       bodyStyle={{ padding: 12 }}
-      className={styles.commentCard}
+      className={styles.commentItem}
       actions={[
         <Button
           key='liking'

@@ -1,5 +1,5 @@
 import { HeaderLayout } from '@/components/common';
-import { NotFoundView } from '@/components/errors';
+import { InternalServerErrorView } from '@/components/errors';
 import blog from '@/lib/api/blog';
 
 export const getStaticProps = async () => {
@@ -13,8 +13,8 @@ export const getStaticProps = async () => {
   };
 };
 
-export default function NotFound() {
-  return <NotFoundView />;
+export default function InternalServerError() {
+  return <InternalServerErrorView />;
 }
 
-NotFound.Layout = HeaderLayout;
+InternalServerError.Layout = HeaderLayout;

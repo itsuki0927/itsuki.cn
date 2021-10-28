@@ -1,6 +1,5 @@
 import { ArticleOrigin } from '@/constants/article/origin';
 import { ArticleOpen } from '@/constants/article/public';
-import { PublishState } from '@/constants/publish';
 import { Category } from './category';
 import { Comment } from './comment';
 import { IdentifiableEntity, SearchResponse } from './response/base';
@@ -15,8 +14,8 @@ export type Article = IdentifiableEntity<{
   status: number;
   keywords: string;
   open: ArticleOpen;
-  publish: PublishState;
   origin: ArticleOrigin;
+  publish: number;
   banner: number;
   reading: number;
   liking: number;

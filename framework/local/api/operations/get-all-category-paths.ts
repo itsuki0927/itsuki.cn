@@ -17,9 +17,9 @@ function getAllCategoryPathsOperation({ blog }: OperationContext<Provider>) {
       getAllCategoryPathsQuery
     );
 
-    const categories = data.data.map(item => item.path);
+    const categories = data.data.map(item => ({ path: item.path }));
 
-    return { categories } as any;
+    return { categories };
   }
 
   return getAllCategoryPaths;

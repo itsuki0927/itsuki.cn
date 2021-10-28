@@ -8,7 +8,7 @@ import { Layout } from '@/components/common';
 export const getStaticPaths = async () => {
   const { categories } = await blog.getAllCategoryPaths();
 
-  const paths = categories.map(category => `/category/${category}`);
+  const paths = categories.map(category => `/category/${category.path}`);
 
   return {
     paths,

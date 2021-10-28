@@ -14,9 +14,9 @@ function getAllArticlePathsOperation({ blog }: OperationContext<Provider>) {
       `${getAllArticlePathsQuery}?publish=1`
     );
 
-    const articles = data.data.map(item => item.id);
+    const articles = data.data.map(item => ({ id: item.id }));
 
-    return { articles } as any;
+    return { articles };
   }
 
   return getAllArticlePaths;

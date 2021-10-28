@@ -7,7 +7,7 @@ import { Layout } from '@/components/common';
 
 export const getStaticPaths = async () => {
   const { tags } = await blog.getAllTagPaths();
-  const paths = tags.map(tag => `/tag/${tag}`);
+  const paths = tags.map(tag => `/tag/${tag.name}`);
 
   return {
     paths,

@@ -3,9 +3,10 @@ import { PostCommentHook } from '@/entities/comment';
 import usePostComment, {
   UsePostComment,
 } from '@/framework/blog/comment/use-post-comment';
-import { MutationHook } from '@/framework/blog/utils/types';
-import useComment from './use-comment';
 import { ValidationError } from '@/framework/blog/utils/errors';
+import { MutationHook } from '@/framework/blog/utils/types';
+import isEmail from '@/utils/validates/isEmail';
+import useComment from './use-comment';
 
 export default usePostComment as UsePostComment<typeof handler>;
 
@@ -18,7 +19,10 @@ export const handler: MutationHook<PostCommentHook> = {
   },
   fetcher: ({ options, input: body, fetch }) => {
     if (validateFields.some(key => !body[key])) {
-      throw new ValidationError({ message: '请输入必填字段!!!' });
+      throw new ValidationError({ message: '请输入必填字段' });
+    }
+    if (!isEmail(body.email)) {
+      throw new ValidationError({ message: '请输入正确的邮箱' });
     }
     return fetch({
       ...options,

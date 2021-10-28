@@ -21,7 +21,7 @@ const ReplyPlaceholder = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
       </p>
       <Card className={styles.content} bodyStyle={{ padding: '4px 11px' }}>
         <div
-          className='markdown-html'
+          className='markdown-html comment'
           dangerouslySetInnerHTML={{ __html: markedToHtml(reply.content) }}
         />
       </Card>

@@ -7,8 +7,9 @@
     margin-bottom: 0;
   }
 
-  :global(.card-actions li) {
-    margin: 6px 0;
+  ul > li {
+    // override scss module style
+    margin: 6px 0 !important;
   }
 
   .liked {

@@ -1,3 +1,4 @@
+export { default as BlankLayout } from './BlankLayout';
 export { default as Footer } from './Footer';
 export { default as GA } from './GA';
 export { default as Header } from './Header';

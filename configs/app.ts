@@ -1,5 +1,5 @@
 // iconfont url
-export const ICONFONT_URL = '//at.alicdn.com/t/font_2836612_bjyr9zw60k8.css';
+export const ICONFONT_URL = '//at.alicdn.com/t/font_2836612_bjyr9zw60k8';
 
 // resource 主机
 export const RESOURCE_HOST = 'resources.fivewoods.xyz';

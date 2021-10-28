@@ -12,6 +12,10 @@
     transition: all 0.2s ease;
   }
 
+  .action {
+    margin-right: 6px;
+  }
+
   &:hover {
     .cover {
       opacity: 1;

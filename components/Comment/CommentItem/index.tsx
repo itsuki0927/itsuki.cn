@@ -1,7 +1,7 @@
-import { HeartFilled, SelectOutlined } from '@ant-design/icons';
+import { HeartFilled, HeartOutlined, SelectOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { useContext, useState } from 'react';
-import { Card, Button } from '@/components/ui';
+import { Button, Card } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
@@ -32,6 +32,12 @@ const CommentCard = ({ comment }: CommentCardProps) => {
   const isLiked = useInLikeComments(comment.id);
   const [liking, setLiking] = useState(comment.liking);
   const [liked, setLiked] = useState(isLiked);
+
+  const handleLike = () => {
+    likeComment({ commentId: comment.id });
+    setLiking(l => l + 1);
+    setLiked(true);
+  };
 
   const titleDom = (
     <div>
@@ -72,12 +78,8 @@ const CommentCard = ({ comment }: CommentCardProps) => {
           className={classNames({
             [styles.liked]: liked,
           })}
-          icon={<HeartFilled />}
-          onClick={() => {
-            likeComment({ commentId: comment.id });
-            setLiking(l => l + 1);
-            setLiked(true);
-          }}
+          icon={liked ? <HeartFilled /> : <HeartOutlined />}
+          onClick={handleLike}
         >
           <span>{liking}</span>
         </Button>,

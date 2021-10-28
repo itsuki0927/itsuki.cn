@@ -1,6 +1,6 @@
-import { SendOutlined } from '@ant-design/icons';
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
+import { SendOutlined } from '@/components/icons';
 import { Button, Card } from '@/components/ui';
 import { initialCommentProfile } from '@/constants/comment';
 import usePostComment from '@/framework/local/comment/use-post-comment';

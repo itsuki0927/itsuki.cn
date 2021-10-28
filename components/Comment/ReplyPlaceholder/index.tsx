@@ -1,4 +1,4 @@
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined } from '@/components/icons';
 import { Card } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import markedToHtml from '@/utils/marked';

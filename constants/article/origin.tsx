@@ -1,4 +1,4 @@
-import { EditOutlined, CopyOutlined, PullRequestOutlined } from '@ant-design/icons';
+import { EditOutlined, CopyOutlined, PullRequestOutlined } from '@/components/icons';
 
 /** 文章来源 */
 export enum ArticleOrigin {

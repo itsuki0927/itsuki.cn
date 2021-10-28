@@ -1,13 +1,13 @@
 /* eslint-disable no-param-reassign */
+import classNames from 'classnames';
+import { MouseEvent, useEffect, useState } from 'react';
 import {
   BoldOutlined,
   CodeOutlined,
   OrderedListOutlined,
   PictureOutlined,
   UnorderedListOutlined,
-} from '@ant-design/icons';
-import classNames from 'classnames';
-import { MouseEvent, useEffect, useState } from 'react';
+} from '@/components/icons';
 import { Button } from '@/components/ui';
 import styles from './style.module.scss';
 

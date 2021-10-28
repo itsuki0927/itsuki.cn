@@ -1,11 +1,3 @@
-import CheckCircleFilled from '@ant-design/icons/CheckCircleFilled';
-import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
-import CloseCircleFilled from '@ant-design/icons/CloseCircleFilled';
-import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
-import ExclamationCircleFilled from '@ant-design/icons/ExclamationCircleFilled';
-import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
-import InfoCircleFilled from '@ant-design/icons/InfoCircleFilled';
-import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
 import classNames from 'classnames';
 import {
   cloneElement,
@@ -15,6 +7,16 @@ import {
   MouseEventHandler,
   ReactNode,
 } from 'react';
+import {
+  InfoCircleOutlined,
+  InfoCircleFilled,
+  ExclamationCircleOutlined,
+  ExclamationCircleFilled,
+  CloseCircleOutlined,
+  CheckCircleFilled,
+  CloseCircleFilled,
+  CheckCircleOutlined,
+} from '@/components/icons';
 import styles from './style.module.scss';
 
 type AnyObject = Record<any, any>;

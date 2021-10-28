@@ -1,4 +1,4 @@
-import { ToTopOutlined } from '@ant-design/icons';
+import { ToTopOutlined } from '@/components/icons';
 import { Button } from '@/components/ui';
 import styles from './style.module.scss';
 

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import Icon from '@/components/Icon';
+import { Icon } from '@/components/icons';
 import { Card } from '@/components/ui';
 import styles from './style.module.scss';
 import { getExpandsValue } from './util';

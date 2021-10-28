@@ -1,6 +1,6 @@
-import { EyeOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import { useState } from 'react';
+import { EyeOutlined } from '@/components/icons';
 import Card from '@/components/ui/Card';
 import styles from './style.module.scss';
 

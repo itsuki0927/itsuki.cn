@@ -1,7 +1,7 @@
-import { SoundOutlined } from '@ant-design/icons';
 import { InferGetServerSidePropsType } from 'next';
 import dynamic from 'next/dynamic';
 import { Layout } from '@/components/common';
+import { SoundOutlined } from '@/components/icons';
 import blog from '@/lib/api/blog';
 
 const Alert = dynamic(() => import('@/components/ui/Alert'));

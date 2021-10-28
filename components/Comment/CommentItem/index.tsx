@@ -1,6 +1,6 @@
-import { HeartFilled, HeartOutlined, SelectOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { useContext, useState } from 'react';
+import { HeartFilled, HeartOutlined, SelectOutlined } from '@/components/icons';
 import { Button, Card } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';

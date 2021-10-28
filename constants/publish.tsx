@@ -1,4 +1,4 @@
-import { CheckOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { CheckOutlined, EditOutlined } from '@/components/icons';
 
 export enum PublishState {
   Draft = 0, // 草稿
@@ -15,7 +15,7 @@ const publishStateMap = new Map(
       icon: <CheckOutlined />,
       color: 'green',
     },
-    { id: PublishState.Recycle, name: '回收站', icon: <DeleteOutlined />, color: 'red' },
+    { id: PublishState.Recycle, name: '回收站', icon: <span />, color: 'red' },
   ].map(item => [item.id, item])
 );
 

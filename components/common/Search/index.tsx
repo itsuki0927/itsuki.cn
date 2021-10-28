@@ -1,6 +1,6 @@
-import { SearchOutlined } from '@ant-design/icons';
 import { KeyboardEvent } from 'react';
 import { useRouter } from 'next/router';
+import { SearchOutlined } from '@/components/icons';
 import styles from './style.module.scss';
 
 const HeaderSearch = () => {

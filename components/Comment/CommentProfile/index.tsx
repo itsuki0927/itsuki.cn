@@ -1,5 +1,5 @@
-import { CheckOutlined, ClearOutlined, EditOutlined } from '@ant-design/icons';
 import { useState } from 'react';
+import { CheckOutlined, ClearOutlined, EditOutlined } from '@/components/icons';
 import { Button } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import useLocalStorage from '@/hooks/useLocalStorage';

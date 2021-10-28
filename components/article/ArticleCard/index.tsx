@@ -1,6 +1,6 @@
-import { EyeOutlined, HeartOutlined, MessageOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import router from 'next/router';
+import { EyeOutlined, HeartOutlined, MessageOutlined } from '@/components/icons';
 import { Card } from '@/components/ui';
 import { Article } from '@/entities/article';
 import imageTransformer from '@/transformers/image';

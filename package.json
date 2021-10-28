@@ -19,7 +19,6 @@
     "check-types": "tsc -p ./tsconfig.json --noEmit --pretty"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.7.0",
     "classnames": "^2.3.1",
     "dompurify": "^2.3.3",
     "gravatar": "^1.8.2",

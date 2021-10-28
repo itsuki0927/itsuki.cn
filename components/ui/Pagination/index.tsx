@@ -1,6 +1,6 @@
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { LeftOutlined, RightOutlined } from '@/components/icons';
 import { Button } from '@/components/ui';
 import styles from './style.module.scss';
 

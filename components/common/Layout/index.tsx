@@ -8,7 +8,7 @@ import { SiteInfo } from '@/entities/siteInfo';
 
 const DynamicBackTop = dynamic(() => import('@/components/ui/BackTop'));
 
-interface Props {
+export interface PageProps {
   pageProps: {
     pages?: any[];
     categories: SiteInfo['categories'];
@@ -19,7 +19,10 @@ interface Props {
 
 const DynamicAffix = dynamic(() => import('@/components/ui/Affix'), { ssr: false });
 
-const Layout: FC<Props> = ({ children, pageProps = { categories: [], tags: [] } }) => {
+const Layout: FC<PageProps> = ({
+  children,
+  pageProps = { categories: [], tags: [] },
+}) => {
   const { locale = 'zh-cn' } = useRouter();
 
   return (

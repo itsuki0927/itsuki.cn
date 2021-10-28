@@ -8,8 +8,9 @@ const buildPath = (path: string) => `/category/${path}`;
 
 interface HeaderProps {
   links?: Category[];
+  search?: boolean;
 }
-const Header = ({ links }: HeaderProps) => {
+const Header = ({ links, search = true }: HeaderProps) => {
   const categoriesDom = useMemo(
     () =>
       links?.map(item => (
@@ -30,7 +31,7 @@ const Header = ({ links }: HeaderProps) => {
     <header className={styles.header}>
       <div className={`${styles.main} container`}>
         <Logo />
-        <HeaderSearch />
+        {search ? <HeaderSearch /> : null}
         <nav className={styles.navbar}>
           <ul>
             <ActiveLink activeClassName={styles.active} href='/'>

@@ -2,6 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { ArticleView } from '@/components/article';
 import { Layout } from '@/components/common';
+import { ValidationError } from '@/framework/blog/utils/errors';
 import blog from '@/lib/api/blog';
 import marked from '@/utils/marked';
 
@@ -18,6 +19,11 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const articleId = Number(params?.id);
+
+  if (Number.isNaN(articleId)) {
+    throw new ValidationError({ message: '文章ID参数错误' });
+  }
+
   const { article } = await blog.getArticle({ variables: { articleId } });
   const siteInfo = await blog.getSiteInfo();
 

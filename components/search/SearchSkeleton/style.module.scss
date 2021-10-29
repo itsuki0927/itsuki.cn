@@ -1,0 +1,13 @@
+.searchSkeleton {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -24px;
+
+  .item {
+    max-width: 401px;
+    min-width: 300px;
+    flex: 1;
+    margin-left: 24px;
+    margin-bottom: 24px;
+  }
+}

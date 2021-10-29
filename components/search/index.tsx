@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { ArticleList } from '@/components/article';
 import { Layout } from '@/components/common';
-import { Loading } from '@/components/ui';
 import useSearch from '@/framework/blog/article/use-search';
+import SearchSkeleton from './SearchSkeleton';
 
 const Search = () => {
   const router = useRouter();
@@ -10,7 +10,7 @@ const Search = () => {
   const { data } = useSearch({ search: keyword });
 
   if (!data) {
-    return <Loading />;
+    return <SearchSkeleton />;
   }
 
   return (

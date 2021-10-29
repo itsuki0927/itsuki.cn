@@ -10,4 +10,6 @@ export { default as ImagePopup } from './ImagePopup';
 export { default as Loading } from './Loading';
 export { default as PageLoadingProgress } from './PageLoadingProgress';
 export { default as Pagination } from './Pagination';
+export { default as Skeleton } from './Skeleton';
 export { default as Tag } from './Tag';
+export { default as Text } from './Text';

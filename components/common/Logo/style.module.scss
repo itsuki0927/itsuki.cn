@@ -2,7 +2,6 @@
 
 .logo {
   width: 200px;
-  color: rgba(0, 0, 0, 0.85);
   font-weight: 700;
   font-size: 18px;
   line-height: $header-height;
@@ -13,7 +12,7 @@
   cursor: pointer;
 
   img {
-    height: 32px;
+    height: 32px !important;
   }
 
   span {

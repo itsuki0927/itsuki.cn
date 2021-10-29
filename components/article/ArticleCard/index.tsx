@@ -18,7 +18,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => (
     cover={
       <Image
         alt='article-cover'
-        width={300}
+        width={401}
         height={312}
         objectFit='cover'
         src={article.cover}

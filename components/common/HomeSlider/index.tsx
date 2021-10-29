@@ -33,7 +33,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
             src={article.cover}
             objectFit='cover'
             placeholder='empty'
-            width='100%'
+            width={824}
             height={300}
             loader={imageTransformer}
             alt='banner-cover'

@@ -1,14 +1,14 @@
 @import 'styles/variables.scss';
 
 .article {
-  width: 300px;
+  width: 401px;
   margin-bottom: $margin-lg;
   margin-left: $margin-lg;
   flex-grow: 1;
   max-width: 401px;
 
   .cover {
-    opacity: 0.9;
+    opacity: 90%;
     transition: all 0.2s ease;
   }
 
@@ -18,7 +18,7 @@
 
   &:hover {
     .cover {
-      opacity: 1;
+      opacity: 100%;
       transform: scale(1.05);
     }
   }

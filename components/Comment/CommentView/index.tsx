@@ -2,6 +2,7 @@ import React, { ReactNode, useMemo } from 'react';
 import { Card, Empty } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import useComment from '@/framework/local/comment/use-comment';
+import { CommentSkeleton } from '..';
 import CommentForm from '../CommentForm';
 import CommentItem from '../CommentItem';
 import { ReplyProvider } from '../context';
@@ -28,7 +29,7 @@ const CommentList = ({ title, liking, articleId }: CommentProps) => {
   );
 
   if (isLoading || !comments) {
-    return <h1>Loading.....</h1>;
+    return <CommentSkeleton />;
   }
 
   return (

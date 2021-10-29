@@ -25,7 +25,7 @@
     "gravatar": "^1.8.2",
     "highlight.js": "^11.3.1",
     "marked": "^3.0.8",
-    "next": "12.0.1",
+    "next": "^12.0.2-canary.8",
     "nprogress": "^0.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",

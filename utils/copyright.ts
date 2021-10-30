@@ -1,4 +1,5 @@
 import { META } from '@/configs/app';
+import { on } from './events';
 
 const copyrightText = () =>
   [
@@ -15,7 +16,7 @@ const copyrightText = () =>
 const buildCopyrightText = (content: string) => content + copyrightText();
 
 export const enableCopyright = () => {
-  document.addEventListener('copy', event => {
+  on(document, 'copy', (event: ClipboardEvent) => {
     if (!window.getSelection()) return;
     if (event.clipboardData) {
       const content = window.getSelection()?.toString() ?? '';

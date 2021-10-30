@@ -18,3 +18,12 @@ export const RESOURCE_HOST = 'resources.fivewoods.xyz';
 
 // resource 路径
 export const RESOURCE_URL = `https://${RESOURCE_HOST}`;
+
+// blog meta
+export const META = {
+  author: 'Itsuki',
+  title: 'Itsuki.cn',
+  keywords: 'Itsuki 博客, NextJs, 五木',
+  description: '多思考、少写代码',
+  url: 'fivewoods.xyz',
+};

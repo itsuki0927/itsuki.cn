@@ -6,7 +6,7 @@
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "pm2": "pm2 start yarn --name 'client' --interpreter bash -- start ",
+    "pm2": "pm2 start yarn --name 'web' --interpreter bash -- start ",
     "next:lint": "next lint",
     "lint": "eslint .",
     "prepare": "husky install",

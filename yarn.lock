@@ -396,6 +396,39 @@
   resolved "https://registry.npmmirror.com/@polka/url/download/@polka/url-1.0.0-next.21.tgz#5de5a2385a35309427f6011992b544514d559aa1"
   integrity sha1-XeWiOFo1MJQn9gEZkrVEUU1VmqE=
 
+"@prefresh/babel-plugin@0.4.1":
+  version "0.4.1"
+  resolved "https://registry.nlark.com/@prefresh/babel-plugin/download/@prefresh/babel-plugin-0.4.1.tgz#c4e843f7c5e56c15f1185979a8559c893ffb4a35"
+  integrity sha1-xOhD98XlbBXxGFl5qFWciT/7SjU=
+
+"@prefresh/core@^1.3.1":
+  version "1.3.2"
+  resolved "https://registry.nlark.com/@prefresh/core/download/@prefresh/core-1.3.2.tgz#97f966759b16e5f4c52361972e3c61ccac9ce396"
+  integrity sha1-l/lmdZsW5fTFI2GXLjxhzKyc45Y=
+
+"@prefresh/next@^1.4.6":
+  version "1.4.7"
+  resolved "https://registry.npmmirror.com/@prefresh/next/download/@prefresh/next-1.4.7.tgz#00f07f9291fac1906ea1ab306457a991e0f34ec7"
+  integrity sha1-APB/kpH6wZBuoaswZFepkeDzTsc=
+  dependencies:
+    "@prefresh/babel-plugin" "0.4.1"
+    "@prefresh/core" "^1.3.1"
+    "@prefresh/utils" "^1.0.0"
+    "@prefresh/webpack" "^3.2.0"
+
+"@prefresh/utils@^1.0.0", "@prefresh/utils@^1.1.0":
+  version "1.1.1"
+  resolved "https://registry.nlark.com/@prefresh/utils/download/@prefresh/utils-1.1.1.tgz#ffe7f2e6bd48a0633631a3d92c0ee4bdeb0ac330"
+  integrity sha1-/+fy5r1IoGM2MaPZLA7kvesKwzA=
+
+"@prefresh/webpack@^3.2.0", "@prefresh/webpack@^3.3.0":
+  version "3.3.2"
+  resolved "https://registry.nlark.com/@prefresh/webpack/download/@prefresh/webpack-3.3.2.tgz#058c4d61d733a4a8c111486f8aa1ae9b89820d9c"
+  integrity sha1-BYxNYdczpKjBEUhviqGum4mCDZw=
+  dependencies:
+    "@prefresh/core" "^1.3.1"
+    "@prefresh/utils" "^1.1.0"
+
 "@types/dompurify@^2.3.1":
   version "2.3.1"
   resolved "https://registry.npmmirror.com/@types/dompurify/download/@types/dompurify-2.3.1.tgz#2934adcd31c4e6b02676f9c22f9756e5091c04dd"
@@ -2777,7 +2810,7 @@ log-update@^4.0.0:
     slice-ansi "^4.0.0"
     wrap-ansi "^6.2.0"
 
-loose-envify@^1.1.0, loose-envify@^1.4.0:
+loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -2939,6 +2972,11 @@ minimist@^1.2.0:
   resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
+module-alias@^2.0.0:
+  version "2.2.2"
+  resolved "https://registry.npm.taobao.org/module-alias/download/module-alias-2.2.2.tgz#151cdcecc24e25739ff0aa6e51e1c5716974c0e0"
+  integrity sha1-FRzc7MJOJXOf8KpuUeHFcWl0wOA=
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
@@ -2968,6 +3006,15 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
+
+next-plugin-preact@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.npmmirror.com/next-plugin-preact/download/next-plugin-preact-3.0.6.tgz#22d566e8e5d50cb4cfc78360d367df44d6aaf94f"
+  integrity sha1-ItVm6OXVDLTPx4Ng02ffRNaq+U8=
+  dependencies:
+    "@prefresh/next" "^1.4.6"
+    "@prefresh/webpack" "^3.3.0"
+    module-alias "^2.0.0"
 
 next@^12.0.2-canary.8:
   version "12.0.2-canary.8"
@@ -3424,6 +3471,18 @@ postcss@^8.3.11:
     picocolors "^1.0.0"
     source-map-js "^0.6.2"
 
+preact-render-to-string@^5.1.19:
+  version "5.1.19"
+  resolved "https://registry.npm.taobao.org/preact-render-to-string/download/preact-render-to-string-5.1.19.tgz?cache=0&sync_timestamp=1617620940925&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpreact-render-to-string%2Fdownload%2Fpreact-render-to-string-5.1.19.tgz#ffae7c3bd1680be5ecf5991d41fe3023b3051e0e"
+  integrity sha1-/658O9FoC+Xs9ZkdQf4wI7MFHg4=
+  dependencies:
+    pretty-format "^3.8.0"
+
+preact@^10.5.15:
+  version "10.5.15"
+  resolved "https://registry.npmmirror.com/preact/download/preact-10.5.15.tgz?cache=0&sync_timestamp=1634018488983&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fpreact%2Fdownload%2Fpreact-10.5.15.tgz#6df94d8afecf3f9e10a742fd8c362ddab464225f"
+  integrity sha1-bflNiv7PP54Qp0L9jDYt2rRkIl8=
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
@@ -3440,6 +3499,11 @@ prettier@^2.4.1:
   version "2.4.1"
   resolved "https://registry.nlark.com/prettier/download/prettier-2.4.1.tgz?cache=0&sync_timestamp=1631777167012&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fprettier%2Fdownload%2Fprettier-2.4.1.tgz#671e11c89c14a4cfc876ce564106c4a6726c9f5c"
   integrity sha1-Zx4RyJwUpM/Ids5WQQbEpnJsn1w=
+
+pretty-format@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.npmmirror.com/pretty-format/download/pretty-format-3.8.0.tgz?cache=0&sync_timestamp=1634626739813&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fpretty-format%2Fdownload%2Fpretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
+  integrity sha1-v77VbV6ad2ZF9LH/eqGjrE+jw4U=
 
 process@0.11.10:
   version "0.11.10"
@@ -3534,14 +3598,10 @@ raw-body@2.4.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-dom@17.0.2:
+"react-dom@npm:@preact/compat", "react@npm:@preact/compat":
   version "17.0.2"
-  resolved "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
-  integrity sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    scheduler "^0.20.2"
+  resolved "https://registry.npmmirror.com/@preact/compat/download/@preact/compat-17.0.2.tgz#c1b97a4d0add60fc07898a250448fa585479a920"
+  integrity sha1-wbl6TQrdYPwHiYolBEj6WFR5qSA=
 
 react-is@17.0.2:
   version "17.0.2"
@@ -3569,13 +3629,10 @@ react-slick@^0.28.1:
     lodash.debounce "^4.0.8"
     resize-observer-polyfill "^1.5.0"
 
-react@17.0.2:
-  version "17.0.2"
-  resolved "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
-  integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
+react-ssr-prepass@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npm.taobao.org/react-ssr-prepass/download/react-ssr-prepass-1.4.0.tgz#33a3db19414f0f8f9f3f781c88f760ae366b4f51"
+  integrity sha1-M6PbGUFPD4+fP3gciPdgrjZrT1E=
 
 read-pkg-up@^7.0.1:
   version "7.0.1"
@@ -3766,14 +3823,6 @@ sass@^1.43.4:
   integrity sha1-aMfWobAEvvSa8NnK91DpslIQXR8=
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
-
-scheduler@^0.20.2:
-  version "0.20.2"
-  resolved "https://registry.npmjs.org/scheduler/-/scheduler-0.20.2.tgz"
-  integrity sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 semver-compare@^1.0.0:
   version "1.0.0"

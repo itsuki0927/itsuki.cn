@@ -9,11 +9,15 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: isProd,
 });
 
+const withPreact = require('next-plugin-preact');
+
 /** @type {import('next').NextConfig} */
-module.exports = withBundleAnalyzer({
-  assetPrefix: isProd ? RESOURCE_URL : '',
-  reactStrictMode: true,
-  images: {
-    domains: [RESOURCE_HOST],
-  },
-});
+module.exports = withBundleAnalyzer(
+  withPreact({
+    assetPrefix: isProd ? RESOURCE_URL : '',
+    reactStrictMode: true,
+    images: {
+      domains: [RESOURCE_HOST],
+    },
+  })
+);

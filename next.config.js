@@ -19,5 +19,45 @@ module.exports = withBundleAnalyzer(
     images: {
       domains: [RESOURCE_HOST],
     },
+    webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+      // config.externals.push({
+      //   'hightlight.js': 'hightlight.js',
+      //   marked: 'marked',
+      //   dompurify: 'dompurify',
+      // });
+
+      // config.performance = {
+      //   hints: 'error',
+      //   maxAssetSize: 500 * 1024, // 100 KiB
+      //   maxEntrypointSize: 500 * 1024, // 100 KiB
+      // };
+
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          ...config.optimization.splitChunks,
+          cacheGroups: {
+            vendor: {
+              name: 'node_vendors', // part of the bundle name and
+              test: /[\\/]node_modules[\\/]/,
+              chunks: 'all',
+            },
+            components: {
+              name: 'component_vendors',
+              test: /[\\/]components[\\/]/,
+              chunks: 'all',
+              minSize: 0,
+            },
+            framework: {
+              name: 'framework_vendors',
+              test: /[\\/]framework[\\/]/,
+              chunks: 'all',
+              minSize: 0,
+            },
+          },
+        },
+      };
+      return config;
+    },
   })
 );

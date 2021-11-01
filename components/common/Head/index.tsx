@@ -10,7 +10,7 @@ const Head: FC = () => (
       {...config}
       additionalMetaTags={[
         {
-          property: 'keywords',
+          name: 'keywords',
           content: META.keywords,
         },
       ]}

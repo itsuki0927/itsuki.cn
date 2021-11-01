@@ -1,8 +1,11 @@
+import { BlogJsonLd, NextSeo } from 'next-seo';
+import React from 'react';
 import { CommentView } from '@/components/comment';
 import { ImagePopup } from '@/components/ui';
 import { Article } from '@/entities/article';
 import ArticleContent from '../ArticleContent';
 import ArticleMeta from '../ArticleMeta';
+import { WEB_URL } from '@/configs/app';
 
 interface ArticleViewProps {
   article: Article;
@@ -10,6 +13,21 @@ interface ArticleViewProps {
 
 const ArticleView = ({ article }: ArticleViewProps) => (
   <div>
+    <NextSeo
+      title={article.title}
+      description={article.description}
+      additionalMetaTags={[{ name: 'keywords', content: article.keywords }]}
+    />
+    <BlogJsonLd
+      url={`${WEB_URL}/article/${article.id}`}
+      title={article.title}
+      images={[article.cover]}
+      datePublished={article.createAt.toString()}
+      dateModified={article.updateAt.toString()}
+      authorName={article.author}
+      description={article.description}
+    />
+
     <ImagePopup
       ref={imagePopup => {
         (window as any).imagePopup = imagePopup;

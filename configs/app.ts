@@ -21,9 +21,9 @@ export const RESOURCE_URL = `https://${RESOURCE_HOST}`;
 
 // blog meta
 export const META = {
-  author: 'Itsuki',
-  title: 'Itsuki.cn',
-  keywords: 'Itsuki 博客, NextJs, 五木',
-  description: '多思考、少写代码',
+  title: 'Itsuki Blog | 五木',
+  keywords: 'Itsuki 博客,五木,Next.js 博客,前端技术博客,JavaScript 技术',
+  description: 'Itsuki Blog - 思考比代码更有意义 - https://fivewoods.xyz',
   url: 'fivewoods.xyz',
+  author: 'itsuki',
 };

@@ -1,6 +1,7 @@
 export { default as BlankLayout } from './BlankLayout';
 export { default as Footer } from './Footer';
 export { default as GA } from './GA';
+export { default as Head } from './Head';
 export { default as Navbar } from './Navbar';
 export { default as NavbarLayout } from './NavbarLayout';
 export { default as HomeSlider } from './HomeSlider';

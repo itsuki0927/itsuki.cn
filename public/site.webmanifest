@@ -1,0 +1,22 @@
+{
+  "name": "Itsuki Blog",
+  "short_name": "Itsuki Blog",
+  "description": "Itsuki Blog -> https://fivewoods.xyz",
+  "display": "standalone",
+  "start_url": "/",
+  "theme_color": "#1890ff",
+  "background_color": "#fafafa",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

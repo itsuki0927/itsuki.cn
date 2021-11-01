@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app';
-import { BlankLayout, GA, Iconfont } from '@/components/common';
+import { BlankLayout, GA, Iconfont, Head } from '@/components/common';
 import { PageLoadingProgress } from '@/components/ui';
 import useMount from '@/hooks/useMount';
 import '@/styles/globals.scss';
@@ -16,6 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head />
       <Iconfont />
       <GA />
       <PageLoadingProgress />

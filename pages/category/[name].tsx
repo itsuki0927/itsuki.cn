@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { useMemo } from 'react';
+import { NextSeo } from 'next-seo';
 import { ArticleList } from '@/components/article';
 import { Banner } from '@/components/ui';
 import blog from '@/lib/api/blog';
@@ -47,6 +48,10 @@ const CategoryPage = ({
 
   return (
     <div>
+      <NextSeo
+        title={`${category?.name} - ${category?.path} - Category`}
+        description={category?.description}
+      />
       <Banner data={category} />
 
       <ArticleList articles={articles} />

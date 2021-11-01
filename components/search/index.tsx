@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 import { ArticleList } from '@/components/article';
 import { Layout } from '@/components/common';
 import useSearch from '@/framework/blog/article/use-search';
@@ -15,6 +16,7 @@ const Search = () => {
 
   return (
     <div>
+      <NextSeo title={`${keyword} - Search`} />
       <h2 style={{ marginTop: 0 }}>Search:{keyword}</h2>
       <ArticleList articles={data?.articles} />
     </div>

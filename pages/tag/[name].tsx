@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
+import { NextSeo } from 'next-seo';
 import { ArticleList } from '@/components/article';
 import { Banner } from '@/components/ui';
 import blog from '@/lib/api/blog';
@@ -43,6 +44,10 @@ const TagPage = ({
 
   return (
     <div>
+      <NextSeo
+        title={`${tag?.name} - ${tag?.path} - Tag`}
+        description={tag?.description}
+      />
       <Banner data={tag} />
 
       <ArticleList articles={articles} />

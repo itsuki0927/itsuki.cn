@@ -1,4 +1,4 @@
-import { HeaderLayout } from '@/components/common';
+import { NavbarLayout } from '@/components/common';
 import { NotFoundView } from '@/components/errors';
 import blog from '@/lib/api/blog';
 
@@ -17,4 +17,4 @@ export default function NotFound() {
   return <NotFoundView />;
 }
 
-NotFound.Layout = HeaderLayout;
+NotFound.Layout = NavbarLayout;

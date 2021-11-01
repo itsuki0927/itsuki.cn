@@ -1,4 +1,4 @@
-import { HeaderLayout } from '@/components/common';
+import { NavbarLayout } from '@/components/common';
 import { InternalServerErrorView } from '@/components/errors';
 import blog from '@/lib/api/blog';
 
@@ -17,4 +17,4 @@ export default function InternalServerError() {
   return <InternalServerErrorView />;
 }
 
-InternalServerError.Layout = HeaderLayout;
+InternalServerError.Layout = NavbarLayout;

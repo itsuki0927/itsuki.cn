@@ -1,16 +1,16 @@
 import { useMemo } from 'react';
-import { Logo, Search as HeaderSearch } from '@/components/common';
+import { Logo, Search as NavbarSearch } from '@/components/common';
 import { ActiveLink } from '@/components/ui';
 import { Category } from '@/entities/category';
 import styles from './style.module.scss';
 
 const buildPath = (path: string) => `/category/${path}`;
 
-interface HeaderProps {
+interface NavbarProps {
   links?: Category[];
   search?: boolean;
 }
-const Header = ({ links, search = true }: HeaderProps) => {
+const Navbar = ({ links, search = true }: NavbarProps) => {
   const categoriesDom = useMemo(
     () =>
       links?.map(item => (
@@ -28,11 +28,11 @@ const Header = ({ links, search = true }: HeaderProps) => {
   );
 
   return (
-    <header className={styles.header}>
-      <div className={`${styles.main} container`}>
+    <div className={styles.navbar}>
+      <div className={`${styles.content} container`}>
         <Logo />
-        {search ? <HeaderSearch /> : null}
-        <nav className={styles.navbar}>
+        {search ? <NavbarSearch /> : null}
+        <nav className={styles.nav}>
           <ul>
             <ActiveLink activeClassName={styles.active} href='/'>
               <li className={styles.item}>
@@ -63,8 +63,8 @@ const Header = ({ links, search = true }: HeaderProps) => {
           </ul>
         </nav>
       </div>
-    </header>
+    </div>
   );
 };
 
-export default Header;
+export default Navbar;

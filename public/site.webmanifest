@@ -1,7 +1,7 @@
 {
   "name": "Itsuki Blog",
   "short_name": "Itsuki Blog",
-  "description": "Itsuki Blog -> https://fivewoods.xyz",
+  "description": "Itsuki Blog -> https://itsuki.cn",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#1890ff",

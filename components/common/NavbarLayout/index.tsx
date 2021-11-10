@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
-import { BlankLayout, Navbar } from '..';
+import { Navbar } from '..';
 import { PageProps } from '../Layout';
+import styles from './style.module.scss';
 
 const NavbarLayout: FC<PageProps> = ({ pageProps, children }) => (
-  <BlankLayout>
+  <div className={styles.navbarLayout}>
     <Navbar search={false} links={pageProps.categories} />
-    {children}
-  </BlankLayout>
+    <main className={styles.main}>{children}</main>
+  </div>
 );
 
 export default NavbarLayout;

@@ -55,5 +55,7 @@ module.exports = {
     'no-param-reassign': WARNING,
     // 警告 hook 只能在组件/函数中使用
     'react-hooks/rules-of-hooks': WARNING,
+    // 警告 不使用默认导出
+    'import/prefer-default-export': WARNING,
   },
 };

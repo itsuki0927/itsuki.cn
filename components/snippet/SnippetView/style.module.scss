@@ -1,0 +1,40 @@
+@import 'styles/variables.scss';
+
+$icon-background: #f6d854;
+
+.snippet {
+  margin-bottom: $margin-lg;
+
+  .icon {
+    width: 48px;
+    height: 48px;
+    background-color: $icon-background;
+    line-height: 48px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+
+    .expertise {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background-color: $error;
+      border: 2px solid $white;
+      border-radius: 50%;
+      top: -3px;
+      right: -3px;
+    }
+  }
+
+  .name {
+    font-size: 18px;
+    font-weight: 500;
+    transition: 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+      color: $primary;
+    }
+  }
+}

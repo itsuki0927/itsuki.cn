@@ -1,7 +1,24 @@
-import { Card } from '@/components/ui';
+import { InferGetServerSidePropsType } from 'next';
+import { NavbarLayout } from '@/components/common';
+import { SnippetView } from '@/components/snippet';
+import blog from '@/lib/api/blog';
 
-const SnippetPage = () => (
-  <Card bodyStyle={{ textAlign: 'center', fontSize: 20 }}>楼主正在努力开发中...</Card>
+export const getStaticProps = async () => {
+  const snippets = await blog.getAllSnippets();
+
+  return {
+    props: {
+      snippets,
+    },
+  };
+};
+
+const SnippetPage = ({
+  snippets,
+}: InferGetServerSidePropsType<typeof getStaticProps>) => (
+  <SnippetView snippets={snippets} />
 );
+
+SnippetPage.Layout = NavbarLayout;
 
 export default SnippetPage;

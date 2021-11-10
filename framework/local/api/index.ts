@@ -7,6 +7,7 @@ import getAllCategoryPaths from './operations/get-all-category-paths';
 import getAllTagPaths from './operations/get-all-tag-paths';
 import getArticle from './operations/get-article';
 import getSiteInfo from './operations/get-site-info';
+import getAllSnippets from './operations/get-all-snippets';
 import { createFetcher } from './utils/fetch-api';
 
 export const config: BlogAPIConfig = {
@@ -26,6 +27,7 @@ const operations = {
   getAllTagPaths,
   getAllCategoryPaths,
   getSiteInfo,
+  getAllSnippets,
 };
 export const provider = { config, operations };
 export type Provider = typeof provider;

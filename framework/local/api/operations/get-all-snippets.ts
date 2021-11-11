@@ -9,17 +9,14 @@ const LIMIT = 2000;
 
 function getAllSnippetsOperation({ blog }: OperationContext<Provider>) {
   async function getAllSnippets<T extends GetAllSnippetsOperation>({
-    query = getAllSnippetQuery,
     variables = {},
     config: cfg,
   }: {
-    query?: string;
     variables?: T['variables'];
     config?: Partial<BlogAPIConfig>;
-    preview?: boolean;
   } = {}): Promise<T['data']> {
     const config = blog.getConfig(cfg);
-    const url = new URL(query, 'http://a');
+    const url = new URL(getAllSnippetQuery, 'http://a');
     const { keyword } = variables;
     if (keyword) {
       url.searchParams.append('name', keyword);

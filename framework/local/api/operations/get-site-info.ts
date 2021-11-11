@@ -8,17 +8,13 @@ const getSiteInfoQuery = '/site-info';
 export type GetSiteInfoQuery = SiteInfo;
 
 function getSiteInfoOperation({ blog }: OperationContext<Provider>) {
-  async function getSiteInfo<T extends GetSiteInfoOperation>(): Promise<T['data']>;
-
   async function getSiteInfo<T extends GetSiteInfoOperation>({
-    query = getSiteInfoQuery,
     config: cfg,
   }: {
-    query?: string;
     config?: Partial<BlogAPIConfig>;
   } = {}): Promise<T['data']> {
     const config = blog.getConfig(cfg);
-    const res = await config.fetch<GetSiteInfoQuery>('GET', query);
+    const res = await config.fetch<GetSiteInfoQuery>('GET', getSiteInfoQuery);
     return res.data;
   }
 

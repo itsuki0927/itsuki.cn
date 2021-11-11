@@ -1,4 +1,5 @@
 export { default as BlankLayout } from './BlankLayout';
+export { default as Breadcrumbs } from './Breadcrumbs';
 export { default as Footer } from './Footer';
 export { default as GA } from './GA';
 export { default as Head } from './Head';

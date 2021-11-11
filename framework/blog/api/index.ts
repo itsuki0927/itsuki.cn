@@ -1,5 +1,7 @@
 import { NextApiHandler } from 'next';
 import { ArticlesSchema } from '@/entities/article';
+import { CommentSchema } from '@/entities/comment';
+import { SnippetsSchema } from '@/entities/snippet';
 import {
   AllOperations,
   APIOperations,
@@ -7,9 +9,8 @@ import {
   OPERATIONS,
 } from './operations';
 import { APIEndpoint, APIHandler } from './utils/types';
-import { CommentSchema } from '@/entities/comment';
 
-export type APISchemas = ArticlesSchema | CommentSchema;
+export type APISchemas = ArticlesSchema | CommentSchema | SnippetsSchema;
 
 export type GetAPISchema<C extends BlogAPI<any>, S extends APISchemas = APISchemas> = {
   schema: S;

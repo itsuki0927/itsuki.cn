@@ -40,6 +40,15 @@ export type SearchSnippetsHook<T extends SnippetTypes = SnippetTypes> = {
   fetcherInput: T['searchBody'];
 };
 
+export type SnippetsSchema<T extends SnippetTypes = SnippetTypes> = {
+  endpoint: {
+    options: Record<string, any>;
+    handlers: {
+      getSnippets: SearchSnippetsHook<T>;
+    };
+  };
+};
+
 export type GetSnippetOperation<T extends SnippetTypes = SnippetTypes> = {
   data: { snippet: T['snippetDetail'] };
   variables: { snippetId: number };

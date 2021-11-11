@@ -19,7 +19,7 @@ function getAllSnippetsOperation({ blog }: OperationContext<Provider>) {
     const url = new URL(getAllSnippetQuery, 'http://a');
     const { keyword } = variables;
     if (keyword) {
-      url.searchParams.append('name', keyword);
+      url.searchParams.append('keyword', keyword);
     }
     url.searchParams.append('status', '1');
     url.searchParams.append('pageSize', `${LIMIT}`);

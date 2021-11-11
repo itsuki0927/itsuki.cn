@@ -8,6 +8,8 @@ import getAllTagPaths from './operations/get-all-tag-paths';
 import getArticle from './operations/get-article';
 import getSiteInfo from './operations/get-site-info';
 import getAllSnippets from './operations/get-all-snippets';
+import getAllSnippetPaths from './operations/get-all-snippet-paths';
+import getSnippet from './operations/get-snippet';
 import { createFetcher } from './utils/fetch-api';
 
 export const config: BlogAPIConfig = {
@@ -28,6 +30,8 @@ const operations = {
   getAllCategoryPaths,
   getSiteInfo,
   getAllSnippets,
+  getAllSnippetPaths,
+  getSnippet,
 };
 export const provider = { config, operations };
 export type Provider = typeof provider;

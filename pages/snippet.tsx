@@ -5,10 +5,12 @@ import blog from '@/lib/api/blog';
 
 export const getStaticProps = async () => {
   const snippets = await blog.getAllSnippets();
+  const siteInfo = await blog.getSiteInfo();
 
   return {
     props: {
       snippets,
+      ...siteInfo,
     },
   };
 };

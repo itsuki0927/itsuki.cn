@@ -1,12 +1,16 @@
 import {
+  AddArticleReadOperation,
   GetAllArticlePathsOperation,
   GetAllArticlesOperation,
   GetArticleOperation,
-  AddArticleReadOperation,
 } from '@/entities/article';
 import { GetAllCategoryPathsOperation } from '@/entities/category';
 import { GetSiteInfoOperation } from '@/entities/siteInfo';
-import { GetAllSnippetsOperation } from '@/entities/snippet';
+import {
+  GetAllSnippetPathsOperation,
+  GetAllSnippetsOperation,
+  GetSnippetOperation,
+} from '@/entities/snippet';
 import { GetAllTagPathsOperation } from '@/entities/tag';
 import { APIProvider, BlogAPI } from '.';
 
@@ -23,6 +27,8 @@ export const OPERATIONS = [
   'getAllCategoryPaths',
   'getSiteInfo',
   'getAllSnippets',
+  'getSnippet',
+  'getAllSnippetPaths',
 ] as const;
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -71,21 +77,29 @@ export type Operations<P extends APIProvider> = {
   };
 
   getAllTagPaths: {
-    <T extends GetAllTagPathsOperation>(opts: { config?: P['config'] }): Promise<
-      T['data']
-    >;
+    <T extends GetAllTagPathsOperation>(): Promise<T['data']>;
   };
 
   getAllCategoryPaths: {
-    <T extends GetAllCategoryPathsOperation>(opts: { config?: P['config'] }): Promise<
-      T['data']
-    >;
+    <T extends GetAllCategoryPathsOperation>(): Promise<T['data']>;
   };
 
   getAllSnippets: {
-    <T extends GetAllSnippetsOperation>(opts: { config?: P['config'] }): Promise<
-      T['data']
-    >;
+    <T extends GetAllSnippetsOperation>(opts: {
+      config?: P['config'];
+      variables: T['variables'];
+    }): Promise<T['data']>;
+  };
+
+  getSnippet: {
+    <T extends GetSnippetOperation>(opts: {
+      config?: P['config'];
+      variables: T['variables'];
+    }): Promise<T['data']>;
+  };
+
+  getAllSnippetPaths: {
+    <T extends GetAllSnippetPathsOperation>(): Promise<T['data']>;
   };
 };
 

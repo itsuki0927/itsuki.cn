@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { JsOutlined } from '@/components/icons';
+import { JsTextOutlined } from '@/components/icons';
 import { Card } from '@/components/ui';
 import { SearchResponse } from '@/entities/response/base';
 import { Snippet } from '@/entities/snippet';
@@ -8,6 +8,7 @@ import styles from './style.module.scss';
 interface SnippetViewProps {
   snippets: SearchResponse<Snippet>;
 }
+
 const SnippetView = ({ snippets }: SnippetViewProps) => (
   <div className='container'>
     {snippets.data.map(snippet => (
@@ -15,7 +16,7 @@ const SnippetView = ({ snippets }: SnippetViewProps) => (
         <Card.Meta
           avatar={
             <span className={styles.icon}>
-              <JsOutlined />
+              <JsTextOutlined style={{ fontSize: 26, lineHeight: '48px' }} />
               <i className={styles.expertise} />
             </span>
           }

@@ -14,12 +14,19 @@ export type Snippet = IdentifiableEntity<{
   email: string;
 }>;
 
+export type SnippetDetail = Snippet & {
+  skillHtml: string;
+  codeHtml: string;
+  exampleHtml: string;
+};
+
 export type SearchSnippetsBody = {
   keyword?: string;
 };
 
 export type SnippetTypes = {
   snippet: Snippet;
+  snippetDetail: SnippetDetail;
   searchBody: SearchSnippetsBody;
 };
 
@@ -33,17 +40,8 @@ export type SearchSnippetsHook<T extends SnippetTypes = SnippetTypes> = {
   fetcherInput: T['searchBody'];
 };
 
-export type SnippetsSchema<T extends SnippetTypes = SnippetTypes> = {
-  endpoint: {
-    options: Record<string, any>;
-    handlers: {
-      getSnippets: SearchSnippetsHook<T>;
-    };
-  };
-};
-
 export type GetSnippetOperation<T extends SnippetTypes = SnippetTypes> = {
-  data: { snippet: T['snippet'] };
+  data: { snippet: T['snippetDetail'] };
   variables: { snippetId: number };
 };
 

@@ -69,7 +69,7 @@ $button-color: #000000d9;
 
     &:not(.disabled):hover {
       color: $text-color;
-      background: rgba(0, 0, 0, 0.018);
+      background: rgba(0 0 0 1.8%);
       border-color: transparent;
     }
   }
@@ -103,9 +103,11 @@ $button-color: #000000d9;
     width: 100%;
   }
 
-  :global {
-    .anticon + span {
-      margin-left: 8px;
+  &.hasIcon {
+    :global {
+      .iconfont {
+        margin-right: 4px;
+      }
     }
   }
 }

@@ -59,6 +59,7 @@ const Button: FC<ButtonProps> = ({
       [styles[type]]: type,
       [styles.block]: block,
       [styles.disabled]: otherProps.disabled,
+      [styles.hasIcon]: !!icon,
     },
     styles.btn,
     className

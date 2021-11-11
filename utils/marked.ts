@@ -123,4 +123,8 @@ const markedToHtml = (markdown: string, { purify }: MarkedOptions = {}) => {
     renderer: customRenderer,
   });
 };
+
+export const genMarkdownString = (code: string | undefined, language = 'js') =>
+  code ? `\`\`\`${language}\n${code}\n\`\`\`` : '';
+
 export default markedToHtml;

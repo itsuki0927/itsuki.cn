@@ -19,6 +19,7 @@ export { default as Icon } from './Icon/index';
 export { default as InfoCircleFilled } from './InfoCircleFilled';
 export { default as InfoCircleOutlined } from './InfoCircleOutlined';
 export { default as JsOutlined } from './JsOutlined';
+export { default as JsTextOutlined } from './JsTextOutlined';
 export { default as LeftOutlined } from './LeftOutlined';
 export { default as LockOutlined } from './LockOutlined';
 export { default as MessageOutlined } from './MessageOutlined';

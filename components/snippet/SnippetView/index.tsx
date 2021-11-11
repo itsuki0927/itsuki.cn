@@ -10,7 +10,7 @@ interface SnippetViewProps {
 
 const SnippetView = ({ snippets }: SnippetViewProps) => (
   <div className='container'>
-    <Card style={{ marginBottom: 24 }}>
+    <Card style={{ marginBottom: 24 }} bodyStyle={{ padding: '12px 24px' }}>
       <Input
         size='lg'
         placeholder='Search Code'

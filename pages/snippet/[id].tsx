@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { useState } from 'react';
-import { NavbarLayout } from '@/components/common';
+import { Breadcrumbs, NavbarLayout } from '@/components/common';
 import { CheckOutlined, CopyOutlined } from '@/components/icons';
 import { Button, Card, MarkdownBlock } from '@/components/ui';
 import blog from '@/lib/api/blog';
@@ -29,9 +29,18 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   snippet.codeHtml = markedToHtml(genMarkdownString(snippet.code, 'js'));
   snippet.exampleHtml = markedToHtml(genMarkdownString(snippet.example, 'js'));
 
+  const breadcrumbs = [
+    { url: '/snippet', name: 'snippet' },
+    {
+      url: `/snippet/${snippetId}`,
+      name: snippet.name,
+    },
+  ];
+
   return {
     props: {
       snippet,
+      breadcrumbs,
       ...siteInfo,
     },
     revalidate: 10,
@@ -51,7 +60,10 @@ const copyStates = {
   },
 };
 
-const SnippetCodeView = ({ snippet }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const SnippetCodeView = ({
+  snippet,
+  breadcrumbs,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [copy, setCopy] = useState(false);
   const copyState = copyStates[`${copy}`];
 
@@ -64,30 +76,35 @@ const SnippetCodeView = ({ snippet }: InferGetStaticPropsType<typeof getStaticPr
   };
 
   return (
-    <Card
-      className='container'
-      title={<h1 style={{ margin: '6px 0' }}>{snippet.name}</h1>}
-      extra={
-        <Button
-          type='primary'
-          disabled={copyState.disabled}
-          icon={copyState.icon}
-          onClick={handleCopy}
-        >
-          {copyState.text}
-        </Button>
-      }
-    >
-      <p>{snippet.description}</p>
+    <>
+      <Card style={{ marginBottom: 24 }} bodyStyle={{ padding: '12px 24px' }}>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+      </Card>
+      <Card
+        className='container'
+        title={<h1 style={{ margin: '6px 0' }}>{snippet.name}</h1>}
+        extra={
+          <Button
+            type='primary'
+            disabled={copyState.disabled}
+            icon={copyState.icon}
+            onClick={handleCopy}
+          >
+            {copyState.text}
+          </Button>
+        }
+      >
+        <p>{snippet.description}</p>
 
-      <MarkdownBlock htmlContent={snippet.skillHtml} />
+        <MarkdownBlock htmlContent={snippet.skillHtml} />
 
-      <h3>Code</h3>
-      <MarkdownBlock htmlContent={snippet.codeHtml} />
+        <h3>Code</h3>
+        <MarkdownBlock htmlContent={snippet.codeHtml} />
 
-      <h3>Example</h3>
-      <MarkdownBlock htmlContent={snippet.exampleHtml} />
-    </Card>
+        <h3>Example</h3>
+        <MarkdownBlock htmlContent={snippet.exampleHtml} />
+      </Card>
+    </>
   );
 };
 

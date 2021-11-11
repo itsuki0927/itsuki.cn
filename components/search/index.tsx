@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 import { ArticleList } from '@/components/article';
 import { Layout } from '@/components/common';
-import useSearch from '@/framework/blog/article/use-search';
+import useSearch from '@/framework/local/article/use-search';
 import SearchSkeleton from './SearchSkeleton';
 
 const Search = () => {

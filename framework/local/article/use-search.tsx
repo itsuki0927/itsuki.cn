@@ -1,8 +1,8 @@
 import { SearchArticlesHook } from '@/entities/article';
-import { Provider } from '..';
-import { SWRFetcher } from '../utils/default-fetcher';
-import type { HookFetcherFn, SWRHook } from '../utils/types';
-import { useHandler, useSWRHook } from '../utils/use-hook';
+import { Provider } from '@/framework/blog';
+import { SWRFetcher } from '@/framework/blog/utils/default-fetcher';
+import type { HookFetcherFn, SWRHook } from '@/framework/blog/utils/types';
+import { useHandler, useSWRHook } from '@/framework/blog/utils/use-hook';
 
 export type UseSearch<
   H extends SWRHook<SearchArticlesHook<any>> = SWRHook<SearchArticlesHook>

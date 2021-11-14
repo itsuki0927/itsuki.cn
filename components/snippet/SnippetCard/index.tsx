@@ -1,8 +1,8 @@
-import classNames from 'classnames';
 import Link from 'next/link';
 import { JsTextOutlined } from '@/components/icons';
 import { Card } from '@/components/ui';
 import { Snippet } from '@/entities/snippet';
+import SnippetExpertise from '../SnippetExpertise';
 import styles from './style.module.scss';
 
 export enum RanksState {
@@ -20,13 +20,7 @@ const SnippetCard = ({ snippet }: SnippetCardProps) => (
       avatar={
         <span className={styles.icon}>
           <JsTextOutlined style={{ fontSize: 26, lineHeight: '48px' }} />
-          <i
-            className={classNames(styles.expertise, {
-              [styles.easy]: snippet.ranks === RanksState.Easy,
-              [styles.medium]: snippet.ranks === RanksState.Medium,
-              [styles.hard]: snippet.ranks === RanksState.Hard,
-            })}
-          />
+          <SnippetExpertise ranks={snippet.ranks} />
         </span>
       }
       title={

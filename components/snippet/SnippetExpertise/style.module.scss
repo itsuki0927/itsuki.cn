@@ -1,0 +1,27 @@
+@import 'styles/variables.scss';
+
+$easy-background: #78c02a;
+$medium-background: #ffb300;
+$hard-background: $error;
+
+.expertise {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid $white;
+  border-radius: 50%;
+  top: -3px;
+  right: -3px;
+
+  &.easy {
+    background-color: $easy-background;
+  }
+
+  &.medium {
+    background-color: $medium-background;
+  }
+
+  &.hard {
+    background-color: $hard-background;
+  }
+}

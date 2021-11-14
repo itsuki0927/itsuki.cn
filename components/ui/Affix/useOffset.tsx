@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import getOffset, { Offset } from '@/utils/query/getOffset';
+import { useEventListener } from '@/hooks/index';
+import { getOffset, Offset } from '@/utils/query';
 
 /**
  * 获取 mount 元素的offset
@@ -12,6 +13,8 @@ const useOffset = (mountRef: React.RefObject<HTMLDivElement>) => {
   const updateOffset = useCallback(() => {
     setOffset(getOffset(mountRef.current!));
   }, [mountRef]);
+
+  useEventListener(window, 'resize', updateOffset);
 
   useEffect(updateOffset, [updateOffset]);
 

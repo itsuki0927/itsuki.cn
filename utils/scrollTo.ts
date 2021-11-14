@@ -1,3 +1,4 @@
+import { wrapToArray } from './array';
 import { off, on } from './events';
 import { getOffset, getWindow } from './query';
 
@@ -24,9 +25,6 @@ type ScrollOptions = {
   offset?: number;
   effect?: ScrollEffect;
 };
-
-const wrapToArray = <T = any>(val: T) =>
-  (Array.isArray(val) ? val : [val]) as T extends Array<any> ? T : T[];
 
 const helper = {
   query(selector: string) {

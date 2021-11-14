@@ -1,18 +1,10 @@
 import { ToTopOutlined } from '@/components/icons';
 import { Button } from '@/components/ui';
+import { scrollTo } from '@/utils/index';
 import styles from './style.module.scss';
 
 const BackTop = () => {
-  const backToTop = () => {
-    const c = document.documentElement.scrollTop || document.body.scrollTop;
-    if (c > 5) {
-      requestAnimationFrame(backToTop);
-      window.scrollTo(0, c - c / 8);
-    } else if (c > 0) {
-      requestAnimationFrame(backToTop);
-      window.scrollTo(0, c - 1);
-    }
-  };
+  const backToTop = () => scrollTo(0, 600);
 
   return (
     <div className={styles.backTop}>

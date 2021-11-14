@@ -1,9 +1,9 @@
-import Tag from './Tag';
-import styles from './style.module.scss';
-import Hello from './Hello';
-import Music from './Music';
-import LeaderBoard from './Leaderboard';
 import { SiteInfo } from '@/entities/siteInfo';
+import Hello from './Hello';
+import LeaderBoard from './Leaderboard';
+import Snippet from './Snippet';
+import styles from './style.module.scss';
+import Tag from './Tag';
 
 interface SidebarProps {
   tags: SiteInfo['tags'];
@@ -12,7 +12,7 @@ interface SidebarProps {
 const Sidebar = ({ tags = [] }: SidebarProps) => (
   <aside className={styles.sidebar}>
     <Hello />
-    <Music />
+    <Snippet />
     <Tag tags={tags} />
     <LeaderBoard />
   </aside>

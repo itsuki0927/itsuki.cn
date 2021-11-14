@@ -45,11 +45,6 @@ const Navbar = ({ links, search = true }: NavbarProps) => {
                 <span>Snippet</span>
               </li>
             </ActiveLink>
-            <ActiveLink activeClassName={styles.active} href='/music'>
-              <li className={styles.item}>
-                <span>音乐</span>
-              </li>
-            </ActiveLink>
             <ActiveLink activeClassName={styles.active} href='/archive'>
               <li className={styles.item}>
                 <span>归档</span>

@@ -6,9 +6,6 @@ import gravatar from 'gravatar';
  * @param email 邮箱
  * @returns 地址
  */
-export const getGravatarUrl = (email: string) =>
-  gravatar.url(email, { protocol: 'https' });
+const getGravatarUrl = (email: string) => gravatar.url(email, { protocol: 'https' });
 
-export default {
-  getGravatarUrl,
-};
+export default getGravatarUrl;

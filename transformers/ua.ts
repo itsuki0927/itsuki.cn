@@ -6,12 +6,11 @@ import UAParser from 'ua-parser-js';
  * @param ua ua
  * @returns os
  */
-export const parseUA = (ua: string) => {
+const parseUA = (ua: string) => {
   const parseResult = UAParser(ua || '');
   const browserName = String(parseResult.browser.name).toLowerCase();
-  const isTargetDevice = (browsers: string[]) => {
-    return browsers.some(browser => browser.toLowerCase() === browserName);
-  };
+  const isTargetDevice = (browsers: string[]) =>
+    browsers.some(browser => browser.toLowerCase() === browserName);
 
   return {
     result: parseResult,
@@ -26,3 +25,5 @@ export const parseUA = (ua: string) => {
     isMobile: parseResult.device.type === 'mobile',
   };
 };
+
+export default parseUA;

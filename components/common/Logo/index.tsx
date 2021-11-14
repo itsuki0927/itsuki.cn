@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import router from 'next/router';
-import imageTransformer from '@/transformers/image';
+import { imageTransformer } from '@/transformers/index';
 import styles from './style.module.scss';
 
 const Logo = () => (

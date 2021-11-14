@@ -3,7 +3,7 @@ import router from 'next/router';
 import { EyeOutlined, HeartOutlined, MessageOutlined } from '@/components/icons';
 import { Card } from '@/components/ui';
 import { Article } from '@/entities/article';
-import imageTransformer from '@/transformers/image';
+import { imageTransformer } from '@/transformers/index';
 import styles from './style.module.scss';
 
 type ArticleCardProps = {

@@ -10,7 +10,6 @@ $gradient-max: fade-in($card-skeleton-bg, 0.4);
 
 $background-color-light: #fafafa;
 
-// $card-head-color: #000000d9;
 $card-head-color: $text-color;
 $card-head-font-size-sm: $font-size-base;
 $card-actions-background: $component-background;
@@ -68,7 +67,7 @@ $card-head-extra-color: $text-color;
     margin-bottom: -1px;
     padding: 0 $padding-lg;
     color: $card-head-color;
-    font-weight: 500;
+    font-weight: bold;
     font-size: $font-size-lg;
     background: transparent;
     border-bottom: 1px solid $border-color-split;
@@ -114,10 +113,12 @@ $card-head-extra-color: $text-color;
     font-weight: normal;
     font-size: $font-size-base;
 
-    // .card.rtl & {
-    // margin-right: auto;
-    // margin-left: 0;
-    // }
+    /*
+    .card.rtl & {
+      margin-right: auto;
+      margin-left: 0;
+    }
+    */
   }
 
   .actions {
@@ -197,8 +198,8 @@ $card-head-extra-color: $text-color;
 
     &:hover {
       border-color: transparent;
-      box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px 0 rgba(0, 0, 0, 0.12),
-        0 5px 12px 4px rgba(0, 0, 0, 0.09);
+      box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px 0 rgba(0 0 0 / 12%),
+        0 5px 12px 4px rgba(0 0 0 / 9%);
     }
   }
 

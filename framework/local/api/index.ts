@@ -10,6 +10,7 @@ import getSiteInfo from './operations/get-site-info';
 import getAllSnippets from './operations/get-all-snippets';
 import getAllSnippetPaths from './operations/get-all-snippet-paths';
 import getSnippet from './operations/get-snippet';
+import getArchives from './operations/get-archives';
 import { createFetcher } from './utils/fetch-api';
 
 export const config: BlogAPIConfig = {
@@ -32,6 +33,7 @@ const operations = {
   getAllSnippets,
   getAllSnippetPaths,
   getSnippet,
+  getArchives,
 };
 export const provider = { config, operations };
 export type Provider = typeof provider;

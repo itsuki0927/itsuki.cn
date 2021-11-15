@@ -73,6 +73,25 @@ export type GetArticleOperation<T extends ArticleTypes = ArticleTypes> = {
   variables: { articleId: number };
 };
 
+export type ArticleArchive = Pick<
+  Article,
+  'id' | 'title' | 'createAt' | 'description'
+> & {
+  createAtString: string;
+};
+
+export type ArticleArchiveMap = {
+  [key: string]: ArticleArchive[];
+};
+
+export type ArticleArchiveResponse = {
+  [key: string]: ArticleArchiveMap;
+};
+
+export type GetArchiveOperation = {
+  data: { archives: ArticleArchiveResponse };
+};
+
 export type GetAllArticlePathsOperation<T extends ArticleTypes = ArticleTypes> = {
   data: { articles: Pick<T['article'], 'id'>[] };
 };

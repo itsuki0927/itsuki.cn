@@ -2,6 +2,7 @@ import {
   AddArticleReadOperation,
   GetAllArticlePathsOperation,
   GetAllArticlesOperation,
+  GetArchiveOperation,
   GetArticleOperation,
 } from '@/entities/article';
 import { GetAllCategoryPathsOperation } from '@/entities/category';
@@ -29,6 +30,7 @@ export const OPERATIONS = [
   'getAllSnippets',
   'getSnippet',
   'getAllSnippetPaths',
+  'getArchives',
 ] as const;
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -100,6 +102,10 @@ export type Operations<P extends APIProvider> = {
 
   getAllSnippetPaths: {
     <T extends GetAllSnippetPathsOperation>(): Promise<T['data']>;
+  };
+
+  getArchives: {
+    <T extends GetArchiveOperation>(): Promise<T['data']>;
   };
 };
 

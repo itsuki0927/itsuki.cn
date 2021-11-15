@@ -1,7 +1,19 @@
-import { Card } from '@/components/ui';
+import AboutView from '@/components/about/index';
+import { NavbarLayout } from '@/components/common';
+import blog from '@/lib/api/blog';
 
-const AboutPage = () => (
-  <Card bodyStyle={{ textAlign: 'center', fontSize: 20 }}>楼主正在努力开发中...</Card>
-);
+export const getStaticProps = async () => {
+  const siteInfo = await blog.getSiteInfo();
+
+  return {
+    props: {
+      ...siteInfo,
+    },
+  };
+};
+
+const AboutPage = () => <AboutView />;
+
+AboutPage.Layout = NavbarLayout;
 
 export default AboutPage;

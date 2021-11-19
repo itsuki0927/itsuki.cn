@@ -5,23 +5,59 @@ $icon-background: #f6d854;
 .snippet {
   margin-bottom: $margin-lg;
 
-  .icon {
+  .category {
     width: 48px;
-    background-color: $icon-background;
+    height: 48px;
+    line-height: 48px;
     position: relative;
+    display: inline-block;
     text-align: center;
+
+    .icon {
+      width: 100%;
+      height: 100%;
+      line-height: inherit;
+      font-size: 26px;
+      border-radius: 2px;
+    }
+  }
+
+  .header {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .data {
+    flex-grow: 1;
+    margin: 0 20px;
     display: inline-block;
   }
 
   .name {
     font-size: 18px;
-    font-weight: 500;
+    line-height: 2rem;
+    margin: 0;
     transition: 0.3s ease;
     cursor: pointer;
+    overflow: hidden;
+    color: #434343;
+    font-weight: 500;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     &:hover {
       text-decoration: underline;
       color: $primary;
     }
+  }
+
+  .tag {
+    color: #bfbfbf;
+    font-size: 14px;
+  }
+
+  .description {
+    margin-top: 21px;
+    margin-bottom: 0;
   }
 }

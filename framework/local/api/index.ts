@@ -11,6 +11,7 @@ import getAllSnippets from './operations/get-all-snippets';
 import getAllSnippetPaths from './operations/get-all-snippet-paths';
 import getSnippet from './operations/get-snippet';
 import getArchives from './operations/get-archives';
+import getSnippetCategories from './operations/get-snippet-categories';
 import { createFetcher } from './utils/fetch-api';
 
 export const config: BlogAPIConfig = {
@@ -34,7 +35,9 @@ const operations = {
   getAllSnippetPaths,
   getSnippet,
   getArchives,
+  getSnippetCategories,
 };
+
 export const provider = { config, operations };
 export type Provider = typeof provider;
 

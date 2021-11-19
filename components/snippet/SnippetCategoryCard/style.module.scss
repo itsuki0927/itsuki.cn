@@ -1,0 +1,29 @@
+@import 'styles/variables.scss';
+
+.snippetCategory {
+  .icon {
+    width: 58px;
+    height: 58px;
+    font-size: 35px;
+    line-height: 58px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    border-radius: 2px;
+  }
+
+  .name {
+    flex-grow: 1;
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 12px;
+    font-weight: 500;
+    transition: 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+      color: $primary;
+    }
+  }
+}

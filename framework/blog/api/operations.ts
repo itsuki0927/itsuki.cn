@@ -12,6 +12,7 @@ import {
   GetAllSnippetsOperation,
   GetSnippetOperation,
 } from '@/entities/snippet';
+import { GetSnippetCategoriesOperation } from '@/entities/snippetCategory';
 import { GetAllTagPathsOperation } from '@/entities/tag';
 import { APIProvider, BlogAPI } from '.';
 
@@ -31,6 +32,7 @@ export const OPERATIONS = [
   'getSnippet',
   'getAllSnippetPaths',
   'getArchives',
+  'getSnippetCategories',
 ] as const;
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -106,6 +108,13 @@ export type Operations<P extends APIProvider> = {
 
   getArchives: {
     <T extends GetArchiveOperation>(): Promise<T['data']>;
+  };
+
+  getSnippetCategories: {
+    <T extends GetSnippetCategoriesOperation>(opts: {
+      variables?: T['variables'];
+      config?: P['config'];
+    }): Promise<T['data']>;
   };
 };
 

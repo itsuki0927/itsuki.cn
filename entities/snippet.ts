@@ -1,4 +1,5 @@
 import { IdentifiableEntity, SearchResponse } from './response/base';
+import { SnippetCategory } from './snippetCategory';
 
 export type Snippet = IdentifiableEntity<{
   name: string;
@@ -12,6 +13,7 @@ export type Snippet = IdentifiableEntity<{
   website: string;
   avatar: string;
   email: string;
+  categories: SnippetCategory[];
 }>;
 
 export type SnippetDetail = Snippet & {

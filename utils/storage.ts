@@ -1,10 +1,20 @@
+const parseJSON = <T>(value: string | null): T | undefined => {
+  try {
+    return value === 'undefined' ? undefined : JSON.parse(value ?? '');
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('parsing error on', { value });
+    return undefined;
+  }
+};
+
 export const setJSON = (key: string, val: any) =>
   localStorage.setItem(key, JSON.stringify(val));
 
-export const getJSON = (key: string) => {
+export const getJSON = <T>(key: string): T | undefined => {
   const value = localStorage.getItem(key);
   if (value) {
-    return JSON.parse(value);
+    return parseJSON<T>(value);
   }
 };
 

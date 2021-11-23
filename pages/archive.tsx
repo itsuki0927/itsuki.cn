@@ -12,6 +12,7 @@ export const getStaticProps = async () => {
       archives,
       ...siteInfo,
     },
+    revalidate: 3600,
   };
 };
 

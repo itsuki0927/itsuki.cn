@@ -6,6 +6,7 @@ import { Card } from '@/components/ui';
 import { SnippetCategory } from '@/entities/snippetCategory';
 import { getExpandsValue } from '@/transformers/expands';
 import styles from './style.module.scss';
+import { getSnippetRootCategoryUrl } from '@/transformers/url';
 
 interface SnippetCategoryCardProps {
   category: SnippetCategory;
@@ -35,8 +36,8 @@ const SnippetCategoryCard = ({ category, className }: SnippetCategoryCardProps) 
           background: expandValues.background,
         }}
       />
-      <Link href={`/snippet/${category.id}`}>
-        <span className={styles.name}>{category.name}</span>
+      <Link href={getSnippetRootCategoryUrl(category.path)}>
+        <h2 className={styles.name}>{category.name}</h2>
       </Link>
     </Card>
   );

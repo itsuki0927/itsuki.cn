@@ -14,7 +14,10 @@ function getAllSnippetPathsOperation({ blog }: OperationContext<Provider>) {
       `${getAllSnippetPathsQuery}?publish=1`
     );
 
-    const snippets = data.data.map(item => ({ id: item.id }));
+    const snippets = data.data.map(item => {
+      const rootCategory = item.categories.find(v => v.parentId === 0)!;
+      return { id: item.id, categoryPath: rootCategory.path };
+    });
 
     return { snippets };
   }

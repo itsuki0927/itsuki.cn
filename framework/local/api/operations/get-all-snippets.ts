@@ -5,7 +5,7 @@ import { Provider } from '@/framework/local/api';
 
 const getAllSnippetQuery = '/snippet';
 
-const LIMIT = 2000;
+const LIMIT = 15;
 
 function getAllSnippetsOperation({ blog }: OperationContext<Provider>) {
   async function getAllSnippets<T extends GetAllSnippetsOperation>({
@@ -17,9 +17,15 @@ function getAllSnippetsOperation({ blog }: OperationContext<Provider>) {
   } = {}): Promise<T['data']> {
     const config = blog.getConfig(cfg);
     const url = new URL(getAllSnippetQuery, 'http://a');
-    const { keyword } = variables;
+    const { keyword, categoryPath, current } = variables;
     if (keyword) {
       url.searchParams.append('keyword', keyword);
+    }
+    if (categoryPath) {
+      url.searchParams.append('categoryPath', categoryPath);
+    }
+    if (current) {
+      url.searchParams.append('current', `${current}`);
     }
     url.searchParams.append('status', '1');
     url.searchParams.append('pageSize', `${LIMIT}`);

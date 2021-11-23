@@ -4,6 +4,7 @@ import { Icon } from '@/components/icons';
 import { Card } from '@/components/ui';
 import { Snippet } from '@/entities/snippet';
 import getExpandsValue from '@/transformers/expands';
+import { getSnippetDetailUrl } from '@/transformers/url';
 import SnippetExpertise from '../SnippetExpertise';
 import styles from './style.module.scss';
 
@@ -12,13 +13,14 @@ export enum RanksState {
   Medium = 1, // 中等
   Hard = 2, // 困难
 }
+
 interface SnippetCardProps {
   snippet: Snippet;
 }
 
 const SnippetCard = ({ snippet }: SnippetCardProps) => {
-  const parentCategory = snippet.categories.find(v => v.parentId === 0);
-  const expandValues = getExpandsValue(parentCategory?.expand);
+  const rootCategory = snippet.categories.find(v => v.parentId === 0)!;
+  const expandValues = getExpandsValue(rootCategory.expand);
 
   return (
     <Card className={styles.snippet}>
@@ -35,7 +37,7 @@ const SnippetCard = ({ snippet }: SnippetCardProps) => {
           <SnippetExpertise ranks={snippet.ranks} />
         </span>
         <div className={styles.data}>
-          <Link href={`/snippet/${snippet.id}`}>
+          <Link href={getSnippetDetailUrl(rootCategory.path, snippet.id)}>
             <h3 className={styles.name}>{snippet.name}</h3>
           </Link>
           <span className={styles.tag}>

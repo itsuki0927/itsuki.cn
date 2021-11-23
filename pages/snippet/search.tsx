@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { NavbarLayout } from '@/components/common';
-import { SnippetCard } from '@/components/snippet';
+import { SnippetList } from '@/components/snippet';
+import { Loading } from '@/components/ui';
 import useSearch from '@/framework/local/snippet/use-search';
 
 const SnippetSearchPage = () => {
@@ -8,13 +9,15 @@ const SnippetSearchPage = () => {
   const keyword = String(router.query.keyword ?? '');
   const { data } = useSearch({ keyword });
 
+  if (!data) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <h1>Keyword: {router.query.keyword}</h1>
 
-      {data?.snippets.data.map(snippet => (
-        <SnippetCard key={snippet.id} snippet={snippet} />
-      ))}
+      <SnippetList snippets={data.snippets} />
     </div>
   );
 };

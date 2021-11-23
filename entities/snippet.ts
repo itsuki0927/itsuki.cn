@@ -24,6 +24,8 @@ export type SnippetDetail = Snippet & {
 
 export type SearchSnippetsBody = {
   keyword?: string;
+  categoryPath?: string;
+  current?: number;
 };
 
 export type SnippetTypes = {
@@ -57,7 +59,12 @@ export type GetSnippetOperation<T extends SnippetTypes = SnippetTypes> = {
 };
 
 export type GetAllSnippetPathsOperation<T extends SnippetTypes = SnippetTypes> = {
-  data: { snippets: Pick<T['snippet'], 'id'>[] };
+  data: {
+    snippets: {
+      id: T['snippet']['id'];
+      categoryPath: string;
+    }[];
+  };
 };
 
 export type GetAllSnippetsOperation<T extends SnippetTypes = SnippetTypes> = {

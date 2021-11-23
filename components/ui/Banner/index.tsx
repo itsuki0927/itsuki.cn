@@ -33,7 +33,7 @@ const Banner = ({ data }: BannerProps) => {
     return <Icon name={value} className={styles.logo} />;
   };
 
-  const currentBackgroundImage = getExpandsValue(expands, 'background');
+  const currentBackgroundImage = getExpandsValue(expands, 'backgroundImage');
 
   return (
     <Card className={styles.banner}>

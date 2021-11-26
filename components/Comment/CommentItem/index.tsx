@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { HeartFilled, HeartOutlined, SelectOutlined } from '@/components/icons';
 import { Button, Card } from '@/components/ui';
 import { Comment } from '@/entities/comment';
@@ -7,7 +7,7 @@ import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
 import { getGravatarUrl, parseUA } from '@/transformers/index';
 import markedToHtml from '@/utils/marked';
-import CommentContext from '../context';
+import { useReplyDispatch } from '../context';
 import styles from './style.module.scss';
 
 type CommentCardProps = {
@@ -26,7 +26,7 @@ const CommentUA = ({ result }: any) => (
 
 const CommentCard = ({ comment }: CommentCardProps) => {
   const { result } = parseUA(comment.agent);
-  const { setReply } = useContext(CommentContext);
+  const replyDispatch = useReplyDispatch();
   const likeComment = useLikeComment();
   const isLiked = useInLikeComments(comment.id);
   const [liking, setLiking] = useState(comment.liking);
@@ -87,7 +87,7 @@ const CommentCard = ({ comment }: CommentCardProps) => {
           type='text'
           icon={<SelectOutlined />}
           onClick={() => {
-            setReply(comment);
+            replyDispatch(comment);
           }}
         >
           回复

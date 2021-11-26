@@ -2,24 +2,32 @@ import { createContext, FC, useContext, useState } from 'react';
 import { Comment } from '@/entities/comment';
 
 export type ReplyContextType = {
-  reply: Comment | undefined;
-  setReply: (reply: Comment | undefined) => void;
+  value: Comment | undefined;
+  dispatch: (reply: Comment | undefined) => void;
 };
 
-export const initialReplyValue: ReplyContextType = {
-  reply: undefined,
-  setReply: () => {},
-};
+export const initialReplyValue = undefined;
+export const initialReplyDispatchValue = () => {};
 
-const ReplyContext = createContext<ReplyContextType>(initialReplyValue);
+const ReplyContext = createContext<ReplyContextType['value']>(initialReplyValue);
 
-export const ReplyProvider: FC = ({ children }) => {
-  const [reply, setReply] = useState<Comment | undefined>();
-  return (
-    <ReplyContext.Provider value={{ reply, setReply }}>{children}</ReplyContext.Provider>
-  );
-};
+const ReplyDispatchContext = createContext<ReplyContextType['dispatch']>(
+  initialReplyDispatchValue
+);
 
 export const useReply = () => useContext(ReplyContext);
+
+export const useReplyDispatch = () => useContext(ReplyDispatchContext);
+
+export const ReplyProvider: FC = function ({ children }) {
+  const [state, dispatch] = useState<Comment | undefined>();
+  return (
+    <ReplyContext.Provider value={state}>
+      <ReplyDispatchContext.Provider value={dispatch}>
+        {children}
+      </ReplyDispatchContext.Provider>
+    </ReplyContext.Provider>
+  );
+};
 
 export default ReplyContext;

@@ -58,16 +58,6 @@ module.exports = {
     // 警告 不使用默认导出
     'import/prefer-default-export': WARNING,
     // 函数命名方式
-    'react/function-component-definition': [
-      ERROR,
-      {
-        namedComponents: [
-          'function-declaration',
-          'function-expression',
-          'arrow-function',
-        ],
-        unnamedComponents: ['function-expression', 'arrow-function'],
-      },
-    ],
+    'react/function-component-definition': OFF,
   },
 };

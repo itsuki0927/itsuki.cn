@@ -6,7 +6,7 @@ import { initialCommentProfile } from '@/constants/comment';
 import usePostComment from '@/framework/local/comment/use-post-comment';
 import { getGravatarUrl, purifyDomString } from '@/transformers/index';
 import CommentProfile from '../CommentProfile';
-import { useReply } from '../context';
+import { useReply, useReplyDispatch } from '../context';
 import ReplyPlaceholder from '../ReplyPlaceholder';
 import styles from './style.module.scss';
 
@@ -20,13 +20,14 @@ interface CommentFormProps {
   articleId: number;
 }
 const CommentForm = ({ articleId }: CommentFormProps) => {
-  const { setReply, reply } = useReply();
+  const reply = useReply();
+  const replyDispatch = useReplyDispatch();
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState(initialCommentProfile);
   const postComment = usePostComment({ articleId });
 
-  const handleCloseReply = () => setReply(undefined);
+  const handleCloseReply = () => replyDispatch(undefined);
 
   const handleSend = async () => {
     if (!content) {

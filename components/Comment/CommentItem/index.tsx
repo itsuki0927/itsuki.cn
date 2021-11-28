@@ -30,12 +30,10 @@ const CommentCard = ({ comment }: CommentCardProps) => {
   const likeComment = useLikeComment();
   const isLiked = useInLikeComments(comment.id);
   const [liking, setLiking] = useState(comment.liking);
-  const [liked, setLiked] = useState(isLiked);
 
   const handleLike = () => {
     likeComment({ commentId: comment.id });
     setLiking(l => l + 1);
-    setLiked(true);
   };
 
   const titleDom = (
@@ -73,11 +71,11 @@ const CommentCard = ({ comment }: CommentCardProps) => {
         <Button
           key='liking'
           type='text'
-          disabled={liked}
+          disabled={isLiked}
           className={classNames({
-            [styles.liked]: liked,
+            [styles.liked]: isLiked,
           })}
-          icon={liked ? <HeartFilled /> : <HeartOutlined />}
+          icon={isLiked ? <HeartFilled /> : <HeartOutlined />}
           onClick={handleLike}
         >
           <span>{liking}</span>

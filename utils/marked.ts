@@ -1,4 +1,4 @@
-import marked from 'marked';
+import { marked } from 'marked';
 import { purifyDomString } from '@/transformers/index';
 import highlight from './highlight';
 
@@ -119,7 +119,7 @@ const markedToHtml = (markdown: string, { purify }: MarkedOptions = {}) => {
 
   const purifyMarkdown = purify ? purifyDomString(markdown) : markdown;
 
-  return marked(purifyMarkdown, {
+  return marked.parse(purifyMarkdown, {
     renderer: customRenderer,
   });
 };

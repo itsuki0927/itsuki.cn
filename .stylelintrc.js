@@ -1,5 +1,9 @@
 module.exports = {
-  extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
+  extends: [
+    'stylelint-config-standard-scss',
+    'stylelint-config-standard',
+    'stylelint-config-prettier',
+  ],
   plugins: ['stylelint-order', 'stylelint-scss'],
   rules: {
     'at-rule-no-unknown': null,
@@ -21,5 +25,7 @@ module.exports = {
       },
     ],
     'selector-class-pattern': null,
+    'scss/dollar-variable-empty-line-after': null,
+    'scss/dollar-variable-empty-line-before': null,
   },
 };

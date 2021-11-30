@@ -1,0 +1,45 @@
+@import 'styles/variables';
+
+$red: #f04f43;
+$orange: #ff9800;
+$yellow: #ffc757;
+$green: #58b15b;
+$cyan: #00bcd4;
+$blue: #1499ef;
+$violet: #673ab7;
+
+$colors: 'red' $red, 'orange' $orange, 'yellow' $yellow, 'green' $green, 'cyan' $cyan,
+  'blue' $blue, 'violet' $violet;
+
+.tag {
+  display: inline-block;
+  background-color: $gray-2;
+  border-radius: 2px;
+  padding: 2px 8px;
+  font-size: 12px;
+  line-height: 20px;
+  color: #000000d9;
+  border: 1px solid #d9d9d9;
+
+  &.lg {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  &.sm {
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  & + & {
+    margin-left: 12px;
+  }
+
+  @each $name, $color in $colors {
+    &.#{$name} {
+      background: $color;
+      color: white;
+      border-color: $color;
+    }
+  }
+}

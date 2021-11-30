@@ -13,3 +13,4 @@ export { default as MarkdownBlock } from './MarkdownBlock';
 export { default as PageLoadingProgress } from './PageLoadingProgress';
 export { default as Pagination } from './Pagination';
 export { default as Skeleton } from './Skeleton';
+export { default as Tag } from './Tag';

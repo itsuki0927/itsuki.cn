@@ -1,15 +1,12 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import { useState } from 'react';
-import { Breadcrumbs, NavbarLayout } from '@/components/common';
-import { CheckOutlined, CopyOutlined } from '@/components/icons';
-import { Button, Card, MarkdownBlock } from '@/components/ui';
+import { NavbarLayout } from '@/components/common';
+import { SnippetCodeView } from '@/components/snippet';
 import blog from '@/lib/api/blog';
 import {
   getSnippetDetailUrl,
   getSnippetPageCategoryUrl,
   getSnippetRootCategoryUrl,
 } from '@/transformers/url';
-import { copyTextToClipboard } from '@/utils/index';
 import markedToHtml, { genMarkdownString } from '@/utils/marked';
 
 export const getStaticPaths = async () => {
@@ -64,67 +61,13 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   };
 };
 
-const copyStates = {
-  true: {
-    disabled: true,
-    icon: <CheckOutlined />,
-    text: '复制成功',
-  },
-  false: {
-    disabled: false,
-    icon: <CopyOutlined />,
-    text: '复制代码',
-  },
-};
-
-const SnippetCodeView = ({
+const SnippetCode = ({
   snippet,
   breadcrumbs,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [copy, setCopy] = useState(false);
-  const copyState = copyStates[`${copy}`];
+}: InferGetStaticPropsType<typeof getStaticProps>) => (
+  <SnippetCodeView snippet={snippet} breadcrumbs={breadcrumbs} />
+);
 
-  const handleCopy = () => {
-    setCopy(true);
-    copyTextToClipboard(snippet.code);
-    setTimeout(() => {
-      setCopy(false);
-    }, 3000);
-  };
+SnippetCode.Layout = NavbarLayout;
 
-  return (
-    <>
-      <Card style={{ marginBottom: 24 }} bodyStyle={{ padding: '12px 24px' }}>
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
-      </Card>
-      <Card
-        className='container'
-        title={<h1 style={{ margin: '6px 0' }}>{snippet.name}</h1>}
-        extra={
-          <Button
-            type='primary'
-            disabled={copyState.disabled}
-            icon={copyState.icon}
-            onClick={handleCopy}
-          >
-            {copyState.text}
-          </Button>
-        }
-      >
-        <p>{snippet.description}</p>
-
-        <MarkdownBlock htmlContent={snippet.skillHtml} />
-
-        <h3>Code</h3>
-        <MarkdownBlock htmlContent={snippet.codeHtml} />
-
-        <h3>Example</h3>
-        <MarkdownBlock htmlContent={snippet.exampleHtml} />
-      </Card>
-    </>
-  );
-};
-
-SnippetCodeView.Layout = NavbarLayout;
-
-export default SnippetCodeView;
+export default SnippetCode;

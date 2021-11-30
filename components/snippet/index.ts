@@ -3,3 +3,4 @@ export { default as SnippetExpertise } from './SnippetExpertise';
 export { default as SnippetView } from './SnippetView';
 export { default as SnippetList } from './SnippetList';
 export { default as SnippetListView } from './SnippetListView';
+export { default as SnippetCodeView } from './SnippetCodeView';

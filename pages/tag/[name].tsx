@@ -1,10 +1,10 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
-import React, { useMemo } from 'react';
 import { NextSeo } from 'next-seo';
+import React, { useMemo } from 'react';
 import { ArticleList } from '@/components/article';
+import { Layout } from '@/components/common';
 import { Banner } from '@/components/ui';
 import blog from '@/lib/api/blog';
-import { Layout } from '@/components/common';
 
 export const getStaticPaths = async () => {
   const { tags } = await blog.getAllTagPaths();
@@ -35,7 +35,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   };
 };
 
-const TagPage = ({
+const ArticleTagPage = ({
   tag: name,
   articles,
   tags = [],
@@ -55,6 +55,6 @@ const TagPage = ({
   );
 };
 
-TagPage.Layout = Layout;
+ArticleTagPage.Layout = Layout;
 
-export default TagPage;
+export default ArticleTagPage;

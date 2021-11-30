@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
-import { Button, Card, Tag } from '@/components/ui';
+import { Button, Card } from '@/components/ui';
 import { WEB_URL } from '@/configs/app';
 import { Article } from '@/entities/article';
+import { ArticleTag } from '..';
 import styles from './style.module.scss';
 
 interface ArticleMetaProps {
@@ -39,7 +40,7 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => {
       <div className={styles.meta}>
         <span className={styles.label}>相关标签 : </span>
         {article.tags.map(item => (
-          <Tag key={item.id} tag={item} />
+          <ArticleTag key={item.id} tag={item} />
         ))}
       </div>
 

@@ -2,10 +2,10 @@ import { BlogJsonLd, NextSeo } from 'next-seo';
 import React from 'react';
 import { CommentView } from '@/components/comment';
 import { ImagePopup } from '@/components/ui';
+import { WEB_URL } from '@/configs/app';
 import { Article } from '@/entities/article';
 import ArticleContent from '../ArticleContent';
 import ArticleMeta from '../ArticleMeta';
-import { WEB_URL } from '@/configs/app';
 
 interface ArticleViewProps {
   article: Article;
@@ -40,7 +40,8 @@ const ArticleView = ({ article }: ArticleViewProps) => (
 
     <CommentView
       articleId={article.id}
-      title={(comments, length) => <span>{length} 个想法</span>}
+      // eslint-disable-next-line react/no-unstable-nested-components
+      title={(_, length) => <span>{length} 个想法</span>}
       liking={article.liking}
     />
   </div>

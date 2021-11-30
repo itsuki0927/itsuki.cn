@@ -1,5 +1,5 @@
-import Card from '@/components/ui/Card';
-import Tag from '@/components/ui/Tag';
+import { ArticleTag } from '@/components/article';
+import { Card } from '@/components/ui';
 import { SiteInfo } from '@/entities/siteInfo';
 import styles from './style.module.scss';
 
@@ -18,7 +18,7 @@ interface SidebarTagProps {
 const SidebarTag = ({ tags }: SidebarTagProps) => (
   <Card title='Tag' className={styles.tag} bodyStyle={cardBodyStyle}>
     {tags?.map(item => (
-      <Tag key={item.id} buttonProps={buttonProps} tag={item} />
+      <ArticleTag key={item.id} buttonProps={buttonProps} tag={item} />
     ))}
   </Card>
 );

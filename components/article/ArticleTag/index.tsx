@@ -1,17 +1,16 @@
 import router from 'next/router';
 import { Icon } from '@/components/icons';
 import { Tag as TagType } from '@/entities/tag';
-import { getExpandsValue } from '../Banner/util';
+import { getExpandValue } from '@/transformers/expands';
 import Button, { ButtonProps } from '@/components/ui/Button';
 
-export const getIconValue = (expand: string) =>
-  getExpandsValue(JSON.parse(expand), 'icon');
+export const getIconValue = (expand: string) => getExpandValue(expand, 'icon');
 
-type TagProps = {
+type ArticleTagProps = {
   tag: TagType;
   buttonProps?: ButtonProps;
 };
-const Tag = ({ tag, buttonProps }: TagProps) => (
+const ArticleTag = ({ tag, buttonProps }: ArticleTagProps) => (
   <Button
     type='dashed'
     size='small'
@@ -25,4 +24,4 @@ const Tag = ({ tag, buttonProps }: TagProps) => (
   </Button>
 );
 
-export default Tag;
+export default ArticleTag;

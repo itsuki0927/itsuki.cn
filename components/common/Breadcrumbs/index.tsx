@@ -9,10 +9,10 @@ interface BreadcrumbProps {
 const Breadcrumbs = ({ breadcrumbs }: BreadcrumbProps) => {
   const items: ReactNode[] = [];
 
-  const count = React.Children.count(breadcrumbs);
+  const count = breadcrumbs.length;
 
   if (count) {
-    React.Children.forEach(breadcrumbs, (item, index) => {
+    breadcrumbs.forEach((item, index) => {
       items.push(
         <li key={item.url}>
           <BreadcrumbItem

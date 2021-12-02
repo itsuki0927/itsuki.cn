@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import classNames from 'classnames';
 import { Breadcrumbs, NavbarLayout } from '@/components/common';
 import { CheckOutlined, CopyOutlined } from '@/components/icons';
 import { Button, Card, MarkdownBlock, Tag } from '@/components/ui';
@@ -39,11 +40,11 @@ const SnippetCodeView = ({ snippet, breadcrumbs }: SnippetCodeViewProps) => {
 
   return (
     <>
-      <Card className={styles.snippetCode} bodyStyle={{ padding: '12px 24px' }}>
+      <Card bodyStyle={{ padding: '12px 24px' }}>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
       </Card>
       <Card
-        className='container'
+        className={classNames('container', styles.snippetCode)}
         title={
           <div className={styles.header}>
             <h1 className={styles.name}>{snippet.name}</h1>

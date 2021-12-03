@@ -8,6 +8,8 @@ export { default as CloseCircleOutlined } from './CloseCircleOutlined';
 export { default as CloseOutlined } from './CloseOutlined';
 export { default as CodeOutlined } from './CodeOutlined';
 export { default as CopyOutlined } from './CopyOutlined';
+export { default as DoubleLeftOutline } from './DoubleLeftOutline';
+export { default as DoubleRightOutline } from './DoubleRightOutline';
 export { default as EditOutlined } from './EditOutlined';
 export { default as EmptyOutlined } from './EmptyOutlined';
 export { default as ExclamationCircleFilled } from './ExclamationCircleFilled';

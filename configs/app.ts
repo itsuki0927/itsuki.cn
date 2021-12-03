@@ -11,7 +11,7 @@ export const API_URL = process.env.NEXT_PUBLIC_API_BASE_PATH;
 export const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION;
 
 // iconfont url
-export const ICONFONT_URL = '//at.alicdn.com/t/font_2836612_pgaj9czjhlm';
+export const ICONFONT_URL = '//at.alicdn.com/t/font_2836612_uos9kb6ebs8';
 
 // resource 主机
 export const RESOURCE_HOST = 'resources.fivewoods.xyz';

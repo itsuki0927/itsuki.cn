@@ -1,12 +1,7 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
-.pagination {
-  .item {
-    &.active,
-    &:not(:disabled):hover {
-      border-color: $primary;
-      color: $primary;
-      background-color: $white;
-    }
-  }
+.active {
+  border-color: $primary;
+  color: $primary;
+  background-color: $white;
 }

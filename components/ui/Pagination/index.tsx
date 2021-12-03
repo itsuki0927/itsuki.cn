@@ -1,93 +1,47 @@
-import classNames from 'classnames';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { LeftOutlined, RightOutlined } from '@/components/icons';
-import { Button } from '@/components/ui';
-import styles from './style.module.scss';
+import { useControlled } from '@/hooks/index';
+import Pagination, { PaginationProps } from './Pagination';
 
-export type PaginationProps = {
-  total: number;
-  current?: number;
+export interface PaginationGroupProps extends PaginationProps {
   pageSize?: number;
   defaultPageSize?: number;
   defaultCurrent?: number;
-  onChange?: (current: number, pageSize: number) => void;
-};
+  total: number;
+}
 
-const Pagination = ({
+const PaginationGroup = ({
   total,
-  current: currentProp,
-  pageSize: pageSizeProp,
-  defaultCurrent = 1,
-  defaultPageSize = 20,
+  className,
   onChange,
-}: PaginationProps) => {
-  const [current, setCurrent] = useState(currentProp || defaultCurrent);
-  const [pageSize, setPageSize] = useState(pageSizeProp || defaultPageSize);
-  const pageTotal = Math.ceil(total / pageSize);
+  pageSize: pageSizeProp = 20,
+  current: currentProp,
+  disabled,
+  defaultCurrent,
+  defaultPageSize,
+  prev = true,
+  next = true,
+  ...rest
+}: PaginationGroupProps) => {
+  const [pageSize] = useControlled(pageSizeProp!, defaultPageSize || 8);
+  const [current, setCurrent] = useControlled(currentProp, defaultCurrent || 1);
+  const pages = Math.floor(total / pageSize) + (total % pageSize ? 1 : 0);
 
-  useEffect(() => {
-    if (currentProp !== current || defaultCurrent !== current) {
-      setCurrent(currentProp || defaultCurrent);
-    }
-  }, [current, currentProp, defaultCurrent]);
-
-  useEffect(() => {
-    if (pageSizeProp && pageSize !== pageSizeProp) {
-      setPageSize(pageSizeProp);
-      setCurrent(1);
-    }
-  }, [pageSize, pageSizeProp]);
-
-  const handleChangeCurrent = useCallback(
-    (currentParam: number) => {
-      setCurrent(currentParam);
-      onChange?.(currentParam, pageSize);
-    },
-    [onChange, pageSize]
-  );
-
-  const buttons = useMemo(
-    () =>
-      Array.from({ length: pageTotal }, (_, i) => (
-        <Button
-          type='text'
-          key={`page-${i + 1}`}
-          className={classNames(styles.item, {
-            [styles.active]: current === i + 1,
-          })}
-          onClick={() => {
-            handleChangeCurrent(i + 1);
-          }}
-        >
-          {i + 1}
-        </Button>
-      )),
-    [current, handleChangeCurrent, pageTotal]
-  );
+  const handleChange = (newCurrent: number) => {
+    setCurrent(newCurrent);
+    onChange?.(newCurrent);
+  };
 
   return (
-    <div className={styles.pagination}>
-      <Button
-        type='text'
-        className={styles.item}
-        disabled={current === 1}
-        icon={<LeftOutlined />}
-        onClick={() => {
-          handleChangeCurrent(current - 1);
-        }}
-      />
-      {buttons}
-      <Button
-        type='text'
-        className={styles.item}
-        disabled={current === pageTotal}
-        icon={<RightOutlined />}
-        onClick={() => {
-          handleChangeCurrent(current + 1);
-        }}
-      />
-    </div>
+    <Pagination
+      {...rest}
+      prev={prev}
+      next={next}
+      pages={pages}
+      className={className}
+      onChange={handleChange}
+      disabled={disabled}
+      current={current}
+    />
   );
 };
 
-export default Pagination;
+export default PaginationGroup;

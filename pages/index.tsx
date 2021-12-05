@@ -9,7 +9,11 @@ const ArticleList = dynamic(() => import('@/components/article/ArticleList'));
 const HomeSlider = dynamic(() => import('@/components/common/HomeSlider'));
 
 export const getStaticProps = async () => {
-  const articles = await blog.getAllArticles();
+  const articles = await blog.getAllArticles({
+    variables: {
+      pinned: true,
+    },
+  });
   const siteInfo = await blog.getSiteInfo();
   const bannerArticles = await blog.getAllArticles({
     variables: {

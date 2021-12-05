@@ -29,6 +29,7 @@ export type SearchArticlesBody = {
   search?: string;
   tag?: string;
   category?: string;
+  pinned?: true;
 };
 
 export type LikeArticleBody = {

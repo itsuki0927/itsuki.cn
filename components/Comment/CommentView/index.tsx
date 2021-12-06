@@ -1,6 +1,8 @@
 import React, { ReactNode, useMemo } from 'react';
 import { Card, Empty } from '@/components/ui';
 import { Comment } from '@/entities/comment';
+import useInLikeArticles from '@/framework/blog/article/use-in-like-articles';
+import useLikeArticle from '@/framework/local/article/use-like-article';
 import useComment from '@/framework/local/comment/use-comment';
 import { CommentSkeleton } from '..';
 import CommentForm from '../CommentForm';
@@ -15,8 +17,10 @@ type CommentProps = {
   articleId: number;
 };
 
-const CommentList = ({ title, liking, articleId }: CommentProps) => {
+const CommentList = ({ title, liking: likingProp, articleId }: CommentProps) => {
   const { data: comments, isEmpty, isLoading } = useComment({ articleId });
+  const isLiked = useInLikeArticles(articleId);
+  const likeArticles = useLikeArticle();
 
   const commentListDom = useMemo(
     () =>
@@ -28,6 +32,10 @@ const CommentList = ({ title, liking, articleId }: CommentProps) => {
     [comments, isEmpty]
   );
 
+  const handleLikeArticle = () => {
+    likeArticles({ articleId });
+  };
+
   if (isLoading || !comments) {
     return <CommentSkeleton />;
   }
@@ -37,7 +45,11 @@ const CommentList = ({ title, liking, articleId }: CommentProps) => {
       <Card
         className={styles.comment}
         title={title(comments, comments.length)}
-        extra={<LikeButton articleId={articleId} liking={liking} />}
+        extra={
+          <LikeButton liking={likingProp} isLiked={isLiked} onLiked={handleLikeArticle}>
+            {({ liking }) => `${liking}个人`}
+          </LikeButton>
+        }
       >
         {commentListDom}
 

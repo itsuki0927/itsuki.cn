@@ -1,41 +1,65 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { cloneElement, isValidElement, ReactNode } from 'react';
 import { HeartFilled } from '@/components/icons';
 import { Button } from '@/components/ui';
-import useInLikeArticles from '@/framework/blog/article/use-in-like-articles';
-import useLikeArticle from '@/framework/local/article/use-like-article';
+import { ButtonProps } from '@/components/ui/Button';
+import useCounter from '@/hooks/useCounter';
 import styles from './style.module.scss';
 
+type LikeButtonRestProps = Omit<ButtonProps, 'type' | 'onClick' | 'icon' | 'disabled'>;
+
 interface LikeButtonProps {
-  articleId: number;
+  type?: ButtonProps['type'];
+  isLiked: boolean;
   liking: number;
+  onLiked: () => void;
+  children?: (props: LikeButtonProps) => ReactNode;
+  iconRender?: (props: LikeButtonProps) => ReactNode;
+  buttonProps?: LikeButtonRestProps;
 }
 
-const LikeButton = ({ articleId, liking: likingProp }: LikeButtonProps) => {
-  const likeArticle = useLikeArticle();
-  const initLiked = useInLikeArticles(articleId);
-  const [liking, setLiking] = useState(likingProp);
-  const [isLiked, setIsLiked] = useState(initLiked);
+const defaultIconRender = ({ isLiked }: LikeButtonProps) => (
+  <HeartFilled
+    className={classNames(styles.liking, {
+      [styles.liked]: isLiked,
+    })}
+  />
+);
+
+const LikeButton = (props: LikeButtonProps) => {
+  const {
+    type = 'dashed',
+    isLiked,
+    onLiked,
+    children,
+    buttonProps,
+    liking: likingProp,
+    iconRender = defaultIconRender,
+  } = props;
+  const { count: liking, increment } = useCounter(likingProp);
+  const iconRenderDom = iconRender({ ...props, liking });
+  const iconDom = isValidElement(iconRenderDom)
+    ? cloneElement(iconRenderDom, {
+        className: classNames(styles.liking, {
+          [styles.liked]: isLiked,
+        }),
+      })
+    : '';
+
+  const handleLiked = () => {
+    increment();
+    onLiked();
+  };
 
   return (
     <Button
-      type='dashed'
+      type={type}
       disabled={isLiked}
-      icon={
-        <HeartFilled
-          className={classNames(styles.liking, {
-            [styles.liked]: isLiked,
-          })}
-        />
-      }
-      onClick={() => {
-        likeArticle({ articleId });
-        setIsLiked(true);
-        setLiking(v => v + 1);
-      }}
+      icon={iconDom}
+      onClick={handleLiked}
+      {...buttonProps}
     >
-      {liking}
-      个人
+      {children?.({ ...props, liking })}
     </Button>
   );
 };

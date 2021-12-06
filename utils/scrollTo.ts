@@ -58,7 +58,7 @@ const scrollTo = (
   const startY = getWindow(window).scrollY;
   let elementY = 0;
   let startTime = 0;
-  const page = helper.query('html, body') as Element;
+  const page = helper.query('html, body')!;
   const events: ElementEvent[] = [
     ElementEvent.scroll,
     ElementEvent.mousedown,
@@ -73,7 +73,7 @@ const scrollTo = (
     elementY = target;
   } else {
     const element = typeof target === 'string' ? helper.query(target)! : target;
-    elementY = getOffset(element)?.top + startY;
+    elementY = getOffset(element)?.top ?? 0;
   }
 
   let targetY =

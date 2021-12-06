@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 import { HeartFilled, HeartOutlined, SelectOutlined } from '@/components/icons';
-import { Button, Card } from '@/components/ui';
+import { Button, Card, MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
@@ -9,10 +9,13 @@ import { getGravatarUrl, parseUA } from '@/transformers/index';
 import markedToHtml from '@/utils/marked';
 import { useReplyDispatch } from '../context';
 import styles from './style.module.scss';
+import scrollTo from '@/utils/scrollTo';
 
-type CommentCardProps = {
+const buildCommentDomId = (id: number) => `comment-${id}`;
+
+interface CommentCardProps {
   comment: Comment;
-};
+}
 
 const CommentUA = ({ result }: any) => (
   <span className={styles.ua}>
@@ -24,8 +27,45 @@ const CommentUA = ({ result }: any) => (
   </span>
 );
 
-const CommentCard = ({ comment }: CommentCardProps) => {
+const CommentCardTitle = ({ comment }: CommentCardProps) => {
   const { result } = parseUA(comment.agent);
+  return (
+    <div>
+      <span>{comment.nickname}</span>
+
+      <CommentUA result={result} />
+
+      <span className={styles.ua}>
+        {comment.city} - {comment.province}
+      </span>
+
+      <span className={styles.serialNumber}># {comment.id}</span>
+    </div>
+  );
+};
+
+const CommentCardDescription = ({ comment }: CommentCardProps) => (
+  <div className={styles.reply}>
+    {!!comment.parentId && (
+      <span className={styles.nickname}>
+        回复
+        <strong
+          role='button'
+          tabIndex={0}
+          onMouseDown={() => {
+            scrollTo(`#${buildCommentDomId(comment.parentId)}`, 400, { offset: -64 });
+          }}
+        >
+          #{comment.parentNickName}
+        </strong>
+      </span>
+    )}
+    <span className={styles.date}>{new Date(comment.createAt).toLocaleString()}</span>
+  </div>
+);
+
+const CommentCard = ({ comment }: CommentCardProps) => {
+  const contentHtml = markedToHtml(comment.content, { purify: true });
   const replyDispatch = useReplyDispatch();
   const likeComment = useLikeComment();
   const isLiked = useInLikeComments(comment.id);
@@ -36,34 +76,9 @@ const CommentCard = ({ comment }: CommentCardProps) => {
     setLiking(l => l + 1);
   };
 
-  const titleDom = (
-    <div>
-      <span>{comment.nickname}</span>
-
-      <CommentUA result={result} />
-
-      <span className={styles.ua}>
-        {comment.city} -{comment.province}
-      </span>
-
-      <span className={styles.serialNumber}>#11</span>
-    </div>
-  );
-
-  const descriptionDom = (
-    <div className={styles.reply}>
-      {!!comment.parentId && (
-        <span className={styles.nickname}>
-          回复
-          <strong> #{comment.parentNickName}</strong>
-        </span>
-      )}
-      <span className={styles.date}>{new Date(comment.createAt).toLocaleString()}</span>
-    </div>
-  );
-
   return (
     <Card
+      id={buildCommentDomId(comment.id)}
       key={comment.id}
       bodyStyle={{ padding: 12 }}
       className={styles.commentItem}
@@ -93,8 +108,8 @@ const CommentCard = ({ comment }: CommentCardProps) => {
       ]}
     >
       <Card.Meta
-        title={titleDom}
-        description={descriptionDom}
+        title={<CommentCardTitle comment={comment} />}
+        description={<CommentCardDescription comment={comment} />}
         avatar={
           <img
             src={getGravatarUrl(comment.email)}
@@ -110,10 +125,7 @@ const CommentCard = ({ comment }: CommentCardProps) => {
         className={styles.content}
         bordered={false}
       >
-        <div
-          className='markdown-html comment'
-          dangerouslySetInnerHTML={{ __html: markedToHtml(comment.content) }}
-        />
+        <MarkdownBlock htmlContent={contentHtml} />
       </Card>
     </Card>
   );

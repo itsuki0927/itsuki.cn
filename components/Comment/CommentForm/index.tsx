@@ -27,7 +27,7 @@ const CommentForm = ({ articleId }: CommentFormProps) => {
   const [profile, setProfile] = useState(initialCommentProfile);
   const postComment = usePostComment({ articleId });
 
-  const handleCloseReply = () => replyDispatch(undefined);
+  const handleCloseReply = () => replyDispatch({ type: 'reset' });
 
   const handleSend = async () => {
     if (!content) {

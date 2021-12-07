@@ -93,7 +93,10 @@ const CommentCard = ({ comment }: CommentCardProps) => {
           type='text'
           icon={<SelectOutlined />}
           onClick={() => {
-            replyDispatch(comment);
+            replyDispatch({
+              type: 'reply',
+              payload: comment,
+            });
           }}
         >
           回复

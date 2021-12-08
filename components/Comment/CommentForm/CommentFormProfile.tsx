@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CheckOutlined, ClearOutlined, EditOutlined } from '@/components/icons';
-import { Button } from '@/components/ui';
+import { IconButton } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import useMount from '@/hooks/useMount';
@@ -82,16 +82,16 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
             style={{ marginRight: 12 }}
           />
 
-          <Button type='dashed' icon={<CheckOutlined />} onClick={handleSave}>
+          <IconButton type='dashed' icon={<CheckOutlined />} onClick={handleSave}>
             保存
-          </Button>
+          </IconButton>
         </div>
       )}
 
       {actionVisible && (
         <p className={styles.nickname}>
           <span>{value.nickname}</span>
-          <Button
+          <IconButton
             type='text'
             icon={<EditOutlined />}
             onClick={() => {
@@ -99,15 +99,15 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
             }}
           >
             编辑
-          </Button>
-          <Button
+          </IconButton>
+          <IconButton
             style={{ marginLeft: 6 }}
             type='text'
             icon={<ClearOutlined />}
             onClick={handleClear}
           >
             清空
-          </Button>
+          </IconButton>
         </p>
       )}
     </div>

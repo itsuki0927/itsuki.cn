@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import styles from './style.module.scss';
 
 export const tuple = <T extends string[]>(...args: T) => args;
@@ -13,7 +13,6 @@ export type ButtonType = 'default' | 'primary' | 'ghost' | 'dashed' | 'link' | '
 type BaseButtonProps = {
   type?: ButtonType;
   size?: SizeType;
-  icon?: ReactNode;
   loading?: boolean;
   className?: string;
   block?: boolean;
@@ -35,7 +34,6 @@ export type ButtonProps = Partial<AnchorButtonProps & NativeButtonProps>;
 const Button: FC<ButtonProps> = ({
   size = 'default',
   type = 'default',
-  icon,
   loading,
   className,
   block = false,
@@ -59,15 +57,13 @@ const Button: FC<ButtonProps> = ({
       [styles[type]]: type,
       [styles.block]: block,
       [styles.disabled]: otherProps.disabled,
-      [styles.hasIcon]: !!icon,
     },
     styles.btn,
     className
   );
   return (
     <button type='button' className={classString} onClick={handleClick} {...otherProps}>
-      {icon}
-      {children && <span>{children}</span>}
+      {children}
     </button>
   );
 };

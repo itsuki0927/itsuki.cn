@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { cloneElement, isValidElement, ReactNode } from 'react';
 import { HeartFilled } from '@/components/icons';
-import { Button } from '@/components/ui';
+import { IconButton } from '@/components/ui';
 import { ButtonProps } from '@/components/ui/Button';
 import useCounter from '@/hooks/useCounter';
 import styles from './style.module.scss';
@@ -52,7 +52,7 @@ const LikeButton = (props: LikeButtonProps) => {
   };
 
   return (
-    <Button
+    <IconButton
       type={type}
       disabled={isLiked}
       icon={iconDom}
@@ -60,7 +60,7 @@ const LikeButton = (props: LikeButtonProps) => {
       {...buttonProps}
     >
       {children?.({ ...props, liking })}
-    </Button>
+    </IconButton>
   );
 };
 

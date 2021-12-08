@@ -2,7 +2,7 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import { Breadcrumbs, NavbarLayout } from '@/components/common';
 import { CheckOutlined, CopyOutlined } from '@/components/icons';
-import { Button, Card, MarkdownBlock, Tag } from '@/components/ui';
+import { IconButton, Card, MarkdownBlock, Tag } from '@/components/ui';
 import { rs } from '@/constants/ranks';
 import { SnippetDetail } from '@/entities/snippet';
 import { copyTextToClipboard } from '@/utils/index';
@@ -54,14 +54,14 @@ const SnippetCodeView = ({ snippet, breadcrumbs }: SnippetCodeViewProps) => {
           </div>
         }
         extra={
-          <Button
+          <IconButton
             type='primary'
             disabled={copyState.disabled}
             icon={copyState.icon}
             onClick={handleCopy}
           >
             {copyState.text}
-          </Button>
+          </IconButton>
         }
       >
         <p>{snippet.description}</p>

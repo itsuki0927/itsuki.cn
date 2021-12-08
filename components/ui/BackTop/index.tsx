@@ -1,5 +1,5 @@
 import { ToTopOutlined } from '@/components/icons';
-import { Button } from '@/components/ui';
+import { IconButton } from '@/components/ui';
 import { scrollTo } from '@/utils/index';
 import styles from './style.module.scss';
 
@@ -8,9 +8,9 @@ const BackTop = () => {
 
   return (
     <div className={styles.backTop}>
-      <Button icon={<ToTopOutlined />} onClick={backToTop}>
+      <IconButton icon={<ToTopOutlined />} onClick={backToTop}>
         回到顶部
-      </Button>
+      </IconButton>
     </div>
   );
 };

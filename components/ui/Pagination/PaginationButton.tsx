@@ -7,7 +7,7 @@ import {
   PropsWithChildren,
   useCallback,
 } from 'react';
-import { Button } from '..';
+import { IconButton } from '..';
 import styles from './style.module.scss';
 
 export interface PaginationButtonProps
@@ -42,7 +42,7 @@ const PaginationButton = (props: PropsWithChildren<PaginationButtonProps>) => {
   );
 
   return (
-    <Button
+    <IconButton
       {...rest}
       disabled={disabled}
       onClick={e => {
@@ -55,7 +55,7 @@ const PaginationButton = (props: PropsWithChildren<PaginationButtonProps>) => {
       style={style}
     >
       {children}
-    </Button>
+    </IconButton>
   );
 };
 

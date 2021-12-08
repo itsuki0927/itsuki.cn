@@ -2,26 +2,24 @@ import router from 'next/router';
 import { Icon } from '@/components/icons';
 import { Tag as TagType } from '@/entities/tag';
 import { getExpandValue } from '@/transformers/expands';
-import Button, { ButtonProps } from '@/components/ui/Button';
+import { IconButton } from '@/components/ui';
+import { ButtonProps } from '@/components/ui/Button';
 
 export const getIconValue = (expand: string) => getExpandValue(expand, 'icon');
 
-type ArticleTagProps = {
+interface ArticleTagProps extends ButtonProps {
   tag: TagType;
-  buttonProps?: ButtonProps;
-};
-const ArticleTag = ({ tag, buttonProps }: ArticleTagProps) => (
-  <Button
+}
+const ArticleTag = ({ tag, ...rest }: ArticleTagProps) => (
+  <IconButton
     type='dashed'
     size='small'
-    icon={
-      tag.expand && <Icon style={{ marginRight: 6 }} name={getIconValue(tag.expand)} />
-    }
+    icon={tag.expand && <Icon name={getIconValue(tag.expand)} />}
     onClick={() => router.push(`/tag/${tag.name}`)}
-    {...buttonProps}
+    {...rest}
   >
     {tag.name}
-  </Button>
+  </IconButton>
 );
 
 export default ArticleTag;

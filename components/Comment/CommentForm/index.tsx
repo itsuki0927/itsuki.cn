@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import React, { PropsWithChildren, useState } from 'react';
 import { CloseOutlined, SendOutlined } from '@/components/icons';
-import { Button, Card } from '@/components/ui';
+import { IconButton, Card } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import markedToHtml from '@/utils/marked';
 import CommentFormProfile from './CommentFormProfile';
@@ -54,7 +54,7 @@ const CommentFormSubmit = ({ onSend }: CommentFormSubmitProps) => {
 
   return (
     <div className={styles.actionBar}>
-      <Button
+      <IconButton
         type='primary'
         className={styles.send}
         icon={<SendOutlined />}
@@ -62,7 +62,7 @@ const CommentFormSubmit = ({ onSend }: CommentFormSubmitProps) => {
         onClick={handleSend}
       >
         {loading ? '发射中...' : '发射'}
-      </Button>
+      </IconButton>
     </div>
   );
 };

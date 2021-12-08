@@ -1,5 +1,5 @@
 import { HeartFilled, HeartOutlined, SelectOutlined } from '@/components/icons';
-import { Button, Card, MarkdownBlock } from '@/components/ui';
+import { IconButton, Card, MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
@@ -90,7 +90,7 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
         >
           {({ liking }) => <span>{liking}</span>}
         </LikeButton>,
-        <Button
+        <IconButton
           key='reply'
           type='text'
           icon={<SelectOutlined />}
@@ -99,7 +99,7 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
           }}
         >
           回复
-        </Button>,
+        </IconButton>,
       ]}
     >
       <Card.Meta

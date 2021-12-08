@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 $primary-hover-color: #40a9ff;
 $button-color: #000000d9;
@@ -101,13 +101,5 @@ $button-color: #000000d9;
 
   &.block {
     width: 100%;
-  }
-
-  &.hasIcon {
-    :global {
-      .iconfont {
-        margin-right: 4px;
-      }
-    }
   }
 }

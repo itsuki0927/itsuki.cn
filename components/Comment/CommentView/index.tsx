@@ -8,11 +8,17 @@ import useLikeArticle from '@/framework/local/article/use-like-article';
 import useComment from '@/framework/local/comment/use-comment';
 import purifyDomString from '@/transformers/purify';
 import { CommentSkeleton } from '..';
-import CommentForm from '../CommentForm';
 import CommentCard from '../CommentCard';
-import CommentProfile, { CommentProfileType } from '../CommentProfile';
+import CommentForm, {
+  CommentFormAvatar,
+  CommentFormContent,
+  CommentFormEditor,
+  CommentFormSubmit,
+  CommentFormProfile,
+  CommentFormReply,
+} from '../CommentForm';
+import { CommentProfileType } from '../CommentForm/CommentFormProfile';
 import LikeButton from '../LikeButton';
-import ReplyPlaceholder from '../ReplyPlaceholder';
 import styles from './style.module.scss';
 
 type CommentProps = {
@@ -25,6 +31,7 @@ const CommentList = ({ title, liking: likingProp, articleId }: CommentProps) => 
   const { data: comments, isEmpty, isLoading } = useComment({ articleId });
   const [reply, setReply] = useState<Comment>();
   const [profile, setProfile] = useState<CommentProfileType>(initialCommentProfile);
+  const [content, setContent] = useState('');
   const postComment = usePostComment({ articleId });
   const isLiked = useInLikeArticles(articleId);
   const likeArticles = useLikeArticle();
@@ -45,7 +52,7 @@ const CommentList = ({ title, liking: likingProp, articleId }: CommentProps) => 
     likeArticles({ articleId });
   };
 
-  const handleSend = async (content: string) => {
+  const handleSend = async () => {
     if (!content) {
       alert('请输入评论内容');
       return Promise.resolve(false);
@@ -59,6 +66,7 @@ const CommentList = ({ title, liking: likingProp, articleId }: CommentProps) => 
         parentId: reply?.id,
       });
       setReply(undefined);
+      setContent('');
       return true;
     } catch (error: any) {
       const [{ message }] = error.errors;
@@ -92,9 +100,13 @@ const CommentList = ({ title, liking: likingProp, articleId }: CommentProps) => 
       {commentListDom}
 
       <CommentForm onSend={handleSend}>
-        <ReplyPlaceholder reply={reply} onCloseReply={() => setReply(undefined)} />
-
-        <CommentProfile value={profile} onChange={setProfile} />
+        <CommentFormAvatar email={profile.email} />
+        <CommentFormContent>
+          <CommentFormReply reply={reply} onCloseReply={() => setReply(undefined)} />
+          <CommentFormProfile value={profile} onChange={setProfile} />
+          <CommentFormEditor code={content} onChange={setContent} />
+          <CommentFormSubmit onSend={handleSend} />
+        </CommentFormContent>
       </CommentForm>
     </Card>
   );

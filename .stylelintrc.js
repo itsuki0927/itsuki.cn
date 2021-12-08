@@ -27,5 +27,6 @@ module.exports = {
     'selector-class-pattern': null,
     'scss/dollar-variable-empty-line-after': null,
     'scss/dollar-variable-empty-line-before': null,
+    'scss/no-global-function-names': null,
   },
 };

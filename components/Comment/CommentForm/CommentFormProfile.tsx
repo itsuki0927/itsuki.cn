@@ -55,7 +55,7 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
   };
 
   return (
-    <div className={styles.profile}>
+    <div className={styles.commentProfile}>
       {!actionVisible && (
         <div className={styles.edit}>
           <input

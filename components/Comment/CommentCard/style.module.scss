@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .commentItem {
   margin-bottom: $margin-sm;
@@ -26,7 +26,8 @@
   }
 
   .avatar {
-    border: 4px solid lighten($gray-5, 5%);
+    // border: 4px solid lighten($gray-5, 5%);
+    border: 4px solid color.adjust($gray-5, $lightness: $amount);
     border-radius: $border-radius-base;
   }
 

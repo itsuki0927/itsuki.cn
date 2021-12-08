@@ -9,7 +9,7 @@ import useComment from '@/framework/local/comment/use-comment';
 import purifyDomString from '@/transformers/purify';
 import { CommentSkeleton } from '..';
 import CommentForm from '../CommentForm';
-import CommentItem from '../CommentItem';
+import CommentCard from '../CommentCard';
 import CommentProfile, { CommentProfileType } from '../CommentProfile';
 import LikeButton from '../LikeButton';
 import ReplyPlaceholder from '../ReplyPlaceholder';
@@ -35,7 +35,7 @@ const CommentList = ({ title, liking: likingProp, articleId }: CommentProps) => 
         <Empty />
       ) : (
         comments.map(item => (
-          <CommentItem comment={item} key={item.id} onReply={setReply} />
+          <CommentCard comment={item} key={item.id} onReply={setReply} />
         ))
       ),
     [comments, isEmpty]

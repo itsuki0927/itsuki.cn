@@ -5,7 +5,7 @@ import markedToHtml from '@/utils/marked';
 import styles from './style.module.scss';
 
 interface ReplyPlaceholderProps {
-  reply: Comment | null;
+  reply?: Comment;
   onCloseReply: () => void;
 }
 

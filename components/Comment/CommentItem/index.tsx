@@ -6,14 +6,17 @@ import useLikeComment from '@/framework/local/comment/use-like-comment';
 import { getGravatarUrl, parseUA } from '@/transformers/index';
 import markedToHtml from '@/utils/marked';
 import scrollTo from '@/utils/scrollTo';
-import { useReplyDispatch } from '../context';
 import LikeButton from '../LikeButton';
 import styles from './style.module.scss';
 
 const buildCommentDomId = (id: number) => `comment-${id}`;
 
-interface CommentCardProps {
+interface CommentCardCommonProps {
   comment: Comment;
+}
+
+interface CommentCardProps extends CommentCardCommonProps {
+  onReply: (data: Comment) => void;
 }
 
 const CommentUA = ({ result }: any) => (
@@ -26,7 +29,7 @@ const CommentUA = ({ result }: any) => (
   </span>
 );
 
-const CommentCardTitle = ({ comment }: CommentCardProps) => {
+const CommentCardTitle = ({ comment }: CommentCardCommonProps) => {
   const { result } = parseUA(comment.agent);
   return (
     <div>
@@ -43,7 +46,7 @@ const CommentCardTitle = ({ comment }: CommentCardProps) => {
   );
 };
 
-const CommentCardDescription = ({ comment }: CommentCardProps) => (
+const CommentCardDescription = ({ comment }: CommentCardCommonProps) => (
   <div className={styles.reply}>
     {!!comment.parentId && (
       <span className={styles.nickname}>
@@ -63,9 +66,8 @@ const CommentCardDescription = ({ comment }: CommentCardProps) => (
   </div>
 );
 
-const CommentCard = ({ comment }: CommentCardProps) => {
+const CommentCard = ({ comment, onReply }: CommentCardProps) => {
   const contentHtml = markedToHtml(comment.content, { purify: true });
-  const replyDispatch = useReplyDispatch();
   const likeComment = useLikeComment();
   const isLiked = useInLikeComments(comment.id);
 
@@ -93,10 +95,7 @@ const CommentCard = ({ comment }: CommentCardProps) => {
           type='text'
           icon={<SelectOutlined />}
           onClick={() => {
-            replyDispatch({
-              type: 'reply',
-              payload: comment,
-            });
+            onReply(comment);
           }}
         >
           回复

@@ -1,12 +1,12 @@
+import classNames from 'classnames';
 import { HeartFilled, HeartOutlined, SelectOutlined } from '@/components/icons';
-import { IconButton, Card, MarkdownBlock } from '@/components/ui';
+import { Card, IconButton, MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
 import { getGravatarUrl, parseUA } from '@/transformers/index';
 import markedToHtml from '@/utils/marked';
 import scrollTo from '@/utils/scrollTo';
-import LikeButton from '../LikeButton';
 import styles from './style.module.scss';
 
 const buildCommentDomId = (id: number) => `comment-${id}`;
@@ -68,7 +68,7 @@ const CommentCardDescription = ({ comment }: CommentCardCommonProps) => (
 
 const CommentCard = ({ comment, onReply }: CommentCardProps) => {
   const contentHtml = markedToHtml(comment.content, { purify: true });
-  const likeComment = useLikeComment();
+  const likeComment = useLikeComment({ articleId: comment.articleId });
   const isLiked = useInLikeComments(comment.id);
 
   const handleLikeComment = () => likeComment({ commentId: comment.id });
@@ -80,16 +80,17 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
       bodyStyle={{ padding: 12 }}
       className={styles.commentItem}
       actions={[
-        <LikeButton
+        <IconButton
           type='text'
-          liking={comment.liking}
-          isLiked={isLiked}
-          onLiked={handleLikeComment}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          iconRender={() => (isLiked ? <HeartFilled /> : <HeartOutlined />)}
+          disabled={isLiked}
+          onClick={handleLikeComment}
+          className={classNames({
+            [styles.liked]: isLiked,
+          })}
+          icon={isLiked ? <HeartFilled /> : <HeartOutlined />}
         >
-          {({ liking }) => <span>{liking}</span>}
-        </LikeButton>,
+          {comment.liking}
+        </IconButton>,
         <IconButton
           key='reply'
           type='text'

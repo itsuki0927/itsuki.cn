@@ -70,6 +70,9 @@ export type PostCommentHook<T extends CommentTypes = CommentTypes> = {
 
 export type LikeCommentHook<T extends CommentTypes = CommentTypes> = {
   data: void;
+  input: {
+    articleId: number;
+  };
   actionInput: T['likeBody'];
   fetcherInput: T['likeBody'];
 };

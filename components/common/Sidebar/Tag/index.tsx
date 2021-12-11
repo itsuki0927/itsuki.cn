@@ -12,7 +12,7 @@ interface SidebarTagProps {
 }
 
 const SidebarTag = ({ tags }: SidebarTagProps) => (
-  <Card title='Tag' className={styles.tag} bodyStyle={cardBodyStyle}>
+  <Card className={styles.tag} bodyStyle={cardBodyStyle}>
     {tags?.map(item => (
       <ArticleTag key={item.id} className={styles.btn} tag={item} />
     ))}

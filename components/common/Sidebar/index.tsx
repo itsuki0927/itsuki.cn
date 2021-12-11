@@ -1,6 +1,5 @@
 import { SiteInfo } from '@/entities/siteInfo';
 import Hello from './Hello';
-import LeaderBoard from './Leaderboard';
 import Snippet from './Snippet';
 import styles from './style.module.scss';
 import Tag from './Tag';
@@ -14,7 +13,6 @@ const Sidebar = ({ tags = [] }: SidebarProps) => (
     <Hello />
     <Snippet />
     <Tag tags={tags} />
-    <LeaderBoard />
   </aside>
 );
 

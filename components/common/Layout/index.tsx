@@ -28,14 +28,15 @@ const Layout: FC<PageProps> = ({
   return (
     <BlogProvider locale={locale}>
       <Navbar links={pageProps.categories} />
-      <main className={styles.main}>
-        <div className={styles.mainContent}>{children}</div>
+
+      <section className={styles.main}>
+        <main className={styles.mainContent}>{children}</main>
         <DynamicAffix top={88}>
           <Sidebar tags={pageProps.tags} />
         </DynamicAffix>
-      </main>
-      <Footer />
+      </section>
 
+      <Footer />
       <DynamicBackTop />
     </BlogProvider>
   );

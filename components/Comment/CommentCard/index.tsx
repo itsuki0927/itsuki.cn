@@ -79,6 +79,7 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
       key={comment.id}
       bodyStyle={{ padding: 12 }}
       className={styles.commentItem}
+      bordered
       actions={[
         <IconButton
           type='text'

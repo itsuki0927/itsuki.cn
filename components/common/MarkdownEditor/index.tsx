@@ -40,7 +40,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   );
 
   return (
-    <Card className={styles.markdown} bodyStyle={{ padding: 0 }}>
+    <Card bordered className={styles.markdown} bodyStyle={{ padding: 0 }}>
       {toolbarDom}
 
       <div className={styles.markdownContent}>

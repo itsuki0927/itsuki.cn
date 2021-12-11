@@ -23,15 +23,16 @@ $button-color: #000000d9;
   font-size: 14px;
   border-radius: 2px;
   color: $text-color;
-  border-color: $gray-5;
+  border-color: $gray-4;
 
   & + & {
     margin-left: 12px;
   }
 
   &:not(.disabled):hover {
-    color: $primary-hover-color;
+    background-color: $primary-hover-color;
     border-color: $primary-hover-color;
+    color: $white;
   }
 
   &.primary {
@@ -50,7 +51,7 @@ $button-color: #000000d9;
 
   &.disabled {
     color: $disabled-color;
-    border-color: $disabled-border-color;
+    border-color: transparent;
     background: $disabled-bg-color;
   }
 

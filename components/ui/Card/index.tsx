@@ -46,7 +46,7 @@ const Card: CardInterface = ({
   hoverable,
   headStyle = {},
   bodyStyle = {},
-  bordered = true,
+  bordered = false,
   loading,
   children,
   ...otherProps

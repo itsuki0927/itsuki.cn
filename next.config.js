@@ -1,4 +1,4 @@
-const RESOURCE_HOST = 'resources.fivewoods.xyz';
+const RESOURCE_HOST = 'static.itsuki.cn';
 
 const RESOURCE_URL = `https://${RESOURCE_HOST}`;
 
@@ -9,13 +9,12 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: isProd,
 });
 
-// const withPreact = require('next-plugin-preact');
+const withPreact = require('next-plugin-preact');
 
 /** @type {import('next').NextConfig} */
 module.exports = withBundleAnalyzer(
-  // withPreact(
-  {
-    assetPrefix: isProd ? RESOURCE_URL : '',
+  withPreact({
+    // assetPrefix: isProd ? RESOURCE_URL : '',
     reactStrictMode: true,
     images: {
       domains: [RESOURCE_HOST],
@@ -60,6 +59,5 @@ module.exports = withBundleAnalyzer(
       };
       return config;
     },
-  }
-  // )
+  })
 );

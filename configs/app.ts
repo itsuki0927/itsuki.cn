@@ -14,7 +14,7 @@ export const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION;
 export const ICONFONT_URL = '//at.alicdn.com/t/font_2836612_uos9kb6ebs8';
 
 // resource 主机
-export const RESOURCE_HOST = 'resources.fivewoods.xyz';
+export const RESOURCE_HOST = 'static.itsuki.cn';
 
 // resource 路径
 export const RESOURCE_URL = `https://${RESOURCE_HOST}`;

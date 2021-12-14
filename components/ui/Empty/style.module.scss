@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .empty {
   font-size: 14px;
@@ -7,6 +7,11 @@
 
   .icon {
     font-size: 60px;
-    color: $gray-7;
+    color: $gray-6;
+  }
+
+  .description {
+    margin-top: 12px;
+    margin-bottom: 0;
   }
 }

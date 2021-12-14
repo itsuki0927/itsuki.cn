@@ -14,6 +14,7 @@ body {
 
 .container {
   width: $container-width;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
 }

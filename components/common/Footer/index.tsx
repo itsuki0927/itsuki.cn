@@ -3,8 +3,8 @@ import styles from './style.module.scss';
 
 const Footer = () => (
   <footer className={styles.footer}>
-    <Card bordered={false} bodyStyle={{ padding: '16px' }}>
-      <div className={styles.container}>
+    <Card bodyStyle={{ padding: '16px' }}>
+      <div className='container'>
         <span>Made with</span>
         <span>❤️</span>
         <span>by</span>
@@ -15,7 +15,7 @@ const Footer = () => (
           target='_blank'
           rel='noreferrer'
         >
-          湘ICP备19011111号-1
+          湘ICP备2021020356号-1
         </a>
       </div>
     </Card>

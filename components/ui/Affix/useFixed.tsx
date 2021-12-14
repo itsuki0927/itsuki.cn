@@ -21,14 +21,14 @@ const useFixed = (
     const scrollY = window.scrollY || window.pageYOffset;
 
     // 如果滚动距离 > 元素顶部时
-    let nextFixed = scrollY - (offset?.top - top) >= 0;
+    let nextFixed = scrollY - (offset.top - top) >= 0;
 
     // 如果容器中指定了当前元素，
     // 添加判断当前容器是否在窗口范围内。
     // 如果指定了容器元素
     // 就判断当前容器是否在窗口范围内
     if (containerOffset) {
-      nextFixed = nextFixed && scrollY < containerOffset?.height + containerOffset?.top;
+      nextFixed = nextFixed && scrollY < containerOffset.height + containerOffset.top;
     }
 
     if (nextFixed !== fixed) {

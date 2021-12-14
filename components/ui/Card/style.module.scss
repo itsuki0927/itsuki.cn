@@ -1,5 +1,5 @@
-@import 'styles/mixins/clearfix.scss';
-@import 'styles/variables.scss';
+@import 'styles/mixins/clearfix';
+@import 'styles/variables';
 
 $card-hoverable-hover-border: transparent;
 $card-action-icon-size: 16px;
@@ -198,8 +198,7 @@ $card-head-extra-color: $text-color;
 
     &:hover {
       border-color: transparent;
-      box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px 0 rgba(0 0 0 / 12%),
-        0 5px 12px 4px rgba(0 0 0 / 9%);
+      box-shadow: 4px 4px 40px rgb(0 0 0 / 7%);
     }
   }
 

@@ -59,5 +59,6 @@ module.exports = {
     'import/prefer-default-export': WARNING,
     // 函数命名方式
     'react/function-component-definition': OFF,
+    'react/jsx-no-useless-fragment': OFF,
   },
 };

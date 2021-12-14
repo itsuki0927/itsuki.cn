@@ -21,8 +21,8 @@ import python from 'highlight.js/lib/languages/python';
 import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
 
-// import 'highlight.js/styles/base16/onedark.css';
-import 'highlight.js/styles/base16/gruvbox-dark-hard.css';
+import 'highlight.js/styles/base16/onedark.css';
+// import 'highlight.js/styles/base16/gruvbox-dark-hard.css';
 
 const languages = {
   go,

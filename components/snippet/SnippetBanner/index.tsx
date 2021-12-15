@@ -1,22 +1,52 @@
+import classNames from 'classnames';
+import Link from 'next/link';
 import React from 'react';
+import { Icon } from '@/components/icons';
 import { Card } from '@/components/ui';
-import { SnippetCategory } from '@/entities/snippetCategory';
+import { getExpandsValue } from '@/transformers/expands';
 import styles from './style.module.scss';
 
 interface SnippetBannerProps {
-  category: SnippetCategory;
-  rootCategory: SnippetCategory;
+  className?: string;
+  name: string;
+  description: string;
+  path: string;
+  expand?: string;
+  disabledLink?: boolean;
 }
-const SnippetBanner = ({ category, rootCategory }: SnippetBannerProps) => {
-  const prefix = rootCategory.name === category.name ? '' : rootCategory.name;
+
+export type SnippetBannerExpands = {
+  icon: string;
+  color: string;
+  background: string;
+};
+
+const SnippetBanner = ({
+  name,
+  description,
+  path,
+  expand,
+  className,
+  disabledLink = false,
+}: SnippetBannerProps) => {
+  const { icon, ...iconStyles } = getExpandsValue<SnippetBannerExpands>(expand);
+
   return (
-    <Card className={styles.snippetBanner} bodyStyle={{ padding: 0, display: 'flex' }}>
-      <div className={styles.content}>
-        <h3 className={styles.title}>{`${prefix} ${category.name} 片段`}</h3>
-        <p>{category.description}</p>
+    <Card className={classNames(styles.snippetBanner, className)}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Icon className={styles.icon} name={icon} style={{ ...iconStyles }} />
+        <div className={styles.content}>
+          {disabledLink ? (
+            <h2 className={classNames(styles.name, styles.disabled)}>{name}</h2>
+          ) : (
+            <Link href={path}>
+              <h2 className={styles.name}>{name}</h2>
+            </Link>
+          )}
+          <p className={styles.description}>{description}</p>
+        </div>
       </div>
     </Card>
   );
 };
-
 export default SnippetBanner;

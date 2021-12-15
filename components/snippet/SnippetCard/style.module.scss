@@ -1,6 +1,4 @@
-@import 'styles/variables.scss';
-
-$icon-background: #f6d854;
+@import 'styles/variables';
 
 .snippet {
   margin-bottom: $margin-lg;
@@ -40,7 +38,6 @@ $icon-background: #f6d854;
     transition: 0.3s ease;
     cursor: pointer;
     overflow: hidden;
-    color: #434343;
     font-weight: 500;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -52,7 +49,7 @@ $icon-background: #f6d854;
   }
 
   .tag {
-    color: #bfbfbf;
+    color: $gray-6;
     font-size: 14px;
   }
 

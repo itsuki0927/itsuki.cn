@@ -1,10 +1,41 @@
-.snippetBanner {
-  .content {
-    flex: 1;
-    margin-left: 24px;
+@import 'styles/variables';
 
-    .title {
-      margin: 12px 0;
+.snippetBanner {
+  .icon {
+    width: 58px;
+    height: 58px;
+    font-size: 35px;
+    line-height: 58px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    border-radius: 2px;
+  }
+
+  .content {
+    flex-grow: 1;
+    margin-left: 12px;
+  }
+
+  .name {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 500;
+    transition: 0.3s ease;
+
+    &:not(.disabled) {
+      cursor: pointer;
     }
+
+    &:not(.disabled):hover {
+      text-decoration: underline;
+      color: $primary;
+    }
+  }
+
+  .description {
+    margin: 0;
+    margin-top: 12px;
+    color: $gray-6;
   }
 }

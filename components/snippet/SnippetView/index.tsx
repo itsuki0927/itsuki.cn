@@ -4,8 +4,9 @@ import { Card, Input } from '@/components/ui';
 import { SearchResponse } from '@/entities/response/base';
 import { Snippet } from '@/entities/snippet';
 import { SnippetCategory } from '@/entities/snippetCategory';
+import { getSnippetRootCategoryUrl } from '@/transformers/url';
+import SnippetBanner from '../SnippetBanner';
 import SnippetCard from '../SnippetCard';
-import SnippetCategoryCard from '../SnippetCategoryCard';
 import styles from './style.module.scss';
 
 const SnippetCategoryList = ({
@@ -13,9 +14,12 @@ const SnippetCategoryList = ({
 }: Pick<SnippetViewProps, 'snippetCategories'>) => (
   <div className={styles.snippetCategory}>
     {snippetCategories.data.map(category => (
-      <SnippetCategoryCard
+      <SnippetBanner
         key={category.id}
-        category={category}
+        name={category.name}
+        description={category.description}
+        path={getSnippetRootCategoryUrl(category.path)}
+        expand={category.expand}
         className={styles.category}
       />
     ))}
@@ -29,9 +33,7 @@ interface SnippetViewProps {
 
 const SnippetView = ({ snippets, snippetCategories }: SnippetViewProps) => (
   <div className='container'>
-    <SnippetCategoryList snippetCategories={snippetCategories} />
-
-    <Card style={{ marginBottom: 24 }} bodyStyle={{ padding: '12px 24px' }}>
+    <Card className={styles.search}>
       <Input
         size='lg'
         placeholder='Search Code'
@@ -40,6 +42,8 @@ const SnippetView = ({ snippets, snippetCategories }: SnippetViewProps) => (
         }}
       />
     </Card>
+
+    <SnippetCategoryList snippetCategories={snippetCategories} />
 
     {snippets.data.map(snippet => (
       <SnippetCard snippet={snippet} key={snippet.id} />

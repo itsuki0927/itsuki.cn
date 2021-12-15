@@ -22,24 +22,35 @@ const SnippetListPage = ({
   category,
   rootCategory,
   paths,
-}: SnippetListViewProps) => (
-  <div>
-    <SnippetBanner category={category} rootCategory={rootCategory} />
+}: SnippetListViewProps) => {
+  const name = `${category.name === rootCategory.name ? '' : rootCategory.name} ${
+    category.name
+  } 片段`;
 
-    <div style={{ margin: '24px 0' }}>
-      {paths.map(item => (
-        <Button
-          key={item.path}
-          type={item.name === category.name ? 'primary' : 'text'}
-          onClick={() => router.push(item.path)}
-        >
-          {item.name}
-        </Button>
-      ))}
+  return (
+    <div>
+      <SnippetBanner
+        {...category}
+        expand={rootCategory.expand}
+        name={name}
+        disabledLink
+      />
+
+      <div style={{ margin: '24px 0' }}>
+        {paths.map(item => (
+          <Button
+            key={item.path}
+            type={item.name === category.name ? 'link' : 'text'}
+            onClick={() => router.push(item.path)}
+          >
+            {item.name}
+          </Button>
+        ))}
+      </div>
+
+      <SnippetList snippets={snippets} />
     </div>
-
-    <SnippetList snippets={snippets} />
-  </div>
-);
+  );
+};
 
 export default SnippetListPage;

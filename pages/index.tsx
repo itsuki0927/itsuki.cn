@@ -39,7 +39,7 @@ const HomePage = ({
     <HomeSlider articles={bannerArticles} />
 
     <Alert
-      style={{ marginBottom: 24 }}
+      style={{ marginBottom: 24, padding: '8px 24px' }}
       message='思考比写代码来的更加珍贵'
       type='info'
       icon={<SoundOutlined />}

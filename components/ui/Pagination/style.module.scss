@@ -1,7 +1,7 @@
 @import 'styles/variables';
 
 .active {
-  border-color: $primary;
-  color: $primary;
-  background-color: $white;
+  border-color: transparent;
+  color: $white;
+  background-color: $primary;
 }

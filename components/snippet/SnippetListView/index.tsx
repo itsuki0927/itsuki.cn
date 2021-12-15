@@ -6,6 +6,7 @@ import { Category } from '@/entities/category';
 import { SearchResponse } from '@/entities/response/base';
 import { Snippet } from '@/entities/snippet';
 import SnippetBanner, { SnippetBannerTitle } from '../SnippetBanner';
+import styles from './style.module.scss';
 
 interface SnippetListViewProps {
   snippets: SearchResponse<Snippet>;
@@ -33,11 +34,12 @@ const SnippetListPage = ({
         <SnippetBannerTitle name={name} />
       </SnippetBanner>
 
-      <div style={{ margin: '24px 0' }}>
+      <div className={styles.category}>
         {paths.map(item => (
           <Button
             key={item.path}
-            type={item.name === category.name ? 'link' : 'text'}
+            type={item.name === category.name ? 'primary' : 'text'}
+            className={styles.button}
             onClick={() => router.push(item.path)}
           >
             {item.name}

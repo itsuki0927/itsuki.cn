@@ -1,17 +1,15 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 $easy-background: #78c02a;
 $medium-background: #ffb300;
 $hard-background: $error;
 
 .expertise {
-  position: absolute;
   width: 16px;
   height: 16px;
   border: 2px solid $white;
   border-radius: 50%;
-  top: -3px;
-  right: -3px;
+  display: inline-block;
 
   &.easy {
     background-color: $easy-background;

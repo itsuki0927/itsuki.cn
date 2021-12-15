@@ -11,7 +11,7 @@ const Hello = () => {
     initialCommentProfile
   );
   return (
-    <Card className={styles.hello} bodyStyle={{ padding: '12px 24px' }}>
+    <Card className={styles.hello}>
       今天
       {zhDayName(new Date())},{' '}
       <span className={styles.nickname}>

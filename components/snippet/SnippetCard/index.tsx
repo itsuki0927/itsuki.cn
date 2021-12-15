@@ -34,7 +34,7 @@ const SnippetCard = ({ snippet }: SnippetCardProps) => {
               background: expandValues.background,
             }}
           />
-          <SnippetExpertise ranks={snippet.ranks} />
+          <SnippetExpertise ranks={snippet.ranks} className={styles.rank} />
         </span>
         <div className={styles.data}>
           <Link href={getSnippetDetailUrl(rootCategory.path, snippet.id)}>

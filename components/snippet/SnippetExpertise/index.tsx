@@ -4,10 +4,12 @@ import styles from './style.module.scss';
 
 interface SnippetExpertiseProps {
   ranks: RanksState;
+  className?: string;
 }
-const SnippetExpertise = ({ ranks }: SnippetExpertiseProps) => (
+
+const SnippetExpertise = ({ ranks, className }: SnippetExpertiseProps) => (
   <i
-    className={classNames(styles.expertise, {
+    className={classNames(styles.expertise, className, {
       [styles.easy]: ranks === RanksState.Easy,
       [styles.medium]: ranks === RanksState.Medium,
       [styles.hard]: ranks === RanksState.Hard,

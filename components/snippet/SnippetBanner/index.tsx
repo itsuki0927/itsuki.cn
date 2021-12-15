@@ -1,6 +1,5 @@
 import classNames from 'classnames';
-import Link from 'next/link';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Icon } from '@/components/icons';
 import { Card } from '@/components/ui';
 import { getExpandsValue } from '@/transformers/expands';
@@ -8,11 +7,9 @@ import styles from './style.module.scss';
 
 interface SnippetBannerProps {
   className?: string;
-  name: string;
   description: string;
-  path: string;
   expand?: string;
-  disabledLink?: boolean;
+  children?: ReactNode;
 }
 
 export type SnippetBannerExpands = {
@@ -21,28 +18,29 @@ export type SnippetBannerExpands = {
   background: string;
 };
 
+interface SnippetBannerTitleProps {
+  name: string;
+  className?: string;
+}
+
+export const SnippetBannerTitle = ({ name, className }: SnippetBannerTitleProps) => (
+  <h2 className={classNames(styles.name, className)}>{name}</h2>
+);
+
 const SnippetBanner = ({
-  name,
   description,
-  path,
   expand,
   className,
-  disabledLink = false,
+  children,
 }: SnippetBannerProps) => {
   const { icon, ...iconStyles } = getExpandsValue<SnippetBannerExpands>(expand);
 
   return (
     <Card className={classNames(styles.snippetBanner, className)}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Icon className={styles.icon} name={icon} style={{ ...iconStyles }} />
+        <Icon className={styles.icon} name={icon} style={iconStyles} />
         <div className={styles.content}>
-          {disabledLink ? (
-            <h2 className={classNames(styles.name, styles.disabled)}>{name}</h2>
-          ) : (
-            <Link href={path}>
-              <h2 className={styles.name}>{name}</h2>
-            </Link>
-          )}
+          {children}
           <p className={styles.description}>{description}</p>
         </div>
       </div>

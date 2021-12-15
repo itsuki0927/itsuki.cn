@@ -22,15 +22,6 @@
     margin: 0;
     font-weight: 500;
     transition: 0.3s ease;
-
-    &:not(.disabled) {
-      cursor: pointer;
-    }
-
-    &:not(.disabled):hover {
-      text-decoration: underline;
-      color: $primary;
-    }
   }
 
   .description {

@@ -1,3 +1,5 @@
+@import 'styles/variables';
+
 .snippetCategory {
   display: flex;
   justify-content: space-between;
@@ -15,4 +17,13 @@
 
 .search {
   margin-bottom: 24px;
+}
+
+.name {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    color: $primary;
+  }
 }

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui';
 import { Category } from '@/entities/category';
 import { SearchResponse } from '@/entities/response/base';
 import { Snippet } from '@/entities/snippet';
-import SnippetBanner from '../SnippetBanner';
+import SnippetBanner, { SnippetBannerTitle } from '../SnippetBanner';
 
 interface SnippetListViewProps {
   snippets: SearchResponse<Snippet>;
@@ -28,13 +28,10 @@ const SnippetListPage = ({
   } 片段`;
 
   return (
-    <div>
-      <SnippetBanner
-        {...category}
-        expand={rootCategory.expand}
-        name={name}
-        disabledLink
-      />
+    <>
+      <SnippetBanner {...category} expand={rootCategory.expand}>
+        <SnippetBannerTitle name={name} />
+      </SnippetBanner>
 
       <div style={{ margin: '24px 0' }}>
         {paths.map(item => (
@@ -49,7 +46,7 @@ const SnippetListPage = ({
       </div>
 
       <SnippetList snippets={snippets} />
-    </div>
+    </>
   );
 };
 

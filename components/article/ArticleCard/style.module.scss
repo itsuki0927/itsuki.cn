@@ -1,25 +1,56 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
+@import 'styles/mixins/ellipsis';
 
 .article {
-  width: 401px;
   margin-bottom: $margin-lg;
-  margin-left: $margin-lg;
-  flex-grow: 1;
-  max-width: 401px;
 
-  .cover {
-    opacity: 90%;
-    transition: all 0.2s ease;
-  }
+  .wrapper {
+    display: flex;
 
-  .action {
-    margin-right: 6px;
-  }
-
-  &:hover {
     .cover {
-      opacity: 100%;
-      transform: scale(1.05);
+      opacity: 0.9;
+      transition: all 0.2s ease;
+    }
+
+    &:hover {
+      .cover {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    }
+
+    .content {
+      flex-grow: 1;
+      margin-left: $margin-lg;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .name {
+        @include ellipsis;
+
+        font-weight: bold;
+        font-size: $font-size-lg;
+      }
+
+      .description {
+        @include ellipsis;
+
+        color: $gray-7;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+
+        span {
+          color: $gray-7;
+        }
+
+        .icon {
+          margin-right: 6px;
+        }
+      }
     }
   }
 }

@@ -1,0 +1,11 @@
+@mixin ellipsis-basic {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin ellipsis($substract: 0) {
+  @include ellipsis-basic;
+
+  width: 100% - $substract;
+}

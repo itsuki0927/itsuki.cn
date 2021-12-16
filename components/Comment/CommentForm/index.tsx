@@ -6,6 +6,7 @@ import { Comment } from '@/entities/comment';
 import markedToHtml from '@/utils/marked';
 import CommentFormProfile from './CommentFormProfile';
 import styles from './style.module.scss';
+import getGravatarUrl from '@/transformers/gravatar';
 
 export * from './CommentFormProfile';
 export {
@@ -24,7 +25,13 @@ const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor
 const noPadding = { padding: 0 };
 
 const CommentFormAvatar = ({ email }: { email: string }) => (
-  <img className={styles.avatar} src={email} width={80} height={80} alt='cover' />
+  <img
+    className={styles.avatar}
+    src={getGravatarUrl(email)}
+    width={80}
+    height={80}
+    alt='cover'
+  />
 );
 
 interface CommentFormEditorProps {

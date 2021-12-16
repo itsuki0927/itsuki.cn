@@ -1,8 +1,10 @@
-import { useState } from 'react';
 import classNames from 'classnames';
+import { BreadcrumbJsonLd } from 'next-seo';
+import { useState } from 'react';
 import { Breadcrumbs, NavbarLayout } from '@/components/common';
 import { CheckOutlined, CopyOutlined } from '@/components/icons';
-import { IconButton, Card, MarkdownBlock, Tag } from '@/components/ui';
+import { Card, IconButton, MarkdownBlock, Tag } from '@/components/ui';
+import { WEB_URL } from '@/configs/app';
 import { rs } from '@/constants/ranks';
 import { SnippetDetail } from '@/entities/snippet';
 import { copyTextToClipboard } from '@/utils/index';
@@ -40,8 +42,15 @@ const SnippetCodeView = ({ snippet, breadcrumbs }: SnippetCodeViewProps) => {
 
   return (
     <>
-      <Card bodyStyle={{ padding: '12px 24px' }}>
+      <Card>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <BreadcrumbJsonLd
+          itemListElements={breadcrumbs.map((breadcrumb, index) => ({
+            position: index + 1,
+            name: breadcrumb.name,
+            item: `${WEB_URL}${breadcrumb.url}`,
+          }))}
+        />
       </Card>
       <Card
         className={classNames('container', styles.snippetCode)}

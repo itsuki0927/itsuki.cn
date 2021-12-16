@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import router from 'next/router';
+import { LogoJsonLd } from 'next-seo';
 import { imageTransformer } from '@/transformers/index';
 import styles from './style.module.scss';
 
@@ -18,6 +19,7 @@ const Logo = () => (
       alt='logo'
       className={styles.img}
     />
+    <LogoJsonLd logo='https://static.itsuki.cn/logo.png' url='https://itsuki.cn' />
     <span>Itsuki</span>
   </div>
 );

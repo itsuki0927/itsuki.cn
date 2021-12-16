@@ -1,3 +1,5 @@
+import { WEB_URL } from '@/configs/app';
+
 /**
  * 获取片段详情地址
  *
@@ -28,6 +30,12 @@ export const getSnippetPageCategoryUrl = (
   rootCategoryPath: string,
   categoryPath: string
 ) => `/snippet/${rootCategoryPath}/t/${categoryPath}/p/1`;
+
+/**
+ * 获取文章路径
+ */
+export const getArticleDetailUrl = (articleId: number) =>
+  `${WEB_URL}/article/${articleId}`;
 
 export default {
   getSnippetDetailUrl,

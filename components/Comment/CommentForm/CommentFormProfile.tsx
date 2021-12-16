@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { CheckOutlined, ClearOutlined, EditOutlined } from '@/components/icons';
 import { IconButton } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
-import useLocalStorage from '@/hooks/useLocalStorage';
-import useMount from '@/hooks/useMount';
+import { useLocalStorage, useMount } from '@/hooks';
 import styles from './style.module.scss';
 
 export type CommentProfileType = {

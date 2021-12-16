@@ -5,7 +5,7 @@ import useLikeArticle, {
   UseLikeArticle,
 } from '@/framework/blog/article/use-like-article';
 import { MutationHook } from '@/framework/blog/utils/types';
-import { useLocalStorage } from '@/hooks/index';
+import { useLocalStorage } from '@/hooks';
 
 export default useLikeArticle as UseLikeArticle<typeof handler>;
 

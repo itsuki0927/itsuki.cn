@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { useEffect, useRef } from 'react';
-import useMount from '@/hooks/useMount';
+import { useMount } from '@/hooks';
 import type { MarkdownEditorUtil } from '@/utils/editor';
 import { highlight as hljs } from '@/utils';
 import { MarkdownEditorProps } from '.';

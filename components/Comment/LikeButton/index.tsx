@@ -3,7 +3,7 @@ import React, { cloneElement, isValidElement, ReactNode } from 'react';
 import { HeartFilled } from '@/components/icons';
 import { IconButton } from '@/components/ui';
 import { ButtonProps } from '@/components/ui/Button';
-import useCounter from '@/hooks/useCounter';
+import { useCounter } from '@/hooks';
 import styles from './style.module.scss';
 
 type LikeButtonRestProps = Omit<ButtonProps, 'type' | 'onClick' | 'icon' | 'disabled'>;

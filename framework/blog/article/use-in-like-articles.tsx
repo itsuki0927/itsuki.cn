@@ -1,5 +1,5 @@
 import { initialLikeValue, LikeArticles, LikeArticlesKey } from '@/constants/like';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import { useLocalStorage } from '@/hooks';
 
 const useInLikeArticles = (articleId: number) => {
   const [likeArticles] = useLocalStorage<LikeArticles>(LikeArticlesKey, initialLikeValue);

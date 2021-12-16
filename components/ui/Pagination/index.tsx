@@ -1,4 +1,4 @@
-import { useControlled } from '@/hooks/index';
+import { useControlled } from '@/hooks';
 import Pagination, { PaginationProps } from './Pagination';
 
 export interface PaginationGroupProps extends PaginationProps {

@@ -5,7 +5,7 @@ import useLikeComment, {
   UseLikeComment,
 } from '@/framework/blog/comment/use-like-comment';
 import { MutationHook } from '@/framework/blog/utils/types';
-import { useLocalStorage } from '@/hooks/index';
+import { useLocalStorage } from '@/hooks';
 import useComment from './use-comment';
 
 export default useLikeComment as UseLikeComment<typeof handler>;

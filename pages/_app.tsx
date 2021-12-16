@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 import { BlankLayout, GA, Iconfont, Head } from '@/components/common';
 import { PageLoadingProgress } from '@/components/ui';
-import useMount from '@/hooks/useMount';
+import { useMount } from '@/hooks';
 import '@/styles/globals.scss';
 import '@/styles/markdown.scss';
 import '@/styles/reset.scss';

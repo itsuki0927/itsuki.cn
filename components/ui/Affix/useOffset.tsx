@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useEventListener } from '@/hooks/index';
+import { useEventListener } from '@/hooks';
 import { getOffset, Offset } from '@/utils';
 
 /**

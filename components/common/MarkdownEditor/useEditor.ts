@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import useMount from '@/hooks/useMount';
 import type { MarkdownEditorUtil } from '@/utils/editor';
-import hljs from '@/utils/highlight';
+import { highlight as hljs } from '@/utils';
 import { MarkdownEditorProps } from '.';
 
 const highlight = (editor: HTMLElement) => {
@@ -15,7 +15,7 @@ const useEditor = (props: MarkdownEditorProps) => {
   const codeRef = useRef<MarkdownEditorUtil | null>(null);
 
   const initMarkdownEditor = async () => {
-    codeRef.current = (await import('@/utils/editor')).default(
+    codeRef.current = (await import('@/utils/editor/lib')).default(
       editorRef.current!,
       highlight,
       {

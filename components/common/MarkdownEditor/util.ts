@@ -2,7 +2,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
 
-import { getSelection } from '@/utils/editor/cursor';
+import { getSelection } from '@/utils/editor';
 
 // Took from https://stackoverflow.com/questions/4811822/get-a-ranges-start-and-end-offsets-relative-to-its-parent-container/4812022#4812022
 export const getCaretOffset = (element: HTMLElement) => {

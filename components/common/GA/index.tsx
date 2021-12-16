@@ -3,7 +3,7 @@ import Script from 'next/script';
 import { useCallback, useEffect } from 'react';
 import { GA_TRACKING_ID } from '@/configs/app';
 import { isProd } from '@/configs/environment';
-import { pageview } from '@/utils/gtag';
+import { pageview } from '@/utils';
 
 const GA = () => {
   const router = useRouter();

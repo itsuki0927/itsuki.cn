@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import getOffset, { Offset } from '@/utils/query/getOffset';
+import { getOffset, Offset } from '@/utils';
 
 /**
  * 获取 容器元素的 offset

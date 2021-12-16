@@ -18,7 +18,7 @@ const Search = () => {
   return (
     <div>
       <NextSeo title={`${keyword} - Search`} />
-      <Card bodyStyle={{ padding: 12 }} style={{ marginBottom: 24 }}>
+      <Card style={{ marginBottom: 24 }}>
         <span>
           关键字: <strong style={{ color: '#1890ff' }}>{keyword}</strong>
         </span>

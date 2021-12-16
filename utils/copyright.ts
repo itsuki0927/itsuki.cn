@@ -15,7 +15,7 @@ const copyrightText = () =>
 
 const buildCopyrightText = (content: string) => content + copyrightText();
 
-export const enableCopyright = () => {
+const enableCopyright = () => {
   on(document, 'copy', (event: ClipboardEvent) => {
     if (!window.getSelection()) return;
     if (event.clipboardData) {

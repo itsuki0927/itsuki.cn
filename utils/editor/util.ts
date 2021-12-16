@@ -1,5 +1,5 @@
 /* eslint-disable no-plusplus */
-import { isRedo, isUndo } from './event';
+import { isRedo, isUndo } from '../validate';
 
 export const insert = (text: string) => {
   const replaceText = text

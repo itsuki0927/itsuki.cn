@@ -15,7 +15,7 @@ export function useCtx<T>(context: any): T {
   return value;
 }
 
-export function createCtx<StateType, ActionType>(
+function createCtx<StateType, ActionType>(
   reducer: Reducer<StateType, ActionType>,
   initialState: StateType
 ) {
@@ -45,3 +45,5 @@ export function createCtx<StateType, ActionType>(
 
   return [Provider, useDispatch, useStore] as const;
 }
+
+export default createCtx;

@@ -1,8 +1,7 @@
 import { useCallback, useState } from 'react';
 import useEventListener from '@/hooks/useEventListener';
-import { Offset } from '@/utils/query/getOffset';
+import { throttle, Offset } from '@/utils';
 import { AffixProps } from './index';
-import throttle from '@/utils/throttle';
 
 /**
  * 检查当前元素是否需要被fix

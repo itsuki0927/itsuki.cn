@@ -1,5 +1,5 @@
 import { CSSProperties, forwardRef, ReactNode, useRef } from 'react';
-import mergeRefs from '@/utils/mergeRef';
+import { mergeRefs } from '@/utils';
 import useContainerOffset from './useContainerOffset';
 import useFixed from './useFixed';
 import useOffset from './useOffset';

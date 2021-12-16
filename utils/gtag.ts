@@ -6,6 +6,7 @@ export type GAEvent = {
   label: string;
   value: string;
 };
+
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 export const pageview = (url: string) => {
   (window as any).gtag('config', GA_TRACKING_ID, {

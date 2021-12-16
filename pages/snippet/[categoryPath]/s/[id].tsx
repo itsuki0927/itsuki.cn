@@ -7,7 +7,7 @@ import {
   getSnippetPageCategoryUrl,
   getSnippetRootCategoryUrl,
 } from '@/transformers/url';
-import markedToHtml, { genMarkdownString } from '@/utils/marked';
+import { markedToHtml, genMarkdownString } from '@/utils';
 
 export const getStaticPaths = async () => {
   const { snippets } = await blog.getAllSnippetPaths();

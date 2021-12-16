@@ -1,3 +1,20 @@
 export { default as copyTextToClipboard } from './copy';
+export { default as createCtx } from './createCtx';
+export { default as debounce } from './debounce';
+export { default as enableCopyright } from './copyright';
+export { default as highlight } from './highlight';
+export { default as markedToHtml } from './marked';
+export { default as mergeRefs } from './mergeRef';
 export { default as scrollTo } from './scrollTo';
+export { default as storage } from './storage';
+export { default as throttle } from './throttle';
+
+export * from './array';
 export * from './createCtx';
+// export * from './editor';
+export * from './events';
+export * from './gtag';
+export * from './marked';
+export * from './query';
+export * from './storage';
+export * from './validate';

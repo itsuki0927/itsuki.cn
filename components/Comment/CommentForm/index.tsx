@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic';
 import React, { PropsWithChildren, useState } from 'react';
 import { CloseOutlined, SendOutlined } from '@/components/icons';
-import { IconButton, Card } from '@/components/ui';
+import { Card, IconButton } from '@/components/ui';
 import { Comment } from '@/entities/comment';
-import markedToHtml from '@/utils/marked';
+import getGravatarUrl from '@/transformers/gravatar';
+import { markedToHtml } from '@/utils';
 import CommentFormProfile from './CommentFormProfile';
 import styles from './style.module.scss';
-import getGravatarUrl from '@/transformers/gravatar';
 
 export * from './CommentFormProfile';
 export {

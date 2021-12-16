@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useImperativeHandle, forwardRef } from 'react';
-import { off, on } from '@/utils/events';
+import { off, on } from '@/utils';
 import styles from './style.module.scss';
 
 type ImagePopupProps = {

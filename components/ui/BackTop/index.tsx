@@ -1,6 +1,6 @@
 import { ToTopOutlined } from '@/components/icons';
 import { IconButton } from '@/components/ui';
-import { scrollTo } from '@/utils/index';
+import { scrollTo } from '@/utils';
 import styles from './style.module.scss';
 
 const BackTop = () => {

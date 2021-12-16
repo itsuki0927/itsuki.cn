@@ -4,7 +4,7 @@ import { ArticleView } from '@/components/article';
 import { Layout } from '@/components/common';
 import { ValidationError } from '@/framework/blog/utils/errors';
 import blog from '@/lib/api/blog';
-import marked from '@/utils/marked';
+import { markedToHtml } from '@/utils';
 
 export const getStaticPaths = async () => {
   const { articles } = await blog.getAllArticlePaths();
@@ -34,7 +34,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   return {
     props: {
       ...siteInfo,
-      article: { ...article, content: marked(article.content) },
+      article: { ...article, content: markedToHtml(article.content) },
     },
     revalidate: 10,
   };

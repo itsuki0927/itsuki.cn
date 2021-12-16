@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import copyTextToClipboard from '@/utils/copy';
+import { copyTextToClipboard } from '@/utils';
 
 type CopiedValue = string | null;
 type CopyFn = (text: string) => Promise<boolean>; // Return success

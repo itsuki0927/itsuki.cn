@@ -1,5 +1,5 @@
 import { Category } from './category';
-import { IdentifiableEntity } from './response/base';
+import { IdentifiableEntity } from './response';
 import { Tag } from './tag';
 
 export type SystemSettings = IdentifiableEntity<{

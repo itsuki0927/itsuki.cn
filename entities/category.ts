@@ -1,4 +1,4 @@
-import { IdentifiableEntity, SearchResponse } from './response/base';
+import { IdentifiableEntity, SearchResponse } from './response';
 
 export type Category = IdentifiableEntity<{
   name: string;

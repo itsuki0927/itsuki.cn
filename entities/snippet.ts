@@ -1,4 +1,4 @@
-import { IdentifiableEntity, SearchResponse } from './response/base';
+import { IdentifiableEntity, SearchResponse } from './response';
 import { SnippetCategory } from './snippetCategory';
 
 export type Snippet = IdentifiableEntity<{

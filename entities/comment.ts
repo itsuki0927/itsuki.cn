@@ -1,4 +1,4 @@
-import { IdentifiableEntity } from './response/base';
+import { IdentifiableEntity } from './response';
 
 export type Comment = IdentifiableEntity<{
   nickname: string;

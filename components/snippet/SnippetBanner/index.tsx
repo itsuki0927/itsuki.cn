@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { ReactNode } from 'react';
+import React, { ForwardedRef, forwardRef, MouseEvent, ReactNode } from 'react';
 import { Icon } from '@/components/icons';
 import { Card } from '@/components/ui';
 import { getExpandsValue } from '@/transformers/expands';
@@ -21,10 +21,18 @@ export type SnippetBannerExpands = {
 interface SnippetBannerTitleProps {
   name: string;
   className?: string;
+  onClick?: (e: MouseEvent<HTMLHeadingElement>) => void;
 }
 
-export const SnippetBannerTitle = ({ name, className }: SnippetBannerTitleProps) => (
-  <h2 className={classNames(styles.name, className)}>{name}</h2>
+export const SnippetBannerTitle = forwardRef(
+  (
+    { name, className, onClick }: SnippetBannerTitleProps,
+    ref: ForwardedRef<HTMLHeadingElement>
+  ) => (
+    <h2 className={classNames(styles.name, className)} ref={ref} onClick={onClick}>
+      {name}
+    </h2>
+  )
 );
 
 const SnippetBanner = ({
@@ -37,7 +45,7 @@ const SnippetBanner = ({
 
   return (
     <Card className={classNames(styles.snippetBanner, className)}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div className={styles.wrapper}>
         <Icon className={styles.icon} name={icon} style={iconStyles} />
         <div className={styles.content}>
           {children}

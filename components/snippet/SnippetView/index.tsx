@@ -21,7 +21,7 @@ const SnippetCategoryList = ({
         expand={category.expand}
         className={styles.category}
       >
-        <Link href={getSnippetRootCategoryUrl(category.path)}>
+        <Link href={getSnippetRootCategoryUrl(category.path)} passHref>
           <SnippetBannerTitle name={category.name} className={styles.name} />
         </Link>
       </SnippetBanner>

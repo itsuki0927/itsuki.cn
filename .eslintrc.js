@@ -60,5 +60,7 @@ module.exports = {
     // 函数命名方式
     'react/function-component-definition': OFF,
     'react/jsx-no-useless-fragment': OFF,
+    'jsx-a11y/no-noninteractive-element-interactions': OFF,
+    'jsx-a11y/click-events-have-key-events': OFF,
   },
 };

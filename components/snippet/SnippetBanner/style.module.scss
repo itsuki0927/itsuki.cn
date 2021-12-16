@@ -1,6 +1,11 @@
 @import 'styles/variables';
 
 .snippetBanner {
+  .wrapper {
+    display: flex;
+    align-items: center;
+  }
+
   .icon {
     width: 58px;
     height: 58px;

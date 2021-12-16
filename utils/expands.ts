@@ -5,7 +5,7 @@ interface ExpandItem {
 
 type ExpandValueResult = Record<string, string>;
 
-export const getExpandsValue = <T extends ExpandValueResult = ExpandValueResult>(
+const getExpandsValue = <T extends ExpandValueResult = ExpandValueResult>(
   expandsString?: string
 ): T => {
   const expandsMap = {} as T;

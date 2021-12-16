@@ -2,7 +2,7 @@ import { BlogJsonLd, NextSeo } from 'next-seo';
 import { CommentView } from '@/components/comment';
 import { ImagePopup } from '@/components/ui';
 import { Article } from '@/entities/article';
-import { getArticleDetailUrl } from '@/transformers/url';
+import { getArticleDetailUrl } from '@/utils';
 import ArticleContent from '../ArticleContent';
 import ArticleMeta from '../ArticleMeta';
 

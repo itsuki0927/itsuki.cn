@@ -4,8 +4,11 @@ import { NavbarLayout } from '@/components/common';
 import SnippetListView from '@/components/snippet/SnippetListView';
 import { SnippetCategory } from '@/entities/snippetCategory';
 import blog from '@/lib/api/blog';
-import { convertToTreeData } from '@/transformers/tree';
-import { getSnippetPageCategoryUrl, getSnippetRootCategoryUrl } from '@/transformers/url';
+import {
+  convertToTreeData,
+  getSnippetPageCategoryUrl,
+  getSnippetRootCategoryUrl,
+} from '@/utils';
 
 const getSnippetStaticPaths = (data: SnippetCategory[], id?: number) => {
   const result: { path: string; name?: string }[] = [];

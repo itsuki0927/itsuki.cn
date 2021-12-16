@@ -2,7 +2,7 @@ import { CommentProfileType } from '@/components/comment/CommentForm';
 import { Card } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import useLocalStorage from '@/hooks/useLocalStorage';
-import { zhDayName } from '@/transformers/date';
+import { zhDayName } from '@/utils';
 import styles from './style.module.scss';
 
 const Hello = () => {

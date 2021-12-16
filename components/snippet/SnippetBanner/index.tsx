@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { ForwardedRef, forwardRef, MouseEvent, ReactNode } from 'react';
 import { Icon } from '@/components/icons';
 import { Card } from '@/components/ui';
-import { getExpandsValue } from '@/transformers/expands';
+import { getExpandsValue } from '@/utils';
 import styles from './style.module.scss';
 
 interface SnippetBannerProps {

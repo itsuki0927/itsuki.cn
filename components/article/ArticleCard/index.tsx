@@ -8,9 +8,8 @@ import {
 } from '@/components/icons';
 import { Card } from '@/components/ui';
 import { Article } from '@/entities/article';
-import { imageTransformer } from '@/transformers/index';
+import { imageTransformer, getDateString } from '@/utils';
 import styles from './style.module.scss';
-import { getDateString } from '@/transformers/date';
 
 type ArticleCardProps = {
   article: Article;

@@ -30,6 +30,4 @@ export function convertToTreeData<T extends ConvertTreeData>(dataSources: T[]) {
   return buildConvertToTreeData(dataSources, NO_PARENT_VALUE);
 }
 
-export default {
-  convertToTreeData,
-};
+export default convertToTreeData;

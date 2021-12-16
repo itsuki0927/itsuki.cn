@@ -5,7 +5,7 @@ import { Card, Input } from '@/components/ui';
 import { SearchResponse } from '@/entities/response/base';
 import { Snippet } from '@/entities/snippet';
 import { SnippetCategory } from '@/entities/snippetCategory';
-import { getSnippetRootCategoryUrl } from '@/transformers/url';
+import { getSnippetRootCategoryUrl } from '@/utils';
 import SnippetBanner, { SnippetBannerTitle } from '../SnippetBanner';
 import SnippetCard from '../SnippetCard';
 import styles from './style.module.scss';

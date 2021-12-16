@@ -36,9 +36,3 @@ export const getSnippetPageCategoryUrl = (
  */
 export const getArticleDetailUrl = (articleId: number) =>
   `${WEB_URL}/article/${articleId}`;
-
-export default {
-  getSnippetDetailUrl,
-  getSnippetRootCategoryUrl,
-  getSnippetPageCategoryUrl,
-};

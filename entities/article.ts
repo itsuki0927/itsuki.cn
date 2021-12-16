@@ -2,7 +2,7 @@ import { ArticleOrigin } from '@/constants/article/origin';
 import { ArticleOpen } from '@/constants/article/public';
 import { Category } from './category';
 import { Comment } from './comment';
-import { IdentifiableEntity, SearchResponse } from './response';
+import { IdentifiableEntity, SearchResponse } from '../types/response';
 import { Tag } from './tag';
 
 export type Article = IdentifiableEntity<{

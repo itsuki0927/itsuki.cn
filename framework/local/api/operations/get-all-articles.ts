@@ -1,5 +1,5 @@
 import { Article, GetAllArticlesOperation } from '@/entities/article';
-import { SearchResponse } from '@/entities/response';
+import { SearchResponse } from '@/types/response';
 import { BlogAPIConfig } from '@/framework/blog/api';
 import { OperationContext } from '@/framework/blog/api/operations';
 import { Provider } from '@/framework/local/api';

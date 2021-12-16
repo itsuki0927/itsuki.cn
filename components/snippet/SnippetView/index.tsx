@@ -2,7 +2,7 @@ import router from 'next/router';
 import React from 'react';
 import Link from 'next/link';
 import { Card, Input } from '@/components/ui';
-import { SearchResponse } from '@/entities/response';
+import { SearchResponse } from '@/types/response';
 import { Snippet } from '@/entities/snippet';
 import { SnippetCategory } from '@/entities/snippetCategory';
 import { getSnippetRootCategoryUrl } from '@/utils/url';

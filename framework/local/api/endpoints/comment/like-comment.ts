@@ -5,7 +5,7 @@ const likeComment: CommentEndpoint['handlers']['likeComment'] = async ({
   config,
   body: { commentId },
 }) => {
-  config.fetch('PATCH', `comment/${commentId}`, {
+  config.fetch('PATCH', `/comment/${commentId}`, {
     meta: 'liking',
   });
 

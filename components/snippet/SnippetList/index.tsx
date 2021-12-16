@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { Empty, Pagination } from '@/components/ui';
-import { SearchResponse } from '@/entities/response';
+import { SearchResponse } from '@/types/response';
 import { Snippet } from '@/entities/snippet';
 import { SnippetCard } from '..';
 

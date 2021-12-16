@@ -3,7 +3,7 @@ import React from 'react';
 import { SnippetList } from '@/components/snippet';
 import { Button } from '@/components/ui';
 import { Category } from '@/entities/category';
-import { SearchResponse } from '@/entities/response';
+import { SearchResponse } from '@/types/response';
 import { Snippet } from '@/entities/snippet';
 import SnippetBanner, { SnippetBannerTitle } from '../SnippetBanner';
 import styles from './style.module.scss';

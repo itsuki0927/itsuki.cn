@@ -1,7 +1,7 @@
 import React from 'react';
 import { Empty, Loading } from '@/components/ui';
 import { Article } from '@/entities/article';
-import { SearchResponse } from '@/entities/response';
+import { SearchResponse } from '@/types/response';
 import ArticleCard from '../ArticleCard';
 
 type ArticleListProps = {

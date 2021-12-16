@@ -2,7 +2,7 @@ import React, { ReactNode, useMemo, useState } from 'react';
 import { Card, Empty } from '@/components/ui';
 import { initialCommentProfile } from '@/constants/comment';
 import { Comment } from '@/entities/comment';
-import useInLikeArticles from '@/framework/blog/article/use-in-like-articles';
+import useInLikeArticles from '@/framework/local/article/use-in-like-articles';
 import usePostComment from '@/framework/blog/comment/use-post-comment';
 import useLikeArticle from '@/framework/local/article/use-like-article';
 import useComment from '@/framework/local/comment/use-comment';

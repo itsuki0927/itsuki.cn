@@ -1,11 +1,11 @@
-import { CommentEndpoint, CommentPathPrefix } from '.';
+import { CommentEndpoint } from '.';
 
 const likeComment: CommentEndpoint['handlers']['likeComment'] = async ({
   res,
   config,
   body: { commentId },
 }) => {
-  config.fetch('PATCH', `${CommentPathPrefix}/${commentId}`, {
+  config.fetch('PATCH', `comment/${commentId}`, {
     meta: 'liking',
   });
 

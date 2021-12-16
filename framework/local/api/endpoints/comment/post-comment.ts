@@ -1,6 +1,6 @@
 import { Comment } from '@/entities/comment';
 import { FetcherError } from '@/framework/blog/utils/errors';
-import { CommentEndpoint, CommentPathPrefix } from '.';
+import { CommentEndpoint } from '.';
 
 const postComment: CommentEndpoint['handlers']['postComment'] = async ({
   config,
@@ -8,7 +8,7 @@ const postComment: CommentEndpoint['handlers']['postComment'] = async ({
   res,
 }) => {
   try {
-    const { data } = await config.fetch<Comment>('POST', `${CommentPathPrefix}`, body);
+    const { data } = await config.fetch<Comment>('POST', '/comment', body);
     res.status(200).json({ data });
   } catch (error) {
     if (error instanceof FetcherError) {

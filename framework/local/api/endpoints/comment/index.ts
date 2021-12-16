@@ -16,8 +16,6 @@ export const handlers: CommentEndpoint['handlers'] = {
   postComment,
 };
 
-export const CommentPathPrefix = '/comment';
-
 const commentApi = createEndpoint<CommentAPI>({
   handler: commentEndpoint,
   handlers,

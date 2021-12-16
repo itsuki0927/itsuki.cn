@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { HeartFilled, HeartOutlined, SelectOutlined } from '@/components/icons';
 import { Card, IconButton, MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
-import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';
+import useInLikeComments from '@/framework/local/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
 import getGravatarUrl from '@/utils/gravatar';
 import markedToHtml from '@/utils/marked';

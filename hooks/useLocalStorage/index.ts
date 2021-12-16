@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { getJSON, setJSON } from '@/utils';
+import { getJSON, setJSON } from '@/utils/storage';
 import { useEventListener } from '../index';
 
 type SetValue<T> = Dispatch<SetStateAction<T>>;

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React, { useCallback, useMemo, useState } from 'react';
 import { Card } from '@/components/ui';
-import { markedToHtml } from '@/utils';
+import markedToHtml from '@/utils/marked';
 import { MarkdownEditorOptions } from '@/utils/editor';
 import styles from './style.module.scss';
 import Toolbar from './Toolbar';

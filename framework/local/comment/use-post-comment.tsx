@@ -5,7 +5,7 @@ import usePostComment, {
 } from '@/framework/blog/comment/use-post-comment';
 import { ValidationError } from '@/framework/blog/utils/errors';
 import { MutationHook } from '@/framework/blog/utils/types';
-import { isEmail } from '@/utils';
+import { isEmail } from '@/utils/validate';
 import useComment from './use-comment';
 
 export default usePostComment as UsePostComment<typeof handler>;

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { useCallback } from 'react';
-import { mergeRefs } from '@/utils';
+import mergeRefs from '@/utils/mergeRef';
 import styles from './style.module.scss';
 
 type Size = 'lg' | 'md' | 'sm';

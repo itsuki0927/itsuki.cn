@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
-import useEventListener from '@/hooks/useEventListener';
-import { throttle, Offset } from '@/utils';
+import { useEventListener } from '@/hooks';
+import { Offset } from '@/utils/query/getOffset';
+import throttle from '@/utils/throttle';
 import { AffixProps } from './index';
 
 /**

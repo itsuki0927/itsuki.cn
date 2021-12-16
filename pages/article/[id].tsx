@@ -4,7 +4,7 @@ import { ArticleView } from '@/components/article';
 import { Layout } from '@/components/common';
 import { ValidationError } from '@/framework/blog/utils/errors';
 import blog from '@/lib/api/blog';
-import { markedToHtml } from '@/utils';
+import markedToHtml from '@/utils/marked';
 
 export const getStaticPaths = async () => {
   const { articles } = await blog.getAllArticlePaths();

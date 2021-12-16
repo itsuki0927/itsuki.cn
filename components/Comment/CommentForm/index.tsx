@@ -3,7 +3,8 @@ import React, { PropsWithChildren, useState } from 'react';
 import { CloseOutlined, SendOutlined } from '@/components/icons';
 import { Card, IconButton } from '@/components/ui';
 import { Comment } from '@/entities/comment';
-import { markedToHtml, getGravatarUrl } from '@/utils';
+import getGravatarUrl from '@/utils/gravatar';
+import markedToHtml from '@/utils/marked';
 import CommentFormProfile from './CommentFormProfile';
 import styles from './style.module.scss';
 

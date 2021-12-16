@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useEventListener } from '@/hooks';
-import { getOffset, Offset } from '@/utils';
+import getOffset, { Offset } from '@/utils/query/getOffset';
 
 /**
  * 获取 mount 元素的offset

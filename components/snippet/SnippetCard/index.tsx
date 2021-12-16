@@ -3,7 +3,8 @@ import React from 'react';
 import { Icon } from '@/components/icons';
 import { Card } from '@/components/ui';
 import { Snippet } from '@/entities/snippet';
-import { getSnippetDetailUrl, getExpandsValue } from '@/utils';
+import getExpandsValue from '@/utils/expands';
+import { getSnippetDetailUrl } from '@/utils/url';
 import SnippetExpertise from '../SnippetExpertise';
 import styles from './style.module.scss';
 

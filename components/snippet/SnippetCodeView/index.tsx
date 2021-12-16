@@ -7,7 +7,7 @@ import { Card, IconButton, MarkdownBlock, Tag } from '@/components/ui';
 import { WEB_URL } from '@/configs/app';
 import { rs } from '@/constants/ranks';
 import { SnippetDetail } from '@/entities/snippet';
-import { copyTextToClipboard } from '@/utils';
+import copyTextToClipboard from '@/utils/copy';
 import styles from './style.module.scss';
 
 const copyStates = {

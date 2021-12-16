@@ -5,7 +5,7 @@ import { useMount } from '@/hooks';
 import '@/styles/globals.scss';
 import '@/styles/markdown.scss';
 import '@/styles/reset.scss';
-import { enableCopyright } from '@/utils';
+import enableCopyright from '@/utils/copyright';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const Layout = (Component as any).Layout || BlankLayout;

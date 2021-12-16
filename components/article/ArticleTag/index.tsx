@@ -1,7 +1,7 @@
 import router from 'next/router';
 import { Icon } from '@/components/icons';
 import { Tag as TagType } from '@/entities/tag';
-import { getExpandValue } from '@/utils';
+import { getExpandValue } from '@/utils/expands';
 import { IconButton } from '@/components/ui';
 import { ButtonProps } from '@/components/ui/Button';
 

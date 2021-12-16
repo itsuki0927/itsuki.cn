@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { on } from '@/utils';
+import { on } from '@/utils/events';
 
 /**
  * 给元素绑定事件

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import router from 'next/router';
 import { LogoJsonLd } from 'next-seo';
-import { imageTransformer } from '@/utils';
+import imageTransformer from '@/utils/image';
 import styles from './style.module.scss';
 
 const Logo = () => (

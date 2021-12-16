@@ -6,16 +6,16 @@ import useInLikeArticles from '@/framework/blog/article/use-in-like-articles';
 import usePostComment from '@/framework/blog/comment/use-post-comment';
 import useLikeArticle from '@/framework/local/article/use-like-article';
 import useComment from '@/framework/local/comment/use-comment';
-import { purifyDomString } from '@/utils';
+import purifyDomString from '@/utils/purify';
 import { CommentSkeleton } from '..';
 import CommentCard from '../CommentCard';
 import CommentForm, {
   CommentFormAvatar,
   CommentFormContent,
   CommentFormEditor,
-  CommentFormSubmit,
   CommentFormProfile,
   CommentFormReply,
+  CommentFormSubmit,
 } from '../CommentForm';
 import { CommentProfileType } from '../CommentForm/CommentFormProfile';
 import LikeButton from '../LikeButton';

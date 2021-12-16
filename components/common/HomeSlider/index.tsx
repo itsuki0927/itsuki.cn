@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import router from 'next/router';
 import React from 'react';
-import { imageTransformer } from '@/utils';
+import imageTransformer from '@/utils/image';
 import { SearchResponse } from '@/entities/response/base';
 import { Article } from '@/entities/article';
 import 'slick-carousel/slick/slick.css';

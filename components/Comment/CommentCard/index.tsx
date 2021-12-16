@@ -4,7 +4,10 @@ import { Card, IconButton, MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import useInLikeComments from '@/framework/blog/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
-import { getGravatarUrl, parseUA, markedToHtml, scrollTo } from '@/utils';
+import getGravatarUrl from '@/utils/gravatar';
+import markedToHtml from '@/utils/marked';
+import scrollTo from '@/utils/scrollTo';
+import parseUA from '@/utils/ua';
 import styles from './style.module.scss';
 
 const buildCommentDomId = (id: number) => `comment-${id}`;

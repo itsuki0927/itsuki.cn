@@ -2,13 +2,12 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { NavbarLayout } from '@/components/common';
 import { SnippetCodeView } from '@/components/snippet';
 import blog from '@/lib/api/blog';
+import markedToHtml, { genMarkdownString } from '@/utils/marked';
 import {
-  markedToHtml,
-  genMarkdownString,
   getSnippetDetailUrl,
   getSnippetPageCategoryUrl,
   getSnippetRootCategoryUrl,
-} from '@/utils';
+} from '@/utils/url';
 
 export const getStaticPaths = async () => {
   const { snippets } = await blog.getAllSnippetPaths();

@@ -1,14 +1,11 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import React from 'react';
 import { NavbarLayout } from '@/components/common';
-import SnippetListView from '@/components/snippet/SnippetListView';
+import { SnippetListView } from '@/components/snippet';
 import { SnippetCategory } from '@/entities/snippetCategory';
 import blog from '@/lib/api/blog';
-import {
-  convertToTreeData,
-  getSnippetPageCategoryUrl,
-  getSnippetRootCategoryUrl,
-} from '@/utils';
+import convertToTreeData from '@/utils/tree';
+import { getSnippetPageCategoryUrl, getSnippetRootCategoryUrl } from '@/utils/url';
 
 const getSnippetStaticPaths = (data: SnippetCategory[], id?: number) => {
   const result: { path: string; name?: string }[] = [];

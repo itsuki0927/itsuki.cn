@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { useMount } from '@/hooks';
 import type { MarkdownEditorUtil } from '@/utils/editor';
-import { highlight as hljs } from '@/utils';
+import hljs from '@/utils/highlight';
 import { MarkdownEditorProps } from '.';
 
 const highlight = (editor: HTMLElement) => {

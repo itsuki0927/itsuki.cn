@@ -1,5 +1,5 @@
 import { META } from '@/configs/app';
-import { on } from './events';
+import { on, preventDefault } from './events';
 
 const copyrightText = () =>
   [
@@ -22,7 +22,7 @@ const enableCopyright = () => {
       const content = window.getSelection()?.toString() ?? '';
       event.clipboardData.setData('text/plain', buildCopyrightText(content));
       event.clipboardData.setData('text/html', buildCopyrightText(content));
-      event.preventDefault();
+      preventDefault(event);
     }
   });
 };

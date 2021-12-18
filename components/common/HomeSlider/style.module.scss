@@ -1,11 +1,13 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .swiper {
-  margin-bottom: $margin-lg;
+  margin-bottom: $spacing-lg;
+
   .article {
     opacity: 0.9;
     transition: all 0.3s;
     cursor: pointer;
+
     &:hover {
       opacity: 1;
     }
@@ -13,9 +15,10 @@
     .text {
       .title {
         color: $text-color;
-        margin-right: $margin-lg;
+        margin-right: $spacing-lg;
         font-size: $font-size-lg;
       }
+
       .description {
         color: $gray-7;
       }

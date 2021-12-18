@@ -45,7 +45,6 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
           <span className={styles.title}>
             <strong>{article.title}</strong>
           </span>
-          <span className={styles.description}>{article.description}</span>
         </div>
       </Card>
     ))}

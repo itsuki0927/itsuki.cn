@@ -1,18 +1,18 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .metas {
-  margin-bottom: $margin-lg;
+  margin-bottom: $spacing-lg;
 
   .meta {
     display: flex;
     align-items: center;
-    margin-bottom: $margin-sm;
+    margin-bottom: $spacing-md;
 
     .label {
       display: inline-block;
       width: 80px;
-      line-height: 24px;
-      height: 24px;
+      line-height: $line-height-24;
+      height: $line-height-24;
     }
 
     &:last-child {
@@ -21,7 +21,7 @@
   }
 
   .date {
-    line-height: 24px;
+    line-height: $line-height-24;
   }
 
   .copyright {
@@ -38,6 +38,6 @@
   }
 
   .separator {
-    margin: 0 6px;
+    margin: 0 $spacing-sm;
   }
 }

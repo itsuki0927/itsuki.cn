@@ -2,7 +2,7 @@
 @import 'styles/mixins/ellipsis';
 
 .article {
-  margin-bottom: $margin-lg;
+  margin-bottom: $spacing-lg;
 
   .wrapper {
     display: flex;
@@ -21,22 +21,28 @@
 
     .content {
       flex-grow: 1;
-      margin-left: $margin-lg;
+      margin-left: $spacing;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
-      .name {
+      .title {
         @include ellipsis;
 
-        font-weight: bold;
         font-size: $font-size-lg;
+        margin-bottom: $spacing-sm;
+
+        &:hover {
+          text-decoration: underline;
+          color: $primary;
+        }
       }
 
       .description {
         @include ellipsis;
 
-        color: $gray-7;
+        font-size: $font-size;
+        color: $text-color-secondary;
       }
 
       .actions {
@@ -44,11 +50,11 @@
         justify-content: space-between;
 
         span {
-          color: $gray-7;
+          color: $text-color-third;
         }
 
         .icon {
-          margin-right: 6px;
+          margin-right: $spacing-ssm;
         }
       }
     }

@@ -16,10 +16,8 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => {
       <div className={styles.meta}>
         <span className={styles.date}>
           本文于 {new Date(article.createAt).toLocaleDateString()} 发布
-          <span className={styles.separator}>|</span>
+          <span className={styles.separator}>-</span>
           更新于 {new Date(article.updateAt).toLocaleDateString()}
-          <span className={styles.separator}>|</span>
-          被围观 {article.reading} 次
         </span>
       </div>
 

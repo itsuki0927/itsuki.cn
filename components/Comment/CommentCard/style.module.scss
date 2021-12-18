@@ -1,58 +1,103 @@
 @import 'styles/variables';
+@import 'styles/mixins/clearfix';
 
-.commentItem {
-  margin-bottom: $margin-sm;
+.commentCard {
+  margin-bottom: $spacing;
+  position: relative;
+  border-radius: $border-radius;
+  padding: $spacing;
+  padding-left: $spacing-32;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+  .content {
+    background-color: $gray-2;
+    transition: all 0.2s;
+    padding: $spacing-md;
+    padding-left: $spacing-48;
 
-  ul > li {
-    // override scss module style
-    margin: 6px 0 !important;
-  }
-
-  .liked {
-    color: $error;
-  }
-
-  .serialNumber {
-    float: right;
-    opacity: 0.8;
-  }
-
-  .date {
-    float: right;
-  }
-
-  .avatar {
-    // border: 4px solid color.adjust($gray-5, $lightness: $amount);
-
-    border: 4px solid lighten($gray-5, 5%);
-    border-radius: $border-radius-base;
-  }
-
-  .reply {
-    padding: 4px 0;
-    color: $gray-7;
-    font-size: $font-size-base;
-    line-height: $line-height-base;
-
-    .nickname strong {
-      transition: color 0.2s;
-      cursor: pointer;
-
-      &:hover {
-        color: $gray-8;
-      }
+    &:hover {
+      background-color: $gray-3;
     }
   }
 
-  .ua {
-    font-size: $font-size-base;
-    font-weight: normal;
-    margin-left: $margin-sm;
-    opacity: 0.8;
-    vertical-align: middle;
+  .header {
+    display: flex;
+    align-items: center;
+
+    .name {
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .date {
+      flex-grow: 1;
+      text-align: right;
+      font-size: $font-size-sm;
+      color: $text-color-secondary;
+    }
+
+    .ua {
+      font-size: $font-size-sm;
+      font-weight: normal;
+      margin-left: $spacing-md;
+      color: $text-color-third;
+    }
+  }
+
+  .avatar {
+    box-shadow: inset 0 0 0 1px hsla(0deg, 0%, 0%, 20%);
+    border: 4px solid lighten($gray-5, 5%);
+    border-radius: $border-radius;
+    position: absolute;
+    left: 0;
+    top: $spacing-32;
+  }
+
+  .commentContent {
+    margin: $spacing-sm 0;
+  }
+
+  .reply {
+    color: $text-color-secondary;
+    font-size: $font-size-sm;
+    transition: color 0.2s;
+    cursor: pointer;
+    margin: $spacing-ssm 0;
+
+    &:hover {
+      color: $gray-8;
+    }
+  }
+}
+
+.footer {
+  @include clearfix;
+
+  .actions {
+    float: right;
+
+    .action {
+      color: $text-color-secondary;
+      font-size: $font-size-sm;
+      margin-left: $spacing-32;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+
+      &.liked {
+        color: $error !important;
+      }
+
+      &.disabled {
+        cursor: not-allowed;
+      }
+
+      &:hover {
+        color: $text-color;
+      }
+
+      :global(.iconfont) {
+        margin-right: $spacing-ssm;
+      }
+    }
   }
 }

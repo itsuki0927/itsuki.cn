@@ -1,13 +1,12 @@
 import classNames from 'classnames';
-import { HeartFilled, HeartOutlined, SelectOutlined } from '@/components/icons';
-import { Card, IconButton, MarkdownBlock } from '@/components/ui';
+import { HeartFilled, HeartOutlined, Icon } from '@/components/icons';
+import { MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import useInLikeComments from '@/framework/local/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
 import getGravatarUrl from '@/utils/gravatar';
 import markedToHtml from '@/utils/marked';
 import scrollTo from '@/utils/scrollTo';
-import parseUA from '@/utils/ua';
 import styles from './style.module.scss';
 
 const buildCommentDomId = (id: number) => `comment-${id}`;
@@ -20,112 +19,92 @@ interface CommentCardProps extends CommentCardCommonProps {
   onReply: (data: Comment) => void;
 }
 
-const CommentUA = ({ result }: any) => (
-  <span className={styles.ua}>
-    {result.browser.name}{' '}
-    {result.browser.version.slice(0, result.browser.version.indexOf('.'))}
-    {'  '}
-    {result.os.name}
-    {result.os.version}
-  </span>
-);
-
-const CommentCardTitle = ({ comment }: CommentCardCommonProps) => {
-  const { result } = parseUA(comment.agent);
-  return (
-    <div>
-      <span>{comment.nickname}</span>
-
-      <CommentUA result={result} />
-
-      <span className={styles.ua}>
-        {comment.city} - {comment.province}
-      </span>
-
-      <span className={styles.serialNumber}># {comment.id}</span>
-    </div>
-  );
-};
-
-const CommentCardDescription = ({ comment }: CommentCardCommonProps) => (
-  <div className={styles.reply}>
-    {!!comment.parentId && (
-      <span className={styles.nickname}>
-        回复
-        <strong
-          role='button'
-          tabIndex={0}
-          onMouseDown={() => {
-            scrollTo(`#${buildCommentDomId(comment.parentId)}`, 400, { offset: -64 });
-          }}
-        >
-          #{comment.parentNickName}
-        </strong>
-      </span>
-    )}
-    <span className={styles.date}>{new Date(comment.createAt).toLocaleString()}</span>
-  </div>
-);
-
 const CommentCard = ({ comment, onReply }: CommentCardProps) => {
   const contentHtml = markedToHtml(comment.content, { purify: true });
   const likeComment = useLikeComment({ articleId: comment.articleId });
   const isLiked = useInLikeComments(comment.id);
 
-  const handleLikeComment = () => likeComment({ commentId: comment.id });
+  const handleLikeComment = () => {
+    if (isLiked) return;
+    likeComment({ commentId: comment.id });
+  };
 
   return (
-    <Card
+    <div
       id={buildCommentDomId(comment.id)}
       key={comment.id}
-      bodyStyle={{ padding: 12 }}
-      className={styles.commentItem}
-      bordered
-      actions={[
-        <IconButton
-          type='text'
-          disabled={isLiked}
-          onClick={handleLikeComment}
-          className={classNames({
-            [styles.liked]: isLiked,
-          })}
-          icon={isLiked ? <HeartFilled /> : <HeartOutlined />}
-        >
-          {comment.liking}
-        </IconButton>,
-        <IconButton
-          key='reply'
-          type='text'
-          icon={<SelectOutlined />}
-          onClick={() => {
-            onReply(comment);
-          }}
-        >
-          回复
-        </IconButton>,
-      ]}
+      className={styles.commentCard}
     >
-      <Card.Meta
-        title={<CommentCardTitle comment={comment} />}
-        description={<CommentCardDescription comment={comment} />}
-        avatar={
-          <img
-            src={getGravatarUrl(comment.email)}
-            width={80}
-            height={80}
-            className={styles.avatar}
-            alt='avatar'
-          />
-        }
+      <img
+        src={getGravatarUrl(comment.email)}
+        width={60}
+        height={60}
+        className={styles.avatar}
+        alt='avatar'
       />
-      <Card
-        bodyStyle={{ padding: '12px 0px' }}
-        className={styles.content}
-        bordered={false}
-      >
-        <MarkdownBlock htmlContent={contentHtml} />
-      </Card>
-    </Card>
+
+      <div className={styles.content}>
+        <div className={styles.header}>
+          <div className={styles.name}>{comment.nickname}</div>
+
+          <span className={styles.ua}>
+            {comment.province} - {comment.city}
+          </span>
+
+          <span className={styles.date}>
+            {new Date(comment.createAt).toLocaleTimeString()}
+          </span>
+        </div>
+
+        {!!comment.parentId && (
+          <p className={styles.reply}>
+            @
+            <button
+              style={{ border: 'none' }}
+              type='button'
+              onClick={() => {
+                scrollTo(`#${buildCommentDomId(comment.parentId)}`, 400, {
+                  offset: -64,
+                });
+              }}
+            >
+              {comment.parentNickName}
+            </button>
+          </p>
+        )}
+
+        <MarkdownBlock
+          className={`${styles.commentContent} comment`}
+          htmlContent={contentHtml}
+        />
+
+        <div className={styles.footer}>
+          <div className={styles.actions}>
+            <button
+              type='button'
+              onClick={handleLikeComment}
+              className={classNames(styles.action, {
+                [styles.liked]: isLiked,
+                [styles.disabled]: isLiked,
+              })}
+            >
+              {isLiked ? <HeartFilled /> : <HeartOutlined />}
+              {comment.liking}人点赞
+            </button>
+            <button
+              type='button'
+              className={`${styles.action} ${styles.replyBtn}`}
+              onClick={() => {
+                onReply(comment);
+              }}
+            >
+              <Icon name='thunderbolt' />
+              回复
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

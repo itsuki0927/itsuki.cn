@@ -4,7 +4,6 @@ import { CloseOutlined, SendOutlined } from '@/components/icons';
 import { Card, IconButton } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import getGravatarUrl from '@/utils/gravatar';
-import markedToHtml from '@/utils/marked';
 import CommentFormProfile from './CommentFormProfile';
 import styles from './style.module.scss';
 
@@ -21,8 +20,6 @@ export {
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
 });
-
-const noPadding = { padding: 0 };
 
 const CommentFormAvatar = ({ email }: { email: string }) => (
   <img
@@ -82,19 +79,11 @@ interface ReplyPlaceholderProps {
 const CommentFormReply = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
   reply ? (
     <div className={styles.reply}>
-      <p className={styles.profile}>
-        <span className={styles.nickname}>
-          回复:
-          <strong>{` #${reply.nickname}`}</strong>
-        </span>
+      <p className={styles.nickname}>
+        回复:
+        <strong>{` #${reply.nickname}`}</strong>
         <CloseOutlined className={styles.close} onClick={onCloseReply} />
       </p>
-      <Card className={styles.content} bodyStyle={{ padding: '4px 11px' }}>
-        <div
-          className='markdown-html comment'
-          dangerouslySetInnerHTML={{ __html: markedToHtml(reply.content) }}
-        />
-      </Card>
     </div>
   ) : null;
 
@@ -103,9 +92,7 @@ const CommentFormContent = ({ children }: PropsWithChildren<Record<string, any>>
 );
 
 const CommentForm = ({ children }: PropsWithChildren<Record<string, any>>) => (
-  <Card bodyStyle={noPadding} bordered={false}>
-    <div className={styles.form}>{children}</div>
-  </Card>
+  <div className={styles.form}>{children}</div>
 );
 
 export default CommentForm;

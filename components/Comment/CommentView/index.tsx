@@ -1,11 +1,9 @@
-import React, { ReactNode, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Card, Empty } from '@/components/ui';
 import { initialCommentProfile } from '@/constants/comment';
 import { Comment } from '@/entities/comment';
-import useInLikeArticles from '@/framework/local/article/use-in-like-articles';
-import usePostComment from '@/framework/local/comment/use-post-comment';
-import useLikeArticle from '@/framework/local/article/use-like-article';
 import useComment from '@/framework/local/comment/use-comment';
+import usePostComment from '@/framework/local/comment/use-post-comment';
 import purifyDomString from '@/utils/purify';
 import { CommentSkeleton } from '..';
 import CommentCard from '../CommentCard';
@@ -18,39 +16,18 @@ import CommentForm, {
   CommentFormSubmit,
 } from '../CommentForm';
 import { CommentProfileType } from '../CommentForm/CommentFormProfile';
-import LikeButton from '../LikeButton';
 import styles from './style.module.scss';
 
 type CommentProps = {
-  title: (comments: Comment[], length: number) => string | ReactNode;
-  liking: number;
   articleId: number;
 };
 
-const CommentList = ({ title, liking: likingProp, articleId }: CommentProps) => {
+const CommentList = ({ articleId }: CommentProps) => {
   const { data: comments, isEmpty, isLoading } = useComment({ articleId });
   const [reply, setReply] = useState<Comment>();
   const [profile, setProfile] = useState<CommentProfileType>(initialCommentProfile);
   const [content, setContent] = useState('');
   const postComment = usePostComment({ articleId });
-  const isLiked = useInLikeArticles(articleId);
-  const likeArticles = useLikeArticle();
-
-  const commentListDom = useMemo(
-    () =>
-      isEmpty || !comments ? (
-        <Empty />
-      ) : (
-        comments.map(item => (
-          <CommentCard comment={item} key={item.id} onReply={setReply} />
-        ))
-      ),
-    [comments, isEmpty]
-  );
-
-  const handleLikeArticle = () => {
-    likeArticles({ articleId });
-  };
 
   const handleSend = async () => {
     if (!content) {
@@ -88,16 +65,16 @@ const CommentList = ({ title, liking: likingProp, articleId }: CommentProps) => 
   }
 
   return (
-    <Card
-      className={styles.comment}
-      title={title(comments, comments.length)}
-      extra={
-        <LikeButton liking={likingProp} isLiked={isLiked} onLiked={handleLikeArticle}>
-          {({ liking }) => `${liking}个人`}
-        </LikeButton>
-      }
-    >
-      {commentListDom}
+    <>
+      <Card className={styles.comment}>
+        {isEmpty || !comments ? (
+          <Empty />
+        ) : (
+          comments.map(item => (
+            <CommentCard comment={item} key={item.id} onReply={setReply} />
+          ))
+        )}
+      </Card>
 
       <CommentForm onSend={handleSend}>
         <CommentFormAvatar email={profile.email} />
@@ -108,7 +85,7 @@ const CommentList = ({ title, liking: likingProp, articleId }: CommentProps) => 
           <CommentFormSubmit onSend={handleSend} />
         </CommentFormContent>
       </CommentForm>
-    </Card>
+    </>
   );
 };
 

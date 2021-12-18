@@ -1,4 +1,4 @@
-@import './variables.scss';
+@import './variables';
 
 $primary-hover-color: #40a9ff;
 $module-bg: #fff9;
@@ -207,7 +207,7 @@ input[type='number'],
 input[type='search'],
 input[type='tel'],
 select {
-  background: $module-bg;
+  // background: $module-bg;
   color: $text-color;
   display: inline-block;
   padding: 4px;

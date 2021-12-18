@@ -29,5 +29,6 @@ module.exports = {
     'scss/dollar-variable-empty-line-before': null,
     'scss/no-global-function-names': null,
     'color-function-notation': null,
+    'property-no-vendor-prefix': null,
   },
 };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CheckOutlined, ClearOutlined, EditOutlined } from '@/components/icons';
-import { IconButton } from '@/components/ui';
+import { IconButton, Input } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import { useLocalStorage, useMount } from '@/hooks';
 import styles from './style.module.scss';
@@ -57,26 +57,23 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
     <div className={styles.commentProfile}>
       {!actionVisible && (
         <div className={styles.edit}>
-          <input
+          <Input
             name='nickname'
             onChange={e => handleInput(e)}
             value={value.nickname}
-            className={styles.input}
             placeholder='昵称'
           />
-          <input
+          <Input
             name='email'
             onChange={e => handleInput(e)}
             value={value.email}
-            className={styles.input}
             placeholder='邮箱'
             style={{ margin: '0 12px' }}
           />
-          <input
+          <Input
             name='website'
             onChange={e => handleInput(e)}
             value={value.website}
-            className={styles.input}
             placeholder='网址'
             style={{ marginRight: 12 }}
           />

@@ -41,7 +41,7 @@ interface ArchivePageProps {
 }
 
 const ArchiveView = ({ archives }: ArchivePageProps) => (
-  <Card className={styles.archive} title='归档'>
+  <Card className={styles.archive}>
     <NextSeo title='归档' />
     <ul className={styles.yearList}>
       {Object.entries(archives).map(([year, months]) => (

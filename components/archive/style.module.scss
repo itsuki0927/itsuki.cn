@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .archive {
   .yearList {
@@ -7,11 +7,10 @@
   }
 
   .title {
-    color: $text-color;
-
     &.root {
       font-weight: 700;
-      margin-bottom: 30px;
+      margin-bottom: $spacing-32;
+      font-size: $font-size-20;
     }
   }
 
@@ -31,32 +30,31 @@
   }
 
   .article {
-    padding: 12px;
+    padding: $spacing-md;
     border-radius: 2px;
 
     .title {
-      margin-bottom: 12px;
+      margin-bottom: $spacing-md;
     }
 
     .date {
       display: inline-block;
-      color: $gray-6;
-      font-size: 14px;
+      color: $text-color-third;
       width: 36px;
-      margin-right: 12px;
+      font-size: $font-size-sm;
+      margin-right: $spacing-md;
     }
 
     .link {
       border-bottom: 1px solid;
-      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      opacity: 90%;
+      opacity: 0.9;
       transition: all 0.3s ease;
       border-color: transparent;
 
       &:hover {
-        opacity: 100%;
+        opacity: 1;
         border-color: $text-color;
       }
     }
@@ -64,12 +62,12 @@
     .description {
       margin-bottom: 0;
       color: $text-color-secondary;
-      font-size: 12.5px;
+      font-size: $font-size-sm;
       padding-left: 48px;
     }
 
     &:hover {
-      background-color: $gray-3;
+      background-color: $gray-2;
     }
   }
 }

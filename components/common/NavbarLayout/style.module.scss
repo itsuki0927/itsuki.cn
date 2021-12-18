@@ -1,8 +1,8 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .navbarLayout {
   .main {
-    margin-top: $header-height + $margin-lg;
-    margin-bottom: $margin-lg;
+    margin-top: $header-height + $spacing-lg;
+    margin-bottom: $spacing-lg;
   }
 }

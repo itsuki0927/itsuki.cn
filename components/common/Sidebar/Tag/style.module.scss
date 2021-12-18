@@ -1,8 +1,9 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .tag {
-  margin: $margin-lg 0;
+  margin: $spacing-lg 0;
+
   .btn {
-    margin-bottom: 12px;
+    margin-bottom: $spacing-md;
   }
 }

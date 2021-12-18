@@ -1,7 +1,8 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .hello {
-  margin-bottom: $margin-lg;
+  margin-bottom: $spacing-lg;
+
   .nickname {
     color: $primary;
   }

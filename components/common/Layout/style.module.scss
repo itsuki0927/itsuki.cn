@@ -1,13 +1,13 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .main {
   display: flex;
-  margin: $margin-lg auto;
-  margin-top: $header-height + $margin-lg;
+  margin: $spacing-lg auto;
+  margin-top: $header-height + $spacing-lg;
   width: $container-width;
   position: relative;
   min-height: calc(
-    100vh - $header-height - $footer-height - 2 * $margin-lg
+    100vh - $header-height - $footer-height - 2 * $spacing-lg
   ); // 100vh - head height - footer height - margin top & bottom
 }
 

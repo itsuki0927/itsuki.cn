@@ -1,19 +1,22 @@
 @import 'styles/variables';
 
 .footer {
+  background-color: $white;
   box-shadow: $gray-4 0 2px 6px;
   text-align: center;
-  line-height: 32px;
-  font-size: 16px;
-
-  span {
-    color: $gray-6;
-    margin: 0 5px;
-  }
+  line-height: $line-height-32;
+  font-size: $font-size-lg;
+  padding: $spacing;
 
   .link {
     font-size: $font-size-base;
-    opacity: 0.8;
-    margin-left: 10px;
+    margin-left: $spacing-md;
+    color: $text-color-secondary;
+    transition: all 0.2s;
+
+    &:hover {
+      text-decoration: underline;
+      color: $text-color;
+    }
   }
 }

@@ -1,4 +1,5 @@
 @import 'styles/mixins/clearfix';
+@import 'styles/mixins/ellipsis';
 @import 'styles/variables';
 
 $card-hoverable-hover-border: transparent;
@@ -14,7 +15,7 @@ $card-head-color: $text-color;
 $card-head-font-size-sm: $font-size-base;
 $card-actions-background: $component-background;
 $card-background: $component-background;
-$card-radius: $border-radius-base;
+$card-radius: $border-radius;
 $card-head-extra-color: $text-color;
 
 .meta {
@@ -24,12 +25,12 @@ $card-head-extra-color: $text-color;
 
   .avatar {
     float: left;
-    padding-right: 16px;
+    padding-right: $spacing;
 
     .card.rtl & {
       float: right;
       padding-right: 0;
-      padding-left: 16px;
+      padding-left: $spacing;
     }
   }
 
@@ -37,17 +38,16 @@ $card-head-extra-color: $text-color;
     overflow: hidden;
 
     > div:not(:last-child) {
-      margin-bottom: 8px;
+      margin-bottom: $spacing-sm;
     }
   }
 
   .title {
-    overflow: hidden;
+    @include ellipsis;
+
     color: $card-head-color;
     font-weight: 500;
     font-size: $font-size-lg;
-    white-space: nowrap;
-    text-overflow: ellipsis;
   }
 
   .description {
@@ -58,20 +58,20 @@ $card-head-extra-color: $text-color;
 .card {
   position: relative;
   background: $card-background;
-  border-radius: 2px;
+  border-radius: $border-radius;
 
   .head {
     @include clearfix;
 
     min-height: 48px;
     margin-bottom: -1px;
-    padding: 0 $padding-lg;
+    padding: 0 $spacing-lg;
     color: $card-head-color;
     font-weight: bold;
     font-size: $font-size-lg;
     background: transparent;
     border-bottom: 1px solid $border-color-split;
-    border-radius: 2px 2px 0 0;
+    border-radius: $border-radius $border-radius 0 0;
 
     .wrapper {
       display: flex;
@@ -79,19 +79,18 @@ $card-head-extra-color: $text-color;
     }
 
     .title {
+      @include ellipsis;
+
       display: inline-block;
       flex: 1;
-      padding: 16px 0;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      padding: $spacing 0;
     }
   }
 
   .body {
     @include clearfix;
 
-    padding: $padding-lg;
+    padding: $spacing;
   }
 
   .cover {
@@ -108,17 +107,10 @@ $card-head-extra-color: $text-color;
   .extra {
     float: right;
     margin-left: auto;
-    padding: 16px 0;
+    padding: $spacing 0;
     color: $card-head-extra-color;
     font-weight: normal;
     font-size: $font-size-base;
-
-    /*
-    .card.rtl & {
-      margin-right: auto;
-      margin-left: 0;
-    }
-    */
   }
 
   .actions {
@@ -132,7 +124,7 @@ $card-head-extra-color: $text-color;
 
     > li {
       float: left;
-      margin: 12px 0;
+      margin: $spacing-md 0;
       color: $text-color-secondary;
       text-align: center;
 
@@ -172,7 +164,7 @@ $card-head-extra-color: $text-color;
           display: inline-block;
           width: 100%;
           color: $text-color-secondary;
-          line-height: 22px;
+          line-height: $line-height-22;
           transition: color 0.3s;
 
           &:hover {
@@ -208,21 +200,21 @@ $card-head-extra-color: $text-color;
 
   &.typeInner {
     .head {
-      padding: 0 $padding-lg;
+      padding: 0 $spacing-lg;
       background: $background-color-light;
 
       .title {
-        padding: 12px 0;
+        padding: $spacing-md 0;
         font-size: $font-size-base;
       }
     }
 
     .body {
-      padding: 16px $padding-lg;
+      padding: $spacing $spacing-lg;
     }
 
     .extra {
-      padding: 12px + 1.5px 0;
+      padding: $spacing-md + 1.5px 0;
     }
   }
 
@@ -248,33 +240,33 @@ $card-head-extra-color: $text-color;
 
   .loadingBlock {
     height: 14px;
-    margin: 4px 0;
+    margin: $spacing-ssm 0;
     background: linear-gradient(90deg, $gradient-min, $gradient-max, $gradient-min);
     background-size: 600% 600%;
-    border-radius: 2px;
+    border-radius: $border-radius;
     animation: card-loading 1.4s ease infinite;
   }
 
   &.small {
     > .head {
       min-height: 36px;
-      padding: 0 12px;
+      padding: 0 $spacing-md;
       font-size: $card-head-font-size-sm;
 
       > .wrapper {
         > .title {
-          padding: 12px 0;
+          padding: $spacing-md 0;
         }
 
         > .extra {
-          padding: 12px 0;
+          padding: $spacing-md 0;
           font-size: $card-head-font-size-sm;
         }
       }
     }
 
     > .body {
-      padding: 12px;
+      padding: $spacing-md;
     }
   }
 }

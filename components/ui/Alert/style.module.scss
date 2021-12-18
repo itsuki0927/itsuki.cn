@@ -1,20 +1,25 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
+@import 'styles/colors';
 
-$alert-success-border-color: #b7eb8f;
-$alert-success-bg-color: #f6ffed;
-$alert-success-icon-color: $success;
+$alert-success-bg-color: $green-1;
+$alert-success-border-color: $green-3;
+$alert-success-icon-color: $green-5;
+$alert-success-message-color: $green-6;
 
-$alert-info-border-color: #91d5ff;
-$alert-info-bg-color: #e6f7ff;
-$alert-info-icon-color: $primary;
+$alert-info-bg-color: $blue-1;
+$alert-info-border-color: $blue-3;
+$alert-info-icon-color: $blue-5;
+$alert-info-message-color: $blue-6;
 
-$alert-warning-border-color: #ffe58f;
-$alert-warning-bg-color: #fffbe6;
-$alert-warning-icon-color: $warning;
+$alert-warning-bg-color: $yellow-1;
+$alert-warning-border-color: $yellow-3;
+$alert-warning-icon-color: $yellow-4;
+$alert-warning-message-color: $yellow-5;
 
-$alert-error-border-color: #ffccc7;
-$alert-error-bg-color: #fff2f0;
-$alert-error-icon-color: $error;
+$alert-error-bg-color: $red-1;
+$alert-error-border-color: $red-3;
+$alert-error-icon-color: $red-4;
+$alert-error-message-color: $red-5;
 
 $alert-message-color: #000000d9;
 $alert-text-color: $text-color;
@@ -22,8 +27,6 @@ $alert-text-color: $text-color;
 .alert {
   box-sizing: border-box;
   margin: 0;
-  color: $text-color;
-  font-size: 14px;
   font-variant: tabular-nums;
   line-height: 1.5715;
   list-style: none;
@@ -31,9 +34,9 @@ $alert-text-color: $text-color;
   position: relative;
   display: flex;
   align-items: center;
-  padding: 8px 15px;
+  padding: $spacing-sm $spacing;
   word-wrap: break-word;
-  border-radius: $border-radius-base;
+  border-radius: $border-radius;
 
   .content {
     flex: 1;
@@ -41,7 +44,7 @@ $alert-text-color: $text-color;
   }
 
   .icon {
-    margin-right: $margin-lg;
+    margin-right: $spacing;
   }
 
   .description {
@@ -54,6 +57,10 @@ $alert-text-color: $text-color;
     background-color: $alert-success-bg-color;
     border: 1px solid $alert-success-border-color;
 
+    .message {
+      color: $alert-success-message-color;
+    }
+
     .icon {
       color: $alert-success-icon-color;
     }
@@ -62,6 +69,10 @@ $alert-text-color: $text-color;
   &.info {
     background-color: $alert-info-bg-color;
     border: 1px solid $alert-info-border-color;
+
+    .message {
+      color: $alert-info-message-color;
+    }
 
     .icon {
       color: $alert-info-icon-color;
@@ -72,6 +83,10 @@ $alert-text-color: $text-color;
     background-color: $alert-warning-bg-color;
     border: 1px solid $alert-warning-border-color;
 
+    .message {
+      color: $alert-warning-message-color;
+    }
+
     .icon {
       color: $alert-warning-icon-color;
     }
@@ -80,6 +95,10 @@ $alert-text-color: $text-color;
   &.error {
     background-color: $alert-error-bg-color;
     border: 1px solid $alert-error-border-color;
+
+    .message {
+      color: $alert-error-message-color;
+    }
 
     .icon {
       color: $alert-error-icon-color;
@@ -98,30 +117,26 @@ $alert-text-color: $text-color;
   }
 
   .action {
-    margin-left: 8px;
-  }
-
-  .message {
-    color: $alert-message-color;
+    margin-left: $spacing-sm;
   }
 
   &.withDescription {
     align-items: flex-start;
-    padding: $padding-md $padding-md $padding-md $padding-lg;
+    padding: $spacing $spacing $spacing $spacing-lg;
 
     .noIcon {
-      padding: 7px $padding-md;
+      padding: $spacing-sm $spacing;
     }
 
     .message {
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: $spacing-ssm;
       color: $alert-message-color;
       font-size: $font-size-lg;
     }
 
     .icon {
-      margin-right: $margin-md;
+      margin-right: $spacing;
       font-size: 24px;
     }
 

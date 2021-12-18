@@ -88,16 +88,16 @@ $button-color: #000000d9;
 
   &.small {
     height: 24px;
-    padding: 0 7px;
-    font-size: 14px;
-    border-radius: 2px;
+    padding: 0 $spacing-sm;
+    font-size: $font-size-sm;
+    border-radius: $border-radius;
   }
 
   &.large {
     height: 40px;
-    padding: 6.4px 15px;
-    font-size: 16px;
-    border-radius: 2px;
+    padding: $spacing-sm $spacing;
+    font-size: $font-size-lg;
+    border-radius: $border-radius;
   }
 
   &.block {

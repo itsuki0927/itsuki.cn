@@ -1,17 +1,15 @@
 @import 'styles/variables';
 
 .empty {
-  font-size: 14px;
-  line-height: $line-height-base;
   text-align: center;
 
   .icon {
     font-size: 60px;
-    color: $gray-6;
+    color: $text-color-third;
   }
 
   .description {
-    margin-top: 12px;
+    margin-top: $spacing-md;
     margin-bottom: 0;
   }
 }

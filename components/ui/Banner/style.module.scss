@@ -1,9 +1,9 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .banner {
   height: 240px;
   overflow: hidden;
-  margin-bottom: $margin-lg;
+  margin-bottom: $spacing-lg;
 
   .background {
     position: absolute;
@@ -31,8 +31,8 @@
     align-items: center;
     justify-content: center;
     color: $gray-2;
-    backdrop-filter: blur(1px);
-    opacity: 0.9;
+    border: $spacing solid $white;
+    background: hsla(0deg, 0%, 0%, 45%);
 
     .logo {
       transition: all 0.3s;
@@ -40,7 +40,7 @@
     }
 
     .description {
-      margin-top: $margin-lg;
+      margin-top: $spacing-lg;
       font-size: 20px;
     }
   }
@@ -48,10 +48,6 @@
   &:hover {
     .background {
       transform: scale(1.1);
-    }
-
-    .content {
-      opacity: 1;
     }
 
     .logo {

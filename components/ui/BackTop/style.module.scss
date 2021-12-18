@@ -1,8 +1,8 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 .backTop {
   position: fixed;
-  right: 24px;
-  bottom: $footer-height + $margin-lg;
+  right: $spacing-lg;
+  bottom: $footer-height + $spacing-lg;
   z-index: 2;
 }

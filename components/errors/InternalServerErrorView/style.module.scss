@@ -1,3 +1,5 @@
+@import 'styles/variables';
+
 .serverError {
   height: 100vh;
   display: flex;
@@ -5,10 +7,10 @@
   align-items: center;
 
   .head {
-    margin-bottom: 7px;
+    margin-bottom: $spacing-sm;
     cursor: pointer;
-    padding-top: 3px;
-    padding-bottom: 7px;
+    padding-top: $spacing-ssm;
+    padding-bottom: $spacing-sm;
     font-size: 42px;
     line-height: 1;
     font-weight: 600;

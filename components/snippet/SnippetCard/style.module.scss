@@ -1,7 +1,7 @@
 @import 'styles/variables';
 
 .snippet {
-  margin-bottom: $margin-lg;
+  margin-bottom: $spacing-lg;
 
   .category {
     width: 48px;
@@ -16,7 +16,7 @@
       height: 100%;
       line-height: inherit;
       font-size: 26px;
-      border-radius: 2px;
+      border-radius: $border-radius;
     }
   }
 
@@ -27,12 +27,12 @@
 
   .data {
     flex-grow: 1;
-    margin: 0 20px;
+    margin: 0 $spacing;
     display: inline-block;
   }
 
   .name {
-    font-size: 18px;
+    font-size: $font-size-18;
     line-height: 2rem;
     margin: 0;
     transition: 0.3s ease;
@@ -49,13 +49,14 @@
   }
 
   .tag {
-    color: $gray-6;
-    font-size: 14px;
+    color: $text-color-third;
+    font-size: $font-size-sm;
   }
 
   .description {
-    margin-top: 21px;
+    margin-top: $spacing;
     margin-bottom: 0;
+    color: $text-color-secondary;
   }
 
   .rank {

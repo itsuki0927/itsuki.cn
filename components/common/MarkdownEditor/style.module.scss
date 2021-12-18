@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import 'styles/variables';
 
 $toobar-height: 32px;
 $text-disabled: $gray-4;
@@ -12,7 +12,7 @@ $text-disabled: $gray-4;
     overflow: hidden;
 
     .textarea {
-      padding: $padding-sm;
+      padding: $spacing-md;
       line-height: 20px;
       min-height: 200px;
       max-width: 682px;
@@ -29,13 +29,13 @@ $text-disabled: $gray-4;
       padding: 12px;
       height: 100%;
       overflow: auto;
-      background-color: $white;
+      background-color: $gray-2;
     }
   }
 
   .icon {
     color: $gray-8;
-    margin-right: $margin-sm;
+    margin-right: $spacing-md;
     text-align: center;
     font-size: $font-size-lg;
     padding: 4px;
@@ -51,7 +51,7 @@ $text-disabled: $gray-4;
 
   .toolbar {
     border-bottom: 1px solid $gray-4;
-    padding: 7px $padding-sm;
+    padding: $spacing-sm $spacing-md;
     height: $toobar-height;
     display: flex;
     justify-content: space-between;
@@ -59,8 +59,10 @@ $text-disabled: $gray-4;
 
     .action {
       &.disabled {
-        background-color: $text-disabled;
+        // background-color: $text-disabled;
+        background-color: $gray-3;
         cursor: not-allowed;
+
         .icon {
           background-color: inherit;
           cursor: inherit;

@@ -1,12 +1,12 @@
 @import 'styles/variables';
 
-$easy-background: #78c02a;
-$medium-background: #ffb300;
+$easy-background: $success;
+$medium-background: $warning;
 $hard-background: $error;
 
 .expertise {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border: 2px solid $white;
   border-radius: 50%;
   display: inline-block;

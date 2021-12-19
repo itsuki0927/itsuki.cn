@@ -1,8 +1,7 @@
-import { useMemo } from 'react';
 import { Icon } from '@/components/icons';
 import { Card } from '@/components/ui';
+import { getExpandValue } from '@/utils/expands';
 import styles from './style.module.scss';
-import { getExpandsValue } from './util';
 
 type BannerDataProps = {
   name: string;
@@ -11,32 +10,26 @@ type BannerDataProps = {
   sort: number;
   expand?: string;
 };
+
 type BannerProps = {
   data?: BannerDataProps;
 };
 
 const Banner = ({ data }: BannerProps) => {
-  const expands = useMemo(() => {
-    if (data?.expand) {
-      return JSON.parse(data.expand);
-    }
-    return null;
-  }, [data]);
-
   if (!data) return <Card>loading...</Card>;
 
   const renderIcon = () => {
-    const value = getExpandsValue(expands, 'icon');
+    const value = getExpandValue(data.expand!, 'icon');
 
     if (value === null) return null;
 
     return <Icon name={value} className={styles.logo} />;
   };
 
-  const currentBackgroundImage = getExpandsValue(expands, 'backgroundImage');
+  const currentBackgroundImage = getExpandValue(data.expand!, 'backgroundImage');
 
   return (
-    <Card className={styles.banner}>
+    <div className={styles.banner}>
       <div
         style={{
           backgroundImage: `url(${currentBackgroundImage})`,
@@ -47,7 +40,7 @@ const Banner = ({ data }: BannerProps) => {
         {renderIcon()}
         <p className={styles.description}>{data?.description}</p>
       </div>
-    </Card>
+    </div>
   );
 };
 

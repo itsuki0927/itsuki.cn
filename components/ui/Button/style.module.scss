@@ -25,10 +25,6 @@ $button-color: #000000d9;
   color: $text-color;
   border-color: $gray-4;
 
-  & + & {
-    margin-left: 12px;
-  }
-
   &:not(.disabled):hover {
     background-color: $primary-hover-color;
     border-color: $primary-hover-color;

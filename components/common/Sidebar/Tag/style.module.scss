@@ -1,9 +1,14 @@
 @import 'styles/variables';
 
 .tag {
+  background-color: $component-background;
   margin: $spacing-lg 0;
+  padding-left: $spacing;
+  padding-bottom: $spacing;
+  border-radius: $border-radius;
 
   .btn {
-    margin-bottom: $spacing-md;
+    margin-top: $spacing;
+    margin-right: $spacing;
   }
 }

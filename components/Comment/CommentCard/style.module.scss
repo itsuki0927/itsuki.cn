@@ -5,14 +5,13 @@
   margin-bottom: $spacing;
   position: relative;
   border-radius: $border-radius;
-  padding: $spacing;
   padding-left: $spacing-32;
 
   .content {
     background-color: $gray-2;
     transition: all 0.2s;
     padding: $spacing-md;
-    padding-left: $spacing-48;
+    padding-left: 54px;
 
     &:hover {
       background-color: $gray-3;
@@ -26,6 +25,7 @@
     .name {
       font-weight: 500;
       display: inline-block;
+      font-size: 13px;
     }
 
     .date {
@@ -49,22 +49,28 @@
     border-radius: $border-radius;
     position: absolute;
     left: 0;
-    top: $spacing-32;
+    top: $spacing;
   }
 
   .commentContent {
-    margin: $spacing-sm 0;
+    margin: $spacing-ssm 0;
   }
 
   .reply {
     color: $text-color-secondary;
     font-size: $font-size-sm;
-    transition: color 0.2s;
-    cursor: pointer;
-    margin: $spacing-ssm 0;
+    margin: 0;
 
-    &:hover {
-      color: $gray-8;
+    button {
+      cursor: pointer;
+      background-color: transparent;
+      color: $text-color-secondary;
+      vertical-align: middle;
+      transition: color 0.2s;
+
+      &:hover {
+        color: $gray-8;
+      }
     }
   }
 }
@@ -78,11 +84,13 @@
     .action {
       color: $text-color-secondary;
       font-size: $font-size-sm;
-      margin-left: $spacing-32;
+      margin-left: $spacing;
+      padding-right: 0;
       cursor: pointer;
       transition: all 0.2s;
       border: none;
       background-color: transparent;
+      vertical-align: middle;
 
       &.liked {
         color: $error !important;

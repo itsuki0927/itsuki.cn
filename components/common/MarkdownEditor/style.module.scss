@@ -5,7 +5,6 @@ $text-disabled: $gray-4;
 
 .markdown {
   position: relative;
-  font-family: 'Fira Code';
 
   .markdownContent {
     position: relative;
@@ -26,7 +25,7 @@ $text-disabled: $gray-4;
       right: 0;
       top: 0;
       bottom: 0;
-      padding: 12px;
+      padding: $spacing-md;
       height: 100%;
       overflow: auto;
       background-color: $gray-2;
@@ -42,6 +41,7 @@ $text-disabled: $gray-4;
     display: inline-block;
     transition: all 0.3s;
     cursor: pointer;
+    vertical-align: middle;
 
     &:hover {
       color: $gray-10;
@@ -51,28 +51,24 @@ $text-disabled: $gray-4;
 
   .toolbar {
     border-bottom: 1px solid $gray-4;
-    padding: $spacing-sm $spacing-md;
+    padding: $spacing-ssm $spacing-md;
     height: $toobar-height;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    .action {
-      &.disabled {
-        // background-color: $text-disabled;
-        background-color: $gray-3;
-        cursor: not-allowed;
+    .action.disabled {
+      background-color: $gray-3;
+      cursor: not-allowed;
 
-        .icon {
-          background-color: inherit;
-          cursor: inherit;
-          color: inherit;
-        }
+      .icon {
+        cursor: inherit;
+        color: inherit;
+        vertical-align: middle;
       }
     }
 
     .preview {
-      border: 1px solid $border-color-split;
       border-radius: 2px;
 
       .btn {

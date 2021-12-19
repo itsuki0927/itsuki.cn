@@ -7,12 +7,13 @@
   line-height: $line-height-32;
   font-size: $font-size-lg;
   padding: $spacing;
+  color: $text-color-secondary;
 
   .link {
     font-size: $font-size-base;
     margin-left: $spacing-md;
-    color: $text-color-secondary;
     transition: all 0.2s;
+    color: $text-color-secondary;
 
     &:hover {
       text-decoration: underline;

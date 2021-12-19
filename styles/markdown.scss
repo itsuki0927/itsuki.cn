@@ -1,9 +1,8 @@
-@import './variables.scss';
+@import './variables';
 
 .markdown-html {
   p {
     line-height: 2.2em;
-    text-indent: 2em;
     margin-bottom: 1em;
 
     &.text-center {
@@ -33,12 +32,44 @@
     }
   }
 
+  h1 {
+    padding-bottom: 0.3em;
+    font-size: 2em;
+    line-height: 1.2;
+  }
+
+  h2 {
+    padding-bottom: 0.3em;
+    font-size: 1.5em;
+    line-height: 1.225;
+  }
+
+  h3 {
+    font-size: 1.25em;
+    line-height: 1.43;
+  }
+
+  h4 {
+    font-size: 1em;
+  }
+
+  h5 {
+    font-size: 0.875em;
+  }
+
+  h6 {
+    font-size: 0.85em;
+    color: #777;
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
     line-height: 1.8em;
     font-weight: 700;
     text-indent: 0;
@@ -68,6 +99,11 @@
       /* stylelint-disable no-descending-specificity */
       > p {
         text-indent: 0;
+        margin-bottom: 0;
+      }
+
+      > ul {
+        list-style-type: circle;
       }
 
       > ol {
@@ -115,15 +151,6 @@
     background-color: $black;
   }
 
-  code {
-    color: $error;
-    padding: 0.3em 0.4em;
-    margin: 0 0.3em;
-    border-radius: 2px;
-    background-color: $gray-3;
-    font-size: 16px;
-  }
-
   pre {
     $code-header-height: 36px;
     $code-number-width: 36px;
@@ -133,10 +160,10 @@
     display: block;
     position: relative;
     overflow: hidden;
-    margin-bottom: 12px;
+    margin-bottom: $spacing-md;
     padding-left: $code-number-width;
     font-size: 16px;
-    background-color: rgba($color: #000, $alpha: 0.8);
+    background-color: rgba($color: #000, $alpha: 80%);
     border-radius: 2px;
 
     &::before {
@@ -161,11 +188,11 @@
       left: 0;
       top: $code-header-height;
       bottom: 0;
-      padding: 12px 0;
+      padding: $spacing-md 0;
       margin-bottom: 0;
       width: $code-number-width;
       text-align: center;
-      background-color: rgba(#000, 0.2);
+      background-color: rgba($black, 0.2);
 
       .code-line-number {
         padding: 0;
@@ -173,24 +200,24 @@
         list-style-type: none;
         line-height: $code-row-line-height;
         font-size: 14px;
-        color: $gray-6;
+        color: $gray-7;
 
         &::before {
           content: '';
           position: absolute;
           top: 0;
-          width: 740px;
+          width: 1200px;
           left: $code-number-width;
           right: 0;
           height: 100%;
-          background-color: rgba(154, 154, 154, 0.2);
+          background-color: rgba($text-color-third, 0.1);
           visibility: hidden;
           opacity: 0;
         }
 
         &:hover {
           background-color: $white;
-          color: $gray-9;
+          color: $gray-8;
 
           &::before {
             visibility: visible;
@@ -202,13 +229,13 @@
 
     code {
       margin: 0;
-      padding: 1rem;
+      padding: $spacing-md;
       float: left;
       width: 100%;
       height: 100%;
       display: block;
       line-height: 24px;
-      color: rgba(#fff, 0.87);
+      color: rgba($white, 0.87);
       background-color: transparent;
       font-size: 14px;
     }
@@ -244,6 +271,10 @@
 
       > li {
         padding: 0.2em 0.5em;
+
+        &:hover {
+          background-color: $gray-4;
+        }
       }
     }
 

@@ -82,6 +82,7 @@
       cursor: pointer;
       transition: all 0.2s;
       border: none;
+      background-color: transparent;
 
       &.liked {
         color: $error !important;

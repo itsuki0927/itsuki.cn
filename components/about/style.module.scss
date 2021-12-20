@@ -1,11 +1,174 @@
+@import 'styles/variables';
+
+$juejin-background: #1e80ff;
+$sifou-background: #00975e;
+$github-background: $text-color;
+
 .about {
-  .item {
-    line-height: 30px;
+  margin: 136px 0;
+
+  p,
+  span {
+    font-size: $font-size-lg;
   }
 
-  .label {
-    display: inline-block;
-    min-width: 60px;
-    margin-right: 12px;
+  .spacing {
+    margin-bottom: $spacing-48;
   }
+}
+
+.avatar {
+  background-color: $component-background;
+  border-radius: 2px;
+  padding: $spacing-lg;
+  opacity: 0.8;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: $spacing-48;
+  margin-bottom: $spacing-48;
+}
+
+.description {
+  margin-bottom: $spacing-48;
+  background-color: $component-background;
+  padding: $spacing-lg;
+
+  h3 {
+    font-size: $font-size-18;
+    margin-top: $spacing;
+    margin-bottom: $spacing-ssm;
+  }
+
+  p {
+    font-size: $font-size-lg;
+  }
+}
+
+.like {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: $spacing-lg $spacing-lg;
+  margin-bottom: $spacing-48;
+  overflow: hidden;
+
+  .item {
+    background-color: $component-background;
+    padding: $spacing-lg;
+  }
+
+  .title {
+    margin-top: $spacing-md;
+    margin-bottom: $spacing-sm;
+    font-weight: bold;
+    font-size: $font-size-18;
+  }
+
+  span {
+    color: $text-color-secondary;
+  }
+}
+
+.introduction {
+  display: flex;
+  margin-bottom: $spacing-48;
+
+  .content {
+    padding: $spacing-lg;
+    background-color: $component-background;
+    margin-right: $spacing-lg;
+    flex-shrink: 1;
+  }
+
+  .wechatCode {
+    padding: $spacing;
+    background-color: $component-background;
+    flex-shrink: 0;
+
+    > span {
+      vertical-align: middle;
+    }
+  }
+}
+
+.banner {
+  display: flex;
+  margin-bottom: 48px;
+}
+
+.socialContact {
+  width: 450px;
+  padding: $spacing;
+  background: $component-background;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-right: $spacing-lg;
+
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
+.skill {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $component-background;
+  padding: $spacing;
+
+  svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
+.link {
+  padding: $spacing-sm $spacing;
+  opacity: 0.8;
+  border-radius: 2px;
+  transition: all 0.2s ease-in;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.github {
+    color: $white;
+    background-color: $github-background;
+  }
+
+  &.juejin {
+    color: $white;
+    background-color: $juejin-background;
+  }
+
+  &.sifou {
+    color: $white;
+    background-color: $sifou-background;
+  }
+
+  svg {
+    vertical-align: text-top;
+    margin-right: $spacing-ssm;
+  }
+}
+
+.more {
+  background-color: $component-background;
+  padding: $spacing-lg;
+  color: $text-color-secondary;
 }

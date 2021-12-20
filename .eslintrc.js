@@ -62,5 +62,6 @@ module.exports = {
     'react/jsx-no-useless-fragment': OFF,
     'jsx-a11y/no-noninteractive-element-interactions': OFF,
     'jsx-a11y/click-events-have-key-events': OFF,
+    'react/no-unescaped-entities': OFF,
   },
 };

@@ -1,5 +1,17 @@
 @import 'styles/variables';
 
+.category {
+  text-decoration: none;
+  cursor: pointer;
+  color: $gray-8;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $text-color;
+    text-decoration: underline;
+  }
+}
+
 .metas {
   margin-bottom: $spacing-lg;
 

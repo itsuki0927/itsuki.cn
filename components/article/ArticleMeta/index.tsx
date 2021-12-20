@@ -20,9 +20,10 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => {
     <Card className={styles.metas}>
       <div className={styles.meta}>
         <span className={styles.date}>
-          本文于 {new Date(article.createAt).toLocaleDateString()} 发布
-          <span className={styles.separator}>-</span>
-          <Link href={`/category/${category?.path}`}>{category?.name}</Link>
+          本文于 {new Date(article.createAt).toLocaleDateString()} 发布于{' '}
+          <Link href={`/category/${category?.path}`}>
+            <span className={styles.category}>{category?.name}</span>
+          </Link>
         </span>
       </div>
 

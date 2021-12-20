@@ -8,7 +8,7 @@ export const tupleNum = <T extends number[]>(...args: T) => args;
 
 export type SizeType = 'small' | 'default' | 'large';
 
-export type ButtonType = 'default' | 'primary' | 'ghost' | 'dashed' | 'link' | 'text';
+export type ButtonType = 'primary' | 'ghost' | 'text';
 
 type BaseButtonProps = {
   type?: ButtonType;
@@ -33,18 +33,18 @@ export type ButtonProps = Partial<AnchorButtonProps & NativeButtonProps>;
 
 const Button: FC<ButtonProps> = ({
   size = 'default',
-  type = 'default',
+  type = 'primary',
   loading,
   className,
   block = false,
   children,
   onClick,
-  ...otherProps
+  ...rest
 }) => {
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>
   ) => {
-    if (loading || otherProps.disabled) {
+    if (loading || rest.disabled) {
       e.preventDefault();
       return;
     }
@@ -56,13 +56,14 @@ const Button: FC<ButtonProps> = ({
       [styles[size]]: size,
       [styles[type]]: type,
       [styles.block]: block,
-      [styles.disabled]: otherProps.disabled,
+      [styles.disabled]: rest.disabled,
     },
     styles.btn,
     className
   );
+
   return (
-    <button type='button' className={classString} onClick={handleClick} {...otherProps}>
+    <button type='button' className={classString} onClick={handleClick} {...rest}>
       {children}
     </button>
   );

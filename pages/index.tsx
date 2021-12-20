@@ -44,7 +44,6 @@ const HomePage = ({
       type='info'
       icon={<SoundOutlined />}
       showIcon
-      banner
     />
 
     <ArticleList articles={articles} />

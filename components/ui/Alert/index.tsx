@@ -69,7 +69,6 @@ export type AlertProps = {
   role?: string;
   style?: CSSProperties;
   className?: string;
-  banner?: boolean;
   icon?: ReactNode;
   action?: ReactNode;
   onMouseEnter?: MouseEventHandler<HTMLDivElement>;
@@ -79,7 +78,6 @@ export type AlertProps = {
 const Alert = ({
   description,
   message,
-  banner,
   className = '',
   style,
   onMouseEnter,
@@ -94,7 +92,7 @@ const Alert = ({
     if (type !== undefined) {
       return type;
     }
-    return banner ? 'warning' : 'info';
+    return 'info';
   };
 
   const type = getType();
@@ -113,7 +111,7 @@ const Alert = ({
     return createElement(iconType, { className: styles.icon });
   };
 
-  const isShowIcon = banner && showIcon === undefined ? true : showIcon;
+  const isShowIcon = showIcon === undefined ? true : showIcon;
 
   const classString = classNames(
     styles.alert,
@@ -121,7 +119,6 @@ const Alert = ({
     {
       [styles.withDescription]: !!description,
       [styles.noIcon]: !isShowIcon,
-      [styles.banner]: !!banner,
     },
     className
   );

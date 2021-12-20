@@ -55,7 +55,7 @@ $alert-text-color: $text-color;
 
   &.success {
     background-color: $alert-success-bg-color;
-    border: 1px solid $alert-success-border-color;
+    border-left: 4px solid $alert-success-icon-color;
 
     .message {
       color: $alert-success-message-color;
@@ -68,7 +68,7 @@ $alert-text-color: $text-color;
 
   &.info {
     background-color: $alert-info-bg-color;
-    border: 1px solid $alert-info-border-color;
+    border-left: 4px solid $alert-info-icon-color;
 
     .message {
       color: $alert-info-message-color;
@@ -81,7 +81,7 @@ $alert-text-color: $text-color;
 
   &.warning {
     background-color: $alert-warning-bg-color;
-    border: 1px solid $alert-warning-border-color;
+    border-left: 4px solid $alert-warning-icon-color;
 
     .message {
       color: $alert-warning-message-color;
@@ -94,7 +94,7 @@ $alert-text-color: $text-color;
 
   &.error {
     background-color: $alert-error-bg-color;
-    border: 1px solid $alert-error-border-color;
+    border-left: 4px solid $alert-error-icon-color;
 
     .message {
       color: $alert-error-message-color;
@@ -108,12 +108,6 @@ $alert-text-color: $text-color;
       margin: 0;
       padding: 0;
     }
-  }
-
-  &.banner {
-    margin-bottom: 0;
-    border: 0;
-    border-radius: 0;
   }
 
   .action {

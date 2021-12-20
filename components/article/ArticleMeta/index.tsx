@@ -1,5 +1,6 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Button, Card } from '@/components/ui';
+import { Card, Skeleton } from '@/components/ui';
 import { WEB_URL } from '@/configs/app';
 import { Article } from '@/entities/article';
 import { ArticleTag } from '..';
@@ -11,28 +12,18 @@ interface ArticleMetaProps {
 
 const ArticleMeta = ({ article }: ArticleMetaProps) => {
   const router = useRouter();
+
+  if (!article) return <Skeleton />;
+  const category = article.categories[0];
+
   return (
     <Card className={styles.metas}>
       <div className={styles.meta}>
         <span className={styles.date}>
           本文于 {new Date(article.createAt).toLocaleDateString()} 发布
           <span className={styles.separator}>-</span>
-          更新于 {new Date(article.updateAt).toLocaleDateString()}
+          <Link href={`/category/${category?.path}`}>{category?.name}</Link>
         </span>
-      </div>
-
-      <div className={styles.meta}>
-        <span className={styles.label}>相关分类 : </span>
-        {article.categories.map(item => (
-          <Button
-            type='link'
-            key={item.id}
-            size='small'
-            onClick={() => router.push(`/category/${item.path}`)}
-          >
-            {item.name}
-          </Button>
-        ))}
       </div>
 
       <div className={styles.meta}>

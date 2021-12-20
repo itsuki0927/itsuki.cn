@@ -38,7 +38,7 @@ const SnippetListPage = ({
         {paths.map(item => (
           <Button
             key={item.path}
-            type={item.name === category.name ? 'primary' : 'text'}
+            type={item.name === category.name ? 'ghost' : 'text'}
             className={styles.button}
             onClick={() => router.push(item.path)}
           >

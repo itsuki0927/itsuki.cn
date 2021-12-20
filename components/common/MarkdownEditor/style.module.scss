@@ -3,6 +3,58 @@
 $toobar-height: 32px;
 $text-disabled: $gray-4;
 
+.icon {
+  color: $gray-8;
+  margin-right: $spacing-md;
+  text-align: center;
+  font-size: $font-size-lg;
+  padding: 4px;
+  display: inline-block;
+  transition: all 0.3s;
+  cursor: pointer;
+  vertical-align: middle;
+
+  &:hover {
+    color: $gray-10;
+    background-color: $text-disabled;
+  }
+}
+
+.toolbar {
+  border-bottom: 1px solid $border-color-split;
+  padding: $spacing-ssm $spacing-md;
+  height: $toobar-height;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .action.disabled {
+    background-color: $gray-3;
+    cursor: not-allowed;
+
+    .icon {
+      cursor: inherit;
+      color: inherit;
+      vertical-align: middle;
+    }
+  }
+
+  .preview {
+    border-radius: 2px;
+
+    .btn {
+      width: 92px;
+      line-height: $font-size-sm;
+
+      &.active {
+        background-color: $text-disabled;
+        border-color: $text-disabled;
+        color: $black;
+      }
+    }
+  }
+}
+
 .markdown {
   position: relative;
 
@@ -29,62 +81,6 @@ $text-disabled: $gray-4;
       height: 100%;
       overflow: auto;
       background-color: $gray-2;
-    }
-  }
-
-  .icon {
-    color: $gray-8;
-    margin-right: $spacing-md;
-    text-align: center;
-    font-size: $font-size-lg;
-    padding: 4px;
-    display: inline-block;
-    transition: all 0.3s;
-    cursor: pointer;
-    vertical-align: middle;
-
-    &:hover {
-      color: $gray-10;
-      background-color: $text-disabled;
-    }
-  }
-
-  .toolbar {
-    border-bottom: 1px solid $gray-4;
-    padding: $spacing-ssm $spacing-md;
-    height: $toobar-height;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .action.disabled {
-      background-color: $gray-3;
-      cursor: not-allowed;
-
-      .icon {
-        cursor: inherit;
-        color: inherit;
-        vertical-align: middle;
-      }
-    }
-
-    .preview {
-      border-radius: 2px;
-
-      .btn {
-        width: 92px;
-        line-height: $font-size-sm;
-        vertical-align: top;
-        font-size: $font-size-sm;
-        border-radius: 0;
-        margin-left: 0;
-
-        &.active {
-          background-color: $text-disabled;
-          border-color: $text-disabled;
-          color: $black;
-        }
-      }
     }
   }
 }

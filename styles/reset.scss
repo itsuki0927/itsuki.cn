@@ -1,20 +1,15 @@
 @import './variables';
 @import './normalize';
 
-$primary-hover-color: $blue-5;
 $border-color: darken($gray-3, 5%);
 $border-color-light: $border-color-split;
 $blockquote-bg-color: $gray-3;
 $th-bg-color: $gray-2;
 
-a {
-  text-decoration: none;
-  color: $primary;
-
-  &:hover,
-  &:focus {
-    color: $primary-hover-color;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 hr {

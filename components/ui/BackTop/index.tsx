@@ -8,7 +8,7 @@ const BackTop = () => {
 
   return (
     <div className={styles.backTop}>
-      <IconButton icon={<ToTopOutlined />} onClick={backToTop}>
+      <IconButton icon={<ToTopOutlined />} onClick={backToTop} type='ghost'>
         回到顶部
       </IconButton>
     </div>

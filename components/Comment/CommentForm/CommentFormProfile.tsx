@@ -78,7 +78,7 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
             style={{ marginRight: 12 }}
           />
 
-          <IconButton type='dashed' icon={<CheckOutlined />} onClick={handleSave}>
+          <IconButton type='ghost' icon={<CheckOutlined />} onClick={handleSave}>
             保存
           </IconButton>
         </div>

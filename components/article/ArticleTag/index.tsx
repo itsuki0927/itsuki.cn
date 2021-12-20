@@ -12,7 +12,7 @@ interface ArticleTagProps extends ButtonProps {
 }
 const ArticleTag = ({ tag, ...rest }: ArticleTagProps) => (
   <IconButton
-    type='dashed'
+    type='ghost'
     size='small'
     icon={tag.expand && <Icon name={getIconValue(tag.expand)} />}
     onClick={() => router.push(`/tag/${tag.name}`)}

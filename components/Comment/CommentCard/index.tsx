@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { HeartFilled, HeartOutlined, Icon } from '@/components/icons';
-import { MarkdownBlock } from '@/components/ui';
+import { Button, IconButton, MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import useInLikeComments from '@/framework/local/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
@@ -59,9 +59,9 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
         {!!comment.parentId && (
           <p className={styles.reply}>
             @
-            <button
-              style={{ border: 'none' }}
-              type='button'
+            <Button
+              size='small'
+              type='text'
               onClick={() => {
                 scrollTo(`#${buildCommentDomId(comment.parentId)}`, 400, {
                   offset: -64,
@@ -69,7 +69,7 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
               }}
             >
               {comment.parentNickName}
-            </button>
+            </Button>
           </p>
         )}
 
@@ -80,27 +80,28 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
 
         <div className={styles.footer}>
           <div className={styles.actions}>
-            <button
-              type='button'
+            <IconButton
+              size='small'
+              type='ghost'
+              icon={isLiked ? <HeartFilled /> : <HeartOutlined />}
               onClick={handleLikeComment}
               className={classNames(styles.action, {
                 [styles.liked]: isLiked,
-                [styles.disabled]: isLiked,
               })}
             >
-              {isLiked ? <HeartFilled /> : <HeartOutlined />}
               {comment.liking}人点赞
-            </button>
-            <button
-              type='button'
+            </IconButton>
+            <IconButton
+              size='small'
+              type='ghost'
+              icon={<Icon name='thunderbolt' />}
               className={`${styles.action} ${styles.replyBtn}`}
               onClick={() => {
                 onReply(comment);
               }}
             >
-              <Icon name='thunderbolt' />
               回复
-            </button>
+            </IconButton>
           </div>
         </div>
       </div>

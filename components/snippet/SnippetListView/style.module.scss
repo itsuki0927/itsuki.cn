@@ -1,8 +1,9 @@
+@import 'styles/variables';
+
 .category {
-  margin: 24px 0;
+  margin: $spacing-lg 0;
 }
 
 .button {
-  border-color: transparent;
-  box-shadow: none;
+  margin-left: $spacing;
 }

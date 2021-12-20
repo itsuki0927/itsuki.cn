@@ -83,29 +83,16 @@
 
     .action {
       color: $text-color-secondary;
-      font-size: $font-size-sm;
-      margin-left: $spacing;
-      padding-right: 0;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
       background-color: transparent;
-      vertical-align: middle;
-
-      &.liked {
-        color: $error !important;
-      }
-
-      &.disabled {
-        cursor: not-allowed;
-      }
+      margin-left: $spacing;
+      transition: all 0.2s;
 
       &:hover {
         color: $text-color;
       }
 
-      :global(.iconfont) {
-        margin-right: $spacing-ssm;
+      &.liked {
+        color: $error !important;
       }
     }
   }

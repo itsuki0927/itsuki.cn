@@ -28,7 +28,7 @@ const defaultIconRender = ({ isLiked }: LikeButtonProps) => (
 
 const LikeButton = (props: LikeButtonProps) => {
   const {
-    type = 'dashed',
+    type = 'ghost',
     isLiked,
     onLiked,
     children,

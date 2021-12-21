@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
-import React, { useMemo } from 'react';
 import { ArticleList } from '@/components/article';
 import { Layout } from '@/components/common';
 import { Banner } from '@/components/ui';
@@ -8,7 +7,7 @@ import blog from '@/lib/api/blog';
 
 export const getStaticPaths = async () => {
   const { tags } = await blog.getAllTagPaths();
-  const paths = tags.map(tag => `/tag/${tag.name}`);
+  const paths = tags.map(tag => `/tag/${tag.path}`);
 
   return {
     paths,
@@ -17,13 +16,15 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const tag = (params?.name ?? '') as string;
+  const tagName = (params?.name ?? '') as string;
+
+  const siteInfo = await blog.getSiteInfo();
   const articles = await blog.getAllArticles({
     variables: {
-      tag,
+      tag: tagName,
     },
   });
-  const siteInfo = await blog.getSiteInfo();
+  const tag = siteInfo.tags.find(item => item.path === tagName)!;
 
   return {
     props: {
@@ -36,24 +37,16 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 const ArticleTagPage = ({
-  tag: name,
+  tag,
   articles,
-  tags = [],
-}: InferGetServerSidePropsType<typeof getStaticProps>) => {
-  const tag = useMemo(() => tags.find(item => item.name === name), [name, tags]);
+}: InferGetServerSidePropsType<typeof getStaticProps>) => (
+  <>
+    <NextSeo title={`${tag.name} - ${tag.path} - Tag`} description={tag.description} />
+    <Banner data={tag} />
 
-  return (
-    <div>
-      <NextSeo
-        title={`${tag?.name} - ${tag?.path} - Tag`}
-        description={tag?.description}
-      />
-      <Banner data={tag} />
-
-      <ArticleList articles={articles} />
-    </div>
-  );
-};
+    <ArticleList articles={articles} />
+  </>
+);
 
 ArticleTagPage.Layout = Layout;
 

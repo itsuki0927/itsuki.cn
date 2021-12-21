@@ -2,9 +2,8 @@ import { useMemo } from 'react';
 import { Logo, Search as NavbarSearch } from '@/components/common';
 import { ActiveLink } from '@/components/ui';
 import { Category } from '@/entities/category';
+import { getCategoryUrl } from '@/utils/url';
 import styles from './style.module.scss';
-
-const buildPath = (path: string) => `/category/${path}`;
 
 interface NavbarProps {
   links?: Category[];
@@ -17,7 +16,7 @@ const Navbar = ({ links, search = true }: NavbarProps) => {
         <ActiveLink
           activeClassName={styles.active}
           key={item.id}
-          href={buildPath(item.path)}
+          href={getCategoryUrl(item.path)}
         >
           <li className={styles.item}>
             <span>{item.name}</span>

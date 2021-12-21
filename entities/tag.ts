@@ -10,7 +10,7 @@ export type Tag = IdentifiableEntity<{
 }>;
 
 export type GetAllTagPathsOperation = {
-  data: { tags: Pick<Tag, 'name'>[] };
+  data: { tags: Pick<Tag, 'path'>[] };
 };
 
 export type GetAllTagPathsQuery = SearchResponse<Tag>;

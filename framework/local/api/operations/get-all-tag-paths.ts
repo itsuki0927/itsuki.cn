@@ -9,7 +9,7 @@ function getAllTagPathsOperation({ blog }: OperationContext<Provider>) {
     const config = blog.getConfig();
     const { data } = await config.fetch<GetAllTagPathsQuery>('GET', getAllTagPathsQuery);
 
-    const tags = data.data.map(item => ({ name: item.name }));
+    const tags = data.data.map(item => ({ path: item.path }));
 
     return { tags };
   }

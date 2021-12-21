@@ -1,10 +1,9 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
-import { useMemo } from 'react';
 import { NextSeo } from 'next-seo';
 import { ArticleList } from '@/components/article';
+import { Layout } from '@/components/common';
 import { Banner } from '@/components/ui';
 import blog from '@/lib/api/blog';
-import { Layout } from '@/components/common';
 
 export const getStaticPaths = async () => {
   const { categories } = await blog.getAllCategoryPaths();
@@ -18,13 +17,15 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const category = (params?.name ?? '') as string;
+  const categoryName = (params?.name ?? '') as string;
   const siteInfo = await blog.getSiteInfo();
   const articles = await blog.getAllArticles({
     variables: {
-      category,
+      category: categoryName,
     },
   });
+
+  const category = siteInfo.categories.find(item => item.path === categoryName)!;
 
   return {
     props: {
@@ -37,27 +38,20 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 const CategoryPage = ({
-  category: categoryName,
+  category,
   articles,
-  categories = [],
-}: InferGetServerSidePropsType<typeof getStaticProps>) => {
-  const category = useMemo(
-    () => categories.find(item => item.path === categoryName),
-    [categories, categoryName]
-  );
+}: InferGetServerSidePropsType<typeof getStaticProps>) => (
+  <>
+    <NextSeo
+      title={`${category.name} - ${category.path} - Category`}
+      description={category.description}
+    />
 
-  return (
-    <div>
-      <NextSeo
-        title={`${category?.name} - ${category?.path} - Category`}
-        description={category?.description}
-      />
-      <Banner data={category} />
+    <Banner data={category} />
 
-      <ArticleList articles={articles} />
-    </div>
-  );
-};
+    <ArticleList articles={articles} />
+  </>
+);
 
 CategoryPage.Layout = Layout;
 

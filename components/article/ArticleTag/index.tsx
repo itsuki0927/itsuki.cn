@@ -4,6 +4,7 @@ import { Tag as TagType } from '@/entities/tag';
 import { getExpandValue } from '@/utils/expands';
 import { IconButton } from '@/components/ui';
 import { ButtonProps } from '@/components/ui/Button';
+import { getTagUrl } from '@/utils/url';
 
 export const getIconValue = (expand: string) => getExpandValue(expand, 'icon');
 
@@ -15,7 +16,7 @@ const ArticleTag = ({ tag, ...rest }: ArticleTagProps) => (
     type='ghost'
     size='small'
     icon={tag.expand && <Icon name={getIconValue(tag.expand)} />}
-    onClick={() => router.push(`/tag/${tag.name}`)}
+    onClick={() => router.push(getTagUrl(tag.path))}
     {...rest}
   >
     {tag.name}

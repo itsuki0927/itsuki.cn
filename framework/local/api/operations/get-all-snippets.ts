@@ -17,7 +17,7 @@ function getAllSnippetsOperation({ blog }: OperationContext<Provider>) {
   } = {}): Promise<T['data']> {
     const config = blog.getConfig(cfg);
     const url = new URL(getAllSnippetQuery, 'http://a');
-    const { keyword, categoryPath, current } = variables;
+    const { keyword, categoryPath, current, pinned } = variables;
     if (keyword) {
       url.searchParams.append('keyword', keyword);
     }
@@ -26,6 +26,9 @@ function getAllSnippetsOperation({ blog }: OperationContext<Provider>) {
     }
     if (current) {
       url.searchParams.append('current', `${current}`);
+    }
+    if (pinned) {
+      url.searchParams.append('pinned', '1');
     }
     url.searchParams.append('status', '1');
     url.searchParams.append('pageSize', `${LIMIT}`);

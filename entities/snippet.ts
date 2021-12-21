@@ -26,6 +26,7 @@ export type SearchSnippetsBody = {
   keyword?: string;
   categoryPath?: string;
   current?: number;
+  pinned?: true;
 };
 
 export type SnippetTypes = {

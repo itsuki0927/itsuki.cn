@@ -4,7 +4,11 @@ import { SnippetView } from '@/components/snippet';
 import blog from '@/lib/api/blog';
 
 export const getStaticProps = async () => {
-  const snippets = await blog.getAllSnippets();
+  const snippets = await blog.getAllSnippets({
+    variables: {
+      pinned: true,
+    },
+  });
   const { snippetCategories } = await blog.getSnippetCategories({
     variables: { parentId: 0 },
   });

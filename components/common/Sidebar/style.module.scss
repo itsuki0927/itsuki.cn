@@ -4,3 +4,78 @@
   width: 350px;
   margin-left: $spacing-lg;
 }
+
+.hello {
+  margin-bottom: $spacing-lg;
+
+  .nickname {
+    color: $primary;
+  }
+}
+
+.tag {
+  background-color: $component-background;
+  margin: $spacing-lg 0;
+  padding-left: $spacing;
+  padding-bottom: $spacing;
+  border-radius: $border-radius;
+
+  .btn {
+    margin-top: $spacing;
+    margin-right: $spacing;
+  }
+}
+
+.snippet {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .name {
+    transition: all 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+.leaderboard {
+  counter-reset: section;
+}
+
+.leaderboardItem {
+  &::before {
+    counter-increment: section;
+    content: '' counter(section) ' .    ';
+    color: $text-color-secondary;
+  }
+
+  padding: 8px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 2px;
+
+  &:hover {
+    background-color: $gray-2;
+  }
+
+  .title {
+    vertical-align: middle;
+    margin-left: 4px;
+    flex: 1;
+    font-size: 14px;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  .right {
+    color: $gray-7;
+  }
+}

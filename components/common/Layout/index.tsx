@@ -14,6 +14,7 @@ export interface PageProps {
     categories: SiteInfo['categories'];
     tags: SiteInfo['tags'];
     siteInfo: SiteInfo['siteInfo'];
+    hotArticles: SiteInfo['hotArticles'];
   };
 }
 
@@ -21,7 +22,7 @@ const DynamicAffix = dynamic(() => import('@/components/ui/Affix'), { ssr: false
 
 const Layout: FC<PageProps> = ({
   children,
-  pageProps = { categories: [], tags: [] },
+  pageProps = { categories: [], tags: [], hotArticles: [] },
 }) => {
   const { locale = 'zh-cn' } = useRouter();
 
@@ -32,7 +33,7 @@ const Layout: FC<PageProps> = ({
       <section className={styles.main}>
         <main className={styles.mainContent}>{children}</main>
         <DynamicAffix top={88}>
-          <Sidebar tags={pageProps.tags} />
+          <Sidebar tags={pageProps.tags} hotArticles={pageProps.hotArticles} />
         </DynamicAffix>
       </section>
 

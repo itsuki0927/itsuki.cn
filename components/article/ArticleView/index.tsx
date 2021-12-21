@@ -2,7 +2,7 @@ import { BlogJsonLd, NextSeo } from 'next-seo';
 import { CommentView } from '@/components/comment';
 import { ImagePopup } from '@/components/ui';
 import { Article } from '@/entities/article';
-import { getArticleDetailUrl } from '@/utils/url';
+import { getArticleDetailFullUrl } from '@/utils/url';
 import ArticleContent from '../ArticleContent';
 import ArticleCounter from '../ArticleCounter';
 import ArticleMeta from '../ArticleMeta';
@@ -19,7 +19,7 @@ const ArticleView = ({ article }: ArticleViewProps) => (
       additionalMetaTags={[{ name: 'keywords', content: article.keywords }]}
     />
     <BlogJsonLd
-      url={getArticleDetailUrl(article.id)}
+      url={getArticleDetailFullUrl(article.id)}
       title={article.title}
       images={[article.cover]}
       datePublished={article.createAt.toString()}

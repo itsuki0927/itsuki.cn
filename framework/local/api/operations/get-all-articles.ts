@@ -35,7 +35,7 @@ function getAllArticlesOperation({ blog }: OperationContext<Provider>) {
   } = {}): Promise<T['data']> {
     const config = blog.getConfig(cfg);
     const url = new URL(query, 'http://a');
-    const { search, category, tag, banner, pinned } = variables;
+    const { search, category, tag, banner, pinned, hot } = variables;
     if (search) {
       url.searchParams.append('name', search);
     }
@@ -50,6 +50,9 @@ function getAllArticlesOperation({ blog }: OperationContext<Provider>) {
     }
     if (pinned) {
       url.searchParams.append('pinned', '1');
+    }
+    if (hot) {
+      url.searchParams.append('hot', '1');
     }
     url.searchParams.append('publish', '1');
     url.searchParams.append('pageSize', String(LIMIT));

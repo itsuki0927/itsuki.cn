@@ -1,6 +1,7 @@
 import { Category } from './category';
 import { IdentifiableEntity } from '../types/response';
 import { Tag } from './tag';
+import { Article } from './article';
 
 export type SystemSettings = IdentifiableEntity<{
   liking: number;
@@ -20,6 +21,7 @@ export type SiteInfo = {
   tags: Tag[];
   categories: Category[];
   siteInfo: SystemSettings;
+  hotArticles: Article[];
 };
 
 export type GetSiteInfoOperation = {

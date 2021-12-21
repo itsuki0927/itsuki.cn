@@ -30,6 +30,7 @@ export type SearchArticlesBody = {
   tag?: string;
   category?: string;
   pinned?: true;
+  hot?: true;
 };
 
 export type LikeArticleBody = {

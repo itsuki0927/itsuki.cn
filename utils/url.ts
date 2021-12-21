@@ -34,5 +34,10 @@ export const getSnippetPageCategoryUrl = (
 /**
  * 获取文章路径
  */
-export const getArticleDetailUrl = (articleId: number) =>
-  `${WEB_URL}/article/${articleId}`;
+export const getArticleDetailUrl = (articleId: number) => `/article/${articleId}`;
+
+/**
+ * 获取完整的文章路径
+ */
+export const getArticleDetailFullUrl = (articleId: number) =>
+  `${WEB_URL}${getArticleDetailUrl(articleId)}`;

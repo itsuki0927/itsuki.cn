@@ -2,9 +2,9 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 import { Footer, Navbar, Sidebar } from '@/components/common';
+import { SiteInfo } from '@/entities/siteInfo';
 import { BlogProvider } from '@/framework/local';
 import styles from './style.module.scss';
-import { SiteInfo } from '@/entities/siteInfo';
 
 const DynamicBackTop = dynamic(() => import('@/components/ui/BackTop'));
 
@@ -28,16 +28,18 @@ const Layout: FC<PageProps> = ({
 
   return (
     <BlogProvider locale={locale}>
-      <Navbar links={pageProps.categories} />
+      <div className={styles.app}>
+        <Navbar links={pageProps.categories} />
 
-      <section className={styles.main}>
-        <main className={styles.mainContent}>{children}</main>
-        <DynamicAffix top={88}>
-          <Sidebar tags={pageProps.tags} hotArticles={pageProps.hotArticles} />
-        </DynamicAffix>
-      </section>
+        <section className={styles.main}>
+          <main className={styles.mainContent}>{children}</main>
+          <DynamicAffix top={88}>
+            <Sidebar tags={pageProps.tags} hotArticles={pageProps.hotArticles} />
+          </DynamicAffix>
+        </section>
 
-      <Footer />
+        <Footer />
+      </div>
       <DynamicBackTop />
     </BlogProvider>
   );

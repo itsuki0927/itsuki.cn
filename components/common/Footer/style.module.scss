@@ -8,6 +8,7 @@
   font-size: $font-size-lg;
   padding: $spacing;
   color: $text-color-secondary;
+  margin-top: auto; // 在flex盒子中能够一直保留在底部
 
   .link {
     font-size: $font-size-base;

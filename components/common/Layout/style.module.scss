@@ -1,14 +1,17 @@
 @import 'styles/variables';
 
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .main {
   display: flex;
   margin: $spacing-lg auto;
   margin-top: $header-height + $spacing-lg;
   width: $container-width;
   position: relative;
-  min-height: calc(
-    100vh - $header-height - $footer-height - 2 * $spacing-lg
-  ); // 100vh - head height - footer height - margin top & bottom
 }
 
 .mainContent {

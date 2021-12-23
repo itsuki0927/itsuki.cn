@@ -1,0 +1,194 @@
+@import 'styles/variables';
+
+.carousel {
+  position: relative;
+  min-height: 160px;
+  overflow: hidden;
+  background-color: $component-background;
+
+  .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .slider {
+    position: relative;
+    left: 0;
+    height: 100%;
+    transition: transform 0.3s ease;
+    will-change: transform;
+
+    .sliderItem {
+      background-color: $component-background;
+      float: left;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .sliderAfter {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: $component-background;
+    animation: move-left-half 0.3s ease forwards;
+
+    &.vertical {
+      animation: move-left-half-vertical 0.3s ease forwards;
+    }
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+
+    > ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .labelWrapper {
+    margin: $spacing-sm;
+
+    input {
+      width: 0;
+      height: 0;
+      position: absolute;
+      opacity: 0;
+    }
+
+    input:checked ~ label {
+      background-color: $gray-9;
+    }
+  }
+
+  .label {
+    cursor: pointer;
+    display: block;
+    background-color: $gray-5;
+    transition: all 0.2s ease;
+    transition-property: background, width, height;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -1 * 3px;
+      right: -1 * 3px;
+      bottom: -1 * 3px;
+      left: -1 * 3px;
+    }
+
+    &:hover {
+      background-color: $gray-9;
+    }
+  }
+
+  // Handler Shape
+  &.dot .label {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  &.bar .label {
+    border-radius: 2px;
+  }
+
+  &.top.bar .labelWrapper,
+  &.bottom.bar .labelWrapper {
+    input:checked ~ label {
+      width: 24px;
+    }
+  }
+
+  &.top.bar .label,
+  &.bottom.bar .label {
+    width: 16px;
+    height: 4px;
+  }
+
+  &.left.bar .label,
+  &.right.bar .label {
+    width: 16px;
+    height: 4px;
+  }
+
+  &.left.bar .labelWrapper,
+  &.right.bar .labelWrapper {
+    input:checked ~ label {
+      height: 24px;
+    }
+  }
+
+  // Placement
+
+  &.top .toolbar,
+  &.bottom .toolbar {
+    left: 0;
+    width: 100%;
+
+    > ul {
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &.top .toolbar {
+    top: $spacing;
+  }
+
+  &.bottom .toolbar {
+    bottom: $spacing;
+  }
+
+  &.left .toolbar,
+  &.right .toolbar {
+    top: 0;
+    width: 10px;
+    height: 100%;
+
+    > ul {
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+  }
+
+  &.left .toolbar {
+    left: $spacing;
+  }
+
+  &.right .toolbar {
+    right: $spacing;
+  }
+
+  @keyframes move-left-half {
+    0% {
+      transform: none;
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes move-left-half-vertical {
+    0% {
+      transform: none;
+    }
+
+    100% {
+      transform: translateY(-50%);
+    }
+  }
+}

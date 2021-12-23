@@ -5,6 +5,7 @@ export { default as BackTop } from './BackTop';
 export { default as Banner } from './Banner';
 export { default as Button } from './Button';
 export { default as Card } from './Card';
+export { default as Carousel } from './Carousel';
 export { default as Empty } from './Empty';
 export { default as IconButton } from './IconButton';
 export { default as ImagePopup } from './ImagePopup';

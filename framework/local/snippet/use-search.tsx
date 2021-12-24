@@ -4,6 +4,8 @@ import { SWRFetcher } from '@/framework/blog/utils/default-fetcher';
 import type { HookFetcherFn, SWRHook } from '@/framework/blog/utils/types';
 import { useHandler, useSWRHook } from '@/framework/blog/utils/use-hook';
 
+const LIMIT = '2000';
+
 export type UseSearch<
   H extends SWRHook<SearchSnippetsHook<any>> = SWRHook<SearchSnippetsHook>
 > = ReturnType<H['useHook']>;
@@ -32,6 +34,8 @@ export const handler: SWRHook<SearchSnippetsHook> = {
       url.searchParams.set('keyword', keyword);
     }
 
+    url.searchParams.set('pageSize', LIMIT);
+
     const data = await fetch({
       ...options,
       url: url.pathname + url.search,
@@ -43,7 +47,10 @@ export const handler: SWRHook<SearchSnippetsHook> = {
     ({ useData }) =>
     (input = {}) =>
       useData({
-        input: [['keyword', input.keyword]],
+        input: [
+          ['keyword', input.keyword],
+          ['pageSize', input.pageSize],
+        ],
         swrOptions: {
           revalidateOnFocus: false,
           ...input.swrOptions,

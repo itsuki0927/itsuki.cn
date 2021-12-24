@@ -31,7 +31,7 @@ function getAllSnippetsOperation({ blog }: OperationContext<Provider>) {
       url.searchParams.append('pinned', '1');
     }
     url.searchParams.append('status', '1');
-    url.searchParams.append('pageSize', `${LIMIT}`);
+    url.searchParams.append('pageSize', variables.pageSize ?? `${LIMIT}`);
     const res = await config.fetch<GetAllSnippetPathsQuery>(
       'GET',
       url.pathname + url.search

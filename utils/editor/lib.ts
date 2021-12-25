@@ -497,14 +497,13 @@ function markdownEditorUtil(
       insertMarkdownUl();
     } else if (tag === 'ol') {
       insertMarkdownOl();
-    } else if (tag === 'blockcode') {
+    } else if (tag === 'bc') {
       insertMarkdownCode();
     } else if (tag === 'image') {
       insertMarkdownImage();
     } else if (tag === 'link') {
       insertMarkdownLink();
     }
-    // apply(callback, toString());
     if (callback) {
       callback(toString());
     }

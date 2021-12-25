@@ -66,15 +66,15 @@ const CommentList = ({ articleId }: CommentProps) => {
 
   return (
     <>
-      <Card className={styles.comment}>
-        {isEmpty || !comments ? (
-          <Empty />
-        ) : (
-          comments.map(item => (
+      {isEmpty || !comments ? (
+        <Empty />
+      ) : (
+        <Card className={styles.comment}>
+          {comments.map(item => (
             <CommentCard comment={item} key={item.id} onReply={setReply} />
-          ))
-        )}
-      </Card>
+          ))}
+        </Card>
+      )}
 
       <CommentForm onSend={handleSend}>
         <CommentFormAvatar email={profile.email} />

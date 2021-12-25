@@ -2,6 +2,8 @@
 
 .empty {
   text-align: center;
+  padding: $spacing;
+  background-color: $component-background;
 
   .icon {
     font-size: 60px;
@@ -9,7 +11,7 @@
   }
 
   .description {
-    margin-top: $spacing-md;
-    margin-bottom: 0;
+    margin-top: $spacing-sm;
+    color: $text-color-secondary;
   }
 }

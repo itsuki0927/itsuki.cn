@@ -9,8 +9,8 @@
     cursor: pointer;
     position: relative;
 
-    .cover img {
-      vertical-align: middle;
+    img {
+      border-radius: 2px !important;
     }
 
     &:hover {

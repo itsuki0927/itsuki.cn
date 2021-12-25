@@ -1,8 +1,7 @@
 @import 'styles/variables';
 
 .sidebar {
-  width: 350px;
-  margin-left: $spacing-lg;
+  width: 320px;
 }
 
 .tag {
@@ -13,8 +12,8 @@
   border-radius: $border-radius;
 
   .btn {
-    margin-top: $spacing;
-    margin-right: $spacing;
+    margin-top: $spacing-md;
+    margin-right: $spacing-md;
   }
 }
 

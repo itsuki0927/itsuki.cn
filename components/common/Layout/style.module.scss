@@ -12,9 +12,10 @@
   margin-top: $header-height + $spacing-lg;
   width: $container-width;
   position: relative;
+  gap: $spacing-lg;
 }
 
 .mainContent {
   flex: 1;
-  max-width: 826px;
+  max-width: 856px;
 }

@@ -11,12 +11,14 @@ export const getIconValue = (expand: string) => getExpandValue(expand, 'icon');
 interface ArticleTagProps extends ButtonProps {
   tag: TagType;
 }
+
 const ArticleTag = ({ tag, ...rest }: ArticleTagProps) => (
   <IconButton
     type='ghost'
     size='small'
     icon={tag.expand && <Icon name={getIconValue(tag.expand)} />}
     onClick={() => router.push(getTagUrl(tag.path))}
+    style={{ marginRight: 8 }}
     {...rest}
   >
     {tag.name}

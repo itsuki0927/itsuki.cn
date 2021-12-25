@@ -54,6 +54,8 @@
 
   .commentContent {
     margin: $spacing-ssm 0;
+    max-height: 600px;
+    overflow-y: scroll;
   }
 
   .reply {

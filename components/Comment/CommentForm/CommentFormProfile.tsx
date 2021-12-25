@@ -3,6 +3,7 @@ import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment
 import { CheckOutlined, ClearOutlined, EditOutlined } from '@/components/icons';
 import { IconButton, Input } from '@/components/ui';
 import { useLocalStorage, useMount } from '@/hooks';
+import { NoReturnFunction } from '@/types/fn';
 import styles from './style.module.scss';
 
 export type CommentProfileType = {
@@ -12,7 +13,7 @@ export type CommentProfileType = {
 };
 
 interface CommentProfileProps {
-  onChange: (value: CommentProfileType) => void;
+  onChange: NoReturnFunction<CommentProfileType>;
   value: CommentProfileType;
 }
 
@@ -68,14 +69,12 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
             onChange={handleInput}
             value={value.email}
             placeholder='邮箱'
-            style={{ margin: '0 12px' }}
           />
           <Input
             name='website'
             onChange={handleInput}
             value={value.website}
             placeholder='网址'
-            style={{ marginRight: 12 }}
           />
           <IconButton type='ghost' icon={<CheckOutlined />} onClick={handleSave}>
             保存

@@ -22,20 +22,24 @@ $text-disabled: $gray-4;
 
 .toolbar {
   border-bottom: 1px solid $border-color-split;
-  padding: $spacing-ssm $spacing-md;
+  padding: $spacing-ssm $spacing-sm;
   height: $toobar-height;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  .action.disabled {
-    background-color: $gray-3;
-    cursor: not-allowed;
+  .action {
+    border-radius: $border-radius;
 
-    .icon {
-      cursor: inherit;
-      color: inherit;
-      vertical-align: middle;
+    &.disabled {
+      background-color: $gray-3;
+      cursor: not-allowed;
+
+      .icon {
+        cursor: inherit;
+        color: inherit;
+        vertical-align: middle;
+      }
     }
   }
 
@@ -43,8 +47,7 @@ $text-disabled: $gray-4;
     border-radius: 2px;
 
     .btn {
-      width: 92px;
-      line-height: $font-size-sm;
+      width: 76px;
 
       &.active {
         background-color: $text-disabled;
@@ -58,7 +61,7 @@ $text-disabled: $gray-4;
 .markdown {
   position: relative;
 
-  .markdownContent {
+  .content {
     position: relative;
     overflow: hidden;
 

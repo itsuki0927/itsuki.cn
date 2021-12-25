@@ -1,8 +1,7 @@
-/* eslint-disable no-param-reassign */
 import React, { useCallback, useMemo, useState } from 'react';
-import { Card } from '@/components/ui';
-import markedToHtml from '@/utils/marked';
+import { Card, MarkdownBlock } from '@/components/ui';
 import { MarkdownEditorOptions } from '@/utils/editor';
+import markedToHtml from '@/utils/marked';
 import styles from './style.module.scss';
 import Toolbar from './Toolbar';
 import useEditor from './useEditor';
@@ -43,19 +42,17 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
     <Card bordered className={styles.markdown} bodyStyle={{ padding: 0 }}>
       {toolbarDom}
 
-      <div className={styles.markdownContent}>
+      <div className={styles.content}>
         <div
           className={`editor language-markdown ${styles.textarea}`}
           ref={editorRef as any}
         />
         {preview && (
-          <div
+          <MarkdownBlock
             className={`markdown-html ${styles.preview}`}
-            dangerouslySetInnerHTML={{
-              __html: markedToHtml(editorRef.current?.textContent || '', {
-                purify: true,
-              }),
-            }}
+            htmlContent={markedToHtml(editorRef.current?.textContent || '', {
+              purify: true,
+            })}
           />
         )}
       </div>

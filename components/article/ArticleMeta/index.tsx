@@ -30,7 +30,7 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => {
       <div className={styles.meta}>
         <span className={styles.label}>相关标签 : </span>
         {article.tags.map(item => (
-          <ArticleTag key={item.id} tag={item} />
+          <ArticleTag key={item.id} tag={item} style={{ marginRight: 4 }} />
         ))}
       </div>
 

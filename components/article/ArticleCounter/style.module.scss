@@ -4,6 +4,7 @@
 .count {
   display: flex;
   margin-bottom: $spacing-lg;
+  gap: $spacing-lg;
 
   .item {
     width: 33%;
@@ -18,10 +19,6 @@
       height: 40px;
       font-size: $font-size-24;
       line-height: 40px;
-    }
-
-    &:nth-child(2) {
-      margin: 0 $spacing-lg;
     }
 
     &.liking .icon {
@@ -41,7 +38,7 @@
 
     strong {
       color: $text-color;
-      font-size: $font-size-24;
+      font-size: $font-size-18;
       margin-right: $spacing-ssm;
     }
 

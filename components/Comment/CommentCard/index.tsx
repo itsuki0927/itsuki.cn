@@ -4,6 +4,7 @@ import { Button, IconButton, MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import useInLikeComments from '@/framework/local/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
+import { NoReturnFunction } from '@/types/fn';
 import getGravatarUrl from '@/utils/gravatar';
 import markedToHtml from '@/utils/marked';
 import scrollTo from '@/utils/scrollTo';
@@ -16,7 +17,7 @@ interface CommentCardCommonProps {
 }
 
 interface CommentCardProps extends CommentCardCommonProps {
-  onReply: (data: Comment) => void;
+  onReply: NoReturnFunction<Comment>;
 }
 
 const CommentCard = ({ comment, onReply }: CommentCardProps) => {
@@ -98,7 +99,9 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
               className={`${styles.action} ${styles.replyBtn}`}
               onClick={() => {
                 onReply(comment);
-                scrollTo('#commentForm', 200);
+                scrollTo(`#commentForm`, 200, {
+                  offset: 64,
+                });
               }}
             >
               回复

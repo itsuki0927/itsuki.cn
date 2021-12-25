@@ -3,6 +3,7 @@ import React, { PropsWithChildren, useState } from 'react';
 import { CloseOutlined, SendOutlined } from '@/components/icons';
 import { Button, Card, IconButton } from '@/components/ui';
 import { Comment } from '@/entities/comment';
+import { NoReturnFunction } from '@/types/fn';
 import getGravatarUrl from '@/utils/gravatar';
 import scrollTo from '@/utils/scrollTo';
 import CommentFormProfile from './CommentFormProfile';
@@ -36,7 +37,7 @@ const CommentFormAvatar = ({ email }: { email: string }) => (
 
 interface CommentFormEditorProps {
   code: string;
-  onChange: (code: string) => void;
+  onChange: NoReturnFunction<string>;
 }
 
 const CommentFormEditor = (props: CommentFormEditorProps) => (

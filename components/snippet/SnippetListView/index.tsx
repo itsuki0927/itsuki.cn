@@ -1,4 +1,5 @@
 import router from 'next/router';
+import { NextSeo } from 'next-seo';
 import React from 'react';
 import { SnippetList } from '@/components/snippet';
 import { Button } from '@/components/ui';
@@ -30,6 +31,7 @@ const SnippetListPage = ({
 
   return (
     <>
+      <NextSeo title={name} description={category.description} />
       <SnippetBanner {...category} expand={rootCategory.expand}>
         <SnippetBannerTitle name={name} />
       </SnippetBanner>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import { CheckOutlined, ClearOutlined, EditOutlined } from '@/components/icons';
 import { IconButton, Input } from '@/components/ui';
-import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import { useLocalStorage, useMount } from '@/hooks';
 import styles from './style.module.scss';
 
@@ -30,10 +30,10 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
     }
   });
 
-  const handleInput = (e: any) => {
+  const handleInput = (inputValue: any, e: any) => {
     const emitValue = {
       ...value,
-      [e.target.name]: e.target.value,
+      [e.target.name]: inputValue,
     };
     onChange(emitValue);
   };
@@ -59,25 +59,24 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
         <div className={styles.edit}>
           <Input
             name='nickname'
-            onChange={e => handleInput(e)}
+            onChange={handleInput}
             value={value.nickname}
             placeholder='昵称'
           />
           <Input
             name='email'
-            onChange={e => handleInput(e)}
+            onChange={handleInput}
             value={value.email}
             placeholder='邮箱'
             style={{ margin: '0 12px' }}
           />
           <Input
             name='website'
-            onChange={e => handleInput(e)}
+            onChange={handleInput}
             value={value.website}
             placeholder='网址'
             style={{ marginRight: 12 }}
           />
-
           <IconButton type='ghost' icon={<CheckOutlined />} onClick={handleSave}>
             保存
           </IconButton>

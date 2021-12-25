@@ -71,13 +71,10 @@
       background-color: $gray-4;
     }
 
-    strong {
+    .btn {
       transition: color 0.2s;
       cursor: pointer;
-
-      &:hover {
-        color: $gray-8;
-      }
+      color: inherit;
     }
   }
 

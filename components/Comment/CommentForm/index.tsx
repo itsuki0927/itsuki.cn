@@ -1,13 +1,16 @@
 import dynamic from 'next/dynamic';
 import React, { PropsWithChildren, useState } from 'react';
 import { CloseOutlined, SendOutlined } from '@/components/icons';
-import { Card, IconButton } from '@/components/ui';
+import { Button, Card, IconButton } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import getGravatarUrl from '@/utils/gravatar';
+import scrollTo from '@/utils/scrollTo';
 import CommentFormProfile from './CommentFormProfile';
 import styles from './style.module.scss';
+import { buildCommentDomId } from '../CommentCard';
 
 export * from './CommentFormProfile';
+
 export {
   CommentFormProfile,
   CommentFormContent,
@@ -81,7 +84,18 @@ const CommentFormReply = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
     <div className={styles.reply}>
       <p className={styles.nickname}>
         回复:
-        <strong>{` #${reply.nickname}`}</strong>
+        <Button
+          type='text'
+          size='small'
+          className={styles.btn}
+          onClick={() => {
+            scrollTo(`#${buildCommentDomId(reply.id)}`, 400, {
+              offset: -64,
+            });
+          }}
+        >
+          {` #${reply.nickname}`}
+        </Button>
         <CloseOutlined className={styles.close} onClick={onCloseReply} />
       </p>
     </div>
@@ -92,7 +106,9 @@ const CommentFormContent = ({ children }: PropsWithChildren<Record<string, any>>
 );
 
 const CommentForm = ({ children }: PropsWithChildren<Record<string, any>>) => (
-  <div className={styles.form}>{children}</div>
+  <div id='commentForm' className={styles.form}>
+    {children}
+  </div>
 );
 
 export default CommentForm;

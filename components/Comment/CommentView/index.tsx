@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Card, Empty } from '@/components/ui';
 import { initialCommentProfile } from '@/constants/comment';
 import { Comment } from '@/entities/comment';
@@ -24,10 +24,24 @@ type CommentProps = {
 
 const CommentList = ({ articleId }: CommentProps) => {
   const { data: comments, isEmpty, isLoading } = useComment({ articleId });
+  const postComment = usePostComment({ articleId });
   const [reply, setReply] = useState<Comment>();
   const [profile, setProfile] = useState<CommentProfileType>(initialCommentProfile);
   const [content, setContent] = useState('');
-  const postComment = usePostComment({ articleId });
+
+  const commentListDom = useMemo(
+    () =>
+      isEmpty || !comments ? (
+        <Empty />
+      ) : (
+        <Card className={styles.comment}>
+          {comments.map(item => (
+            <CommentCard comment={item} key={item.id} onReply={setReply} />
+          ))}
+        </Card>
+      ),
+    [isEmpty, comments]
+  );
 
   const handleSend = async () => {
     if (!content) {
@@ -66,15 +80,7 @@ const CommentList = ({ articleId }: CommentProps) => {
 
   return (
     <>
-      {isEmpty || !comments ? (
-        <Empty />
-      ) : (
-        <Card className={styles.comment}>
-          {comments.map(item => (
-            <CommentCard comment={item} key={item.id} onReply={setReply} />
-          ))}
-        </Card>
-      )}
+      {commentListDom}
 
       <CommentForm onSend={handleSend}>
         <CommentFormAvatar email={profile.email} />

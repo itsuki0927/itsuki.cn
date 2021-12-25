@@ -9,7 +9,7 @@ import markedToHtml from '@/utils/marked';
 import scrollTo from '@/utils/scrollTo';
 import styles from './style.module.scss';
 
-const buildCommentDomId = (id: number) => `comment-${id}`;
+export const buildCommentDomId = (id: number) => `comment-${id}`;
 
 interface CommentCardCommonProps {
   comment: Comment;
@@ -98,6 +98,7 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
               className={`${styles.action} ${styles.replyBtn}`}
               onClick={() => {
                 onReply(comment);
+                scrollTo('#commentForm', 200);
               }}
             >
               回复

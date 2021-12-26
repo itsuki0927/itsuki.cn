@@ -13,9 +13,7 @@ const BackTop = () => {
         onClick={backToTop}
         type='ghost'
         style={{ background: '#fff' }}
-      >
-        回到顶部
-      </IconButton>
+      />
     </div>
   );
 };

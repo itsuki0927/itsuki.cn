@@ -8,7 +8,12 @@ export interface IconButtonProps extends ButtonProps {
   icon?: ReactNode;
 }
 const IconButton = ({ icon, children, className, ...rest }: IconButtonProps) => {
-  const classString = classNames(styles.iconBtn, className);
+  const classString = classNames(
+    {
+      [styles.hasChildren]: !!children,
+    },
+    className
+  );
 
   return (
     <Button {...rest} className={classString}>

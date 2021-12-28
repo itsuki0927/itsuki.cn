@@ -2,17 +2,16 @@ import classNames from 'classnames';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { ArticleArchiveMap, ArticleArchiveResponse } from '@/entities/article';
-import { Card } from '../ui';
 import styles from './style.module.scss';
+
+const getDay = (dateString: string) => `${dateString.slice(-2)}号`;
 
 const ArticleList = ({ articles }: ArticleArchiveMap) => (
   <ul className={styles.articleList}>
     {articles.map(article => (
-      <li className={styles.article}>
+      <li className={styles.article} key={article.id}>
         <p className={styles.title}>
-          <span className={styles.date}>{`${Number(
-            article.createAtString.slice(-2)
-          )} 号`}</span>
+          <span className={styles.date}>{getDay(article.createAtString)}</span>
           <Link href={`/article/${article.id}`}>
             <span className={styles.link}>{article.title}</span>
           </Link>
@@ -26,9 +25,9 @@ const ArticleList = ({ articles }: ArticleArchiveMap) => (
 const MonthList = ({ months }: { months: ArticleArchiveMap }) => (
   <>
     {Object.entries(months).map(([month, articles]) => (
-      <ul className={styles.monthList}>
+      <ul className={styles.monthList} key={month}>
         <li key={month} className={styles.month}>
-          <h5 className={styles.title}>{month}</h5>
+          <h3 className={`${styles.title} ${styles.month}`}>{month}</h3>
           <ArticleList articles={articles} />
         </li>
       </ul>
@@ -41,19 +40,21 @@ interface ArchivePageProps {
 }
 
 const ArchiveView = ({ archives }: ArchivePageProps) => (
-  <Card className={styles.archive}>
+  <div className={styles.archive}>
     <NextSeo title='归档' />
     <ul className={styles.yearList}>
-      {Object.entries(archives).map(([year, months]) => (
-        <li key={year} className={styles.year}>
-          <h4 className={classNames(styles.title, styles.root)} style={{ marginTop: 0 }}>
-            <span>{year}</span>
-          </h4>
-          <MonthList months={months} />
-        </li>
-      ))}
+      {Object.entries(archives)
+        .reverse()
+        .map(([year, months]) => (
+          <li key={year} className={styles.year}>
+            <h2 className={classNames(styles.title, styles.root)}>
+              <span>{year}</span>
+            </h2>
+            <MonthList months={months} />
+          </li>
+        ))}
     </ul>
-  </Card>
+  </div>
 );
 
 export default ArchiveView;

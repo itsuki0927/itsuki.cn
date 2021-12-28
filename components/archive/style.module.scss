@@ -6,22 +6,29 @@
     list-style: none;
   }
 
+  .year {
+    background-color: $component-background;
+    padding: $spacing;
+    margin-bottom: $spacing-lg;
+  }
+
   .title {
+    font-size: $font-size-lg;
+
+    &.month {
+      font-size: $font-size-20;
+    }
+
     &.root {
       font-weight: 700;
       margin-bottom: $spacing-32;
-      font-size: $font-size-20;
+      font-size: $font-size-30;
+      margin-top: 0;
     }
   }
 
   .monthList {
     list-style: square;
-  }
-
-  .year {
-    .title.root span {
-      border-bottom: 1px solid;
-    }
   }
 
   .articleList {
@@ -40,8 +47,7 @@
     .date {
       display: inline-block;
       color: $text-color-third;
-      width: 36px;
-      font-size: $font-size-sm;
+      font-size: $font-size-lg;
       margin-right: $spacing-md;
     }
 
@@ -62,7 +68,7 @@
     .description {
       margin-bottom: 0;
       color: $text-color-secondary;
-      font-size: $font-size-sm;
+      font-size: $font-size;
       padding-left: 48px;
     }
 

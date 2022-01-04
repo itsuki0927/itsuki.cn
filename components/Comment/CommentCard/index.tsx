@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import { HeartFilled, HeartOutlined, Icon } from '@/components/icons';
 import { Button, IconButton, MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
-import useInLikeComments from '@/framework/local/comment/use-in-like-comment';
 import useLikeComment from '@/framework/local/comment/use-like-comment';
 import { NoReturnFunction } from '@/types/fn';
 import getGravatarUrl from '@/utils/gravatar';
@@ -23,10 +22,9 @@ interface CommentCardProps extends CommentCardCommonProps {
 const CommentCard = ({ comment, onReply }: CommentCardProps) => {
   const contentHtml = markedToHtml(comment.content, { purify: true });
   const likeComment = useLikeComment({ articleId: comment.articleId });
-  const isLiked = useInLikeComments(comment.id);
 
   const handleLikeComment = () => {
-    if (isLiked) return;
+    if (comment.isLike) return;
     likeComment({ commentId: comment.id });
   };
 
@@ -84,10 +82,10 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
             <IconButton
               size='small'
               type='ghost'
-              icon={isLiked ? <HeartFilled /> : <HeartOutlined />}
+              icon={comment.isLike ? <HeartFilled /> : <HeartOutlined />}
               onClick={handleLikeComment}
               className={classNames(styles.action, {
-                [styles.liked]: isLiked,
+                [styles.liked]: comment.isLike,
               })}
             >
               {comment.liking}人点赞
@@ -99,9 +97,9 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
               className={`${styles.action} ${styles.replyBtn}`}
               onClick={() => {
                 onReply(comment);
-                scrollTo(`#commentForm`, 200, {
-                  offset: 64,
-                });
+                // scrollTo(`#commentForm`, 200, {
+                //   offset: 64,
+                // });
               }}
             >
               回复

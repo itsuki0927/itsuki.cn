@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { GetCommentHook } from '@/entities/comment';
 import useComment, { UseComment } from '@/framework/blog/comment/use-comment';
 import { SWRHook } from '@/framework/blog/utils/types';
+import { initialLikeValue, LikeComments, LikeCommentsKey } from '@/constants/like';
+import { useLocalStorage } from '@/hooks';
 
 export default useComment as UseComment<typeof handler>;
 
@@ -28,17 +30,21 @@ export const handler: SWRHook<GetCommentHook> = {
         input: [['articleId', input.articleId]],
         swrOptions: { revalidateOnFocus: false, ...input?.swrOptions },
       });
+      const [likeArticles] = useLocalStorage<LikeComments>(
+        LikeCommentsKey,
+        initialLikeValue
+      );
+
       return useMemo(
-        () =>
-          Object.create(response, {
-            isEmpty: {
-              get() {
-                return (response.data?.length ?? 0) <= 0;
-              },
-              enumerable: true,
-            },
-          }),
-        [response]
+        () => ({
+          ...response,
+          isEmpty: (response.data?.length ?? 0) <= 0,
+          data: response.data?.map(item => ({
+            ...item,
+            isLike: !!likeArticles[item.id],
+          })),
+        }),
+        [response, likeArticles]
       );
     },
 };

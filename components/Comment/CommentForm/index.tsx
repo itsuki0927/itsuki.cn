@@ -1,86 +1,28 @@
 import dynamic from 'next/dynamic';
-import React, { PropsWithChildren, useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { CloseOutlined, SendOutlined } from '@/components/icons';
-import { Button, Card, IconButton } from '@/components/ui';
-import { Comment } from '@/entities/comment';
-import { NoReturnFunction } from '@/types/fn';
+import { Button, IconButton } from '@/components/ui';
 import getGravatarUrl from '@/utils/gravatar';
 import scrollTo from '@/utils/scrollTo';
-import CommentFormProfile from './CommentFormProfile';
+import CommentProfile, { CommentProfileType } from './CommentProfile';
 import styles from './style.module.scss';
 import { buildCommentDomId } from '../CommentCard';
-
-export * from './CommentFormProfile';
-
-export {
-  CommentFormProfile,
-  CommentFormContent,
-  CommentFormAvatar,
-  CommentFormSubmit,
-  CommentFormEditor,
-  CommentFormReply,
-};
+import { initialCommentProfile } from '@/constants/comment';
+import { Comment } from '@/entities/comment';
+import usePostComment from '@/framework/local/comment/use-post-comment';
+import purifyDomString from '@/utils/purify';
+import { EmptyFunction, NoReturnFunction } from '@/types/fn';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
 });
 
-const CommentFormAvatar = ({ email }: { email: string }) => (
-  <img
-    className={styles.avatar}
-    src={getGravatarUrl(email)}
-    width={80}
-    height={80}
-    alt='cover'
-  />
-);
-
-interface CommentFormEditorProps {
-  code: string;
-  onChange: NoReturnFunction<string>;
-}
-
-const CommentFormEditor = (props: CommentFormEditorProps) => (
-  <Card className={styles.markdown} bordered={false} bodyStyle={{ padding: 0 }}>
-    <DynamicMarkdown {...props} />
-  </Card>
-);
-
-interface CommentFormSubmitProps {
-  onSend: () => Promise<boolean>;
-}
-
-const CommentFormSubmit = ({ onSend }: CommentFormSubmitProps) => {
-  const [loading, setLoading] = useState(false);
-
-  const handleSend = async () => {
-    setLoading(true);
-    onSend().then(() => {
-      setLoading(false);
-    });
-  };
-
-  return (
-    <div className={styles.actionBar}>
-      <IconButton
-        type='primary'
-        className={styles.send}
-        icon={<SendOutlined />}
-        disabled={loading}
-        onClick={handleSend}
-      >
-        {loading ? '发射中...' : '发射'}
-      </IconButton>
-    </div>
-  );
-};
-
 interface ReplyPlaceholderProps {
   reply?: Comment;
-  onCloseReply: () => void;
+  onCloseReply: EmptyFunction;
 }
 
-const CommentFormReply = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
+const CommentReply = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
   reply ? (
     <div className={styles.reply}>
       <p className={styles.nickname}>
@@ -102,14 +44,91 @@ const CommentFormReply = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
     </div>
   ) : null;
 
-const CommentFormContent = ({ children }: PropsWithChildren<Record<string, any>>) => (
-  <div className={styles.wrapper}>{children}</div>
-);
+interface CommentFormProps {
+  articleId: number;
+}
 
-const CommentForm = ({ children }: PropsWithChildren<Record<string, any>>) => (
-  <div id='commentForm' className={styles.form}>
-    {children}
-  </div>
-);
+export interface CommentFormRef {
+  clearReply: EmptyFunction;
+  setReply: NoReturnFunction<Comment>;
+}
+
+const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId }, ref) => {
+  const postComment = usePostComment({ articleId });
+  const [loading, setLoading] = useState(false);
+  const [reply, setReply] = useState<Comment>();
+  const [profile, setProfile] = useState<CommentProfileType>(initialCommentProfile);
+  const [content, setContent] = useState('');
+
+  useImperativeHandle(ref, () => ({
+    clearReply: () => setReply(undefined),
+    setReply: (replyParams: Comment) => setReply(replyParams),
+  }));
+
+  const handleSend = async () => {
+    if (!content) {
+      alert('请输入评论内容');
+      return Promise.resolve(false);
+    }
+    try {
+      setLoading(true);
+      await postComment({
+        ...profile,
+        content: purifyDomString(content),
+        articleId,
+        agent: navigator.userAgent,
+        parentId: reply?.id,
+      });
+      setReply(undefined);
+      setContent('');
+      setLoading(false);
+      return true;
+    } catch (error: any) {
+      const [{ message }] = error.errors;
+      alert(`评论发布失败: ${message}\n`);
+      // alert(
+      //   `评论发布失败\n
+      //  1：检查邮箱是否符合格式\n
+      //  2：被 Akismet 过滤\n
+      //  3：邮箱/IP 被列入黑名单\n
+      //  4：内容包含黑名单关键词\n
+      //   `
+      // );
+      return false;
+    }
+  };
+
+  return (
+    <div id='commentForm' className={styles.form}>
+      <img
+        className={styles.avatar}
+        src={getGravatarUrl(profile.email)}
+        width={80}
+        height={80}
+        alt='cover'
+      />
+      <div className={styles.wrapper}>
+        <CommentReply reply={reply} onCloseReply={() => setReply(undefined)} />
+        <CommentProfile value={profile} onChange={setProfile} />
+
+        <div className={styles.markdown}>
+          <DynamicMarkdown code={content} onChange={setContent} />
+        </div>
+
+        <div className={styles.actionBar}>
+          <IconButton
+            type='primary'
+            className={styles.send}
+            icon={<SendOutlined />}
+            disabled={loading}
+            onClick={handleSend}
+          >
+            {loading ? '发射中...' : '发射'}
+          </IconButton>
+        </div>
+      </div>
+    </div>
+  );
+});
 
 export default CommentForm;

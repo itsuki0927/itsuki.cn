@@ -1,5 +1,12 @@
 @import 'styles/variables';
 
+.content {
+  padding: $spacing;
+  background-color: $component-background;
+  border-radius: $border-radius;
+  margin-bottom: $spacing-lg;
+}
+
 .title {
   text-align: center;
 
@@ -8,8 +15,12 @@
     left: 0;
     top: 0;
     color: $white;
-    padding: $spacing-sm $spacing-lg;
+    padding: $spacing-ssm $spacing;
     font-size: $font-size-base;
     opacity: 0.7;
+
+    .text {
+      margin-left: $spacing-ssm;
+    }
   }
 }

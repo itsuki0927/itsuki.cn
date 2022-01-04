@@ -20,7 +20,7 @@ const ArticleContent = ({ article }: ArticleContentProps) => {
         </span>
       </div>
 
-      <MarkdownBlock className='markdown-html' htmlContent={article.content} />
+      <MarkdownBlock htmlContent={article.content} />
     </Card>
   );
 };

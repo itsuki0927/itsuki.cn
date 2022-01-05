@@ -5,47 +5,59 @@
   display: flex;
   margin-bottom: $spacing-lg;
   gap: $spacing-lg;
+}
 
-  .item {
-    width: 33%;
-    font-size: $font-size-24;
-    background-color: $white;
-    padding: $spacing;
-    border-radius: $border-radius;
+.name {
+  margin-left: $spacing;
+  font-size: $font-size-sm;
+  color: $text-color-secondary;
+}
+
+.text {
+  color: $text-color;
+  font-size: $font-size-18;
+  margin-right: $spacing-ssm;
+}
+
+.icon {
+  border-radius: 2px;
+  width: 40px;
+  height: 40px;
+  font-size: $font-size-24;
+  line-height: 40px;
+}
+
+.item {
+  width: 33%;
+  font-size: $font-size-24;
+  background-color: $white;
+  padding: $spacing;
+  border-radius: $border-radius;
+
+  &.liking {
+    cursor: pointer;
 
     .icon {
-      border-radius: 2px;
-      width: 40px;
-      height: 40px;
-      font-size: $font-size-24;
-      line-height: 40px;
-    }
-
-    &.liking .icon {
       background-color: $red-1;
       color: $red-5;
     }
 
-    &.commenting .icon {
-      background-color: $green-2;
-      color: $green-5;
-    }
+    &.liked {
+      cursor: default;
 
-    &.reading .icon {
-      background-color: $blue-1;
-      color: $blue-5;
+      .text {
+        color: $red-5;
+      }
     }
+  }
 
-    strong {
-      color: $text-color;
-      font-size: $font-size-18;
-      margin-right: $spacing-ssm;
-    }
+  &.commenting .icon {
+    background-color: $green-2;
+    color: $green-5;
+  }
 
-    .name {
-      margin-left: $spacing;
-      font-size: $font-size-sm;
-      color: $text-color-secondary;
-    }
+  &.reading .icon {
+    background-color: $blue-1;
+    color: $blue-5;
   }
 }

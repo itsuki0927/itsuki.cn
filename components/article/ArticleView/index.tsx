@@ -12,7 +12,7 @@ interface ArticleViewProps {
 }
 
 const ArticleView = ({ article }: ArticleViewProps) => (
-  <div>
+  <>
     <NextSeo
       title={article.title}
       description={article.description}
@@ -43,7 +43,7 @@ const ArticleView = ({ article }: ArticleViewProps) => (
     <ArticleCounter article={article} />
 
     <CommentView articleId={article.id} />
-  </div>
+  </>
 );
 
 export default ArticleView;

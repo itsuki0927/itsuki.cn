@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useCallback } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { Card, Empty } from '@/components/ui';
 import useComment from '@/framework/local/comment/use-comment';
 import { Comment } from '@/entities/comment';
@@ -15,12 +15,9 @@ const CommentList = ({ articleId }: CommentProps) => {
   const { data: comments, isEmpty, isLoading } = useComment({ articleId });
   const commentRef = useRef<CommentFormRef>(null);
 
-  const handleReply = useCallback(
-    () => (reply: Comment) => {
-      commentRef.current?.setReply(reply);
-    },
-    []
-  );
+  const handleReply = (reply: Comment) => {
+    commentRef.current?.setReply(reply);
+  };
 
   const commentListDom = useMemo(
     () =>
@@ -33,7 +30,7 @@ const CommentList = ({ articleId }: CommentProps) => {
           ))}
         </Card>
       ),
-    [isEmpty, comments, handleReply]
+    [isEmpty, comments]
   );
 
   if (isLoading || !comments) {

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
+import { initialCommentProfile } from '@/constants/comment';
 import { CheckOutlined, ClearOutlined, EditOutlined } from '@/components/icons';
 import { IconButton, Input } from '@/components/ui';
-import { useLocalStorage, useMount } from '@/hooks';
+import { useMount } from '@/hooks';
 import { NoReturnFunction } from '@/types/fn';
 import styles from './style.module.scss';
 
@@ -19,14 +19,9 @@ interface CommentProfileProps {
 
 const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
   const [actionVisible, setActionVisible] = useState(false);
-  const [storageValue, setStorageValue] = useLocalStorage(
-    USER_COMMENT_PROFILE,
-    initialCommentProfile
-  );
 
   useMount(() => {
-    if (storageValue !== value && Object.values(storageValue).every(Boolean)) {
-      onChange(storageValue);
+    if (Object.values(value).every(Boolean)) {
       setActionVisible(true);
     }
   });
@@ -45,13 +40,11 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
       return;
     }
     setActionVisible(true);
-    setStorageValue(value);
   };
 
   const handleClear = () => {
     setActionVisible(false);
     onChange(initialCommentProfile);
-    setStorageValue(initialCommentProfile);
   };
 
   return (

@@ -4,13 +4,14 @@ import { CloseOutlined, SendOutlined } from '@/components/icons';
 import { Button, IconButton } from '@/components/ui';
 import getGravatarUrl from '@/utils/gravatar';
 import scrollTo from '@/utils/scrollTo';
-import CommentProfile, { CommentProfileType } from './CommentProfile';
+import CommentProfile from './CommentProfile';
 import styles from './style.module.scss';
 import { buildCommentDomId } from '../CommentCard';
-import { initialCommentProfile } from '@/constants/comment';
+import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import { Comment } from '@/entities/comment';
 import usePostComment from '@/framework/local/comment/use-post-comment';
 import purifyDomString from '@/utils/purify';
+import { useLocalStorage } from '@/hooks';
 import { EmptyFunction, NoReturnFunction } from '@/types/fn';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
@@ -57,7 +58,10 @@ const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId },
   const postComment = usePostComment({ articleId });
   const [loading, setLoading] = useState(false);
   const [reply, setReply] = useState<Comment>();
-  const [profile, setProfile] = useState<CommentProfileType>(initialCommentProfile);
+  const [profile, setProfile] = useLocalStorage(
+    USER_COMMENT_PROFILE,
+    initialCommentProfile
+  );
   const [content, setContent] = useState('');
 
   useImperativeHandle(ref, () => ({
@@ -68,7 +72,7 @@ const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId },
   const handleSend = async () => {
     if (!content) {
       alert('请输入评论内容');
-      return Promise.resolve(false);
+      return false;
     }
     try {
       setLoading(true);
@@ -99,7 +103,7 @@ const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId },
   };
 
   return (
-    <div id='commentForm' className={styles.form}>
+    <div id='commentForm' className={styles.commentForm}>
       <img
         className={styles.avatar}
         src={getGravatarUrl(profile.email)}
@@ -107,13 +111,11 @@ const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId },
         height={80}
         alt='cover'
       />
-      <div className={styles.wrapper}>
+      <div className={styles.content}>
         <CommentReply reply={reply} onCloseReply={() => setReply(undefined)} />
         <CommentProfile value={profile} onChange={setProfile} />
 
-        <div className={styles.markdown}>
-          <DynamicMarkdown code={content} onChange={setContent} />
-        </div>
+        <DynamicMarkdown code={content} onChange={setContent} />
 
         <div className={styles.actionBar}>
           <IconButton

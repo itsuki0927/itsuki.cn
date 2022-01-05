@@ -1,8 +1,14 @@
+@import 'styles/variables';
+
 .commentSkeleton {
+  padding: $spacing;
+  background-color: $component-background;
+
   .item {
-    margin-bottom: 12px;
-    &:last-child {
-      margin-bottom: 0;
+    margin-top: $spacing-md;
+
+    &:first-child {
+      margin-top: 0;
     }
   }
 }

@@ -1,7 +1,7 @@
 @import 'styles/variables';
 
 .commentProfile {
-  margin-bottom: $spacing;
+  margin-bottom: $spacing-md;
 
   .edit {
     display: flex;
@@ -13,7 +13,7 @@
     margin-bottom: 0;
 
     > span {
-      margin-right: $spacing;
+      margin-right: $spacing-md;
       font-size: $font-size-lg;
       font-weight: bold;
       vertical-align: middle;
@@ -21,26 +21,26 @@
   }
 }
 
-.form {
+.commentForm {
   display: flex;
   margin-top: $spacing-lg;
   background-color: $white;
   padding: $spacing;
 }
 
-.wrapper {
+.content {
   flex: 1;
-  margin-left: $spacing;
+  margin-left: $spacing-md;
 }
 
 .avatar {
   border: 4px solid #e6e6e6;
   border-radius: $border-radius;
-  margin-top: 48px;
+  margin-top: 44px;
 }
 
 .actionBar {
-  margin-top: $spacing;
+  margin-top: $spacing-md;
   display: flex;
   justify-content: space-between;
 
@@ -50,14 +50,8 @@
   }
 }
 
-.info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: $spacing-md;
-}
-
 .reply {
-  margin-bottom: $spacing;
+  margin-bottom: $spacing-md;
 
   .nickname {
     padding: $spacing-ssm $spacing-md;

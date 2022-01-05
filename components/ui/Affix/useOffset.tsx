@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useEventListener } from '@/hooks';
+import { useCallback, useState } from 'react';
+import { useEventListener, useMount } from '@/hooks';
 import getOffset, { Offset } from '@/utils/query/getOffset';
 
 /**
@@ -16,7 +16,7 @@ const useOffset = (mountRef: React.RefObject<HTMLDivElement>) => {
 
   useEventListener(window, 'resize', updateOffset);
 
-  useEffect(updateOffset, [updateOffset]);
+  useMount(updateOffset);
 
   return offset;
 };

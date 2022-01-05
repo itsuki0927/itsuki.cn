@@ -16,4 +16,5 @@ const useContainerOffset = (container?: HTMLElement | (() => HTMLElement)) => {
 
   return offset;
 };
+
 export default useContainerOffset;

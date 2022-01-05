@@ -16,6 +16,14 @@ $primary-hover-color: $blue-5;
     }
   }
 
+  code {
+    color: #e06c75;
+    padding: $spacing-ssm $spacing-sm;
+    margin: 0 $spacing-ssm;
+    border-radius: $border-radius;
+    background-color: $gray-3;
+  }
+
   a {
     margin: 0 0.1em;
     border-bottom: 1px solid transparent;

@@ -63,5 +63,7 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': OFF,
     'jsx-a11y/click-events-have-key-events': OFF,
     'react/no-unescaped-entities': OFF,
+    // 允许 使用any
+    '@typescript-eslint/no-explicit-any': OFF,
   },
 };

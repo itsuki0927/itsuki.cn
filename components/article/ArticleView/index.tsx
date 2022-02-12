@@ -1,4 +1,4 @@
-import { BlogJsonLd, NextSeo } from 'next-seo';
+import { ArticleJsonLd, NextSeo } from 'next-seo';
 import { CommentView } from '@/components/comment';
 import { ImagePopup } from '@/components/ui';
 import { Article } from '@/entities/article';
@@ -18,7 +18,7 @@ const ArticleView = ({ article }: ArticleViewProps) => (
       description={article.description}
       additionalMetaTags={[{ name: 'keywords', content: article.keywords }]}
     />
-    <BlogJsonLd
+    <ArticleJsonLd
       url={getArticleDetailFullUrl(article.id)}
       title={article.title}
       images={[article.cover]}

@@ -23,8 +23,8 @@ export const RESOURCE_URL = `https://${RESOURCE_HOST}`;
 export const META = {
   title: 'Itsuki Blog | 五木',
   keywords:
-    'Itsuki 博客, Itsuki Blog,五木,React,Next.js 博客,前端技术博客,JavaScript 技术',
-  description: 'Itsuki Blog - 心之所向,行之所往 - https://itsuki.cn',
+    'Itsuki 博客, Itsuki Blog, 五木, React, Next.js 博客,前端技术博客, JavaScript 技术',
+  description: 'Itsuki Blog - 五木 博客 - 心之所向,行之所往 - https://itsuki.cn',
   url: 'itsuki.cn',
   author: 'itsuki',
 };

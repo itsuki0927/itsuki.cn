@@ -21,11 +21,10 @@ const articlesEndpoint: GetAPISchema<
   try {
     if (req.method === 'GET') {
       const body = req.query;
-      return await handlers.getArticles({ ...ctx, body });
-    }
-    if (req.method === 'PATCH') {
+      handlers.getArticles({ ...ctx, body });
+    } else if (req.method === 'PATCH') {
       const { body } = req;
-      return await handlers.likeArticle({ ...ctx, body });
+      handlers.likeArticle({ ...ctx, body });
     }
   } catch (error) {
     const message =

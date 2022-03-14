@@ -7,7 +7,7 @@ const getSnippets: SnippetsEndpoint['handlers']['getSnippets'] = async ({
 }) => {
   const snippets = await blog.getAllSnippets({ variables: body });
 
-  return res.status(200).json({
+  res.status(200).json({
     data: {
       snippets,
       found: !!snippets.total,

@@ -7,7 +7,7 @@ const getArticles: ArticlesEndpoint['handlers']['getArticles'] = async ({
 }) => {
   const data = await blog.getAllArticles({ variables: body });
 
-  return res.status(200).json({
+  res.status(200).json({
     data: {
       articles: data,
       found: !!data.total,

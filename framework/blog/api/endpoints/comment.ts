@@ -22,17 +22,13 @@ const commentEndpoints: GetAPISchema<
   try {
     if (req.method === 'GET') {
       const body = req.query as unknown as SearchCommentsBody;
-      return await handlers.getComment({ ...ctx, body });
-    }
-
-    if (req.method === 'POST') {
+      handlers.getComment({ ...ctx, body });
+    } else if (req.method === 'POST') {
       const { body } = req;
-      return await handlers.postComment({ ...ctx, body });
-    }
-
-    if (req.method === 'PATCH') {
+      handlers.postComment({ ...ctx, body });
+    } else if (req.method === 'PATCH') {
       const { body } = req;
-      return await handlers.likeComment({ ...ctx, body });
+      handlers.likeComment({ ...ctx, body });
     }
   } catch (error) {
     const message =

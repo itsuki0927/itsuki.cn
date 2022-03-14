@@ -20,7 +20,7 @@ const snippetEndpoints: GetAPISchema<
   try {
     if (req.method === 'GET') {
       const body = req.query as unknown as SearchSnippetsBody;
-      return await handlers.getSnippets({ ...ctx, body });
+      handlers.getSnippets({ ...ctx, body });
     }
   } catch (error) {
     const message =

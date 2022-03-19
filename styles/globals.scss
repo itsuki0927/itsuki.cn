@@ -1,6 +1,10 @@
 @import './variables';
 @import './font';
 
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 html,
 body {
   padding: 0;
@@ -8,7 +12,6 @@ body {
   font-family: Inter, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   color: $text-color;
-  font-size: $font-size;
   background-color: $app-background;
   line-height: $line-height-base;
 }

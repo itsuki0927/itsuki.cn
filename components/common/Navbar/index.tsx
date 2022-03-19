@@ -1,61 +1,50 @@
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { Logo, Search as NavbarSearch } from '@/components/common';
 import { ActiveLink } from '@/components/ui';
 import { Category } from '@/entities/category';
 import { getCategoryUrl } from '@/utils/url';
-import styles from './style.module.scss';
+import shank from '@/utils/shank';
 
 interface NavbarProps {
   links?: Category[];
   search?: boolean;
 }
+
+const NavbarItem: FC<{ href: string }> = ({ href, children }) => (
+  <ActiveLink activeClassName='after:border-t-sky-500 text-primary' href={href}>
+    <li className='h-16 px-3 transition-colors relative text-center cursor-pointer after:content-[""] after:absolute after:right-3 after:bottom-0 after:left-3 after:border-transparent after:border-t-2 hover:text-primary'>
+      <span className='leading-16'>{children}</span>
+    </li>
+  </ActiveLink>
+);
+
+const DEFAULT_NAV_LIST = [
+  { path: '/', name: '首页' },
+  { path: '/snippet', name: '片段' },
+  { path: '/archive', name: '归档' },
+  { path: '/about', name: '关于' },
+];
+
 const Navbar = ({ links, search = true }: NavbarProps) => {
-  const categoriesDom = useMemo(
-    () =>
-      links?.map(item => (
-        <ActiveLink
-          activeClassName={styles.active}
-          key={item.id}
-          href={getCategoryUrl(item.path)}
-        >
-          <li className={styles.item}>
-            <span>{item.name}</span>
-          </li>
-        </ActiveLink>
-      )),
-    [links]
-  );
+  const categoriesDom = useMemo(() => {
+    const addNavList =
+      links?.map(item => ({ ...item, path: getCategoryUrl(item.path) })) || [];
+
+    const finalNavList = shank(DEFAULT_NAV_LIST, 1, 0, ...addNavList);
+
+    return finalNavList.map(item => (
+      <NavbarItem key={item.path} href={item.path}>
+        {item.name}
+      </NavbarItem>
+    ));
+  }, [links]);
 
   return (
-    <div className={styles.navbar}>
-      <div className={`${styles.content} container`}>
+    <div className='h-16 fixed inset-x-0 top-0 z-10 shadow bg-white'>
+      <div className='container flex justify-between space-x-4'>
         <Logo />
         {search ? <NavbarSearch /> : null}
-        <nav className={styles.nav}>
-          <ul>
-            <ActiveLink activeClassName={styles.active} href='/'>
-              <li className={styles.item}>
-                <span>首页</span>
-              </li>
-            </ActiveLink>
-            {categoriesDom}
-            <ActiveLink activeClassName={styles.active} href='/snippet'>
-              <li className={styles.item}>
-                <span>Snippet</span>
-              </li>
-            </ActiveLink>
-            <ActiveLink activeClassName={styles.active} href='/archive'>
-              <li className={styles.item}>
-                <span>归档</span>
-              </li>
-            </ActiveLink>
-            <ActiveLink activeClassName={styles.active} href='/about'>
-              <li className={styles.item}>
-                <span>关于</span>
-              </li>
-            </ActiveLink>
-          </ul>
-        </nav>
+        <ul className='flex h-16 items-center'>{categoriesDom}</ul>
       </div>
     </div>
   );

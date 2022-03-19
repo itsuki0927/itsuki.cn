@@ -44,9 +44,11 @@
     "@types/nprogress": "^0.2.0",
     "@types/react": "17.0.39",
     "@types/react-slick": "^0.23.8",
+    "@types/tailwindcss": "^3.0.9",
     "@types/ua-parser-js": "^0.7.36",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
+    "autoprefixer": "^10.4.2",
     "eslint": "^8.8.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "^16.1.0",
@@ -58,6 +60,7 @@
     "eslint-plugin-react-hooks": "^4.2.1-alpha-e0aa5e205-20211109",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.3",
+    "postcss": "^8.4.8",
     "prettier": "^2.5.1",
     "sass": "^1.49.7",
     "stylelint": "^14.4.0",
@@ -66,6 +69,7 @@
     "stylelint-config-standard-scss": "^3.0.0",
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.1.0",
+    "tailwindcss": "^3.0.23",
     "typescript": "4.5.5"
   }
 }

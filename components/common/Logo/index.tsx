@@ -2,11 +2,10 @@ import Image from 'next/image';
 import router from 'next/router';
 import { LogoJsonLd } from 'next-seo';
 import imageTransformer from '@/utils/image';
-import styles from './style.module.scss';
 
 const Logo = () => (
   <div
-    className={styles.logo}
+    className='h-16 overflow-hidden flex items-center cursor-pointer'
     role='img'
     aria-hidden='true'
     onClick={() => router.push('/')}
@@ -17,10 +16,10 @@ const Logo = () => (
       width={32}
       height={32}
       alt='logo'
-      className={styles.img}
+      className='h-8'
     />
     <LogoJsonLd logo='https://static.itsuki.cn/logo.png' url='https://itsuki.cn' />
-    <span>Itsuki</span>
+    <span className='ml-3 text-primary leading-16'>Itsuki</span>
   </div>
 );
 

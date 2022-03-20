@@ -30,6 +30,9 @@ module.exports = {
         15: '3.75rem',
         16: '4rem',
       },
+      listStyleType: {
+        square: 'square',
+      },
     },
   },
   plugins: [],

@@ -1,22 +1,24 @@
-import classNames from 'classnames';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { ArticleArchiveMap, ArticleArchiveResponse } from '@/entities/article';
-import styles from './style.module.scss';
 
 const getDay = (dateString: string) => `${dateString.slice(-2)}号`;
 
 const ArticleList = ({ articles }: ArticleArchiveMap) => (
-  <ul className={styles.articleList}>
+  <ul className='list-none pl-4'>
     {articles.map(article => (
-      <li className={styles.article} key={article.id}>
-        <p className={styles.title}>
-          <span className={styles.date}>{getDay(article.createAtString)}</span>
+      <li className='rounded-sm p-3 hover:bg-gray-50' key={article.id}>
+        <p className='mb-3'>
+          <span className='mr-3 inline-block text-sm text-gray-300'>
+            {getDay(article.createAtString)}
+          </span>
           <Link href={`/article/${article.id}`}>
-            <span className={styles.link}>{article.title}</span>
+            <span className='cursor-pointer border-b border-solid border-transparent font-bold opacity-90 transition-all hover:border-gray-700 hover:opacity-100'>
+              {article.title}
+            </span>
           </Link>
         </p>
-        <p className={styles.description}>{article.description}</p>
+        <p className='mb-0 pl-12 text-sm text-gray-400'>{article.description}</p>
       </li>
     ))}
   </ul>
@@ -25,9 +27,9 @@ const ArticleList = ({ articles }: ArticleArchiveMap) => (
 const MonthList = ({ months }: { months: ArticleArchiveMap }) => (
   <>
     {Object.entries(months).map(([month, articles]) => (
-      <ul className={styles.monthList} key={month}>
-        <li key={month} className={styles.month}>
-          <h3 className={`${styles.title} ${styles.month}`}>{month}</h3>
+      <ul className='list-square' key={month}>
+        <li key={month}>
+          <h3 className='text-lg'>{month}</h3>
           <ArticleList articles={articles} />
         </li>
       </ul>
@@ -40,14 +42,14 @@ interface ArchivePageProps {
 }
 
 const ArchiveView = ({ archives }: ArchivePageProps) => (
-  <div className={styles.archive}>
+  <div>
     <NextSeo title='归档' />
-    <ul className={styles.yearList}>
+    <ul className='list-none pl-0'>
       {Object.entries(archives)
         .reverse()
         .map(([year, months]) => (
-          <li key={year} className={styles.year}>
-            <h2 className={classNames(styles.title, styles.root)}>
+          <li key={year} className='mb-6 bg-white p-4 rounded-sm'>
+            <h2 className='mb-8 mt-0 text-3xl font-bold'>
               <span>{year}</span>
             </h2>
             <MonthList months={months} />

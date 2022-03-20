@@ -28,8 +28,8 @@ const Layout: FC<PageProps> = ({
       <div className='flex min-h-screen flex-col'>
         <Navbar links={pageProps.categories} />
 
-        <main className='flex mx-auto mb-6 space-x-6 container mt-[88px]'>
-          <section className='flex-grow max-w-[856px]'>{children}</section>
+        <main className='container mx-auto mb-6 mt-[88px] flex space-x-6'>
+          <section className='max-w-[856px] flex-grow'>{children}</section>
           <Sidebar
             className='w-80 space-y-6'
             tags={pageProps.tags}

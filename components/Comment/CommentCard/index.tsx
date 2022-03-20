@@ -36,17 +36,17 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
         src={getGravatarUrl(comment.email)}
         width={60}
         height={60}
-        className='border-gray-200 border-4 border-solid absolute left-0 top-4'
+        className='absolute left-0 top-4 border-4 border-solid border-gray-200'
         alt='avatar'
       />
 
-      <div className='bg-gray-50 transition-colors p-2 pl-12 hover:bg-gray-100'>
+      <div className='bg-gray-50 p-2 pl-12 transition-colors hover:bg-gray-100'>
         <div className='flex items-center'>
-          <span className='font-bold inline-block text-sm text-gray-600'>
+          <span className='inline-block text-sm font-bold text-gray-600'>
             <strong>{comment.nickname}</strong>
           </span>
 
-          <span className='text-sm ml-2 text-gray-400'>
+          <span className='ml-2 text-sm text-gray-400'>
             {comment.province} - {comment.city}
           </span>
 
@@ -56,10 +56,10 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
         </div>
 
         {!!comment.parentId && (
-          <p className='text-gray-400 text-sm m-0'>
+          <p className='m-0 text-sm text-gray-400'>
             @
             <Button
-              className='bg-transparent text-gray-300 align-middle transition-colors hover:text-gray-400'
+              className='bg-transparent align-middle text-gray-300 transition-colors hover:text-gray-400'
               size='small'
               type='text'
               onClick={() => {
@@ -74,7 +74,7 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
         )}
 
         <MarkdownBlock
-          className='my-1 max-h-[600px] overflow-y-scroll comment'
+          className='comment my-1 max-h-[600px] overflow-y-scroll'
           htmlContent={contentHtml}
         />
 
@@ -87,7 +87,7 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
             }
             onClick={handleLikeComment}
             className={classNames(
-              'text-gray-300 bg-transparent ml-3 transition-colors hover:text-error',
+              'ml-3 bg-transparent text-gray-300 transition-colors hover:text-error',
               {
                 'text-error': comment.isLike,
               }
@@ -99,7 +99,7 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
             size='small'
             type='ghost'
             icon={<Icon name='thunderbolt' />}
-            className='text-gray-300 bg-transparent ml-3 transition-colors'
+            className='ml-3 bg-transparent text-gray-300 transition-colors'
             onClick={() => {
               onReply(comment);
               // scrollTo(`#commentForm`, 200, {

@@ -75,8 +75,8 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
       )}
 
       {actionVisible && (
-        <p className='text-right mb-0'>
-          <span className='mr-3 text-lg align-middle'>{value.nickname}</span>
+        <p className='mb-0 text-right'>
+          <span className='mr-3 align-middle text-lg'>{value.nickname}</span>
           <IconButton
             type='text'
             icon={<EditOutlined />}

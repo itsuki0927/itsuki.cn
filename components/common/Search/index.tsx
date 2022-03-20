@@ -17,8 +17,8 @@ const HeaderSearch = () => {
   };
 
   return (
-    <div className='flex-auto h-16 leading-16'>
-      <div className='flex items-center h-full'>
+    <div className='h-16 flex-auto leading-16'>
+      <div className='flex h-full items-center'>
         <SearchOutlined className='mr-4' />
         <input placeholder='搜索' className='w-full' onKeyUp={handleSearch} />
       </div>

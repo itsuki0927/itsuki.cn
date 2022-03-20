@@ -48,7 +48,7 @@ const ArchiveView = ({ archives }: ArchivePageProps) => (
       {Object.entries(archives)
         .reverse()
         .map(([year, months]) => (
-          <li key={year} className='mb-6 bg-white p-4 rounded-sm'>
+          <li key={year} className='mb-6 rounded-sm bg-white p-4'>
             <h2 className='mb-8 mt-0 text-3xl font-bold'>
               <span>{year}</span>
             </h2>

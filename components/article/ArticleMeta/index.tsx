@@ -12,7 +12,7 @@ interface ArticleMetaProps {
 
 type ChildrenProps = { children?: ReactNode };
 
-const Meta = ({ children }: ChildrenProps) => <p className='leading-6 h-6'>{children}</p>;
+const Meta = ({ children }: ChildrenProps) => <p className='h-6 leading-6'>{children}</p>;
 
 const Label = ({ children }: ChildrenProps) => (
   <span className='inline-block w-20'>{children}</span>

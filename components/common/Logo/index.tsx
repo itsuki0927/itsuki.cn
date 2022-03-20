@@ -5,7 +5,7 @@ import imageTransformer from '@/utils/image';
 
 const Logo = () => (
   <div
-    className='h-16 overflow-hidden flex items-center cursor-pointer'
+    className='flex h-16 cursor-pointer items-center overflow-hidden'
     role='img'
     aria-hidden='true'
     onClick={() => router.push('/')}
@@ -19,7 +19,7 @@ const Logo = () => (
       className='h-8'
     />
     <LogoJsonLd logo='https://static.itsuki.cn/logo.png' url='https://itsuki.cn' />
-    <span className='ml-3 text-primary leading-16'>Itsuki</span>
+    <span className='ml-3 leading-16 text-primary'>Itsuki</span>
   </div>
 );
 

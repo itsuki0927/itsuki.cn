@@ -5,8 +5,8 @@ import { SoundOutlined } from '@/components/icons';
 import blog from '@/lib/api/blog';
 
 const Alert = ({ message }: { message: string }) => (
-  <div className='p-4 bg-blue-50 border-l-4 border-l-blue-500'>
-    <SoundOutlined className='text-blue-400 mr-4' />
+  <div className='border-l-4 border-l-blue-500 bg-blue-50 p-4'>
+    <SoundOutlined className='mr-4 text-blue-400' />
     <span className='text-blue-500'>{message}</span>
   </div>
 );

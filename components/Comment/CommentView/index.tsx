@@ -23,7 +23,7 @@ const CommentList = ({ articleId }: CommentProps) => {
       isEmpty || !comments ? (
         <Empty />
       ) : (
-        <div className='bg-white p-4 space-y-4'>
+        <div className='space-y-4 bg-white p-4'>
           {comments.map(comment => (
             <CommentCard comment={comment} key={comment.id} onReply={handleReply} />
           ))}

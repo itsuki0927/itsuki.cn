@@ -9,7 +9,7 @@ html,
 body {
   font-family: Inter, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  @apply text-gray-500 bg-gray-100 text-base p-0 m-0;
+  @apply m-0 bg-gray-100 p-0 text-base text-gray-500;
 }
 
 .container {

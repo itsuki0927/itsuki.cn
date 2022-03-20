@@ -12,7 +12,7 @@ interface NavbarProps {
 
 const NavbarItem: FC<{ href: string }> = ({ href, children }) => (
   <ActiveLink activeClassName='after:border-t-sky-500 text-primary' href={href}>
-    <li className='h-16 px-3 transition-colors relative text-center cursor-pointer after:content-[""] after:absolute after:right-3 after:bottom-0 after:left-3 after:border-transparent after:border-t-2 hover:text-primary'>
+    <li className='relative h-16 cursor-pointer px-3 text-center transition-colors after:absolute after:right-3 after:bottom-0 after:left-3 after:border-t-2 after:border-transparent after:content-[""] hover:text-primary'>
       <span className='leading-16'>{children}</span>
     </li>
   </ActiveLink>
@@ -40,7 +40,7 @@ const Navbar = ({ links, search = true }: NavbarProps) => {
   }, [links]);
 
   return (
-    <div className='h-16 fixed inset-x-0 top-0 z-10 shadow bg-white'>
+    <div className='fixed inset-x-0 top-0 z-10 h-16 bg-white shadow'>
       <div className='container flex justify-between space-x-4'>
         <Logo />
         {search ? <NavbarSearch /> : null}

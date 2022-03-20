@@ -16,17 +16,17 @@ const ArticleCounter = ({ article }: ArticleCounterProps) => {
 
   return (
     <div className='flex space-x-6'>
-      <div key='reading' className='w-1/3 bg-white p-4 rounded-sm'>
-        <EyeFilled className='rounded-sm w-10 h-10 text-2xl text-blue-500 bg-blue-50 leading-10' />
+      <div key='reading' className='w-1/3 rounded-sm bg-white p-4'>
+        <EyeFilled className='h-10 w-10 rounded-sm bg-blue-50 text-2xl leading-10 text-blue-500' />
         <span className='ml-4 text-sm'>
-          <strong className='text-lg mr-1 text-blue-500'>{article.reading}</strong>
+          <strong className='mr-1 text-lg text-blue-500'>{article.reading}</strong>
           人阅读
         </span>
       </div>
-      <div key='commenting' className='w-1/3 bg-white p-4 rounded-sm'>
-        <MessageFilled className='rounded-sm w-10 h-10 text-2xl text-green-500 bg-green-50 leading-10' />
+      <div key='commenting' className='w-1/3 rounded-sm bg-white p-4'>
+        <MessageFilled className='h-10 w-10 rounded-sm bg-green-50 text-2xl leading-10 text-green-500' />
         <span className='ml-4 text-sm'>
-          <strong className='text-lg mr-1 text-green-500'>{article.commenting}</strong>
+          <strong className='mr-1 text-lg text-green-500'>{article.commenting}</strong>
           条评论
         </span>
       </div>
@@ -34,7 +34,7 @@ const ArticleCounter = ({ article }: ArticleCounterProps) => {
         tabIndex={0}
         role='button'
         key='liking'
-        className={classNames('w-1/3 bg-white p-4 rounded-sm', 'cursor-pointer', {
+        className={classNames('w-1/3 rounded-sm bg-white p-4', 'cursor-pointer', {
           'cursor-default': isLike,
         })}
         onClick={() => {
@@ -44,12 +44,12 @@ const ArticleCounter = ({ article }: ArticleCounterProps) => {
         }}
       >
         {isLike ? (
-          <HeartFilled className='rounded-sm w-10 h-10 text-2xl bg-red-50 text-red-500 leading-10' />
+          <HeartFilled className='h-10 w-10 rounded-sm bg-red-50 text-2xl leading-10 text-red-500' />
         ) : (
-          <HeartOutlined className='rounded-sm w-10 h-10 text-2xl bg-red-50 text-red-500 leading-10' />
+          <HeartOutlined className='h-10 w-10 rounded-sm bg-red-50 text-2xl leading-10 text-red-500' />
         )}
         <span className='ml-4 text-sm'>
-          <strong className='text-lg mr-1 text-red-500'>{liking}</strong>
+          <strong className='mr-1 text-lg text-red-500'>{liking}</strong>
           个喜欢
         </span>
       </div>

@@ -25,7 +25,7 @@ interface ReplyPlaceholderProps {
 const CommentReply = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
   reply ? (
     <div className='mb-3'>
-      <p className='py-1 px-3 rounded-sm bg-gray-50 transition-colors hover:bg-gray-100'>
+      <p className='rounded-sm bg-gray-50 py-1 px-3 transition-colors hover:bg-gray-100'>
         回复:
         <Button
           type='text'
@@ -40,7 +40,7 @@ const CommentReply = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
           {` #${reply.nickname}`}
         </Button>
         <CloseOutlined
-          className='py-1 float-right cursor-pointer hover:text-gray-600'
+          className='float-right cursor-pointer py-1 hover:text-gray-600'
           onClick={onCloseReply}
         />
       </p>
@@ -105,9 +105,9 @@ const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId },
   };
 
   return (
-    <div id='commentForm' className='flex bg-white p-3 items-start space-x-3'>
+    <div id='commentForm' className='flex items-start space-x-3 bg-white p-3'>
       <img
-        className='rounded-sm mt-11 border-solid border-4 border-gray-200'
+        className='mt-11 rounded-sm border-4 border-solid border-gray-200'
         src={'https://static.itsuki.cn/avatar1.jpg' || getGravatarUrl(profile.email)}
         width={80}
         height={80}

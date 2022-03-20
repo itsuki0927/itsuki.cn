@@ -16,7 +16,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
       <div
         role='banner'
         onClick={() => router.push(`/article/${article.id}`)}
-        className='opacity-90 transition-opacity cursor-pointer relative group'
+        className='group relative cursor-pointer opacity-90 transition-opacity'
         key={article.id}
       >
         <Image
@@ -27,9 +27,9 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
           height={300}
           loader={imageTransformer}
           alt='banner-cover'
-          className='rounded-sm group-hover: opacity-100'
+          className='group-hover: rounded-sm opacity-100'
         />
-        <div className='absolute top-6 right-6 py-1 px-4 bg-gray-50 opacity-70 text-gray-600 transition-all rounded-sm hover:text-gray-900 hover:opacity-90'>
+        <div className='absolute top-6 right-6 rounded-sm bg-gray-50 py-1 px-4 text-gray-600 opacity-70 transition-all hover:text-gray-900 hover:opacity-90'>
           <span>{article.title}</span>
         </div>
       </div>

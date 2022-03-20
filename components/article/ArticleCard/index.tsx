@@ -18,7 +18,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => (
   <div
     role='article'
     onClick={() => router.push(`/article/${article.id}`)}
-    className='flex cursor bg-white p-4 group cursor-pointer rounded-sm'
+    className='cursor group flex cursor-pointer rounded-sm bg-white p-4'
   >
     <Image
       alt='article-cover'
@@ -26,16 +26,16 @@ const ArticleCard = ({ article }: ArticleCardProps) => (
       height={135}
       objectFit='cover'
       src={article.cover}
-      className='opacity-90 transition-all group-hover:opacity-100 group-hover:scale-105'
+      className='opacity-90 transition-all group-hover:scale-105 group-hover:opacity-100'
       loader={imageTransformer}
     />
-    <div className='grow flex ml-3 flex-col justify-between'>
-      <p className='text-lg mb-0 cursor-pointer transition-all hover:underline hover:text-gray-900'>
+    <div className='ml-3 flex grow flex-col justify-between'>
+      <p className='mb-0 cursor-pointer text-lg transition-all hover:text-gray-900 hover:underline'>
         {article.title}
       </p>
-      <p className='text-gray-500 mb-0 grow'>{article.description}</p>
+      <p className='mb-0 grow text-gray-500'>{article.description}</p>
 
-      <div className='flex justify-between text-gray-400 items-center text-sm mb-1'>
+      <div className='mb-1 flex items-center justify-between text-sm text-gray-400'>
         <span key='time'>
           <TimeOutlined className='mr-1' />
           {getDateString(article.createAt)}

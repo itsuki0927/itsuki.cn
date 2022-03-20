@@ -1,43 +1,56 @@
 import Link from 'next/link';
 import { ArticleTag } from '@/components/article';
 import { SnippetExpertise } from '@/components/snippet';
-import { Card } from '@/components/ui';
 import { SiteInfo } from '@/entities/siteInfo';
 import { getArticleDetailUrl } from '@/utils/url';
-import styles from './style.module.scss';
 
 interface SidebarProps {
+  className?: string;
   tags: SiteInfo['tags'];
   hotArticles: SiteInfo['hotArticles'];
 }
 
-const Sidebar = ({ tags = [], hotArticles = [] }: SidebarProps) => (
-  <aside className={styles.sidebar}>
-    <Card>
-      <div className={styles.snippet}>
-        <Link href='https://itsuki.cn/snippet/js/s/35'>
-          <span className={styles.name}>unzipWith</span>
-        </Link>
-        <SnippetExpertise ranks={2} />
-      </div>
-    </Card>
+// .leaderboard {
+//   counter-reset: section;
+// }
 
-    <Card style={{ marginBottom: 24, marginTop: 24 }} className={styles.leaderboard}>
+// .leaderboardItem {
+//   &::before {
+//     counter-increment: section;
+//     content: '' counter(section) ' .    ';
+//     color: $text-color-secondary;
+//   }
+//
+const Sidebar = ({ tags = [], hotArticles = [], className }: SidebarProps) => (
+  <aside className={className}>
+    <div className='flex justify-between items-center bg-white p-4'>
+      <Link href='https://itsuki.cn/snippet/js/s/35'>
+        <span className='transition-all hover:text-primary'>unzipWith</span>
+      </Link>
+      <SnippetExpertise ranks={2} />
+    </div>
+
+    <div className='bg-white p-4'>
       <p>
         <strong>热门文章</strong>
       </p>
-      {hotArticles.map(article => (
-        <div className={styles.leaderboardItem} key={article.id}>
+      {hotArticles.map((article, index) => (
+        <div
+          className='p-2 transition-colors cursor-pointer flex items-center rounded-sm hover:bg-gray-100 group'
+          key={article.id}
+        >
           <Link href={getArticleDetailUrl(article.id)}>
-            <span className={styles.title}>{article.title}</span>
+            <span className='align-middle ml-1 flex-1 text-sm transition-colors group-hover:text-primary'>
+              {index + 1}. {article.title}
+            </span>
           </Link>
         </div>
       ))}
-    </Card>
+    </div>
 
-    <div className={styles.tag}>
+    <div className='bg-white p-4 pb-2 rounded-sm'>
       {tags?.map(item => (
-        <ArticleTag key={item.id} className={styles.btn} tag={item} />
+        <ArticleTag key={item.id} className='mr-2 mb-2' tag={item} />
       ))}
     </div>
   </aside>

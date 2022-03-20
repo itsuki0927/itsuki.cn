@@ -1,11 +1,9 @@
-import styles from './style.module.scss';
-
 const Footer = () => (
-  <footer className={styles.footer}>
-    <div className='container'>
+  <footer className='bg-white text-lg px-4 py-4 leading-8 text-gray-400'>
+    <div className='container text-center'>
       Build by 🖐️ 🪵 🇨🇳 👨‍💻 🌈 🎈
       <a
-        className={styles.link}
+        className='text-base ml-4 transition-colors hover:underline hover:text-primary'
         href='https://beian.miit.gov.cn'
         target='_blank'
         rel='external nofollow noopener noreferrer'

@@ -4,7 +4,6 @@ import React, { FC } from 'react';
 import { Footer, Navbar, Sidebar } from '@/components/common';
 import { SiteInfo } from '@/entities/siteInfo';
 import { BlogProvider } from '@/framework/local';
-import styles from './style.module.scss';
 
 const DynamicBackTop = dynamic(() => import('@/components/ui/BackTop'));
 
@@ -18,8 +17,6 @@ export interface PageProps {
   };
 }
 
-const DynamicAffix = dynamic(() => import('@/components/ui/Affix'), { ssr: false });
-
 const Layout: FC<PageProps> = ({
   children,
   pageProps = { categories: [], tags: [], hotArticles: [] },
@@ -28,15 +25,17 @@ const Layout: FC<PageProps> = ({
 
   return (
     <BlogProvider locale={locale}>
-      <div className={styles.app}>
+      <div className='flex min-h-screen flex-col'>
         <Navbar links={pageProps.categories} />
 
-        <section className={styles.main}>
-          <main className={styles.mainContent}>{children}</main>
-          <DynamicAffix top={88}>
-            <Sidebar tags={pageProps.tags} hotArticles={pageProps.hotArticles} />
-          </DynamicAffix>
-        </section>
+        <main className='flex mx-auto mb-6 space-x-6 container mt-[88px]'>
+          <section className='flex-grow max-w-[856px]'>{children}</section>
+          <Sidebar
+            className='w-80 space-y-6'
+            tags={pageProps.tags}
+            hotArticles={pageProps.hotArticles}
+          />
+        </main>
 
         <Footer />
       </div>

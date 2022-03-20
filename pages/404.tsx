@@ -1,20 +1,11 @@
-import { NavbarLayout } from '@/components/common';
-import { NotFoundView } from '@/components/errors';
-import blog from '@/lib/api/blog';
-
-export const getStaticProps = async () => {
-  const siteInfo = await blog.getSiteInfo();
-
-  return {
-    props: {
-      ...siteInfo,
-    },
-    revalidate: 200,
-  };
-};
+import BlackLayout from '@/components/common/BlankLayout';
 
 export default function NotFound() {
-  return <NotFoundView />;
+  return (
+    <div className='flex h-screen items-center justify-center'>
+      <h1 className='text-6xl tracking-wide'>Not Found</h1>
+    </div>
+  );
 }
 
-NotFound.Layout = NavbarLayout;
+NotFound.Layout = BlackLayout;

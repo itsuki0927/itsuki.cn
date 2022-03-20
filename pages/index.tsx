@@ -4,7 +4,12 @@ import { Layout } from '@/components/common';
 import { SoundOutlined } from '@/components/icons';
 import blog from '@/lib/api/blog';
 
-const Alert = dynamic(() => import('@/components/ui/Alert'));
+const Alert = ({ message }: { message: string }) => (
+  <div className='p-4 bg-blue-50 border-l-4 border-l-blue-500'>
+    <SoundOutlined className='text-blue-400 mr-4' />
+    <span className='text-blue-500'>{message}</span>
+  </div>
+);
 const ArticleList = dynamic(() => import('@/components/article/ArticleList'));
 const HomeSlider = dynamic(() => import('@/components/common/HomeSlider'));
 
@@ -35,16 +40,10 @@ const HomePage = ({
   articles,
   bannerArticles,
 }: InferGetServerSidePropsType<typeof getStaticProps>) => (
-  <div className='home'>
+  <div className='home space-y-6'>
     <HomeSlider articles={bannerArticles} />
 
-    <Alert
-      style={{ marginBottom: 24, padding: 16 }}
-      message='思考比写代码来的更加珍贵'
-      type='info'
-      icon={<SoundOutlined />}
-      showIcon
-    />
+    <Alert message='思考比写代码来的更加珍贵' />
 
     <ArticleList articles={articles} />
   </div>

@@ -16,7 +16,7 @@ const ArticleList = ({ articles }: ArticleListProps) => {
   }
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-6'>
       {articles.data.map(article => (
         <ArticleCard article={article} key={article.id} />
       ))}

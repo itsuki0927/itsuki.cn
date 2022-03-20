@@ -19,6 +19,7 @@ module.exports = {
       success: colors.green['500'],
       warning: colors.yellow['500'],
       error: colors.red['500'],
+      mask: 'rgba(0, 0, 0, 0.35)',
     },
     extend: {
       lineHeight: {

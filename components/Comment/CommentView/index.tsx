@@ -1,11 +1,10 @@
 import React, { useMemo, useRef } from 'react';
-import { Card, Empty } from '@/components/ui';
+import { Empty } from '@/components/ui';
 import useComment from '@/framework/local/comment/use-comment';
 import { Comment } from '@/entities/comment';
 import { CommentSkeleton } from '..';
 import CommentCard from '../CommentCard';
 import CommentForm, { CommentFormRef } from '../CommentForm';
-import styles from './style.module.scss';
 
 type CommentProps = {
   articleId: number;
@@ -24,11 +23,11 @@ const CommentList = ({ articleId }: CommentProps) => {
       isEmpty || !comments ? (
         <Empty />
       ) : (
-        <Card className={styles.comment}>
+        <div className='bg-white p-4 space-y-4'>
           {comments.map(comment => (
             <CommentCard comment={comment} key={comment.id} onReply={handleReply} />
           ))}
-        </Card>
+        </div>
       ),
     [isEmpty, comments]
   );

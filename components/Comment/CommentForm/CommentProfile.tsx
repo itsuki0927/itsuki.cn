@@ -4,7 +4,6 @@ import { CheckOutlined, ClearOutlined, EditOutlined } from '@/components/icons';
 import { IconButton, Input } from '@/components/ui';
 import { useMount } from '@/hooks';
 import { NoReturnFunction } from '@/types/fn';
-import styles from './style.module.scss';
 
 export type CommentProfileType = {
   nickname: string;
@@ -48,9 +47,9 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
   };
 
   return (
-    <div className={styles.commentProfile}>
+    <div>
       {!actionVisible && (
-        <div className={styles.edit}>
+        <div className='flex space-x-3'>
           <Input
             name='nickname'
             onChange={handleInput}
@@ -76,8 +75,8 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
       )}
 
       {actionVisible && (
-        <p className={styles.nickname}>
-          <span>{value.nickname}</span>
+        <p className='text-right mb-0'>
+          <span className='mr-3 text-lg align-middle'>{value.nickname}</span>
           <IconButton
             type='text'
             icon={<EditOutlined />}

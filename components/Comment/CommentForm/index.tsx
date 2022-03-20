@@ -5,7 +5,6 @@ import { Button, IconButton } from '@/components/ui';
 import getGravatarUrl from '@/utils/gravatar';
 import scrollTo from '@/utils/scrollTo';
 import CommentProfile from './CommentProfile';
-import styles from './style.module.scss';
 import { buildCommentDomId } from '../CommentCard';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import { Comment } from '@/entities/comment';
@@ -25,13 +24,13 @@ interface ReplyPlaceholderProps {
 
 const CommentReply = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
   reply ? (
-    <div className={styles.reply}>
-      <p className={styles.nickname}>
+    <div className='mb-3'>
+      <p className='py-1 px-3 rounded-sm bg-gray-50 transition-colors hover:bg-gray-100'>
         回复:
         <Button
           type='text'
           size='small'
-          className={styles.btn}
+          className='cursor-pointer font-bold'
           onClick={() => {
             scrollTo(`#${buildCommentDomId(reply.id)}`, 400, {
               offset: -64,
@@ -40,7 +39,10 @@ const CommentReply = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
         >
           {` #${reply.nickname}`}
         </Button>
-        <CloseOutlined className={styles.close} onClick={onCloseReply} />
+        <CloseOutlined
+          className='py-1 float-right cursor-pointer hover:text-gray-600'
+          onClick={onCloseReply}
+        />
       </p>
     </div>
   ) : null;
@@ -103,24 +105,23 @@ const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId },
   };
 
   return (
-    <div id='commentForm' className={styles.commentForm}>
+    <div id='commentForm' className='flex bg-white p-3 items-start space-x-3'>
       <img
-        className={styles.avatar}
-        src={getGravatarUrl(profile.email)}
+        className='rounded-sm mt-11 border-solid border-4 border-gray-200'
+        src={'https://static.itsuki.cn/avatar1.jpg' || getGravatarUrl(profile.email)}
         width={80}
         height={80}
         alt='cover'
       />
-      <div className={styles.content}>
+      <div className='flex-grow space-y-3'>
         <CommentReply reply={reply} onCloseReply={() => setReply(undefined)} />
         <CommentProfile value={profile} onChange={setProfile} />
 
         <DynamicMarkdown code={content} onChange={setContent} />
-
-        <div className={styles.actionBar}>
+        <div className='flex justify-between'>
           <IconButton
             type='primary'
-            className={styles.send}
+            className='w-32 align-top'
             icon={<SendOutlined />}
             disabled={loading}
             onClick={handleSend}

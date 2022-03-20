@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import { useState } from 'react';
-import styles from './style.module.scss';
 import { EyeFilled, HeartFilled, HeartOutlined, MessageFilled } from '@/components/icons';
 import { Article } from '@/entities/article';
 import useInLikeArticles from '@/framework/local/article/use-in-like-articles';
@@ -16,18 +15,18 @@ const ArticleCounter = ({ article }: ArticleCounterProps) => {
   const [liking, setLiking] = useState(article.liking);
 
   return (
-    <div className={styles.count}>
-      <div key='reading' className={`${styles.item} ${styles.reading}`}>
-        <EyeFilled className={styles.icon} />
-        <span className={styles.name}>
-          <strong className={styles.text}>{article.reading}</strong>
+    <div className='flex space-x-6'>
+      <div key='reading' className='w-1/3 bg-white p-4 rounded-sm'>
+        <EyeFilled className='rounded-sm w-10 h-10 text-2xl text-blue-500 bg-blue-50 leading-10' />
+        <span className='ml-4 text-sm'>
+          <strong className='text-lg mr-1 text-blue-500'>{article.reading}</strong>
           人阅读
         </span>
       </div>
-      <div key='commenting' className={`${styles.item} ${styles.commenting}`}>
-        <MessageFilled className={styles.icon} />
-        <span className={styles.name}>
-          <strong className={styles.text}>{article.commenting}</strong>
+      <div key='commenting' className='w-1/3 bg-white p-4 rounded-sm'>
+        <MessageFilled className='rounded-sm w-10 h-10 text-2xl text-green-500 bg-green-50 leading-10' />
+        <span className='ml-4 text-sm'>
+          <strong className='text-lg mr-1 text-green-500'>{article.commenting}</strong>
           条评论
         </span>
       </div>
@@ -35,8 +34,8 @@ const ArticleCounter = ({ article }: ArticleCounterProps) => {
         tabIndex={0}
         role='button'
         key='liking'
-        className={classNames(styles.item, styles.liking, {
-          [styles.liked]: isLike,
+        className={classNames('w-1/3 bg-white p-4 rounded-sm', 'cursor-pointer', {
+          'cursor-default': isLike,
         })}
         onClick={() => {
           if (isLike) return;
@@ -45,12 +44,12 @@ const ArticleCounter = ({ article }: ArticleCounterProps) => {
         }}
       >
         {isLike ? (
-          <HeartFilled className={styles.icon} />
+          <HeartFilled className='rounded-sm w-10 h-10 text-2xl bg-red-50 text-red-500 leading-10' />
         ) : (
-          <HeartOutlined className={styles.icon} />
+          <HeartOutlined className='rounded-sm w-10 h-10 text-2xl bg-red-50 text-red-500 leading-10' />
         )}
-        <span className={styles.name}>
-          <strong className={styles.text}>{liking}</strong>
+        <span className='ml-4 text-sm'>
+          <strong className='text-lg mr-1 text-red-500'>{liking}</strong>
           个喜欢
         </span>
       </div>

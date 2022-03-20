@@ -1,14 +1,22 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Card, Skeleton } from '@/components/ui';
+import { ReactNode } from 'react';
+import { Skeleton } from '@/components/ui';
 import { WEB_URL } from '@/configs/app';
 import { Article } from '@/entities/article';
 import { ArticleTag } from '..';
-import styles from './style.module.scss';
 
 interface ArticleMetaProps {
   article: Article;
 }
+
+type ChildrenProps = { children?: ReactNode };
+
+const Meta = ({ children }: ChildrenProps) => <p className='leading-6 h-6'>{children}</p>;
+
+const Label = ({ children }: ChildrenProps) => (
+  <span className='inline-block w-20'>{children}</span>
+);
 
 const ArticleMeta = ({ article }: ArticleMetaProps) => {
   const router = useRouter();
@@ -17,40 +25,40 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => {
   const category = article.categories[0];
 
   return (
-    <Card className={styles.metas}>
-      <div className={styles.meta}>
-        <span className={styles.date}>
-          本文于 {new Date(article.createAt).toLocaleDateString()} 发布于{' '}
-          <Link href={`/category/${category?.path}`}>
-            <span className={styles.category}>{category?.name}</span>
-          </Link>
-        </span>
-      </div>
+    <div className='space-y-3 bg-white p-4'>
+      <Meta>
+        本文于 {new Date(article.createAt).toLocaleDateString()} 发布于{' '}
+        <Link href={`/category/${category?.path}`}>
+          <span className='cursor-pointer text-gray-600 transition-colors hover:text-gray-900'>
+            <strong>{category?.name}</strong>
+          </span>
+        </Link>
+      </Meta>
 
-      <div className={styles.meta}>
-        <span className={styles.label}>相关标签 : </span>
+      <Meta>
+        <Label>相关标签: </Label>
         {article.tags.map(item => (
-          <ArticleTag key={item.id} tag={item} style={{ marginRight: 4 }} />
+          <ArticleTag key={item.id} tag={item} className='mr-2' />
         ))}
-      </div>
+      </Meta>
 
-      <div className={styles.meta}>
-        <span className={styles.label}>永久地址 : </span>
-        <span className={styles.url}>{WEB_URL + router.asPath}</span>
-      </div>
+      <Meta>
+        <Label>永久地址: </Label>
+        <span className='underline'>{WEB_URL + router.asPath}</span>
+      </Meta>
 
-      <div className={styles.meta}>
-        <span className={styles.label}>版权声明 : </span>
+      <Meta>
+        <Label>版权声明: </Label>
         <a
-          className={styles.copyright}
+          className='no-underline hover:underline'
           href='https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh'
           target='_blank'
           rel='external nofollow noopener noreferrer'
         >
           自由转载 - 署名 - 非商业使用
         </a>
-      </div>
-    </Card>
+      </Meta>
+    </div>
   );
 };
 

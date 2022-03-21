@@ -47,7 +47,7 @@ const CategoryPage = ({
       description={category.description}
     />
 
-    <Banner className='mb-4' data={category} />
+    <Banner className='mb-6' data={category} />
 
     <ArticleList articles={articles} />
   </>

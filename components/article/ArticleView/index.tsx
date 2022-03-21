@@ -28,14 +28,6 @@ const ArticleView = ({ article }: ArticleViewProps) => (
       description={article.description}
     />
 
-    <ImagePopup
-      ref={imagePopup => {
-        if (!(window as any).imagePopup) {
-          (window as any).imagePopup = imagePopup;
-        }
-      }}
-    />
-
     <ArticleContent article={article} />
 
     <ArticleMeta article={article} />
@@ -43,6 +35,14 @@ const ArticleView = ({ article }: ArticleViewProps) => (
     <ArticleCounter article={article} />
 
     <CommentView articleId={article.id} />
+
+    <ImagePopup
+      ref={imagePopup => {
+        if (!(window as any).imagePopup) {
+          (window as any).imagePopup = imagePopup;
+        }
+      }}
+    />
   </div>
 );
 

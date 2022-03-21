@@ -42,7 +42,8 @@ const ArticleTagPage = ({
 }: InferGetServerSidePropsType<typeof getStaticProps>) => (
   <>
     <NextSeo title={`${tag.name} - ${tag.path} - Tag`} description={tag.description} />
-    <Banner data={tag} />
+
+    <Banner data={tag} className='mb-6' />
 
     <ArticleList articles={articles} />
   </>

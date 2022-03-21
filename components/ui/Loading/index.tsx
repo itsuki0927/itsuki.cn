@@ -1,7 +1,3 @@
-import { Card } from '@/components/ui';
-
-const Loading = () => (
-  <Card style={{ fontSize: 20, textAlign: 'center' }}>Loading...</Card>
-);
+const Loading = () => <div className='bg-white p-6 text-center text-xl'>Loading...</div>;
 
 export default Loading;

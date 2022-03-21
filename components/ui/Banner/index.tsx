@@ -1,5 +1,4 @@
 import { Icon } from '@/components/icons';
-import { Card } from '@/components/ui';
 import { getExpandValue } from '@/utils/expands';
 
 type BannerDataProps = {
@@ -16,7 +15,7 @@ type BannerProps = {
 };
 
 const Banner = ({ data, className }: BannerProps) => {
-  if (!data) return <Card>loading...</Card>;
+  if (!data) return <div className='bg-white p-6'>loading...</div>;
 
   const renderIcon = () => {
     const value = getExpandValue(data.expand!, 'icon');

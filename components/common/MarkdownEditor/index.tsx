@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Card, MarkdownBlock } from '@/components/ui';
+import { MarkdownBlock } from '@/components/ui';
 import { MarkdownEditorOptions } from '@/utils/editor';
 import markedToHtml from '@/utils/marked';
 import styles from './style.module.scss';
@@ -39,7 +39,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   );
 
   return (
-    <Card bordered className={styles.markdown} bodyStyle={{ padding: 0 }}>
+    <div className={`${styles.markdown} border border-solid border-[#f9f9f9]`}>
       {toolbarDom}
 
       <div className={styles.content}>
@@ -56,7 +56,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
           />
         )}
       </div>
-    </Card>
+    </div>
   );
 };
 

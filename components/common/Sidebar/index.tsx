@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { ArticleTag } from '@/components/article';
-import { SnippetExpertise } from '@/components/snippet';
 import { SiteInfo } from '@/entities/siteInfo';
 import { getArticleDetailUrl } from '@/utils/url';
 
@@ -23,13 +22,6 @@ interface SidebarProps {
 //
 const Sidebar = ({ tags = [], hotArticles = [], className }: SidebarProps) => (
   <aside className={className}>
-    <div className='flex items-center justify-between bg-white p-4'>
-      <Link href='https://itsuki.cn/snippet/js/s/35'>
-        <span className='transition-all hover:text-primary'>unzipWith</span>
-      </Link>
-      <SnippetExpertise ranks={2} />
-    </div>
-
     <div className='bg-white p-4'>
       <p>
         <strong>热门文章</strong>

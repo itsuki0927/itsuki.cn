@@ -20,7 +20,6 @@ const NavbarItem: FC<{ href: string }> = ({ href, children }) => (
 
 const DEFAULT_NAV_LIST = [
   { path: '/', name: '首页' },
-  { path: '/snippet', name: '片段' },
   { path: '/archive', name: '归档' },
   { path: '/about', name: '关于' },
 ];

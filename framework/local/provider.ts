@@ -1,5 +1,4 @@
 import { handler as useArticleSearch } from './article/use-search';
-import { handler as useSnippetSearch } from './snippet/use-search';
 import { handler as useLikeArticle } from './article/use-like-article';
 import { handler as useLikeComment } from './comment/use-like-comment';
 import { handler as useComment } from './comment/use-comment';
@@ -17,9 +16,6 @@ export const itsukiBlogProvider = {
     useComment,
     usePostComment,
     useLikeComment,
-  },
-  snippet: {
-    useSearch: useSnippetSearch,
   },
 };
 

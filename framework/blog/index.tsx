@@ -6,7 +6,7 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { Comment, Article, Snippet } from '@/entities/index';
+import { Comment, Article } from '@/entities/index';
 import { Fetcher, MutationHook, SWRHook } from './utils/types';
 
 const Blog = createContext<BlogContextValue<any> | Record<string, any>>({});
@@ -21,9 +21,6 @@ export type Provider = BlogConfig & {
     useComment?: SWRHook<Comment.GetCommentHook>;
     useLikeComment?: MutationHook<Comment.LikeCommentHook>;
     usePostComment?: MutationHook<Comment.PostCommentHook>;
-  };
-  snippet?: {
-    useSearch?: SWRHook<Snippet.SearchSnippetsHook>;
   };
 };
 

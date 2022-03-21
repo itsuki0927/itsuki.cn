@@ -7,12 +7,6 @@ import {
 } from '@/entities/article';
 import { GetAllCategoryPathsOperation } from '@/entities/category';
 import { GetSiteInfoOperation } from '@/entities/siteInfo';
-import {
-  GetAllSnippetPathsOperation,
-  GetAllSnippetsOperation,
-  GetSnippetOperation,
-} from '@/entities/snippet';
-import { GetSnippetCategoriesOperation } from '@/entities/snippetCategory';
 import { GetAllTagPathsOperation } from '@/entities/tag';
 import { APIProvider, BlogAPI } from '.';
 
@@ -28,11 +22,7 @@ export const OPERATIONS = [
   'getAllTagPaths',
   'getAllCategoryPaths',
   'getSiteInfo',
-  'getAllSnippets',
-  'getSnippet',
-  'getAllSnippetPaths',
   'getArchives',
-  'getSnippetCategories',
 ] as const;
 
 export const defaultOperations = OPERATIONS.reduce((ops, k) => {
@@ -88,33 +78,8 @@ export type Operations<P extends APIProvider> = {
     <T extends GetAllCategoryPathsOperation>(): Promise<T['data']>;
   };
 
-  getAllSnippets: {
-    <T extends GetAllSnippetsOperation>(opts: {
-      config?: P['config'];
-      variables: T['variables'];
-    }): Promise<T['data']>;
-  };
-
-  getSnippet: {
-    <T extends GetSnippetOperation>(opts: {
-      config?: P['config'];
-      variables: T['variables'];
-    }): Promise<T['data']>;
-  };
-
-  getAllSnippetPaths: {
-    <T extends GetAllSnippetPathsOperation>(): Promise<T['data']>;
-  };
-
   getArchives: {
     <T extends GetArchiveOperation>(): Promise<T['data']>;
-  };
-
-  getSnippetCategories: {
-    <T extends GetSnippetCategoriesOperation>(opts: {
-      variables?: T['variables'];
-      config?: P['config'];
-    }): Promise<T['data']>;
   };
 };
 

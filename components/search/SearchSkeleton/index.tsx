@@ -1,13 +1,12 @@
 import React from 'react';
 import { Skeleton } from '@/components/ui';
-import s from './style.module.scss';
 
-const list = [1, 2, 3, 4];
+const list = [1, 2, 3];
 
 const SearchSkeleton = () => (
-  <div className={s.searchSkeleton}>
+  <div className='flex flex-wrap space-x-6'>
     {list.map(key => (
-      <Skeleton key={key} className={s.item} width={200} height={300} />
+      <Skeleton key={key} className='flex-grow' height={300} />
     ))}
   </div>
 );

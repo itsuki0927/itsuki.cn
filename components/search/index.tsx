@@ -4,7 +4,6 @@ import { ArticleList } from '@/components/article';
 import { Layout } from '@/components/common';
 import useSearch from '@/framework/local/article/use-search';
 import SearchSkeleton from './SearchSkeleton';
-import { Card } from '../ui';
 
 const Search = () => {
   const router = useRouter();
@@ -16,13 +15,15 @@ const Search = () => {
   }
 
   return (
-    <div>
+    <div className='space-y-6'>
       <NextSeo title={`${keyword} - Search`} />
-      <Card style={{ marginBottom: 24 }}>
+
+      <div className='bg-white p-4'>
         <span>
           关键字: <strong style={{ color: '#1890ff' }}>{keyword}</strong>
         </span>
-      </Card>
+      </div>
+
       <ArticleList articles={data?.articles} />
     </div>
   );

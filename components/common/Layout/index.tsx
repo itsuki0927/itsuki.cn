@@ -28,7 +28,7 @@ const Layout: FC<PageProps> = ({
       <div className='flex min-h-screen flex-col'>
         <Navbar links={pageProps.categories} />
 
-        <main className='container mx-auto mb-6 mt-[88px] flex space-x-6'>
+        <main className='container mx-auto mb-6 mt-[88px] flex flex-grow space-x-6'>
           <section className='max-w-[856px] flex-grow'>{children}</section>
           <Sidebar
             className='w-80 space-y-6'

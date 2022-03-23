@@ -29,7 +29,7 @@ const MonthList = ({ months }: { months: ArticleArchiveMap }) => (
     {Object.entries(months).map(([month, articles]) => (
       <ul className='list-square' key={month}>
         <li key={month}>
-          <h3 className='text-lg'>{month}</h3>
+          <h3 className='my-4 text-lg'>{month}</h3>
           <ArticleList articles={articles} />
         </li>
       </ul>

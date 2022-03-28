@@ -49,7 +49,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
         />
         {preview && (
           <MarkdownBlock
-            className={`markdown-html ${styles.preview}`}
+            className={styles.preview}
             htmlContent={markedToHtml(editorRef.current?.textContent || '', {
               purify: true,
             })}

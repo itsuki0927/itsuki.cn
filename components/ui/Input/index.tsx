@@ -3,31 +3,19 @@ import React, { useCallback } from 'react';
 import mergeRefs from '@/utils/mergeRef';
 import styles from './style.module.scss';
 
-type Size = 'lg' | 'md' | 'sm';
-
 type ValueType = string | number | ReadonlyArray<string>;
 
 interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'size'> {
   defaultValue?: ValueType;
-
   value?: ValueType;
-
   onChange?: (value: ValueType, event: React.SyntheticEvent) => void;
-
   disabled?: boolean;
   plaintext?: boolean;
-
   readOnly?: boolean;
-
   type?: string;
-
   id?: string;
-
-  size?: Size;
-
   inputRef?: React.Ref<any>;
-
   onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
@@ -40,7 +28,6 @@ const Input = React.forwardRef((props: InputProps, ref: any) => {
     defaultValue,
     inputRef,
     id,
-    size = 'md',
     plaintext,
     readOnly,
     onPressEnter,
@@ -70,7 +57,6 @@ const Input = React.forwardRef((props: InputProps, ref: any) => {
 
   const classString = classNames(
     styles.input,
-    styles[size],
     {
       [styles.plaintext]: !!plaintext,
     },

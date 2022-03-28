@@ -2,10 +2,13 @@ import { ArticleJsonLd, NextSeo } from 'next-seo';
 import { CommentView } from '@/components/comment';
 import { ImagePopup } from '@/components/ui';
 import { Article } from '@/entities/article';
+import { CustomWindow } from '@/types/window';
 import { getArticleDetailFullUrl } from '@/utils/url';
 import ArticleContent from '../ArticleContent';
 import ArticleCounter from '../ArticleCounter';
 import ArticleMeta from '../ArticleMeta';
+
+declare let window: CustomWindow;
 
 interface ArticleViewProps {
   article: Article;
@@ -38,8 +41,8 @@ const ArticleView = ({ article }: ArticleViewProps) => (
 
     <ImagePopup
       ref={imagePopup => {
-        if (!(window as any).imagePopup) {
-          (window as any).imagePopup = imagePopup;
+        if (!window.imagePopup) {
+          window.imagePopup = imagePopup;
         }
       }}
     />

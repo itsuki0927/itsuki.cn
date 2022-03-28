@@ -2,11 +2,14 @@ import { useCallback, useEffect, useState, useImperativeHandle, forwardRef } fro
 import { off, on } from '@/utils/events';
 import styles from './style.module.scss';
 
-type ImagePopupProps = {
+export type ImagePopupProps = {
   src?: string;
 };
+export type ImagePopupRef = {
+  open: (url: string) => void;
+};
 
-const ImagePopup = forwardRef(({ src }: ImagePopupProps, ref) => {
+const ImagePopup = forwardRef<ImagePopupRef, ImagePopupProps>(({ src }, ref) => {
   const [imageUrl, setImageUrl] = useState(src || '');
   const [visible, setVisible] = useState(false);
 

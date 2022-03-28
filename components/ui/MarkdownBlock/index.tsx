@@ -4,12 +4,24 @@ import { CSSProperties } from 'react';
 interface MarkdownBlockProps {
   htmlContent: string;
   className?: string;
+  isComments?: boolean;
   style?: CSSProperties;
 }
 
-const MarkdownBlock = ({ htmlContent, className, ...rest }: MarkdownBlockProps) => (
+const MarkdownBlock = ({
+  htmlContent,
+  className,
+  isComments,
+  ...rest
+}: MarkdownBlockProps) => (
   <div
-    className={classNames('markdown-html', className)}
+    className={classNames(
+      'markdown-html',
+      {
+        comments: isComments,
+      },
+      className
+    )}
     dangerouslySetInnerHTML={{ __html: htmlContent }}
     {...rest}
   />

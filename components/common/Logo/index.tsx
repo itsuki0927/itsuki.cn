@@ -19,7 +19,7 @@ const Logo = () => (
       className='h-8'
     />
     <LogoJsonLd logo='https://static.itsuki.cn/logo.png' url='https://itsuki.cn' />
-    <span className='ml-3 leading-16 text-primary'>Itsuki</span>
+    <span className='ml-3 text-base leading-16 text-primary'>Itsuki</span>
   </div>
 );
 

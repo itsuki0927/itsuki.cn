@@ -1,8 +1,5 @@
-@import 'styles/variables';
-
 .navbarLayout {
   .main {
-    margin-top: $header-height + $spacing-lg;
-    margin-bottom: $spacing-lg;
+    @apply mt-[88px] mb-6;
   }
 }

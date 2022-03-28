@@ -47,7 +47,7 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
   };
 
   return (
-    <div>
+    <>
       {!actionVisible && (
         <div className='flex space-x-3'>
           <Input
@@ -96,7 +96,7 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
           </IconButton>
         </p>
       )}
-    </div>
+    </>
   );
 };
 

@@ -1,7 +1,3 @@
-@import 'styles/variables';
-
 .active {
-  border-color: transparent;
-  color: $white;
-  background-color: $primary;
+  @apply border-transparent bg-primary text-white;
 }

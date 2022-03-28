@@ -14,8 +14,10 @@ function mergeRefs<T>(refA?: Ref<T> | null, refB?: Ref<T> | null) {
   const a = toFnRef(refA);
   const b = toFnRef(refB);
   return (value: T | null) => {
-    if (typeof a === 'function') a(value!);
-    if (typeof b === 'function') b(value!);
+    if (value) {
+      if (typeof a === 'function') a(value);
+      if (typeof b === 'function') b(value);
+    }
   };
 }
 

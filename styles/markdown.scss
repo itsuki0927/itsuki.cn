@@ -1,82 +1,63 @@
-@import './variables';
-
-$primary-hover-color: $blue-5;
-
 .markdown-html {
   p {
-    line-height: 2.2em;
-    margin-bottom: 1em;
+    @apply mb-4 leading-9;
 
-    &.text-center {
-      text-align: center;
+    &.center {
+      @apply text-center;
     }
 
-    &.text-right {
-      text-align: right;
+    &.right {
+      @apply text-right;
     }
   }
 
   code {
+    @apply my-1 mx-1 rounded-sm bg-gray-100 px-2 py-1;
+
     color: #e06c75;
-    padding: $spacing-ssm $spacing-sm;
-    margin: 0 $spacing-ssm;
-    border-radius: $border-radius;
-    background-color: $gray-3;
   }
 
   a {
-    margin: 0 0.1em;
-    border-bottom: 1px solid transparent;
-    font-weight: bold;
-    display: inline-block;
-    text-indent: 0;
-    text-decoration: none;
-    color: $primary;
+    @apply my-0 mx-1 inline-block border border-solid border-transparent indent-0 font-bold text-blue-400 no-underline;
 
     &:hover,
     &:focus {
-      color: $primary-hover-color;
+      @apply opacity-80;
     }
 
     &.image-link {
-      margin: 0;
-      border: 0;
+      @apply m-0 border-none;
     }
 
     &:hover {
-      text-decoration: none;
+      @apply no-underline;
+
       border-color: initial;
     }
   }
 
   h1 {
-    padding-bottom: 0.3em;
-    font-size: 2em;
-    line-height: 1.2;
+    @apply pb-2 text-4xl;
   }
 
   h2 {
-    padding-bottom: 0.3em;
-    font-size: 1.5em;
-    line-height: 1.225;
+    @apply pb-1 text-3xl;
   }
 
   h3 {
-    font-size: 1.25em;
-    line-height: 1.43;
+    @apply text-2xl;
   }
 
   h4 {
-    font-size: 1em;
+    @apply text-xl;
   }
 
   h5 {
-    font-size: 0.875em;
+    @apply text-lg;
   }
 
   h6 {
-    font-size: 0.85em;
-    color: #777;
+    @apply text-base;
   }
 
   h1,
@@ -85,38 +66,28 @@ $primary-hover-color: $blue-5;
   h4,
   h5,
   h6 {
-    margin-top: 24px;
-    margin-bottom: 16px;
-    line-height: 1.8em;
-    font-weight: 700;
-    text-indent: 0;
+    @apply mt-6 mb-4 indent-0 font-bold leading-9;
   }
 
   blockquote {
-    p {
-      &:last-child {
-        margin-bottom: 0;
-      }
+    p:last-child {
+      @apply mb-0;
     }
-  }
-
-  ul {
-    list-style-type: square;
   }
 
   ul,
   ol {
+    list-style-type: inherit;
+
     > li {
-      line-height: 1.8em;
-      padding: 0.5em 0.8em;
+      @apply py-2 px-3 leading-7;
 
       &:hover {
-        background-color: $gray-3;
+        @apply bg-gray-100;
       }
       /* stylelint-disable no-descending-specificity */
       > p {
-        text-indent: 0;
-        margin-bottom: 0;
+        @apply mb-0 indent-0;
       }
 
       > ul {
@@ -129,43 +100,32 @@ $primary-hover-color: $blue-5;
 
       > ul,
       > ol {
-        margin-top: 4px;
+        @apply mt-1;
 
         &:last-child {
-          margin-bottom: 0;
+          @apply mb-0;
         }
       }
 
       &:last-child {
         > ul,
         > ol {
-          margin-bottom: -4px;
+          @apply -mb-1;
         }
       }
     }
   }
 
   img {
-    max-width: 100%;
-    position: relative;
-    margin: 0 auto;
-    display: block;
-    text-align: center;
-    border-radius: 2px;
-    border: 8px solid $gray-3;
-    opacity: 0.9;
-    cursor: pointer;
+    @apply relative mx-0 my-auto block max-w-full cursor-pointer rounded-sm border-8 border-solid border-gray-100 text-center opacity-80 transition-all;
 
     &:hover {
-      opacity: 1;
-      transition: all 0.2s;
+      @apply opacity-100;
     }
   }
 
   iframe {
-    width: 100%;
-    margin-bottom: 1em;
-    background-color: $black;
+    @apply mb-4 w-full;
   }
 
   pre {
@@ -174,145 +134,94 @@ $primary-hover-color: $blue-5;
     $code-row-line-height: 24px;
     $code-font-size: 16px;
 
-    display: block;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: $spacing-md;
-    padding-left: $code-number-width;
-    font-size: 16px;
-    background-color: rgba($color: #000, $alpha: 80%);
-    border-radius: 2px;
+    $code-bg: #282c34;
+    $code-language-bg: #1d2127;
+    $code-lines-bg: rgba(black, 0.15);
+    $code-number: #475162;
+    $code-number-hover: #a7b0be;
+    $code-number-hover-bg: #2b313d;
+
+    @apply relative mb-2 block overflow-hidden rounded-sm pl-9;
+
+    background-color: $code-bg;
 
     &::before {
-      color: $gray-3;
+      @apply absolute top-0 left-0 right-0 h-9 text-center font-bold uppercase leading-9 text-gray-200;
+
       content: attr(data-lang) ' CODE';
       font-family: 'Fira Code';
-      height: $code-header-height;
-      line-height: $code-header-height;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-weight: 700;
-      background-color: lighten(#000, 30%);
-      text-transform: uppercase;
+      background-color: $code-language-bg;
     }
 
     .code-lines {
-      user-select: none;
-      position: absolute;
-      left: 0;
+      @apply absolute left-0 top-0 bottom-0 mb-0 w-9 select-none py-2 px-0 text-center;
+
       top: $code-header-height;
-      bottom: 0;
-      padding: $spacing-md 0;
-      margin-bottom: 0;
-      width: $code-number-width;
-      text-align: center;
-      background-color: rgba($black, 0.2);
+      background-color: $code-lines-bg;
 
       .code-line-number {
-        padding: 0;
-        position: relative;
-        list-style-type: none;
-        line-height: $code-row-line-height;
-        font-size: 14px;
-        color: $gray-7;
+        @apply relative list-none p-0 text-base;
+
+        color: $code-number;
 
         &::before {
+          @apply invisible absolute left-9 top-0 right-0 h-full opacity-0;
+
           content: '';
-          position: absolute;
-          top: 0;
           width: 1200px;
-          left: $code-number-width;
-          right: 0;
-          height: 100%;
-          background-color: rgba($text-color-third, 0.1);
-          visibility: hidden;
-          opacity: 0;
+          background-color: rgba(white, 0.1);
         }
 
         &:hover {
-          background-color: $white;
-          color: $gray-8;
+          @apply opacity-100 before:visible;
 
-          &::before {
-            visibility: visible;
-            opacity: 1;
-          }
+          color: $code-number-hover;
+          background-color: $code-number-hover-bg;
         }
       }
     }
 
     code {
-      margin: 0;
-      padding: $spacing-md;
-      padding-top: 0;
-      float: left;
-      width: 100%;
-      height: 100%;
-      display: block;
-      line-height: 24px;
-      color: rgba($white, 0.87);
-      background-color: transparent;
-      font-size: 14px;
+      @apply float-left m-0 block h-full w-full bg-transparent p-2 pt-0 text-base text-gray-300;
     }
   }
 
   &.comment {
-    line-height: 2em;
     word-wrap: break-word;
-    font-size: $font-size;
+    @apply text-base;
 
     p {
-      text-indent: 0;
-      line-height: 2em;
-
-      &:last-child {
-        margin: 0;
-      }
+      @apply indent-0 leading-8 last:m-0;
     }
 
     a {
-      text-decoration: none;
-      border-bottom: 1px solid;
+      @apply border-b border-solid no-underline;
     }
 
     img {
-      margin: 0.5rem 0;
-      max-width: 100%;
+      @apply my-2 mx-0 max-w-full;
     }
 
     ul,
     ol {
-      padding-left: 2em;
+      @apply pl-8;
 
       > li {
-        padding: 0.2em 0.5em;
-
-        &:hover {
-          background-color: $gray-4;
-        }
+        @apply py-1 px-2 hover:bg-gray-50;
       }
     }
 
     pre {
       $code-header-height: 2.8rem;
 
-      padding-left: 0;
-      padding-top: $code-header-height;
-      margin-top: 1rem;
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap-reverse;
+      @apply mt-4 flex flex-wrap-reverse items-baseline pt-9 pl-0;
 
       .code-lines {
-        display: none;
+        @apply hidden;
       }
 
       code {
-        line-height: 1.8;
-        background-color: transparent;
+        @apply bg-transparent leading-6;
       }
     }
   }

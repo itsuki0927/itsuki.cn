@@ -106,14 +106,17 @@ customRenderer.code = function renderCode(
       </pre>`;
 };
 
+// 解析文字
 customRenderer.text = function renderText(text: string) {
   return text;
 };
 
+// 解析参数
 type MarkedOptions = {
   purify?: boolean;
 };
 
+// markdown -> html
 const markedToHtml = (markdown: string, { purify }: MarkedOptions = {}) => {
   if (!markdown || typeof markdown !== 'string') return '';
 

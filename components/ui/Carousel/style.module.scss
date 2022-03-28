@@ -1,40 +1,21 @@
-@import 'styles/variables';
-
 .carousel {
-  position: relative;
-  min-height: 160px;
-  overflow: hidden;
-  background-color: $component-background;
+  @apply relative overflow-hidden bg-white;
 
   .content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    @apply relative h-full w-full overflow-hidden;
   }
 
   .slider {
-    position: relative;
-    left: 0;
-    height: 100%;
-    transition: transform 0.3s ease;
-    will-change: transform;
+    @apply relative left-0 h-full transition-transform will-change-transform;
 
     .sliderItem {
-      background-color: $component-background;
-      float: left;
-      height: 100%;
-      width: 100%;
+      @apply float-left h-full w-full bg-white;
     }
   }
 
   .sliderAfter {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    background-color: $component-background;
+    @apply absolute left-0 top-0 h-full w-full bg-white;
+
     animation: move-left-half 0.3s ease forwards;
 
     &.vertical {
@@ -43,90 +24,72 @@
   }
 
   .toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
+    @apply absolute flex items-center justify-center;
 
     > ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
+      @apply m-0 flex list-inside p-0;
     }
   }
 
   .labelWrapper {
-    margin: $spacing-sm;
+    @apply m-1;
 
     input {
-      width: 0;
-      height: 0;
-      position: absolute;
-      opacity: 0;
+      @apply absolute h-0 w-0 opacity-0;
     }
 
     input:checked ~ label {
-      background-color: $gray-9;
+      @apply bg-gray-400;
     }
   }
 
   .label {
-    cursor: pointer;
-    display: block;
-    background-color: $gray-5;
-    transition: all 0.2s ease;
-    transition-property: background, width, height;
-    position: relative;
+    @apply relative block cursor-pointer bg-gray-100 transition-all;
 
     &::after {
+      @apply absolute -top-1 -right-1 -bottom-1 -left-1;
+
       content: '';
-      position: absolute;
-      top: -1 * 3px;
-      right: -1 * 3px;
-      bottom: -1 * 3px;
-      left: -1 * 3px;
     }
 
     &:hover {
-      background-color: $gray-9;
+      @apply bg-gray-400;
     }
   }
 
   // Handler Shape
   &.dot .label {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+    @apply h-3 w-3 rounded-full;
   }
 
   &.bar .label {
-    border-radius: 2px;
+    @apply rounded-sm;
   }
 
   &.top.bar .labelWrapper,
   &.bottom.bar .labelWrapper {
     input:checked ~ label {
-      width: 24px;
+      @apply w-6;
     }
   }
 
   &.top.bar .label,
   &.bottom.bar .label {
+    @apply h-1 w-4;
+
     width: 16px;
     height: 4px;
   }
 
   &.left.bar .label,
   &.right.bar .label {
-    width: 16px;
-    height: 4px;
+    @apply h-1 w-4;
   }
 
   &.left.bar .labelWrapper,
   &.right.bar .labelWrapper {
     input:checked ~ label {
-      height: 24px;
+      @apply h-6;
     }
   }
 
@@ -134,42 +97,36 @@
 
   &.top .toolbar,
   &.bottom .toolbar {
-    left: 0;
-    width: 100%;
+    @apply left-0 w-full;
 
     > ul {
-      align-items: center;
-      justify-content: center;
+      @apply items-center justify-center;
     }
   }
 
   &.top .toolbar {
-    top: $spacing;
+    @apply top-4;
   }
 
   &.bottom .toolbar {
-    bottom: $spacing;
+    @apply bottom-4;
   }
 
   &.left .toolbar,
   &.right .toolbar {
-    top: 0;
-    width: 10px;
-    height: 100%;
+    @apply top-0 h-full w-3;
 
     > ul {
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      @apply flex-col items-center justify-center;
     }
   }
 
   &.left .toolbar {
-    left: $spacing;
+    @apply left-4;
   }
 
   &.right .toolbar {
-    right: $spacing;
+    @apply right-4;
   }
 
   @keyframes move-left-half {

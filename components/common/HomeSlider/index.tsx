@@ -29,7 +29,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
           alt='banner-cover'
           className='group-hover: rounded-sm opacity-100'
         />
-        <div className='absolute top-6 right-6 rounded-sm bg-gray-50 py-1 px-4 text-gray-600 opacity-70 transition-all hover:text-gray-900 hover:opacity-90'>
+        <div className='absolute top-6 right-6 rounded-sm bg-gray-100 py-1 px-4 text-gray-600 opacity-40 transition-all hover:opacity-90'>
           <span>{article.title}</span>
         </div>
       </div>

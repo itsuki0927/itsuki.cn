@@ -1,34 +1,10 @@
-@import 'styles/variables';
-
 .input {
-  box-sizing: border-box;
-  margin: 0;
   font-variant: tabular-nums;
-  list-style: none;
   font-feature-settings: 'tnum';
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  min-width: 0;
-  padding: $spacing-ssm $spacing-md;
-  color: $text-color;
-  line-height: $line-height-base;
-  background-color: $gray-2;
-  border-radius: $border-radius;
-  border: none;
-  transition: all 0.3s;
+  @apply relative m-0 box-border inline-block min-w-0 list-none rounded-sm border-none  bg-gray-50 py-1 px-3 text-base transition-all;
 
   &:hover,
   &:focus {
-    background-color: $gray-3;
-  }
-
-  &.lg {
-    padding: $spacing-sm $spacing-md;
-    font-size: $font-size-lg;
-  }
-
-  &.sm {
-    padding: 0 $spacing-sm;
+    @apply bg-gray-100;
   }
 }

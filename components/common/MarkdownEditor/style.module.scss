@@ -1,13 +1,14 @@
-@import 'styles/variables';
-
 $toobar-height: 32px;
-$text-disabled: $gray-4;
+$black: black;
+$spacing-md: 12px;
+$border-color-split: #f9f9f9;
+$spacing-ssm: 2px;
+$spacing-sm: 4px;
+$border-radius: 2px;
 
 .icon {
-  color: $gray-8;
   margin-right: $spacing-md;
   text-align: center;
-  font-size: $font-size-lg;
   padding: 4px;
   display: inline-block;
   transition: all 0.3s;
@@ -15,8 +16,7 @@ $text-disabled: $gray-4;
   vertical-align: middle;
 
   &:hover {
-    color: $gray-10;
-    background-color: $text-disabled;
+    @apply bg-gray-100;
   }
 }
 
@@ -32,8 +32,8 @@ $text-disabled: $gray-4;
     border-radius: $border-radius;
 
     &.disabled {
-      background-color: $gray-3;
       cursor: not-allowed;
+      pointer-events: none;
 
       .icon {
         cursor: inherit;
@@ -47,12 +47,8 @@ $text-disabled: $gray-4;
     border-radius: 2px;
 
     .btn {
-      width: 76px;
-
       &.active {
-        background-color: $text-disabled;
-        border-color: $text-disabled;
-        color: $black;
+        @apply bg-gray-200;
       }
     }
   }
@@ -83,7 +79,7 @@ $text-disabled: $gray-4;
       padding: $spacing-md;
       height: 100%;
       overflow: auto;
-      background-color: $gray-2;
+      @apply bg-gray-50;
     }
   }
 }

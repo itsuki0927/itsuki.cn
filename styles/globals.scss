@@ -1,6 +1,3 @@
-@import './variables';
-@import './font';
-
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
@@ -13,6 +10,6 @@ body {
 }
 
 .container {
-  width: $container-width;
+  width: 1200px;
   @apply relative mx-auto;
 }

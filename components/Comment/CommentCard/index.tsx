@@ -43,7 +43,7 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
       <div className='bg-gray-50 p-2 pl-12 transition-colors hover:bg-gray-100'>
         <div className='flex items-center'>
           <span className='inline-block text-sm font-bold text-gray-600'>
-            <strong>{comment.nickname}</strong>
+            {comment.nickname}
           </span>
 
           <span className='ml-2 text-sm text-gray-400'>
@@ -74,7 +74,8 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
         )}
 
         <MarkdownBlock
-          className='comment my-1 max-h-[600px] overflow-y-scroll'
+          isComments
+          className='my-1 max-h-[600px] overflow-y-scroll'
           htmlContent={contentHtml}
         />
 

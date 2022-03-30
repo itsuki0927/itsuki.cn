@@ -7,8 +7,8 @@ import {
   TimeOutlined,
 } from '@/components/icons';
 import { Article } from '@/entities/article';
-import { getDateString } from '@/utils/date';
 import imageTransformer from '@/utils/image';
+import { ToDate } from '@/components/common';
 
 type ArticleCardProps = {
   article: Article;
@@ -38,7 +38,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => (
       <div className='mb-1 flex items-center justify-between text-sm text-gray-400'>
         <span key='time'>
           <TimeOutlined className='mr-1' />
-          {getDateString(article.createAt)}
+          <ToDate date={article.createAt} />
         </span>
         <span key='reading'>
           <EyeOutlined className='mr-1' />

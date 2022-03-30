@@ -7,6 +7,7 @@ import { NoReturnFunction } from '@/types/fn';
 import getGravatarUrl from '@/utils/gravatar';
 import markedToHtml from '@/utils/marked';
 import scrollTo from '@/utils/scrollTo';
+import { ToDate } from '@/components/common';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -51,7 +52,7 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
           </span>
 
           <span className='flex-grow text-right text-sm text-gray-300'>
-            {new Date(comment.createAt).toLocaleTimeString()}
+            <ToDate date={comment.createAt} />
           </span>
         </div>
 

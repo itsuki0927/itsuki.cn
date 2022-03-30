@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui';
 import { WEB_URL } from '@/configs/app';
 import { Article } from '@/entities/article';
 import { ArticleTag } from '..';
+import { ToDate } from '@/components/common';
 
 interface ArticleMetaProps {
   article: Article;
@@ -27,7 +28,7 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => {
   return (
     <div className='space-y-3 bg-white p-4'>
       <Meta>
-        本文于 {new Date(article.createAt).toLocaleDateString()} 发布于{' '}
+        本文于 <ToDate date={article.createAt} to='YMDm' /> 发布于{' '}
         <Link href={`/category/${category?.path}`}>
           <span className='cursor-pointer text-gray-600 transition-colors hover:text-gray-900'>
             <strong>{category?.name}</strong>

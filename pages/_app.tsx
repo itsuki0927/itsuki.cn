@@ -11,7 +11,16 @@ import '@/styles/reset.scss';
 import enableCopyright from '@/utils/copyright';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      })
+  );
   const Layout = (Component as any).Layout || BlankLayout;
 
   useMount(() => {
@@ -30,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
           </Layout>
         </Hydrate>
-        <ReactQueryDevtools />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   );

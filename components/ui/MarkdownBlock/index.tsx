@@ -22,6 +22,7 @@ const MarkdownBlock = ({
       },
       className
     )}
+    // eslint-disable-next-line react/no-danger
     dangerouslySetInnerHTML={{ __html: htmlContent }}
     {...rest}
   />

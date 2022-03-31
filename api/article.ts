@@ -12,3 +12,9 @@ export const getArticles = (params?: SearchArticlesBody) =>
 export const getPublishArticles = () => getArticles({ pinned: 1 });
 
 export const getBannerArticles = () => getArticles({ banner: 1 });
+
+export const getArticle = (id: number | string) =>
+  service.request<void, Article>({
+    method: 'get',
+    url: `/article/${id}`,
+  });

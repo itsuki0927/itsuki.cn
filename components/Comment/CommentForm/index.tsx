@@ -8,10 +8,10 @@ import CommentProfile from './CommentProfile';
 import { buildCommentDomId } from '../CommentCard';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import { Comment } from '@/entities/comment';
-import usePostComment from '@/framework/local/comment/use-post-comment';
 import purifyDomString from '@/utils/purify';
 import { useLocalStorage } from '@/hooks';
 import { EmptyFunction, NoReturnFunction } from '@/types/fn';
+import { useCreateComment } from '@/hooks/comment';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -57,7 +57,7 @@ export interface CommentFormRef {
 }
 
 const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId }, ref) => {
-  const postComment = usePostComment({ articleId });
+  const mutation = useCreateComment(articleId);
   const [loading, setLoading] = useState(false);
   const [reply, setReply] = useState<Comment>();
   const [profile, setProfile] = useLocalStorage(
@@ -78,7 +78,7 @@ const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId },
     }
     try {
       setLoading(true);
-      await postComment({
+      mutation.mutate({
         ...profile,
         content: purifyDomString(content),
         articleId,

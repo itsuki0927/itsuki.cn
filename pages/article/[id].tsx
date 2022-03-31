@@ -1,10 +1,11 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import { useRouter } from 'next/router';
+import { dehydrate, QueryClient } from 'react-query';
 import { ArticleView } from '@/components/article';
 import { Layout } from '@/components/common';
 import { ValidationError } from '@/framework/blog/utils/errors';
 import blog from '@/lib/api/blog';
-import markedToHtml from '@/utils/marked';
+import { getArticle } from '@/api/article';
+import { useArticle } from '@/hooks/article';
 
 export const getStaticPaths = async () => {
   const { articles } = await blog.getAllArticlePaths();
@@ -24,8 +25,8 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     throw new ValidationError({ message: '文章ID参数错误' });
   }
 
-  const { article } = await blog.getArticle({ variables: { articleId } });
-  const siteInfo = await blog.getSiteInfo();
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(['article', articleId], () => getArticle(articleId));
 
   blog.addArticleRead({
     variables: { articleId },
@@ -33,18 +34,18 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...siteInfo,
-      article: { ...article, content: markedToHtml(article.content) },
+      articleId,
+      dehydratedState: dehydrate(queryClient),
     },
     revalidate: 10,
   };
 };
 
-const ArticlePage = ({ article }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const router = useRouter();
+const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { data: article, isFetching, isLoading } = useArticle(articleId);
 
-  if (router.isFallback) return <h1>Loading...</h1>;
-  return <ArticleView article={article} />;
+  if (isFetching || isLoading) return <h1>Loading...</h1>;
+  return <ArticleView article={article!} />;
 };
 
 ArticlePage.Layout = Layout;

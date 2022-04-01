@@ -14,7 +14,7 @@
   }
 
   &.disabled {
-    @apply cursor-not-allowed bg-gray-500 text-gray-100 shadow-none;
+    @apply cursor-not-allowed bg-gray-200 text-gray-300 shadow-none;
   }
 
   &.ghost {

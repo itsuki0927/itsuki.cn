@@ -1,8 +1,16 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
-import { ArticleList } from '@/components/article';
-import { Layout } from '@/components/common';
+import { useMemo } from 'react';
+import { dehydrate, QueryClient } from 'react-query';
+import { getArticles } from '@/api/article';
+import { getGlobalData } from '@/api/global';
+import { ArticleCard } from '@/components/article';
+import { HijackRender, Layout } from '@/components/common';
 import { Banner } from '@/components/ui';
+import { articleKeys } from '@/constants/queryKeys';
+import { SiteInfo } from '@/entities/siteInfo';
+import { useCategoryArticles } from '@/hooks/article';
+import { useGlobalData } from '@/hooks/globalData';
 import blog from '@/lib/api/blog';
 
 export const getStaticPaths = async () => {
@@ -17,41 +25,60 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const categoryName = (params?.name ?? '') as string;
-  const siteInfo = await blog.getSiteInfo();
-  const articles = await blog.getAllArticles({
-    variables: {
-      category: categoryName,
-    },
-  });
+  const categoryName = (params?.name ?? '').toString();
 
-  const category = siteInfo.categories.find(item => item.path === categoryName)!;
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('globalData', () => getGlobalData());
+  await queryClient.prefetchQuery(articleKeys.category(categoryName), () =>
+    getArticles({ category: categoryName })
+  );
 
   return {
     props: {
-      ...siteInfo,
-      category,
-      articles,
+      categoryName,
+      dehydratedState: dehydrate(queryClient),
     },
     revalidate: 10,
   };
 };
 
+type UseCategoryHook = {
+  categories: SiteInfo['categories'] | undefined;
+  name: string;
+};
+
+const useCategory = ({ categories, name }: UseCategoryHook) => {
+  const tag = useMemo(
+    () => (categories ? categories.find(item => item.path === name) : undefined),
+    [categories, name]
+  );
+  return tag;
+};
+
 const CategoryPage = ({
-  category,
-  articles,
-}: InferGetServerSidePropsType<typeof getStaticProps>) => (
-  <>
-    <NextSeo
-      title={`${category.name} - ${category.path} - Category`}
-      description={category.description}
-    />
+  categoryName,
+}: InferGetServerSidePropsType<typeof getStaticProps>) => {
+  const articles = useCategoryArticles(categoryName);
+  const { data } = useGlobalData();
+  const category = useCategory({ categories: data?.categories, name: categoryName });
 
-    <Banner className='mb-6' data={category} />
+  return (
+    <>
+      <NextSeo
+        title={`${category?.name} - ${category?.path} - Category`}
+        description={category?.description}
+      />
 
-    <ArticleList articles={articles} />
-  </>
-);
+      <Banner className='mb-6' data={category} />
+
+      <HijackRender {...articles} className='space-y-6'>
+        {articles.data?.data.map(article => (
+          <ArticleCard article={article} key={article.id} />
+        ))}
+      </HijackRender>
+    </>
+  );
+};
 
 CategoryPage.Layout = Layout;
 

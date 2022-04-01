@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { QueryClient, dehydrate } from 'react-query';
-import { Layout } from '@/components/common';
+import { Layout, HijackRender } from '@/components/common';
 import { SoundOutlined } from '@/components/icons';
 import { getArticles, getBannerArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
 import { useArticles, useBannerArticles } from '@/hooks/article';
+import { Button } from '@/components/ui';
+import { ArticleCard } from '@/components/article';
 
 const Alert = ({ message }: { message: string }) => (
   <div className='border-l-4 border-l-blue-500 bg-blue-50 p-4'>
@@ -13,7 +16,6 @@ const Alert = ({ message }: { message: string }) => (
   </div>
 );
 
-const ArticleList = dynamic(() => import('@/components/article/ArticleList'));
 const HomeSlider = dynamic(() => import('@/components/common/HomeSlider'));
 
 export const getStaticProps = async () => {
@@ -32,7 +34,8 @@ export const getStaticProps = async () => {
 };
 
 const HomePage = () => {
-  const { data: articles } = useArticles();
+  const [current, setCurrent] = useState(1);
+  const articles = useArticles(current);
   const { data: bannerArticles } = useBannerArticles();
 
   return (
@@ -41,7 +44,34 @@ const HomePage = () => {
 
       <Alert message='思考比写代码来的更加珍贵' />
 
-      <ArticleList articles={articles} />
+      <HijackRender {...articles} className='space-y-6'>
+        {articles.data?.data.map(article => (
+          <ArticleCard article={article} key={article.id} />
+        ))}
+      </HijackRender>
+
+      <div className='flex justify-end space-x-4'>
+        <Button
+          disabled={!articles.data?.hasPrev}
+          onClick={() => {
+            if (articles.data?.hasPrev) {
+              setCurrent(c => Math.max(1, c - 1));
+            }
+          }}
+        >
+          上一页
+        </Button>
+        <Button
+          disabled={!articles.data?.hasNext}
+          onClick={() => {
+            if (articles.data?.hasNext) {
+              setCurrent(c => c + 1);
+            }
+          }}
+        >
+          下一页
+        </Button>
+      </div>
     </div>
   );
 };

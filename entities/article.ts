@@ -32,6 +32,8 @@ export type SearchArticlesBody = {
   pinned?: any;
   hot?: any;
   banner?: any;
+  pageSize?: number;
+  current?: number;
 };
 
 export type LikeArticleBody = {

@@ -1,21 +1,20 @@
-import { dehydrate, QueryClient } from 'react-query';
-import { useMemo } from 'react';
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
+import { useMemo } from 'react';
+import { dehydrate, QueryClient } from 'react-query';
+import { getArticles } from '@/api/article';
+import { getGlobalData } from '@/api/global';
+import { getAllTagPaths } from '@/api/tag';
 import { ArticleCard } from '@/components/article';
 import { HijackRender, Layout } from '@/components/common';
 import { Banner } from '@/components/ui';
-import blog from '@/lib/api/blog';
-import { useTagArticles } from '@/hooks/article';
 import { articleKeys } from '@/constants/queryKeys';
-import { getGlobalData } from '@/api/global';
-import { useGlobalData } from '@/hooks/globalData';
 import { SiteInfo } from '@/entities/siteInfo';
-import { getArticles } from '@/api/article';
+import { useTagArticles } from '@/hooks/article';
+import { useGlobalData } from '@/hooks/globalData';
 
 export const getStaticPaths = async () => {
-  const { tags } = await blog.getAllTagPaths();
-  const paths = tags.map(tag => `/tag/${tag.path}`);
+  const paths = await getAllTagPaths();
 
   return {
     paths,

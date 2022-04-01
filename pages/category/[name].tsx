@@ -3,6 +3,7 @@ import { NextSeo } from 'next-seo';
 import { useMemo } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import { getArticles } from '@/api/article';
+import { getAllCategoryPaths } from '@/api/category';
 import { getGlobalData } from '@/api/global';
 import { ArticleCard } from '@/components/article';
 import { HijackRender, Layout } from '@/components/common';
@@ -11,12 +12,9 @@ import { articleKeys } from '@/constants/queryKeys';
 import { SiteInfo } from '@/entities/siteInfo';
 import { useCategoryArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
-import blog from '@/lib/api/blog';
 
 export const getStaticPaths = async () => {
-  const { categories } = await blog.getAllCategoryPaths();
-
-  const paths = categories.map(category => `/category/${category.path}`);
+  const paths = await getAllCategoryPaths();
 
   return {
     paths,

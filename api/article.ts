@@ -22,3 +22,17 @@ export const getArchives = () =>
     method: 'get',
     url: '/article/archive',
   });
+
+export const getAllArticlePaths = () =>
+  service
+    .request<void, { id: number }[]>({
+      method: 'get',
+      url: 'article/paths',
+    })
+    .then(res => res.map(item => `/article/${item.id}`));
+
+export const likeArticle = (id: number) =>
+  service.request<void, number>({
+    method: 'patch',
+    url: `/article/${id}/like`,
+  });

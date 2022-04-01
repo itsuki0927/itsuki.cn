@@ -27,6 +27,7 @@ export type Article = IdentifiableEntity<{
 
 export type SearchArticlesBody = {
   search?: string;
+  name?: string;
   tag?: string;
   category?: string;
   pinned?: any;

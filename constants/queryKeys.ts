@@ -7,6 +7,7 @@ export const articleKeys = {
   detail: (id: number) => [articleKeys.article, 'detail', id] as const,
   publish: () => ['publish', ...articleKeys.lists()] as const,
   banner: () => ['banner', ...articleKeys.lists()] as const,
+  search: (keywords: string) => [articleKeys.article, 'search', keywords] as const,
 };
 
 export const commentKeys = {

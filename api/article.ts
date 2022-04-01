@@ -9,8 +9,6 @@ export const getArticles = (params?: SearchArticlesBody) =>
     params,
   });
 
-export const getPublishArticles = () => getArticles({ pinned: 1 });
-
 export const getBannerArticles = () => getArticles({ banner: 1 });
 
 export const getArticle = (id: number | string) =>

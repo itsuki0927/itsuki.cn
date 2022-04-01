@@ -1,13 +1,13 @@
 import classNames from 'classnames';
+import { ToDate } from '@/components/common';
 import { HeartFilled, HeartOutlined, Icon } from '@/components/icons';
 import { Button, IconButton, MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
-import useLikeComment from '@/framework/local/comment/use-like-comment';
+import useLikeComment from '@/hooks/comment/useLikeComment';
 import { NoReturnFunction } from '@/types/fn';
 import getGravatarUrl from '@/utils/gravatar';
 import markedToHtml from '@/utils/marked';
 import scrollTo from '@/utils/scrollTo';
-import { ToDate } from '@/components/common';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -20,11 +20,12 @@ interface CommentCardProps extends CommentCardCommonProps {
 }
 const CommentCard = ({ comment, onReply }: CommentCardProps) => {
   const contentHtml = markedToHtml(comment.content, { purify: true });
-  const likeComment = useLikeComment({ articleId: comment.articleId });
+  // const likeComment = useLikeComment({ articleId: comment.articleId });
+  const likeComment = useLikeComment(comment.articleId);
 
   const handleLikeComment = () => {
     if (comment.isLike) return;
-    likeComment({ commentId: comment.id });
+    likeComment.mutate(comment.id);
   };
 
   return (

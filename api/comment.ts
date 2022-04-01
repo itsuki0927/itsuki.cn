@@ -13,3 +13,9 @@ export const createComment = (newComment: PostCommentBody) =>
     url: '/comment',
     data: newComment,
   });
+
+export const likeComment = (id: number) =>
+  service.request<void, number>({
+    method: 'patch',
+    url: `/comment/${id}/like`,
+  });

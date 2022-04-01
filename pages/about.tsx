@@ -1,13 +1,15 @@
+import { dehydrate, QueryClient } from 'react-query';
+import { getGlobalData } from '@/api/global';
 import AboutView from '@/components/about/index';
 import { NavbarLayout } from '@/components/common';
-import blog from '@/lib/api/blog';
 
 export const getStaticProps = async () => {
-  const siteInfo = await blog.getSiteInfo();
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('globalData', () => getGlobalData());
 
   return {
     props: {
-      ...siteInfo,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

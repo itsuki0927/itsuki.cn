@@ -1,4 +1,4 @@
-import { Article, SearchArticlesBody } from '@/entities/article';
+import { Article, ArticleArchiveResponse, SearchArticlesBody } from '@/entities/article';
 import { SearchResponse } from '@/types/response';
 import service from './service';
 
@@ -15,4 +15,10 @@ export const getArticle = (id: number | string) =>
   service.request<void, Article>({
     method: 'get',
     url: `/article/${id}`,
+  });
+
+export const getArchives = () =>
+  service.request<void, ArticleArchiveResponse>({
+    method: 'get',
+    url: '/article/archive',
   });

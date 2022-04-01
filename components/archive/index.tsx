@@ -38,11 +38,11 @@ const MonthList = ({ months }: { months: ArticleArchiveMap }) => (
 );
 
 interface ArchivePageProps {
-  archives: ArticleArchiveResponse;
+  archives?: ArticleArchiveResponse;
 }
 
-const ArchiveView = ({ archives }: ArchivePageProps) => (
-  <div>
+const ArchiveView = ({ archives = {} }: ArchivePageProps) => (
+  <>
     <NextSeo title='归档' />
     <ul className='list-none pl-0'>
       {Object.entries(archives)
@@ -56,7 +56,7 @@ const ArchiveView = ({ archives }: ArchivePageProps) => (
           </li>
         ))}
     </ul>
-  </div>
+  </>
 );
 
 export default ArchiveView;

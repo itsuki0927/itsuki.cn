@@ -19,7 +19,6 @@ export interface PageProps {
 const Layout: FC<PageProps> = ({ children, pageProps }) => {
   const { categories = [], tags = [], hotArticles = [] } = pageProps;
   const { locale = 'zh-cn' } = useRouter();
-
   const { data } = useGlobalData();
 
   return (

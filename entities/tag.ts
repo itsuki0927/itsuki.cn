@@ -9,8 +9,4 @@ export type Tag = IdentifiableEntity<{
   expand?: string;
 }>;
 
-export type GetAllTagPathsOperation = {
-  data: { tags: Pick<Tag, 'path'>[] };
-};
-
 export type GetAllTagPathsQuery = SearchResponse<Tag>;

@@ -23,7 +23,3 @@ export type SiteInfo = {
   siteInfo: SystemSettings;
   hotArticles: Article[];
 };
-
-export type GetSiteInfoOperation = {
-  data: SiteInfo;
-};

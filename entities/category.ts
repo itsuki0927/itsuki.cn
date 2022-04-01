@@ -10,8 +10,4 @@ export type Category = IdentifiableEntity<{
   expand?: string;
 }>;
 
-export type GetAllCategoryPathsOperation = {
-  data: { categories: Pick<Category, 'path'>[] };
-};
-
 export type GetAllCategoryPathsQuery = SearchResponse<Category>;

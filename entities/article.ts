@@ -30,9 +30,9 @@ export type SearchArticlesBody = {
   name?: string;
   tag?: string;
   category?: string;
-  pinned?: any;
-  hot?: any;
-  banner?: any;
+  pinned?: number;
+  hot?: number;
+  banner?: number;
   pageSize?: number;
   current?: number;
 };
@@ -47,38 +47,6 @@ export type ArticleTypes = {
   likeBody: LikeArticleBody;
 };
 
-export type SearchArticlesHook<T extends ArticleTypes = ArticleTypes> = {
-  data: {
-    articles: SearchResponse<T['article']>;
-    found: boolean;
-  };
-  body: T['searchBody'];
-  input: T['searchBody'];
-  fetcherInput: T['searchBody'];
-};
-
-export type LikeArticleHook<T extends ArticleTypes = ArticleTypes> = {
-  data: void;
-  actionInput: T['likeBody'];
-  body: T['likeBody'];
-  fetcherInput: T['likeBody'];
-};
-
-export type ArticlesSchema<T extends ArticleTypes = ArticleTypes> = {
-  endpoint: {
-    options: Record<string, any>;
-    handlers: {
-      getArticles: SearchArticlesHook<T>;
-      likeArticle: LikeArticleHook<T>;
-    };
-  };
-};
-
-export type GetArticleOperation<T extends ArticleTypes = ArticleTypes> = {
-  data: { article: T['article'] };
-  variables: { articleId: number };
-};
-
 export type ArticleArchive = Pick<
   Article,
   'id' | 'title' | 'createAt' | 'description'
@@ -86,31 +54,8 @@ export type ArticleArchive = Pick<
   createAtString: string;
 };
 
-export type ArticleArchiveMap = {
-  [key: string]: ArticleArchive[];
-};
+export type ArticleArchiveMap = Record<string, ArticleArchive[]>;
 
-export type ArticleArchiveResponse = {
-  [key: string]: ArticleArchiveMap;
-};
-
-export type GetArchiveOperation = {
-  data: { archives: ArticleArchiveResponse };
-};
-
-export type GetAllArticlePathsOperation<T extends ArticleTypes = ArticleTypes> = {
-  data: { articles: Pick<T['article'], 'id'>[] };
-};
-
-export type AddArticleReadOperation = {
-  variables: {
-    articleId: number;
-  };
-};
-
-export type GetAllArticlesOperation<T extends ArticleTypes = ArticleTypes> = {
-  data: SearchResponse<T['article']>;
-  variables: SearchArticlesBody;
-};
+export type ArticleArchiveResponse = Record<string, ArticleArchiveMap>;
 
 export type GetAllArticlePathsQuery = SearchResponse<Article>;

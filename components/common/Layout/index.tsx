@@ -1,9 +1,7 @@
-import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 import { Footer, Navbar, Sidebar } from '@/components/common';
 import { BackTop } from '@/components/ui';
 import { SiteInfo } from '@/entities/siteInfo';
-import { BlogProvider } from '@/framework/local';
 import { useGlobalData } from '@/hooks/globalData';
 
 export interface PageProps {
@@ -18,11 +16,10 @@ export interface PageProps {
 
 const Layout: FC<PageProps> = ({ children, pageProps }) => {
   const { categories = [], tags = [], hotArticles = [] } = pageProps;
-  const { locale = 'zh-cn' } = useRouter();
   const { data } = useGlobalData();
 
   return (
-    <BlogProvider locale={locale}>
+    <>
       <div className='flex min-h-screen flex-col'>
         <Navbar links={data?.categories || categories} />
 
@@ -38,7 +35,7 @@ const Layout: FC<PageProps> = ({ children, pageProps }) => {
         <Footer />
       </div>
       <BackTop />
-    </BlogProvider>
+    </>
   );
 };
 

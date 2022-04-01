@@ -6,15 +6,20 @@ import { commentKeys } from '@/constants/queryKeys';
 import { Comment } from '@/entities/comment';
 import { useLocalStorage } from '..';
 
-const useLikeComment = (articleId: number) => {
+type UseLikeCommentHook = {
+  articleId: number;
+  commentId: number;
+};
+
+const useLikeComment = ({ articleId, commentId }: UseLikeCommentHook) => {
   const queryClient = useQueryClient();
-  const [likeArticles, setLikeArticles] = useLocalStorage<LikeComments>(
+  const [likeComments, setLikeComments] = useLocalStorage<LikeComments>(
     LikeCommentsKey,
     initialLikeValue
   );
-  const mutation = useMutation<number, AxiosError, number>(likeComment, {
-    onSuccess: (liking, commentId) => {
-      setLikeArticles({ ...likeArticles, [commentId]: true });
+  const mutation = useMutation<number, AxiosError>(() => likeComment(commentId), {
+    onSuccess: liking => {
+      setLikeComments({ ...likeComments, [commentId]: true });
       // NOTE: 有两种方式更新
       // 1. queryClient.invalidateQueries()
       // 2. queryClient.setQueryData()
@@ -23,7 +28,7 @@ const useLikeComment = (articleId: number) => {
         (oldComments = []) =>
           oldComments.map(comment => {
             if (comment.id === commentId) {
-              return { ...comment, liking, isLike: true };
+              return { ...comment, liking };
             }
             return comment;
           })
@@ -31,7 +36,7 @@ const useLikeComment = (articleId: number) => {
     },
   });
 
-  return mutation;
+  return { isLike: !!likeComments[commentId], mutation } as const;
 };
 
 export default useLikeComment;

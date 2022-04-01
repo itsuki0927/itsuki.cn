@@ -18,7 +18,6 @@ export type Comment = IdentifiableEntity<{
   articleId: number;
   articleTitle: string;
   articleDescription: string;
-  isLike?: boolean;
 }>;
 
 export type SearchCommentsBody = {

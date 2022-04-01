@@ -20,12 +20,14 @@ interface CommentCardProps extends CommentCardCommonProps {
 }
 const CommentCard = ({ comment, onReply }: CommentCardProps) => {
   const contentHtml = markedToHtml(comment.content, { purify: true });
-  // const likeComment = useLikeComment({ articleId: comment.articleId });
-  const likeComment = useLikeComment(comment.articleId);
+  const { isLike, mutation } = useLikeComment({
+    articleId: comment.articleId,
+    commentId: comment.id,
+  });
 
   const handleLikeComment = () => {
-    if (comment.isLike) return;
-    likeComment.mutate(comment.id);
+    if (isLike) return;
+    mutation.mutate();
   };
 
   return (
@@ -85,14 +87,12 @@ const CommentCard = ({ comment, onReply }: CommentCardProps) => {
           <IconButton
             size='small'
             type='ghost'
-            icon={
-              comment.isLike ? <HeartFilled className='text-error' /> : <HeartOutlined />
-            }
+            icon={isLike ? <HeartFilled className='text-error' /> : <HeartOutlined />}
             onClick={handleLikeComment}
             className={classNames(
               'ml-3 bg-transparent text-gray-300 transition-colors hover:text-error',
               {
-                'text-error': comment.isLike,
+                'text-error': isLike,
               }
             )}
           >

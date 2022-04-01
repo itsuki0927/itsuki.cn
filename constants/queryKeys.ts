@@ -17,3 +17,7 @@ export const commentKeys = {
     [articleKeys.article, articleId, commentKeys.comment, 'list'] as const,
   like: (id: number) => [commentKeys.comment, id, 'like'] as const,
 };
+
+export const globalDataKeys = {
+  globalData: 'globalData' as const,
+};

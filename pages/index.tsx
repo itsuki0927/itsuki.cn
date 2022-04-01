@@ -8,6 +8,7 @@ import { getGlobalData } from '@/api/global';
 import { useArticles, useBannerArticles } from '@/hooks/article';
 import { Button } from '@/components/ui';
 import { ArticleCard } from '@/components/article';
+import { globalDataKeys } from '@/constants/queryKeys';
 
 const Alert = ({ message }: { message: string }) => (
   <div className='border-l-4 border-l-blue-500 bg-blue-50 p-4'>
@@ -23,7 +24,7 @@ export const getStaticProps = async () => {
 
   await queryClient.prefetchQuery('bannerArticles', () => getBannerArticles());
   await queryClient.prefetchQuery('article', () => getArticles());
-  await queryClient.prefetchQuery('globalData', () => getGlobalData());
+  await queryClient.prefetchQuery(globalDataKeys.globalData, () => getGlobalData());
 
   return {
     props: {

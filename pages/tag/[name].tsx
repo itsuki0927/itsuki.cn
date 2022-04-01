@@ -8,7 +8,7 @@ import { getAllTagPaths } from '@/api/tag';
 import { ArticleCard } from '@/components/article';
 import { HijackRender, Layout } from '@/components/common';
 import { Banner } from '@/components/ui';
-import { articleKeys } from '@/constants/queryKeys';
+import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { SiteInfo } from '@/entities/siteInfo';
 import { useTagArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
@@ -26,7 +26,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const tagName = (params?.name ?? '') as string;
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery('globalData', () => getGlobalData());
+  await queryClient.prefetchQuery(globalDataKeys.globalData, () => getGlobalData());
   await queryClient.prefetchQuery(articleKeys.tag(tagName), () =>
     getArticles({ tag: tagName })
   );

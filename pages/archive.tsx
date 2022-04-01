@@ -2,14 +2,14 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getArchives } from '@/api/article';
 import ArchiveView from '@/components/archive';
 import { HijackRender, NavbarLayout } from '@/components/common';
-import { articleKeys } from '@/constants/queryKeys';
+import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { useArchives } from '@/hooks/article';
 import { getGlobalData } from '@/api/global';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(articleKeys.archive(), () => getArchives());
-  await queryClient.prefetchQuery('globalData', () => getGlobalData());
+  await queryClient.prefetchQuery(globalDataKeys.globalData, () => getGlobalData());
 
   return {
     props: {

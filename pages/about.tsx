@@ -2,10 +2,11 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getGlobalData } from '@/api/global';
 import AboutView from '@/components/about/index';
 import { NavbarLayout } from '@/components/common';
+import { globalDataKeys } from '@/constants/queryKeys';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery('globalData', () => getGlobalData());
+  await queryClient.prefetchQuery(globalDataKeys.globalData, () => getGlobalData());
 
   return {
     props: {

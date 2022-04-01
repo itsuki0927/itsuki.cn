@@ -2,15 +2,11 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { ArticleView } from '@/components/article';
 import { Layout } from '@/components/common';
-import { ValidationError } from '@/framework/blog/utils/errors';
-import blog from '@/lib/api/blog';
-import { getArticle } from '@/api/article';
+import { getAllArticlePaths, getArticle } from '@/api/article';
 import { useArticle } from '@/hooks/article';
 
 export const getStaticPaths = async () => {
-  const { articles } = await blog.getAllArticlePaths();
-
-  const paths = articles.map(article => `/article/${article.id}`);
+  const paths = await getAllArticlePaths();
 
   return {
     paths,
@@ -22,15 +18,13 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const articleId = Number(params?.id);
 
   if (Number.isNaN(articleId)) {
-    throw new ValidationError({ message: '文章ID参数错误' });
+    throw new Error('文章ID参数错误');
   }
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(['article', articleId], () => getArticle(articleId));
 
-  blog.addArticleRead({
-    variables: { articleId },
-  });
+  // TODO: 添加阅读数
 
   return {
     props: {

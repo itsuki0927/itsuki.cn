@@ -1,18 +1,14 @@
 import classNames from 'classnames';
-import { useState } from 'react';
 import { EyeFilled, HeartFilled, HeartOutlined, MessageFilled } from '@/components/icons';
 import { Article } from '@/entities/article';
-import useInLikeArticles from '@/framework/local/article/use-in-like-articles';
-import useLikeArticle from '@/framework/local/article/use-like-article';
+import useLikeArticle from '@/hooks/article/useLikeArticle';
 
 interface ArticleCounterProps {
   article: Article;
 }
 
 const ArticleCounter = ({ article }: ArticleCounterProps) => {
-  const isLike = useInLikeArticles(article.id);
-  const likeArticle = useLikeArticle();
-  const [liking, setLiking] = useState(article.liking);
+  const { isLike, mutation } = useLikeArticle(article.id);
 
   return (
     <div className='flex space-x-6'>
@@ -39,8 +35,7 @@ const ArticleCounter = ({ article }: ArticleCounterProps) => {
         })}
         onClick={() => {
           if (isLike) return;
-          setLiking(l => l + 1);
-          likeArticle({ articleId: article.id });
+          mutation.mutate();
         }}
       >
         {isLike ? (
@@ -49,7 +44,7 @@ const ArticleCounter = ({ article }: ArticleCounterProps) => {
           <HeartOutlined className='h-10 w-10 rounded-sm bg-red-50 text-2xl leading-10 text-red-500' />
         )}
         <span className='ml-4 text-sm'>
-          <strong className='mr-1 text-lg text-red-500'>{liking}</strong>
+          <strong className='mr-1 text-lg text-red-500'>{article.liking}</strong>
           个喜欢
         </span>
       </div>

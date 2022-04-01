@@ -1,9 +1,19 @@
-import type { GetStaticPathsResult, GetStaticPropsContext } from 'next';
-import Search from '@/components/search';
-import { getSearchStaticProps } from '@/lib/search-prop';
+import type { GetStaticPathsResult } from 'next';
+import { dehydrate, QueryClient } from 'react-query';
+import { getGlobalData } from '@/api/global';
+import { Search } from '@/components/common';
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  return getSearchStaticProps(context);
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery('globalData', () => getGlobalData());
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 200,
+  };
 }
 
 export function getStaticPaths(): GetStaticPathsResult {

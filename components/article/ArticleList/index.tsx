@@ -1,26 +1,12 @@
-import React from 'react';
-import { Empty, Loading } from '@/components/ui';
+import { QueryList, PaginationListProps } from '@/components/common';
 import { Article } from '@/entities/article';
-import { SearchResponse } from '@/types/response';
 import ArticleCard from '../ArticleCard';
 
-type ArticleListProps = {
-  articles?: SearchResponse<Article>;
-};
+type ArticleListProps = Omit<PaginationListProps<Article>, 'children'>;
 
-const ArticleList = ({ articles }: ArticleListProps) => {
-  if (!articles) return <Loading />;
-
-  if (articles.total === 0) {
-    return <Empty />;
-  }
-
-  return (
-    <div className='space-y-6'>
-      {articles.data.map(article => (
-        <ArticleCard article={article} key={article.id} />
-      ))}
-    </div>
-  );
-};
+const ArticleList = ({ data, ...rest }: ArticleListProps) => (
+  <QueryList {...rest} data={data?.data}>
+    {article => <ArticleCard article={article} key={article.id} />}
+  </QueryList>
+);
 export default ArticleList;

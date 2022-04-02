@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { QueryClient, dehydrate } from 'react-query';
-import { Layout, HijackRender } from '@/components/common';
+import { Layout } from '@/components/common';
 import { SoundOutlined } from '@/components/icons';
 import { getArticles, getBannerArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
 import { useArticles, useBannerArticles } from '@/hooks/article';
 import { Button } from '@/components/ui';
-import { ArticleCard } from '@/components/article';
+import { ArticleList } from '@/components/article';
 import { globalDataKeys } from '@/constants/queryKeys';
 
 const Alert = ({ message }: { message: string }) => (
@@ -45,11 +45,7 @@ const HomePage = () => {
 
       <Alert message='思考比写代码来的更加珍贵' />
 
-      <HijackRender {...articles} className='space-y-6'>
-        {articles.data?.data.map(article => (
-          <ArticleCard article={article} key={article.id} />
-        ))}
-      </HijackRender>
+      <ArticleList {...articles} />
 
       <div className='flex justify-end space-x-4'>
         <Button

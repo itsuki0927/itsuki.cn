@@ -2,7 +2,7 @@ import { SearchResponse } from '@/types/response';
 import { QueryListProps } from '../QueryList';
 
 export type PaginationListProps<T> = Omit<QueryListProps<T[]>, 'data'> & {
-  data: SearchResponse<T>;
+  data?: SearchResponse<T>;
 };
 
 // const PaginationList = <T,>({ data, children, ...rest }: PaginationListProp<T>) => (

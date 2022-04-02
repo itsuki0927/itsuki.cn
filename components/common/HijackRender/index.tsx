@@ -2,8 +2,24 @@ import { CSSProperties, ElementType, ReactNode } from 'react';
 import { UseQueryResult } from 'react-query';
 import { Empty } from '@/components/ui';
 
-export type HijackRenderProps<T> = UseQueryResult<T> & {
-  children: ReactNode;
+type PickKeys =
+  | 'data'
+  | 'isIdle'
+  | 'error'
+  | 'isError'
+  | 'isStale'
+  | 'isLoading'
+  | 'isSuccess'
+  | 'isFetched'
+  | 'isFetching'
+  | 'isRefetching'
+  | 'isPreviousData'
+  | 'isLoadingError'
+  | 'isRefetchError'
+  | 'isPlaceholderData';
+
+export type HijackRenderProps<T> = Pick<UseQueryResult<T>, PickKeys> & {
+  children?: ReactNode | undefined;
   loadingContent?: ReactNode;
   errorContent?: ReactNode;
   idleContent?: ReactNode;
@@ -38,6 +54,9 @@ function HijackRender<T>({
   isLoading,
   isIdle,
   isError,
+  isRefetchError,
+  isLoadingError,
+  isFetching,
   data,
   children,
   loadingContent = defaultLoading,
@@ -48,11 +67,11 @@ function HijackRender<T>({
   showEmpty = true,
   ...rest
 }: HijackRenderProps<T>) {
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <>{loadingContent}</>;
   }
 
-  if (isError) {
+  if (isError || isLoadingError || isRefetchError) {
     return <>{errorContent}</>;
   }
 
@@ -60,7 +79,7 @@ function HijackRender<T>({
     return <>{idleContent}</>;
   }
 
-  if (Array.isArray(data) && data.length === 0 && showEmpty) {
+  if (Array.isArray(data) && !data.length && showEmpty) {
     return <>{emptyContent}</>;
   }
 

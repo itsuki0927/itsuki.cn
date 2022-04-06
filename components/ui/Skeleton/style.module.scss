@@ -1,0 +1,44 @@
+// $accent-0: $gray-3;
+// $accent-1: $gray-4;
+// $accent-2: lighten($gray-5, 5%);
+
+.skeleton {
+  display: block;
+  background-size: 400% 100%;
+  animation: loading 8s ease-in-out infinite;
+
+  // background: linear-gradient(270deg, $accent-0, $accent-2, $accent-0, $accent-1);
+}
+
+.wrapper {
+  position: relative;
+  display: block;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background-size: 400% 100%;
+    animation: loading 8s ease-in-out infinite;
+
+    // background: linear-gradient(270deg, $accent-0, $accent-2, $accent-0, $accent-1);
+  }
+
+  &:not(.show)::before {
+    content: none;
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}

@@ -1,60 +1,69 @@
+import { CSSProperties } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import router from 'next/router';
-import {
-  EyeOutlined,
-  HeartOutlined,
-  MessageOutlined,
-  TimeOutlined,
-} from '@/components/icons';
+import { ToDate } from '@/components/common';
 import { Article } from '@/entities/article';
 import imageTransformer from '@/utils/image';
-import { ToDate } from '@/components/common';
+import { HeartOutlined, MessageOutlined, EyeOutlined } from '@/components/icons';
+import { Button } from '@/components/ui';
+import s from './style.module.scss';
 
 type ArticleCardProps = {
   article: Article;
+  style?: CSSProperties;
 };
 
-const ArticleCard = ({ article }: ArticleCardProps) => (
-  <div
-    role='article'
-    onClick={() => router.push(`/article/${article.id}`)}
-    className='cursor group flex cursor-pointer rounded-sm bg-white p-4'
-  >
+const ArticleCard = ({ article, style }: ArticleCardProps) => (
+  <article className={`group flex rounded-sm bg-white p-4 ${s.card}`} style={style}>
     <Image
       alt='article-cover'
-      width={180}
-      height={135}
+      width={286}
+      height={200}
       objectFit='cover'
       src={article.cover}
-      className='opacity-90 transition-all group-hover:scale-105 group-hover:opacity-100'
+      className='min-w-[45%] flex-shrink-0 opacity-90 transition-all group-hover:scale-105 group-hover:opacity-100'
       loader={imageTransformer}
+      onClick={() => router.push(`/article/${article.id}`)}
     />
-    <div className='ml-3 flex grow flex-col justify-between'>
-      <p className='mb-0 cursor-pointer text-lg transition-all hover:text-gray-900 hover:underline'>
-        {article.title}
-      </p>
-      <p className='mb-0 grow text-gray-500'>{article.description}</p>
-
-      <div className='mb-1 flex items-center justify-between text-sm text-gray-400'>
-        <span key='time'>
-          <TimeOutlined className='mr-1' />
+    <div className='ml-4 flex max-w-[50%] flex-col items-start justify-between'>
+      <header className='mt-1 mb-1'>
+        <span className='block text-xs text-[#999]'>
           <ToDate date={article.createAt} />
         </span>
-        <span key='reading'>
-          <EyeOutlined className='mr-1' />
+
+        <h3
+          className='cursor-pointer tracking-widest text-[#2d2d2d] transition-colors duration-500 hover:text-[#777]'
+          onClick={() => router.push(`/article/${article.id}`)}
+        >
+          {article.title}
+        </h3>
+      </header>
+
+      <div className='mt-2 mb-2 min-h-[48px] flex-grow overflow-hidden text-ellipsis text-sm tracking-wider text-[#444]'>
+        {article.description}
+      </div>
+
+      <Button type='ghost' className='mb-3 py-2 px-6 tracking-widest'>
+        <Link href={`/article/${article.id}`}>READ MORE</Link>
+      </Button>
+
+      <div className='mb-1 flex items-end space-x-3 text-xxs text-[#b6b6b6]'>
+        <span>
+          <HeartOutlined className='mr-1 text-xxs' />
+          {article.liking}
+        </span>
+        <span>
+          <EyeOutlined className='mr-1 text-xxs' />
           {article.reading}
         </span>
-        <span key='commenting'>
-          <MessageOutlined className='mr-1' />
+        <span>
+          <MessageOutlined className='mr-1 text-xxs' />
           {article.commenting}
-        </span>
-        <span key='liking'>
-          <HeartOutlined className='mr-1' />
-          {article.liking}
         </span>
       </div>
     </div>
-  </div>
+  </article>
 );
 
 export default ArticleCard;

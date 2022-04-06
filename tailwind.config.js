@@ -10,18 +10,28 @@ module.exports = {
       black: colors.black,
       white: colors.white,
       gray: colors.stone,
-      blue: colors.blue,
-      green: colors.green,
-      yellow: colors.yellow,
-      red: colors.red,
-
-      primary: colors.blue['500'],
-      success: colors.green['500'],
-      warning: colors.yellow['500'],
-      error: colors.red['500'],
       mask: 'rgba(0, 0, 0, 0.35)',
+
+      // #f8f8f8
+      // #f2f2f2
+      // #eee
+      // #b6b6b6
+      // #999
+      // #777
+      // #444
+      // #2d2d2d
+      // #222
+      // #1c1c1c
+
+      base: '#464646',
     },
     extend: {
+      backgroundColor: {
+        base: '#efefef',
+      },
+      fontSize: {
+        xxs: ['0.625rem', '0.75rem'],
+      },
       lineHeight: {
         11: '2.75rem',
         12: '3rem',

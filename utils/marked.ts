@@ -76,16 +76,6 @@ customRenderer.code = function renderCode(
     }
   }
 
-  const lineNumbers = code
-    .split('\n')
-    .map((_, i) => `<li class='code-line-number'>${i + 1}</li>`.replace(/\s+/g, ' '))
-    .join('');
-
-  // 如果一行代码也没有 空格做一个占位符 保证正确显示
-  if (!code) {
-    // eslint-disable-next-line no-param-reassign
-    code = "<span class='hljs-comment'>// empty code</span>";
-  }
   /**
    * TODO:
    * <code>
@@ -94,16 +84,10 @@ customRenderer.code = function renderCode(
    * 为什么这么写会有一个换行
    */
   return language
-    ? `<pre  data-lang=${language}>
-        <ul class='code-lines'>${lineNumbers}</ul>
-        <code class='${(this as any).options.langPrefix}${escape(language)}'>${
-        escaped ? code : escape(code)
-      }</code>
-      </pre>`
-    : `<pre>
-        <ul class='code-lines'>${lineNumbers}</ul>
-        <code >${escaped ? code : escape(code)}\n</code>
-      </pre>`;
+    ? `<pre data-lang=${language}><code class='${
+        (this as any).options.langPrefix
+      }${escape(language)}'>${escaped ? code : escape(code)}</code></pre>`
+    : `<pre><code>${escaped ? code : escape(code)}\n</code></pre>`;
 };
 
 // 解析文字

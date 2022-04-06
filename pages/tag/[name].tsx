@@ -5,9 +5,9 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
 import { getAllTagPaths } from '@/api/tag';
-import { ArticleCard } from '@/components/article';
-import { HijackRender, Layout } from '@/components/common';
-import { Banner } from '@/components/ui';
+import { ArticleList } from '@/components/article';
+import { Layout } from '@/components/common';
+import { Banner, Loading } from '@/components/ui';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { SiteInfo } from '@/entities/siteInfo';
 import { useTagArticles } from '@/hooks/article';
@@ -60,6 +60,10 @@ const ArticleTagPage = ({
   const { data } = useGlobalData();
   const tag = useTag({ tags: data?.tags, tagName });
 
+  if (articles.isFetching || articles.isLoading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <NextSeo
@@ -67,13 +71,9 @@ const ArticleTagPage = ({
         description={tag?.description}
       />
 
-      <Banner data={tag} className='mb-6' />
+      <Banner className='mb-5'>标签: {tagName}</Banner>
 
-      <HijackRender {...articles} className='space-y-6'>
-        {articles.data?.data.map(article => (
-          <ArticleCard article={article} key={article.id} />
-        ))}
-      </HijackRender>
+      <ArticleList {...articles} />
     </>
   );
 };

@@ -1,41 +1,31 @@
 import React, { FC } from 'react';
 import { Footer, Navbar, Sidebar } from '@/components/common';
 import { BackTop } from '@/components/ui';
-import { SiteInfo } from '@/entities/siteInfo';
 import { useGlobalData } from '@/hooks/globalData';
 
-export interface PageProps {
-  pageProps: {
-    pages?: any[];
-    categories: SiteInfo['categories'];
-    tags: SiteInfo['tags'];
-    siteInfo: SiteInfo['siteInfo'];
-    hotArticles: SiteInfo['hotArticles'];
-  };
-}
+// TODO: 深色主题、中英文
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface PageProps {}
 
-const Layout: FC<PageProps> = ({ children, pageProps }) => {
-  const { categories = [], tags = [], hotArticles = [] } = pageProps;
+const Layout: FC<PageProps> = ({ children }) => {
   const { data } = useGlobalData();
 
   return (
-    <>
-      <div className='flex min-h-screen flex-col'>
-        <Navbar links={data?.categories || categories} />
+    <div className='flex min-h-screen flex-col'>
+      <Navbar links={data?.categories || []} />
 
-        <main className='container mx-auto mb-6 mt-[88px] flex flex-grow space-x-6'>
-          <section className='max-w-[856px] flex-grow'>{children}</section>
-          <Sidebar
-            className='w-80 space-y-6'
-            tags={data?.tags || tags}
-            hotArticles={data?.hotArticles || hotArticles}
-          />
-        </main>
+      <main className='mx-auto mb-6 flex flex-grow space-x-5'>
+        <section className='w-[695px] flex-grow'>{children}</section>
+        <Sidebar
+          className='w-[335px] space-y-5'
+          tags={data?.tags || []}
+          hotArticles={data?.hotArticles || []}
+        />
+      </main>
 
-        <Footer />
-      </div>
+      <Footer />
       <BackTop />
-    </>
+    </div>
   );
 };
 

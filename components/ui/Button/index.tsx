@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import { FC } from 'react';
-import styles from './style.module.scss';
 
 export const tuple = <T extends string[]>(...args: T) => args;
 
@@ -8,7 +7,7 @@ export const tupleNum = <T extends number[]>(...args: T) => args;
 
 export type SizeType = 'small' | 'default' | 'large';
 
-export type ButtonType = 'primary' | 'ghost' | 'text';
+export type ButtonType = 'primary' | 'ghost' | 'reverse';
 
 type BaseButtonProps = {
   type?: ButtonType;
@@ -53,12 +52,17 @@ const Button: FC<ButtonProps> = ({
 
   const classString = classNames(
     {
-      [styles[size]]: size,
-      [styles[type]]: type,
-      [styles.block]: block,
-      [styles.disabled]: rest.disabled,
+      'py-2 px-4 text-xxs': size === 'small',
+      'py-2 px-6 text-sm': size === 'large',
+      'w-full': block,
+      'border border-solid border-[#777777] text-[#747474] hover:border-[#1c1c1c] hover:bg-[#1c1c1c] hover:text-white':
+        type === 'ghost',
+      'border border-solid bg-[#2d2d2d] text-white hover:bg-[#777]': type === 'reverse',
+      'bg-white text-[#747474] hover:bg-[#1c1c1c] hover:text-white': type === 'primary',
+      'pointer-events-none cursor-not-allowed shadow-none bg-[#eee] border-[#eee]':
+        rest.disabled,
     },
-    styles.btn,
+    'inline-block cursor-pointer touch-manipulation text-center text-xs tracking-wider transition-all duration-500',
     className
   );
 

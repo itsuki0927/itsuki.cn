@@ -1,4 +1,5 @@
 export { default as BlankLayout } from './BlankLayout';
+export { default as DashboardLayout } from './DashboardLayout';
 export { default as Footer } from './Footer';
 export { default as GA } from './GA';
 export { default as Head } from './Head';
@@ -15,6 +16,7 @@ export { default as Search } from './Search';
 export { default as Sidebar } from './Sidebar';
 export { default as ToDate } from './ToDate';
 export { default as PaginationList } from './PaginationList';
+export { default as Pagination } from './Pagination';
 
 export * from './QueryList';
 export * from './HijackRender';

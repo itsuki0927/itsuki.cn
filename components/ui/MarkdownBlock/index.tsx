@@ -18,7 +18,7 @@ const MarkdownBlock = ({
     className={classNames(
       'markdown-html',
       {
-        comments: isComments,
+        comment: isComments,
       },
       className
     )}

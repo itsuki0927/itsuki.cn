@@ -5,9 +5,9 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getArticles } from '@/api/article';
 import { getAllCategoryPaths } from '@/api/category';
 import { getGlobalData } from '@/api/global';
-import { ArticleCard } from '@/components/article';
-import { HijackRender, Layout } from '@/components/common';
-import { Banner } from '@/components/ui';
+import { ArticleList } from '@/components/article';
+import { Layout } from '@/components/common';
+import { Banner, Loading } from '@/components/ui';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { SiteInfo } from '@/entities/siteInfo';
 import { useCategoryArticles } from '@/hooks/article';
@@ -60,6 +60,10 @@ const CategoryPage = ({
   const { data } = useGlobalData();
   const category = useCategory({ categories: data?.categories, name: categoryName });
 
+  if (articles.isFetching || articles.isLoading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <NextSeo
@@ -67,13 +71,9 @@ const CategoryPage = ({
         description={category?.description}
       />
 
-      <Banner className='mb-6' data={category} />
+      <Banner className='mb-5'>分类: {categoryName}</Banner>
 
-      <HijackRender {...articles} className='space-y-6'>
-        {articles.data?.data.map(article => (
-          <ArticleCard article={article} key={article.id} />
-        ))}
-      </HijackRender>
+      <ArticleList {...articles} />
     </>
   );
 };

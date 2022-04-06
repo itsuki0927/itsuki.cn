@@ -9,6 +9,7 @@ const useArticle = (articleId: number) =>
       ...data,
       content: markedToHtml(data.content),
     }),
+    enabled: !!articleId,
   });
 
 export default useArticle;

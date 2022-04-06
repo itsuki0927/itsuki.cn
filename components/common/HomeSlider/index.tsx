@@ -5,6 +5,7 @@ import imageTransformer from '@/utils/image';
 import { SearchResponse } from '@/types/response';
 import { Carousel } from '@/components/ui';
 import { Article } from '@/entities/article';
+import ToDate from '../ToDate';
 
 type HomeSliderProps = {
   articles?: SearchResponse<Article>;
@@ -23,14 +24,21 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
           src={article.cover}
           objectFit='cover'
           placeholder='empty'
-          width={856}
-          height={300}
+          width={1050}
+          height={500}
+          property='0.8'
           loader={imageTransformer}
           alt='banner-cover'
-          className='group-hover: rounded-sm opacity-100'
+          className='group-hover: rounded-sm align-middle opacity-100'
         />
-        <div className='absolute top-6 right-6 rounded-sm bg-gray-100 py-1 px-4 text-gray-600 opacity-40 transition-all hover:opacity-90'>
-          <span>{article.title}</span>
+        <div className='absolute top-6 right-6 rounded-sm bg-white py-3 px-3 text-center text-gray-600 opacity-70 transition-all duration-500 hover:opacity-100'>
+          <header className='mb-2 '>
+            <span className='text-xs tracking-tighter text-[#b6b6b6]'>
+              <ToDate date={article.createAt} to='YMD' />
+            </span>
+
+            <h2 className='text-lg tracking-widest text-[#2d2d2d]'>{article.title}</h2>
+          </header>
         </div>
       </div>
     ))}

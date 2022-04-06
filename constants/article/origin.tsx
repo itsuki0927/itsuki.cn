@@ -1,4 +1,4 @@
-import { EditOutlined, CopyOutlined, PullRequestOutlined } from '@/components/icons';
+import { EditOutlined } from '@/components/icons';
 
 /** 文章来源 */
 export enum ArticleOrigin {
@@ -18,13 +18,13 @@ const articleOriginMap = new Map(
     {
       id: ArticleOrigin.Reprint,
       name: '转载',
-      icon: <CopyOutlined />,
+      icon: <EditOutlined />,
       color: '#ff4d4f',
     },
     {
       id: ArticleOrigin.Hybrid,
       name: '混合',
-      icon: <PullRequestOutlined />,
+      icon: <EditOutlined />,
       color: '#faad14',
     },
   ].map(item => [item.id, item])

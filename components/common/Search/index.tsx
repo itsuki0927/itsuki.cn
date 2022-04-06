@@ -1,29 +1,30 @@
-import { KeyboardEvent } from 'react';
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
-import { SearchOutlined } from '@/components/icons';
+import { ArticleList } from '@/components/article';
+import { useSearch } from '@/hooks/article';
+import { Layout } from '@/components/common';
+import { Banner, Loading } from '@/components/ui';
 
-const HeaderSearch = () => {
+const Search = () => {
   const router = useRouter();
+  const keyword = (router.query.keyword ?? '').toString();
+  const articles = useSearch(keyword);
 
-  const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
-
-    if (e.key === 'Enter') {
-      const { value } = e.currentTarget;
-      if (value) {
-        router.push(`/search/${value}`, undefined, { shallow: true });
-      }
-    }
-  };
+  if (articles.isLoading || articles.isFetching) {
+    return <Loading />;
+  }
 
   return (
-    <div className='h-16 flex-auto leading-16'>
-      <div className='flex h-full items-center'>
-        <SearchOutlined className='mr-4' />
-        <input placeholder='搜索' className='w-full' onKeyUp={handleSearch} />
-      </div>
+    <div className='space-y-5'>
+      <NextSeo title={`${keyword} - Search`} />
+
+      <Banner>关键字: {keyword}</Banner>
+
+      <ArticleList {...articles} />
     </div>
   );
 };
 
-export default HeaderSearch;
+Search.Layout = Layout;
+
+export default Search;

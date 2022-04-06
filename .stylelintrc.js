@@ -30,5 +30,11 @@ module.exports = {
     'scss/no-global-function-names': null,
     'color-function-notation': null,
     'property-no-vendor-prefix': null,
+    'selector-no-vendor-prefix': [
+      true,
+      {
+        ignoreSelectors: ['::-moz-selection'],
+      },
+    ],
   },
 };

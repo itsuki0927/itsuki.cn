@@ -1,29 +1,23 @@
 import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import { QueryClient, dehydrate } from 'react-query';
-import { Layout } from '@/components/common';
-import { SoundOutlined } from '@/components/icons';
+import { dehydrate, QueryClient } from 'react-query';
 import { getArticles, getBannerArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
-import { useArticles, useBannerArticles } from '@/hooks/article';
-import { Button } from '@/components/ui';
 import { ArticleList } from '@/components/article';
-import { globalDataKeys } from '@/constants/queryKeys';
-
-const Alert = ({ message }: { message: string }) => (
-  <div className='border-l-4 border-l-blue-500 bg-blue-50 p-4'>
-    <SoundOutlined className='mr-4 text-blue-400' />
-    <span className='text-blue-500'>{message}</span>
-  </div>
-);
-
-const HomeSlider = dynamic(() => import('@/components/common/HomeSlider'));
+import { DashboardLayout } from '@/components/common';
+import { Button, Loading } from '@/components/ui';
+import { DEFAULT_CURRENT, DEFAULT_PAGE_SIZE } from '@/constants/pagination';
+import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
+import { useArticles } from '@/hooks/article';
+import { LeftOutlined, RightOutlined } from '@/components/icons';
+import scrollTo from '@/utils/scrollTo';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery('bannerArticles', () => getBannerArticles());
-  await queryClient.prefetchQuery('article', () => getArticles());
+  await queryClient.prefetchQuery(articleKeys.banner(), () => getBannerArticles());
+  await queryClient.prefetchQuery(articleKeys.pagination(1), () =>
+    getArticles({ current: DEFAULT_CURRENT, pageSize: DEFAULT_PAGE_SIZE })
+  );
   await queryClient.prefetchQuery(globalDataKeys.globalData, () => getGlobalData());
 
   return {
@@ -37,42 +31,47 @@ export const getStaticProps = async () => {
 const HomePage = () => {
   const [current, setCurrent] = useState(1);
   const articles = useArticles(current);
-  const { data: bannerArticles } = useBannerArticles();
+
+  if (articles.isLoading || articles.isFetching) {
+    return <Loading />;
+  }
+
+  if (articles.isError) {
+    return <div>出错了</div>;
+  }
 
   return (
     <div className='home space-y-6'>
-      <HomeSlider articles={bannerArticles} />
-
-      <Alert message='思考比写代码来的更加珍贵' />
-
       <ArticleList {...articles} />
 
-      <div className='flex justify-end space-x-4'>
+      <div className='flex justify-between'>
         <Button
           disabled={!articles.data?.hasPrev}
           onClick={() => {
-            if (articles.data?.hasPrev) {
-              setCurrent(c => Math.max(1, c - 1));
-            }
+            setCurrent(c => Math.max(1, c - 1));
+            scrollTo('.home.space-y-6', 300);
           }}
+          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-[#777]'
         >
-          上一页
+          <LeftOutlined className='mr-1 text-xxs' />
+          NEW POSTS
         </Button>
         <Button
           disabled={!articles.data?.hasNext}
           onClick={() => {
-            if (articles.data?.hasNext) {
-              setCurrent(c => c + 1);
-            }
+            setCurrent(c => c + 1);
+            scrollTo('.home.space-y-6', 300);
           }}
+          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-[#777]'
         >
-          下一页
+          OLD POSTS
+          <RightOutlined className='ml-1 text-xxs' />
         </Button>
       </div>
     </div>
   );
 };
 
-HomePage.Layout = Layout;
+HomePage.Layout = DashboardLayout;
 
 export default HomePage;

@@ -1,10 +1,10 @@
 .input {
   font-variant: tabular-nums;
   font-feature-settings: 'tnum';
-  @apply relative m-0 box-border inline-block min-w-0 list-none rounded-sm border-none  bg-gray-50 py-1 px-3 text-base transition-all;
+  @apply relative m-0 box-border inline-block min-w-0 list-none rounded-sm bg-[#f8f8f8] py-2 px-3 text-sm transition-all;
 
-  &:hover,
-  &:focus {
-    @apply bg-gray-100;
-  }
+  // &:hover,
+  // &:focus {
+  //   @apply bg-gray-100;
+  // }
 }

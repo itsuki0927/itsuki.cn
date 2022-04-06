@@ -1864,6 +1864,11 @@ gravatar@^1.8.2:
     querystring "0.2.0"
     yargs "^15.4.1"
 
+gsap@^3.10.2:
+  version "3.10.2"
+  resolved "https://registry.npmjs.org/gsap/-/gsap-3.10.2.tgz#a3b0a842c398099fc7a80313bfb42253a3dc2b6b"
+  integrity sha512-exJVOda3O1NpgGjM4dzZONmSODWFP+JF/DwfiBfCPQPr15nm3M0TQczYKLZlMdBNdWxHMvRPKVqc1e1/6YD+zA==
+
 gzip-size@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npmjs.org/gzip-size/-/gzip-size-6.0.0.tgz"

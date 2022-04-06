@@ -1,94 +1,45 @@
+import classNames from 'classnames';
 import dynamic from 'next/dynamic';
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
-import { CloseOutlined, SendOutlined } from '@/components/icons';
-import { Button, IconButton } from '@/components/ui';
+import Image from 'next/image';
+import React, { ReactNode, useState } from 'react';
 import getGravatarUrl from '@/utils/gravatar';
-import scrollTo from '@/utils/scrollTo';
-import CommentProfile from './CommentProfile';
-import { buildCommentDomId } from '../CommentCard';
-import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
-import { Comment } from '@/entities/comment';
-import purifyDomString from '@/utils/purify';
-import { useLocalStorage } from '@/hooks';
-import { EmptyFunction, NoReturnFunction } from '@/types/fn';
-import { useCreateComment } from '@/hooks/comment';
+import { Button } from '@/components/ui';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
 });
 
-interface ReplyPlaceholderProps {
-  reply?: Comment;
-  onCloseReply: EmptyFunction;
-}
-
-const CommentReply = ({ reply, onCloseReply }: ReplyPlaceholderProps) =>
-  reply ? (
-    <div className='mb-3'>
-      <p className='rounded-sm bg-gray-50 py-1 px-3 transition-colors hover:bg-gray-100'>
-        回复:
-        <Button
-          type='text'
-          size='small'
-          className='cursor-pointer font-bold'
-          onClick={() => {
-            scrollTo(`#${buildCommentDomId(reply.id)}`, 400, {
-              offset: -64,
-            });
-          }}
-        >
-          {` #${reply.nickname}`}
-        </Button>
-        <CloseOutlined
-          className='float-right cursor-pointer py-1 hover:text-gray-600'
-          onClick={onCloseReply}
-        />
-      </p>
-    </div>
-  ) : null;
-
 interface CommentFormProps {
-  articleId: number;
+  className?: string;
+  reply?: ReactNode;
+  profile?: ReactNode;
+  onSend?: ({ content, save }: { content: string; save: boolean }) => Promise<boolean>;
+  hiddenAvatar?: boolean;
 }
 
-export interface CommentFormRef {
-  clearReply: EmptyFunction;
-  setReply: NoReturnFunction<Comment>;
-}
-
-const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId }, ref) => {
-  const mutation = useCreateComment(articleId);
+const CommentForm = ({
+  className,
+  reply,
+  onSend,
+  profile: profileNode,
+  hiddenAvatar,
+}: CommentFormProps) => {
   const [loading, setLoading] = useState(false);
-  const [reply, setReply] = useState<Comment>();
-  const [profile, setProfile] = useLocalStorage(
-    USER_COMMENT_PROFILE,
-    initialCommentProfile
-  );
   const [content, setContent] = useState('');
-
-  useImperativeHandle(ref, () => ({
-    clearReply: () => setReply(undefined),
-    setReply: (replyParams: Comment) => setReply(replyParams),
-  }));
 
   const handleSend = async () => {
     if (!content) {
       alert('请输入评论内容');
       return false;
     }
+
     try {
       setLoading(true);
-      mutation.mutate({
-        ...profile,
-        content: purifyDomString(content),
-        articleId,
-        agent: navigator.userAgent,
-        parentId: reply?.id,
+      onSend?.({ content, save: true }).then(() => {
+        setContent('');
+        setLoading(false);
+        return true;
       });
-      setReply(undefined);
-      setContent('');
-      setLoading(false);
-      return true;
     } catch (error: any) {
       const [{ message }] = error.errors;
       alert(`评论发布失败: ${message}\n`);
@@ -105,33 +56,53 @@ const CommentForm = forwardRef<CommentFormRef, CommentFormProps>(({ articleId },
   };
 
   return (
-    <div id='commentForm' className='flex items-start space-x-3 bg-white p-3'>
-      <img
-        className='mt-11 rounded-sm border-4 border-solid border-gray-200'
-        src={'https://static.itsuki.cn/avatar1.jpg' || getGravatarUrl(profile.email)}
-        width={80}
-        height={80}
-        alt='cover'
-      />
-      <div className='flex-grow space-y-3'>
-        <CommentReply reply={reply} onCloseReply={() => setReply(undefined)} />
-        <CommentProfile value={profile} onChange={setProfile} />
+    <div
+      id='commentForm'
+      className={`flex items-start ${hiddenAvatar ? '' : 'space-x-4'} ${className}`}
+    >
+      {hiddenAvatar ? null : (
+        <Image
+          className='rounded-full'
+          src={
+            'https://static.itsuki.cn/avatar1.jpg' || getGravatarUrl('2309899048@qq.com')
+          }
+          width={60}
+          height={60}
+          alt='cover'
+        />
+      )}
+
+      <div className='mb-4 flex-grow space-y-3'>
+        {reply}
+        {profileNode}
 
         <DynamicMarkdown code={content} onChange={setContent} />
-        <div className='flex justify-between'>
-          <IconButton
-            type='primary'
-            className='w-32 align-top'
-            icon={<SendOutlined />}
+        <div className='flex items-center justify-between'>
+          <div className='text-sm'>
+            <input id='save' type='checkbox' className='cursor-pointer align-middle' />
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label
+              htmlFor='save'
+              className='ml-2 cursor-pointer align-middle text-[#777777]'
+            >
+              保存你的信息
+            </label>
+          </div>
+          <Button
+            type='reverse'
             disabled={loading}
+            className={classNames('min-w-[96px] py-2 px-6 text-xs tracking-widest', {
+              'bg-[#777]': loading,
+              'pointer-events-none': loading,
+            })}
             onClick={handleSend}
           >
             {loading ? '发射中...' : '发射'}
-          </IconButton>
+          </Button>
         </div>
       </div>
     </div>
   );
-});
+};
 
 export default CommentForm;

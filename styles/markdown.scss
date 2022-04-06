@@ -1,6 +1,8 @@
 .markdown-html {
+  @apply text-sm tracking-wider;
+
   p {
-    @apply mb-4 leading-9;
+    @apply mb-4 leading-8;
 
     &.center {
       @apply text-center;
@@ -12,52 +14,51 @@
   }
 
   code {
-    @apply my-1 mx-1 rounded-sm bg-gray-100 px-2 py-1;
+    @apply m-1 rounded-sm p-1;
 
-    color: #e06c75;
+    color: rgba(41, 37, 36, 100%);
+    background-color: #f8f8f8;
   }
 
   a {
-    @apply my-0 mx-1 inline-block border border-solid border-transparent indent-0 font-bold text-blue-400 no-underline;
+    @apply my-0 mx-1 inline-block h-max rounded-sm px-1 indent-0 leading-6 no-underline transition-colors;
+
+    background-color: rgba(209, 232, 243, 60%);
+    color: #31302e;
 
     &:hover,
     &:focus {
-      @apply opacity-80;
+      background-color: rgba(186, 227, 247, 100%);
+      border-color: initial;
     }
 
     &.image-link {
-      @apply m-0 border-none;
-    }
-
-    &:hover {
-      @apply no-underline;
-
-      border-color: initial;
+      background-color: transparent;
     }
   }
 
   h1 {
-    @apply pb-2 text-4xl;
+    @apply pb-2 text-2xl;
   }
 
   h2 {
-    @apply pb-1 text-3xl;
+    @apply pb-1 text-xl;
   }
 
   h3 {
-    @apply text-2xl;
-  }
-
-  h4 {
-    @apply text-xl;
-  }
-
-  h5 {
     @apply text-lg;
   }
 
-  h6 {
+  h4 {
     @apply text-base;
+  }
+
+  h5 {
+    @apply text-sm;
+  }
+
+  h6 {
+    @apply text-sm;
   }
 
   h1,
@@ -66,10 +67,12 @@
   h4,
   h5,
   h6 {
-    @apply mt-6 mb-4 indent-0 font-bold leading-9;
+    @apply mt-6 mb-4 indent-0 font-bold leading-9 tracking-wider;
   }
 
   blockquote {
+    background-color: #42828e14;
+
     p:last-child {
       @apply mb-0;
     }
@@ -82,9 +85,6 @@
     > li {
       @apply py-2 px-3 leading-7;
 
-      &:hover {
-        @apply bg-gray-100;
-      }
       /* stylelint-disable no-descending-specificity */
       > p {
         @apply mb-0 indent-0;
@@ -117,7 +117,7 @@
   }
 
   img {
-    @apply relative mx-0 my-auto block max-w-full cursor-pointer rounded-sm border-8 border-solid border-gray-100 text-center opacity-80 transition-all;
+    @apply relative mx-auto block max-w-full cursor-pointer text-center opacity-80 transition-all;
 
     &:hover {
       @apply opacity-100;
@@ -129,77 +129,35 @@
   }
 
   pre {
-    $code-header-height: 36px;
-    $code-number-width: 36px;
-    $code-row-line-height: 24px;
-    $code-font-size: 16px;
+    @apply relative mb-2 block overflow-hidden rounded-sm p-2;
 
-    $code-bg: #282c34;
-    $code-language-bg: #1d2127;
-    $code-lines-bg: rgba(black, 0.15);
-    $code-number: #475162;
-    $code-number-hover: #a7b0be;
-    $code-number-hover-bg: #2b313d;
-
-    @apply relative mb-2 block overflow-hidden rounded-sm pl-9;
-
-    background-color: $code-bg;
-
-    &::before {
-      @apply absolute top-0 left-0 right-0 h-9 text-center font-bold uppercase leading-9 text-gray-200;
-
-      content: attr(data-lang) ' CODE';
-      font-family: 'Fira Code';
-      background-color: $code-language-bg;
-    }
-
-    .code-lines {
-      @apply absolute left-0 top-0 bottom-0 mb-0 w-9 select-none py-2 px-0 text-center;
-
-      top: $code-header-height;
-      background-color: $code-lines-bg;
-
-      .code-line-number {
-        @apply relative list-none p-0 text-base;
-
-        color: $code-number;
-
-        &::before {
-          @apply invisible absolute left-9 top-0 right-0 h-full opacity-0;
-
-          content: '';
-          width: 1200px;
-          background-color: rgba(white, 0.1);
-        }
-
-        &:hover {
-          @apply opacity-100 before:visible;
-
-          color: $code-number-hover;
-          background-color: $code-number-hover-bg;
-        }
-      }
-    }
+    background-color: #f8f8f8;
 
     code {
-      @apply float-left m-0 block h-full w-full bg-transparent p-2 pt-0 text-base text-gray-300;
+      @apply m-0 block h-full w-full bg-transparent;
+
+      color: #535353;
     }
   }
 
   &.comment {
+    @apply text-sm tracking-wider;
+
     word-wrap: break-word;
-    @apply text-base;
 
     p {
-      @apply indent-0 leading-8 last:m-0;
-    }
-
-    a {
-      @apply border-b border-solid no-underline;
+      @apply m-0 indent-0 leading-8 last:m-0;
     }
 
     img {
       @apply my-2 mx-0 max-w-full;
+    }
+
+    th,
+    td {
+      padding: 0.5em 1em;
+      vertical-align: inherit;
+      border: 1px solid #eee;
     }
 
     ul,
@@ -207,21 +165,16 @@
       @apply pl-8;
 
       > li {
-        @apply py-1 px-2 hover:bg-gray-50;
+        @apply py-1 px-2;
       }
     }
 
     pre {
-      $code-header-height: 2.8rem;
-
-      @apply mt-4 flex flex-wrap-reverse items-baseline pt-9 pl-0;
-
-      .code-lines {
-        @apply hidden;
-      }
+      // NOTE: bg-[#f3f3f3]
+      @apply flex flex-wrap-reverse items-baseline bg-[#f2f2f2];
 
       code {
-        @apply bg-transparent leading-6;
+        @apply leading-6;
       }
     }
   }

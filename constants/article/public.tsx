@@ -1,5 +1,3 @@
-import { UnlockOutlined, StopOutlined, LockOutlined } from '@/components/icons';
-
 export enum ArticleOpen {
   Password = 0, // 需要密码
   Public = 1, // 公开状态
@@ -11,19 +9,16 @@ const articleOpenMap = new Map(
     {
       id: ArticleOpen.Public,
       name: '公开',
-      icon: <UnlockOutlined />,
       color: 'green',
     },
     {
       id: ArticleOpen.Password,
       name: '需密码',
-      icon: <LockOutlined />,
       color: 'orange',
     },
     {
       id: ArticleOpen.Secret,
       name: '私密',
-      icon: <StopOutlined />,
       color: 'red',
     },
   ].map(item => [item.id, item])

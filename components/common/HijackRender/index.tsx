@@ -37,7 +37,7 @@ const defaultLoading = (
 );
 
 const defaultError = (
-  <div className='bg-white p-4 text-center text-red-400'>
+  <div className='text-red-400 bg-white p-4 text-center'>
     <h1>Error...</h1>
   </div>
 );

@@ -1,13 +1,11 @@
-import classNames from 'classnames';
+import { ReactNode } from 'react';
+import Image from 'next/image';
 import { ToDate } from '@/components/common';
-import { HeartFilled, HeartOutlined, Icon } from '@/components/icons';
-import { Button, IconButton, MarkdownBlock } from '@/components/ui';
+import { MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
-import useLikeComment from '@/hooks/comment/useLikeComment';
 import { NoReturnFunction } from '@/types/fn';
 import getGravatarUrl from '@/utils/gravatar';
 import markedToHtml from '@/utils/marked';
-import scrollTo from '@/utils/scrollTo';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -16,104 +14,66 @@ interface CommentCardCommonProps {
 }
 
 interface CommentCardProps extends CommentCardCommonProps {
-  onReply: NoReturnFunction<Comment>;
+  // eslint-disable-next-line react/no-unused-prop-types
+  onReply?: NoReturnFunction<Comment>;
+  children?: ReactNode;
+  reply?: (comment: Comment) => ReactNode;
+  className?: string;
 }
-const CommentCard = ({ comment, onReply }: CommentCardProps) => {
+const CommentCard = ({
+  comment,
+  onReply,
+  reply,
+  children,
+  className,
+}: CommentCardProps) => {
   const contentHtml = markedToHtml(comment.content, { purify: true });
-  const { isLike, mutation } = useLikeComment({
-    articleId: comment.articleId,
-    commentId: comment.id,
-  });
-
-  const handleLikeComment = () => {
-    if (isLike) return;
-    mutation.mutate();
-  };
 
   return (
     <div
       id={buildCommentDomId(comment.id)}
       key={comment.id}
-      className='relative rounded-sm pl-8'
+      // className='relative mb-6 rounded-sm bg-[#f8f8f8] p-[18px]'
     >
-      <img
-        src={getGravatarUrl(comment.email)}
-        width={60}
-        height={60}
-        className='absolute left-0 top-4 border-4 border-solid border-gray-200'
-        alt='avatar'
-      />
+      <div className={`relative mb-5 rounded-sm bg-[#f8f8f8] p-4 ${className}`}>
+        <div className='float-left mr-6'>
+          <Image
+            src={'https://static.itsuki.cn/avatar1.jpg' || getGravatarUrl(comment.email)}
+            width={52}
+            height={52}
+            className='rounded-full'
+            alt='avatar'
+          />
+        </div>
 
-      <div className='bg-gray-50 p-2 pl-12 transition-colors hover:bg-gray-100'>
-        <div className='flex items-center'>
-          <span className='inline-block text-sm font-bold text-gray-600'>
-            {comment.nickname}
+        <div>
+          <span
+            tabIndex={0}
+            role='button'
+            className='float-right inline-block pr-1 text-xs text-[#999]'
+            onClick={() => onReply?.(comment)}
+          >
+            回复
           </span>
 
-          <span className='ml-2 text-sm text-gray-400'>
-            {comment.province} - {comment.city}
-          </span>
+          <span className='inline-block text-xs text-[#2d2d2d]'>{comment.nickname}</span>
 
-          <span className='flex-grow text-right text-sm text-gray-300'>
+          <span className='mt-1 mb-2 block flex-grow text-xxs text-[#999]'>
             <ToDate date={comment.createAt} />
           </span>
         </div>
 
-        {!!comment.parentId && (
-          <p className='m-0 text-sm text-gray-400'>
-            @
-            <Button
-              className='bg-transparent align-middle text-gray-300 transition-colors hover:text-gray-400'
-              size='small'
-              type='text'
-              onClick={() => {
-                scrollTo(`#${buildCommentDomId(comment.parentId)}`, 400, {
-                  offset: -64,
-                });
-              }}
-            >
-              {comment.parentNickName}
-            </Button>
-          </p>
-        )}
-
         <MarkdownBlock
           isComments
-          className='my-1 max-h-[600px] overflow-y-scroll'
+          // className='clear-left max-h-[600px] overflow-y-scroll  pt-3 text-sm'
+          className='clear-left overflow-y-scroll  pt-3 text-sm'
           htmlContent={contentHtml}
         />
-
-        <div className='flex justify-end'>
-          <IconButton
-            size='small'
-            type='ghost'
-            icon={isLike ? <HeartFilled className='text-error' /> : <HeartOutlined />}
-            onClick={handleLikeComment}
-            className={classNames(
-              'ml-3 bg-transparent text-gray-300 transition-colors hover:text-error',
-              {
-                'text-error': isLike,
-              }
-            )}
-          >
-            {comment.liking}人点赞
-          </IconButton>
-          <IconButton
-            size='small'
-            type='ghost'
-            icon={<Icon name='thunderbolt' />}
-            className='ml-3 bg-transparent text-gray-300 transition-colors'
-            onClick={() => {
-              onReply(comment);
-              // scrollTo(`#commentForm`, 200, {
-              //   offset: 64,
-              // });
-            }}
-          >
-            回复
-          </IconButton>
-        </div>
       </div>
+
+      {reply?.(comment)}
+
+      {children}
     </div>
   );
 };

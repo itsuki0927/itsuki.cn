@@ -4,12 +4,27 @@
 
 html,
 body {
-  font-family: Inter, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  @apply m-0 bg-gray-100 p-0 text-base text-gray-600;
+  @apply m-0 bg-base p-0 text-base;
+
+  font-family: 'iA Writer Quattro', BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  margin: 0 auto;
+  color: #444;
 }
 
 .container {
-  width: 1200px;
+  width: 1050px;
   @apply relative mx-auto;
+}
+
+::selection {
+  background-color: #d9d9d9;
+  color: white;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background-color: #d9d9d9;
+  color: white;
+  text-shadow: none;
 }

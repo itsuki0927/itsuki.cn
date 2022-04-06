@@ -1,4 +1,9 @@
-import { Article, ArticleArchiveResponse, SearchArticlesBody } from '@/entities/article';
+import {
+  Article,
+  ArticleArchiveResponse,
+  ArticleDetailResponse,
+  SearchArticlesBody,
+} from '@/entities/article';
 import { SearchResponse } from '@/types/response';
 import service from './service';
 
@@ -12,7 +17,7 @@ export const getArticles = (params?: SearchArticlesBody) =>
 export const getBannerArticles = () => getArticles({ banner: 1 });
 
 export const getArticle = (id: number | string) =>
-  service.request<void, Article>({
+  service.request<void, ArticleDetailResponse>({
     method: 'get',
     url: `/article/${id}`,
   });

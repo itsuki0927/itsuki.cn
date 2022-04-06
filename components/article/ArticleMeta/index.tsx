@@ -1,66 +1,57 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
-import { Skeleton } from '@/components/ui';
+import router from 'next/router';
 import { WEB_URL } from '@/configs/app';
-import { Article } from '@/entities/article';
-import { ArticleTag } from '..';
-import { ToDate } from '@/components/common';
+import { ArticleDetailResponse } from '@/entities/article';
 
 interface ArticleMetaProps {
-  article: Article;
+  article: ArticleDetailResponse;
 }
 
-type ChildrenProps = { children?: ReactNode };
-
-const Meta = ({ children }: ChildrenProps) => <p className='h-6 leading-6'>{children}</p>;
-
-const Label = ({ children }: ChildrenProps) => (
-  <span className='inline-block w-20'>{children}</span>
-);
-
-const ArticleMeta = ({ article }: ArticleMetaProps) => {
-  const router = useRouter();
-
-  if (!article) return <Skeleton />;
-  const category = article.categories[0];
-
-  return (
-    <div className='space-y-3 bg-white p-4'>
-      <Meta>
-        本文于 <ToDate date={article.createAt} to='YMDm' /> 发布于{' '}
-        <Link href={`/category/${category?.path}`}>
-          <span className='cursor-pointer text-gray-600 transition-colors hover:text-gray-900'>
-            <strong>{category?.name}</strong>
+const ArticleMeta = ({ article }: ArticleMetaProps) => (
+  <div className='mb-16'>
+    <div className='mb-2 text-center text-xs tracking-wider text-[#b6b6b6]'>
+      一堆标签:
+      {article.tags.map(item => (
+        <Link key={item.path} href={`/tag/${item.path}`}>
+          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-[#2d2d2d]'>
+            {item.name}
           </span>
         </Link>
-      </Meta>
+      ))}
+    </div>
 
-      <Meta>
-        <Label>相关标签: </Label>
-        {article.tags.map(item => (
-          <ArticleTag key={item.id} tag={item} className='mr-2' />
-        ))}
-      </Meta>
+    <div className='mb-2 text-center text-xs tracking-wider text-[#b6b6b6]'>
+      一个分类:
+      {article.categories.map(item => (
+        <Link key={item.path} href={`/tag/${item.path}`}>
+          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-[#2d2d2d]'>
+            {item.name}
+          </span>
+        </Link>
+      ))}
+    </div>
 
-      <Meta>
-        <Label>永久地址: </Label>
+    <div className='flex items-center justify-center text-xs text-[#b6b6b6]'>
+      <div>
+        <span>永久地址: </span>
         <span className='underline'>{WEB_URL + router.asPath}</span>
-      </Meta>
+      </div>
 
-      <Meta>
-        <Label>版权声明: </Label>
+      <span className='mx-2'>|</span>
+
+      <div>
+        <span>版权声明: </span>
         <a
-          className='no-underline hover:underline'
+          className='no-underline transition-colors hover:text-[#444]'
           href='https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh'
           target='_blank'
           rel='external nofollow noopener noreferrer'
         >
           自由转载 - 署名 - 非商业使用
         </a>
-      </Meta>
+      </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default ArticleMeta;

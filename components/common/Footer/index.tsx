@@ -1,9 +1,9 @@
 const Footer = () => (
-  <footer className='bg-white px-4 py-4 text-lg leading-8 text-gray-400'>
-    <div className='container text-center'>
+  <footer className='mt-6 bg-white px-4 py-9 text-sm leading-8 text-[#999999] '>
+    <div className='container text-center tracking-widest'>
       Build by 🖐️ 🪵 🇨🇳 👨‍💻 🌈 🎈
       <a
-        className='ml-4 text-base transition-colors hover:text-primary hover:underline'
+        className='ml-4 transition-colors hover:text-[#444444]'
         href='https://beian.miit.gov.cn'
         target='_blank'
         rel='external nofollow noopener noreferrer'

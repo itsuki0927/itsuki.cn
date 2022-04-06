@@ -37,6 +37,11 @@ export type SearchArticlesBody = {
   current?: number;
 };
 
+export type ArticleDetailResponse = Article & {
+  prevArticle: Article | null;
+  nextArticle: Article | null;
+};
+
 export type LikeArticleBody = {
   articleId: number;
 };

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Comment } from '@/entities/comment';
 import CommentCard from '../CommentCard';
-// import { CommentTree } from '../CommentView';
 
 export type CommentTree = {
   comment: Comment;
@@ -14,6 +14,7 @@ type CommentListProps = {
   reply?: (comment: Comment) => ReactNode;
   onReply?: (comment: Comment) => void;
   childClassName?: string;
+  commentClassName?: string;
 };
 
 const buildeCommentTree = (comments: Comment[]): Array<CommentTree> =>
@@ -22,26 +23,34 @@ const buildeCommentTree = (comments: Comment[]): Array<CommentTree> =>
     children: [],
   }));
 
-const CommentList = ({ data, className, childClassName, ...rest }: CommentListProps) => (
-  <div className={`space-y-4 ${className}`}>
+const CommentList = ({
+  data,
+  className,
+  childClassName,
+  commentClassName,
+  ...rest
+}: CommentListProps) => (
+  <TransitionGroup className={`space-y-4 ${className}`}>
     {data?.map(item => (
-      <CommentCard
-        comment={item.comment}
-        key={item.comment.id}
-        className={childClassName}
-        {...rest}
-      >
-        {item.children?.length ? (
-          <CommentList
-            className='ml-12'
-            data={buildeCommentTree(item.children)}
-            {...rest}
-            childClassName='border-l-[5px] border-solid border-[#f2f2f2]'
-          />
-        ) : null}
-      </CommentCard>
+      <CSSTransition key={item.comment.id} timeout={500} classNames='comment'>
+        <CommentCard
+          comment={item.comment}
+          key={item.comment.id}
+          childClassName={childClassName}
+          {...rest}
+        >
+          {item.children?.length ? (
+            <CommentList
+              className='ml-12 mt-4'
+              data={buildeCommentTree(item.children)}
+              {...rest}
+              childClassName='border-l-[5px] border-solid border-[#f2f2f2]'
+            />
+          ) : null}
+        </CommentCard>
+      </CSSTransition>
     ))}
-  </div>
+  </TransitionGroup>
 );
 //
 export default CommentList;

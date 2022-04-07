@@ -33,6 +33,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-query": "^3.34.19",
+    "react-transition-group": "^4.4.2",
     "swr": "^1.2.2",
     "ua-parser-js": "^1.0.2"
   },
@@ -47,6 +48,7 @@
     "@types/nprogress": "^0.2.0",
     "@types/react": "17.0.43",
     "@types/react-slick": "^0.23.8",
+    "@types/react-transition-group": "^4.4.4",
     "@types/tailwindcss": "^3.0.10",
     "@types/ua-parser-js": "^0.7.36",
     "@typescript-eslint/eslint-plugin": "^5.17.0",

@@ -30,7 +30,7 @@ const CommentView = ({ articleId }: CommentProps) => {
   );
 
   const handleSend = useCallback(
-    ({ content }: { content: string; save: boolean }) =>
+    (content: string) =>
       new Promise<boolean>((resolve, reject) => {
         const params: PostCommentBody = {
           ...profile,

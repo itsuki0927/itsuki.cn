@@ -14,11 +14,11 @@ interface CommentCardCommonProps {
 }
 
 interface CommentCardProps extends CommentCardCommonProps {
-  // eslint-disable-next-line react/no-unused-prop-types
   onReply?: NoReturnFunction<Comment>;
   children?: ReactNode;
   reply?: (comment: Comment) => ReactNode;
   className?: string;
+  childClassName?: string;
 }
 const CommentCard = ({
   comment,
@@ -26,6 +26,7 @@ const CommentCard = ({
   reply,
   children,
   className,
+  childClassName,
 }: CommentCardProps) => {
   const contentHtml = markedToHtml(comment.content, { purify: true });
 
@@ -33,24 +34,25 @@ const CommentCard = ({
     <div
       id={buildCommentDomId(comment.id)}
       key={comment.id}
-      // className='relative mb-6 rounded-sm bg-[#f8f8f8] p-[18px]'
+      className={`transition-all duration-500 ${className}`}
     >
-      <div className={`relative mb-5 rounded-sm bg-[#f8f8f8] p-4 ${className}`}>
-        <div className='float-left mr-6'>
-          <Image
-            src={'https://static.itsuki.cn/avatar1.jpg' || getGravatarUrl(comment.email)}
-            width={52}
-            height={52}
-            className='rounded-full'
-            alt='avatar'
-          />
-        </div>
-
-        <div>
+      <div className={`relative mb-2 rounded-sm bg-[#f8f8f8] p-4 ${childClassName}`}>
+        <header className='clear-both'>
+          <div className='float-left mr-6'>
+            <Image
+              src={
+                'https://static.itsuki.cn/avatar1.jpg' || getGravatarUrl(comment.email)
+              }
+              width={52}
+              height={52}
+              className='rounded-full'
+              alt='avatar'
+            />
+          </div>
           <span
             tabIndex={0}
             role='button'
-            className='float-right inline-block pr-1 text-xs text-[#999]'
+            className='float-right inline-block pr-1 text-xs text-[#999] transition-colors duration-200 hover:text-[#2d2d2d]'
             onClick={() => onReply?.(comment)}
           >
             回复
@@ -61,12 +63,11 @@ const CommentCard = ({
           <span className='mt-1 mb-2 block flex-grow text-xxs text-[#999]'>
             <ToDate date={comment.createAt} />
           </span>
-        </div>
+        </header>
 
         <MarkdownBlock
           isComments
-          // className='clear-left max-h-[600px] overflow-y-scroll  pt-3 text-sm'
-          className='clear-left overflow-y-scroll  pt-3 text-sm'
+          className='clear-left max-h-[600px] overflow-y-scroll pt-3 text-sm'
           htmlContent={contentHtml}
         />
       </div>

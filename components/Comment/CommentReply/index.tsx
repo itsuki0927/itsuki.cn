@@ -9,7 +9,7 @@ type CommentReplyProps = {
 
 const CommentReply = ({ comment, onCloseReply, isReply }: CommentReplyProps) =>
   isReply ? (
-    <h3 className='my-2 font-bold tracking-wider text-[#2d2d2d]'>
+    <h3 className='my-2 font-medium tracking-wider text-[#2d2d2d]'>
       回复 {comment?.nickname}
       <small
         tabIndex={0}

@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { ReactNode, useState } from 'react';
-import getGravatarUrl from '@/utils/gravatar';
 import { Button } from '@/components/ui';
+import getGravatarUrl from '@/utils/gravatar';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -13,7 +13,7 @@ interface CommentFormProps {
   className?: string;
   reply?: ReactNode;
   profile?: ReactNode;
-  onSend?: ({ content, save }: { content: string; save: boolean }) => Promise<boolean>;
+  onSend?: (content: string) => Promise<boolean>;
   hiddenAvatar?: boolean;
 }
 
@@ -35,7 +35,7 @@ const CommentForm = ({
 
     try {
       setLoading(true);
-      onSend?.({ content, save: true }).then(() => {
+      onSend?.(content).then(() => {
         setContent('');
         setLoading(false);
         return true;
@@ -78,16 +78,7 @@ const CommentForm = ({
 
         <DynamicMarkdown code={content} onChange={setContent} />
         <div className='flex items-center justify-between'>
-          <div className='text-sm'>
-            <input id='save' type='checkbox' className='cursor-pointer align-middle' />
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label
-              htmlFor='save'
-              className='ml-2 cursor-pointer align-middle text-[#777777]'
-            >
-              保存你的信息
-            </label>
-          </div>
+          <div className='text-sm text-[#999]'>邮箱不会被泄漏, 放心评论吧</div>
           <Button
             type='reverse'
             disabled={loading}

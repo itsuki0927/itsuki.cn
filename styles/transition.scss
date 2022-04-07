@@ -1,0 +1,21 @@
+.comment-enter {
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.comment-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease-in, transform 300ms ease-out;
+}
+
+.comment-exit {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease-in, transform 300ms ease-out;
+}
+
+.comment-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in, transform 300ms ease-out;
+}

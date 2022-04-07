@@ -19,3 +19,29 @@
   opacity: 0;
   transition: opacity 500ms ease-in, transform 300ms ease-out;
 }
+
+// 页面动画
+.fade-enter {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.fade-enter-active,
+.fade-exit-active {
+  transition: opacity 300ms, transform 400ms;
+}

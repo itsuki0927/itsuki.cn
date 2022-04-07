@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 import { useState } from 'react';
 import { QueryClientProvider, QueryClient, Hydrate } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { BlankLayout, GA, Head, Iconfont } from '@/components/common';
+import { BlankLayout, GA, Head, Iconfont, LayoutTransition } from '@/components/common';
 import { PageLoadingProgress } from '@/components/ui';
 import { useMount } from '@/hooks';
 import '@/styles/globals.scss';
@@ -21,6 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         },
       })
   );
+
   const Layout = (Component as any).Layout || BlankLayout;
 
   useMount(() => {
@@ -33,11 +34,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Iconfont />
       <GA />
       <PageLoadingProgress />
+
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <Layout pageProps={pageProps}>
-            <Component {...pageProps} />
-          </Layout>
+          <LayoutTransition>
+            <Layout pageProps={pageProps}>
+              <Component {...pageProps} />
+            </Layout>
+          </LayoutTransition>
         </Hydrate>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

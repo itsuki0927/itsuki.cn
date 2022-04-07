@@ -7,6 +7,7 @@ export { default as HijackRender } from './HijackRender';
 export { default as HomeSlider } from './HomeSlider';
 export { default as Iconfont } from './Iconfont';
 export { default as Layout } from './Layout';
+export { default as LayoutTransition } from './LayoutTransition';
 export { default as Logo } from './Logo';
 export { default as MarkdownEditor } from './MarkdownEditor';
 export { default as Navbar } from './Navbar';

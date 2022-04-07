@@ -23,12 +23,12 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
               onClick={() => router.push(`/article/${article.id}`)}
             />
             <h2
-              className='cursor-pointer text-sm tracking-widest text-[#2d2d2d] transition-colors duration-500 hover:text-[#777]'
+              className='cursor-pointer text-center text-sm tracking-widest text-[#2d2d2d] transition-colors duration-500 hover:text-[#777]'
               onClick={() => router.push(`/article/${article.id}`)}
             >
               {article.title}
             </h2>
-            <span className='mb-1 text-xs tracking-wider text-[#b6b6b6]'>
+            <span className='my-1 block text-center text-xs tracking-wider text-[#b6b6b6]'>
               <ToDate date={article.createAt} to='YMD' />
             </span>
           </div>

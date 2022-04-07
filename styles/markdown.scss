@@ -38,27 +38,27 @@
   }
 
   h1 {
-    @apply pb-2 text-2xl;
+    font-size: 26px;
   }
 
   h2 {
-    @apply pb-1 text-xl;
+    font-size: 23px;
   }
 
   h3 {
-    @apply text-lg;
+    font-size: 20px;
   }
 
   h4 {
-    @apply text-base;
+    font-size: 18px;
   }
 
   h5 {
-    @apply text-sm;
+    font-size: 16px;
   }
 
   h6 {
-    @apply text-sm;
+    font-size: 12px;
   }
 
   h1,
@@ -67,25 +67,28 @@
   h4,
   h5,
   h6 {
-    @apply mt-6 mb-4 indent-0 font-bold leading-9 tracking-wider;
+    @apply indent-0 font-medium tracking-wider;
+
+    line-height: 1.6;
+    color: #373737;
+    margin: 1em 0;
   }
 
   blockquote {
     background-color: #42828e14;
 
     p:last-child {
-      @apply mb-0;
+      margin-bottom: 0;
     }
   }
 
   ul,
   ol {
-    list-style-type: inherit;
+    list-style-type: unset;
 
     > li {
       @apply py-2 px-3 leading-7;
 
-      /* stylelint-disable no-descending-specificity */
       > p {
         @apply mb-0 indent-0;
       }

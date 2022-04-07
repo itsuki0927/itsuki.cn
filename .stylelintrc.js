@@ -6,7 +6,8 @@ module.exports = {
   ],
   plugins: ['stylelint-order', 'stylelint-scss'],
   rules: {
-    'at-rule-no-unknown': null,
+    'no-descending-specificity': null,
+    'at-rule-no-unknown': true,
     'scss/at-rule-no-unknown': true,
     // color另起一行
     // 'declaration-colon-newline-after': null,

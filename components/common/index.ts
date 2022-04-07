@@ -18,6 +18,7 @@ export { default as Sidebar } from './Sidebar';
 export { default as ToDate } from './ToDate';
 export { default as PaginationList } from './PaginationList';
 export { default as Pagination } from './Pagination';
+export { default as QueryClientContainer } from './QueryClientContainer';
 
 export * from './QueryList';
 export * from './HijackRender';

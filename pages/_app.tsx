@@ -1,8 +1,12 @@
 import type { AppProps } from 'next/app';
-import { useState } from 'react';
-import { QueryClientProvider, QueryClient, Hydrate } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { BlankLayout, GA, Head, Iconfont, LayoutTransition } from '@/components/common';
+import {
+  BlankLayout,
+  GA,
+  Head,
+  Iconfont,
+  LayoutTransition,
+  QueryClientContainer,
+} from '@/components/common';
 import { PageLoadingProgress } from '@/components/ui';
 import { useMount } from '@/hooks';
 import '@/styles/globals.scss';
@@ -11,17 +15,6 @@ import '@/styles/reset.scss';
 import enableCopyright from '@/utils/copyright';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false,
-          },
-        },
-      })
-  );
-
   const Layout = (Component as any).Layout || BlankLayout;
 
   useMount(() => {
@@ -35,16 +28,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <GA />
       <PageLoadingProgress />
 
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <LayoutTransition>
-            <Layout pageProps={pageProps}>
-              <Component {...pageProps} />
-            </Layout>
-          </LayoutTransition>
-        </Hydrate>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <QueryClientContainer pageProps={pageProps}>
+        <LayoutTransition>
+          <Layout pageProps={pageProps}>
+            <Component {...pageProps} />
+          </Layout>
+        </LayoutTransition>
+      </QueryClientContainer>
     </>
   );
 }

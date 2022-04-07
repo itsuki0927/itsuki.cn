@@ -62,7 +62,7 @@ const CommentForm = ({
     >
       {hiddenAvatar ? null : (
         <Image
-          className='rounded-full'
+          className='min-w-[60px] flex-shrink-0 rounded-full'
           src={
             'https://static.itsuki.cn/avatar1.jpg' || getGravatarUrl('2309899048@qq.com')
           }

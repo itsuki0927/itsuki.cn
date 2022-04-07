@@ -31,14 +31,14 @@
   @apply relative bg-[#f8f8f8] text-sm;
 
   .content {
-    @apply relative overflow-hidden;
+    @apply relative;
 
     .textarea {
-      @apply max-h-[360px] min-h-[120px] overflow-auto p-3 leading-5;
+      @apply max-h-[460px] min-h-[120px] overflow-y-scroll p-3 leading-5;
     }
 
     .preview {
-      @apply absolute left-0 right-0 top-0 bottom-0 -z-10 h-0 cursor-not-allowed bg-[#f2f2f2] p-3 transition-all duration-300;
+      @apply absolute left-0 right-0 top-0 bottom-0 -z-10 h-0 cursor-not-allowed overflow-y-scroll bg-[#f2f2f2] p-3 transition-all duration-300;
 
       &.enable {
         @apply z-10 h-full;

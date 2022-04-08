@@ -5,10 +5,9 @@
 }
 
 hr {
-  @apply my-6 border-none p-0;
+  @apply my-6 border-none bg-white-3 p-0;
 
   height: 0.25em;
-  background-color: #eee;
 }
 
 p {
@@ -16,10 +15,7 @@ p {
 }
 
 blockquote {
-  @apply my-2 border-l-4 border-solid py-2  pl-5 pr-4 indent-0;
-
-  background-color: #f8f8f8;
-  border-color: #31302e;
+  @apply my-2 border-l-4 border-solid border-dark-3 bg-white-1 py-2  pl-5 pr-4 indent-0;
 }
 
 th,
@@ -27,7 +23,7 @@ td {
   padding: 0.5em 1em;
   vertical-align: inherit;
 
-  @apply border border-solid border-gray-100;
+  @apply border border-solid border-white-2;
 }
 
 table {
@@ -42,9 +38,8 @@ caption {
 }
 
 thead th {
-  background-color: #fcfcfc;
-  border: 1px solid #e4e4e4;
   text-align: left;
+  @apply border border-solid border-white-3 bg-white-1;
 }
 
 tr {

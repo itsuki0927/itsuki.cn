@@ -9,29 +9,29 @@ interface ArticleMetaProps {
 
 const ArticleMeta = ({ article }: ArticleMetaProps) => (
   <div className='mb-16'>
-    <div className='mb-2 text-center text-xs tracking-wider text-[#b6b6b6]'>
+    <div className='mb-2 text-center text-xs tracking-wider text-gray-1'>
       一堆标签:
       {article.tags.map(item => (
         <Link key={item.path} href={`/tag/${item.path}`}>
-          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-[#2d2d2d]'>
+          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-dark-2'>
             {item.name}
           </span>
         </Link>
       ))}
     </div>
 
-    <div className='mb-2 text-center text-xs tracking-wider text-[#b6b6b6]'>
+    <div className='mb-2 text-center text-xs tracking-wider text-gray-1'>
       一个分类:
       {article.categories.map(item => (
         <Link key={item.path} href={`/tag/${item.path}`}>
-          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-[#2d2d2d]'>
+          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-dark-2'>
             {item.name}
           </span>
         </Link>
       ))}
     </div>
 
-    <div className='flex items-center justify-center text-xs text-[#b6b6b6]'>
+    <div className='flex items-center justify-center text-xs text-gray-1'>
       <div>
         <span>永久地址: </span>
         <span className='underline'>{WEB_URL + router.asPath}</span>
@@ -42,7 +42,7 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => (
       <div>
         <span>版权声明: </span>
         <a
-          className='no-underline transition-colors hover:text-[#444]'
+          className='no-underline transition-colors hover:text-base'
           href='https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh'
           target='_blank'
           rel='external nofollow noopener noreferrer'

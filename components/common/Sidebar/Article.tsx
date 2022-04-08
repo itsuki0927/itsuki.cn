@@ -8,7 +8,7 @@ const SidebarArticle = () => {
   const { data } = useArticle(Number(articleId));
 
   return (
-    <div className='flex justify-evenly bg-white p-4 text-[#777]'>
+    <div className='flex justify-evenly bg-white p-4 text-gray-3'>
       <div className='hover:bg-red-400 cursor-pointer rounded-sm p-2 text-center text-sm tracking-wider transition-colors duration-300 hover:text-white'>
         <HeartOutlined className='block text-2xl' />
         <strong>{data?.liking}</strong> 人喜欢

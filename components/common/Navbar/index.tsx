@@ -11,7 +11,7 @@ interface NavbarProps {
 
 const NavbarItem: FC<{ href: string }> = ({ href, children }) => (
   <ActiveLink activeClassName='text-[#c9a16e]' href={href}>
-    <li className='relative cursor-pointer px-3 text-center  tracking-widest text-[#2d2d2d] transition-colors duration-500 hover:text-[#c9a16e]'>
+    <li className='relative cursor-pointer px-3 text-center  tracking-widest text-dark-2 transition-colors duration-500 hover:text-[#c9a16e]'>
       <span className='leading-none'>{children}</span>
     </li>
   </ActiveLink>

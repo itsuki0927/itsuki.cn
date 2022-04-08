@@ -44,7 +44,7 @@ const CommentList = ({
               className='ml-12 mt-4'
               data={buildeCommentTree(item.children)}
               {...rest}
-              childClassName='border-l-[5px] border-solid border-[#f2f2f2]'
+              childClassName='border-l-[5px] border-solid border-white-2'
             />
           ) : null}
         </CommentCard>

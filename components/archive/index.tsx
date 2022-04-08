@@ -7,18 +7,18 @@ const getDay = (dateString: string) => `${dateString.slice(-2)}号`;
 const ArticleList = ({ articles }: ArticleArchiveMap) => (
   <ul className='list-none pl-4'>
     {articles.map(article => (
-      <li className='rounded-sm p-3 hover:bg-gray-50' key={article.id}>
+      <li className='hover:bg-gray-50 rounded-sm p-3' key={article.id}>
         <p className='mb-3'>
-          <span className='mr-3 inline-block text-sm text-gray-300'>
+          <span className='text-gray-300 mr-3 inline-block text-sm'>
             {getDay(article.createAtString)}
           </span>
           <Link href={`/article/${article.id}`}>
-            <span className='cursor-pointer border-b border-solid border-transparent font-bold opacity-90 transition-all hover:border-gray-700 hover:opacity-100'>
+            <span className='hover:border-gray-700 cursor-pointer border-b border-solid border-transparent font-bold opacity-90 transition-all hover:opacity-100'>
               {article.title}
             </span>
           </Link>
         </p>
-        <p className='mb-0 pl-12 text-sm text-gray-400'>{article.description}</p>
+        <p className='text-gray-400 mb-0 pl-12 text-sm'>{article.description}</p>
       </li>
     ))}
   </ul>

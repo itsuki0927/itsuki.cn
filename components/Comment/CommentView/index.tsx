@@ -75,7 +75,7 @@ const CommentView = ({ articleId }: CommentProps) => {
   return (
     <div className='bg-white p-4'>
       {!!comments?.length && (
-        <h3 className='my-4 text-center text-sm font-bold tracking-widest text-[#2d2d2d]'>
+        <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2'>
           {comments?.length} 条沙雕评论
         </h3>
       )}
@@ -86,7 +86,7 @@ const CommentView = ({ articleId }: CommentProps) => {
       />
 
       <div className='overflow-hidden'>
-        <h3 className='my-4 text-center text-sm font-bold tracking-widest text-[#2d2d2d]'>
+        <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2'>
           陈独秀请发言
         </h3>
         <CommentForm

@@ -132,9 +132,7 @@
   }
 
   pre {
-    @apply relative mb-2 block overflow-hidden rounded-sm p-2;
-
-    background-color: #f8f8f8;
+    @apply relative mb-2 block overflow-hidden rounded-sm bg-white-1 p-2;
 
     code {
       @apply m-0 block h-full w-full bg-transparent;
@@ -158,9 +156,10 @@
 
     th,
     td {
+      @apply border border-solid border-white-3;
+
       padding: 0.5em 1em;
       vertical-align: inherit;
-      border: 1px solid #eee;
     }
 
     ul,
@@ -174,7 +173,7 @@
 
     pre {
       // NOTE: bg-[#f3f3f3]
-      @apply flex flex-wrap-reverse items-baseline bg-[#f2f2f2];
+      @apply flex flex-wrap-reverse items-baseline bg-white-2;
 
       code {
         @apply leading-6;

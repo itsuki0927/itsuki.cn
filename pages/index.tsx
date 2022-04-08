@@ -51,7 +51,7 @@ const HomePage = () => {
             setCurrent(c => Math.max(1, c - 1));
             scrollTo('.home.space-y-6', 300);
           }}
-          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-[#777]'
+          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-gray-3'
         >
           <LeftOutlined className='mr-1 text-xxs' />
           NEW POSTS
@@ -62,7 +62,7 @@ const HomePage = () => {
             setCurrent(c => c + 1);
             scrollTo('.home.space-y-6', 300);
           }}
-          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-[#777]'
+          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-gray-3'
         >
           OLD POSTS
           <RightOutlined className='ml-1 text-xxs' />

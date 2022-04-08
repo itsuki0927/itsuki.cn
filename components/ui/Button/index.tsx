@@ -55,11 +55,11 @@ const Button: FC<ButtonProps> = ({
       'py-2 px-4 text-xxs': size === 'small',
       'py-2 px-6 text-sm': size === 'large',
       'w-full': block,
-      'border border-solid border-[#777777] text-[#747474] hover:border-[#1c1c1c] hover:bg-[#1c1c1c] hover:text-white':
+      'border border-solid border-gray-3 text-gray-3 hover:border-dark-2 hover:bg-dark-2 hover:text-white':
         type === 'ghost',
-      'border border-solid bg-[#2d2d2d] text-white hover:bg-[#777]': type === 'reverse',
-      'bg-white text-[#747474] hover:bg-[#1c1c1c] hover:text-white': type === 'primary',
-      'pointer-events-none cursor-not-allowed shadow-none bg-[#eee] border-[#eee]':
+      'border border-solid bg-dark-2 text-white hover:bg-gray-3': type === 'reverse',
+      'bg-white text-gray-3 hover:bg-dark-2 hover:text-white': type === 'primary',
+      'pointer-events-none cursor-not-allowed shadow-none bg-white-3 border-white-3':
         rest.disabled,
     },
     'inline-block cursor-pointer touch-manipulation text-center text-xs tracking-wider transition-all duration-500',

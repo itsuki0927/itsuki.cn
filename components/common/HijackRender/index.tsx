@@ -43,7 +43,7 @@ const defaultError = (
 );
 
 const defaultIdle = (
-  <div className='bg-white p-4 text-center text-gray-500'>
+  <div className='text-gray-500 bg-white p-4 text-center'>
     <h1>Idle...</h1>
   </div>
 );

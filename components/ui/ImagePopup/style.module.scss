@@ -5,7 +5,7 @@
     background-color: rgba(192, 192, 192, 50%);
 
     .image {
-      @apply max-h-max min-w-min max-w-max rounded-md border-8 border-solid border-gray-200 object-cover;
+      @apply max-h-max min-w-min max-w-max rounded-md border-8 border-solid border-white-1 object-cover;
     }
   }
 }

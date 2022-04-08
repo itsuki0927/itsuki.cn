@@ -5,17 +5,16 @@
 
 html,
 body {
-  @apply m-0 bg-base p-0 text-base;
+  @apply m-0 bg-base p-0 text-base text-basic;
 
   font-family: 'iA Writer Quattro', BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  margin: 0 auto;
-  color: #444;
 }
 
 .container {
-  width: 1050px;
   @apply relative mx-auto;
+
+  width: 1050px;
 }
 
 ::selection {

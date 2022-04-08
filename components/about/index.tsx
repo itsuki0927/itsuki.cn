@@ -23,10 +23,10 @@ const HoobyCard = ({ title, description, icon }: HoobyProps) => (
       {cloneElement(icon as any, {
         className: 'inline-block align-top mr-1',
       })}
-      <h5 className='inline-block font-medium text-[#444]'>{title}</h5>
+      <h5 className='inline-block text-base font-medium'>{title}</h5>
     </div>
 
-    <span className='text-[#777]'>{description}</span>
+    <span className='text-gray-3'>{description}</span>
   </div>
 );
 
@@ -73,8 +73,8 @@ const AboutView = () => (
 
       <div className='text-center'>
         <Image src='/about.png' width={670} height={407} />
-        <p className='text-xs text-[#777]'>(一张装饰图)</p>
-        <h1 className='my-8 text-2xl text-[#2d2d2d]'>
+        <p className='text-xs text-gray-3'>(一张装饰图)</p>
+        <h1 className='my-12 text-3xl text-dark-2'>
           Hi<span className={`${styles.wave} mx-1`}>👋</span>, 我是
           <strong>五木</strong>, 英文名: itsuki, 喜欢 👨‍💻 和 🏃 的前端 🐶
           {/* <p>准网易雷火前端工程师</p> */}
@@ -82,7 +82,7 @@ const AboutView = () => (
       </div>
 
       <section className='tracking-wider'>
-        <h3 className='mt-10 mb-4 text-center text-xl font-medium tracking-wider text-[#373737]'>
+        <h3 className='mt-10 mb-4 text-center text-xl font-medium tracking-wider'>
           一段简介
         </h3>
         <p className='px-4'>
@@ -102,7 +102,7 @@ const AboutView = () => (
       </section>
 
       <section>
-        <h3 className='mt-10 mb-4 text-center text-xl font-medium tracking-wider text-[#373737]'>
+        <h3 className='mt-10 mb-4 text-center text-xl font-medium tracking-wider'>
           一些爱好
         </h3>
         <div className='grid grid-cols-3 gap-4 overflow-hidden'>
@@ -114,7 +114,7 @@ const AboutView = () => (
     </div>
 
     <div className='mt-6 bg-white p-5 tracking-widest'>
-      <strong className='font-light text-[#999]'>
+      <strong className='font-light text-gray-2'>
         一个应用要写好太难了, 即使是博客!!!
       </strong>
     </div>

@@ -9,13 +9,13 @@ type CommentReplyProps = {
 
 const CommentReply = ({ comment, onCloseReply, isReply }: CommentReplyProps) =>
   isReply ? (
-    <h3 className='my-2 font-medium tracking-wider text-[#2d2d2d]'>
+    <h3 className='my-2 font-medium tracking-wider text-dark-2'>
       回复 {comment?.nickname}
       <small
         tabIndex={0}
         role='button'
         onClick={onCloseReply}
-        className='float-right cursor-pointer text-xs font-normal text-[#999] transition-colors hover:text-[#2d2d2d]'
+        className='float-right cursor-pointer text-xs font-normal text-gray-2 transition-colors hover:text-dark-2'
       >
         取消回复
       </small>

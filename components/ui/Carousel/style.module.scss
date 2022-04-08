@@ -39,12 +39,12 @@
     }
 
     input:checked ~ label {
-      @apply bg-gray-400;
+      @apply bg-white-3;
     }
   }
 
   .label {
-    @apply relative block cursor-pointer bg-gray-100 transition-all;
+    @apply relative block cursor-pointer bg-gray-1 transition-all;
 
     &::after {
       @apply absolute -top-1 -right-1 -bottom-1 -left-1;
@@ -53,7 +53,7 @@
     }
 
     &:hover {
-      @apply bg-gray-400;
+      @apply bg-white-1;
     }
   }
 

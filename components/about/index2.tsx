@@ -126,7 +126,7 @@ const AboutView = () => (
   <div className='space-y-12'>
     <NextSeo title='关于' />
     <div className='my-12 flex items-center justify-around'>
-      <h1 className='text-3xl text-gray-600'>
+      <h1 className='text-gray-600 text-3xl'>
         Hi, 我是<strong className='text-blue-500'>五木</strong>, 英文名: itsuki,
         一名大四学生
         <p>准网易雷火前端工程师</p>
@@ -146,13 +146,13 @@ const AboutView = () => (
       <h2 className='mb-4 text-2xl'>Why</h2>
       <div className='bg-white p-6'>
         <div className='mb-6'>
-          <h3 className='text-lg text-gray-700'>为什么是五木?</h3>
+          <h3 className='text-gray-700 text-lg'>为什么是五木?</h3>
           <p>
             真名是 *森林 , 其实叫木木木木木好像更贴切一点, 但是两个字比五个字
             <strong className='text-gray-700'>简短</strong>多了.
           </p>
         </div>
-        <h3 className='text-lg text-gray-700'>为什么英文名是 itsuki ?</h3>
+        <h3 className='text-gray-700 text-lg'>为什么英文名是 itsuki ?</h3>
         <p>
           之前一直叫 fivewoods , 中文式英语, 懂得都懂, 有一次在大学计算机英语课上,
           老师要我们做一个英文的自我介绍,

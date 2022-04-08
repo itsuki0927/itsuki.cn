@@ -17,11 +17,11 @@ const HotArticles = ({ hotArticles }: HotArticlesProps) => (
         <Image src={article.cover} objectFit='cover' width={94} height={68} />
         <div className='ml-4 flex-grow py-1'>
           <Link href={getArticleDetailUrl(article.id)}>
-            <h4 className='flex-1 cursor-pointer align-middle text-sm tracking-wider text-[#2d2d2d] transition-colors duration-500 hover:text-[#777]'>
+            <h4 className='flex-1 cursor-pointer align-middle text-sm tracking-wider text-dark-2 transition-colors duration-500 hover:text-gray-3'>
               {article.title}
             </h4>
           </Link>
-          <span className='text-xs text-[#b6b6b6]'>
+          <span className='text-xs text-gray-1'>
             <ToDate date={article.createAt} to='YMD' />
           </span>
         </div>

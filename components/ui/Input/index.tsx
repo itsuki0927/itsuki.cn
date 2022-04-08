@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { useCallback } from 'react';
 import mergeRefs from '@/utils/mergeRef';
-import styles from './style.module.scss';
 
 type ValueType = string | number | ReadonlyArray<string>;
 
@@ -56,10 +55,7 @@ const Input = React.forwardRef((props: InputProps, ref: any) => {
   );
 
   const classString = classNames(
-    styles.input,
-    {
-      [styles.plaintext]: !!plaintext,
-    },
+    'relative m-0 box-border border-solid border border-white-1 inline-block min-w-0 list-none rounded-sm bg-white-1 py-2 px-3 text-sm transition-colors duration-200 hover:bg-white-2 focus:bg-white-2',
     className
   );
 

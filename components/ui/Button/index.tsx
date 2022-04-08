@@ -57,7 +57,8 @@ const Button: FC<ButtonProps> = ({
       'w-full': block,
       'border border-solid border-gray-3 text-gray-3 hover:border-dark-2 hover:bg-dark-2 hover:text-white':
         type === 'ghost',
-      'border border-solid bg-dark-2 text-white hover:bg-gray-3': type === 'reverse',
+      'border border-solid border-gray-3 bg-dark-2 text-white hover:bg-gray-3':
+        type === 'reverse',
       'bg-white text-gray-3 hover:bg-dark-2 hover:text-white': type === 'primary',
       'pointer-events-none cursor-not-allowed shadow-none bg-white-3 border-white-3':
         rest.disabled,

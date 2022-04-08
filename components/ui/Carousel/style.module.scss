@@ -1,5 +1,5 @@
 .carousel {
-  @apply relative overflow-hidden bg-white;
+  @apply relative overflow-hidden bg-white dark:bg-white--dark;
 
   .content {
     @apply relative h-full w-full overflow-hidden;
@@ -9,12 +9,12 @@
     @apply relative left-0 h-full transition-transform will-change-transform;
 
     .sliderItem {
-      @apply float-left h-full w-full bg-white;
+      @apply float-left h-full w-full bg-white dark:bg-white--dark;
     }
   }
 
   .sliderAfter {
-    @apply absolute left-0 top-0 h-full w-full bg-white;
+    @apply absolute left-0 top-0 h-full w-full bg-white dark:bg-white--dark;
 
     animation: move-left-half 0.3s ease forwards;
 
@@ -39,12 +39,12 @@
     }
 
     input:checked ~ label {
-      @apply bg-white-3;
+      @apply bg-white-3 dark:bg-white-3--dark;
     }
   }
 
   .label {
-    @apply relative block cursor-pointer bg-gray-1 transition-all;
+    @apply relative block cursor-pointer bg-gray-1 transition-all dark:bg-gray-3--dark;
 
     &::after {
       @apply absolute -top-1 -right-1 -bottom-1 -left-1;
@@ -53,7 +53,7 @@
     }
 
     &:hover {
-      @apply bg-white-1;
+      @apply bg-white-1 dark:bg-white-1--dark;
     }
   }
 

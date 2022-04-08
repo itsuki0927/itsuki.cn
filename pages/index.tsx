@@ -41,7 +41,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className='home space-y-6'>
+    <div className='home space-y-6' id='dashboard'>
       <ArticleList {...articles} />
 
       <div className='flex justify-between'>
@@ -49,9 +49,9 @@ const HomePage = () => {
           disabled={!articles.data?.hasPrev}
           onClick={() => {
             setCurrent(c => Math.max(1, c - 1));
-            scrollTo('.home.space-y-6', 300);
+            scrollTo('#dashboard', 300);
           }}
-          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-gray-3'
+          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-gray-3 dark:text-gray-3--dark'
         >
           <LeftOutlined className='mr-1 text-xxs' />
           NEW POSTS
@@ -60,9 +60,9 @@ const HomePage = () => {
           disabled={!articles.data?.hasNext}
           onClick={() => {
             setCurrent(c => c + 1);
-            scrollTo('.home.space-y-6', 300);
+            scrollTo('#dashboard', 300);
           }}
-          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-gray-3'
+          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-gray-3 dark:text-gray-3--dark'
         >
           OLD POSTS
           <RightOutlined className='ml-1 text-xxs' />

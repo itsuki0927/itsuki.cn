@@ -15,7 +15,10 @@ type ArticleCardProps = {
 };
 
 const ArticleCard = ({ article, style }: ArticleCardProps) => (
-  <article className={`group flex rounded-sm bg-white p-4 ${s.card}`} style={style}>
+  <article
+    className={`group flex rounded-sm bg-white p-4 dark:bg-white--dark ${s.card}`}
+    style={style}
+  >
     <Image
       alt='article-cover'
       width={286}
@@ -28,19 +31,19 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
     />
     <div className='ml-4 flex max-w-[50%] flex-col items-start justify-between'>
       <header className='mt-1 mb-1'>
-        <span className='block text-xs text-gray-2'>
+        <span className='block text-xs text-gray-2 dark:text-gray-2--dark'>
           <ToDate date={article.createAt} />
         </span>
 
         <h3
-          className='cursor-pointer tracking-widest text-dark-2 transition-colors duration-500 hover:text-gray-3'
+          className='cursor-pointer tracking-widest text-dark-2 transition-colors duration-500 hover:text-gray-3 dark:text-gray-2--dark'
           onClick={() => router.push(`/article/${article.id}`)}
         >
           {article.title}
         </h3>
       </header>
 
-      <div className='mt-2 mb-2 min-h-[48px] flex-grow overflow-hidden text-ellipsis text-sm text-base tracking-wider'>
+      <div className='mt-2 mb-2 min-h-[48px] flex-grow overflow-hidden text-ellipsis text-sm tracking-wider'>
         {article.description}
       </div>
 
@@ -48,7 +51,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
         <Link href={`/article/${article.id}`}>READ MORE</Link>
       </Button>
 
-      <div className='mb-1 flex items-end space-x-3 text-xxs text-gray-1'>
+      <div className='mb-1 flex items-end space-x-3 text-xxs text-gray-1 dark:text-gray-1--dark'>
         <span>
           <HeartOutlined className='mr-1 text-xxs' />
           {article.liking}

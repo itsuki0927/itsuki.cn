@@ -1,5 +1,5 @@
 const Footer = () => (
-  <footer className='mt-6 bg-white px-4 py-9 text-sm leading-8 text-gray-2 '>
+  <footer className='mt-6 bg-white px-4 py-9 text-sm leading-8 text-gray-2 dark:bg-white--dark dark:text-gray-2--dark '>
     <div className='container text-center tracking-widest'>
       Build by 🖐️ 🪵 🇨🇳 👨‍💻 🌈 🎈
       <a

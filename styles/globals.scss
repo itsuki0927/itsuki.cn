@@ -5,7 +5,7 @@
 
 html,
 body {
-  @apply m-0 bg-base p-0 text-base text-basic;
+  @apply m-0 bg-base p-0 text-base text-basic dark:bg-base--dark dark:text-basic--dark;
 
   font-family: 'iA Writer Quattro', BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -18,13 +18,17 @@ body {
 }
 
 ::selection {
-  background-color: #d9d9d9;
-  color: white;
+  @apply bg-[#d9d9d9] text-white dark:bg-[#004daa] dark:text-[#e8e6e3];
+
   text-shadow: none;
 }
 
 ::-moz-selection {
-  background-color: #d9d9d9;
-  color: white;
+  @apply bg-[#d9d9d9] text-white dark:bg-[#004daa] dark:text-[#e8e6e3];
+
   text-shadow: none;
+}
+
+::placeholder {
+  @apply dark:text-[#b2aba1] dark:opacity-50;
 }

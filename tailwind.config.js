@@ -3,6 +3,7 @@ const colors = require('tailwindcss/colors');
 /*  @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
   content: ['./pages/**/*.{jsx,tsx}', './components/**/*.{jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     colors: {
       transparent: colors.transparent,
@@ -32,12 +33,51 @@ module.exports = {
       'dark-2': '#2d2d2d',
       'dark-3': '#222',
       'dark-4': '#1c1c1c',
-
       basic: '#444444',
+
+      'basic--dark': '#bdb7af',
+      'white--dark': '#e8e6e3',
+      'white-1--dark': '#1c1e1f',
+      'white-2--dark': '#1f2223',
+      'white-3--dark': '#222426',
+      'gray-1--dark': '#bab4ab',
+      'gray-2--dark': '#a8a095',
+      'gray-3--dark': '#9d9488',
+      'dark-2--dark': '#ccc7c0',
+
+      'white-1--hover-dark': '#1f2223',
+      'gray-1--hover-dark': '#bab4ab',
+      'gray-2--hover-dark': '#ccc7c0',
+      'gray-3--hover-dark': '#5a6165',
+      'gray-4--hover-dark': '#d6d3cd',
     },
     extend: {
+      borderColor: {
+        'white-1--dark': '#323638',
+        'white-2--dark': '#34383a',
+        'white-3--dark': '#35393b',
+        // 'gray-3--dark': '#666e53',
+        // 'gray-3--dark': '#a39c90',
+        'gray-3--dark': '#4d5356',
+        'dark-2--hover-dark': '#7d7467',
+      },
       backgroundColor: {
         base: '#efefef',
+        'base--dark': '#212425',
+
+        'white--dark': '#181a1b',
+        'white-1--dark': '#1c1e1f',
+        'white-3--dark': '#222426',
+        'gray-3--dark': '#5a6165',
+        'dark-2--dark': '#222526',
+        'dark-3--dark': '#1a1c1d',
+
+        'white-2--hover-dark': '#1f2223',
+        'gray-1--hover-dark': '#bab4ab',
+        'gray-2--hover-dark': '#ccc7c0',
+        'gray-3--hover-dark': '#5a6165',
+        'gray-4--hover-dark': '#d6d3cd',
+        'dark-2--hover-dark': '#222526',
       },
       fontSize: {
         xxs: ['0.625rem', '0.75rem'],

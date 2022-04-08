@@ -30,14 +30,14 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
           alt='banner-cover'
           className='group-hover: rounded-sm align-middle opacity-100'
         />
-        <div className='text-gray-600 absolute top-6 right-6 rounded-sm bg-white py-2 px-6 text-center opacity-70 transition-all duration-500 hover:opacity-100'>
-          <header className=''>
-            <span className='text-xs tracking-tighter text-gray-1'>
+        <div className='absolute top-6 right-6 rounded-sm bg-white py-2 px-6 text-center opacity-70 transition-all duration-500 hover:opacity-100 dark:bg-white--dark'>
+          <header>
+            <span className='text-xs tracking-tighter text-gray-1 dark:text-gray-1--dark'>
               <ToDate date={article.createAt} to='YMD' />
             </span>
 
             <h2
-              className='cursor-pointer text-lg tracking-widest text-dark-2 hover:text-dark-4'
+              className='cursor-pointer text-lg tracking-widest text-dark-2 hover:text-dark-4 dark:text-dark-2--dark'
               onClick={() => router.push(`/article/${article.id}`)}
             >
               {article.title}

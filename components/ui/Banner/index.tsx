@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import Container from '../Container';
 
 type BannerProps = {
   className?: string;
@@ -6,9 +7,9 @@ type BannerProps = {
 };
 
 const Banner = ({ className, children }: BannerProps) => (
-  <div className={`relative overflow-hidden bg-white p-4 text-center ${className}`}>
+  <Container className={`relative overflow-hidden text-center ${className}`}>
     <h1 className='text-xs tracking-wider text-gray-3'>{children}</h1>
-  </div>
+  </Container>
 );
 
 export default Banner;

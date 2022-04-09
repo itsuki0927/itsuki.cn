@@ -1,7 +1,0 @@
-.overlay {
-  @apply pointer-events-none fixed left-0 top-0 z-50 h-full w-full opacity-0 backdrop-blur-sm transition-opacity;
-}
-
-.show {
-  @apply pointer-events-auto opacity-100;
-}

@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState, useImperativeHandle, forwardRef } from 'react';
 import { off, on } from '@/utils/events';
-import styles from './style.module.scss';
 
 export type ImagePopupProps = {
   src?: string;
@@ -43,15 +42,19 @@ const ImagePopup = forwardRef<ImagePopupRef, ImagePopupProps>(({ src }, ref) => 
     };
   }, [handleClick, visible]);
 
-  return (
-    <div className={styles.imagePopup}>
-      {visible && (
-        <div id='overlay' className={styles.overlay}>
-          <img id='popupImage' alt='popup show' src={imageUrl} className={styles.image} />
-        </div>
-      )}
+  return visible ? (
+    <div
+      id='overlay'
+      className='fixed inset-0 z-50 flex items-center justify-center bg-[#c0c0c080] backdrop-blur-sm transition-all'
+    >
+      <img
+        id='popupImage'
+        alt='popup show'
+        src={imageUrl}
+        className='max-h-max min-w-min max-w-max rounded-md border-8 border-solid border-white-1 object-cover dark:border-white-1--dark'
+      />
     </div>
-  );
+  ) : null;
 });
 
 export default ImagePopup;

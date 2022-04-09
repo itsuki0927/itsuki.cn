@@ -1,6 +1,6 @@
 import { dehydrate, QueryClient } from 'react-query';
 import { getGlobalData } from '@/api/global';
-import AboutView from '@/components/about/index';
+import AboutView from '@/components/about';
 import { NavbarLayout } from '@/components/common';
 import { globalDataKeys } from '@/constants/queryKeys';
 

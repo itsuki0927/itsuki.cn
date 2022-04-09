@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { useEffect, useState } from 'react';
-import styles from './style.module.scss';
 
 const PageLoadingProgress = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +34,16 @@ const PageLoadingProgress = () => {
     };
   }, [router.events]);
 
-  return <div className={classNames(styles.overlay, { [styles.show]: isLoading })} />;
+  return (
+    <div
+      className={classNames(
+        'pointer-events-none fixed left-0 top-0 z-50 h-full w-full opacity-0 backdrop-blur-sm transition-opacity',
+        {
+          'pointer-events-auto opacity-100': isLoading,
+        }
+      )}
+    />
+  );
 };
 
 export default PageLoadingProgress;

@@ -1,5 +1,7 @@
+import Container from '../Container';
+
 const Loading = () => (
-  <div className='bg-white p-4 text-center'>
+  <Container className='text-center'>
     <svg
       className='mx-auto'
       version='1.1'
@@ -37,11 +39,13 @@ const Loading = () => (
         />
       </path>
     </svg>
-    <p className='mt-1 text-sm tracking-widest text-gray-3'>
+    <p className='mt-1 text-sm tracking-widest text-gray-3 dark:text-gray-3--dark'>
       有时候幸福需要等一等
-      <span className='absolute mt-1 text-xs text-gray-1'>《幸福终点站》</span>
+      <span className='absolute mt-1 text-xs text-gray-1 dark:text-gray-1--dark'>
+        《幸福终点站》
+      </span>
     </p>
-  </div>
+  </Container>
 );
 
 export default Loading;

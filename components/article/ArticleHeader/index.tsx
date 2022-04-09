@@ -13,7 +13,7 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
     <div className='text-center'>
       <header className='mt-4 mb-6'>
         <h1 className='mt-1 tracking-widest'>{article.title}</h1>
-        <div className='my-1 space-x-2 text-xs tracking-wider text-gray-1'>
+        <div className='my-1 space-x-2 text-xs tracking-wider text-gray-1 dark:text-gray-1--dark'>
           <span>
             <TimeOutlined className='mr-1 align-baseline text-xs' />
             <ToDate date={article.createAt} to='YMDm' />

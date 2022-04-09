@@ -28,7 +28,7 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
             >
               {article.title}
             </h2>
-            <span className='my-1 block text-center text-xs tracking-wider text-gray-1'>
+            <span className='my-1 block text-center text-xs tracking-wider text-gray-1 dark:text-gray-1--dark'>
               <ToDate date={article.createAt} to='YMD' />
             </span>
           </div>

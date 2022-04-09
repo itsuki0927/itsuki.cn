@@ -1,4 +1,4 @@
-import { MarkdownBlock } from '@/components/ui';
+import { Container, MarkdownBlock } from '@/components/ui';
 import { ArticleDetailResponse } from '@/entities/article';
 import ArticleHeader from '../ArticleHeader';
 import ArticleMeta from '../ArticleMeta';
@@ -9,7 +9,7 @@ interface ArticleContentProps {
 }
 
 const ArticleContent = ({ article }: ArticleContentProps) => (
-  <div className='relative rounded-sm bg-white p-4'>
+  <Container className='relative rounded-sm'>
     <ArticleHeader article={article} />
 
     <MarkdownBlock className='mb-5' htmlContent={article.content} />
@@ -17,7 +17,7 @@ const ArticleContent = ({ article }: ArticleContentProps) => (
     <ArticleMeta article={article} />
 
     <ArticleFooter article={article} />
-  </div>
+  </Container>
 );
 
 export default ArticleContent;

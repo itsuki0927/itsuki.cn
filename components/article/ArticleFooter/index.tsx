@@ -10,7 +10,7 @@ interface ArticleFooterProps {
 const ArticleFooter = ({ article }: ArticleFooterProps) => {
   const { isLike, mutation } = useLikeArticle(article.id);
   return (
-    <div className='absolute left-0 right-0 bottom-0 flex h-12 items-center justify-between text-white'>
+    <div className='absolute left-0 right-0 bottom-0 flex h-12 items-center justify-between text-white dark:text-white--dark'>
       <div className='h-full w-1/2 bg-dark-2 pl-10 leading-12 tracking-wider'>
         <span className='text-xs'>BY</span>
         <Link href='/about'>

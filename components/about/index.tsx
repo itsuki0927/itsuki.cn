@@ -9,6 +9,7 @@ import {
   ReloadSvg,
   RunSvg,
 } from '@/components/svgs';
+import imageTransformer from '@/utils/image';
 import { Container } from '../ui';
 
 type HoobyProps = {
@@ -73,7 +74,8 @@ const AboutView = () => (
 
       <div className='text-center'>
         <Image
-          src='/about.png'
+          loader={imageTransformer}
+          src='https://static.itsuki.cn/about.png'
           width={670}
           height={407}
           alt='about-decorate-placeholder'

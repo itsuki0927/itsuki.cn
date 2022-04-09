@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { ReactNode, useState } from 'react';
 import { Button } from '@/components/ui';
-import getGravatarUrl from '@/utils/gravatar';
+import imageTransformer from '@/utils/image';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -62,10 +62,9 @@ const CommentForm = ({
     >
       {hiddenAvatar ? null : (
         <Image
+          loader={imageTransformer}
           className='min-w-[60px] flex-shrink-0 rounded-full'
-          src={
-            'https://static.itsuki.cn/avatar1.jpg' || getGravatarUrl('2309899048@qq.com')
-          }
+          src='https://static.itsuki.cn/avatar.jpg'
           width={60}
           height={60}
           alt='cover'

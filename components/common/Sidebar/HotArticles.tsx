@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Widget } from '@/components/ui';
 import { Article } from '@/entities/article';
 import { getArticleDetailUrl } from '@/utils/url';
+import imageTransformer from '@/utils/image';
 import ToDate from '../ToDate';
 
 interface HotArticlesProps {
@@ -15,6 +16,7 @@ const HotArticles = ({ hotArticles }: HotArticlesProps) => (
     {hotArticles.slice(0, 6).map(article => (
       <div className='mb-4 flex rounded-sm' key={article.id}>
         <Image
+          loader={imageTransformer}
           src={article.cover}
           objectFit='cover'
           width={94}

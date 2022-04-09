@@ -4,8 +4,8 @@ import { ToDate } from '@/components/common';
 import { MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import { NoReturnFunction } from '@/types/fn';
-import getGravatarUrl from '@/utils/gravatar';
 import markedToHtml from '@/utils/marked';
+import imageTransformer from '@/utils/image';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -42,9 +42,8 @@ const CommentCard = ({
         <header className='clear-both'>
           <div className='float-left mr-6'>
             <Image
-              src={
-                'https://static.itsuki.cn/avatar1.jpg' || getGravatarUrl(comment.email)
-              }
+              loader={imageTransformer}
+              src='https://static.itsuki.cn/avatar.jpg'
               width={52}
               height={52}
               className='rounded-full'

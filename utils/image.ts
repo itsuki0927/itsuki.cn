@@ -6,7 +6,7 @@ const schemaList = ['https', 'http'];
 type ImageParams = Pick<ImageLoaderProps, 'width' | 'quality'>;
 
 const getImageParams = ({ width, quality }: ImageParams) =>
-  `width=${width}&quality=${quality || 70}`;
+  `imageView2/2/w/${width}/interlace/1/q/${quality || 60}`;
 
 /**
  * src如果以http、https开头则直接使用src, 否则拼接生成最终的url

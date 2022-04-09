@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { ToDate } from '@/components/common';
 import { Widget } from '@/components/ui';
 import { Article } from '@/entities/article';
+import imageTransformer from '@/utils/image';
 
 interface RelateArticlesProps {
   relateArticles: Article[];
@@ -17,9 +18,11 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
         {relateArticles.map(article => (
           <div key={article.id}>
             <Image
+              loader={imageTransformer}
               src={article.cover}
               width={210}
               height={158}
+              className='aspect-square'
               onClick={() => router.push(`/article/${article.id}`)}
               alt='relate-article-cover'
             />

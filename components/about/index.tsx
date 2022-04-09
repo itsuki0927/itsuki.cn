@@ -10,6 +10,7 @@ import {
   RunSvg,
 } from '@/components/svgs';
 import styles from './style.module.scss';
+import { Container } from '../ui';
 
 type HoobyProps = {
   title: string;
@@ -18,7 +19,7 @@ type HoobyProps = {
 };
 
 const HoobyCard = ({ title, description, icon }: HoobyProps) => (
-  <div className='bg-white p-3 tracking-wider'>
+  <Container className='tracking-wider'>
     <div className='my-2'>
       {cloneElement(icon as any, {
         className: 'inline-block align-top mr-1',
@@ -26,8 +27,8 @@ const HoobyCard = ({ title, description, icon }: HoobyProps) => (
       <h5 className='inline-block text-base font-medium'>{title}</h5>
     </div>
 
-    <span className='text-gray-3'>{description}</span>
-  </div>
+    <span className='text-gray-3 dark:text-gray-3--dark'>{description}</span>
+  </Container>
 );
 
 const hoobyList = [
@@ -65,7 +66,7 @@ const hoobyList = [
 
 const AboutView = () => (
   <div>
-    <div className='bg-white p-6'>
+    <Container className='p-6'>
       <NextSeo title='关于' />
       <header className='mt-2 mb-7 text-center'>
         <h1 className='text-base tracking-widest'>关于</h1>
@@ -73,8 +74,8 @@ const AboutView = () => (
 
       <div className='text-center'>
         <Image src='/about.png' width={670} height={407} />
-        <p className='text-xs text-gray-3'>(一张装饰图)</p>
-        <h1 className='my-12 text-3xl text-dark-2'>
+        <p className='text-xs text-gray-3 dark:text-gray-3--dark'>(一张装饰图)</p>
+        <h1 className='my-12 text-3xl text-dark-2 dark:text-dark-2--dark'>
           Hi<span className={`${styles.wave} mx-1`}>👋</span>, 我是
           <strong>五木</strong>, 英文名: itsuki, 喜欢 👨‍💻 和 🏃 的前端 🐶
           {/* <p>准网易雷火前端工程师</p> */}
@@ -111,13 +112,13 @@ const AboutView = () => (
           ))}
         </div>
       </section>
-    </div>
+    </Container>
 
-    <div className='mt-6 bg-white p-5 tracking-widest'>
-      <strong className='font-light text-gray-2'>
+    <Container className='mt-6 p-5 tracking-widest'>
+      <strong className='font-light text-gray-2 text-gray-2--dark'>
         一个应用要写好太难了, 即使是博客!!!
       </strong>
-    </div>
+    </Container>
   </div>
 );
 

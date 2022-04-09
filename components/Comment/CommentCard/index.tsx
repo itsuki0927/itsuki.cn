@@ -54,7 +54,7 @@ const CommentCard = ({
           <span
             tabIndex={0}
             role='button'
-            className='float-right inline-block pr-1 text-xs text-gray-2 transition-colors duration-200 hover:text-dark-2 dark:text-gray-2--dark'
+            className='float-right inline-block pr-1 text-xs text-gray-2 transition-colors duration-200 hover:text-dark-2 dark:text-gray-2--dark hover:dark:text-dark-2--dark'
             onClick={() => onReply?.(comment)}
           >
             回复

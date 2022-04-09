@@ -15,7 +15,7 @@ const LayoutTransition = ({ children }: LayoutTransitionProps) => {
         addEndListener={(node, done) =>
           node.addEventListener('transitionend', done, false)
         }
-        classNames='fade'
+        classNames='move'
       >
         {children}
       </CSSTransition>

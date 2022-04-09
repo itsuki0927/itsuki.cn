@@ -1,3 +1,4 @@
+// 评论的动画
 .comment-enter {
   opacity: 0;
   transform: translateY(15px);
@@ -20,7 +21,59 @@
   transition: opacity 500ms ease-in, transform 300ms ease-out;
 }
 
-// 页面动画
+// 移入移出动画
+.move-enter {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+
+.move-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.move-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.move-exit-active {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.move-enter-active,
+.move-exit-active {
+  transition: opacity 300ms, transform 400ms;
+}
+
+// 反向移入移出
+.move-reverse-enter {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.move-reverse-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.move-reverse-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.move-reverse-exit-active {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.move-reverse-enter-active,
+.move-reverse-exit-active {
+  transition: opacity 300ms, transform 400ms;
+}
+
+// 淡入淡出
 .fade-enter {
   transform: translateX(-10px);
   opacity: 0;

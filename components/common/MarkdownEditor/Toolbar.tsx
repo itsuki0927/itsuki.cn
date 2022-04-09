@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { Button } from '@/components/ui';
 
@@ -15,39 +16,41 @@ type ToolbarProps = {
  */
 const Toolbar = ({ preview, onPreview }: ToolbarProps) => (
   <div className='flex items-center justify-between bg-white-1 py-[2px] px-1 leading-normal dark:bg-white-1--dark'>
-    <span className='text-xxs text-gray-3 dark:text-gray-3--dark'>
-      {preview ? 'PREVIEW' : 'EDIT'}
-    </span>
-    <div>
-      <Button
-        className={classNames(
-          'py-1 px-2 text-xxs hover:bg-white-2 hover:text-gray-3 dark:bg-white-2--dark dark:text-gray-3--dark',
-          {
-            'bg-white-3 dark:bg-white-3--dark': !preview,
-          }
-        )}
-        size='small'
-        onClick={() => {
-          onPreview?.(false);
-        }}
+    <SwitchTransition mode='out-in'>
+      <CSSTransition
+        key={preview ? 'preview' : 'edit'}
+        addEndListener={(node, done) =>
+          node.addEventListener('transitionend', done, false)
+        }
+        classNames='move-reverse'
       >
-        编辑
-      </Button>
-      <Button
-        className={classNames(
-          'py-1 px-2 text-xxs hover:bg-white-2 hover:text-gray-3 dark:bg-white-2--dark dark:text-gray-3--dark',
-          {
-            'bg-white-3 dark:bg-white-3--dark': preview,
-          }
-        )}
-        size='small'
-        onClick={() => {
-          onPreview?.(true);
-        }}
+        <span className='text-xxs text-gray-3 dark:text-gray-3--dark'>
+          {preview ? 'PREVIEW' : 'EDIT'}
+        </span>
+      </CSSTransition>
+    </SwitchTransition>
+
+    <SwitchTransition mode='out-in'>
+      <CSSTransition
+        key={preview ? 'preview' : 'edit'}
+        addEndListener={(node, done) =>
+          node.addEventListener('transitionend', done, false)
+        }
+        classNames='move'
       >
-        预览
-      </Button>
-    </div>
+        <Button
+          className={classNames(
+            'bg-white-3 py-1 px-2 text-xxs hover:bg-white-2 hover:text-gray-3 dark:bg-white-3--dark dark:text-gray-3--dark'
+          )}
+          size='small'
+          onClick={() => {
+            onPreview?.(!preview);
+          }}
+        >
+          {preview ? '编辑' : '预览'}
+        </Button>
+      </CSSTransition>
+    </SwitchTransition>
   </div>
 );
 

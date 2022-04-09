@@ -6,7 +6,7 @@ const BackTop = () => {
   const backToTop = () => scrollTo(0, 600);
 
   return (
-    <div className='fixed right-6 bottom-24 z-10'>
+    <div className='fixed bottom-36 right-6 z-10'>
       <IconButton className='px-4 py-2' icon={<ToTopOutlined />} onClick={backToTop} />
     </div>
   );

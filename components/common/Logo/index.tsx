@@ -1,7 +1,6 @@
 import { LogoJsonLd } from 'next-seo';
 import Image from 'next/image';
 import router from 'next/router';
-import logo from '../../../public/logo.png';
 
 const Logo = () => (
   <div
@@ -11,7 +10,7 @@ const Logo = () => (
     onClick={() => router.push('/')}
   >
     <Image
-      src={logo}
+      src='/logo.png'
       objectFit='cover'
       width={120}
       height={120}

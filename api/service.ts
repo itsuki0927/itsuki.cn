@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 import axios from 'axios';
+import { isDev } from '@/configs/environment';
 
 const service = axios.create({
-  baseURL: 'http://localhost:5555/v1',
+  baseURL: `${process.env.NEXT_PUBLIC_API_BASE_PATH}/${process.env.NEXT_PUBLIC_API_VERSION}`,
   timeout: 100000,
 });
 
@@ -19,7 +20,9 @@ service.interceptors.response.use(
   wrapRes => {
     const res = wrapRes.data;
     const { data, status } = res;
-    console.log('response data', data);
+    if (isDev) {
+      console.log('response data', data);
+    }
     if (status !== 200) {
       throw new Error('请求错误');
     }

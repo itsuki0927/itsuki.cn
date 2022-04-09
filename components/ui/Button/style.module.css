@@ -2,40 +2,40 @@
   @apply inline-block cursor-pointer touch-manipulation text-center text-xs tracking-wider transition-all duration-500;
 }
 
-.small {
+.btn.small {
   @apply py-1 px-2 text-xxs;
 }
 
-.large {
+.btn.large {
   @apply py-2 px-6 text-sm;
 }
 
-.full {
+.btn.full {
   @apply block;
 }
 
-.ghost {
+.btn.ghost {
   @apply border border-solid border-gray-3 text-gray-3 hover:border-dark-2 dark:border-gray-3--dark dark:text-gray-3--dark;
 }
 
-.ghost:hover {
+.btn.ghost:hover {
   @apply bg-dark-2 text-white;
 }
 
-.reverse {
+.btn.reverse {
   @apply border border-solid border-gray-3 bg-dark-2 text-white dark:border-gray-3--dark dark:bg-dark-2--dark dark:text-white--dark;
 }
-.reverse:hover {
+.btn.reverse:hover {
   @apply bg-gray-3;
 }
 
-.primary {
+.btn.primary {
   @apply bg-white text-gray-3 hover:bg-dark-2 dark:bg-white--dark dark:text-gray-3--dark;
 }
-.primary:hover {
+.btn.primary:hover {
   @apply text-white;
 }
 
-.disabled {
+.btn.disabled {
   @apply pointer-events-none cursor-not-allowed border-white-3 bg-white-3 shadow-none dark:border-white-3--dark dark:bg-white-3--dark;
 }

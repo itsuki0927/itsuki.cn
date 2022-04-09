@@ -8,7 +8,7 @@ const NavbarLayout: FC<PageProps> = ({ children }) => {
   const { data } = useGlobalData();
 
   return (
-    <div>
+    <div className='flex min-h-screen flex-col'>
       <Navbar links={data?.categories} />
       <main className='container'>{children}</main>
       <Footer />

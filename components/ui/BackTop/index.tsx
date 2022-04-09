@@ -7,7 +7,12 @@ const BackTop = () => {
 
   return (
     <div className='fixed bottom-36 right-6 z-10'>
-      <IconButton className='px-4 py-2' icon={<ToTopOutlined />} onClick={backToTop} />
+      <IconButton
+        role='button'
+        className='px-4 py-2'
+        icon={<ToTopOutlined />}
+        onClick={backToTop}
+      />
     </div>
   );
 };

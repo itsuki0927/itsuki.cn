@@ -37,5 +37,11 @@ module.exports = {
         ignoreSelectors: ['::-moz-selection'],
       },
     ],
+    'value-keyword-case': [
+      'lower',
+      {
+        ignoreProperties: ['border-color'],
+      },
+    ],
   },
 };

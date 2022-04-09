@@ -14,21 +14,18 @@
   }
 
   code {
-    @apply m-1 rounded-sm p-1;
-
-    color: rgba(41, 37, 36, 100%);
-    background-color: #f8f8f8;
+    @apply m-1 rounded-sm bg-white-1 p-1 text-[#292524] dark:bg-white-1--dark dark:text-[#d0ccc5];
   }
 
   a {
     @apply my-0 mx-1 inline-block h-max rounded-sm px-1 indent-0 leading-6 no-underline transition-colors;
 
-    background-color: rgba(209, 232, 243, 60%);
-    color: #31302e;
+    @apply bg-[#d1e8f399] text-[#31302e] dark:bg-[#12344499] dark:text-[#cac5be];
 
     &:hover,
     &:focus {
-      background-color: rgba(186, 227, 247, 100%);
+      @apply bg-[#bae3f7] dark:bg-[#0a3e57];
+
       border-color: initial;
     }
 
@@ -67,15 +64,14 @@
   h4,
   h5,
   h6 {
-    @apply indent-0 font-medium tracking-wider;
+    @apply indent-0 font-medium tracking-wider text-[#373737] dark:text-[#c5c0b9];
 
     line-height: 1.6;
-    color: #373737;
     margin: 1em 0;
   }
 
   blockquote {
-    background-color: #42828e14;
+    @apply bg-[#42828e14] dark:bg-[#35687214];
 
     p:last-child {
       margin-bottom: 0;
@@ -132,12 +128,10 @@
   }
 
   pre {
-    @apply relative mb-2 block overflow-hidden rounded-sm bg-white-1 p-2;
+    @apply relative mb-2 block overflow-hidden rounded-sm bg-white-1 p-2 dark:bg-white-1--dark;
 
     code {
-      @apply m-0 block h-full w-full bg-transparent;
-
-      color: #535353;
+      @apply m-0 block h-full w-full bg-transparent text-[#535353] dark:text-[#b4ada3];
     }
   }
 
@@ -156,7 +150,7 @@
 
     th,
     td {
-      @apply border border-solid border-white-3;
+      @apply border border-solid border-white-3 dark:border-white-3--dark;
 
       padding: 0.5em 1em;
       vertical-align: inherit;
@@ -173,7 +167,7 @@
 
     pre {
       // NOTE: bg-[#f3f3f3]
-      @apply flex flex-wrap-reverse items-baseline bg-white-2;
+      @apply flex flex-wrap-reverse items-baseline bg-white-2 dark:bg-white-2--dark;
 
       code {
         @apply leading-6;

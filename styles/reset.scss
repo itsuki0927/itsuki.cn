@@ -1,11 +1,12 @@
 *,
 *::before,
 *::after {
+  border-color: currentColor;
   box-sizing: border-box;
 }
 
 hr {
-  @apply my-6 border-none bg-white-3 p-0;
+  @apply my-6 border-none bg-white-3 p-0 dark:bg-white-3--dark;
 
   height: 0.25em;
 }
@@ -15,7 +16,7 @@ p {
 }
 
 blockquote {
-  @apply my-2 border-l-4 border-solid border-dark-3 bg-white-1 py-2  pl-5 pr-4 indent-0;
+  @apply my-2 border-l-4 border-solid border-dark-3 bg-white-1 py-2 pl-5 pr-4  indent-0 dark:border-dark-3--dark dark:bg-white-1--dark;
 }
 
 th,
@@ -23,7 +24,7 @@ td {
   padding: 0.5em 1em;
   vertical-align: inherit;
 
-  @apply border border-solid border-white-2;
+  @apply border border-solid border-white-2 dark:border-white-2--dark;
 }
 
 table {
@@ -39,7 +40,7 @@ caption {
 
 thead th {
   text-align: left;
-  @apply border border-solid border-white-3 bg-white-1;
+  @apply border border-solid border-white-3 bg-white-1 dark:border-white-3--dark dark:bg-white-1--dark;
 }
 
 tr {

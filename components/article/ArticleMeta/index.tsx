@@ -13,7 +13,7 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => (
       一堆标签:
       {article.tags.map(item => (
         <Link key={item.path} href={`/tag/${item.path}`}>
-          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-dark-2'>
+          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-dark-2 hover:dark:text-dark-2--dark'>
             {item.name}
           </span>
         </Link>
@@ -24,7 +24,7 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => (
       一个分类:
       {article.categories.map(item => (
         <Link key={item.path} href={`/tag/${item.path}`}>
-          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-dark-2'>
+          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-dark-2 hover:dark:text-dark-2--dark'>
             {item.name}
           </span>
         </Link>
@@ -42,7 +42,7 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => (
       <div>
         <span>版权声明: </span>
         <a
-          className='no-underline transition-colors hover:text-base'
+          className='no-underline transition-colors hover:text-basic hover:dark:text-basic--dark'
           href='https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh'
           target='_blank'
           rel='external nofollow noopener noreferrer'

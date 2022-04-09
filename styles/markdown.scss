@@ -14,17 +14,17 @@
   }
 
   code {
-    @apply m-1 rounded-sm bg-white-1 p-1 text-[#292524] dark:bg-white-1--dark dark:text-[#d0ccc5];
+    @apply m-1 rounded-sm bg-white-1 p-1 text-[#292524] dark:bg-[#2d3437] dark:text-[#d0ccc5];
   }
 
   a {
-    @apply my-0 mx-1 inline-block h-max rounded-sm px-1 indent-0 leading-6 no-underline transition-colors;
+    @apply my-0 mx-1 inline-block h-max rounded-sm px-1 indent-0 leading-6 no-underline transition-colors duration-300;
 
-    @apply bg-[#d1e8f399] text-[#31302e] dark:bg-[#12344499] dark:text-[#cac5be];
+    @apply bg-[#d1e8f399] text-[#31302e] dark:bg-[#bde7fb99] dark:text-dark-3;
 
     &:hover,
     &:focus {
-      @apply bg-[#bae3f7] dark:bg-[#0a3e57];
+      @apply bg-[#bae3f7] dark:bg-[#bae3f7];
 
       border-color: initial;
     }
@@ -131,7 +131,7 @@
     @apply relative mb-2 block overflow-hidden rounded-sm bg-white-1 p-2 dark:bg-white-1--dark;
 
     code {
-      @apply m-0 block h-full w-full bg-transparent text-[#535353] dark:text-[#b4ada3];
+      @apply m-0 block h-full w-full bg-transparent text-[#535353] dark:bg-transparent dark:text-[#b4ada3];
     }
   }
 

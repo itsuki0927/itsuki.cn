@@ -5,6 +5,27 @@
   box-sizing: border-box;
 }
 
+::selection {
+  @apply bg-[#d9d9d9] text-white dark:bg-[#2d3133] dark:text-white--dark;
+
+  text-shadow: none;
+}
+
+::-moz-selection {
+  @apply bg-[#d9d9d9] text-white dark:bg-[#2d3133] dark:text-white--dark;
+
+  text-shadow: none;
+}
+
+::placeholder {
+  @apply dark:text-[#b2aba1] dark:opacity-50;
+}
+
+input::placeholder,
+textarea::placeholder {
+  @apply text-[#afa99e];
+}
+
 hr {
   @apply my-6 border-none bg-white-3 p-0 dark:bg-white-3--dark;
 

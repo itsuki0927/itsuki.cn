@@ -43,5 +43,12 @@ module.exports = {
         ignoreProperties: ['border-color'],
       },
     ],
+    // 忽略指定的函数
+    'function-no-unknown': [
+      true,
+      {
+        ignoreFunctions: ['-webkit-gradient', 'to', 'color-stop'],
+      },
+    ],
   },
 };

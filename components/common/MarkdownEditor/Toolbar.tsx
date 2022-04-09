@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import classNames from 'classnames';
 import { Button } from '@/components/ui';
-import styles from './style.module.scss';
 
 type ToolbarProps = {
   preview?: boolean;
@@ -15,15 +14,18 @@ type ToolbarProps = {
  * <Icon onMouseDown={preventDefault} />
  */
 const Toolbar = ({ preview, onPreview }: ToolbarProps) => (
-  <div className={styles.toolbar}>
+  <div className='flex items-center justify-between bg-white-1 py-[2px] px-1 leading-normal dark:bg-white-1--dark'>
     <span className='text-xxs text-gray-3 dark:text-gray-3--dark'>
       {preview ? 'PREVIEW' : 'EDIT'}
     </span>
-    <div className={styles.preview}>
+    <div>
       <Button
-        className={classNames(styles.btn, {
-          [styles.active]: !preview,
-        })}
+        className={classNames(
+          'py-1 px-2 text-xxs hover:bg-white-2 hover:text-gray-3 dark:bg-white-2--dark dark:text-gray-3--dark',
+          {
+            'bg-white-3 dark:bg-white-3--dark': !preview,
+          }
+        )}
         size='small'
         onClick={() => {
           onPreview?.(false);
@@ -32,9 +34,12 @@ const Toolbar = ({ preview, onPreview }: ToolbarProps) => (
         编辑
       </Button>
       <Button
-        className={classNames(styles.btn, {
-          [styles.active]: preview,
-        })}
+        className={classNames(
+          'py-1 px-2 text-xxs hover:bg-white-2 hover:text-gray-3 dark:bg-white-2--dark dark:text-gray-3--dark',
+          {
+            'bg-white-3 dark:bg-white-3--dark': preview,
+          }
+        )}
         size='small'
         onClick={() => {
           onPreview?.(true);

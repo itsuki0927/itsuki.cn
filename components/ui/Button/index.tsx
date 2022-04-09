@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
+import styles from './style.module.css';
 
 export const tuple = <T extends string[]>(...args: T) => args;
 
@@ -51,20 +52,16 @@ const Button: FC<ButtonProps> = ({
   };
 
   const classString = classNames(
+    styles.btn,
     {
-      'py-2 px-4 text-xxs': size === 'small',
-      'py-2 px-6 text-sm': size === 'large',
-      'w-full': block,
-      'border border-solid border-gray-3 text-gray-3 hover:border-dark-2 hover:bg-dark-2 hover:text-white dark:border-gray-3--dark dark:text-gray-3--dark':
-        type === 'ghost',
-      'border border-solid border-gray-3 bg-dark-2 text-white hover:bg-gray-3 dark:border-gray-3--dark dark:bg-dark-2--dark dark:text-white--dark':
-        type === 'reverse',
-      'bg-white text-gray-3 hover:bg-dark-2 hover:text-white dark:bg-white--dark dark:text-gray-3--dark':
-        type === 'primary',
-      'bg:border-white-3--dark pointer-events-none cursor-not-allowed border-white-3 bg-white-3 shadow-none dark:bg-white-3--dark':
-        rest.disabled,
+      [styles.small]: size === 'small',
+      [styles.large]: size === 'large',
+      [styles.block]: block,
+      [styles.ghost]: type === 'ghost',
+      [styles.reverse]: type === 'reverse',
+      [styles.primary]: type === 'primary',
+      [styles.disabled]: rest.disabled,
     },
-    'inline-block cursor-pointer touch-manipulation text-center text-xs tracking-wider transition-all duration-500',
     className
   );
 

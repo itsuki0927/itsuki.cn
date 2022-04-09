@@ -23,7 +23,7 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
               onClick={() => router.push(`/article/${article.id}`)}
             />
             <h2
-              className='cursor-pointer text-center text-sm tracking-widest text-dark-2 transition-colors duration-500 hover:text-gray-3'
+              className='cursor-pointer text-center text-sm tracking-widest text-dark-2 transition-colors duration-500 hover:text-gray-3 dark:text-dark-2--dark dark:hover:text-gray-3--dark'
               onClick={() => router.push(`/article/${article.id}`)}
             >
               {article.title}

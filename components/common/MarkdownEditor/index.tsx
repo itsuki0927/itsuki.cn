@@ -3,7 +3,6 @@ import React, { useMemo, useState } from 'react';
 import { MarkdownBlock } from '@/components/ui';
 import { MarkdownEditorOptions } from '@/utils/editor';
 import markedToHtml from '@/utils/marked';
-import styles from './style.module.scss';
 import Toolbar from './Toolbar';
 import useEditor from './useEditor';
 
@@ -32,18 +31,17 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   );
 
   return (
-    <div
-      className={`${styles.markdown} border border-solid border-white-1 dark:border-white-1--dark`}
-    >
-      <div className={styles.content}>
+    <div className='border border-solid border-white-1 bg-white-1 text-sm dark:border-white-1--dark dark:bg-white-1--dark'>
+      <div className='relative'>
         <div
-          className={`editor language-markdown ${styles.textarea}`}
+          className='max-h-[460px] min-h-[120px] overflow-y-scroll p-3 leading-5'
           ref={editorRef as any}
         />
         <MarkdownBlock
-          className={classNames(styles.preview, {
-            [styles.enable]: preview,
-          })}
+          className={classNames(
+            'absolute left-0 right-0 top-0 bottom-0 cursor-not-allowed overflow-y-scroll bg-white-2 p-3 transition-all duration-300 dark:bg-white-2--dark',
+            preview ? 'z-10 h-full' : '-z-10 h-0'
+          )}
           htmlContent={markedToHtml(editorRef.current?.textContent || '', {
             purify: true,
           })}

@@ -92,29 +92,54 @@ module.exports = {
       listStyleType: {
         square: 'square',
       },
-      extends: {
-        keyframes: {
-          'move-left-half': {
-            '0%': {
-              transform: 'none',
-            },
-            '100%': {
-              transform: 'translateX(-50%)',
-            },
+      keyframes: {
+        'move-left-half': {
+          '0%': {
+            transform: 'none',
           },
-          'move-left-half-vertical': {
-            '0%': {
-              transform: 'none',
-            },
-            '100%': {
-              transform: 'translateY(-50%)',
-            },
+          '100%': {
+            transform: 'translateX(-50%)',
           },
         },
-        animation: {
-          'move-left-half': 'move-left-half 0.3s ease forwards',
-          'move-left-half-vertical': 'move-left-half-vertical 0.3s ease forwards',
+        'move-left-half-vertical': {
+          '0%': {
+            transform: 'none',
+          },
+          '100%': {
+            transform: 'translateY(-50%)',
+          },
         },
+        wave: {
+          '0%': {
+            transform: 'rotate(0deg)',
+          },
+          '10%': {
+            transform: 'rotate(14deg)',
+          },
+          '20%': {
+            transform: 'rotate(-8deg)',
+          },
+          '30%': {
+            transform: 'rotate(14deg)',
+          },
+          '40%': {
+            transform: 'rotate(-4deg)',
+          },
+          '50%': {
+            transform: 'rotate(10deg)',
+          },
+          '60%': {
+            transform: 'rotate(0deg)',
+          },
+          to: {
+            transform: 'rotate(0deg)',
+          },
+        },
+      },
+      animation: {
+        'move-left-half': 'move-left-half 0.3s ease forwards',
+        'move-left-half-vertical': 'move-left-half-vertical 0.3s ease forwards',
+        wave: 'wave 2s linear 15',
       },
     },
   },

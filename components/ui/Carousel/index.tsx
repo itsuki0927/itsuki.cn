@@ -192,7 +192,7 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
           <div
             className={classNames(
               'absolute left-0 top-0 h-full w-full bg-white dark:bg-white--dark',
-              `move-left-half${vertical ? '-vertical' : ''}`
+              vertical ? 'animate-move-left-half' : 'animate-move-left-half-vertical'
             )}
             style={{ [lengthKey]: '200%' }}
           >

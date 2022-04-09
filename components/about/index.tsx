@@ -9,7 +9,6 @@ import {
   ReloadSvg,
   RunSvg,
 } from '@/components/svgs';
-import styles from './style.module.scss';
 import { Container } from '../ui';
 
 type HoobyProps = {
@@ -76,9 +75,9 @@ const AboutView = () => (
         <Image src='/about.png' width={670} height={407} />
         <p className='text-xs text-gray-3 dark:text-gray-3--dark'>(一张装饰图)</p>
         <h1 className='my-12 text-3xl text-dark-2 dark:text-dark-2--dark'>
-          Hi<span className={`${styles.wave} mx-1`}>👋</span>, 我是
+          Hi<span className='origin-[70% 70%] mx-1 inline-block animate-wave'>👋</span>,
+          我是
           <strong>五木</strong>, 英文名: itsuki, 喜欢 👨‍💻 和 🏃 的前端 🐶
-          {/* <p>准网易雷火前端工程师</p> */}
         </h1>
       </div>
 
@@ -87,7 +86,7 @@ const AboutView = () => (
           一段简介
         </h3>
         <p className='px-4'>
-          <strong>代码:</strong> 大学生活有五年, 大专生三年+本科两年,
+          <strong className='mr-1'>👨‍💻</strong> 大学生活有五年, 大专生三年+本科两年,
           在大专生时加入了学校打比赛的协会, 参加了"蓝桥杯"比赛,
           在那里锻炼了算法以及学习能力, 后面因个人原因没有留在协会,
           在协会时知道自己算法能力不是很强, 选择了对算法要求没那么高的前端,
@@ -95,8 +94,9 @@ const AboutView = () => (
         </p>
 
         <p className='px-4'>
-          <strong>跑步:</strong> 跑步是在无意之间接触到的, 当时想着跑步可以提升精气神,
-          每天学累了就去跑跑步放松一下, 结果没想到上瘾了, 从三公里-{'>'}五公里-{'>'}
+          <strong className='mr-1'>🏃</strong> 跑步是在无意之间接触到的,
+          当时想着跑步可以提升精气神, 每天学累了就去跑跑步放松一下, 结果没想到上瘾了,
+          从三公里-{'>'}五公里-{'>'}
           十公里-{'>'}半马-{'>'}全马. 到本科学院因为跑步结识了现在的朋友,
           现在每天5.20公里, 不管刮风还是下雨 , 或许这就是跑步人的浪漫吧❤️❤️ .
         </p>

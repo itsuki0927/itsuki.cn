@@ -42,19 +42,23 @@ const ImagePopup = forwardRef<ImagePopupRef, ImagePopupProps>(({ src }, ref) => 
     };
   }, [handleClick, visible]);
 
-  return visible ? (
-    <div
-      id='overlay'
-      className='fixed inset-0 z-50 flex items-center justify-center bg-[#c0c0c080] backdrop-blur-sm transition-all'
-    >
-      <img
-        id='popupImage'
-        alt='popup show'
-        src={imageUrl}
-        className='max-h-max min-w-min max-w-max rounded-md border-8 border-solid border-white-1 object-cover dark:border-white-1--dark'
-      />
+  return (
+    <div>
+      {visible ? (
+        <div
+          id='overlay'
+          className='fixed inset-0 z-50 -mt-6 flex items-center justify-center overflow-hidden bg-[#c0c0c080] backdrop-blur-sm transition-all'
+        >
+          <img
+            id='popupImage'
+            alt='popup show'
+            src={imageUrl}
+            className='rounded-md border-8 border-solid border-white-1 object-cover dark:border-white-1--dark'
+          />
+        </div>
+      ) : null}
     </div>
-  ) : null;
+  );
 });
 
 export default ImagePopup;

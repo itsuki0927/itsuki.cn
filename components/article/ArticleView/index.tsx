@@ -48,9 +48,7 @@ const ArticleView = ({ article }: ArticleViewProps) => {
 
       <ImagePopup
         ref={imagePopup => {
-          if (!window.imagePopup) {
-            window.imagePopup = imagePopup;
-          }
+          window.imagePopup = imagePopup;
         }}
       />
     </div>

@@ -33,6 +33,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-query": "^3.34.19",
+    "react-toggle-dark-mode": "^1.0.4",
     "react-transition-group": "^4.4.2",
     "swr": "^1.2.2",
     "ua-parser-js": "^1.0.2"

@@ -4,6 +4,7 @@ import { ActiveLink } from '@/components/ui';
 import { Category } from '@/entities/category';
 import { getCategoryUrl } from '@/utils/url';
 import shank from '@/utils/shank';
+import ThemeSwitch from '../ThemeSwitch';
 
 interface NavbarProps {
   links?: Category[];
@@ -28,13 +29,19 @@ const Navbar = ({ links }: NavbarProps) => {
     const addNavList =
       links?.map(item => ({ ...item, path: getCategoryUrl(item.path) })) || [];
 
-    const finalNavList = shank(DEFAULT_NAV_LIST, 1, 0, ...addNavList);
-
-    return finalNavList.map(item => (
+    // 将查询到的分类添加到首页的后面
+    const navDom = shank(DEFAULT_NAV_LIST, 1, 0, ...addNavList).map(item => (
       <NavbarItem key={item.path} href={item.path}>
         {item.name}
       </NavbarItem>
     ));
+
+    // 添加主题按钮
+    return navDom.concat(
+      <div className='px-3 pr-6'>
+        <ThemeSwitch />
+      </div>
+    );
   }, [links]);
 
   return (

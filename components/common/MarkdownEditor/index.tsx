@@ -32,7 +32,9 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   );
 
   return (
-    <div className={`${styles.markdown} border border-solid border-white-1`}>
+    <div
+      className={`${styles.markdown} border border-solid border-white-1 dark:border-white-1--dark`}
+    >
       <div className={styles.content}>
         <div
           className={`editor language-markdown ${styles.textarea}`}

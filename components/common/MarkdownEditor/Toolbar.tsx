@@ -16,7 +16,9 @@ type ToolbarProps = {
  */
 const Toolbar = ({ preview, onPreview }: ToolbarProps) => (
   <div className={styles.toolbar}>
-    <span className='text-xxs text-gray-3'>{preview ? 'PREVIEW' : 'EDIT'}</span>
+    <span className='text-xxs text-gray-3 dark:text-gray-3--dark'>
+      {preview ? 'PREVIEW' : 'EDIT'}
+    </span>
     <div className={styles.preview}>
       <Button
         className={classNames(styles.btn, {

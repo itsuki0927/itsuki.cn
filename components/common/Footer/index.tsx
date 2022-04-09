@@ -3,7 +3,7 @@ const Footer = () => (
     <div className='container text-center tracking-widest'>
       Build by 🖐️ 🪵 🇨🇳 👨‍💻 🌈 🎈
       <a
-        className='ml-4 transition-colors hover:text-base'
+        className='ml-4 transition-colors hover:text-basic dark:hover:text-basic--dark'
         href='https://beian.miit.gov.cn'
         target='_blank'
         rel='external nofollow noopener noreferrer'

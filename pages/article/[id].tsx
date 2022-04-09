@@ -3,7 +3,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import { ArticleView } from '@/components/article';
 import { Layout } from '@/components/common';
 import { Loading } from '@/components/ui';
-import { getAllArticlePaths, getArticle } from '@/api/article';
+import { addArticleReading, getAllArticlePaths, getArticle } from '@/api/article';
 import { useArticle } from '@/hooks/article';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { getGlobalData } from '@/api/global';
@@ -30,7 +30,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   );
   await queryClient.prefetchQuery(globalDataKeys.globalData, () => getGlobalData());
 
-  // TODO: 添加阅读数
+  addArticleReading(articleId);
 
   return {
     props: {

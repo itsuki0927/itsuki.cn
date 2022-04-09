@@ -41,3 +41,9 @@ export const likeArticle = (id: number) =>
     method: 'patch',
     url: `/article/${id}/like`,
   });
+
+export const addArticleReading = (id: number) =>
+  service.request<void, number>({
+    method: 'patch',
+    url: `/article/${id}/read`,
+  });

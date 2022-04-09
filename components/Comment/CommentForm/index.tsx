@@ -78,7 +78,9 @@ const CommentForm = ({
 
         <DynamicMarkdown code={content} onChange={setContent} />
         <div className='flex items-center justify-between'>
-          <div className='text-sm text-gray-2'>邮箱不会被泄漏, 放心评论吧</div>
+          <div className='text-sm text-gray-2 dark:text-gray-2--dark'>
+            邮箱不会被泄漏, 放心评论吧
+          </div>
           <Button
             type='reverse'
             disabled={loading}

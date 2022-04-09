@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Loading } from '@/components/ui';
+import { Container, Loading } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import { Comment, PostCommentBody } from '@/entities/comment';
 import { useLocalStorage } from '@/hooks';
@@ -73,9 +73,9 @@ const CommentView = ({ articleId }: CommentProps) => {
   }
 
   return (
-    <div className='bg-white p-4'>
+    <Container>
       {!!comments?.length && (
-        <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2'>
+        <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 dark:text-dark-2--dark'>
           {comments?.length} 条沙雕评论
         </h3>
       )}
@@ -86,7 +86,7 @@ const CommentView = ({ articleId }: CommentProps) => {
       />
 
       <div className='overflow-hidden'>
-        <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2'>
+        <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 dark:text-dark-2--dark'>
           陈独秀请发言
         </h3>
         <CommentForm
@@ -94,7 +94,7 @@ const CommentView = ({ articleId }: CommentProps) => {
           profile={<CommentProfile value={profile} onChange={setProfile} />}
         />
       </div>
-    </div>
+    </Container>
   );
 };
 

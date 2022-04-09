@@ -1,70 +1,11 @@
+.labelWrapper {
+  input:checked ~ label {
+    @apply bg-white-3 dark:bg-white-3--dark;
+  }
+}
+
 .carousel {
-  @apply relative overflow-hidden bg-white dark:bg-white--dark;
-
-  .content {
-    @apply relative h-full w-full overflow-hidden;
-  }
-
-  .slider {
-    @apply relative left-0 h-full transition-transform will-change-transform;
-
-    .sliderItem {
-      @apply float-left h-full w-full bg-white dark:bg-white--dark;
-    }
-  }
-
-  .sliderAfter {
-    @apply absolute left-0 top-0 h-full w-full bg-white dark:bg-white--dark;
-
-    animation: move-left-half 0.3s ease forwards;
-
-    &.vertical {
-      animation: move-left-half-vertical 0.3s ease forwards;
-    }
-  }
-
-  .toolbar {
-    @apply absolute flex items-center justify-center;
-
-    > ul {
-      @apply m-0 flex list-inside p-0;
-    }
-  }
-
-  .labelWrapper {
-    @apply m-1;
-
-    input {
-      @apply absolute h-0 w-0 opacity-0;
-    }
-
-    input:checked ~ label {
-      @apply bg-white-3 dark:bg-white-3--dark;
-    }
-  }
-
-  .label {
-    @apply relative block cursor-pointer bg-gray-1 transition-all dark:bg-gray-3--dark;
-
-    &::after {
-      @apply absolute -top-1 -right-1 -bottom-1 -left-1;
-
-      content: '';
-    }
-
-    &:hover {
-      @apply bg-white-1 dark:bg-white-1--dark;
-    }
-  }
-
   // Handler Shape
-  &.dot .label {
-    @apply h-3 w-3 rounded-full;
-  }
-
-  &.bar .label {
-    @apply rounded-sm;
-  }
 
   &.top.bar .labelWrapper,
   &.bottom.bar .labelWrapper {
@@ -73,79 +14,10 @@
     }
   }
 
-  &.top.bar .label,
-  &.bottom.bar .label {
-    @apply h-1 w-4;
-
-    width: 16px;
-    height: 4px;
-  }
-
-  &.left.bar .label,
-  &.right.bar .label {
-    @apply h-1 w-4;
-  }
-
-  &.left.bar .labelWrapper,
-  &.right.bar .labelWrapper {
+  &.left.bar,
+  &.right.bar {
     input:checked ~ label {
       @apply h-6;
-    }
-  }
-
-  // Placement
-
-  &.top .toolbar,
-  &.bottom .toolbar {
-    @apply left-0 w-full;
-
-    > ul {
-      @apply items-center justify-center;
-    }
-  }
-
-  &.top .toolbar {
-    @apply top-4;
-  }
-
-  &.bottom .toolbar {
-    @apply bottom-4;
-  }
-
-  &.left .toolbar,
-  &.right .toolbar {
-    @apply top-0 h-full w-3;
-
-    > ul {
-      @apply flex-col items-center justify-center;
-    }
-  }
-
-  &.left .toolbar {
-    @apply left-4;
-  }
-
-  &.right .toolbar {
-    @apply right-4;
-  }
-
-  @keyframes move-left-half {
-    0% {
-      transform: none;
-    }
-
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  @keyframes move-left-half-vertical {
-    0% {
-      transform: none;
-    }
-
-    100% {
-      transform: translateY(-50%);
     }
   }
 }

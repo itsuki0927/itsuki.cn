@@ -92,6 +92,30 @@ module.exports = {
       listStyleType: {
         square: 'square',
       },
+      extends: {
+        keyframes: {
+          'move-left-half': {
+            '0%': {
+              transform: 'none',
+            },
+            '100%': {
+              transform: 'translateX(-50%)',
+            },
+          },
+          'move-left-half-vertical': {
+            '0%': {
+              transform: 'none',
+            },
+            '100%': {
+              transform: 'translateY(-50%)',
+            },
+          },
+        },
+        animation: {
+          'move-left-half': 'move-left-half 0.3s ease forwards',
+          'move-left-half-vertical': 'move-left-half-vertical 0.3s ease forwards',
+        },
+      },
     },
   },
   plugins: [],

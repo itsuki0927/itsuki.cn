@@ -14,7 +14,6 @@ import React, {
 } from 'react';
 import { useTimeout } from '@/hooks';
 import guid from '@/utils/guid';
-import styles from './style.module.scss';
 
 export function getCount(children: React.ReactChildren) {
   return React.Children.count(
@@ -94,6 +93,42 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
 
   if (!children) return null;
 
+  const classString = classNames(
+    'relative overflow-hidden bg-white dark:bg-white--dark',
+    className
+  );
+
+  const placementMap = {
+    top: 'top-4',
+    left: 'left-4',
+    right: 'right-4',
+    bottom: 'bottom-4',
+  } as const;
+
+  const toolbarCls = classNames(
+    'absolute flex items-center justify-center',
+    {
+      'left-0 w-full right-0': placement === 'top' || placement === 'bottom',
+      'top-0 h-full w-3': placement === 'left' || placement === 'right',
+    },
+    placementMap[placement]
+  );
+
+  const toolbarUlCls = classNames('m-0 flex list-inside p-0', {
+    'items-center justify-center': placement === 'top' || placement === 'bottom',
+    'flex-col items-center justify-center': placement === 'left' || placement === 'right',
+  });
+
+  const labelCls = classNames(
+    'relative block cursor-pointer bg-gray-1 transition-all after:absolute after:-top-1 after:-right-1 after:-bottom-1 after:-left-1 after:content-[""] hover:bg-white-1 dark:bg-gray-1--dark hover:dark:bg-white-1--dark',
+    {
+      'h-3 w-3 rounded-full': shape === 'dot',
+      'rounded-sm': shape === 'bar',
+      'h-1 w-4': placement === 'top' || placement === 'bottom',
+      'h-4 w-1': placement === 'left' || placement === 'right',
+    }
+  );
+
   const items = Children.map(
     children as any[],
     (child: DetailedReactHTMLElement<any, HTMLElement>, index) => {
@@ -102,17 +137,18 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
       }
       const inputKey = `indicator_${uid}_${index}`;
       labels.push(
-        <li key={`label${index}`} className={styles.labelWrapper}>
+        <li key={`label${index}`} className='m-1'>
           <input
             name={inputKey}
             id={inputKey}
             type='radio'
             onChange={handleChange}
             value={index}
+            className='absolute h-0 w-0 opacity-0'
             checked={activeIndex === index}
           />
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor={inputKey} className={styles.label} />
+          <label htmlFor={inputKey} className={labelCls} />
         </li>
       );
 
@@ -120,16 +156,12 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
         key: `slider-item-${index}`,
         'aria-hidden': activeIndex !== index,
         style: { ...child.props.style, [lengthKey]: `${100 / count}%` },
-        className: classNames(styles.sliderItem, child.props.className),
+        className: classNames(
+          'float-left h-full w-full bg-white dark:bg-white--dark',
+          child.props.className
+        ),
       });
     }
-  );
-
-  const classString = classNames(
-    styles.carousel,
-    className,
-    styles[`${placement}`],
-    styles[`${shape}`]
   );
 
   const positiveOrder = vertical || true;
@@ -148,9 +180,9 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
 
   return (
     <div {...rest} ref={ref} className={classString}>
-      <div className={styles.content}>
+      <div className='relative h-full w-full overflow-hidden'>
         <div
-          className={styles.slider}
+          className='relative left-0 h-full transition-transform will-change-transform'
           style={sliderStyles}
           onTransitionEnd={handleTransitionEnd}
         >
@@ -158,9 +190,10 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
         </div>
         {showMask && (
           <div
-            className={classNames(styles.sliderAfter, {
-              [styles.sliderAfterVertical]: vertical,
-            })}
+            className={classNames(
+              'absolute left-0 top-0 h-full w-full bg-white dark:bg-white--dark',
+              `move-left-half${vertical ? '-vertical' : ''}`
+            )}
             style={{ [lengthKey]: '200%' }}
           >
             {[items[items.length - 1], items[0]].map(node =>
@@ -172,8 +205,8 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
           </div>
         )}
       </div>
-      <div className={styles.toolbar}>
-        <ul>{labels}</ul>
+      <div className={toolbarCls}>
+        <ul className={toolbarUlCls}>{labels}</ul>
       </div>
     </div>
   );

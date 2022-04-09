@@ -31,7 +31,13 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
         </div>
       </header>
 
-      <Image src={article.cover} width={661} height={300} objectFit='cover' />
+      <Image
+        src={article.cover}
+        width={661}
+        height={300}
+        objectFit='cover'
+        alt='article-header-cover'
+      />
     </div>
   );
 };

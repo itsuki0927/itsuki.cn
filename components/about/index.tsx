@@ -72,7 +72,12 @@ const AboutView = () => (
       </header>
 
       <div className='text-center'>
-        <Image src='/about.png' width={670} height={407} />
+        <Image
+          src='/about.png'
+          width={670}
+          height={407}
+          alt='about-decorate-placeholder'
+        />
         <p className='text-xs text-gray-3 dark:text-gray-3--dark'>(一张装饰图)</p>
         <h1 className='my-12 text-3xl text-dark-2 dark:text-dark-2--dark'>
           Hi<span className='origin-[70% 70%] mx-1 inline-block animate-wave'>👋</span>,

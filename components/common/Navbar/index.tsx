@@ -38,7 +38,7 @@ const Navbar = ({ links }: NavbarProps) => {
 
     // 添加主题按钮
     return navDom.concat(
-      <li className='px-3 pr-6'>
+      <li key='theme' className='px-3 pr-6'>
         <ThemeSwitch />
       </li>
     );

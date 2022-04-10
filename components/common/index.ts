@@ -11,6 +11,7 @@ export { default as LayoutTransition } from './LayoutTransition';
 export { default as Logo } from './Logo';
 export { default as MarkdownEditor } from './MarkdownEditor';
 export { default as Navbar } from './Navbar';
+export { default as MyImage } from './MyImage';
 export { default as NavbarLayout } from './NavbarLayout';
 export { default as QueryList } from './QueryList';
 export { default as Search } from './Search';

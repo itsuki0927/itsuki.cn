@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Widget } from '@/components/ui';
 import { Article } from '@/entities/article';
 import { getArticleDetailUrl } from '@/utils/url';
-import imageTransformer from '@/utils/image';
 import ToDate from '../ToDate';
+import { MyImage } from '..';
 
 interface HotArticlesProps {
   hotArticles: Article[];
@@ -14,18 +13,18 @@ const HotArticles = ({ hotArticles }: HotArticlesProps) => (
   <Widget>
     <Widget.Header>最佳歌手</Widget.Header>
     {hotArticles.slice(0, 6).map(article => (
-      <div className='mb-4 flex rounded-sm' key={article.id}>
-        <Image
-          loader={imageTransformer}
+      <div className='mb-4 flex items-center rounded-sm' key={article.id}>
+        <MyImage
           src={article.cover}
           objectFit='cover'
           width={94}
           height={68}
           alt='hot-article-cover'
+          className='min-w-[94px]'
         />
-        <div className='ml-4 flex-grow py-1'>
+        <div className='ml-4'>
           <Link href={getArticleDetailUrl(article.id)}>
-            <h4 className='flex-1 cursor-pointer align-middle text-sm tracking-wider text-dark-2 transition-colors duration-500 hover:text-gray-3 dark:text-dark-2--dark'>
+            <h4 className='cursor-pointer text-sm tracking-wider text-dark-2 transition-colors duration-500 hover:text-gray-3 dark:text-dark-2--dark'>
               {article.title}
             </h4>
           </Link>

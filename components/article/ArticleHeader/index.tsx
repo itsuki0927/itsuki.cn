@@ -1,9 +1,7 @@
-import Image from 'next/image';
 import { ao } from '@/constants/article/origin';
-import { ToDate } from '@/components/common';
+import { MyImage, ToDate } from '@/components/common';
 import { EditOutlined, TimeOutlined, EyeOutlined } from '@/components/icons';
 import { ArticleDetailResponse } from '@/entities/article';
-import imageTransformer from '@/utils/image';
 
 interface ArticleHeaderProps {
   article: ArticleDetailResponse;
@@ -32,8 +30,7 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
         </div>
       </header>
 
-      <Image
-        loader={imageTransformer}
+      <MyImage
         src={article.cover}
         width={661}
         height={300}

@@ -1,10 +1,8 @@
 import { CSSProperties } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import router from 'next/router';
-import { ToDate } from '@/components/common';
+import { MyImage, ToDate } from '@/components/common';
 import { Article } from '@/entities/article';
-import imageTransformer from '@/utils/image';
 import { HeartOutlined, MessageOutlined, EyeOutlined } from '@/components/icons';
 import { Button } from '@/components/ui';
 import s from './style.module.scss';
@@ -19,17 +17,17 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
     className={`group flex rounded-sm bg-white p-4 dark:bg-white--dark ${s.card}`}
     style={style}
   >
-    <Image
+    <MyImage
       alt='article-cover'
       width={286}
       height={200}
       objectFit='cover'
       src={article.cover}
-      className='min-w-[45%] flex-shrink-0 opacity-90 transition-all group-hover:scale-105 group-hover:opacity-100'
-      loader={imageTransformer}
+      className='min-w-[286px]'
+      imgClassName='opacity-90 transition-all group-hover:scale-105 group-hover:opacity-100'
       onClick={() => router.push(`/article/${article.id}`)}
     />
-    <div className='ml-4 flex max-w-[50%] flex-col items-start justify-between'>
+    <div className='ml-4 flex flex-grow flex-col items-start justify-between'>
       <header className='mt-1 mb-1'>
         <span className='block text-xs text-gray-2 dark:text-gray-2--dark'>
           <ToDate date={article.createAt} />

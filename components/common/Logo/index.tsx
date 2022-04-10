@@ -1,7 +1,6 @@
 import { LogoJsonLd } from 'next-seo';
-import Image from 'next/image';
 import router from 'next/router';
-import imageTransformer from '@/utils/image';
+import { MyImage } from '..';
 
 const Logo = () => (
   <div
@@ -10,14 +9,13 @@ const Logo = () => (
     aria-hidden='true'
     onClick={() => router.push('/')}
   >
-    <Image
-      loader={imageTransformer}
+    <MyImage
       src='https://static.itsuki.cn/logo.png'
       objectFit='cover'
       width={120}
       height={120}
       alt='logo'
-      className='h-8'
+      className='h-full'
     />
     <LogoJsonLd logo='https://static.itsuki.cn/logo.png' url='https://itsuki.cn' />
   </div>

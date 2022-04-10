@@ -1,9 +1,8 @@
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import React, { ReactNode, useState } from 'react';
 import { Button } from '@/components/ui';
-import imageTransformer from '@/utils/image';
+import { MyImage } from '@/components/common';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -61,9 +60,9 @@ const CommentForm = ({
       className={`flex items-start ${hiddenAvatar ? '' : 'space-x-4'} ${className}`}
     >
       {hiddenAvatar ? null : (
-        <Image
-          loader={imageTransformer}
-          className='min-w-[60px] flex-shrink-0 rounded-full'
+        <MyImage
+          className='min-w-[60px]'
+          imgClassName='rounded-full'
           src='https://static.itsuki.cn/avatar.jpg'
           width={60}
           height={60}

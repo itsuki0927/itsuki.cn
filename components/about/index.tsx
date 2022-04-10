@@ -1,5 +1,4 @@
 import { NextSeo } from 'next-seo';
-import Image from 'next/image';
 import React, { cloneElement, ReactNode } from 'react';
 import {
   CodeSvg,
@@ -9,8 +8,8 @@ import {
   ReloadSvg,
   RunSvg,
 } from '@/components/svgs';
-import imageTransformer from '@/utils/image';
 import { Container } from '../ui';
+import { MyImage } from '../common';
 
 type HoobyProps = {
   title: string;
@@ -73,14 +72,13 @@ const AboutView = () => (
       </header>
 
       <div className='text-center'>
-        <Image
-          loader={imageTransformer}
+        <MyImage
           src='https://static.itsuki.cn/about.png'
           width={670}
           height={407}
           alt='about-decorate-placeholder'
         />
-        <p className='text-xs text-gray-3 dark:text-gray-3--dark'>(一张装饰图)</p>
+        <p className='mt-1 text-xs text-gray-3 dark:text-gray-3--dark'>(一张装饰图)</p>
         <h1 className='my-12 text-3xl text-dark-2 dark:text-dark-2--dark'>
           Hi<span className='origin-[70% 70%] mx-1 inline-block animate-wave'>👋</span>,
           我是

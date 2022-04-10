@@ -24,13 +24,13 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     throw new Error('文章ID参数错误');
   }
 
+  await addArticleReading(articleId);
+
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(articleKeys.detail(articleId), () =>
     getArticle(articleId)
   );
   await queryClient.prefetchQuery(globalDataKeys.globalData, () => getGlobalData());
-
-  addArticleReading(articleId);
 
   return {
     props: {

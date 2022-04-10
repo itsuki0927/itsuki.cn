@@ -1,0 +1,17 @@
+export enum PublishState {
+  Draft = 0, // 草稿
+  Published = 1, // 已发布
+  Recycle = 2, // 回收站
+}
+
+const publishStateMap = new Map(
+  [
+    { id: PublishState.Draft, name: '草稿', color: 'orange' },
+    { id: PublishState.Published, name: '已发布', color: 'green' },
+    { id: PublishState.Recycle, name: '回收站', color: 'red' },
+  ].map(item => [item.id, item])
+);
+
+export const ps = (state: PublishState) => publishStateMap.get(state)!;
+
+export const publishStates = [...publishStateMap.values()];

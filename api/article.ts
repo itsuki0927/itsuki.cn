@@ -5,13 +5,17 @@ import {
   SearchArticlesBody,
 } from '@/entities/article';
 import { SearchResponse } from '@/types/response';
+import { PublishState } from '@/constants/article/publish';
 import service from './service';
 
 export const getArticles = (params?: SearchArticlesBody) =>
   service.request<void, SearchResponse<Article>>({
     method: 'get',
     url: '/article',
-    params,
+    params: {
+      ...params,
+      publish: PublishState.Published,
+    },
   });
 
 export const getBannerArticles = () => getArticles({ banner: 1 });

@@ -1,5 +1,4 @@
 import { CSSProperties } from 'react';
-import Link from 'next/link';
 import router from 'next/router';
 import { MyImage, ToDate } from '@/components/common';
 import { Article } from '@/entities/article';
@@ -45,8 +44,12 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
         <p className='line-clamp-2'>{article.description}</p>
       </div>
 
-      <Button type='ghost' className='mb-3 py-2 px-6 tracking-widest'>
-        <Link href={`/article/${article.id}`}>READ MORE</Link>
+      <Button
+        type='ghost'
+        onClick={() => router.push(`/article/${article.id}`)}
+        className='mb-3 py-2 px-6 tracking-widest'
+      >
+        READ MORE
       </Button>
 
       <div className='mb-1 flex items-end space-x-3 text-xxs text-gray-1 dark:text-gray-1--dark'>

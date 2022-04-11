@@ -34,15 +34,15 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
         </span>
 
         <h3
-          className='cursor-pointer tracking-widest text-dark-2 transition-colors duration-500 hover:text-gray-3 dark:text-gray-2--dark'
+          className='cursor-pointer tracking-widest text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-gray-3 dark:text-gray-2--dark'
           onClick={() => router.push(`/article/${article.id}`)}
         >
           {article.title}
         </h3>
       </header>
 
-      <div className='mt-2 mb-2 min-h-[48px] flex-grow overflow-hidden text-ellipsis text-sm tracking-wider'>
-        {article.description}
+      <div className='mt-2 mb-2 flex-grow text-sm tracking-wider'>
+        <p className='line-clamp-2'>{article.description}</p>
       </div>
 
       <Button type='ghost' className='mb-3 py-2 px-6 tracking-widest'>

@@ -24,7 +24,7 @@ const HotArticles = ({ hotArticles }: HotArticlesProps) => (
         />
         <div className='ml-4'>
           <Link href={getArticleDetailUrl(article.id)}>
-            <h4 className='cursor-pointer text-sm tracking-wider text-dark-2 transition-colors duration-500 hover:text-gray-3 dark:text-dark-2--dark'>
+            <h4 className='cursor-pointer text-sm tracking-wider text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-gray-3 dark:text-dark-2--dark'>
               {article.title}
             </h4>
           </Link>

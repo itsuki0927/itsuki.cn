@@ -14,16 +14,17 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
       <Widget.Header> 看看这些? </Widget.Header>
       <div className='mb-2 flex justify-between'>
         {relateArticles.map(article => (
-          <div key={article.id}>
+          <div key={article.id} className='max-w-[210px]'>
             <MyImage
               src={article.cover}
               width={210}
               height={158}
               onClick={() => router.push(`/article/${article.id}`)}
               alt='relate-article-cover'
+              objectFit='cover'
             />
             <h2
-              className='my-2 cursor-pointer text-center text-sm tracking-widest text-dark-2 transition-colors duration-500 hover:text-gray-3 dark:text-dark-2--dark dark:hover:text-gray-3--dark'
+              className='my-2 cursor-pointer px-3 text-center text-sm tracking-widest text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-gray-3 dark:text-dark-2--dark dark:hover:text-gray-3--dark'
               onClick={() => router.push(`/article/${article.id}`)}
             >
               {article.title}

@@ -18,14 +18,18 @@ const ImagePopup = forwardRef<ImagePopupRef, ImagePopupProps>(({ src }, ref) => 
     }
   }, []);
 
+  const handleKeydown = useCallback(e => {
+    if (e.keyCode === 27) {
+      setVisible(false);
+    }
+  }, []);
+
   const open = (url: string) => {
     setVisible(true);
     setImageUrl(url);
   };
 
-  useImperativeHandle(ref, () => ({
-    open,
-  }));
+  useImperativeHandle(ref, () => ({ open }));
 
   useEffect(() => {
     if (src && src !== imageUrl) {
@@ -36,11 +40,13 @@ const ImagePopup = forwardRef<ImagePopupRef, ImagePopupProps>(({ src }, ref) => 
   useEffect(() => {
     if (visible) {
       on(document, 'click', handleClick);
+      on(document, 'keydown', handleKeydown);
     }
     return () => {
       off(document, 'click', handleClick);
+      off(document, 'keydown', handleKeydown);
     };
-  }, [handleClick, visible]);
+  }, [handleClick, visible, handleKeydown]);
 
   return (
     <div>
@@ -53,7 +59,7 @@ const ImagePopup = forwardRef<ImagePopupRef, ImagePopupProps>(({ src }, ref) => 
             id='popupImage'
             alt='popup show'
             src={imageUrl}
-            className='rounded-md border-8 border-solid border-white-1 object-cover dark:border-white-1--dark'
+            className='max-w-screen-lg rounded-md border-8 border-solid border-white-1 object-cover dark:border-white-1--dark'
           />
         </div>
       ) : null}

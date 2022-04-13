@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useMemo, useState } from 'react';
 import { Container, Loading } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
@@ -10,6 +11,7 @@ import CommentList from '../CommentList';
 import CommentProfile from '../CommentProfile';
 import CommentReply from '../CommentReply';
 import { convertToCommentTreeData } from './utils';
+import { isEmail } from '@/utils/validate';
 
 type CommentProps = {
   articleId: number;
@@ -32,6 +34,31 @@ const CommentView = ({ articleId }: CommentProps) => {
   const handleSend = useCallback(
     (content: string) =>
       new Promise<boolean>((resolve, reject) => {
+        if (!content) {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({ message: '老铁 内容呢?' });
+          return;
+        }
+        if (!profile.email) {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({ message: '邮箱?' });
+          return;
+        }
+        if (!profile.nickname) {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({ message: '昵称?' });
+          return;
+        }
+        if (profile.nickname.length >= 10) {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({ message: '昵称太长了' });
+          return;
+        }
+        if (!isEmail(profile.email)) {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({ message: '正确的邮箱?' });
+          return;
+        }
         const params: PostCommentBody = {
           ...profile,
           articleId,

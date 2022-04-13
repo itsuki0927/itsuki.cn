@@ -37,32 +37,33 @@ const CommentCard = ({
       <div
         className={`relative mb-2 rounded-sm bg-white-1 p-4 dark:bg-white-1--dark ${childClassName}`}
       >
-        <header className='clear-both'>
-          <div className='float-left mr-6'>
-            <MyImage
-              src='https://static.itsuki.cn/avatar.jpg'
-              width={52}
-              height={52}
-              imgClassName='rounded-full'
-              alt='avatar'
-            />
+        <header className='flex items-center'>
+          <MyImage
+            src='https://static.itsuki.cn/avatar.jpg'
+            width={52}
+            height={52}
+            imgClassName='rounded-full'
+            alt='avatar'
+            className='min-w-[52px]'
+          />
+          <div className='ml-4 flex-grow'>
+            <span
+              tabIndex={0}
+              role='button'
+              className='float-right inline-block pr-1 text-xs text-gray-2 transition-colors duration-200 hover:text-dark-2 dark:text-gray-2--dark hover:dark:text-dark-2--dark'
+              onClick={() => onReply?.(comment)}
+            >
+              回复
+            </span>
+
+            <span className='max-w-xs break-words text-xs text-dark-2 line-clamp-1 dark:text-dark-2--dark'>
+              {comment.nickname}
+            </span>
+
+            <span className='mt-1 mb-2 block flex-grow text-xxs text-gray-2 dark:text-gray-2--dark'>
+              <ToDate date={comment.createAt} />
+            </span>
           </div>
-          <span
-            tabIndex={0}
-            role='button'
-            className='float-right inline-block pr-1 text-xs text-gray-2 transition-colors duration-200 hover:text-dark-2 dark:text-gray-2--dark hover:dark:text-dark-2--dark'
-            onClick={() => onReply?.(comment)}
-          >
-            回复
-          </span>
-
-          <span className='inline-block text-xs text-dark-2 dark:text-dark-2--dark'>
-            {comment.nickname}
-          </span>
-
-          <span className='mt-1 mb-2 block flex-grow text-xxs text-gray-2 dark:text-gray-2--dark'>
-            <ToDate date={comment.createAt} />
-          </span>
         </header>
 
         <MarkdownBlock

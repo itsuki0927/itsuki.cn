@@ -9,17 +9,19 @@ type CommentReplyProps = {
 
 const CommentReply = ({ comment, onCloseReply, isReply }: CommentReplyProps) =>
   isReply ? (
-    <h3 className='my-2 font-medium tracking-wider text-dark-2 dark:text-dark-2--dark'>
-      回复 {comment?.nickname}
+    <div className='my-2 flex items-center justify-between'>
+      <h3 className='max-w-xs break-words font-medium  tracking-wider text-dark-2 line-clamp-1 dark:text-dark-2--dark'>
+        回复 {comment?.nickname}
+      </h3>
       <small
         tabIndex={0}
         role='button'
         onClick={onCloseReply}
-        className='float-right cursor-pointer text-xs font-normal text-gray-2 transition-colors hover:text-dark-2 dark:text-gray-2--dark hover:dark:text-dark-2--dark'
+        className='cursor-pointer text-xs font-normal text-gray-2 transition-colors hover:text-dark-2 dark:text-gray-2--dark hover:dark:text-dark-2--dark'
       >
         取消回复
       </small>
-    </h3>
+    </div>
   ) : null;
 
 export default CommentReply;

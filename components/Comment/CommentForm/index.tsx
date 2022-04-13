@@ -26,32 +26,28 @@ const CommentForm = ({
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState('');
 
-  const handleSend = async () => {
-    if (!content) {
-      alert('请输入评论内容');
-      return false;
-    }
-
-    try {
-      setLoading(true);
-      onSend?.(content).then(() => {
+  const handleSend = () => {
+    setLoading(true);
+    onSend?.(content).then(
+      () => {
         setContent('');
         setLoading(false);
         return true;
-      });
-    } catch (error: any) {
-      const [{ message }] = error.errors;
-      alert(`评论发布失败: ${message}\n`);
-      // alert(
-      //   `评论发布失败\n
-      //  1：检查邮箱是否符合格式\n
-      //  2：被 Akismet 过滤\n
-      //  3：邮箱/IP 被列入黑名单\n
-      //  4：内容包含黑名单关键词\n
-      //   `
-      // );
-      return false;
-    }
+      },
+      (error: any = { message: '' }) => {
+        const { message } = error;
+        setLoading(false);
+        alert(`评论发布失败: ${message}\n`);
+        // alert(
+        //   `评论发布失败\n
+        //  1：检查邮箱是否符合格式\n
+        //  2：被 Akismet 过滤\n
+        //  3：邮箱/IP 被列入黑名单\n
+        //  4：内容包含黑名单关键词\n
+        //   `
+        // );
+      }
+    );
   };
 
   return (
@@ -83,8 +79,7 @@ const CommentForm = ({
             type='reverse'
             disabled={loading}
             className={classNames('min-w-[96px] py-2 px-6 text-xs tracking-widest', {
-              'bg-gray-3': loading,
-              'pointer-events-none': loading,
+              'pointer-events-none bg-gray-3': loading,
             })}
             onClick={handleSend}
           >

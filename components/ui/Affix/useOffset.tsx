@@ -14,7 +14,7 @@ const useOffset = (mountRef: React.RefObject<HTMLDivElement>) => {
     setOffset(getOffset(mountRef.current!));
   }, [mountRef]);
 
-  useEventListener(window, 'resize', updateOffset);
+  useEventListener(() => window, 'resize', updateOffset);
 
   useMount(updateOffset);
 

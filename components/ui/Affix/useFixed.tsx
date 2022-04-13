@@ -38,7 +38,7 @@ const useFixed = (
   }, [containerOffset, fixed, offset, onChange, top]);
 
   useEventListener(
-    window,
+    () => window,
     'scroll',
     throttle(handleScroll, 100, { leading: true }),
     false

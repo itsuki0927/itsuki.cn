@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { CSSProperties } from 'react';
+import { CSSProperties, forwardRef } from 'react';
 
 interface MarkdownBlockProps {
   htmlContent: string;
@@ -8,23 +8,21 @@ interface MarkdownBlockProps {
   style?: CSSProperties;
 }
 
-const MarkdownBlock = ({
-  htmlContent,
-  className,
-  isComments,
-  ...rest
-}: MarkdownBlockProps) => (
-  <div
-    className={classNames(
-      'markdown-html',
-      {
-        comment: isComments,
-      },
-      className
-    )}
-    // eslint-disable-next-line react/no-danger
-    dangerouslySetInnerHTML={{ __html: htmlContent }}
-    {...rest}
-  />
+const MarkdownBlock = forwardRef<HTMLDivElement, MarkdownBlockProps>(
+  ({ htmlContent, className, isComments, ...rest }: MarkdownBlockProps, ref) => (
+    <div
+      ref={ref}
+      className={classNames(
+        'markdown-html',
+        {
+          comment: isComments,
+        },
+        className
+      )}
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: htmlContent }}
+      {...rest}
+    />
+  )
 );
 export default MarkdownBlock;

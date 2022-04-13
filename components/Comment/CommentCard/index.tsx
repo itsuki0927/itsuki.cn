@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, useRef } from 'react';
 import { MyImage, ToDate } from '@/components/common';
 import { MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import { NoReturnFunction } from '@/types/fn';
-import markedToHtml from '@/utils/marked';
+import { useMarkdown } from '@/hooks';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -18,6 +18,7 @@ interface CommentCardProps extends CommentCardCommonProps {
   className?: string;
   childClassName?: string;
 }
+
 const CommentCard = ({
   comment,
   onReply,
@@ -26,7 +27,8 @@ const CommentCard = ({
   className,
   childClassName,
 }: CommentCardProps) => {
-  const contentHtml = markedToHtml(comment.content, { purify: true });
+  const ref = useRef<HTMLDivElement | null>(null);
+  const contentHtml = useMarkdown(ref, comment.content);
 
   return (
     <div
@@ -67,9 +69,10 @@ const CommentCard = ({
         </header>
 
         <MarkdownBlock
-          isComments
-          className='clear-left max-h-[600px] overflow-y-scroll pt-3 text-sm'
+          ref={ref}
           htmlContent={contentHtml}
+          isComments
+          className='lazy clear-left max-h-[600px] overflow-y-scroll pt-3 text-sm'
         />
       </div>
 

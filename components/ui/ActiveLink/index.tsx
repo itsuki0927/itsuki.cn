@@ -1,17 +1,17 @@
 import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
-import { Children, cloneElement, FC, ReactElement } from 'react';
+import { Children, cloneElement, PropsWithChildren, ReactElement } from 'react';
 
 export interface ActiveLinkProps extends LinkProps {
   activeClassName: string;
   as?: string;
 }
 
-const ActiveLink: FC<ActiveLinkProps> = ({
+const ActiveLink = ({
   children,
   activeClassName,
   ...otherProps
-}) => {
+}: PropsWithChildren<ActiveLinkProps>) => {
   const { asPath } = useRouter();
   const child = Children.only(children);
   const childClassName = (child as any).props?.className || '';

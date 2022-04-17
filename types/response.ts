@@ -23,4 +23,6 @@ export type SearchResponse<T extends IdentifiableEntity> = {
   total: number;
   data: T[];
   filter: BaseSearchRequest;
+  hasNext?: boolean;
+  hasPrev?: boolean;
 };

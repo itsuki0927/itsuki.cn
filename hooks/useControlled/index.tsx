@@ -17,7 +17,7 @@ function useControlled<T = any>(controlledValue: T, defaultValue: T) {
   const value = controlledRef.current ? controlledValue : uncontrolledValue;
 
   const setValue = useCallback(
-    nextValue => {
+    (nextValue: T) => {
       if (!controlledRef.current) {
         setUncontrolledValue(nextValue);
       }

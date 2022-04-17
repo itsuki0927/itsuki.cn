@@ -1,8 +1,7 @@
-import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import React, { ReactNode, useState } from 'react';
-import { Button } from '@/components/ui';
 import { MyImage } from '@/components/common';
+import SendButton from '../SendButton';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -12,7 +11,7 @@ interface CommentFormProps {
   className?: string;
   reply?: ReactNode;
   profile?: ReactNode;
-  onSend?: (content: string) => Promise<boolean>;
+  onSend: (content: string) => Promise<boolean>;
   hiddenAvatar?: boolean;
 }
 
@@ -23,21 +22,19 @@ const CommentForm = ({
   profile: profileNode,
   hiddenAvatar,
 }: CommentFormProps) => {
-  const [loading, setLoading] = useState(false);
   const [content, setContent] = useState('');
 
-  const handleSend = () => {
-    setLoading(true);
-    onSend?.(content).then(
+  const handleSend = () =>
+    onSend(content).then(
       () => {
         setContent('');
-        setLoading(false);
         return true;
       },
       (error: any = { message: '' }) => {
         const { message } = error;
-        setLoading(false);
+        // setLoading(false);
         alert(`评论发布失败: ${message}\n`);
+        return false;
         // alert(
         //   `评论发布失败\n
         //  1：检查邮箱是否符合格式\n
@@ -48,7 +45,6 @@ const CommentForm = ({
         // );
       }
     );
-  };
 
   return (
     <div
@@ -75,16 +71,7 @@ const CommentForm = ({
           <div className='text-sm text-gray-2 dark:text-gray-2--dark'>
             邮箱不会被泄漏, 放心评论吧
           </div>
-          <Button
-            type='reverse'
-            disabled={loading}
-            className={classNames('min-w-[96px] py-2 px-6 text-xs tracking-widest', {
-              'pointer-events-none bg-gray-3': loading,
-            })}
-            onClick={handleSend}
-          >
-            {loading ? '发射中...' : '发射'}
-          </Button>
+          <SendButton onConfirm={handleSend} />
         </div>
       </div>
     </div>

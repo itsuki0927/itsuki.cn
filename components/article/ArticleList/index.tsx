@@ -1,9 +1,8 @@
-import { PaginationListProps } from '@/components/common';
 import { Empty, Loading } from '@/components/ui';
-import { Article } from '@/entities/article';
+import { UseArticles } from '@/hooks/article/useArticles';
 import ArticleCard from '../ArticleCard';
 
-type ArticleListProps = Omit<PaginationListProps<Article>, 'children'>;
+type ArticleListProps = UseArticles;
 
 const ArticleList = ({ data, ...rest }: ArticleListProps) => {
   if (rest.isFetching || rest.isLoading) {

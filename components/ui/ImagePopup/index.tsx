@@ -12,13 +12,13 @@ const ImagePopup = forwardRef<ImagePopupRef, ImagePopupProps>(({ src }, ref) => 
   const [imageUrl, setImageUrl] = useState(src || '');
   const [visible, setVisible] = useState(false);
 
-  const handleClick = useCallback(e => {
+  const handleClick = useCallback((e: any) => {
     if (e.target.id === 'overlay') {
       setVisible(false);
     }
   }, []);
 
-  const handleKeydown = useCallback(e => {
+  const handleKeydown = useCallback((e: any) => {
     if (e.keyCode === 27) {
       setVisible(false);
     }

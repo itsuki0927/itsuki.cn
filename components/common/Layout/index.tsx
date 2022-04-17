@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Footer, Navbar, Sidebar } from '@/components/common';
 import { BackTop } from '@/components/ui';
 import { useGlobalData } from '@/hooks/globalData';
@@ -7,7 +7,7 @@ import { useGlobalData } from '@/hooks/globalData';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PageProps {}
 
-const Layout: FC<PageProps> = ({ children }) => {
+const Layout = ({ children }: PropsWithChildren<PageProps>) => {
   const { data } = useGlobalData();
 
   return (

@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 import { Logo } from '@/components/common';
 import { ActiveLink } from '@/components/ui';
 import { Category } from '@/entities/category';
@@ -10,7 +10,7 @@ interface NavbarProps {
   links?: Category[];
 }
 
-const NavbarItem: FC<{ href: string }> = ({ href, children }) => (
+const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => (
   <ActiveLink activeClassName='text-[#c9a16e] dark:text-[#cba574]' href={href}>
     <li className='relative cursor-pointer px-3 text-center tracking-widest text-dark-2 transition-colors duration-500 hover:text-[#c9a16e] dark:text-gray-2--dark hover:dark:text-[#cba574]'>
       <span className='leading-none'>{children}</span>

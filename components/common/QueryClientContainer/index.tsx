@@ -1,12 +1,15 @@
-import { ReactNode, useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 interface QueryClientContainerProps {
-  children?: ReactNode;
   pageProps?: any;
 }
-const QueryClientContainer = ({ children, pageProps }: QueryClientContainerProps) => {
+
+const QueryClientContainer = ({
+  children,
+  pageProps,
+}: PropsWithChildren<QueryClientContainerProps>) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({

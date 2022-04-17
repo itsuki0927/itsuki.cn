@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { useGlobalData } from '@/hooks/globalData';
 import { Navbar } from '..';
 import { PageProps } from '../Layout';
 import Footer from '../Footer';
 
-const NavbarLayout: FC<PageProps> = ({ children }) => {
+const NavbarLayout = ({ children }: PropsWithChildren<PageProps>) => {
   const { data } = useGlobalData();
 
   return (

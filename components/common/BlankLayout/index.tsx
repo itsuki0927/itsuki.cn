@@ -1,5 +1,5 @@
-import { FC } from 'react';
+import { PropsWithChildren } from 'react';
 
-const BlackLayout: FC = ({ children }) => <>{children}</>;
+const BlackLayout = ({ children }: PropsWithChildren<void>) => <>{children}</>;
 
 export default BlackLayout;

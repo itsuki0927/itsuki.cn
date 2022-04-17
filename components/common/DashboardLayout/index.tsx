@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Footer, HomeSlider, Navbar, Sidebar } from '@/components/common';
 import { BackTop, Container } from '@/components/ui';
 import { useGlobalData } from '@/hooks/globalData';
 import { useBannerArticles } from '@/hooks/article';
 
-const DashboardLayout: FC<void> = ({ children }) => {
+const DashboardLayout = ({ children }: PropsWithChildren<void>) => {
   const { data } = useGlobalData();
   const { data: bannerArticles } = useBannerArticles();
 

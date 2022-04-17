@@ -1,10 +1,10 @@
-.fixedNav {
-  @apply fixed m-0 h-20 bg-white shadow-sm;
+div.fixedNav {
+  @apply fixed m-0 h-20 bg-white shadow-sm dark:bg-white--dark dark:shadow-md;
 
   animation: moveDown 0.5s ease-in-out;
 }
 
-.fixedNav figure {
+div.fixedNav figure {
   width: 72px;
   height: 72px;
   animation: rotate 0.7s ease-in-out 0.5s;

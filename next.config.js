@@ -22,6 +22,7 @@ module.exports = withBundleAnalyzer({
     // 生产环境清楚console.log
     removeConsole: isProd ? { exclude: ['error'] } : false,
   },
+
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Find the base rule that contains nested rules (which contains css-loader)
     const rules = config.module.rules.find(r => !!r.oneOf);

@@ -1,10 +1,13 @@
-import { PropsWithChildren, useMemo } from 'react';
+import { forwardRef, PropsWithChildren, useMemo } from 'react';
+import classNames from 'classnames';
 import { Logo } from '@/components/common';
 import { ActiveLink } from '@/components/ui';
 import { Category } from '@/entities/category';
 import { getCategoryUrl } from '@/utils/url';
 import shank from '@/utils/shank';
 import ThemeSwitch from '../ThemeSwitch';
+import useSticky from './useSticky';
+import s from './style.module.css';
 
 interface NavbarProps {
   links?: Category[];
@@ -24,7 +27,8 @@ const DEFAULT_NAV_LIST = [
   { path: '/about', name: '关于' },
 ];
 
-const Navbar = ({ links }: NavbarProps) => {
+const Navbar = forwardRef<HTMLDivElement, NavbarProps>(({ links }, ref) => {
+  const isSticky = useSticky();
   const categoriesDom = useMemo(() => {
     const addNavList =
       links?.map(item => ({ ...item, path: getCategoryUrl(item.path) })) || [];
@@ -44,14 +48,18 @@ const Navbar = ({ links }: NavbarProps) => {
     );
   }, [links]);
 
+  const classString = classNames('inset-x-0 z-10 my-10 h-32', {
+    [s.fixedNav]: isSticky,
+  });
+
   return (
-    <div className='inset-x-0 z-10 my-10 h-32'>
+    <div className={classString} id='topbar' ref={ref}>
       <div className='container flex h-full justify-between'>
         <Logo />
         <ul className='flex h-full items-center space-x-4'>{categoriesDom}</ul>
       </div>
     </div>
   );
-};
+});
 
 export default Navbar;

@@ -1,0 +1,29 @@
+.fixedNav {
+  @apply fixed m-0 h-20 bg-white shadow-sm;
+
+  animation: moveDown 0.5s ease-in-out;
+}
+
+.fixedNav figure {
+  width: 72px;
+  height: 72px;
+  animation: rotate 0.7s ease-in-out 0.5s;
+}
+
+@keyframes moveDown {
+  from {
+    transform: translateY(-5rem);
+  }
+  to {
+    transform: translateY(0rem);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateY(360deg);
+  }
+  100% {
+    transform: rotateY(0rem);
+  }
+}

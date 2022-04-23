@@ -1,11 +1,9 @@
-import { FC } from 'react';
 import NextHead from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import config from '@/configs/seo';
-import { META } from '@/configs/app';
-import Iconfont from '../Iconfont';
+import { ICONFONT_URL, META } from '@/configs/app';
 
-const Head: FC = () => (
+const Head = () => (
   <>
     <DefaultSeo
       {...config}
@@ -26,7 +24,14 @@ const Head: FC = () => (
         title={`${META.author}'s blog feed`}
         href='/rss.xml'
       />
-      <Iconfont />
+      <link
+        rel='preload'
+        href={`${ICONFONT_URL}.woff2`}
+        as='font'
+        type='font/woff2'
+        crossOrigin='anonymous'
+      />
+      <link rel='stylesheet' href={`${ICONFONT_URL}.css`} />
     </NextHead>
   </>
 );

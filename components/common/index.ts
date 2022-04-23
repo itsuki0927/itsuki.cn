@@ -4,7 +4,6 @@ export { default as Footer } from './Footer';
 export { default as GA } from './GA';
 export { default as Head } from './Head';
 export { default as HomeSlider } from './HomeSlider';
-export { default as Iconfont } from './Iconfont';
 export { default as Layout } from './Layout';
 export { default as LayoutTransition } from './LayoutTransition';
 export { default as Logo } from './Logo';

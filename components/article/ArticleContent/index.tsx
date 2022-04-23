@@ -14,7 +14,7 @@ const ArticleContent = ({ article }: ArticleContentProps) => (
 
     <MarkdownBlock className='mb-5' htmlContent={article.content} />
 
-    <ArticleMeta article={article} />
+    <ArticleMeta />
 
     <ArticleFooter article={article} />
   </Container>

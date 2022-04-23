@@ -15,3 +15,5 @@ export { default as QueryClientContainer } from './QueryClientContainer';
 export { default as Search } from './Search';
 export { default as Sidebar } from './Sidebar';
 export { default as ToDate } from './ToDate';
+export { default as Tag } from './Tag';
+export { default as TagList } from './Tag/List';

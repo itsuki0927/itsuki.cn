@@ -1,36 +1,8 @@
-import Link from 'next/link';
 import router from 'next/router';
 import { WEB_URL } from '@/configs/app';
-import { ArticleDetailResponse } from '@/entities/article';
 
-interface ArticleMetaProps {
-  article: ArticleDetailResponse;
-}
-
-const ArticleMeta = ({ article }: ArticleMetaProps) => (
+const ArticleMeta = () => (
   <div className='mb-16'>
-    <div className='mb-2 text-center text-xs tracking-wider text-gray-1 dark:text-gray-1--dark'>
-      一堆标签:
-      {article.tags.map(item => (
-        <Link key={item.path} href={`/tag/${item.path}`}>
-          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-dark-2 hover:dark:text-dark-2--dark'>
-            {item.name}
-          </span>
-        </Link>
-      ))}
-    </div>
-
-    <div className='mb-2 text-center text-xs tracking-wider text-gray-1 dark:text-gray-1--dark'>
-      一个分类:
-      {article.categories.map(item => (
-        <Link key={item.path} href={`/tag/${item.path}`}>
-          <span className='ml-2 cursor-pointer transition-colors duration-500 hover:text-dark-2 hover:dark:text-dark-2--dark'>
-            {item.name}
-          </span>
-        </Link>
-      ))}
-    </div>
-
     <div className='flex items-center justify-center text-xs text-gray-1 dark:text-gray-1--dark'>
       <div>
         <span>永久地址: </span>

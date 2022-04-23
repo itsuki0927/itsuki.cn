@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { DarkModeSwitch as DarkModeSwitchFacker } from 'react-toggle-dark-mode';
-import { useTheme } from '@/hooks';
+import { ColorTheme } from '@/hooks/useTheme';
 
 const DarkModeSwitch = dynamic(
   () =>
@@ -11,23 +11,25 @@ const DarkModeSwitch = dynamic(
   { loading: () => <div className='h-5 w-5' /> }
 );
 
-const ThemeSwitch: React.FC = () => {
-  const [theme, switchTheme] = useTheme();
-  return (
-    <>
-      <Head>
-        <meta name='theme-color' content={theme === 'dark' ? '#000' : '#fdfdfd'} />
-      </Head>
-      <div className='flex h-5 w-5 items-center bg-transparent'>
-        <DarkModeSwitch
-          checked={theme === 'dark'}
-          onChange={switchTheme}
-          moonColor='rgb(168 160 149)'
-          sunColor='#2d2d2d'
-        />
-      </div>
-    </>
-  );
-};
+export interface ThemeSwitchProps {
+  theme: ColorTheme;
+  onChange: (checked: boolean) => void;
+}
+
+const ThemeSwitch = ({ theme, onChange }: ThemeSwitchProps) => (
+  <>
+    <Head>
+      <meta name='theme-color' content={theme === 'dark' ? '#000' : '#fdfdfd'} />
+    </Head>
+    <div className='flex h-5 w-5 items-center bg-transparent'>
+      <DarkModeSwitch
+        checked={theme === 'dark'}
+        onChange={onChange}
+        moonColor='rgb(168 160 149)'
+        sunColor='#2d2d2d'
+      />
+    </div>
+  </>
+);
 
 export default ThemeSwitch;

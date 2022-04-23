@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import { getArticles } from '@/api/article';
 import { getAllCategoryPaths } from '@/api/category';
@@ -78,6 +78,6 @@ const CategoryPage = ({
   );
 };
 
-CategoryPage.Layout = Layout;
+CategoryPage.getLayout = (page: ReactNode) => <Layout>{page}</Layout>;
 
 export default CategoryPage;

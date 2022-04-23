@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import { getArchives } from '@/api/article';
 import ArchiveView from '@/components/archive';
-import { NavbarLayout } from '@/components/common';
+import { Layout } from '@/components/common';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { useArchives } from '@/hooks/article';
 import { getGlobalData } from '@/api/global';
@@ -24,5 +25,6 @@ const ArchivePage = () => {
   return <ArchiveView archives={archives?.data} />;
 };
 
-ArchivePage.Layout = NavbarLayout;
+ArchivePage.getLayout = (page: ReactNode) => <Layout showSidebar={false}>{page} </Layout>;
+
 export default ArchivePage;

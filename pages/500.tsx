@@ -1,4 +1,5 @@
-import { BlankLayout, ErrorHandler } from '@/components/common';
+import { ReactNode } from 'react';
+import { ErrorHandler, Layout } from '@/components/common';
 
 const InternalServerError = () => (
   <div className='flex h-screen items-center justify-center'>
@@ -6,6 +7,10 @@ const InternalServerError = () => (
   </div>
 );
 
-InternalServerError.Layout = BlankLayout;
+InternalServerError.getLayout = (page: ReactNode) => (
+  <Layout showSidebar={false} showNavbar={false} showFooter={false}>
+    {page}
+  </Layout>
+);
 
 export default InternalServerError;

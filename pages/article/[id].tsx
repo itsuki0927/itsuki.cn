@@ -1,4 +1,5 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { ReactNode } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import { getGlobalData } from '@/api/global';
 import { addArticleReading, getAllArticlePaths, getArticle } from '@/api/article';
@@ -51,6 +52,6 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
   return <ArticleView article={article!} />;
 };
 
-ArticlePage.Layout = Layout;
+ArticlePage.getLayout = (page: ReactNode) => <Layout>{page}</Layout>;
 
 export default ArticlePage;

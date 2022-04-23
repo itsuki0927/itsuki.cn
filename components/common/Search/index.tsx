@@ -1,5 +1,6 @@
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
+import { ReactNode } from 'react';
 import { ArticleList } from '@/components/article';
 import { useSearch } from '@/hooks/article';
 import { Layout } from '@/components/common';
@@ -25,6 +26,6 @@ const Search = () => {
   );
 };
 
-Search.Layout = Layout;
+Search.getLayout = (page: ReactNode) => <Layout>{page}</Layout>;
 
 export default Search;

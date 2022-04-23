@@ -4,7 +4,7 @@ import { BackTop, Container } from '@/components/ui';
 import { useGlobalData } from '@/hooks/globalData';
 import { useBannerArticles } from '@/hooks/article';
 
-const DashboardLayout = ({ children }: PropsWithChildren<void>) => {
+const DashboardLayout = ({ children }: PropsWithChildren<any>) => {
   const { data } = useGlobalData();
   const articles = useBannerArticles();
 

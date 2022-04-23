@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import { getArticles, getBannerArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
@@ -36,10 +36,6 @@ const HomePage = () => {
     return <Loading />;
   }
 
-  if (articles.isError) {
-    return <div>出错了</div>;
-  }
-
   return (
     <div className='home space-y-6' id='dashboard'>
       <ArticleList {...articles} />
@@ -72,6 +68,6 @@ const HomePage = () => {
   );
 };
 
-HomePage.Layout = DashboardLayout;
+HomePage.getLayout = (page: ReactNode) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default HomePage;

@@ -1,29 +1,47 @@
 import React, { PropsWithChildren } from 'react';
+import classNames from 'classnames';
 import { Footer, Navbar, Sidebar } from '@/components/common';
 import { BackTop } from '@/components/ui';
 import { useGlobalData } from '@/hooks/globalData';
 
 // TODO: 深色主题、中英文
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface PageProps {}
+export interface PageProps {
+  showFooter?: boolean;
+  showNavbar?: boolean;
+  showSidebar?: boolean;
+}
 
-const Layout = ({ children }: PropsWithChildren<PageProps>) => {
+const Layout = ({
+  children,
+  showFooter = true,
+  showNavbar = true,
+  showSidebar = true,
+}: PropsWithChildren<PageProps>) => {
   const { data } = useGlobalData();
 
   return (
     <div className='flex min-h-screen flex-col'>
-      <Navbar links={data?.categories || []} />
+      {showNavbar && <Navbar links={data?.categories || []} />}
 
-      <main className='mx-auto mb-6 flex flex-grow space-x-5'>
-        <section className='w-[695px] flex-grow'>{children}</section>
-        <Sidebar
-          className='w-[335px] space-y-5'
-          tags={data?.tags || []}
-          hotArticles={data?.hotArticles || []}
-        />
+      <main className='container mx-auto mb-6 flex flex-grow space-x-5'>
+        <section
+          className={classNames('flex-grow', {
+            'w-[695px]': showSidebar,
+          })}
+        >
+          {children}
+        </section>
+        {showSidebar && (
+          <Sidebar
+            className='w-[335px] space-y-5'
+            tags={data?.tags || []}
+            hotArticles={data?.hotArticles || []}
+          />
+        )}
       </main>
 
-      <Footer />
+      {showFooter && <Footer />}
       <BackTop />
     </div>
   );

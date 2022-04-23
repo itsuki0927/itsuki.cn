@@ -1,11 +1,6 @@
 import type { AppProps } from 'next/app';
-import {
-  BlankLayout,
-  GA,
-  Head,
-  LayoutTransition,
-  QueryClientContainer,
-} from '@/components/common';
+import { ReactNode } from 'react';
+import { GA, Head, LayoutTransition, QueryClientContainer } from '@/components/common';
 import { PageLoadingProgress } from '@/components/ui';
 import { useMount } from '@/hooks';
 import '@/styles/globals.scss';
@@ -14,7 +9,7 @@ import '@/styles/reset.scss';
 import enableCopyright from '@/utils/copyright';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const Layout = (Component as any).Layout || BlankLayout;
+  const getLayout = (Component as any).getLayout || ((page: ReactNode) => page);
 
   useMount(() => {
     enableCopyright();
@@ -27,11 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <PageLoadingProgress />
 
       <QueryClientContainer pageProps={pageProps}>
-        <LayoutTransition>
-          <Layout pageProps={pageProps}>
-            <Component {...pageProps} />
-          </Layout>
-        </LayoutTransition>
+        <LayoutTransition>{getLayout(<Component {...pageProps} />)}</LayoutTransition>
       </QueryClientContainer>
     </>
   );

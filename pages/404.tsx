@@ -1,4 +1,5 @@
-import { BlankLayout, ErrorHandler } from '@/components/common';
+import { ReactNode } from 'react';
+import { ErrorHandler, Layout } from '@/components/common';
 
 const NotFound = () => (
   <div className='flex h-screen items-center justify-center'>
@@ -10,6 +11,10 @@ const NotFound = () => (
   </div>
 );
 
-NotFound.Layout = BlankLayout;
+NotFound.getLayout = (page: ReactNode) => (
+  <Layout showSidebar={false} showFooter={false} showNavbar={false}>
+    {page}
+  </Layout>
+);
 
 export default NotFound;

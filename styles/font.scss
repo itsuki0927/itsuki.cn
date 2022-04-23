@@ -1,14 +1,21 @@
 @font-face {
-  font-family: 'Fira Code';
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'iA Writer Quattro';
+  font-weight: 500 600 700 800 bold bolder;
   font-display: swap;
-  src: url('https://static.itsuki.cn/fonts/FiraCode.ttf') format('truetype');
+  src: url('https://static.itsuki.cn/fonts/ia-qa/iAWriterQuattroSBold.ttf')
+    format('truetype');
 }
 
 @font-face {
   font-family: 'iA Writer Quattro';
-  font-style: normal;
+  font-style: italic;
+  font-display: swap;
+  src: url('https://static.itsuki.cn/fonts/ia-qa/iAWriterQuattroSItalic.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'iA Writer Quattro';
   font-weight: 400;
   font-display: swap;
   src: url('https://static.itsuki.cn/fonts/ia-qa/iAWriterQuattroSRegular.ttf')

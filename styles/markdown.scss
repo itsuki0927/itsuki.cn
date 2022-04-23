@@ -128,10 +128,10 @@
   }
 
   pre {
-    @apply relative mb-2 block overflow-hidden rounded-sm bg-white-1 p-2 dark:bg-white-1--dark;
+    @apply relative mb-2 block overflow-hidden rounded-sm bg-white-1 dark:bg-white-1--dark;
 
     code {
-      @apply m-0 block h-full w-full bg-transparent text-[#535353] dark:bg-transparent dark:text-[#b4ada3];
+      @apply m-0 block h-full w-full bg-transparent p-4 text-[#535353] dark:bg-transparent dark:text-[#b4ada3];
     }
   }
 
@@ -170,7 +170,7 @@
       @apply flex flex-wrap-reverse items-baseline bg-white-2 dark:bg-white-2--dark;
 
       code {
-        @apply leading-6;
+        @apply p-2 leading-6;
       }
     }
   }

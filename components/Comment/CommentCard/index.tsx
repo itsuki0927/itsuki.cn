@@ -72,7 +72,7 @@ const CommentCard = ({
           ref={ref}
           htmlContent={contentHtml}
           isComments
-          className='lazy clear-left max-h-[600px] overflow-y-scroll pt-3 text-sm'
+          className='lazy clear-left mt-3 max-h-[600px] overflow-y-auto text-sm'
         />
       </div>
 

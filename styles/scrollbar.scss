@@ -8,22 +8,22 @@ html.dark {
   --thumb-bg: #414749;
 }
 
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 8px;
 }
 
-body {
+* {
   scrollbar-width: thin;
   scrollbar-color: var(--scroll-bg) var(--thumb-bg);
 }
 
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: var(--scroll-bg);
 }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: var(--thumb-bg);
   background-image: -webkit-gradient(
     linear,

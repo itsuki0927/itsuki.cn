@@ -15,6 +15,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 module.exports = withBundleAnalyzer({
   assetPrefix: isProd ? RESOURCE_URL : '',
   reactStrictMode: true,
+  async rewrites() {
+    return [{ source: '/rss.xml', destination: '/api/rss' }];
+  },
   images: {
     domains: isProd ? domains.slice(-1) : domains,
   },

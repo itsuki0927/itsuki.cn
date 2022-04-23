@@ -14,7 +14,7 @@ const ArticleList = ({ data, ...rest }: ArticleListProps) => {
   }
 
   return (
-    <div className='space-y-5'>
+    <div className='space-y-6'>
       {data?.data.map((article, i) => (
         <ArticleCard
           style={{ animationDelay: `${0.2 * i}s` }}

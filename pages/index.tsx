@@ -45,7 +45,9 @@ const HomePage = () => {
           disabled={!articles.data?.hasPrev}
           onClick={() => {
             setCurrent(c => Math.max(1, c - 1));
-            scrollTo('#dashboard', 300);
+            scrollTo('#dashboard', 300, {
+              offset: -80,
+            });
           }}
           className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-gray-3 dark:text-gray-3--dark'
         >
@@ -56,7 +58,9 @@ const HomePage = () => {
           disabled={!articles.data?.hasNext}
           onClick={() => {
             setCurrent(c => c + 1);
-            scrollTo('#dashboard', 300);
+            scrollTo('#dashboard', 300, {
+              offset: -80,
+            });
           }}
           className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-gray-3 dark:text-gray-3--dark'
         >

@@ -92,12 +92,6 @@ module.exports = withBundleAnalyzer({
             chunks: 'all',
             minSize: 0,
           },
-          framework: {
-            name: 'framework_vendors',
-            test: /[\\/]framework[\\/]/,
-            chunks: 'all',
-            minSize: 0,
-          },
         },
       },
     };

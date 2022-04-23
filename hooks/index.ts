@@ -8,3 +8,4 @@ export { default as useMarkdown } from './useMarkdown';
 export { default as useMount } from './useMount';
 export { default as useTimeout } from './useTimeout';
 export { default as useUnMount } from './useUnMount';
+export { default as useTheme } from './useTheme';

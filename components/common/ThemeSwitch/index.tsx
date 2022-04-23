@@ -1,8 +1,7 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import { useEffect } from 'react';
 import { DarkModeSwitch as DarkModeSwitchFacker } from 'react-toggle-dark-mode';
-import { useLocalStorage } from '@/hooks/index';
+import { useTheme } from '@/hooks';
 
 const DarkModeSwitch = dynamic(
   () =>
@@ -12,27 +11,8 @@ const DarkModeSwitch = dynamic(
   { loading: () => <div className='h-5 w-5' /> }
 );
 
-type ColorTheme = 'light' | 'dark';
-
 const ThemeSwitch: React.FC = () => {
-  const COLOR_THEME = 'theme' as const;
-  const [theme, setTheme] = useLocalStorage<ColorTheme>(COLOR_THEME, 'light');
-
-  useEffect(() => {
-    const bodyClass = document.documentElement.classList;
-    if (theme === 'dark') {
-      bodyClass.add('light');
-      bodyClass.remove('dark');
-    } else {
-      bodyClass.add('dark');
-      bodyClass.remove('light');
-    }
-  }, [theme]);
-
-  const switchTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
-
+  const [theme, switchTheme] = useTheme();
   return (
     <>
       <Head>
@@ -40,7 +20,7 @@ const ThemeSwitch: React.FC = () => {
       </Head>
       <div className='flex h-5 w-5 items-center bg-transparent'>
         <DarkModeSwitch
-          checked={theme === 'light'}
+          checked={theme === 'dark'}
           onChange={switchTheme}
           moonColor='rgb(168 160 149)'
           sunColor='#2d2d2d'

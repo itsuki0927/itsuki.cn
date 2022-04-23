@@ -3,7 +3,6 @@ import {
   BlankLayout,
   GA,
   Head,
-  Iconfont,
   LayoutTransition,
   QueryClientContainer,
 } from '@/components/common';
@@ -24,7 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head />
-      <Iconfont />
       <GA />
       <PageLoadingProgress />
 

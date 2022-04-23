@@ -73,7 +73,7 @@ const AboutView = () => (
 
       <div className='text-center'>
         <MyImage
-          src='https://static.itsuki.cn/about.png'
+          src='/about.png'
           width={670}
           height={407}
           alt='about-decorate-placeholder'

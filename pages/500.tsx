@@ -1,11 +1,11 @@
-import BlackLayout from '@/components/common/BlankLayout';
+import { BlankLayout, ErrorHandler } from '@/components/common';
 
-export default function InternalServerError() {
-  return (
-    <div className='flex h-screen items-center justify-center'>
-      <h1 className='text-6xl tracking-wide'>Internal Server Error</h1>
-    </div>
-  );
-}
+const InternalServerError = () => (
+  <div className='flex h-screen items-center justify-center'>
+    <ErrorHandler title='500' message='服务器出了点小故障~' img='/500.jpg' />
+  </div>
+);
 
-InternalServerError.Layout = BlackLayout;
+InternalServerError.Layout = BlankLayout;
+
+export default InternalServerError;

@@ -1,18 +1,17 @@
 import router from 'next/router';
 import React from 'react';
-import { SearchResponse } from '@/types/response';
 import { Carousel } from '@/components/ui';
-import { Article } from '@/entities/article';
 import ToDate from '../ToDate';
 import { MyImage } from '..';
+import { UseBannerArticles } from '@/hooks/article/useBannerArticles';
 
 type HomeSliderProps = {
-  articles?: SearchResponse<Article>;
+  articles?: UseBannerArticles;
 };
 
 const HomeSlider = ({ articles }: HomeSliderProps) => (
   <Carousel autoplay={false}>
-    {articles?.data.map(article => (
+    {articles?.data?.data.map(article => (
       <div
         role='banner'
         className='group relative opacity-90 transition-opacity'

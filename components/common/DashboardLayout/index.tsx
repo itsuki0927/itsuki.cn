@@ -6,7 +6,7 @@ import { useBannerArticles } from '@/hooks/article';
 
 const DashboardLayout = ({ children }: PropsWithChildren<void>) => {
   const { data } = useGlobalData();
-  const { data: bannerArticles } = useBannerArticles();
+  const articles = useBannerArticles();
 
   return (
     <>
@@ -14,7 +14,7 @@ const DashboardLayout = ({ children }: PropsWithChildren<void>) => {
         <Navbar links={data?.categories} />
 
         <Container className='container mb-10'>
-          <HomeSlider articles={bannerArticles} />
+          <HomeSlider articles={articles} />
         </Container>
 
         <main className='mx-auto mb-6 flex flex-grow space-x-6'>

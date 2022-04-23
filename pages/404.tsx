@@ -1,11 +1,15 @@
-import BlackLayout from '@/components/common/BlankLayout';
+import { BlankLayout, ErrorHandler } from '@/components/common';
 
-export default function NotFound() {
-  return (
-    <div className='flex h-screen items-center justify-center'>
-      <h1 className='text-6xl tracking-wide'>Not Found</h1>
-    </div>
-  );
-}
+const NotFound = () => (
+  <div className='flex h-screen items-center justify-center'>
+    <ErrorHandler
+      title='404'
+      message='如果时光倒流， 我们又能抓得住什么 ？'
+      img='/404.jpg'
+    />
+  </div>
+);
 
-NotFound.Layout = BlackLayout;
+NotFound.Layout = BlankLayout;
+
+export default NotFound;

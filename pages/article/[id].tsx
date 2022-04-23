@@ -1,12 +1,12 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
-import { ArticleView } from '@/components/article';
-import { Layout } from '@/components/common';
-import { Loading } from '@/components/ui';
+import { getGlobalData } from '@/api/global';
 import { addArticleReading, getAllArticlePaths, getArticle } from '@/api/article';
+import { ArticleView } from '@/components/article';
+import { ErrorHandler, Layout } from '@/components/common';
+import { Loading } from '@/components/ui';
 import { useArticle } from '@/hooks/article';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
-import { getGlobalData } from '@/api/global';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePaths();
@@ -21,7 +21,9 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const articleId = Number(params?.id);
 
   if (Number.isNaN(articleId)) {
-    throw new Error('文章ID参数错误');
+    return {
+      notFound: true,
+    };
   }
 
   await addArticleReading(articleId);
@@ -42,9 +44,10 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data: article, isFetching, isLoading } = useArticle(articleId);
+  const { data: article, isFetching, isLoading, isError } = useArticle(articleId);
 
   if (isFetching || isLoading) return <Loading />;
+  if (isError) return <ErrorHandler title='' message='' img='/404.jpg' />;
   return <ArticleView article={article!} />;
 };
 

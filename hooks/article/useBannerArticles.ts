@@ -4,4 +4,6 @@ import { articleKeys } from '@/constants/queryKeys';
 
 const useBannerArticles = () => useQuery(articleKeys.banner(), () => getBannerArticles());
 
+export type UseBannerArticles = ReturnType<typeof useBannerArticles>;
+
 export default useBannerArticles;

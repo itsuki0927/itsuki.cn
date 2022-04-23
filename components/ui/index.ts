@@ -1,4 +1,3 @@
-export { default as ActiveLink } from './ActiveLink';
 export { default as Affix } from './Affix';
 export { default as BackTop } from './BackTop';
 export { default as Banner } from './Banner';

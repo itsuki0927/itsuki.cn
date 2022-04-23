@@ -44,7 +44,7 @@ customRenderer.link = function renderLink(hrefProp: string, title: string, text:
             target='_blank'
             class="${textIsImage ? 'image-link' : 'link'}"
             title=${title || (textIsImage || textIsCode ? href : text)}
-            ${isSelf ? '' : "rel='external nofollow noopener'"}
+            ${isSelf ? '' : "rel='external noopener'"}
           >
             ${text}
           </a>`;

@@ -1,7 +1,9 @@
 import { PropsWithChildren, useMemo } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
 import { Logo } from '@/components/common';
 import { Category } from '@/entities/category';
-import { ActiveLink } from '@/components/ui';
 import { RssIcon } from '@/components/icons';
 import { getCategoryUrl } from '@/utils/url';
 import shank from '@/utils/shank';
@@ -12,13 +14,24 @@ type NavbarProps = Omit<ThemeSwitchProps, 'onChange'> & {
   onThemeChange: ThemeSwitchProps['onChange'];
 };
 
-const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => (
-  <ActiveLink activeClassName='text-[#c9a16e] dark:text-[#cba574]' href={href}>
-    <div className='relative cursor-pointer px-5 text-center tracking-widest text-dark-2 transition-colors duration-500 hover:text-[#c9a16e] dark:text-gray-2--dark hover:dark:text-[#cba574]'>
-      <span className='leading-none'>{children}</span>
+const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => {
+  const { asPath } = useRouter();
+  const isActive = href === asPath;
+
+  return (
+    <div
+      className={classNames(
+        'relative cursor-pointer px-5 text-center tracking-widest text-dark-2 transition-colors duration-500 hover:text-[#c9a16e] dark:hover:text-[#cba574]',
+        {
+          'text-[#c9a16e] dark:text-[#cba574]': isActive,
+          'text-dark-2 dark:text-dark-2--dark': !isActive,
+        }
+      )}
+    >
+      <Link href={href}>{children}</Link>
     </div>
-  </ActiveLink>
-);
+  );
+};
 
 const DEFAULT_NAV_LIST = [
   { path: '/', name: '首页' },

@@ -1,14 +1,14 @@
 // web url
-export const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL;
+export const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL ?? '';
 
 // ga id
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
+export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID ?? '';
 
 // api url
-export const API_URL = process.env.NEXT_PUBLIC_API_BASE_PATH;
+export const API_URL = process.env.NEXT_PUBLIC_API_BASE_PATH ?? '';
 
 // api version
-export const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION;
+export const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION ?? '';
 
 // iconfont url
 export const ICONFONT_URL = '//at.alicdn.com/t/font_2836612_0c421nct0kl9';

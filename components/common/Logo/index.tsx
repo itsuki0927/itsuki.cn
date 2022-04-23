@@ -1,23 +1,24 @@
 import { LogoJsonLd } from 'next-seo';
 import router from 'next/router';
+import { RESOURCE_URL, WEB_URL } from '@/configs/app';
 import { MyImage } from '..';
 
 const Logo = () => (
   <div
-    className='flex h-full cursor-pointer items-center overflow-hidden'
+    className='cursor-pointer overflow-hidden'
     role='img'
     aria-hidden='true'
     onClick={() => router.push('/')}
   >
     <MyImage
-      src='https://static.itsuki.cn/logo.png'
+      src='/logo.png'
       objectFit='cover'
-      width={120}
-      height={120}
+      width={60}
+      height={60}
       alt='logo'
       className='h-full'
     />
-    <LogoJsonLd logo='https://static.itsuki.cn/logo.png' url='https://itsuki.cn' />
+    <LogoJsonLd logo={`${RESOURCE_URL}/logo.png`} url={WEB_URL} />
   </div>
 );
 

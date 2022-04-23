@@ -12,20 +12,21 @@ const DashboardLayout = ({ children }: PropsWithChildren<any>) => {
 
   return (
     <>
-      <div className='flex min-h-screen flex-col'>
-        <Navbar theme={theme} onThemeChange={setTheme} links={data?.categories} />
+      <Navbar theme={theme} onThemeChange={setTheme} links={data?.categories} />
+      <div className='flex min-h-screen flex-col space-y-6 pt-24'>
+        <main className='container mx-auto flex-grow space-y-6'>
+          <Container>
+            <HomeSlider articles={articles} />
+          </Container>
 
-        <Container className='container mb-10'>
-          <HomeSlider articles={articles} />
-        </Container>
-
-        <main className='mx-auto mb-6 flex flex-grow space-x-6'>
-          <section className='w-[693px] flex-grow'>{children}</section>
-          <Sidebar
-            className='w-[333px] space-y-6'
-            tags={data?.tags ?? []}
-            hotArticles={data?.hotArticles ?? []}
-          />
+          <div className='flex space-x-6'>
+            <section className='w-[693px] flex-grow'>{children}</section>
+            <Sidebar
+              className='w-[333px] space-y-6'
+              tags={data?.tags ?? []}
+              hotArticles={data?.hotArticles ?? []}
+            />
+          </div>
         </main>
 
         <Footer />

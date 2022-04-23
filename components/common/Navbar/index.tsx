@@ -1,14 +1,11 @@
-import { forwardRef, PropsWithChildren, useMemo } from 'react';
-import classNames from 'classnames';
+import { PropsWithChildren, useMemo } from 'react';
 import { Logo } from '@/components/common';
-import { ActiveLink } from '@/components/ui';
 import { Category } from '@/entities/category';
+import { ActiveLink } from '@/components/ui';
+import { RssIcon } from '@/components/icons';
 import { getCategoryUrl } from '@/utils/url';
 import shank from '@/utils/shank';
 import ThemeSwitch, { ThemeSwitchProps } from '../ThemeSwitch';
-import useSticky from './useSticky';
-import s from './style.module.css';
-import RSSIcon from '@/components/icons/RssIcon';
 
 type NavbarProps = Omit<ThemeSwitchProps, 'onChange'> & {
   links?: Category[];
@@ -17,9 +14,9 @@ type NavbarProps = Omit<ThemeSwitchProps, 'onChange'> & {
 
 const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => (
   <ActiveLink activeClassName='text-[#c9a16e] dark:text-[#cba574]' href={href}>
-    <li className='relative cursor-pointer px-5 text-center tracking-widest text-dark-2 transition-colors duration-500 hover:text-[#c9a16e] dark:text-gray-2--dark hover:dark:text-[#cba574]'>
+    <div className='relative cursor-pointer px-5 text-center tracking-widest text-dark-2 transition-colors duration-500 hover:text-[#c9a16e] dark:text-gray-2--dark hover:dark:text-[#cba574]'>
       <span className='leading-none'>{children}</span>
-    </li>
+    </div>
   </ActiveLink>
 );
 
@@ -29,44 +26,37 @@ const DEFAULT_NAV_LIST = [
   { path: '/about', name: '关于' },
 ];
 
-const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
-  ({ links, ...themeProps }, ref) => {
-    const isSticky = useSticky();
-    const categoriesDom = useMemo(() => {
-      const addNavList =
-        links?.map(item => ({ ...item, path: getCategoryUrl(item.path) })) || [];
+const Navbar = ({ links, ...themeProps }: NavbarProps) => {
+  const categoriesDom = useMemo(() => {
+    const addNavList =
+      links?.map(item => ({ ...item, path: getCategoryUrl(item.path) })) || [];
 
-      // 将查询到的分类添加到首页的后面
-      const navDom = shank(DEFAULT_NAV_LIST, 1, 0, ...addNavList).map(item => (
-        <NavbarItem key={item.path} href={item.path}>
-          {item.name}
-        </NavbarItem>
-      ));
+    // 将查询到的分类添加到首页的后面
+    const navDom = shank(DEFAULT_NAV_LIST, 1, 0, ...addNavList).map(item => (
+      <NavbarItem key={item.path} href={item.path}>
+        {item.name}
+      </NavbarItem>
+    ));
 
-      // 添加主题按钮
-      return navDom.concat(
-        <li key='theme' className='px-5 text-center'>
-          <ThemeSwitch theme={themeProps.theme} onChange={themeProps.onThemeChange} />
-        </li>,
-        <li key='rss' className='px-5 text-center'>
-          <RSSIcon />
-        </li>
-      );
-    }, [links, themeProps]);
-
-    const classString = classNames('inset-x-0 z-10 my-10 h-32', {
-      [s.fixedNav]: isSticky,
-    });
-
-    return (
-      <div className={classString} id='topbar' ref={ref}>
-        <div className='container flex h-full justify-between'>
-          <Logo />
-          <ul className='flex h-full items-center'>{categoriesDom}</ul>
-        </div>
+    // 添加主题按钮
+    return navDom.concat(
+      <div key='theme' className='px-5 text-center'>
+        <ThemeSwitch theme={themeProps.theme} onChange={themeProps.onThemeChange} />
+      </div>,
+      <div key='rss' className='px-5 text-center'>
+        <RssIcon />
       </div>
     );
-  }
-);
+  }, [links, themeProps]);
+
+  return (
+    <header className='fixed inset-x-0 z-10 h-20 bg-[#ffffff80] backdrop-blur-[2px] backdrop-saturate-150 dark:bg-[#0d0d1050]'>
+      <div className='container flex h-full items-center justify-between'>
+        <Logo />
+        <nav className='flex h-full items-center'>{categoriesDom}</nav>
+      </div>
+    </header>
+  );
+};
 
 export default Navbar;

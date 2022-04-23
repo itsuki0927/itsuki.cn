@@ -21,31 +21,39 @@ const Layout = ({
   const [theme, setTheme] = useTheme();
 
   return (
-    <div className='flex min-h-screen flex-col'>
+    <>
       {showNavbar && (
         <Navbar theme={theme} onThemeChange={setTheme} links={data?.categories || []} />
       )}
 
-      <main className='container mx-auto mb-6 flex flex-grow space-x-5'>
-        <section
-          className={classNames('flex-grow', {
-            'w-[695px]': showSidebar,
-          })}
+      <div
+        className={classNames('flex min-h-screen flex-col space-y-6', {
+          'pt-[104px]': showNavbar,
+        })}
+      >
+        <main
+          className={classNames('container mx-auto mb-6 flex flex-grow space-x-6', {})}
         >
-          {children}
-        </section>
-        {showSidebar && (
-          <Sidebar
-            className='w-[335px] space-y-5'
-            tags={data?.tags || []}
-            hotArticles={data?.hotArticles || []}
-          />
-        )}
-      </main>
+          <section
+            className={classNames('flex-grow', {
+              'w-[695px]': showSidebar,
+            })}
+          >
+            {children}
+          </section>
+          {showSidebar && (
+            <Sidebar
+              className='w-[335px] space-y-6'
+              tags={data?.tags || []}
+              hotArticles={data?.hotArticles || []}
+            />
+          )}
+        </main>
 
-      {showFooter && <Footer />}
-      <BackTop />
-    </div>
+        {showFooter && <Footer />}
+        <BackTop />
+      </div>
+    </>
   );
 };
 

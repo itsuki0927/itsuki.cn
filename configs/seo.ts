@@ -11,7 +11,7 @@ const seoConfig = {
     description: META.description,
     type: 'website',
     locale: 'zh-cn',
-    url: `https://${META.url}`,
+    url: META.url,
     site_name: 'Itsuki Blog',
     images: [
       {

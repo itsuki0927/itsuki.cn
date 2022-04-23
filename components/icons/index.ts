@@ -6,6 +6,7 @@ export { default as Icon } from './Icon/index';
 export { default as LeftOutlined } from './LeftOutlined';
 export { default as MessageOutlined } from './MessageOutlined';
 export { default as RightOutlined } from './RightOutlined';
+export { default as RssIcon } from './RssIcon';
 export { default as SearchOutlined } from './SearchOutlined';
 export { default as SelectOutlined } from './SelectOutlined';
 export { default as SendOutlined } from './SendOutlined';

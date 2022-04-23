@@ -8,6 +8,7 @@ import shank from '@/utils/shank';
 import ThemeSwitch, { ThemeSwitchProps } from '../ThemeSwitch';
 import useSticky from './useSticky';
 import s from './style.module.css';
+import RSSIcon from '@/components/icons/RssIcon';
 
 type NavbarProps = Omit<ThemeSwitchProps, 'onChange'> & {
   links?: Category[];
@@ -16,7 +17,7 @@ type NavbarProps = Omit<ThemeSwitchProps, 'onChange'> & {
 
 const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => (
   <ActiveLink activeClassName='text-[#c9a16e] dark:text-[#cba574]' href={href}>
-    <li className='relative cursor-pointer px-3 text-center tracking-widest text-dark-2 transition-colors duration-500 hover:text-[#c9a16e] dark:text-gray-2--dark hover:dark:text-[#cba574]'>
+    <li className='relative cursor-pointer px-5 text-center tracking-widest text-dark-2 transition-colors duration-500 hover:text-[#c9a16e] dark:text-gray-2--dark hover:dark:text-[#cba574]'>
       <span className='leading-none'>{children}</span>
     </li>
   </ActiveLink>
@@ -44,8 +45,11 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
 
       // 添加主题按钮
       return navDom.concat(
-        <li key='theme' className='px-3 pr-6'>
+        <li key='theme' className='px-5 text-center'>
           <ThemeSwitch theme={themeProps.theme} onChange={themeProps.onThemeChange} />
+        </li>,
+        <li key='rss' className='px-5 text-center'>
+          <RSSIcon />
         </li>
       );
     }, [links, themeProps]);
@@ -58,7 +62,7 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
       <div className={classString} id='topbar' ref={ref}>
         <div className='container flex h-full justify-between'>
           <Logo />
-          <ul className='flex h-full items-center space-x-4'>{categoriesDom}</ul>
+          <ul className='flex h-full items-center'>{categoriesDom}</ul>
         </div>
       </div>
     );

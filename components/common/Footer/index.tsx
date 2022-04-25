@@ -1,15 +1,35 @@
 const Footer = () => (
-  <footer className='mt-6 bg-white px-4 py-9 text-sm leading-8 text-gray-2 dark:bg-white--dark dark:text-gray-2--dark '>
-    <div className='container text-center tracking-widest'>
-      Build by 🖐️ 🪵 🇨🇳 👨‍💻 🌈 🎈
+  <footer className='h-20 bg-[#ffffff80] px-4 text-sm leading-[80px] text-gray-2 backdrop-blur-[2px] backdrop-saturate-150 dark:bg-[#0d0d1050] dark:text-gray-2--dark '>
+    <div className='container text-center tracking-wider'>
+      Build by {'  '}
       <a
-        className='ml-4 transition-colors hover:text-basic dark:hover:text-basic--dark'
+        className='transition-colors hover:text-basic dark:hover:text-basic--dark'
+        href='https://github.com/itsuki0927/blog-web'
+        target='_blank'
+        rel='external nofollow noopener noreferrer'
+      >
+        Next.JS
+      </a>{' '}
+      、
+      <a
+        className='transition-colors hover:text-basic dark:hover:text-basic--dark'
+        href='https://github.com/itsuki0927/blog-server'
+        target='_blank'
+        rel='external nofollow noopener noreferrer'
+      >
+        SpringBoot
+      </a>
+      <span className='mx-2'>|</span>
+      <a
+        className='transition-colors hover:text-basic dark:hover:text-basic--dark'
         href='https://beian.miit.gov.cn'
         target='_blank'
         rel='external nofollow noopener noreferrer'
       >
         湘ICP备2021020356号-1
       </a>
+      <span className='mx-2'>|</span>
+      <span>Copyright © Itsuki's Blog 2022</span>
     </div>
   </footer>
 );

@@ -5,6 +5,7 @@ import { Article } from '@/entities/article';
 import { HeartOutlined, MessageOutlined, EyeOutlined } from '@/components/icons';
 import { Button } from '@/components/ui';
 import s from './style.module.scss';
+import { getArticleDetailUrl } from '@/utils/url';
 
 type ArticleCardProps = {
   article: Article;
@@ -24,7 +25,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
       src={article.cover}
       className='min-w-[286px]'
       imgClassName='opacity-90 transition-all group-hover:scale-105 group-hover:opacity-100'
-      onClick={() => router.push(`/article/${article.id}`)}
+      onClick={() => router.push(getArticleDetailUrl(article.id))}
     />
     <div className='ml-4 flex flex-grow flex-col items-start justify-between'>
       <header className='mt-1 mb-1'>
@@ -34,7 +35,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
 
         <h3
           className='cursor-pointer tracking-widest text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-gray-3 dark:text-gray-2--dark'
-          onClick={() => router.push(`/article/${article.id}`)}
+          onClick={() => router.push(getArticleDetailUrl(article.id))}
         >
           {article.title}
         </h3>
@@ -46,7 +47,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
 
       <Button
         type='ghost'
-        onClick={() => router.push(`/article/${article.id}`)}
+        onClick={() => router.push(getArticleDetailUrl(article.id))}
         className='mb-3 py-2 px-6 tracking-widest'
       >
         READ MORE

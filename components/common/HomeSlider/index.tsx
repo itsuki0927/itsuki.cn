@@ -4,6 +4,7 @@ import { Carousel } from '@/components/ui';
 import ToDate from '../ToDate';
 import { MyImage } from '..';
 import { UseBannerArticles } from '@/hooks/article/useBannerArticles';
+import { getArticleDetailUrl } from '@/utils/url';
 
 type HomeSliderProps = {
   articles?: UseBannerArticles;
@@ -35,7 +36,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
 
             <h2
               className='cursor-pointer text-lg tracking-widest text-dark-2 hover:text-dark-4 dark:text-dark-2--dark'
-              onClick={() => router.push(`/article/${article.id}`)}
+              onClick={() => router.push(getArticleDetailUrl(article.id))}
             >
               {article.title}
             </h2>

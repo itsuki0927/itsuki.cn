@@ -7,6 +7,7 @@ import { Tag } from './tag';
 
 export type Article = IdentifiableEntity<{
   title: string;
+  path: string;
   description: string;
   content: string;
   author: string;

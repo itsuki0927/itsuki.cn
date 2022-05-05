@@ -22,7 +22,7 @@ export type Article = IdentifiableEntity<{
   liking: number;
   commenting: number;
   tags: Tag[];
-  categories: Category[];
+  category: Category;
   comments: Comment[];
 }>;
 

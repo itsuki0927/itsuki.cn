@@ -33,7 +33,7 @@ const generateRSSFeed = async () => {
   });
 
   articles.data?.forEach(article => {
-    const { title, cover, categories, createAt, id, description } = article;
+    const { title, cover, category, createAt, id, description } = article;
     const url = `${baseUrl}/article/${id}`;
 
     feed.addItem({
@@ -45,7 +45,7 @@ const generateRSSFeed = async () => {
       content: description,
       author: [author],
       date: new Date(createAt),
-      category: categories.map(category => ({ name: category.name })),
+      category: [category],
     });
   });
 

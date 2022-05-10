@@ -27,4 +27,5 @@ export const META = {
   description: 'Itsuki Blog - 五木 博客 - 心之所向,行之所往 - https://itsuki.cn',
   url: WEB_URL,
   author: 'itsuki',
+  email: '2309899048@qq.com',
 };

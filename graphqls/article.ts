@@ -69,3 +69,9 @@ export const QUERY_ARTICLE = gql`
     }
   }
 `;
+
+export const LIKE_ARTICLE = gql`
+  mutation likeArticle($id: ID!) {
+    likeArticle(id: $id)
+  }
+`;

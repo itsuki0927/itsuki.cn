@@ -1,9 +1,9 @@
-import { AxiosError } from 'axios';
+import { GraphQLError } from 'graphql';
 import { useMutation, useQueryClient } from 'react-query';
 import { likeArticle } from '@/api/article';
 import { initialLikeValue, LikeArticles, LikeArticlesKey } from '@/constants/like';
 import { articleKeys } from '@/constants/queryKeys';
-import { Article } from '@/entities/article';
+import { Article, LikeArticleResponse } from '@/entities/article';
 import { useLocalStorage } from '..';
 
 const useLikeArticle = (articleId: number) => {
@@ -12,21 +12,24 @@ const useLikeArticle = (articleId: number) => {
     LikeArticlesKey,
     initialLikeValue
   );
-  const mutation = useMutation<number, AxiosError, void>(() => likeArticle(articleId), {
-    onSuccess: liking => {
-      setLikeArticles({ ...likeArticles, [articleId]: true });
-      queryClient.setQueryData<Article | undefined>(
-        articleKeys.detail(articleId),
-        oldArticle => {
-          if (!oldArticle) return undefined;
-          return {
-            ...oldArticle,
-            liking,
-          };
-        }
-      );
-    },
-  });
+  const mutation = useMutation<LikeArticleResponse, GraphQLError, void>(
+    () => likeArticle(articleId),
+    {
+      onSuccess: ({ likeArticle: liking }) => {
+        setLikeArticles({ ...likeArticles, [articleId]: true });
+        queryClient.setQueryData<Article | undefined>(
+          articleKeys.detail(articleId),
+          oldArticle => {
+            if (!oldArticle) return undefined;
+            return {
+              ...oldArticle,
+              liking,
+            };
+          }
+        );
+      },
+    }
+  );
 
   return { isLike: !!likeArticles[articleId], mutation } as const;
 };

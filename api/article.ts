@@ -1,5 +1,6 @@
 import request from 'graphql-request';
 import {
+  LikeArticleResponse,
   QueryArticleResponse,
   QueryArticleSearch,
   QueryArticlesResponse,
@@ -8,7 +9,12 @@ import {
 import { ID } from '@/types/response';
 import { PublishState } from '@/constants/article/publish';
 import service, { endpoint } from './service';
-import { QUERY_ARTICLE, QUERY_ARTICLES, QUERY_ARTICLE_PATHS } from '@/graphqls/article';
+import {
+  LIKE_ARTICLE,
+  QUERY_ARTICLE,
+  QUERY_ARTICLES,
+  QUERY_ARTICLE_PATHS,
+} from '@/graphqls/article';
 import { DEFAULT_CURRENT } from '@/constants/pagination';
 
 export const getArticles = async (params?: SearchArticlesBody) => {
@@ -47,10 +53,7 @@ export const getAllArticlePaths = async () => {
 };
 
 export const likeArticle = (id: number) =>
-  service.request<void, number>({
-    method: 'patch',
-    url: `/article/${id}/like`,
-  });
+  request<LikeArticleResponse, ID>(endpoint, LIKE_ARTICLE, { id });
 
 export const addArticleReading = (id: number) =>
   service.request<void, number>({

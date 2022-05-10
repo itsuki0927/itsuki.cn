@@ -7,6 +7,7 @@ const useArticle = (articleId: number) =>
   useQuery(articleKeys.detail(articleId), () => getArticle(articleId), {
     select: data => ({
       ...data,
+      id: articleId,
       content: markedToHtml(data.content),
     }),
     enabled: !!articleId,

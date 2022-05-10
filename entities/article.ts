@@ -71,3 +71,7 @@ export type QueryArticleResponse = {
 export type QueryArticlesResponse = {
   articles: SearchResponse<Article>;
 };
+
+export type LikeArticleResponse = {
+  likeArticle: number;
+};

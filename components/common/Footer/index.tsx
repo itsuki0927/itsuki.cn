@@ -26,7 +26,7 @@ const Footer = () => (
         target='_blank'
         rel='external nofollow noopener noreferrer'
       >
-        湘ICP备2021020356号-1
+        湘ICP备2021020356号
       </a>
       <span className='mx-2'>|</span>
       <span>Copyright © Itsuki's Blog 2022</span>

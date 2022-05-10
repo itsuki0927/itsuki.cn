@@ -38,7 +38,6 @@ export const QUERY_ARTICLE = gql`
       reading
       liking
       commenting
-      categoryId
       path
       tags {
         name
@@ -48,6 +47,14 @@ export const QUERY_ARTICLE = gql`
         name
         path
         id
+      }
+      prevArticle {
+        id
+        title
+      }
+      nextArticle {
+        id
+        title
       }
     }
   }

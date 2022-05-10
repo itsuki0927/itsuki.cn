@@ -1,6 +1,5 @@
 import request from 'graphql-request';
 import {
-  ArticleArchiveResponse,
   QueryArticleResponse,
   QueryArticleSearch,
   QueryArticlesResponse,
@@ -10,6 +9,7 @@ import { ID } from '@/types/response';
 import { PublishState } from '@/constants/article/publish';
 import service, { endpoint } from './service';
 import { QUERY_ARTICLE, QUERY_ARTICLES } from '@/graphqls/article';
+import { DEFAULT_CURRENT } from '@/constants/pagination';
 
 export const getArticles = async (params?: SearchArticlesBody) => {
   const { articles } = await request<QueryArticlesResponse, QueryArticleSearch>(
@@ -36,11 +36,7 @@ export const getArticle = async (id: number) => {
   return article;
 };
 
-export const getArchives = () =>
-  service.request<void, ArticleArchiveResponse>({
-    method: 'get',
-    url: '/article/archive',
-  });
+export const getArchives = () => getArticles({ current: DEFAULT_CURRENT, pageSize: 500 });
 
 export const getAllArticlePaths = () =>
   service

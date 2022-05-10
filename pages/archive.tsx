@@ -22,7 +22,7 @@ export const getStaticProps = async () => {
 
 const ArchivePage = () => {
   const archives = useArchives();
-  return <ArchiveView archives={archives?.data} />;
+  return <ArchiveView archives={archives.data} />;
 };
 
 ArchivePage.getLayout = (page: ReactNode) => <Layout showSidebar={false}>{page} </Layout>;

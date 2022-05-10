@@ -54,16 +54,11 @@ export type ArticleTypes = {
   likeBody: LikeArticleBody;
 };
 
-export type ArticleArchive = Pick<
-  Article,
-  'id' | 'title' | 'createAt' | 'description'
-> & {
-  createAtString: string;
-};
+export type ArticleArchive = Pick<Article, 'id' | 'title' | 'createAt' | 'description'>;
 
-export type ArticleArchiveMap = Record<string, ArticleArchive[]>;
+export type ArticleArchiveMap = Map<string, ArticleArchive[]>;
 
-export type ArticleArchiveResponse = Record<string, ArticleArchiveMap>;
+export type ArticleArchiveResponse = Map<string, ArticleArchiveMap>;
 
 export type GetAllArticlePathsQuery = SearchResponse<Article>;
 

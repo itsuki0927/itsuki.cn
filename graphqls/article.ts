@@ -19,6 +19,16 @@ export const QUERY_ARTICLES = gql`
   }
 `;
 
+export const QUERY_ARTICLE_PATHS = gql`
+  query findArticles {
+    articles {
+      data {
+        id
+      }
+    }
+  }
+`;
+
 export const QUERY_ARTICLE = gql`
   query findArticle($id: ID!) {
     article(id: $id) {

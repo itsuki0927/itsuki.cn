@@ -8,7 +8,7 @@ import {
 import { ID } from '@/types/response';
 import { PublishState } from '@/constants/article/publish';
 import service, { endpoint } from './service';
-import { QUERY_ARTICLE, QUERY_ARTICLES } from '@/graphqls/article';
+import { QUERY_ARTICLE, QUERY_ARTICLES, QUERY_ARTICLE_PATHS } from '@/graphqls/article';
 import { DEFAULT_CURRENT } from '@/constants/pagination';
 
 export const getArticles = async (params?: SearchArticlesBody) => {
@@ -38,13 +38,13 @@ export const getArticle = async (id: number) => {
 
 export const getArchives = () => getArticles({ current: DEFAULT_CURRENT, pageSize: 500 });
 
-export const getAllArticlePaths = () =>
-  service
-    .request<void, { id: number }[]>({
-      method: 'get',
-      url: 'article/paths',
-    })
-    .then(res => res.map(item => `/article/${item.id}`));
+export const getAllArticlePaths = async () => {
+  const { articles } = await request<QueryArticlesResponse, QueryArticleSearch>(
+    endpoint,
+    QUERY_ARTICLE_PATHS
+  );
+  return articles.data.map(item => `/article/${item.id}`);
+};
 
 export const likeArticle = (id: number) =>
   service.request<void, number>({

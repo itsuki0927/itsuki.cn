@@ -13,3 +13,11 @@ export const QUERY_CATEGORY = gql`
     }
   }
 `;
+
+export const QUERY_CATEGORY_PATHS = gql`
+  query findCategories {
+    categories {
+      path
+    }
+  }
+`;

@@ -26,3 +26,15 @@ export type SearchResponse<T extends IdentifiableEntity> = {
   hasNext?: boolean;
   hasPrev?: boolean;
 };
+
+export type SearchRequest<T> = {
+  search: T;
+};
+
+export type MutationRequest<T> = {
+  input: T;
+};
+
+export type ID = {
+  id: number;
+};

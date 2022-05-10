@@ -1,12 +1,11 @@
-import { Tag } from '@/entities/tag';
-import { SearchResponse } from '@/types/response';
-import service from './service';
+import request from 'graphql-request';
+import { QueryTagResponse } from '@/entities/tag';
+import { endpoint } from './service';
+import { QUERY_TAG } from '@/graphqls/tag';
 
-export const getTags = () =>
-  service.request<void, SearchResponse<Tag>>({
-    method: 'get',
-    url: '/tag',
+export const getAllTagPaths = async () => {
+  const { tags } = await request<QueryTagResponse, any>(endpoint, QUERY_TAG, {
+    search: {},
   });
-
-export const getAllTagPaths = () =>
-  getTags().then(({ data }) => data.map(item => `/tag/${item.path}`));
+  return tags.data.map(item => `/tag/${item.path}`);
+};

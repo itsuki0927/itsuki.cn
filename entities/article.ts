@@ -2,8 +2,9 @@ import { ArticleOrigin } from '@/constants/article/origin';
 import { ArticleOpen } from '@/constants/article/public';
 import { Category } from './category';
 import { Comment } from './comment';
-import { IdentifiableEntity, SearchResponse } from '../types/response';
+import { IdentifiableEntity, SearchRequest, SearchResponse } from '../types/response';
 import { Tag } from './tag';
+import { PublishState } from '@/constants/article/publish';
 
 export type Article = IdentifiableEntity<{
   title: string;
@@ -31,11 +32,11 @@ export type SearchArticlesBody = {
   name?: string;
   tag?: string;
   category?: string;
-  pinned?: number;
   hot?: number;
   banner?: number;
   pageSize?: number;
   current?: number;
+  publish?: PublishState;
 };
 
 export type ArticleDetailResponse = Article & {
@@ -65,3 +66,13 @@ export type ArticleArchiveMap = Record<string, ArticleArchive[]>;
 export type ArticleArchiveResponse = Record<string, ArticleArchiveMap>;
 
 export type GetAllArticlePathsQuery = SearchResponse<Article>;
+
+export type QueryArticleSearch = SearchRequest<SearchArticlesBody>;
+
+export type QueryArticleResponse = {
+  article: ArticleDetailResponse;
+};
+
+export type QueryArticlesResponse = {
+  articles: SearchResponse<Article>;
+};

@@ -2,6 +2,8 @@
 import axios from 'axios';
 import { isDev } from '@/configs/environment';
 
+export const endpoint = `${process.env.NEXT_PUBLIC_API_BASE_PATH}/${process.env.NEXT_PUBLIC_API_VERSION}/graphql`;
+
 const service = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_BASE_PATH}/${process.env.NEXT_PUBLIC_API_VERSION}`,
   timeout: 100000,
@@ -19,11 +21,11 @@ type ErrorKey = keyof typeof errorMap;
 service.interceptors.response.use(
   wrapRes => {
     const res = wrapRes.data;
-    const { data, status } = res;
+    const { data, state } = res;
     if (isDev) {
       console.log('response data', data);
     }
-    if (status !== 200) {
+    if (state !== 200) {
       throw new Error('请求错误');
     }
     return data;

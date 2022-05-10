@@ -10,3 +10,7 @@ export type Tag = IdentifiableEntity<{
 }>;
 
 export type GetAllTagPathsQuery = SearchResponse<Tag>;
+
+export type QueryTagResponse = {
+  tags: SearchResponse<Tag>;
+};

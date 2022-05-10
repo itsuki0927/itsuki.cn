@@ -1,30 +1,40 @@
+import request from 'graphql-request';
 import {
-  Article,
   ArticleArchiveResponse,
-  ArticleDetailResponse,
+  QueryArticleResponse,
+  QueryArticleSearch,
+  QueryArticlesResponse,
   SearchArticlesBody,
 } from '@/entities/article';
-import { SearchResponse } from '@/types/response';
+import { ID } from '@/types/response';
 import { PublishState } from '@/constants/article/publish';
-import service from './service';
+import service, { endpoint } from './service';
+import { QUERY_ARTICLE, QUERY_ARTICLES } from '@/graphqls/article';
 
-export const getArticles = (params?: SearchArticlesBody) =>
-  service.request<void, SearchResponse<Article>>({
-    method: 'get',
-    url: '/article',
-    params: {
-      ...params,
-      publish: PublishState.Published,
-    },
-  });
+export const getArticles = async (params?: SearchArticlesBody) => {
+  const { articles } = await request<QueryArticlesResponse, QueryArticleSearch>(
+    endpoint,
+    QUERY_ARTICLES,
+    params
+      ? {
+          search: {
+            ...params,
+            publish: PublishState.Published,
+          },
+        }
+      : undefined
+  );
+  return articles;
+};
 
 export const getBannerArticles = () => getArticles({ banner: 1 });
 
-export const getArticle = (id: number | string) =>
-  service.request<void, ArticleDetailResponse>({
-    method: 'get',
-    url: `/article/${id}`,
+export const getArticle = async (id: number) => {
+  const { article } = await request<QueryArticleResponse, ID>(endpoint, QUERY_ARTICLE, {
+    id,
   });
+  return article;
+};
 
 export const getArchives = () =>
   service.request<void, ArticleArchiveResponse>({

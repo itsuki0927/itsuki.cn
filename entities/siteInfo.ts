@@ -3,23 +3,19 @@ import { IdentifiableEntity } from '../types/response';
 import { Tag } from './tag';
 import { Article } from './article';
 
-export type SystemSettings = IdentifiableEntity<{
-  liking: number;
-  title: string;
-  subtitle: string;
-  email: string;
-  keywords: string;
-  description: string;
-  domain: string;
-  record: string;
-  ipBlackList: string[];
-  emailBlackList: string[];
-  keywordBlackList: string[];
+export type BlackList = IdentifiableEntity<{
+  ip: string[];
+  email: string[];
+  keyword: string[];
 }>;
 
 export type SiteInfo = {
   tags: Tag[];
   categories: Category[];
-  siteInfo: SystemSettings;
+  blacklist: BlackList;
   hotArticles: Article[];
+};
+
+export type QuerySiteInfoResponse = {
+  siteinfo: SiteInfo;
 };

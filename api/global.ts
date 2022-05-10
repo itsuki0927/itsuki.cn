@@ -1,8 +1,12 @@
-import { SiteInfo } from '@/entities/siteInfo';
-import service from './service';
+import request from 'graphql-request';
+import { QuerySiteInfoResponse } from '@/entities/siteInfo';
+import { QUERY_SITE_INFO } from '@/graphqls/global';
+import { endpoint } from './service';
 
-export const getGlobalData = () =>
-  service.request<void, SiteInfo>({
-    method: 'get',
-    url: '/site-info',
-  });
+export const getGlobalData = async () => {
+  const { siteinfo } = await request<QuerySiteInfoResponse, void>(
+    endpoint,
+    QUERY_SITE_INFO
+  );
+  return siteinfo;
+};

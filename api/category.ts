@@ -1,12 +1,12 @@
-import { Category } from '@/entities/category';
-import { SearchResponse } from '@/types/response';
-import service from './service';
+import request from 'graphql-request';
+import { QueryCategoryResponse } from '@/entities/category';
+import { QUERY_CATEGORY } from '@/graphqls/category';
+import { endpoint } from './service';
 
-export const getCategories = () =>
-  service.request<void, SearchResponse<Category>>({
-    method: 'get',
-    url: '/category',
-  });
-
-export const getAllCategoryPaths = () =>
-  getCategories().then(({ data }) => data.map(item => `/category/${item.path}`));
+export const getAllCategoryPaths = async () => {
+  const { categories } = await request<QueryCategoryResponse, void>(
+    endpoint,
+    QUERY_CATEGORY
+  );
+  return categories.map(category => `/category/${category.path}`);
+};

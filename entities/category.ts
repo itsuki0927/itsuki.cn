@@ -1,4 +1,4 @@
-import { IdentifiableEntity, SearchResponse } from '../types/response';
+import { IdentifiableEntity } from '../types/response';
 
 export type Category = IdentifiableEntity<{
   name: string;
@@ -10,4 +10,4 @@ export type Category = IdentifiableEntity<{
   expand?: string;
 }>;
 
-export type GetAllCategoryPathsQuery = SearchResponse<Category>;
+export type QueryCategoryResponse = { categories: Category[] };

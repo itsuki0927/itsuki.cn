@@ -30,8 +30,8 @@ export type Article = IdentifiableEntity<{
 export type SearchArticlesBody = {
   search?: string;
   name?: string;
-  tag?: string;
-  category?: string;
+  tagPath?: string;
+  categoryPath?: string;
   hot?: number;
   banner?: number;
   pageSize?: number;

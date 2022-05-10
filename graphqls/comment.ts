@@ -7,25 +7,28 @@ export const QUERY_COMMENTS = gql`
       data {
         id
         createAt
-        updateAt
         nickname
         email
         website
         content
-        liking
-        ip
-        agent
-        city
-        province
         state
-        fix
-        expand
-        articleTitle
-        articleDescription
-        parentNickName
         parentId
-        articleId
       }
+    }
+  }
+`;
+
+export const CREATE_COMMENT = gql`
+  mutation createComment($input: CreateCommentInput!) {
+    createComment(input: $input) {
+      id
+      createAt
+      nickname
+      email
+      website
+      content
+      state
+      parentId
     }
   }
 `;

@@ -1,4 +1,9 @@
-import { IdentifiableEntity, SearchRequest, SearchResponse } from '../types/response';
+import {
+  IdentifiableEntity,
+  MutationRequest,
+  SearchRequest,
+  SearchResponse,
+} from '../types/response';
 
 export type Comment = IdentifiableEntity<{
   nickname: string;
@@ -42,4 +47,10 @@ export type QueryCommentsResponse = {
   comments: SearchResponse<Comment>;
 };
 
+export type CreateCommentResponse = {
+  createComment: Comment;
+};
+
 export type QueryCommentsSearch = SearchRequest<SearchCommentsBody>;
+
+export type CreateCommentInput = MutationRequest<PostCommentBody>;

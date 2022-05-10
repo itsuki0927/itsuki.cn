@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 import { createComment } from '@/api/comment';
-import { Comment, PostCommentBody } from '@/entities/comment';
+import { Comment, PostCommentBody, QueryCommentsResponse } from '@/entities/comment';
 import { commentKeys } from '@/constants/queryKeys';
 
 const useCreateComment = (articleId: number) => {
@@ -9,11 +9,24 @@ const useCreateComment = (articleId: number) => {
   const mutation = useMutation<Comment, AxiosError, PostCommentBody>(
     newComment => createComment(newComment),
     {
-      onSuccess: data => {
+      onSuccess: newData => {
         // queryCient.invalidateQueries([{ articleId }, 'comments']);
-        queryClient.setQueryData<Comment[]>(
+        queryClient.setQueryData<QueryCommentsResponse['comments']>(
           commentKeys.lists(articleId),
-          (oldComments = []) => oldComments.concat(data)
+          oldData => {
+            if (!oldData) {
+              return {
+                data: [],
+                total: 0,
+                filter: null,
+              } as QueryCommentsResponse['comments'];
+            }
+            return {
+              ...oldData,
+              data: oldData.data.concat(newData),
+              total: oldData.total + 1,
+            };
+          }
         );
       },
     }

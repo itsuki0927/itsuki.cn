@@ -26,10 +26,7 @@ const CommentView = ({ articleId }: CommentProps) => {
   );
   const mutation = useCreateComment(articleId);
 
-  const comments = useMemo(
-    () => convertToCommentTreeData({ comments: data?.data ?? [] }),
-    [data?.data]
-  );
+  const comments = useMemo(() => convertToCommentTreeData(data?.data), [data?.data]);
 
   const handleSend = useCallback(
     (content: string) =>

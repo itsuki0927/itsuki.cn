@@ -4,17 +4,17 @@ export type CommentTree = Comment & {
   children?: CommentTree[];
 };
 
-export function convertToCommentTreeData(state: { comments: Comment[] }) {
+export function convertToCommentTreeData(comments: Comment[] = []) {
   // only keep 2 level tree
-  const ids = state.comments.map(comment => comment.id);
-  const roots = state.comments.filter(
-    comment => comment.parentId === 0 || !ids.includes(comment.parentId)
+  const ids = comments.map(comment => comment.id);
+  const roots = comments.filter(
+    comment => +comment.parentId === 0 || !ids.includes(comment.parentId)
   );
-  const children = state.comments.filter(
-    comment => comment.parentId !== 0 && ids.includes(comment.parentId)
+  const children = comments.filter(
+    comment => +comment.parentId !== 0 && ids.includes(comment.parentId)
   );
   const fullMap = new Map<number, Comment>(
-    state.comments.map(comment => [comment.id, comment])
+    comments.map(comment => [comment.id, comment])
   );
   const treeMap = new Map<number, { comment: Comment; children: Array<Comment> }>(
     roots.map(comment => [comment.id, { comment, children: [] }])
@@ -25,7 +25,7 @@ export function convertToCommentTreeData(state: { comments: Comment[] }) {
     if (!target) {
       return undefined;
     }
-    return target.parentId === 0 ? target.id : findRootParentID(target.parentId);
+    return +target.parentId === 0 ? target.id : findRootParentID(target.parentId);
   };
 
   children.forEach(comment => {

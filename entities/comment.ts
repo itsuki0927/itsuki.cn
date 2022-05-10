@@ -1,4 +1,4 @@
-import { IdentifiableEntity } from '../types/response';
+import { IdentifiableEntity, SearchRequest, SearchResponse } from '../types/response';
 
 export type Comment = IdentifiableEntity<{
   nickname: string;
@@ -37,3 +37,9 @@ export type PostCommentBody = {
   agent: string;
   parentId?: number;
 };
+
+export type QueryCommentsResponse = {
+  comments: SearchResponse<Comment>;
+};
+
+export type QueryCommentsSearch = SearchRequest<SearchCommentsBody>;

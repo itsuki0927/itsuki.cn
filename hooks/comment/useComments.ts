@@ -7,7 +7,7 @@ const useComments = (articleId: number) => {
 
   return {
     ...res,
-    isEmpty: res.data?.length === 0,
+    isEmpty: res.data?.total === 0,
   };
 };
 

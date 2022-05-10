@@ -1,11 +1,25 @@
-import { Comment, PostCommentBody } from '@/entities/comment';
-import service from './service';
+import request from 'graphql-request';
+import {
+  Comment,
+  PostCommentBody,
+  QueryCommentsResponse,
+  QueryCommentsSearch,
+} from '@/entities/comment';
+import { QUERY_COMMENTS } from '@/graphqls/comment';
+import service, { endpoint } from './service';
 
-export const getComments = (articleId: number) =>
-  service.request<void, Comment[]>({
-    method: 'get',
-    url: `/article/${articleId}/comments`,
-  });
+export const getComments = async (articleId: number) => {
+  const { comments } = await request<QueryCommentsResponse, QueryCommentsSearch>(
+    endpoint,
+    QUERY_COMMENTS,
+    {
+      search: {
+        articleId,
+      },
+    }
+  );
+  return comments;
+};
 
 export const createComment = (newComment: PostCommentBody) =>
   service.request<void, Comment>({

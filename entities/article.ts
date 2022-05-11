@@ -75,3 +75,7 @@ export type QueryArticlesResponse = {
 export type LikeArticleResponse = {
   likeArticle: number;
 };
+
+export type ReadArticleResponse = {
+  readArticle: number;
+};

@@ -75,3 +75,9 @@ export const LIKE_ARTICLE = gql`
     likeArticle(id: $id)
   }
 `;
+
+export const READ_ARTICLE = gql`
+  mutation readArticle($id: ID!) {
+    readArticle(id: $id)
+  }
+`;

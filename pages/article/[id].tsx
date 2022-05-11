@@ -2,7 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ReactNode } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import { getGlobalData } from '@/api/global';
-import { addArticleReading, getAllArticlePaths, getArticle } from '@/api/article';
+import { readArticle, getAllArticlePaths, getArticle } from '@/api/article';
 import { ArticleView } from '@/components/article';
 import { ErrorHandler, Layout } from '@/components/common';
 import { Loading } from '@/components/ui';
@@ -27,7 +27,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     };
   }
 
-  await addArticleReading(articleId);
+  readArticle(articleId);
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(articleKeys.detail(articleId), () =>

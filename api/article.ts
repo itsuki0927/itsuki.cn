@@ -4,16 +4,18 @@ import {
   QueryArticleResponse,
   QueryArticleSearch,
   QueryArticlesResponse,
+  ReadArticleResponse,
   SearchArticlesBody,
 } from '@/entities/article';
 import { ID } from '@/types/response';
 import { PublishState } from '@/constants/article/publish';
-import service, { endpoint } from './service';
+import { endpoint } from './service';
 import {
   LIKE_ARTICLE,
   QUERY_ARTICLE,
   QUERY_ARTICLES,
   QUERY_ARTICLE_PATHS,
+  READ_ARTICLE,
 } from '@/graphqls/article';
 import { DEFAULT_CURRENT } from '@/constants/pagination';
 
@@ -55,8 +57,5 @@ export const getAllArticlePaths = async () => {
 export const likeArticle = (id: number) =>
   request<LikeArticleResponse, ID>(endpoint, LIKE_ARTICLE, { id });
 
-export const addArticleReading = (id: number) =>
-  service.request<void, number>({
-    method: 'patch',
-    url: `/article/${id}/read`,
-  });
+export const readArticle = (id: number) =>
+  request<ReadArticleResponse, ID>(endpoint, READ_ARTICLE, { id });

@@ -51,11 +51,11 @@ customRenderer.link = function renderLink(hrefProp: string, title: string, text:
 };
 
 // 解析图片
-customRenderer.image = function renderImage(url: string, title: string, text: string) {
+customRenderer.image = function renderImage(src: string, title: string, text: string) {
   return `<img
-            src=${url}
+            src=${src}
             title=${title}
-            onclick="imagePopup && imagePopup.open('${url}')"
+            onclick="imagePopup && imagePopup.open('${src}')"
             alt=${title || text}
           />`;
 };

@@ -18,3 +18,11 @@ body {
 
   width: 1050px;
 }
+
+img {
+  @apply relative cursor-pointer opacity-80 transition-all;
+
+  &:hover {
+    @apply opacity-100;
+  }
+}

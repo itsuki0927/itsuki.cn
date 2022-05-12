@@ -31,7 +31,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   );
 
   return (
-    <div className='border border-solid border-white-1 bg-white-1 text-sm dark:border-white-1--dark dark:bg-white-1--dark'>
+    <div className='bg-white-1 text-sm dark:bg-white-1--dark'>
       <div className='relative'>
         <div
           className='max-h-[460px] min-h-[120px] overflow-y-scroll p-3 leading-5'

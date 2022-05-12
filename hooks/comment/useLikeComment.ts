@@ -1,10 +1,11 @@
-import { AxiosError } from 'axios';
+import { GraphQLError } from 'graphql';
 import { useMutation, useQueryClient } from 'react-query';
 import { likeComment } from '@/api/comment';
 import { initialLikeValue, LikeComments, LikeCommentsKey } from '@/constants/like';
 import { commentKeys } from '@/constants/queryKeys';
-import { Comment } from '@/entities/comment';
+import { Comment, LikeCommentResponse } from '@/entities/comment';
 import { useLocalStorage } from '..';
+import { SearchResponse } from '@/types/response';
 
 type UseLikeCommentHook = {
   articleId: number;
@@ -17,24 +18,33 @@ const useLikeComment = ({ articleId, commentId }: UseLikeCommentHook) => {
     LikeCommentsKey,
     initialLikeValue
   );
-  const mutation = useMutation<number, AxiosError>(() => likeComment(commentId), {
-    onSuccess: liking => {
-      setLikeComments({ ...likeComments, [commentId]: true });
-      // NOTE: 有两种方式更新
-      // 1. queryClient.invalidateQueries()
-      // 2. queryClient.setQueryData()
-      queryClient.setQueryData<Comment[]>(
-        commentKeys.lists(articleId),
-        (oldComments = []) =>
-          oldComments.map(comment => {
-            if (comment.id === commentId) {
-              return { ...comment, liking };
-            }
-            return comment;
-          })
-      );
-    },
-  });
+  const mutation = useMutation<LikeCommentResponse, GraphQLError>(
+    () => likeComment(commentId),
+    {
+      onSuccess: ({ likeComment: liking }) => {
+        setLikeComments({ ...likeComments, [commentId]: true });
+        // NOTE: 有两种方式更新
+        // 1. queryClient.invalidateQueries()
+        // 2. queryClient.setQueryData()
+        queryClient.setQueryData<SearchResponse<Comment>>(
+          commentKeys.lists(articleId),
+          oldComments => {
+            if (!oldComments) return { total: 0, data: [], filter: null };
+            return {
+              ...oldComments,
+              data: oldComments.data.map(comment => {
+                if (Number(comment.id) === commentId) {
+                  return { ...comment, liking };
+                }
+                return comment;
+              }),
+              filter: null,
+            };
+          }
+        );
+      },
+    }
+  );
 
   return { isLike: !!likeComments[commentId], mutation } as const;
 };

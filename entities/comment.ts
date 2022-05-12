@@ -54,3 +54,7 @@ export type CreateCommentResponse = {
 export type QueryCommentsSearch = SearchRequest<SearchCommentsBody>;
 
 export type CreateCommentInput = MutationRequest<PostCommentBody>;
+
+export type LikeCommentResponse = {
+  likeComment: number;
+};

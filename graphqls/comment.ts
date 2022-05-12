@@ -13,6 +13,8 @@ export const QUERY_COMMENTS = gql`
         content
         state
         parentId
+        liking
+        articleId
       }
     }
   }
@@ -30,5 +32,11 @@ export const CREATE_COMMENT = gql`
       state
       parentId
     }
+  }
+`;
+
+export const LIKE_COMMENT = gql`
+  mutation likeComment($id: ID!) {
+    likeComment(id: $id)
   }
 `;

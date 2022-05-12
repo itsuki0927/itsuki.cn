@@ -1,4 +1,5 @@
 import { ReactNode, useRef } from 'react';
+import classNames from 'classnames';
 import { MyImage, ToDate } from '@/components/common';
 import {
   CloseOutlined,
@@ -13,6 +14,7 @@ import { Comment } from '@/entities/comment';
 import { useMarkdown } from '@/hooks';
 import { NoReturnFunction } from '@/types/fn';
 import CommentList, { buildeCommentTree, CommentTree } from '../CommentList';
+import useLikeComment from '@/hooks/comment/useLikeComment';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -41,6 +43,10 @@ const CommentCard = ({
   const ref = useRef<HTMLDivElement | null>(null);
   const { comment, children: commentChildren } = data;
   const contentHtml = useMarkdown(ref, comment.content);
+  const { isLike, mutation } = useLikeComment({
+    articleId: Number(data.comment.articleId),
+    commentId: Number(data.comment.id),
+  });
 
   return (
     <div
@@ -106,7 +112,18 @@ const CommentCard = ({
               </span>
             )}
             <button
-              className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-danger-light hover:text-danger  '
+              className={classNames(
+                'inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 ',
+                isLike
+                  ? 'bg-danger-light text-danger'
+                  : 'hover:bg-danger-light hover:text-danger'
+              )}
+              onClick={() => {
+                if (isLike) {
+                  return;
+                }
+                mutation.mutateAsync();
+              }}
               type='button'
             >
               <LikeOutlined className='mr-1' />

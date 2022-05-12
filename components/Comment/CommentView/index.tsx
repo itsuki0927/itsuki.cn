@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Container, Loading } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import { Comment, PostCommentBody } from '@/entities/comment';
@@ -9,9 +9,9 @@ import purifyDomString from '@/utils/purify';
 import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';
 import CommentProfile from '../CommentProfile';
-import CommentReply from '../CommentReply';
 import { convertToCommentTreeData } from './utils';
 import { isEmail } from '@/utils/validate';
+import CommentCard from '../CommentCard';
 
 type CommentProps = {
   articleId: number;
@@ -74,20 +74,12 @@ const CommentView = ({ articleId }: CommentProps) => {
   const replyCallback = useCallback(
     (comment: Comment) =>
       replyId === comment.id ? (
-        <div className='text-sm'>
-          <CommentForm
-            hiddenAvatar
-            onSend={handleSend}
-            reply={
-              <CommentReply
-                comment={comment}
-                isReply
-                onCloseReply={() => setReplyId(null)}
-              />
-            }
-            profile={<CommentProfile value={profile} onChange={setProfile} />}
-          />
-        </div>
+        <CommentForm
+          className='mt-4'
+          hiddenAvatar
+          onSend={handleSend}
+          profile={<CommentProfile value={profile} onChange={setProfile} />}
+        />
       ) : null,
     [handleSend, profile, replyId, setProfile]
   );
@@ -97,28 +89,40 @@ const CommentView = ({ articleId }: CommentProps) => {
   }
 
   return (
-    <Container>
-      {!!comments?.length && (
-        <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 dark:text-dark-2--dark'>
-          {comments?.length} 条沙雕评论
-        </h3>
-      )}
-      <CommentList
-        onReply={comment => setReplyId(comment.id)}
-        reply={replyCallback}
-        data={comments}
-      />
+    <>
+      <Container>
+        <div className='overflow-hidden'>
+          <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 dark:text-dark-2--dark'>
+            陈独秀请发言
+          </h3>
+          <CommentForm
+            onSend={handleSend}
+            profile={<CommentProfile value={profile} onChange={setProfile} />}
+          />
+        </div>
+      </Container>
 
-      <div className='overflow-hidden'>
-        <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 dark:text-dark-2--dark'>
-          陈独秀请发言
-        </h3>
-        <CommentForm
-          onSend={handleSend}
-          profile={<CommentProfile value={profile} onChange={setProfile} />}
-        />
-      </div>
-    </Container>
+      <Container className='my-6'>
+        {!!data?.total && (
+          <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 dark:text-dark-2--dark'>
+            {data?.total} 条沙雕评论
+          </h3>
+        )}
+        <CommentList data={comments}>
+          {(item, childClassName) => (
+            <CommentCard
+              replyId={replyId}
+              onReply={comment => setReplyId(comment.id)}
+              onCancelReply={() => setReplyId(null)}
+              reply={replyCallback}
+              key={item.comment.id}
+              data={item}
+              childClassName={childClassName}
+            />
+          )}
+        </CommentList>
+      </Container>
+    </>
   );
 };
 

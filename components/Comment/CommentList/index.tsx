@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Comment } from '@/entities/comment';
-import CommentCard from '../CommentCard';
 
 export type CommentTree = {
   comment: Comment;
@@ -10,44 +9,22 @@ export type CommentTree = {
 
 type CommentListProps = {
   className?: string;
+  children: (comment: CommentTree, itemClassName?: string) => ReactNode;
   data?: CommentTree[];
-  reply?: (comment: Comment) => ReactNode;
-  onReply?: (comment: Comment) => void;
   childClassName?: string;
-  commentClassName?: string;
 };
 
-const buildeCommentTree = (comments: Comment[]): Array<CommentTree> =>
+export const buildeCommentTree = (comments: Comment[]): Array<CommentTree> =>
   comments.map(comment => ({
     comment,
     children: [],
   }));
 
-const CommentList = ({
-  data,
-  className,
-  childClassName,
-  commentClassName,
-  ...rest
-}: CommentListProps) => (
+const CommentList = ({ data, className, childClassName, children }: CommentListProps) => (
   <TransitionGroup className={`space-y-4 ${className}`}>
     {data?.map(item => (
       <CSSTransition key={item.comment.id} timeout={500} classNames='comment'>
-        <CommentCard
-          comment={item.comment}
-          key={item.comment.id}
-          childClassName={childClassName}
-          {...rest}
-        >
-          {item.children?.length ? (
-            <CommentList
-              className='ml-12 mt-4'
-              data={buildeCommentTree(item.children)}
-              {...rest}
-              childClassName='border-l-[5px] border-solid border-white-2 dark:border-white-2--dark'
-            />
-          ) : null}
-        </CommentCard>
+        {children(item, childClassName)}
       </CSSTransition>
     ))}
   </TransitionGroup>

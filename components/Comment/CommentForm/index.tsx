@@ -9,7 +9,6 @@ const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor
 
 interface CommentFormProps {
   className?: string;
-  reply?: ReactNode;
   profile?: ReactNode;
   onSend: (content: string) => Promise<boolean>;
   hiddenAvatar?: boolean;
@@ -17,7 +16,6 @@ interface CommentFormProps {
 
 const CommentForm = ({
   className,
-  reply,
   onSend,
   profile: profileNode,
   hiddenAvatar,
@@ -32,17 +30,8 @@ const CommentForm = ({
       },
       (error: any = { message: '' }) => {
         const { message } = error;
-        // setLoading(false);
         alert(`评论发布失败: ${message}\n`);
         return false;
-        // alert(
-        //   `评论发布失败\n
-        //  1：检查邮箱是否符合格式\n
-        //  2：被 Akismet 过滤\n
-        //  3：邮箱/IP 被列入黑名单\n
-        //  4：内容包含黑名单关键词\n
-        //   `
-        // );
       }
     );
 
@@ -53,23 +42,27 @@ const CommentForm = ({
     >
       {hiddenAvatar ? null : (
         <MyImage
-          className='min-w-[60px]'
+          className='min-w-[45px]'
           imgClassName='rounded-full'
           src='https://static.itsuki.cn/avatar.jpg'
-          width={60}
-          height={60}
+          width={45}
+          height={45}
           alt='cover'
         />
       )}
 
-      <div className='mb-4 flex-grow space-y-3'>
-        {reply}
+      <div
+        className='flex-grow space-y-4'
+        style={{
+          maxWidth: hiddenAvatar ? '100%' : 'calc(100% - 61px)',
+        }}
+      >
         {profileNode}
+        <DynamicMarkdown code={content} onChange={setContent} placeholder='见解(必填)' />
 
-        <DynamicMarkdown code={content} onChange={setContent} />
         <div className='flex items-center justify-between'>
-          <div className='text-sm text-gray-2 dark:text-gray-2--dark'>
-            邮箱不会被泄漏, 放心评论吧
+          <div className='text-xs text-gray-2 dark:text-gray-2--dark'>
+            Tip: 不会泄漏邮箱, 支持Markdown, 还请友善评论.
           </div>
           <SendButton onConfirm={handleSend} />
         </div>

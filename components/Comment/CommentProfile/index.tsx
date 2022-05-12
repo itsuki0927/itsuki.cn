@@ -22,7 +22,7 @@ const CommentProfile = ({ onChange, value }: CommentProfileProps) => {
   };
 
   return (
-    <div className='flex space-x-3'>
+    <div className='flex space-x-4'>
       <Input
         className='flex-grow'
         name='nickname'

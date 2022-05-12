@@ -18,7 +18,7 @@ const Tags = ({ tags }: TagsProps) => {
           onClick={() => router.push(`/tag/${item.path}`)}
           className='mb-2 py-1 px-3 uppercase tracking-widest'
         >
-          {item.name}
+          {item.name} ({item.count})
         </Button>
       ))}
     </Widget>

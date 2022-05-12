@@ -19,11 +19,13 @@ export const QUERY_SITE_INFO = gql`
         id
         name
         path
+        count
       }
       tags {
         id
         path
         name
+        count
       }
     }
   }

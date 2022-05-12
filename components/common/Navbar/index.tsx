@@ -21,9 +21,9 @@ const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => 
   return (
     <div
       className={classNames(
-        'relative cursor-pointer px-5 text-center tracking-widest text-dark-2 transition-colors duration-500 hover:text-[#c9a16e] dark:hover:text-[#cba574]',
+        'relative cursor-pointer px-5 text-center tracking-widest text-dark-2 transition-colors duration-500 hover:text-primary-hover dark:hover:text-primary-hover--dark',
         {
-          'text-[#c9a16e] dark:text-[#cba574]': isActive,
+          'text-primary dark:text-primary--dark': isActive,
           'text-dark-2 dark:text-dark-2--dark': !isActive,
         }
       )}

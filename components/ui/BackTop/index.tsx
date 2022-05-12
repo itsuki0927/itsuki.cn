@@ -1,5 +1,4 @@
 import { ToTopOutlined } from '@/components/icons';
-import { IconButton } from '@/components/ui';
 import scrollTo from '@/utils/scrollTo';
 
 const BackTop = () => {
@@ -7,12 +6,13 @@ const BackTop = () => {
 
   return (
     <div className='fixed bottom-36 right-6 z-10'>
-      <IconButton
-        role='button'
-        className='px-4 py-2'
-        icon={<ToTopOutlined />}
+      <button
+        type='button'
+        className='rounded-sm bg-primary px-3 py-1 text-white opacity-40 transition-opacity duration-300 hover:opacity-100'
         onClick={backToTop}
-      />
+      >
+        <ToTopOutlined />
+      </button>
     </div>
   );
 };

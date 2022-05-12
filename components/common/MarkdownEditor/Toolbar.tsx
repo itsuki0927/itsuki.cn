@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
-import { Button } from '@/components/ui';
 
 type ToolbarProps = {
   preview?: boolean;
@@ -38,17 +37,17 @@ const Toolbar = ({ preview, onPreview }: ToolbarProps) => (
         }
         classNames='move'
       >
-        <Button
+        <button
+          type='button'
           className={classNames(
-            'bg-white-3 py-1 px-2 text-xxs hover:bg-white-2 hover:text-gray-3 dark:bg-white-3--dark dark:text-gray-3--dark'
+            'bg-white-3 py-1 px-2 text-xxs text-gray-3 hover:bg-white-2 hover:text-dark-1 dark:bg-white-3--dark dark:text-gray-3--dark'
           )}
-          size='small'
           onClick={() => {
             onPreview?.(!preview);
           }}
         >
           {preview ? '编辑' : '预览'}
-        </Button>
+        </button>
       </CSSTransition>
     </SwitchTransition>
   </div>

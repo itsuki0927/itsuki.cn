@@ -9,7 +9,7 @@ const Container = forwardRef<HTMLDivElement, ContainerProps>(
   ({ children, style, className = '' }, ref) => (
     <div
       ref={ref}
-      className={`bg-white p-4 dark:bg-white--dark ${className}`}
+      className={`rounded-sm bg-white p-4 dark:bg-white--dark ${className}`}
       style={style}
     >
       {children}

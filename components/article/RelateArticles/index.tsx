@@ -25,7 +25,7 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
               alt='relate-article-cover'
               objectFit='cover'
             />
-            <h2 className='my-2 cursor-pointer px-3 text-center text-sm tracking-widest text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-gray-3 dark:text-dark-2--dark dark:hover:text-gray-3--dark'>
+            <h2 className='my-2 cursor-pointer px-3 text-center text-sm tracking-widest text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary dark:text-dark-2--dark dark:hover:text-gray-3--dark'>
               <Link href={getArticleDetailUrl(article.id)}>{article.title}</Link>
             </h2>
             <span className='block text-center text-xs tracking-wider text-gray-1 dark:text-gray-1--dark'>

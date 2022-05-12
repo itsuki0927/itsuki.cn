@@ -1,9 +1,5 @@
 import { ReactNode, useRef } from 'react';
 import { MyImage, ToDate } from '@/components/common';
-import { MarkdownBlock } from '@/components/ui';
-import { Comment } from '@/entities/comment';
-import { NoReturnFunction } from '@/types/fn';
-import { useMarkdown } from '@/hooks';
 import {
   CloseOutlined,
   CommentOutlined,
@@ -12,6 +8,10 @@ import {
   TimeOutlined,
 } from '@/components/icons';
 import ReplyOutlined from '@/components/icons/ReplyOutlined';
+import { MarkdownBlock } from '@/components/ui';
+import { Comment } from '@/entities/comment';
+import { useMarkdown } from '@/hooks';
+import { NoReturnFunction } from '@/types/fn';
 import CommentList, { buildeCommentTree, CommentTree } from '../CommentList';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
@@ -67,8 +67,8 @@ const CommentCard = ({
               {Number(comment.parentId) > 0 && (
                 <div className='text-sm text-gray-2'>
                   回复
-                  <span className='ml-1 cursor-pointer transition-colors duration-300 hover:text-dark-2'>
-                    #{comment.parentNickName ?? '弗雷'}
+                  <span className='ml-1 cursor-pointer transition-colors duration-300 hover:text-dark-2 dark:hover:text-dark-2--dark'>
+                    #{comment.parentNickName}
                   </span>
                 </div>
               )}
@@ -83,9 +83,9 @@ const CommentCard = ({
               <span className='ml-2'>
                 <CompassOutlined className='mr-1 text-xs' />
                 <span className='text-xs'>
-                  {comment.province ?? '湖南'}
+                  {comment.province}
                   <i className='mx-1'>•</i>
-                  {comment.city ?? '娄底'}
+                  {comment.city}
                 </span>
               </span>
             </div>
@@ -102,16 +102,17 @@ const CommentCard = ({
         <div className='flex justify-between text-gray-1'>
           <div>
             {!!commentChildren.length && (
-              <span className='mr-3 inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-[#E1F0FF] hover:text-[#369EFF]'>
+              <span className='mr-3 inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-primary-light hover:text-primary dark:hover:bg-primary-light--dark dark:hover:text-primary--dark'>
                 <CommentOutlined className='mr-1' />
                 {commentChildren.length}
               </span>
             )}
             <button
-              className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-[#FFE2E5] hover:text-[#F64E60]'
+              className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-danger-light hover:text-danger dark:hover:bg-danger-light--dark dark:hover:text-danger--dark'
               type='button'
             >
-              <LikeOutlined className='mr-1' />7
+              <LikeOutlined className='mr-1' />
+              {comment.liking}
             </button>
           </div>
 

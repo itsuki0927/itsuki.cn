@@ -55,7 +55,7 @@ const Input = React.forwardRef((props: InputProps, ref: any) => {
   );
 
   const classString = classNames(
-    'relative m-0 box-border inline-block min-w-0 list-none rounded-sm bg-white-1 py-2 px-3 text-sm transition-colors duration-200 hover:bg-white-2 focus:bg-white-2 dark:border-white-1--dark dark:bg-white-1--dark',
+    'relative m-0 box-border inline-block min-w-0 list-none rounded-sm bg-white-1 py-2 px-3 text-sm transition-colors duration-200 hover:bg-white-2 focus:bg-white-2 dark:bg-white-1--dark',
     className
   );
 

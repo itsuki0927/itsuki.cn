@@ -3,7 +3,6 @@ import router from 'next/router';
 import { MyImage, ToDate } from '@/components/common';
 import { Article } from '@/entities/article';
 import { HeartOutlined, MessageOutlined, EyeOutlined } from '@/components/icons';
-import { Button } from '@/components/ui';
 import s from './style.module.scss';
 import { getArticleDetailUrl } from '@/utils/url';
 
@@ -34,7 +33,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
         </span>
 
         <h3
-          className='cursor-pointer tracking-widest text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-gray-3 dark:text-gray-2--dark'
+          className='cursor-pointer tracking-widest text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary dark:text-gray-2--dark'
           onClick={() => router.push(getArticleDetailUrl(article.id))}
         >
           {article.title}
@@ -45,25 +44,25 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
         <p className='line-clamp-2'>{article.description}</p>
       </div>
 
-      <Button
-        type='ghost'
+      <button
+        type='button'
         onClick={() => router.push(getArticleDetailUrl(article.id))}
-        className='mb-3 py-2 px-6 tracking-widest'
+        className='mb-3 rounded-sm bg-white-1 py-2 px-6 text-xs tracking-widest text-gray-3 transition-colors duration-300 hover:bg-primary-light hover:text-primary dark:bg-white-1--dark dark:hover:bg-primary-light--dark dark:hover:text-primary--dark'
       >
         READ MORE
-      </Button>
+      </button>
 
-      <div className='mb-1 flex items-end space-x-3 text-xxs text-gray-1 dark:text-gray-1--dark'>
+      <div className='mb-1 flex items-end space-x-3 text-xs text-gray-1 dark:text-gray-1--dark'>
         <span>
-          <HeartOutlined className='mr-1 text-xxs' />
+          <HeartOutlined className='mr-1 text-xs' />
           {article.liking}
         </span>
         <span>
-          <EyeOutlined className='mr-1 text-xxs' />
+          <EyeOutlined className='mr-1 text-xs' />
           {article.reading}
         </span>
         <span>
-          <MessageOutlined className='mr-1 text-xxs' />
+          <MessageOutlined className='mr-1 text-xs' />
           {article.commenting}
         </span>
       </div>

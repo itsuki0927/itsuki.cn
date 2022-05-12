@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
-import { Button } from '@/components/ui';
 import MyImage from '../MyImage';
 
 interface ErrorProps {
@@ -29,9 +28,13 @@ const ErrorHandler = ({
       </h1>
       <h2 className='text-xl text-gray-3'>{message}</h2>
       {showBackButton && (
-        <Button type='ghost' className='px-16 py-3' onClick={() => router.push('/')}>
+        <button
+          type='button'
+          className='bg-white-1 px-16 py-3 text-gray-3 transition-colors duration-300 hover:bg-white-2 hover:text-dark-1'
+          onClick={() => router.push('/')}
+        >
           起点
-        </Button>
+        </button>
       )}
     </div>
   );

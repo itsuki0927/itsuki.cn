@@ -23,7 +23,7 @@ const HotArticles = ({ hotArticles }: HotArticlesProps) => (
           className='min-w-[94px]'
         />
         <div className='ml-4'>
-          <h4 className='cursor-pointer text-sm tracking-wider text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-gray-3 dark:text-dark-2--dark'>
+          <h4 className='cursor-pointer text-sm tracking-wider text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary dark:text-dark-2--dark'>
             <Link href={getArticleDetailUrl(article.id)}>{article.title}</Link>
           </h4>
           <span className='text-xs text-gray-1 dark:text-gray-1--dark'>

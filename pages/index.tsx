@@ -1,10 +1,11 @@
 import { ReactNode, useState } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
+import classNames from 'classnames';
 import { getArticles, getBannerArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
 import { ArticleList } from '@/components/article';
 import { DashboardLayout } from '@/components/common';
-import { Button, Loading } from '@/components/ui';
+import { Loading } from '@/components/ui';
 import { DEFAULT_CURRENT, DEFAULT_PAGE_SIZE } from '@/constants/pagination';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { useArticles } from '@/hooks/article';
@@ -41,7 +42,8 @@ const HomePage = () => {
       <ArticleList {...articles} />
 
       <div className='flex justify-between'>
-        <Button
+        <button
+          type='button'
           disabled={!articles.data?.hasPrev}
           onClick={() => {
             setCurrent(c => Math.max(1, c - 1));
@@ -49,12 +51,18 @@ const HomePage = () => {
               offset: -80,
             });
           }}
-          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-gray-3 dark:text-gray-3--dark'
+          className={classNames(
+            'flex items-center rounded-sm px-4 py-2 text-xs font-light tracking-widest transition-colors duration-300 ',
+            !articles.data?.hasPrev
+              ? 'cursor-not-allowed text-gray-1'
+              : 'bg-white text-primary hover:bg-primary hover:text-white dark:bg-white--dark dark:text-primary--dark'
+          )}
         >
           <LeftOutlined className='mr-1 text-xxs' />
           NEW POSTS
-        </Button>
-        <Button
+        </button>
+        <button
+          type='button'
           disabled={!articles.data?.hasNext}
           onClick={() => {
             setCurrent(c => c + 1);
@@ -62,11 +70,16 @@ const HomePage = () => {
               offset: -80,
             });
           }}
-          className='flex items-center px-4 py-[10px] text-xxs font-light tracking-widest text-gray-3 dark:text-gray-3--dark'
+          className={classNames(
+            'flex items-center rounded-sm px-4 py-2 text-xs font-light tracking-widest transition-colors duration-300',
+            !articles.data?.hasNext
+              ? 'cursor-not-allowed text-gray-1'
+              : 'bg-white text-primary hover:bg-primary hover:text-white dark:bg-white--dark dark:text-primary--dark'
+          )}
         >
           OLD POSTS
           <RightOutlined className='ml-1 text-xxs' />
-        </Button>
+        </button>
       </div>
     </div>
   );

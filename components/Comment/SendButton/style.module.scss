@@ -2,7 +2,7 @@ button.send {
   --duration: 1600ms;
   --color: #f6f8ff;
   --icon: var(--color);
-  --progress-border: #2b3044;
+  --progress-border: #187de4;
   --progress-active: #f6f8ff;
   --progress-success: #16bf78;
   --tick-stroke: var(--progress-active);
@@ -11,10 +11,11 @@ button.send {
 
   backface-visibility: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
-  box-shadow: inset 0 var(--shadow-y, 4px) var(--shadow-blur, 12px) var(--shadow);
+  box-shadow: inset 0 var(--shadow-y, 2px) var(--shadow-blur, 6px) var(--shadow);
   transform: scale(var(--scale, 1));
 
-  @apply cursor-pointer select-none rounded-sm border border-solid border-gray-3 bg-dark-2 py-2 px-6 text-sm text-white outline-none dark:border-gray-3--dark dark:bg-dark-2--dark dark:text-white--dark;
+  // '#0055ac'
+  @apply cursor-pointer select-none rounded-sm bg-primary py-2 px-6 text-sm text-white outline-none dark:bg-primary--dark dark:text-white--dark;
 
   > div {
     @apply absolute top-2 left-2 rounded-full;
@@ -25,7 +26,7 @@ button.send {
     transform: translateX(var(--icon-x, -4px));
 
     &::before {
-      @apply absolute z-10 h-4 w-4 bg-dark-2 dark:bg-dark-2--dark;
+      @apply absolute z-10 h-4 w-4 bg-primary dark:bg-dark-2--dark;
 
       content: '';
       left: 2px;

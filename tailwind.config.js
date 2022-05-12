@@ -33,7 +33,21 @@ module.exports = {
       'dark-2': '#2d2d2d',
       'dark-3': '#222',
       'dark-4': '#1c1c1c',
-      basic: '#444444',
+
+      basic: 'dark-1',
+      primary: '#3699FF',
+      'primary-hover': '#187DE4',
+      'primary-light': '#E1F0FF',
+      danger: '#F64E60',
+      'danger-hover': '#ec0c24',
+      'danger-light': '#FFE2E5',
+
+      'primary--dark': '#3fa9ff',
+      'primary-hover--dark': '#48a2ec',
+      'primary-light--dark': '#b7dfff',
+      'danger--dark': '#f65364',
+      'danger-hover--dark': '#f4293f',
+      'danger-light--dark': '#ffb8bf',
 
       'basic--dark': '#bdb7af',
       'white--dark': '#e8e6e3',
@@ -77,6 +91,13 @@ module.exports = {
         'dark-2--dark': '#222526',
         'dark-3--dark': '#1a1c1d',
         'dark-4--dark': '#151718',
+
+        'primary--dark': '#0055ac',
+        'primary-hover--dark': '#1364b6',
+        'primary-light--dark': '#202325',
+        'danger--dark': '#9b0818',
+        'danger-hover--dark': '#bd0a1d',
+        'danger-light--dark': '#440007',
       },
       fontSize: {
         xxs: ['0.625rem', '0.75rem'],

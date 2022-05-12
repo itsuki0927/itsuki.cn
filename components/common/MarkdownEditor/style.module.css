@@ -1,0 +1,8 @@
+.root:empty::before {
+  @apply text-gray-2;
+  content: attr(placeholder);
+}
+
+.root:not(:empty):focus::before {
+  content: '';
+}

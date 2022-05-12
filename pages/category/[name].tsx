@@ -59,7 +59,7 @@ const CategoryPage = ({
         description={category?.description}
       />
 
-      <Banner className='mb-5'>分类: {category?.name}</Banner>
+      <Banner className='mb-6'>分类: {category?.name}</Banner>
 
       <ArticleList {...articles} />
     </>

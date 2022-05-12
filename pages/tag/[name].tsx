@@ -57,7 +57,7 @@ const ArticleTagPage = ({
         description={tag?.description}
       />
 
-      <Banner className='mb-5'>标签: {tag?.name}</Banner>
+      <Banner className='mb-6'>标签: {tag?.name}</Banner>
 
       <ArticleList {...articles} />
     </>

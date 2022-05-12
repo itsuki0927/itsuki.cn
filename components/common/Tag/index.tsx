@@ -11,7 +11,7 @@ const Tag = ({ tag }: TagProps) => (
     tabIndex={-1}
     role='button'
     key={tag.id}
-    className='h-max cursor-pointer rounded-sm bg-[#faebd7] px-2 py-[2px] text-xs font-light uppercase transition-colors hover:bg-[#ffd090] dark:bg-[#292524] dark:hover:bg-[#ffd090]'
+    className='h-max cursor-pointer rounded-sm bg-[#faebd7] px-2 py-[2px] text-xs font-light uppercase transition-colors hover:bg-[#ffd090]  '
   >
     <Link href={getTagUrl(tag.path)}>
       <># {tag.name}</>

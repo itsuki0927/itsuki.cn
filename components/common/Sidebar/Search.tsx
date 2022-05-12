@@ -20,7 +20,7 @@ const Search = () => {
     <Widget>
       <Widget.Header>我寻你千百度</Widget.Header>
       <Input
-        className='mb-2 block h-9 w-full px-3 text-xs tracking-widest dark:border-gray-3--dark dark:bg-white-1--dark'
+        className='mb-2 block h-9 w-full px-3 text-xs tracking-widest  '
         placeholder='搜点什么'
         onKeyUp={handleSearch}
       />

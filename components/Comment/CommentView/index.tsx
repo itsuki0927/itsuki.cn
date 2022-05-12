@@ -92,7 +92,7 @@ const CommentView = ({ articleId }: CommentProps) => {
     <>
       <Container>
         <div className='overflow-hidden'>
-          <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 dark:text-dark-2--dark'>
+          <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 '>
             陈独秀请发言
           </h3>
           <CommentForm
@@ -104,7 +104,7 @@ const CommentView = ({ articleId }: CommentProps) => {
 
       <Container className='my-6'>
         {!!data?.total && (
-          <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 dark:text-dark-2--dark'>
+          <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 '>
             {data?.total} 条沙雕评论
           </h3>
         )}

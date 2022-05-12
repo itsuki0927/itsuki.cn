@@ -20,7 +20,7 @@
   a {
     @apply my-0 mx-1 inline-block h-max rounded-sm px-1 indent-0 leading-6 no-underline transition-colors duration-300;
 
-    @apply bg-[#d1e8f399] text-[#31302e] dark:bg-[#bde7fb99] dark:text-dark-3;
+    @apply bg-[#d1e8f399] text-[#31302e] dark:bg-[#bde7fb99];
 
     &:hover,
     &:focus {
@@ -128,7 +128,7 @@
   }
 
   pre {
-    @apply relative mb-2 block overflow-hidden rounded-sm bg-white-1 dark:bg-white-1--dark;
+    @apply relative mb-2 block overflow-hidden rounded-sm bg-white-1;
 
     code {
       @apply m-0 block h-full w-full bg-transparent p-4 text-[#535353] dark:bg-transparent dark:text-[#b4ada3];
@@ -150,7 +150,7 @@
 
     th,
     td {
-      @apply border border-solid border-white-3 dark:border-white-3--dark;
+      @apply border border-solid border-white-3;
 
       padding: 0.5em 1em;
       vertical-align: inherit;
@@ -167,7 +167,7 @@
 
     pre {
       // NOTE: bg-[#f3f3f3]
-      @apply flex flex-wrap-reverse items-baseline bg-white-2 dark:bg-white-2--dark;
+      @apply flex flex-wrap-reverse items-baseline bg-white-2;
 
       code {
         @apply p-2 leading-6;

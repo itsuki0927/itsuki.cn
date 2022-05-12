@@ -93,10 +93,7 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
 
   if (!children) return null;
 
-  const classString = classNames(
-    'relative overflow-hidden bg-white dark:bg-white--dark',
-    className
-  );
+  const classString = classNames('relative overflow-hidden bg-white ', className);
 
   const placementMap = {
     top: 'top-4',
@@ -120,7 +117,7 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
   });
 
   const labelCls = classNames(
-    'relative block cursor-pointer bg-gray-1 transition-all after:absolute after:-top-1 after:-right-1 after:-bottom-1 after:-left-1 after:content-[""] hover:bg-white-1 dark:bg-gray-1--dark hover:dark:bg-white-1--dark',
+    'relative block cursor-pointer bg-gray-1 transition-all after:absolute after:-top-1 after:-right-1 after:-bottom-1 after:-left-1 after:content-[""] hover:bg-white-1  hover:',
     {
       'h-3 w-3 rounded-full': shape === 'dot',
       'rounded-sm': shape === 'bar',
@@ -157,7 +154,7 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
         'aria-hidden': activeIndex !== index,
         style: { ...child.props.style, [lengthKey]: `${100 / count}%` },
         className: classNames(
-          'float-left h-full w-full bg-white dark:bg-white--dark',
+          'float-left h-full w-full bg-white ',
           child.props.className
         ),
       });
@@ -191,7 +188,7 @@ const Carousel = forwardRef<any, CarouselProps>((props, ref) => {
         {showMask && (
           <div
             className={classNames(
-              'absolute left-0 top-0 h-full w-full bg-white dark:bg-white--dark',
+              'absolute left-0 top-0 h-full w-full bg-white ',
               vertical ? 'animate-move-left-half' : 'animate-move-left-half-vertical'
             )}
             style={{ [lengthKey]: '200%' }}

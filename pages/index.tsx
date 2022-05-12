@@ -55,7 +55,7 @@ const HomePage = () => {
             'flex items-center rounded-sm px-4 py-2 text-xs font-light tracking-widest transition-colors duration-300 ',
             !articles.data?.hasPrev
               ? 'cursor-not-allowed text-gray-1'
-              : 'bg-white text-primary hover:bg-primary hover:text-white dark:bg-white--dark dark:text-primary--dark'
+              : 'bg-white text-primary hover:bg-primary hover:text-white  '
           )}
         >
           <LeftOutlined className='mr-1 text-xxs' />
@@ -74,7 +74,7 @@ const HomePage = () => {
             'flex items-center rounded-sm px-4 py-2 text-xs font-light tracking-widest transition-colors duration-300',
             !articles.data?.hasNext
               ? 'cursor-not-allowed text-gray-1'
-              : 'bg-white text-primary hover:bg-primary hover:text-white dark:bg-white--dark dark:text-primary--dark'
+              : 'bg-white text-primary hover:bg-primary hover:text-white  '
           )}
         >
           OLD POSTS

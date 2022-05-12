@@ -39,11 +39,9 @@ const Loading = () => (
         />
       </path>
     </svg>
-    <p className='mt-1 text-sm tracking-widest text-gray-3 dark:text-gray-3--dark'>
+    <p className='mt-1 text-sm tracking-widest text-gray-3 '>
       有时候幸福需要等一等
-      <span className='absolute mt-1 text-xs text-gray-1 dark:text-gray-1--dark'>
-        《幸福终点站》
-      </span>
+      <span className='absolute mt-1 text-xs text-gray-1 '>《幸福终点站》</span>
     </p>
   </Container>
 );

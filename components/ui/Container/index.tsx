@@ -7,11 +7,7 @@ type ContainerProps = PropsWithChildren<{
 
 const Container = forwardRef<HTMLDivElement, ContainerProps>(
   ({ children, style, className = '' }, ref) => (
-    <div
-      ref={ref}
-      className={`rounded-sm bg-white p-4 dark:bg-white--dark ${className}`}
-      style={style}
-    >
+    <div ref={ref} className={`rounded-sm bg-white p-4  ${className}`} style={style}>
       {children}
     </div>
   )

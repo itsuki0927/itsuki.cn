@@ -1,6 +1,6 @@
 .labelWrapper {
   input:checked ~ label {
-    @apply bg-white-3 dark:bg-white-3--dark;
+    @apply bg-white-3;
   }
 }
 

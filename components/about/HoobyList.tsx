@@ -56,7 +56,7 @@ const HoobyCard = ({ title, description, icon }: HoobyProps) => (
       <h5 className='inline-block text-base font-medium'>{title}</h5>
     </div>
 
-    <span className='text-gray-3 dark:text-gray-3--dark'>{description}</span>
+    <span className='text-gray-3 '>{description}</span>
   </div>
 );
 

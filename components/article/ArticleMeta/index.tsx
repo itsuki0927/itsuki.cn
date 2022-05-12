@@ -3,7 +3,7 @@ import { WEB_URL } from '@/configs/app';
 
 const ArticleMeta = () => (
   <div className='mb-16'>
-    <div className='flex items-center justify-center text-xs text-gray-1 dark:text-gray-1--dark'>
+    <div className='flex items-center justify-center text-xs text-gray-1 '>
       <div>
         <span>永久地址: </span>
         <span className='underline'>{WEB_URL + router.asPath}</span>
@@ -14,7 +14,7 @@ const ArticleMeta = () => (
       <div>
         <span>版权声明: </span>
         <a
-          className='no-underline transition-colors hover:text-basic hover:dark:text-basic--dark'
+          className='hover: no-underline transition-colors hover:text-basic'
           href='https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh'
           target='_blank'
           rel='external nofollow noopener noreferrer'

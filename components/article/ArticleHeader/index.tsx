@@ -16,7 +16,7 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
 
         <TagList tags={article.tags} />
 
-        <div className='space-x-2 text-xs tracking-wider text-gray-1 dark:text-gray-1--dark'>
+        <div className='space-x-2 text-xs tracking-wider text-gray-1 '>
           <span>
             <TimeOutlined className='mr-1 align-baseline text-xs' />
             发布于 <ToDate date={article.createAt} to='YMDm' />

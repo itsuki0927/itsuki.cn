@@ -14,8 +14,7 @@ button.send {
   box-shadow: inset 0 var(--shadow-y, 2px) var(--shadow-blur, 6px) var(--shadow);
   transform: scale(var(--scale, 1));
 
-  // '#0055ac'
-  @apply cursor-pointer select-none rounded-sm bg-primary py-2 px-6 text-sm text-white outline-none dark:bg-primary--dark dark:text-white--dark;
+  @apply cursor-pointer select-none rounded-sm bg-primary py-2 px-6 text-sm text-white outline-none;
 
   > div {
     @apply absolute top-2 left-2 rounded-full;
@@ -26,7 +25,7 @@ button.send {
     transform: translateX(var(--icon-x, -4px));
 
     &::before {
-      @apply absolute z-10 h-4 w-4 bg-primary dark:bg-dark-2--dark;
+      @apply absolute z-10 h-4 w-4 bg-primary;
 
       content: '';
       left: 2px;

@@ -24,7 +24,7 @@ const AboutView = () => (
       <NextSeo title='关于' />
 
       <header className='mt-2 mb-7 text-center'>
-        <h1 className='my-12 text-3xl text-dark-2 dark:text-dark-2--dark'>
+        <h1 className='my-12 text-3xl text-dark-2 '>
           Hi<span className='origin-[70% 70%] mx-1 inline-block animate-wave'>👋</span>,
           我是
           <strong>五木</strong>, 英文名: itsuki, 喜欢 👨‍💻 和 🏃 的前端 🐶
@@ -38,7 +38,7 @@ const AboutView = () => (
           height={407}
           alt='about-decorate-placeholder'
         />
-        <p className='mt-1 text-xs text-gray-3 dark:text-gray-3--dark'>(一张装饰图)</p>
+        <p className='mt-1 text-xs text-gray-3 '>(一张装饰图)</p>
       </Section>
 
       <Section>
@@ -57,9 +57,7 @@ const AboutView = () => (
       </Section>
 
       <Section className='mt-6 p-4 tracking-widest'>
-        <strong className='text-gray-2 dark:text-gray-2--dark'>
-          一个应用要写好太难了, 即使是博客!!!
-        </strong>
+        <strong className='text-gray-2 '>一个应用要写好太难了, 即使是博客!!!</strong>
       </Section>
     </div>
   </div>

@@ -12,10 +12,7 @@ type ArticleCardProps = {
 };
 
 const ArticleCard = ({ article, style }: ArticleCardProps) => (
-  <article
-    className={`group flex rounded-sm bg-white p-4 dark:bg-white--dark ${s.card}`}
-    style={style}
-  >
+  <article className={`group flex rounded-sm bg-white p-4 ${s.card}`} style={style}>
     <MyImage
       alt='article-cover'
       width={286}
@@ -28,12 +25,12 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
     />
     <div className='ml-4 flex flex-grow flex-col items-start justify-between'>
       <header className='mt-1 mb-1'>
-        <span className='block text-xs text-gray-2 dark:text-gray-2--dark'>
+        <span className='block text-xs text-gray-2'>
           <ToDate date={article.createAt} />
         </span>
 
         <h3
-          className='cursor-pointer tracking-widest text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary dark:text-gray-2--dark'
+          className='cursor-pointer tracking-widest text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary'
           onClick={() => router.push(getArticleDetailUrl(article.id))}
         >
           {article.title}
@@ -47,12 +44,12 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
       <button
         type='button'
         onClick={() => router.push(getArticleDetailUrl(article.id))}
-        className='mb-3 rounded-sm bg-white-1 py-2 px-6 text-xs tracking-widest text-gray-3 transition-colors duration-300 hover:bg-primary-light hover:text-primary dark:bg-white-1--dark dark:hover:bg-primary-light--dark dark:hover:text-primary--dark'
+        className='mb-3 rounded-sm bg-white-1 py-2 px-6 text-xs tracking-widest text-gray-3 transition-colors duration-300 hover:bg-primary-light hover:text-primary'
       >
         READ MORE
       </button>
 
-      <div className='mb-1 flex items-end space-x-3 text-xs text-gray-1 dark:text-gray-1--dark'>
+      <div className='mb-1 flex items-end space-x-6 text-xs text-gray-1'>
         <span>
           <HeartOutlined className='mr-1 text-xs' />
           {article.liking}

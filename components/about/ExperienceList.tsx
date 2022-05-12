@@ -42,9 +42,9 @@ const ExperienceCard = ({
   description,
   techStack,
 }: ExperienceCardProps) => (
-  <div className='mb-4 border-b border-dashed border-gray-1 p-4 pb-2 pl-0 before:contents dark:border-gray-1--dark'>
+  <div className='mb-4 border-b border-dashed border-gray-1 p-4 pb-2 pl-0 before:contents '>
     <h3 className='m-0 text-base font-normal'>{post}</h3>
-    <div className='flex justify-between text-sm text-gray-3 dark:text-gray-3--dark'>
+    <div className='flex justify-between text-sm text-gray-3 '>
       <div>{company}</div>
       <div>
         <time dateTime={startTime}>{startTime}</time> -{' '}

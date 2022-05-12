@@ -14,7 +14,7 @@ type ToolbarProps = {
  * <Icon onMouseDown={preventDefault} />
  */
 const Toolbar = ({ preview, onPreview }: ToolbarProps) => (
-  <div className='flex items-center justify-between bg-white-1 py-[2px] px-1 leading-normal dark:bg-white-1--dark'>
+  <div className='flex items-center justify-between bg-white-1 py-[2px] px-1 leading-normal '>
     <SwitchTransition mode='out-in'>
       <CSSTransition
         key={preview ? 'preview' : 'edit'}
@@ -23,9 +23,7 @@ const Toolbar = ({ preview, onPreview }: ToolbarProps) => (
         }
         classNames='move-reverse'
       >
-        <span className='text-xxs text-gray-3 dark:text-gray-3--dark'>
-          {preview ? 'PREVIEW' : 'EDIT'}
-        </span>
+        <span className='text-xxs text-gray-3 '>{preview ? 'PREVIEW' : 'EDIT'}</span>
       </CSSTransition>
     </SwitchTransition>
 
@@ -40,7 +38,7 @@ const Toolbar = ({ preview, onPreview }: ToolbarProps) => (
         <button
           type='button'
           className={classNames(
-            'bg-white-3 py-1 px-2 text-xxs text-gray-3 hover:bg-white-2 hover:text-dark-1 dark:bg-white-3--dark dark:text-gray-3--dark'
+            'bg-white-3 py-1 px-2 text-xxs text-gray-3 hover:bg-white-2 hover:text-dark-1  '
           )}
           onClick={() => {
             onPreview?.(!preview);

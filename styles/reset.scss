@@ -6,13 +6,14 @@
 }
 
 ::selection {
-  @apply bg-[#d9d9d9] text-white dark:bg-[#2d3133] dark:text-white--dark;
+  // @apply dark:text-white--dark bg-[#d9d9d9] text-white dark:bg-[#2d3133];
+  @apply bg-[#d9d9d9] text-white dark:bg-[#2d3133];
 
   text-shadow: none;
 }
 
 ::-moz-selection {
-  @apply bg-[#d9d9d9] text-white dark:bg-[#2d3133] dark:text-white--dark;
+  @apply bg-[#d9d9d9] text-white dark:bg-[#2d3133];
 
   text-shadow: none;
 }
@@ -27,7 +28,7 @@ textarea::placeholder {
 }
 
 hr {
-  @apply my-6 border-none bg-white-3 p-0 dark:bg-white-3--dark;
+  @apply my-6 border-none bg-white-3 p-0;
 
   height: 0.25em;
 }
@@ -37,7 +38,7 @@ p {
 }
 
 blockquote {
-  @apply my-2 border-l-4 border-solid border-dark-3 bg-white-1 py-2 pl-5 pr-4  indent-0 dark:border-dark-3--dark dark:bg-white-1--dark;
+  @apply my-2 border-l-4 border-solid border-dark-3 bg-white-1 py-2  pl-5 pr-4 indent-0;
 }
 
 th,
@@ -45,7 +46,7 @@ td {
   padding: 0.5em 1em;
   vertical-align: inherit;
 
-  @apply border border-solid border-white-2 dark:border-white-2--dark;
+  @apply border border-solid border-white-2;
 }
 
 table {
@@ -61,7 +62,8 @@ caption {
 
 thead th {
   text-align: left;
-  @apply border border-solid border-white-3 bg-white-1 dark:border-white-3--dark dark:bg-white-1--dark;
+
+  @apply border border-solid border-white-3 bg-white-1;
 }
 
 tr {

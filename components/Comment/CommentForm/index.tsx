@@ -61,7 +61,7 @@ const CommentForm = ({
         <DynamicMarkdown code={content} onChange={setContent} placeholder='见解(必填)' />
 
         <div className='flex items-center justify-between'>
-          <div className='text-xs text-gray-2 dark:text-gray-2--dark'>
+          <div className='text-xs text-gray-2 '>
             Tip: 不会泄漏邮箱, 支持Markdown, 还请友善评论.
           </div>
           <SendButton onConfirm={handleSend} />

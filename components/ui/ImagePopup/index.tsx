@@ -55,7 +55,7 @@ const ImagePopup = forwardRef<ImagePopupRef, ImagePopupProps>(({ src }, ref) => 
         id='overlay'
         className={classNames(
           'fixed inset-0 flex items-center justify-center overflow-hidden transition-all duration-300',
-          'bg-[#ffffff80] backdrop-blur-[2px] backdrop-saturate-150 dark:bg-[#0d0d1050]',
+          'bg-[#ffffff80] backdrop-blur-[2px] backdrop-saturate-150 ',
           visible ? 'visible z-50 opacity-100' : 'invisible -z-10 opacity-0'
         )}
       >
@@ -63,7 +63,7 @@ const ImagePopup = forwardRef<ImagePopupRef, ImagePopupProps>(({ src }, ref) => 
           id='popupImage'
           alt='popup show'
           src={imageUrl}
-          className='max-h-[80%] max-w-screen-md rounded-md border-8 border-solid border-white-1 object-cover dark:border-white-1--dark'
+          className='max-h-[80%] max-w-screen-md rounded-md border-8 border-solid border-white-1 object-cover '
         />
       </div>
     </div>

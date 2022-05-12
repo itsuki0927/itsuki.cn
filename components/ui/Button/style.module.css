@@ -15,7 +15,7 @@
 }
 
 .btn.ghost {
-  @apply border border-solid border-gray-3 text-gray-3 hover:border-dark-2 dark:border-gray-3--dark dark:text-gray-3--dark;
+  @apply border border-solid border-gray-3 text-gray-3 hover:border-dark-2;
 }
 
 .btn.ghost:hover {
@@ -23,19 +23,19 @@
 }
 
 .btn.reverse {
-  @apply border border-solid border-gray-3 bg-dark-2 text-white dark:border-gray-3--dark dark:bg-dark-2--dark dark:text-white--dark;
+  @apply border border-solid border-gray-3 bg-dark-2 text-white;
 }
 .btn.reverse:hover {
   @apply bg-gray-3;
 }
 
 .btn.primary {
-  @apply bg-white text-gray-3 hover:bg-dark-2 dark:bg-white--dark dark:text-gray-3--dark;
+  @apply bg-white text-gray-3 hover:bg-dark-2;
 }
 .btn.primary:hover {
   @apply text-white;
 }
 
 .btn.disabled {
-  @apply pointer-events-none cursor-not-allowed border-white-3 bg-white-3 shadow-none dark:border-white-3--dark dark:bg-white-3--dark;
+  @apply pointer-events-none cursor-not-allowed border-white-3 bg-white-3 shadow-none;
 }

@@ -14,18 +14,16 @@ const ArticleList = ({ articles }: { articles: ArticleArchive[] }) => (
     {articles.map(article => (
       <li className='rounded-sm p-3' key={article.id}>
         <p className='mb-2'>
-          <span className='mr-3 inline-block text-sm text-gray-1 dark:text-gray-1--dark'>
+          <span className='mr-3 inline-block text-sm text-gray-1 '>
             {getDay(article.createAt)}
           </span>
           <Link href={`/article/${article.id}`}>
-            <span className='cursor-pointer border-b border-solid border-transparent tracking-wider text-dark-2 transition-all hover:text-gray-3 dark:text-dark-2--dark'>
+            <span className='cursor-pointer border-b border-solid border-transparent tracking-wider text-dark-2 transition-all hover:text-gray-3 '>
               {article.title}
             </span>
           </Link>
         </p>
-        <p className='mb-0 pl-10 text-sm text-gray-2 dark:text-gray-2--dark'>
-          {article.description}
-        </p>
+        <p className='mb-0 pl-10 text-sm text-gray-2 '>{article.description}</p>
       </li>
     ))}
   </ul>

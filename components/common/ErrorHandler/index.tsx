@@ -20,12 +20,10 @@ const ErrorHandler = ({
   const router = useRouter();
   return (
     <div
-      className={`flex flex-col items-center justify-center space-y-6 rounded-sm bg-white p-10 shadow-sm dark:bg-white--dark ${className}`}
+      className={`flex flex-col items-center justify-center space-y-6 rounded-sm bg-white p-10 shadow-sm  ${className}`}
     >
       <MyImage src={img} width={670} height={407} />
-      <h1 className='text-center text-3xl tracking-wide text-dark-2 dark:text-dark-2--dark'>
-        {title}
-      </h1>
+      <h1 className='text-center text-3xl tracking-wide text-dark-2 '>{title}</h1>
       <h2 className='text-xl text-gray-3'>{message}</h2>
       {showBackButton && (
         <button

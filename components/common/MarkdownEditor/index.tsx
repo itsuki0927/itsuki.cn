@@ -34,7 +34,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   );
 
   return (
-    <div className='bg-white-1 text-sm dark:bg-white-1--dark'>
+    <div className='bg-white-1 text-sm '>
       <div className='relative'>
         <div
           placeholder={placeholder}
@@ -46,7 +46,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
         />
         <MarkdownBlock
           className={classNames(
-            'absolute left-0 right-0 top-0 bottom-0 cursor-not-allowed overflow-y-scroll bg-white-2 p-3 transition-all duration-300 dark:bg-white-2--dark',
+            'absolute left-0 right-0 top-0 bottom-0 cursor-not-allowed overflow-y-scroll bg-white-2 p-3 transition-all duration-300 ',
             preview ? 'z-10 h-full' : '-z-10 h-0'
           )}
           htmlContent={markedToHtml(editorRef.current?.textContent || '', {

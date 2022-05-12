@@ -48,9 +48,7 @@ const CommentCard = ({
       key={comment.id}
       className={`transition-all duration-500 ${className}`}
     >
-      <div
-        className={`relative mb-2 rounded-sm bg-white-1 p-4 dark:bg-white-1--dark ${childClassName}`}
-      >
+      <div className={`relative mb-2 rounded-sm bg-white-1 p-4  ${childClassName}`}>
         <header className='flex items-center'>
           <MyImage
             src='https://static.itsuki.cn/avatar.jpg'
@@ -61,20 +59,20 @@ const CommentCard = ({
             className='min-w-[45px]'
           />
           <div className='ml-4 flex-grow'>
-            <div className='mb-0 flex w-full items-center justify-between text-dark-2 dark:text-dark-2--dark'>
+            <div className='mb-0 flex w-full items-center justify-between text-dark-2 '>
               <span className=''>{comment.nickname}</span>
 
               {Number(comment.parentId) > 0 && (
                 <div className='text-sm text-gray-2'>
                   回复
-                  <span className='ml-1 cursor-pointer transition-colors duration-300 hover:text-dark-2 dark:hover:text-dark-2--dark'>
+                  <span className='ml-1 cursor-pointer transition-colors duration-300 hover:text-dark-2 '>
                     #{comment.parentNickName}
                   </span>
                 </div>
               )}
             </div>
 
-            <div className='mt-1 flex flex-grow items-center text-xs text-gray-2 dark:text-gray-2--dark'>
+            <div className='mt-1 flex flex-grow items-center text-xs text-gray-2 '>
               <span>
                 <TimeOutlined className='mr-1 text-xs' />
                 <ToDate date={comment.createAt} />
@@ -102,13 +100,13 @@ const CommentCard = ({
         <div className='flex justify-between text-gray-1'>
           <div>
             {!!commentChildren.length && (
-              <span className='mr-3 inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-primary-light hover:text-primary dark:hover:bg-primary-light--dark dark:hover:text-primary--dark'>
+              <span className='mr-3 inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-primary-light hover:text-primary  '>
                 <CommentOutlined className='mr-1' />
                 {commentChildren.length}
               </span>
             )}
             <button
-              className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-danger-light hover:text-danger dark:hover:bg-danger-light--dark dark:hover:text-danger--dark'
+              className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-danger-light hover:text-danger  '
               type='button'
             >
               <LikeOutlined className='mr-1' />
@@ -145,7 +143,7 @@ const CommentCard = ({
             <CommentCard
               key={item.comment.id}
               data={item}
-              childClassName='border-l-4 border-solid border-white-2 dark:border-white-2--dark'
+              childClassName='border-l-4 border-solid border-white-2 '
               replyId={replyId}
               reply={reply}
               onReply={onReply}

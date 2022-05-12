@@ -1,3 +1,25 @@
+html,
+body {
+  @apply m-0 bg-basic p-0 text-base text-basic;
+
+  font-family: 'iA Writer Quattro', BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  @apply relative mx-auto;
+
+  width: 1050px;
+}
+
+img {
+  @apply relative cursor-pointer rounded-sm opacity-80 transition-all;
+}
+
+img:hover {
+  @apply opacity-100;
+}
+
 *,
 *::before,
 *::after {
@@ -6,7 +28,6 @@
 }
 
 ::selection {
-  // @apply dark:text-white--dark bg-[#d9d9d9] text-white dark:bg-[#2d3133];
   @apply bg-[#d9d9d9] text-white dark:bg-[#2d3133];
 
   text-shadow: none;

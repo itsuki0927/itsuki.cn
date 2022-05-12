@@ -1,9 +1,14 @@
+export { default as CloseOutlined } from './CloseOutlined';
+export { default as CommentOutlined } from './CommentOutlined';
+export { default as CompassOutlined } from './CompassOutlined';
 export { default as EditOutlined } from './EditOutlined';
 export { default as EyeOutlined } from './EyeOutlined';
 export { default as HeartFilled } from './HeartFilled';
 export { default as HeartOutlined } from './HeartOutlined';
 export { default as Icon } from './Icon/index';
 export { default as LeftOutlined } from './LeftOutlined';
+export { default as LikeFilled } from './LikeFilled';
+export { default as LikeOutlined } from './LikeOutlined';
 export { default as MessageOutlined } from './MessageOutlined';
 export { default as RightOutlined } from './RightOutlined';
 export { default as RssIcon } from './RssIcon';

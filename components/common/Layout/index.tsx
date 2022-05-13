@@ -36,14 +36,14 @@ const Layout = ({
         >
           <section
             className={classNames('flex-grow', {
-              'w-[695px]': showSidebar,
+              'w-[693px]': showSidebar,
             })}
           >
             {children}
           </section>
           {showSidebar && (
             <Sidebar
-              className='w-[335px] space-y-6'
+              className='w-[333px] space-y-6'
               tags={data?.tags || []}
               hotArticles={data?.hotArticles || []}
             />

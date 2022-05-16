@@ -124,7 +124,7 @@ const CommentView = ({ articleId }: CommentProps) => {
             </CommentList>
           </>
         ) : (
-          <p className='mb-0 text-center text-gray-2'>暂无评论</p>
+          <p className='mb-0 text-center text-sm text-gray-2'>暂无评论</p>
         )}
       </Container>
     </>

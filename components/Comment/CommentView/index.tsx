@@ -96,6 +96,7 @@ const CommentView = ({ articleId }: CommentProps) => {
             陈独秀请发言
           </h3>
           <CommentForm
+            email={profile.email}
             onSend={handleSend}
             profile={<CommentProfile value={profile} onChange={setProfile} />}
           />

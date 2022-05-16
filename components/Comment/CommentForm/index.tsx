@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import React, { ReactNode, useState } from 'react';
 import { MyImage } from '@/components/common';
 import SendButton from '../SendButton';
+import getGravatarUrl from '@/utils/gravatar';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -12,6 +13,7 @@ interface CommentFormProps {
   profile?: ReactNode;
   onSend: (content: string) => Promise<boolean>;
   hiddenAvatar?: boolean;
+  email?: string;
 }
 
 const CommentForm = ({
@@ -19,6 +21,7 @@ const CommentForm = ({
   onSend,
   profile: profileNode,
   hiddenAvatar,
+  email,
 }: CommentFormProps) => {
   const [content, setContent] = useState('');
 
@@ -44,7 +47,7 @@ const CommentForm = ({
         <MyImage
           className='min-w-[45px]'
           imgClassName='rounded-full'
-          src='https://static.itsuki.cn/avatar.jpg'
+          src={getGravatarUrl(email ?? '')}
           width={45}
           height={45}
           alt='cover'

@@ -15,6 +15,7 @@ import { useMarkdown } from '@/hooks';
 import { NoReturnFunction } from '@/types/fn';
 import CommentList, { buildeCommentTree, CommentTree } from '../CommentList';
 import useLikeComment from '@/hooks/comment/useLikeComment';
+import getGravatarUrl from '@/utils/gravatar';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -57,7 +58,7 @@ const CommentCard = ({
       <div className={`relative mb-2 rounded-sm bg-white-1 p-4  ${childClassName}`}>
         <header className='flex items-center'>
           <MyImage
-            src='https://static.itsuki.cn/avatar.jpg'
+            src={getGravatarUrl(comment.email)}
             width={45}
             height={45}
             imgClassName='rounded-full'

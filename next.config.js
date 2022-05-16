@@ -5,7 +5,7 @@ const RESOURCE_URL = `https://${RESOURCE_HOST}`;
 const isProd = process.env.NODE_ENV === 'production';
 console.log(`[ mode: ${process.env.NODE_ENV} ]`);
 
-const domains = ['s.gravatar.com', RESOURCE_HOST];
+const domains = ['gravatar.loli.net', RESOURCE_HOST];
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: isProd,

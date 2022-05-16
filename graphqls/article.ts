@@ -52,6 +52,7 @@ export const QUERY_ARTICLE = gql`
       tags {
         name
         id
+        path
       }
       category {
         name

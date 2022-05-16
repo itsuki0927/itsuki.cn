@@ -13,7 +13,7 @@ import { MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import { useMarkdown } from '@/hooks';
 import { NoReturnFunction } from '@/types/fn';
-import CommentList, { buildeCommentTree, CommentTree } from '../CommentList';
+import CommentList, { buildCommentTree, CommentTree } from '../CommentList';
 import useLikeComment from '@/hooks/comment/useLikeComment';
 import getGravatarUrl from '@/utils/gravatar';
 
@@ -156,7 +156,7 @@ const CommentCard = ({
       {reply?.(comment)}
 
       {!!commentChildren.length && (
-        <CommentList className='ml-12 mt-4' data={buildeCommentTree(commentChildren)}>
+        <CommentList className='ml-12 mt-4' data={buildCommentTree(commentChildren)}>
           {item => (
             <CommentCard
               key={item.comment.id}

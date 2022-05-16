@@ -14,7 +14,7 @@ type CommentListProps = {
   childClassName?: string;
 };
 
-export const buildeCommentTree = (comments: Comment[]): Array<CommentTree> =>
+export const buildCommentTree = (comments: Comment[]): Array<CommentTree> =>
   comments.map(comment => ({
     comment,
     children: [],

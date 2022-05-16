@@ -25,8 +25,8 @@ const CommentView = ({ articleId }: CommentProps) => {
     initialCommentProfile
   );
   const mutation = useCreateComment(articleId);
-
   const comments = useMemo(() => convertToCommentTreeData(data?.data), [data?.data]);
+  const hasComments = !!comments.length;
 
   const handleSend = useCallback(
     (content: string) =>
@@ -103,24 +103,28 @@ const CommentView = ({ articleId }: CommentProps) => {
       </Container>
 
       <Container className='my-6'>
-        {!!data?.total && (
-          <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 '>
-            {data?.total} 条沙雕评论
-          </h3>
+        {hasComments ? (
+          <>
+            <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 '>
+              {data?.total} 条沙雕评论
+            </h3>
+            <CommentList data={comments}>
+              {(item, childClassName) => (
+                <CommentCard
+                  replyId={replyId}
+                  onReply={comment => setReplyId(comment.id)}
+                  onCancelReply={() => setReplyId(null)}
+                  reply={replyCallback}
+                  key={item.comment.id}
+                  data={item}
+                  childClassName={childClassName}
+                />
+              )}
+            </CommentList>
+          </>
+        ) : (
+          <p className='mb-0 text-center text-gray-2'>暂无评论</p>
         )}
-        <CommentList data={comments}>
-          {(item, childClassName) => (
-            <CommentCard
-              replyId={replyId}
-              onReply={comment => setReplyId(comment.id)}
-              onCancelReply={() => setReplyId(null)}
-              reply={replyCallback}
-              key={item.comment.id}
-              data={item}
-              childClassName={childClassName}
-            />
-          )}
-        </CommentList>
       </Container>
     </>
   );

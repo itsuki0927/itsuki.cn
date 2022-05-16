@@ -6,14 +6,22 @@ export const QUERY_COMMENTS = gql`
       total
       data {
         id
-        createAt
+        state
         nickname
         email
         website
         content
-        state
-        parentId
         liking
+        ip
+        agent
+        city
+        province
+        fix
+        expand
+        articleTitle
+        articleDescription
+        parentNickName
+        parentId
         articleId
       }
     }
@@ -24,13 +32,23 @@ export const CREATE_COMMENT = gql`
   mutation createComment($input: CreateCommentInput!) {
     createComment(input: $input) {
       id
-      createAt
+      state
       nickname
       email
       website
       content
-      state
+      liking
+      ip
+      agent
+      city
+      province
+      fix
+      expand
+      articleTitle
+      articleDescription
+      parentNickName
       parentId
+      articleId
     }
   }
 `;

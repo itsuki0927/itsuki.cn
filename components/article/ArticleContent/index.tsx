@@ -1,5 +1,6 @@
 import { Container, MarkdownBlock } from '@/components/ui';
 import { ArticleDetailResponse } from '@/entities/article';
+import ArticleAction from '../ArticleAction';
 import ArticleFooter from '../ArticleFooter';
 import ArticleHeader from '../ArticleHeader';
 import ArticleMeta from '../ArticleMeta';
@@ -13,6 +14,8 @@ const ArticleContent = ({ article }: ArticleContentProps) => (
     <ArticleHeader article={article} />
 
     <MarkdownBlock className='mb-5' htmlContent={article.content} />
+
+    <ArticleAction article={article} />
 
     <ArticleMeta />
 

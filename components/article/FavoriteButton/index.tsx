@@ -21,7 +21,6 @@ const FavoriteButton = ({ isLike, liking, onLike }: FavoriteButtonProps) => {
         'flex items-center rounded-sm bg-danger px-4 py-2 text-sm font-medium text-white outline-none',
         isLike ? 'cursor-not-allowed' : ''
       )}
-      disabled={isLike}
       onClick={handleLike}
     >
       {isLike ? <LikeFilled className='text-white' /> : <LikeOutlined />}

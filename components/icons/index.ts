@@ -15,3 +15,4 @@ export { default as SelectOutlined } from './SelectOutlined';
 export { default as SendOutlined } from './SendOutlined';
 export { default as TimeOutlined } from './TimeOutlined';
 export { default as ToTopOutlined } from './ToTopOutlined';
+export { default as YuanOutlined } from './YuanOutlined';

@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import router from 'next/router';
 import { MyImage, ToDate } from '@/components/common';
 import { Article } from '@/entities/article';
-import { HeartOutlined, MessageOutlined, EyeOutlined } from '@/components/icons';
+import { MessageOutlined, EyeOutlined, LikeOutlined } from '@/components/icons';
 import s from './style.module.scss';
 import { getArticleDetailUrl } from '@/utils/url';
 
@@ -51,7 +51,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
 
       <div className='mb-1 flex items-end space-x-6 text-xs text-gray-1'>
         <span>
-          <HeartOutlined className='mr-1 text-xs' />
+          <LikeOutlined className='mr-1 text-xs' />
           {article.liking}
         </span>
         <span>

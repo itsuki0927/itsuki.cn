@@ -1,0 +1,19 @@
+.ejector {
+  @apply inline-block h-8 w-8 rounded-sm text-center leading-8;
+}
+
+.qq:hover {
+  background-color: #1abcfa;
+}
+
+.wechat:hover {
+  background-color: #2bae67;
+}
+
+.douban:hover {
+  background-color: #05d212;
+}
+
+.link:hover {
+  background-color: #0088f5;
+}

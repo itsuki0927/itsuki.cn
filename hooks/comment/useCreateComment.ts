@@ -1,12 +1,12 @@
-import { AxiosError } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
+import { GraphQLError } from 'graphql';
 import { createComment } from '@/api/comment';
 import { Comment, PostCommentBody, QueryCommentsResponse } from '@/entities/comment';
 import { commentKeys } from '@/constants/queryKeys';
 
 const useCreateComment = (articleId: number) => {
   const queryClient = useQueryClient();
-  const mutation = useMutation<Comment, AxiosError, PostCommentBody>(
+  const mutation = useMutation<Comment, GraphQLError, PostCommentBody>(
     newComment => createComment(newComment),
     {
       onSuccess: newData => {

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { HeartFilled, HeartOutlined } from '@/components/icons';
+import { LikeFilled, LikeOutlined } from '@/components/icons';
 
 interface FavoriteButtonProps {
   liking?: number;
@@ -18,14 +18,14 @@ const FavoriteButton = ({ isLike, liking, onLike }: FavoriteButtonProps) => {
     <button
       type='button'
       className={classNames(
-        'float-right m-0 flex h-full min-w-[125px] items-center px-[10px] py-4 text-sm font-medium outline-none',
+        'flex items-center rounded-sm bg-danger px-4 py-2 text-sm font-medium text-white outline-none',
         isLike ? 'cursor-not-allowed' : ''
       )}
       disabled={isLike}
       onClick={handleLike}
     >
-      {isLike ? <HeartFilled className='text-danger-hover' /> : <HeartOutlined />}
-      <strong className='ml-2 mr-1 text-danger-hover'>{liking}</strong> 人喜欢
+      {isLike ? <LikeFilled className='text-white' /> : <LikeOutlined />}
+      <strong className='ml-2 mr-1 text-white'>{liking}</strong>
     </button>
   );
 };

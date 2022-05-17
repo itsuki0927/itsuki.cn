@@ -1,5 +1,5 @@
-import { ImagePopupRef } from '@/components/ui/ImagePopup';
+import { PopupRef } from '@/components/ui/Popup';
 
 export interface CustomWindow extends Window {
-  imagePopup?: ImagePopupRef | null;
+  $popup: PopupRef | null;
 }

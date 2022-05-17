@@ -55,7 +55,7 @@ customRenderer.image = function renderImage(src: string, title: string, text: st
   return `<img
             src=${src}
             title=${title}
-            onclick="imagePopup && imagePopup.open('${src}')"
+            onclick="$popup && $popup.open('${src}')"
             alt=${title || text}
           />`;
 };

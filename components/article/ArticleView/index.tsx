@@ -1,15 +1,11 @@
 import { ArticleJsonLd, NextSeo } from 'next-seo';
 import { CommentView } from '@/components/comment';
-import { ImagePopup } from '@/components/ui';
 import { ArticleDetailResponse } from '@/entities/article';
 import { useGlobalData } from '@/hooks/globalData';
-import { CustomWindow } from '@/types/window';
 import { getArticleDetailFullUrl } from '@/utils/url';
 import ArticleContent from '../ArticleContent';
 import ArticlePagination from '../ArticlePagination';
 import RelateArticles from '../RelateArticles';
-
-declare let window: CustomWindow;
 
 interface ArticleViewProps {
   article: ArticleDetailResponse;
@@ -23,7 +19,13 @@ const ArticleView = ({ article }: ArticleViewProps) => {
       <NextSeo
         title={article.title}
         description={article.description}
-        additionalMetaTags={[{ name: 'keywords', content: article.keywords }]}
+        additionalMetaTags={[
+          { name: 'keywords', content: article.keywords },
+          {
+            name: 'cover',
+            content: article.cover,
+          },
+        ]}
       />
       <ArticleJsonLd
         url={getArticleDetailFullUrl(article.id)}
@@ -45,12 +47,6 @@ const ArticleView = ({ article }: ArticleViewProps) => {
       />
 
       <CommentView articleId={article.id} />
-
-      <ImagePopup
-        ref={imagePopup => {
-          window.imagePopup = imagePopup;
-        }}
-      />
     </div>
   );
 };

@@ -19,7 +19,7 @@ module.exports = withBundleAnalyzer({
     return [{ source: '/rss.xml', destination: '/api/rss' }];
   },
   images: {
-    domains: isProd ? domains.slice(-1) : domains,
+    domains,
   },
   compiler: {
     // 生产环境清楚console.log

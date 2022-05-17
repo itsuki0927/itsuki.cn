@@ -18,8 +18,10 @@ const FavoriteButton = ({ isLike, liking, onLike }: FavoriteButtonProps) => {
     <button
       type='button'
       className={classNames(
-        'flex items-center rounded-sm bg-danger px-4 py-2 text-sm font-medium text-white outline-none',
-        isLike ? 'cursor-not-allowed' : ''
+        'flex items-center rounded-sm bg-danger px-6 py-2 text-sm font-medium text-white outline-none',
+        isLike
+          ? 'cursor-not-allowed'
+          : 'transition-colors duration-300 hover:bg-danger-hover'
       )}
       onClick={handleLike}
     >

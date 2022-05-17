@@ -6,6 +6,8 @@ export const QUERY_COMMENTS = gql`
       total
       data {
         id
+        createAt
+        updateAt
         state
         nickname
         email
@@ -32,6 +34,8 @@ export const CREATE_COMMENT = gql`
   mutation createComment($input: CreateCommentInput!) {
     createComment(input: $input) {
       id
+      createAt
+      updateAt
       state
       nickname
       email

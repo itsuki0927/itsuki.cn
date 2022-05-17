@@ -14,14 +14,16 @@ const HotArticles = ({ hotArticles }: HotArticlesProps) => (
     <Widget.Header>最佳歌手</Widget.Header>
     {hotArticles.slice(0, 6).map(article => (
       <div className='mb-4 flex items-center rounded-sm' key={article.id}>
-        <MyImage
-          src={article.cover}
-          objectFit='cover'
-          width={94}
-          height={68}
-          alt='hot-article-cover'
-          className='min-w-[94px]'
-        />
+        <Link href={getArticleDetailUrl(article.id)}>
+          <MyImage
+            src={article.cover}
+            objectFit='cover'
+            width={94}
+            height={68}
+            alt='hot-article-cover'
+            className='min-w-[94px]'
+          />
+        </Link>
         <div className='ml-4'>
           <h4 className='cursor-pointer text-sm tracking-wider text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary '>
             <Link href={getArticleDetailUrl(article.id)}>{article.title}</Link>

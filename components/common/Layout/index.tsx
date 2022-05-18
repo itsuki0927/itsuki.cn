@@ -1,11 +1,12 @@
 import React, { PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import { Footer, HomeSlider, Navbar, StandardSidebar } from '@/components/common';
-import { BackTop, Container } from '@/components/ui';
+import { BackTop, Container, Popup } from '@/components/ui';
 import { useGlobalData } from '@/hooks/globalData';
 import { useTheme } from '@/hooks';
-import { SidebarViews, useUI } from '@/components/ui/context';
+import { PopupViews, SidebarViews, UIParams, useUI } from '@/components/ui/context';
 import { SiteInfo } from '@/entities/siteInfo';
+import ImagePopup from '@/components/ui/Popup/ImagePopup';
 
 const SidebarView: React.FC<{
   sidebarView: SidebarViews;
@@ -42,6 +43,21 @@ const SidebarUI: React.FC<{
       toggleSidebar={toggleSidebar}
     />
   );
+};
+
+const PopupView: React.FC<{
+  popupView: PopupViews;
+  popupParams?: UIParams;
+}> = ({ popupView, popupParams }) => (
+  <Popup>
+    {popupView === 'IMAGE_VIEW' && <ImagePopup src={popupParams?.src} />}
+    {popupView === 'SPONSOR_VIEW' && <div>not implement</div>}
+  </Popup>
+);
+
+const PopupUI: React.FC = () => {
+  const { popupView, popupParams } = useUI();
+  return <PopupView popupView={popupView} popupParams={popupParams} />;
 };
 
 export interface PageProps {
@@ -96,6 +112,7 @@ const Layout = ({
       </main>
       {showFooter && <Footer />}
 
+      <PopupUI />
       <BackTop />
     </div>
   );

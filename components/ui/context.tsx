@@ -7,29 +7,67 @@ import {
   useContext,
 } from 'react';
 
-export interface State {
-  displaySidebar: boolean;
-  displayPopup: boolean;
+export type UIParams = Record<string, any>;
+
+export interface UIContextType {
+  // sidebar action
+  openSidebar: (params?: UIParams) => void;
+  setSidebarView: (view: SidebarViews) => void;
+  closeSidebar: () => void;
+  toggleSidebar: () => void;
+  closeSidebarIfPresent: () => void;
+
+  // popup action
+  openPopup: (params?: UIParams) => void;
+  setPopupView: (view: PopupViews) => void;
+  closePopup: () => void;
+
+  // sidebar args
   sidebarView: SidebarViews;
+  displaySidebar: boolean;
+  sidebarParams?: UIParams;
+
+  // popup args
   popupView: PopupViews;
+  displayPopup: boolean;
+  popupParams?: UIParams;
+}
+
+export interface State {
+  sidebar: {
+    display: boolean;
+    view: SidebarViews;
+    params?: Record<string, any>;
+  };
+  popup: {
+    display: boolean;
+    view: PopupViews;
+    params?: Record<string, any>;
+  };
 }
 
 const initialState: State = {
-  displaySidebar: true,
-  displayPopup: false,
-  popupView: 'IMAGE_VIEW',
-  sidebarView: 'STANDARD_VIEW',
+  sidebar: {
+    display: true,
+    view: 'STANDARD_VIEW',
+  },
+  popup: {
+    display: false,
+    view: 'IMAGE_VIEW',
+  },
 };
 
 type Action =
   | {
       type: 'OPEN_SIDEBAR';
+      params?: UIParams;
     }
   | {
       type: 'CLOSE_SIDEBAR';
     }
   | {
       type: 'OPEN_POPUP';
+      params?: UIParams;
     }
   | {
       type: 'CLOSE_POPUP';
@@ -49,7 +87,7 @@ export type PopupViews = 'IMAGE_VIEW' | 'SPONSOR_VIEW';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export type SidebarViews = 'STANDARD_VIEW' | 'COMMENT_LEADERBOARD_VIEW';
 
-export const UIContext = createContext<State>(initialState);
+export const UIContext = createContext<State | any>(initialState);
 
 UIContext.displayName = 'UIContext';
 
@@ -59,38 +97,57 @@ function uiReducer(state: State, action: Action) {
     case 'OPEN_SIDEBAR': {
       return {
         ...state,
-        displaySidebar: true,
+        sidebar: {
+          ...state.sidebar,
+          ...(action.params && { params: { ...state.sidebar.params, ...action.params } }),
+          display: true,
+        },
       };
     }
     case 'CLOSE_SIDEBAR': {
       return {
         ...state,
-        displaySidebar: false,
+        sidebar: {
+          ...state.sidebar,
+          display: false,
+        },
       };
     }
     case 'OPEN_POPUP': {
       return {
         ...state,
-        displayPopup: true,
-        displaySidebar: false,
+        popup: {
+          ...state.popup,
+          ...(action.params && { params: { ...state.popup.params, ...action.params } }),
+          display: true,
+        },
       };
     }
     case 'CLOSE_POPUP': {
       return {
         ...state,
-        displayPopup: false,
+        popup: {
+          ...state.popup,
+          display: false,
+        },
       };
     }
     case 'SET_POPUP_VIEW': {
       return {
         ...state,
-        popupView: action.view,
+        popup: {
+          ...state.popup,
+          view: action.view,
+        },
       };
     }
     case 'SET_SIDEBAR_VIEW': {
       return {
         ...state,
-        sidebarView: action.view,
+        sidebar: {
+          ...state.sidebar,
+          view: action.view,
+        },
       };
     }
   }
@@ -99,21 +156,27 @@ function uiReducer(state: State, action: Action) {
 export const UIProvider = (props: PropsWithChildren<Record<string, any>>) => {
   const [state, dispatch] = useReducer(uiReducer, initialState);
 
-  const openSidebar = useCallback(() => dispatch({ type: 'OPEN_SIDEBAR' }), [dispatch]);
+  const openSidebar = useCallback(
+    (params?: UIParams) => dispatch({ type: 'OPEN_SIDEBAR', params }),
+    [dispatch]
+  );
   const closeSidebar = useCallback(() => dispatch({ type: 'CLOSE_SIDEBAR' }), [dispatch]);
   const toggleSidebar = useCallback(
     () =>
-      state.displaySidebar
+      state.sidebar.display
         ? dispatch({ type: 'CLOSE_SIDEBAR' })
         : dispatch({ type: 'OPEN_SIDEBAR' }),
-    [dispatch, state.displaySidebar]
+    [dispatch, state.sidebar.display]
   );
   const closeSidebarIfPresent = useCallback(
-    () => state.displaySidebar && dispatch({ type: 'CLOSE_SIDEBAR' }),
-    [dispatch, state.displaySidebar]
+    () => state.sidebar.display && dispatch({ type: 'CLOSE_SIDEBAR' }),
+    [dispatch, state.sidebar.display]
   );
 
-  const openPopup = useCallback(() => dispatch({ type: 'OPEN_POPUP' }), [dispatch]);
+  const openPopup = useCallback(
+    (params?: UIParams) => dispatch({ type: 'OPEN_POPUP', params }),
+    [dispatch]
+  );
   const closePopup = useCallback(() => dispatch({ type: 'CLOSE_POPUP' }), [dispatch]);
 
   const setPopupView = useCallback(
@@ -128,7 +191,13 @@ export const UIProvider = (props: PropsWithChildren<Record<string, any>>) => {
 
   const value = useMemo(
     () => ({
-      ...state,
+      sidebarView: state.sidebar.view,
+      displaySidebar: state.sidebar.display,
+      sidebarParams: state.sidebar.params,
+      popupView: state.popup.view,
+      displayPopup: state.popup.display,
+      popupParams: state.popup.params,
+
       openSidebar,
       closeSidebar,
       toggleSidebar,
@@ -146,16 +215,7 @@ export const UIProvider = (props: PropsWithChildren<Record<string, any>>) => {
 };
 
 export const useUI = () => {
-  const context = useContext(UIContext) as State & {
-    openSidebar: () => void;
-    closeSidebar: () => void;
-    toggleSidebar: () => void;
-    closeSidebarIfPresent: () => void;
-    openPopup: () => void;
-    closePopup: () => void;
-    setPopupView: (view: PopupViews) => void;
-    setSidebarView: (view: SidebarViews) => void;
-  };
+  const context = useContext(UIContext) as UIContextType;
   if (context === undefined) {
     throw new Error(`useUI must be used within a UIProvider`);
   }

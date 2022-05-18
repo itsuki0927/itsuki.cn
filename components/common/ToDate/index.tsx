@@ -16,6 +16,9 @@ const formatDate = (
   separator: DateSeparatorType = '-'
 ) => {
   const date = wrapToDate(dateParams);
+  if (!date) {
+    return '错位时空';
+  }
   if (to === 'YMD') {
     return dateToYMD(date, separator);
   }

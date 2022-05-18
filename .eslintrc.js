@@ -19,8 +19,6 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
-    // 允许 log
-    'no-console': OFF,
     // jsx 中使用单引号
     'jsx-quotes': [ERROR, 'prefer-single'],
     // 导入扩展名
@@ -35,6 +33,12 @@ module.exports = {
         jpeg: 'always',
       },
     ],
+    'no-param-reassign': WARNING,
+    // 警告 hook 只能在组件/函数中使用
+    'react-hooks/rules-of-hooks': WARNING,
+    'import/prefer-default-export': OFF,
+    // 允许 log
+    'no-console': OFF,
     // 允许 react 在jsx中不需要导入
     'react/react-in-jsx-scope': OFF,
     'react/jsx-uses-react': OFF,
@@ -52,11 +56,8 @@ module.exports = {
     'import/no-cycle': OFF,
     // TODO: 暂时关闭坚持
     '@typescript-eslint/explicit-module-boundary-types': OFF,
-    'no-param-reassign': WARNING,
-    // 警告 hook 只能在组件/函数中使用
-    'react-hooks/rules-of-hooks': WARNING,
-    // 警告 不使用默认导出
-    'import/prefer-default-export': WARNING,
+    // 允许不使用默认导出
+    'import/prefer-default-export': OFF,
     // 函数命名方式
     'react/function-component-definition': OFF,
     'react/jsx-no-useless-fragment': OFF,

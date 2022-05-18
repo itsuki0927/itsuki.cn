@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import classNames from 'classnames';
-import { getArticles, getBannerArticles } from '@/api/article';
+import { getArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
 import { ArticleList } from '@/components/article';
 import { DashboardLayout } from '@/components/common';
@@ -15,7 +15,6 @@ import scrollTo from '@/utils/scrollTo';
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(articleKeys.banner(), () => getBannerArticles());
   await queryClient.prefetchQuery(articleKeys.pagination(1), () =>
     getArticles({ current: DEFAULT_CURRENT, pageSize: DEFAULT_PAGE_SIZE })
   );

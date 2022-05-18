@@ -35,8 +35,6 @@ export const getArticles = async (params?: SearchArticlesBody) => {
   return articles;
 };
 
-export const getBannerArticles = () => getArticles({ banner: 1 });
-
 export const getArticle = async (id: number) => {
   const { article } = await request<QueryArticleResponse, ID>(endpoint, QUERY_ARTICLE, {
     id,

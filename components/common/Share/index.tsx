@@ -6,9 +6,7 @@ import { getPageUrl, stringifyParams } from '@/utils/url';
 import { META } from '@/configs/app';
 import copyTextToClipboard from '@/utils/copy';
 import { renderTextToQRCodeDataURL } from '@/utils/qrcode';
-import { CustomWindow } from '@/types/window';
-
-declare let window: CustomWindow;
+import { useUI } from '@/components/ui/context';
 
 enum SocialMedia {
   QQ = 'qq',
@@ -26,8 +24,8 @@ interface SocialItem {
   id: SocialMedia;
   name: string;
   class: string;
-  handler?(share: ShareParams): void;
-  url?(share: ShareParams): string;
+  url?: (share: ShareParams) => string;
+  asyncUrl?: (share: ShareParams) => Promise<string>;
 }
 
 const socials: SocialItem[] = [
@@ -48,10 +46,7 @@ const socials: SocialItem[] = [
     id: SocialMedia.Wechat,
     name: '微信',
     class: 'wechat',
-    handler: async params => {
-      const dataUrl = await renderTextToQRCodeDataURL(params.url);
-      window.$popup?.open(dataUrl);
-    },
+    asyncUrl: params => renderTextToQRCodeDataURL(params.url),
   },
   {
     id: SocialMedia.Douban,
@@ -68,6 +63,7 @@ const socials: SocialItem[] = [
 ];
 
 const Share = () => {
+  const { openPopup } = useUI();
   const router = useRouter();
   const getURL = () => getPageUrl(router.asPath);
   const getTitle = () => document.title || META.title;
@@ -82,15 +78,16 @@ const Share = () => {
     // TODO: gtag.event
   };
 
-  const handleShare = (social: SocialItem) => {
+  const handleShare = async (social: SocialItem) => {
     const shareParams: ShareParams = {
       url: getURL(),
       title: getTitle(),
       description: getDescription(),
       cover: getCover(),
     };
-    if (social.handler) {
-      social.handler(shareParams);
+    if (social.asyncUrl) {
+      const src = await social.asyncUrl(shareParams);
+      openPopup({ src });
     } else {
       window.open(social.url!(shareParams), `分享到${social.name}`);
     }

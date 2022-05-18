@@ -19,8 +19,8 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
-    // 禁止 log
-    'no-console': ERROR,
+    // 允许 log
+    'no-console': OFF,
     // jsx 中使用单引号
     'jsx-quotes': [ERROR, 'prefer-single'],
     // 导入扩展名

@@ -1,4 +1,5 @@
 import { SiteInfo } from '@/entities/siteInfo';
+import { Widget } from '@/components/ui';
 import Search from './Search';
 import ChickenSoup from './ChickenSoup';
 import HotArticles from './HotArticles';
@@ -9,9 +10,11 @@ interface SidebarProps {
   className?: string;
   tags: SiteInfo['tags'];
   hotArticles: SiteInfo['hotArticles'];
+  // eslint-disable-next-line react/no-unused-prop-types
+  onToggle: () => void;
 }
 
-const Sidebar = ({ tags = [], hotArticles = [], className }: SidebarProps) => (
+const StandardSidebar = ({ tags = [], hotArticles = [], className }: SidebarProps) => (
   <aside className={className}>
     <Life />
 
@@ -22,7 +25,13 @@ const Sidebar = ({ tags = [], hotArticles = [], className }: SidebarProps) => (
     <HotArticles hotArticles={hotArticles} />
 
     <Tags tags={tags} />
+
+    <Widget>
+      <Widget.Header>设置</Widget.Header>
+
+      <p>侧边栏</p>
+    </Widget>
   </aside>
 );
 
-export default Sidebar;
+export default StandardSidebar;

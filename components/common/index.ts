@@ -13,7 +13,7 @@ export { default as Pagination } from './Pagination';
 export { default as QueryClientContainer } from './QueryClientContainer';
 export { default as Search } from './Search';
 export { default as Share } from './Share';
-export { default as Sidebar } from './Sidebar';
+export { default as StandardSidebar } from './StandardSidebar';
 export { default as Tag } from './Tag';
 export { default as TagList } from './Tag/List';
 export { default as ToDate } from './ToDate';

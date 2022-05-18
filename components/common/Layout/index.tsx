@@ -1,9 +1,48 @@
 import React, { PropsWithChildren } from 'react';
 import classNames from 'classnames';
-import { Footer, HomeSlider, Navbar, Sidebar } from '@/components/common';
+import { Footer, HomeSlider, Navbar, StandardSidebar } from '@/components/common';
 import { BackTop, Container } from '@/components/ui';
 import { useGlobalData } from '@/hooks/globalData';
 import { useTheme } from '@/hooks';
+import { SidebarViews, useUI } from '@/components/ui/context';
+import { SiteInfo } from '@/entities/siteInfo';
+
+const SidebarView: React.FC<{
+  sidebarView: SidebarViews;
+  toggleSidebar: () => void;
+  tags: SiteInfo['tags'];
+  hotArticles: SiteInfo['hotArticles'];
+}> = ({ sidebarView, toggleSidebar, tags, hotArticles }) => (
+  <>
+    {sidebarView === 'STANDARD_VIEW' && (
+      <StandardSidebar
+        onToggle={toggleSidebar}
+        className='max-w-[333px] space-y-6'
+        tags={tags}
+        hotArticles={hotArticles}
+      />
+    )}
+    {sidebarView === 'COMMENT_LEADERBOARD_VIEW' && <div>not implement</div>}
+  </>
+);
+
+const SidebarUI: React.FC<{
+  showSidebar?: boolean;
+  tags: SiteInfo['tags'];
+  hotArticles: SiteInfo['hotArticles'];
+}> = ({ tags, hotArticles, showSidebar }) => {
+  const { displaySidebar, toggleSidebar, sidebarView } = useUI();
+  // 因为 displaySidebar 和 showSidebar 都可以控制 sidebar 的显示与隐藏, 所以当两个值只有有一个满足条件就放行
+  if (!displaySidebar || !showSidebar) return null;
+  return (
+    <SidebarView
+      tags={tags}
+      hotArticles={hotArticles}
+      sidebarView={sidebarView}
+      toggleSidebar={toggleSidebar}
+    />
+  );
+};
 
 export interface PageProps {
   showFooter?: boolean;
@@ -47,13 +86,12 @@ const Layout = ({
           >
             {children}
           </section>
-          {showSidebar && (
-            <Sidebar
-              className='max-w-[333px] space-y-6'
-              tags={data?.tags || []}
-              hotArticles={data?.hotArticles || []}
-            />
-          )}
+
+          <SidebarUI
+            showSidebar={showSidebar}
+            tags={data?.tags ?? []}
+            hotArticles={data?.hotArticles ?? []}
+          />
         </div>
       </main>
       {showFooter && <Footer />}

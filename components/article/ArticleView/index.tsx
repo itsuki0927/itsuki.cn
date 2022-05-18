@@ -13,7 +13,6 @@ interface ArticleViewProps {
 
 const ArticleView = ({ article }: ArticleViewProps) => {
   const globalData = useGlobalData();
-
   return (
     <div className='space-y-6'>
       <NextSeo

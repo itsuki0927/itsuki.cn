@@ -2,12 +2,14 @@ import { ao } from '@/constants/article/origin';
 import { MyImage, ToDate, TagList } from '@/components/common';
 import { EditOutlined, TimeOutlined, EyeOutlined } from '@/components/icons';
 import { ArticleDetailResponse } from '@/entities/article';
+import { UIParams } from '@/components/ui/context';
 
 interface ArticleHeaderProps {
   article: ArticleDetailResponse;
+  openPopup: (params?: UIParams) => void;
 }
 
-const ArticleHeader = ({ article }: ArticleHeaderProps) => {
+const ArticleHeader = ({ article, openPopup }: ArticleHeaderProps) => {
   const origin = ao(article.origin);
   return (
     <div className='text-center'>
@@ -35,6 +37,9 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => {
       </header>
 
       <MyImage
+        onClick={() => {
+          openPopup({ src: article.cover });
+        }}
         src={article.cover}
         width={661}
         height={300}

@@ -53,9 +53,9 @@ customRenderer.link = function renderLink(hrefProp: string, title: string, text:
 // 解析图片
 customRenderer.image = function renderImage(src: string, title: string, text: string) {
   return `<img
+            name=${`article-cover-${title || text}`}
             src=${src}
-            title=${title}
-            onclick="$popup && $popup.open('${src}')"
+            title=${title || text}
             alt=${title || text}
           />`;
 };

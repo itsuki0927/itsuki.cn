@@ -14,6 +14,7 @@ export type SiteInfo = {
   categories: Category[];
   blacklist: BlackList;
   hotArticles: Article[];
+  bannerArticles: Article[];
 };
 
 export type QuerySiteInfoResponse = {

@@ -8,6 +8,12 @@ export const QUERY_SITE_INFO = gql`
         email
         keyword
       }
+      bannerArticles {
+        id
+        title
+        cover
+        createAt
+      }
       hotArticles {
         id
         title

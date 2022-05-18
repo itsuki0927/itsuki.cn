@@ -3,16 +3,16 @@ import React from 'react';
 import { Carousel } from '@/components/ui';
 import ToDate from '../ToDate';
 import { MyImage } from '..';
-import { UseBannerArticles } from '@/hooks/article/useBannerArticles';
 import { getArticleDetailUrl } from '@/utils/url';
+import { SiteInfo } from '@/entities/siteInfo';
 
 type HomeSliderProps = {
-  articles?: UseBannerArticles;
+  articles?: SiteInfo['bannerArticles'];
 };
 
 const HomeSlider = ({ articles }: HomeSliderProps) => (
   <Carousel autoplay={false}>
-    {articles?.data?.data.map(article => (
+    {articles?.map(article => (
       <div
         role='banner'
         className='group relative opacity-90 transition-opacity'
@@ -31,7 +31,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
         <div className='absolute top-6 right-6 rounded-sm bg-white py-2 px-6 text-center opacity-70 transition-all duration-500 hover:opacity-100 '>
           <header>
             <span className='text-xs tracking-tighter text-gray-1 '>
-              <ToDate date={article.createAt} to='YMD' />
+              <ToDate date={article.createAt ?? new Date()} to='YMD' />
             </span>
 
             <h2

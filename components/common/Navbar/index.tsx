@@ -6,7 +6,7 @@ import { Logo } from '@/components/common';
 import { Category } from '@/entities/category';
 import { RssIcon } from '@/components/icons';
 import { getCategoryUrl } from '@/utils/url';
-import shank from '@/utils/shank';
+import { shank } from '@/utils/array';
 import ThemeSwitch, { ThemeSwitchProps } from '../ThemeSwitch';
 
 type NavbarProps = Omit<ThemeSwitchProps, 'onChange'> & {

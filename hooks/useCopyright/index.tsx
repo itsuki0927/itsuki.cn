@@ -1,5 +1,6 @@
 import { META } from '@/configs/app';
-import { on, preventDefault } from './events';
+import { off, on, preventDefault } from '@/utils/events';
+import { getSelection } from '@/utils/editor/cursor';
 
 const copyrightText = () =>
   [
@@ -15,16 +16,25 @@ const copyrightText = () =>
 
 const buildCopyrightText = (content: string) => content + copyrightText();
 
-const enableCopyright = () => {
-  on(document, 'copy', (event: ClipboardEvent) => {
-    if (!window.getSelection()) return;
+const useCopyright = () => {
+  console.log('------');
+  const handleCopyright = (event: ClipboardEvent) => {
+    const selection = getSelection();
+    if (!selection) return;
     if (event.clipboardData) {
-      const content = window.getSelection()?.toString() ?? '';
+      const content = selection.toString() ?? '';
       event.clipboardData.setData('text/plain', buildCopyrightText(content));
       event.clipboardData.setData('text/html', buildCopyrightText(content));
       preventDefault(event);
     }
-  });
+  };
+  const enableCopyright = () => on(document, 'copy', handleCopyright);
+  const disableCopyright = () => off(document, 'copy', handleCopyright);
+
+  return {
+    enableCopyright,
+    disableCopyright,
+  } as const;
 };
 
-export default enableCopyright;
+export default useCopyright;

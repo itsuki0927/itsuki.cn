@@ -4,9 +4,9 @@ import { Icon, LinkOutlined } from '@/components/icons';
 import s from './style.module.css';
 import { getPageUrl, stringifyParams } from '@/utils/url';
 import { META } from '@/configs/app';
-import copyTextToClipboard from '@/utils/copy';
 import { renderTextToQRCodeDataURL } from '@/utils/qrcode';
 import { useUI } from '@/components/ui/context';
+import { copyTextToClipboard } from '@/hooks/useCopyToClipboard';
 
 enum SocialMedia {
   QQ = 'qq',

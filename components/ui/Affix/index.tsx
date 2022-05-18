@@ -6,7 +6,6 @@ import useOffset from './useOffset';
 
 export interface AffixProps {
   top?: number;
-
   onChange?: (fixed?: boolean) => void;
   container?: HTMLElement | (() => HTMLElement);
   className?: string;

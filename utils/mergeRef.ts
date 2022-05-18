@@ -1,4 +1,5 @@
 type CallbackRef<T> = (ref: T | null) => void;
+
 type Ref<T> = React.MutableRefObject<T> | CallbackRef<T>;
 
 function toFnRef<T>(ref?: Ref<T> | null) {

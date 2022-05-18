@@ -13,7 +13,8 @@ import React, {
   useState,
 } from 'react';
 import { useTimeout } from '@/hooks';
-import guid from '@/utils/guid';
+
+const guid = () => `_${Math.random().toString(36).slice(2, 14)}`;
 
 export function getCount(children: React.ReactChildren) {
   return React.Children.count(

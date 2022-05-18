@@ -3,7 +3,10 @@ import Script from 'next/script';
 import { useCallback, useEffect } from 'react';
 import { GA_TRACKING_ID } from '@/configs/app';
 import { isProd } from '@/configs/environment';
+import { CustomWindow } from '@/types/window';
 import { pageview } from '@/utils/gtag';
+
+declare const window: CustomWindow;
 
 const GA = () => {
   const router = useRouter();
@@ -11,7 +14,7 @@ const GA = () => {
 
   const handleRouteChange = useCallback(
     (url: string) => {
-      if (needGA) {
+      if (needGA && window.gtag) {
         pageview(url);
       }
     },
@@ -32,22 +35,25 @@ const GA = () => {
   return needGA ? (
     <>
       <Script
-        strategy='afterInteractive'
+        strategy='lazyOnload'
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-      />
-      <Script
-        id='gtag-init'
-        strategy='afterInteractive'
-        dangerouslySetInnerHTML={{
-          __html: `
+        onLoad={() => {
+          if (window.gtag == null) {
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+            window.gtag = function () {
+              // eslint-disable-next-line prefer-rest-params
+              window.dataLayer.push(arguments);
+            };
+            window.gtag('js', new Date());
 
-            gtag('config', '${GA_TRACKING_ID}', {
+            window.gtag('config', GA_TRACKING_ID, {
               page_path: window.location.pathname,
             });
-          `,
+          }
+          console.log('loaded', window.gtag, window.dataLayer);
+        }}
+        onError={() => {
+          console.error('[ gtag ]: loaded error');
         }}
       />
     </>

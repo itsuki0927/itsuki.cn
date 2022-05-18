@@ -1,5 +1,4 @@
 import { SiteInfo } from '@/entities/siteInfo';
-import { Widget } from '@/components/ui';
 import Search from './Search';
 import ChickenSoup from './ChickenSoup';
 import HotArticles from './HotArticles';
@@ -25,12 +24,6 @@ const StandardSidebar = ({ tags = [], hotArticles = [], className }: SidebarProp
     <HotArticles hotArticles={hotArticles} />
 
     <Tags tags={tags} />
-
-    <Widget>
-      <Widget.Header>设置</Widget.Header>
-
-      <p>侧边栏</p>
-    </Widget>
   </aside>
 );
 

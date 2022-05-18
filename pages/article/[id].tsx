@@ -27,7 +27,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     };
   }
 
-  readArticle(articleId);
+  await readArticle(articleId);
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(articleKeys.detail(articleId), () =>

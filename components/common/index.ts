@@ -1,4 +1,3 @@
-export { default as DashboardLayout } from './DashboardLayout';
 export { default as ErrorHandler } from './ErrorHandler';
 export { default as Footer } from './Footer';
 export { default as GA } from './GA';

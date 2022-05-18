@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { getArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
 import { ArticleList } from '@/components/article';
-import { DashboardLayout } from '@/components/common';
+import { Layout } from '@/components/common';
 import { Loading } from '@/components/ui';
 import { DEFAULT_CURRENT, DEFAULT_PAGE_SIZE } from '@/constants/pagination';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
@@ -84,6 +84,6 @@ const HomePage = () => {
   );
 };
 
-HomePage.getLayout = (page: ReactNode) => <DashboardLayout>{page}</DashboardLayout>;
+HomePage.getLayout = (page: ReactNode) => <Layout showSlider>{page}</Layout>;
 
 export default HomePage;

@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import classNames from 'classnames';
-import { Footer, Navbar, Sidebar } from '@/components/common';
-import { BackTop } from '@/components/ui';
+import { Footer, HomeSlider, Navbar, Sidebar } from '@/components/common';
+import { BackTop, Container } from '@/components/ui';
 import { useGlobalData } from '@/hooks/globalData';
 import { useTheme } from '@/hooks';
 
@@ -9,6 +9,7 @@ export interface PageProps {
   showFooter?: boolean;
   showNavbar?: boolean;
   showSidebar?: boolean;
+  showSlider?: boolean;
 }
 
 const Layout = ({
@@ -16,24 +17,28 @@ const Layout = ({
   showFooter = true,
   showNavbar = true,
   showSidebar = true,
+  showSlider = false,
 }: PropsWithChildren<PageProps>) => {
   const { data } = useGlobalData();
   const [theme, setTheme] = useTheme();
 
   return (
-    <>
+    <div className='app'>
       {showNavbar && (
         <Navbar theme={theme} onThemeChange={setTheme} links={data?.categories || []} />
       )}
 
-      <div
-        className={classNames('flex min-h-screen flex-col space-y-6', {
+      <main
+        className={classNames('container mx-auto mb-6 min-h-screen flex-grow space-y-6', {
           'pt-[104px]': showNavbar,
         })}
       >
-        <main
-          className={classNames('container mx-auto mb-6 flex flex-grow space-x-6', {})}
-        >
+        {showSlider && (
+          <Container>
+            <HomeSlider articles={data?.bannerArticles ?? []} />
+          </Container>
+        )}
+        <div className='flex space-x-6'>
           <section
             className={classNames('flex-grow', {
               'w-[693px]': showSidebar,
@@ -48,12 +53,12 @@ const Layout = ({
               hotArticles={data?.hotArticles || []}
             />
           )}
-        </main>
+        </div>
+      </main>
+      {showFooter && <Footer />}
 
-        {showFooter && <Footer />}
-        <BackTop />
-      </div>
-    </>
+      <BackTop />
+    </div>
   );
 };
 

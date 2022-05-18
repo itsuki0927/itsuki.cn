@@ -38,17 +38,18 @@ const Layout = ({
             <HomeSlider articles={data?.bannerArticles ?? []} />
           </Container>
         )}
+
         <div className='flex space-x-6'>
           <section
             className={classNames('flex-grow', {
-              'w-[693px]': showSidebar,
+              'max-w-[693px]': showSidebar,
             })}
           >
             {children}
           </section>
           {showSidebar && (
             <Sidebar
-              className='w-[333px] space-y-6'
+              className='max-w-[333px] space-y-6'
               tags={data?.tags || []}
               hotArticles={data?.hotArticles || []}
             />

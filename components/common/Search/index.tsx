@@ -1,10 +1,10 @@
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
-import { ArticleList } from '@/components/article';
+import { ArticleList, ArticleSkeletonList } from '@/components/article';
 import { useSearch } from '@/hooks/article';
 import { Layout } from '@/components/common';
-import { Banner, Loading } from '@/components/ui';
+import { Banner, BannerSkeleton } from '@/components/ui';
 
 const Search = () => {
   const router = useRouter();
@@ -12,11 +12,17 @@ const Search = () => {
   const articles = useSearch(keyword);
 
   if (articles.isLoading || articles.isFetching) {
-    return <Loading />;
+    return (
+      <div className='space-y-6'>
+        <BannerSkeleton />
+
+        <ArticleSkeletonList />
+      </div>
+    );
   }
 
   return (
-    <div className='space-y-5'>
+    <div className='space-y-6'>
       <NextSeo title={`${keyword} - Search`} />
 
       <Banner>关键字: {keyword}</Banner>

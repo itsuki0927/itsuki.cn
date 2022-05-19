@@ -1,6 +1,7 @@
 export { default as Affix } from './Affix';
 export { default as BackTop } from './BackTop';
 export { default as Banner } from './Banner';
+export { default as BannerSkeleton } from './Banner/Skeleton';
 export { default as Carousel } from './Carousel';
 export { default as Container } from './Container';
 export { default as Empty } from './Empty';

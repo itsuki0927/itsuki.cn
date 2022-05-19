@@ -5,9 +5,9 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getArticles } from '@/api/article';
 import { getAllCategoryPaths } from '@/api/category';
 import { getGlobalData } from '@/api/global';
-import { ArticleList } from '@/components/article';
+import { ArticleList, ArticleSkeletonList } from '@/components/article';
 import { Layout } from '@/components/common';
-import { Banner, Loading } from '@/components/ui';
+import { Banner, BannerSkeleton } from '@/components/ui';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { useCategoryArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
@@ -49,20 +49,26 @@ const CategoryPage = ({
     : undefined;
 
   if (articles.isFetching || articles.isLoading) {
-    return <Loading />;
+    return (
+      <div className='space-y-6'>
+        <BannerSkeleton />
+
+        <ArticleSkeletonList />
+      </div>
+    );
   }
 
   return (
-    <>
+    <div className='space-y-6'>
       <NextSeo
         title={`${category?.name} - ${category?.path} - Category`}
         description={category?.description}
       />
 
-      <Banner className='mb-6'>分类: {category?.name}</Banner>
+      <Banner>分类: {category?.name}</Banner>
 
       <ArticleList {...articles} />
-    </>
+    </div>
   );
 };
 

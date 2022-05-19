@@ -5,9 +5,9 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
 import { getAllTagPaths } from '@/api/tag';
-import { ArticleList } from '@/components/article';
+import { ArticleList, ArticleSkeletonList } from '@/components/article';
 import { Layout } from '@/components/common';
-import { Banner, Loading } from '@/components/ui';
+import { Banner, BannerSkeleton } from '@/components/ui';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { useTagArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
@@ -47,20 +47,26 @@ const ArticleTagPage = ({
   const tag = data?.tags ? data.tags.find(item => item.path === tagPath) : undefined;
 
   if (articles.isFetching || articles.isLoading) {
-    return <Loading />;
+    return (
+      <div className='space-y-6'>
+        <BannerSkeleton />
+
+        <ArticleSkeletonList />
+      </div>
+    );
   }
 
   return (
-    <>
+    <div className='space-y-6'>
       <NextSeo
         title={`${tag?.name} - ${tag?.path} - Tag`}
         description={tag?.description}
       />
 
-      <Banner className='mb-6'>标签: {tag?.name}</Banner>
+      <Banner>标签: {tag?.name}</Banner>
 
       <ArticleList {...articles} />
-    </>
+    </div>
   );
 };
 

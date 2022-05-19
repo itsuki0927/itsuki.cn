@@ -2,7 +2,7 @@ const colors = require('tailwindcss/colors');
 
 /*  @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
-  content: ['./pages/**/*.{jsx,tsx}', './components/**/*.{jsx,tsx}'],
+  content: ['./pages/**/*.tsx', './components/**/*.tsx'],
   darkMode: 'class',
   theme: {
     colors: {
@@ -135,11 +135,21 @@ module.exports = {
             transform: 'rotate(0deg)',
           },
         },
+        enter: {
+          '0%': { transform: 'translateX(100%)', opacity: 0 },
+          '100%': { transform: 'translateX(0)', opacity: 1 },
+        },
+        leave: {
+          '0%': { transform: 'translateX(0)', opacity: 1 },
+          '100%': { transform: 'translateX(100%)', opacity: 0 },
+        },
       },
       animation: {
         'move-left-half': 'move-left-half 0.3s ease forwards',
         'move-left-half-vertical': 'move-left-half-vertical 0.3s ease forwards',
         wave: 'wave 2s linear 15',
+        enter: 'enter 200ms ease-out',
+        leave: 'leave 150ms ease-in forwards',
       },
     },
   },

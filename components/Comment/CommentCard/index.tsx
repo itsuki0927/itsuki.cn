@@ -1,5 +1,5 @@
 import { ReactNode, useRef } from 'react';
-import toast from 'react-hot-toast';
+import toast, { Toast } from 'react-hot-toast';
 import classNames from 'classnames';
 import { MyImage, ToDate } from '@/components/common';
 import {
@@ -17,6 +17,7 @@ import { NoReturnFunction } from '@/types/fn';
 import CommentList, { buildCommentTree, CommentTree } from '../CommentList';
 import useLikeComment from '@/hooks/comment/useLikeComment';
 import getGravatarUrl from '@/utils/gravatar';
+import scrollTo from '@/utils/scrollTo';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -50,9 +51,24 @@ const CommentCard = ({
     commentId: Number(data.comment.id),
   });
 
-  const buildCommentReplyToast = () => (
-    <div className='pointer-events-auto w-full max-w-md  rounded-lg bg-primary-light p-4 shadow-lg transition-opacity duration-300'>
-      <p className='text-gray-900 m-0 text-sm font-medium'>回复#{comment.nickname}中</p>
+  const buildCommentReplyToast = (t: Toast) => (
+    <div
+      className={classNames(
+        'absolute right-0 top-20 cursor-pointer rounded-sm bg-primary px-4 py-2 transition-colors hover:bg-primary-hover',
+        t.visible ? 'animate-enter' : 'animate-leave'
+      )}
+    >
+      <p
+        className='mb-0 text-center text-sm text-white'
+        onClick={() => {
+          const commentDom = document.getElementById(buildCommentDomId(comment.id));
+          if (commentDom) {
+            scrollTo(commentDom);
+          }
+        }}
+      >
+        回复 #{comment.nickname} 中
+      </p>
     </div>
   );
 
@@ -143,7 +159,10 @@ const CommentCard = ({
             <button
               type='button'
               className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-white hover:text-dark-2'
-              onClick={() => onCancelReply?.()}
+              onClick={() => {
+                onCancelReply?.();
+                toast.dismiss();
+              }}
             >
               <CloseOutlined className='mr-1' />
               取消回复
@@ -153,9 +172,8 @@ const CommentCard = ({
               type='button'
               className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-white hover:text-dark-2'
               onClick={() => {
-                // toast.success(`回复${comment.nickname}`);
                 toast.custom(buildCommentReplyToast, {
-                  duration: 100000,
+                  duration: Infinity,
                 });
                 onReply?.(comment);
               }}

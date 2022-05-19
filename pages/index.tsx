@@ -3,9 +3,8 @@ import { dehydrate, QueryClient } from 'react-query';
 import classNames from 'classnames';
 import { getArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
-import { ArticleList } from '@/components/article';
+import { ArticleList, ArticleSkeletonList } from '@/components/article';
 import { Layout } from '@/components/common';
-import { Loading } from '@/components/ui';
 import { DEFAULT_CURRENT, DEFAULT_PAGE_SIZE } from '@/constants/pagination';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { useArticles } from '@/hooks/article';
@@ -33,7 +32,7 @@ const HomePage = () => {
   const articles = useArticles(current);
 
   if (articles.isLoading || articles.isFetching) {
-    return <Loading />;
+    return <ArticleSkeletonList />;
   }
 
   return (

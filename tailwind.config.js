@@ -77,6 +77,7 @@ module.exports = {
         danger: 'var(--bg-danger)',
         'danger-hover': 'var(--bg-danger-hover)',
         'danger-light': 'var(--bg-danger-light)',
+        skeleton: 'var(--bg-skeleton)',
       },
       fontSize: {
         xxs: ['0.625rem', '0.75rem'],

@@ -38,6 +38,7 @@
   --bg-danger: #f64e60;
   --bg-danger-hover: #ec0c24;
   --bg-danger-light: #ffe2e5;
+  --bg-skeleton: #e5e7eb;
 
   /* border */
   --border-basic: var(--border-dark-1);
@@ -94,6 +95,7 @@
   --bg-danger: #9b0818;
   --bg-danger-hover: #bd0a1d;
   --bg-danger-light: #440007;
+  --bg-skeleton: #25282a;
 
   /* border */
   /* gray-3: #4d5356; */

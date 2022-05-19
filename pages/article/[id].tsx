@@ -3,9 +3,8 @@ import { ReactNode } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import { getGlobalData } from '@/api/global';
 import { readArticle, getAllArticlePaths, getArticle } from '@/api/article';
-import { ArticleView } from '@/components/article';
+import { ArticleSkeleton, ArticleView } from '@/components/article';
 import { ErrorHandler, Layout } from '@/components/common';
-import { Loading } from '@/components/ui';
 import { useArticle } from '@/hooks/article';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 
@@ -47,9 +46,9 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { data: article, isFetching, isLoading, isError } = useArticle(articleId);
 
-  if (isFetching || isLoading) return <Loading />;
+  if (isFetching || isLoading || !article) return <ArticleSkeleton />;
   if (isError) return <ErrorHandler title='' message='' img='/404.jpg' />;
-  return <ArticleView article={article!} />;
+  return <ArticleView article={article} />;
 };
 
 ArticlePage.getLayout = (page: ReactNode) => <Layout>{page}</Layout>;

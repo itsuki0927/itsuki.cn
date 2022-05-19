@@ -17,7 +17,6 @@ const copyrightText = () =>
 const buildCopyrightText = (content: string) => content + copyrightText();
 
 const useCopyright = () => {
-  console.log('------');
   const handleCopyright = (event: ClipboardEvent) => {
     const selection = getSelection();
     if (!selection) return;

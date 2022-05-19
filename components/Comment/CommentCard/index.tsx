@@ -158,7 +158,7 @@ const CommentCard = ({
           {replyId === comment.id ? (
             <button
               type='button'
-              className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-white hover:text-dark-2'
+              className='inline-block cursor-pointer rounded-sm bg-white px-2 py-1 text-xs text-dark-2 transition-colors duration-300'
               onClick={() => {
                 onCancelReply?.();
                 toast.dismiss();

@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app';
+import { Toaster } from 'react-hot-toast';
 import { ReactNode } from 'react';
 /* eslint-disable import/extensions */
 import { GA, Head, LayoutTransition, QueryClientContainer } from '@/components/common';
@@ -21,6 +22,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head />
       <GA />
       <PageLoadingProgress />
+      <Toaster
+        toastOptions={{
+          duration: 2000,
+          error: {
+            duration: 2500,
+          },
+        }}
+      />
 
       <ManagedUIContext>
         <QueryClientContainer pageProps={pageProps}>

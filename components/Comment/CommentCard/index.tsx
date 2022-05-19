@@ -172,6 +172,7 @@ const CommentCard = ({
               type='button'
               className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-white hover:text-dark-2'
               onClick={() => {
+                toast.dismiss();
                 toast.custom(buildCommentReplyToast, {
                   duration: Infinity,
                 });

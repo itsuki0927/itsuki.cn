@@ -10,7 +10,7 @@ interface QueryClientContainerProps {
 }
 
 const handlerError = (error: any) => {
-  error.response.errors.forEach((e: GraphQLError) => {
+  error.response?.errors?.forEach((e: GraphQLError) => {
     console.debug(e);
     if (isDev) {
       toast(`路径: /${e.path?.join('/')}`, {

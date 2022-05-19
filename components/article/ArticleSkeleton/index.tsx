@@ -15,9 +15,12 @@ export const ArticleSkeletonCard = () => (
   </div>
 );
 
-const ArticleSkeletonList = () => (
+interface ArticleSkeletonListProps {
+  count?: number;
+}
+const ArticleSkeletonList = ({ count = 6 }: ArticleSkeletonListProps) => (
   <div className='space-y-6'>
-    {Array.from({ length: 6 }, (_, i) => (
+    {Array.from({ length: count }, (_, i) => (
       <ArticleSkeletonCard key={i} />
     ))}
   </div>

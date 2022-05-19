@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useMemo, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useCallback, useMemo, useState } from 'react';
 import { Container, Loading } from '@/components/ui';
 import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
 import { Comment, PostCommentBody } from '@/entities/comment';
@@ -28,34 +29,29 @@ const CommentView = ({ articleId }: CommentProps) => {
   const comments = useMemo(() => convertToCommentTreeData(data?.data), [data?.data]);
   const hasComments = !!comments.length;
 
+  const validateComment = useCallback(
+    (content: string) => {
+      const validateMap = new Map([
+        [() => !content, '老铁 内容呢?'],
+        [() => !profile.email, '老铁 邮箱呢?'],
+        [() => !profile.nickname, '老铁 昵称呢?'],
+        [() => profile.nickname.length >= 10, '老铁 昵称不能超过10位?'],
+        [() => !isEmail(profile.email), '老铁 正确的邮箱?'],
+      ]);
+
+      const result = [...validateMap.entries()].find(([fn, msg]) => fn() && msg);
+      if (result) {
+        const [, message] = result;
+        return { message };
+      }
+      return true;
+    },
+    [profile.email, profile.nickname]
+  );
+
   const handleSend = useCallback(
     (content: string) =>
       new Promise<boolean>((resolve, reject) => {
-        if (!content) {
-          // eslint-disable-next-line prefer-promise-reject-errors
-          reject({ message: '老铁 内容呢?' });
-          return;
-        }
-        if (!profile.email) {
-          // eslint-disable-next-line prefer-promise-reject-errors
-          reject({ message: '邮箱?' });
-          return;
-        }
-        if (!profile.nickname) {
-          // eslint-disable-next-line prefer-promise-reject-errors
-          reject({ message: '昵称?' });
-          return;
-        }
-        if (profile.nickname.length >= 10) {
-          // eslint-disable-next-line prefer-promise-reject-errors
-          reject({ message: '昵称太长了' });
-          return;
-        }
-        if (!isEmail(profile.email)) {
-          // eslint-disable-next-line prefer-promise-reject-errors
-          reject({ message: '正确的邮箱?' });
-          return;
-        }
         const params: PostCommentBody = {
           ...profile,
           articleId,
@@ -63,12 +59,25 @@ const CommentView = ({ articleId }: CommentProps) => {
           parentId: replyId ?? undefined,
           content: purifyDomString(content),
         };
-        mutation.mutateAsync(params).then(() => {
-          setReplyId(null);
-          resolve(true);
-        }, reject);
+
+        const validate = validateComment(content);
+
+        if (validate === true) {
+          toast
+            .promise(mutation.mutateAsync(params), {
+              loading: '发射中...',
+              success: <b>👏 发射成功</b>,
+              error: <b>🙌 发射失败</b>,
+            })
+            .then(() => {
+              setReplyId(null);
+              resolve(true);
+            }, reject);
+        } else {
+          reject(validate);
+        }
       }),
-    [articleId, mutation, profile, replyId]
+    [articleId, mutation, profile, replyId, validateComment]
   );
 
   const replyCallback = useCallback(

@@ -1,4 +1,5 @@
 import { ReactNode, useRef } from 'react';
+import toast from 'react-hot-toast';
 import classNames from 'classnames';
 import { MyImage, ToDate } from '@/components/common';
 import {
@@ -48,6 +49,12 @@ const CommentCard = ({
     articleId: Number(data.comment.articleId),
     commentId: Number(data.comment.id),
   });
+
+  const buildCommentReplyToast = () => (
+    <div className='pointer-events-auto w-full max-w-md  rounded-lg bg-primary-light p-4 shadow-lg transition-opacity duration-300'>
+      <p className='text-gray-900 m-0 text-sm font-medium'>回复#{comment.nickname}中</p>
+    </div>
+  );
 
   return (
     <div
@@ -145,7 +152,13 @@ const CommentCard = ({
             <button
               type='button'
               className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-white hover:text-dark-2'
-              onClick={() => onReply?.(comment)}
+              onClick={() => {
+                // toast.success(`回复${comment.nickname}`);
+                toast.custom(buildCommentReplyToast, {
+                  duration: 100000,
+                });
+                onReply?.(comment);
+              }}
             >
               <ReplyOutlined className='mr-1' />
               回复

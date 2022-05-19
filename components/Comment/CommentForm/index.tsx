@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 import React, { ReactNode, useState } from 'react';
 import { MyImage } from '@/components/common';
@@ -31,9 +32,9 @@ const CommentForm = ({
         setContent('');
         return true;
       },
-      (error: any = { message: '' }) => {
-        const { message } = error;
-        alert(`评论发布失败: ${message}\n`);
+      (error: any) => {
+        const { message } = error || { message: '' };
+        toast.error(`评论发布失败: ${message}\n`);
         return false;
       }
     );

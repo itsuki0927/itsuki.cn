@@ -38,4 +38,32 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
   );
 };
 
+export const RelateArticleSkeleton = () => (
+  <div className='mx-auto w-full rounded-sm bg-white p-4'>
+    <div className='animate-pulse'>
+      <div className='my-2 mx-auto h-3 w-40 rounded-sm bg-skeleton' />
+
+      <div className='flex space-x-4'>
+        <div className='flex flex-1 flex-col py-1'>
+          <div className='my-2 h-32 rounded-sm bg-skeleton' />
+          <div className='my-2 mx-auto h-5 w-[90%] rounded-sm bg-skeleton' />
+          <div className='my-2 mx-auto h-4 w-[70%] rounded-sm bg-skeleton' />
+        </div>
+
+        <div className='flex flex-1 flex-col py-1'>
+          <div className='my-2 h-32 rounded-sm bg-skeleton' />
+          <div className='my-2 mx-auto h-5 w-[90%] rounded-sm bg-skeleton' />
+          <div className='my-2 mx-auto h-4 w-[70%] rounded-sm bg-skeleton' />
+        </div>
+
+        <div className='flex flex-1 flex-col py-1'>
+          <div className='my-2 h-32 rounded-sm bg-skeleton' />
+          <div className='my-2 mx-auto h-5 w-[90%] rounded-sm bg-skeleton' />
+          <div className='my-2 mx-auto h-4 w-[70%] rounded-sm bg-skeleton' />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 export default RelateArticles;

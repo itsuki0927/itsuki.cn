@@ -7,6 +7,8 @@ import { ArticleSkeleton, ArticleView } from '@/components/article';
 import { ErrorHandler, Layout } from '@/components/common';
 import { useArticle } from '@/hooks/article';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
+import { RelateArticleSkeleton } from '@/components/article/RelateArticles';
+import { CommentFormSkeletion, CommentListSkeleton } from '@/components/comment';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePaths();
@@ -46,7 +48,15 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { data: article, isFetching, isLoading, isError } = useArticle(articleId);
 
-  if (isFetching || isLoading || !article) return <ArticleSkeleton />;
+  if (isFetching || isLoading || !article)
+    return (
+      <div className='space-y-6'>
+        <ArticleSkeleton />
+        <RelateArticleSkeleton />
+        <CommentFormSkeletion />
+        <CommentListSkeleton />
+      </div>
+    );
   if (isError) return <ErrorHandler title='' message='' img='/404.jpg' />;
   return <ArticleView article={article} />;
 };

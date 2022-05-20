@@ -29,9 +29,9 @@ export const ArticleSkeletonList = ({ count = 6 }: ArticleSkeletonListProps) => 
 
 export const ArticleSkeleton = () => (
   <div className='mx-auto w-full rounded-sm bg-white p-4'>
-    <div className='flex animate-pulse flex-col items-center space-y-6'>
+    <div className='flex animate-pulse flex-col items-center space-y-4'>
       <div className='my-1 h-6 w-[60%] rounded-sm bg-skeleton' />
-      <div className='flex justify-center space-x-6'>
+      <div className='flex justify-center space-x-4'>
         <div className='h-3 w-10 rounded-sm bg-skeleton' />
         <div className='h-3 w-10 rounded-sm bg-skeleton' />
         <div className='h-3 w-10 rounded-sm bg-skeleton' />
@@ -51,7 +51,7 @@ export const ArticleSkeleton = () => (
         <div className='ml-[10%] h-5 max-w-[70%] rounded-sm bg-skeleton' />
       </div>
 
-      <div className='h-9 w-20 rounded-sm bg-skeleton' />
+      <div className='h-9 w-28 rounded-sm bg-skeleton' />
     </div>
   </div>
 );

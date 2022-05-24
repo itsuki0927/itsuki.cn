@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "postbuild": "next-sitemap",
-    "pm2": "pm2 start yarn --name 'web' --interpreter bash -- start ",
     "next:lint": "next lint",
     "lint": "eslint .",
     "prepare": "husky install",

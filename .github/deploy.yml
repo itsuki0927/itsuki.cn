@@ -1,0 +1,124 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # 构建
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'yarn'
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      # 缓存文件
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: |
+            ~/.yarn
+            **/node_modules
+            build
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
+
+      # 如果没有命中缓存, 执行yarn
+      - if: ${{ steps.yarn-cache.outputs.cache-hit == false }}
+        name: Install dependencies
+        continue-on-error: true
+        run: yarn --frozen-lockfile
+
+      # 构建
+      - name: Run build
+        run: yarn build
+
+  # 同步到服务器
+  syncToServer:
+    name: Sync To Server
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # 缓存中恢复文件
+      - name: Restore build folder
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.yarn
+            **/node_modules
+            build
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
+      - run: ls -a
+      # 上传到服务器
+      - name: Upload files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          source: 'build,package.json,public'
+          target: '~/blog/web'
+
+  # 发布
+  deploy:
+    name: Deployment
+    runs-on: ubuntu-latest
+    needs: [build, syncToServer]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          command_timeout: 4m
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            echo "[deploy] start deployment..."
+            # 进到当前文件夹
+            cd ~/blog/web
+
+            echo "[deploy] stop server..."
+            # 进到当前文件夹
+            pm2 stop itsuki.cn
+
+            # 删除缓存
+            echo "[deploy] remove cache..."
+            rm -rf .next
+            rm -rf node_modules
+
+            # 添加刚刚打包的文件
+            echo "[deploy] add .next..."
+            mv build .next
+
+            # 初始化
+            echo "[deploy] yarn install..."
+            yarn --prod
+
+            # 重启服务
+            echo "[deploy] pm2 restart test..."
+            pm2 restart itsuki.cn
+
+            echo "[deploy] end deployment..."
+            echo "[deploy] success"

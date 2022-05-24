@@ -44,7 +44,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
       <button
         type='button'
         onClick={() => router.push(getArticleDetailUrl(article.id))}
-        className='mb-3 rounded-sm bg-white-1 py-2 px-6 text-xs tracking-widest text-gray-3 transition-colors duration-300 hover:bg-primary-light hover:text-primary'
+        className='mb-3 rounded-sm bg-white-1 py-2 px-6 text-xs tracking-widest text-primary transition-colors duration-300 hover:bg-primary hover:text-white'
       >
         READ MORE
       </button>

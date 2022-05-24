@@ -21,3 +21,10 @@
   src: url('https://static.itsuki.cn/fonts/ia-qa/iAWriterQuattroSRegular.ttf')
     format('truetype');
 }
+
+@font-face {
+  font-family: 'Fira Code';
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://static.itsuki.cn/fonts/FiraCode.ttf') format('truetype');
+}

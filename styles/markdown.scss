@@ -8,6 +8,11 @@ html.dark {
   @include meta.load-css('highlight.js/styles/atom-one-dark');
 }
 
+code[class*='language-'],
+pre[class*='language-'] {
+  font-family: 'Fira Code';
+}
+
 .markdown-html {
   @apply text-sm tracking-wider;
 
@@ -24,7 +29,7 @@ html.dark {
   }
 
   code {
-    @apply m-1 rounded-sm bg-white-1 p-1 text-[#292524] dark:bg-[#2d3437] dark:text-[#d0ccc5];
+    @apply m-1 rounded-sm bg-white-1 p-1 text-[#292524] transition-colors duration-500 dark:bg-[#2d3437] dark:text-[#d0ccc5];
   }
 
   a {

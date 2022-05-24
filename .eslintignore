@@ -11,3 +11,6 @@ commitlint.config.js
 # json
 tsconfig.json
 package.json
+
+# next
+/build

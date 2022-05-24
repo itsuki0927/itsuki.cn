@@ -33,7 +33,9 @@ jobs:
             ~/.yarn
             **/node_modules
             build
+          # 如果源文件或者package.json修改就进行更新缓存
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          # 如果源文件更新但是没有更新package.json, 根据restore-keys读取之前的缓存
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
 
@@ -100,7 +102,7 @@ jobs:
             cd ~/blog/web
 
             echo "[deploy] stop server..."
-            # 进到当前文件夹
+            # 停止服务
             pm2 stop itsuki.cn
 
             # 删除缓存

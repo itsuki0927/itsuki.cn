@@ -1,6 +1,6 @@
 const RESOURCE_HOST = 'static.itsuki.cn';
 
-const RESOURCE_URL = `https://${RESOURCE_HOST}`;
+// const RESOURCE_URL = `https://${RESOURCE_HOST}`;
 
 const isProd = process.env.NODE_ENV === 'production';
 console.log(`[ mode: ${process.env.NODE_ENV} ]`);
@@ -13,7 +13,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 module.exports = withBundleAnalyzer({
-  assetPrefix: isProd ? RESOURCE_URL : '',
+  distDir: 'build',
+  // assetPrefix: isProd ? RESOURCE_URL : '',
   reactStrictMode: true,
   async rewrites() {
     return [{ source: '/rss.xml', destination: '/api/rss' }];

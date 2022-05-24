@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { MarkdownBlock } from '@/components/ui';
 import { MarkdownEditorOptions } from '@/utils/editor';
 import markedToHtml from '@/utils/marked';
@@ -28,11 +28,6 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   const { editorRef } = useEditor(props);
   const { placeholder } = props;
 
-  const toolbarDom = useMemo(
-    () => <Toolbar preview={preview} onPreview={setPreview} />,
-    [preview]
-  );
-
   return (
     <div className='bg-white-1 text-sm '>
       <div className='relative'>
@@ -40,7 +35,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
           placeholder={placeholder}
           className={classNames(
             styles.root,
-            'max-h-[460px] min-h-[120px] overflow-y-scroll p-3 leading-5'
+            'max-h-[460px] min-h-[200px] overflow-y-scroll p-3 leading-5'
           )}
           ref={editorRef as any}
         />
@@ -55,7 +50,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
         />
       </div>
 
-      {toolbarDom}
+      <Toolbar preview={preview} onPreview={setPreview} />
     </div>
   );
 };

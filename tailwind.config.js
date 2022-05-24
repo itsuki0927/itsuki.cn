@@ -24,6 +24,48 @@ module.exports = {
       // #1c1c1c
     },
     extend: {
+      typography: ({ theme }) => {
+        const [fontSize, { lineHeight }] = theme('fontSize.sm');
+        return {
+          invert: {
+            css: {
+              '--tw-prose-body': '#cecac3',
+              '--tw-prose-headings': '#e8e6e3',
+              '--tw-prose-lead': '#afa99e',
+              '--tw-prose-links': '#e8e6e3',
+              '--tw-prose-bold': '#e8e6e3',
+              '--tw-prose-counters': '#afa99e',
+              '--tw-prose-bullets': '#b1aaa0',
+              '--tw-prose-hr': '#766d61',
+              '--tw-prose-quotes': '#e1dfdb',
+              '--tw-prose-quote-borders': '#766d61',
+              '--tw-prose-captions': '#afa99e',
+              '--tw-prose-code': '#e8e6e3',
+              '--tw-prose-pre-code': '#cecac3',
+              '--tw-prose-pre-bg': 'rgba(0, 0, 0, 0.5)',
+              '--tw-prose-th-borders': '#6f675b',
+              '--tw-prose-td-borders': '#766d61',
+            },
+          },
+          base: {
+            css: {
+              'blockquote p': {
+                marginTop: theme('spacing.1'),
+                marginBottom: theme('spacing.1'),
+              },
+              pre: {
+                borderRadius: theme('borderRadius.sm'),
+                fontFamily: 'Fira Code',
+              },
+              code: {
+                fontSize,
+                lineHeight,
+                fontFamily: 'Fira Code',
+              },
+            },
+          },
+        };
+      },
       textColor: {
         basic: 'var(--text-dark-1)',
         white: 'var(--text-white)',
@@ -154,5 +196,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/line-clamp')],
+  plugins: [require('@tailwindcss/line-clamp'), require('@tailwindcss/typography')],
 };

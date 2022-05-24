@@ -10,6 +10,7 @@ import markdown from 'highlight.js/lib/languages/markdown';
 import graphql from 'highlight.js/lib/languages/graphql';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
+import 'highlight.js/styles/atom-one-dark.css';
 
 const languages = {
   css,

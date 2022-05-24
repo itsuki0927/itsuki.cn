@@ -45,6 +45,7 @@
     "@commitlint/config-conventional": "^16.2.4",
     "@next/bundle-analyzer": "^12.1.6",
     "@tailwindcss/line-clamp": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.2",
     "@types/dompurify": "^2.3.3",
     "@types/gravatar": "^1.8.3",
     "@types/marked": "^4.0.3",

@@ -6,8 +6,6 @@ import { GA, Head, LayoutTransition, QueryClientContainer } from '@/components/c
 import { PageLoadingProgress } from '@/components/ui';
 import { useMount, useUnMount, useCopyright } from '@/hooks';
 import '@/styles/global.css';
-import '@/styles/markdown.scss';
-import '@/styles/reset.css';
 import { ManagedUIContext } from '@/components/ui/context';
 
 function MyApp({ Component, pageProps }: AppProps) {

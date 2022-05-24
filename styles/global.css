@@ -6,3 +6,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  @apply m-0 bg-basic p-0 text-base text-basic;
+
+  font-family: 'iA Writer Quattro', BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  @apply relative mx-auto;
+
+  width: 1050px;
+}
+
+::selection {
+  @apply bg-[#d9d9d9] text-white dark:bg-[#2d3133];
+
+  text-shadow: none;
+}
+
+::-moz-selection {
+  @apply bg-[#d9d9d9] text-white dark:bg-[#2d3133];
+
+  text-shadow: none;
+}
+
+::placeholder {
+  @apply dark:text-[#b2aba1] dark:opacity-50;
+}
+
+input::placeholder,
+textarea::placeholder {
+  @apply text-[#afa99e];
+}
+
+blockquote {
+  @apply border-l-4 border-solid border-dark-3 bg-white-1 py-1 pl-4 pr-3 indent-0;
+}

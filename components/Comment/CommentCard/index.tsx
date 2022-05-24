@@ -124,7 +124,7 @@ const CommentCard = ({
           ref={ref}
           htmlContent={contentHtml}
           isComments
-          className='lazy clear-left my-3 max-h-[600px] overflow-y-auto text-sm'
+          className='lazy clear-left my-3 max-h-[600px] overflow-y-auto'
         />
 
         <div className='flex justify-between text-gray-1'>

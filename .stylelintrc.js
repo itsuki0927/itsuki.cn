@@ -7,8 +7,8 @@ module.exports = {
   plugins: ['stylelint-order', 'stylelint-scss'],
   rules: {
     'no-descending-specificity': null,
-    'at-rule-no-unknown': true,
-    'scss/at-rule-no-unknown': true,
+    'at-rule-no-unknown': null,
+    'scss/at-rule-no-unknown': null,
     // color另起一行
     // 'declaration-colon-newline-after': null,
     // 忽略 Fira Code

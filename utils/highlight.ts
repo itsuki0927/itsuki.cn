@@ -7,11 +7,9 @@ import json from 'highlight.js/lib/languages/json';
 import less from 'highlight.js/lib/languages/less';
 import lua from 'highlight.js/lib/languages/lua';
 import markdown from 'highlight.js/lib/languages/markdown';
+import graphql from 'highlight.js/lib/languages/graphql';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
-import 'highlight.js/styles/base16/onedark.css';
-
-// import 'highlight.js/styles/base16/gruvbox-dark-hard.css';
 
 const languages = {
   css,
@@ -23,6 +21,7 @@ const languages = {
   javascript,
   typescript,
   lua,
+  graphql,
 } as const;
 
 const aliasLanguage = {

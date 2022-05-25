@@ -35,7 +35,7 @@ const ArticleContent = ({ article }: ArticleContentProps) => {
     <Container className='relative rounded-sm pb-16'>
       <ArticleHeader article={article} openPopup={openPopup} />
 
-      <MarkdownBlock className='mb-5' htmlContent={article.content} />
+      <MarkdownBlock className='my-5' htmlContent={article.content} />
 
       <ArticleAction article={article} />
 

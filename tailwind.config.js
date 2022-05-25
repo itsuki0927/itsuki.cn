@@ -22,6 +22,9 @@ module.exports = {
       // #2d2d2d
       // #222222
       // #1c1c1c
+      github: 'var(--github)',
+      qq: 'var(--qq)',
+      wechat: 'var(--wechat)',
     },
     extend: {
       typography: ({ theme }) => {

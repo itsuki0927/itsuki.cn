@@ -4,6 +4,7 @@ export { default as CompassOutlined } from './CompassOutlined';
 export { default as DoubanOutlined } from './DoubanOutlined';
 export { default as EditOutlined } from './EditOutlined';
 export { default as EyeOutlined } from './EyeOutlined';
+export { default as GithubOutlined } from './GithubOutlined';
 export { default as Icon } from './Icon/index';
 export { default as LeftOutlined } from './LeftOutlined';
 export { default as LikeFilled } from './LikeFilled';

@@ -1,4 +1,9 @@
 :root {
+  /* common */
+  --github: var(--bg-dark-2);
+  --qq: #1abcfa;
+  --wechat: #2bae67;
+
   /* text */
   --text-basic: var(--text-dark-1);
   --text-white: white;
@@ -56,6 +61,11 @@
 }
 
 :root.dark {
+  /* common */
+  --github: var(--bg-dark-2);
+  --qq: #1abcfa;
+  --wechat: #2bae67;
+
   /* text */
   --text-basic: #bdb7af;
   --text-white: #e8e6e3;

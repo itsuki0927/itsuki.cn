@@ -11,7 +11,6 @@ export const QUERY_COMMENTS = gql`
         state
         nickname
         email
-        website
         content
         liking
         ip
@@ -39,7 +38,6 @@ export const CREATE_COMMENT = gql`
       state
       nickname
       email
-      website
       content
       liking
       ip

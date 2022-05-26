@@ -8,7 +8,6 @@ import {
 export type Comment = IdentifiableEntity<{
   nickname: string;
   email: string;
-  website: string;
   content: string;
   liking: number;
   ip: string;
@@ -23,6 +22,7 @@ export type Comment = IdentifiableEntity<{
   articleId: number;
   articleTitle: string;
   articleDescription: string;
+  type: string;
 }>;
 
 export type SearchCommentsBody = {
@@ -36,10 +36,11 @@ export type LikeCommentBody = {
 export type PostCommentBody = {
   nickname: string;
   email: string;
-  website: string;
   content: string;
   articleId: number;
   agent: string;
+  avatar: string;
+  loginType: string;
   parentId?: number;
 };
 

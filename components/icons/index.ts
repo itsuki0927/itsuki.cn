@@ -3,6 +3,8 @@ export { default as CommentOutlined } from './CommentOutlined';
 export { default as CompassOutlined } from './CompassOutlined';
 export { default as DoubanOutlined } from './DoubanOutlined';
 export { default as EditOutlined } from './EditOutlined';
+export { default as EyeCloseFilled } from './EyeCloseFilled';
+export { default as EyeFilled } from './EyeFilled';
 export { default as EyeOutlined } from './EyeOutlined';
 export { default as GithubOutlined } from './GithubOutlined';
 export { default as Icon } from './Icon/index';

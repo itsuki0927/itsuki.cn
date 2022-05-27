@@ -81,7 +81,7 @@ const CommentCard = ({
       key={comment.id}
       className={`transition-all duration-500 ${className}`}
     >
-      <div className={`relative mb-2 rounded-sm bg-white-1 p-4  ${childClassName}`}>
+      <div className={`relative mb-2 rounded-sm bg-white-1 p-4 ${childClassName}`}>
         <header className='flex items-center'>
           <CommentAvatar avatar={comment.avatar} loginType={comment.loginType} />
           <div className='ml-4 flex-grow'>
@@ -98,15 +98,15 @@ const CommentCard = ({
               )}
             </div>
 
-            <div className='mt-1 flex flex-grow items-center text-xs text-gray-2 '>
+            <div className='mt-1 flex flex-grow items-center text-sm text-gray-2 '>
               <span>
-                <TimeOutlined className='mr-1 text-xs' />
+                <TimeOutlined className='mr-1 align-baseline text-sm' />
                 <ToDate date={comment.createAt} />
               </span>
 
               <span className='ml-2'>
-                <CompassOutlined className='mr-1 text-xs' />
-                <span className='text-xs'>
+                <CompassOutlined className='mr-1 align-baseline text-sm' />
+                <span className='text-sm'>
                   {comment.province}
                   <i className='mx-1'>•</i>
                   {comment.city}
@@ -119,21 +119,20 @@ const CommentCard = ({
         <MarkdownBlock
           ref={ref}
           htmlContent={contentHtml}
-          isComments
           className='lazy clear-left my-3 max-h-[600px] overflow-y-auto'
         />
 
         <div className='flex justify-between text-gray-1'>
           <div>
             {!!commentChildren.length && (
-              <span className='mr-3 inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-primary-light hover:text-primary  '>
-                <CommentOutlined className='mr-1' />
+              <span className='mr-3 inline-block cursor-pointer rounded-sm px-2 py-1 text-sm transition-colors duration-300 hover:bg-primary-light hover:text-primary  '>
+                <CommentOutlined className='mr-1 align-baseline' />
                 {commentChildren.length}
               </span>
             )}
             <button
               className={classNames(
-                'inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 ',
+                'inline-block cursor-pointer rounded-sm px-3 py-1 text-sm transition-colors duration-300 ',
                 isLike
                   ? 'bg-danger-light text-danger'
                   : 'hover:bg-danger-light hover:text-danger'
@@ -146,7 +145,7 @@ const CommentCard = ({
               }}
               type='button'
             >
-              <LikeOutlined className='mr-1' />
+              <LikeOutlined className='mr-1 align-baseline' />
               {comment.liking}
             </button>
           </div>
@@ -154,13 +153,13 @@ const CommentCard = ({
           {replyId === comment.id ? (
             <button
               type='button'
-              className='inline-block cursor-pointer rounded-sm bg-white px-2 py-1 text-xs text-dark-2 transition-colors duration-300'
+              className='inline-block cursor-pointer rounded-sm bg-white px-3 py-1 text-sm text-dark-2 transition-colors duration-300'
               onClick={() => {
                 onCancelReply?.();
                 toast.dismiss();
               }}
             >
-              <CloseOutlined className='mr-1' />
+              <CloseOutlined className='mr-1 align-baseline' />
               取消回复
             </button>
           ) : (
@@ -168,7 +167,7 @@ const CommentCard = ({
               type='button'
               disabled={isSignout}
               className={classNames(
-                'inline-block rounded-sm px-2 py-1 text-xs transition-colors duration-300',
+                'inline-block rounded-sm px-3 py-1 text-sm transition-colors duration-300',
                 isSignout
                   ? 'cursor-not-allowed'
                   : 'cursor-pointer hover:bg-white hover:text-dark-2'

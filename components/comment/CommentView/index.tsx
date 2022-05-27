@@ -5,7 +5,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { SigninIcon } from '@/components/common';
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Container } from '@/components/ui';
+import { Container, Widget } from '@/components/ui';
 import { Comment, PostCommentBody } from '@/entities/comment';
 import { useComments, useCreateComment } from '@/hooks/comment';
 import purifyDomString from '@/utils/purify';
@@ -121,28 +121,24 @@ const CommentView = ({ articleId }: CommentProps) => {
 
   return (
     <>
-      <Container className='overflow-hidden'>
-        <h3 className='text-center font-bold tracking-widest text-dark-2'>
-          在留言本上留下你的足迹
-        </h3>
+      <Widget>
+        <Widget.Header>留下你的足迹</Widget.Header>
 
         {session?.user ? (
           <div className='my-4'>{commentformDom}</div>
         ) : (
           <div className='my-2 space-y-3'>
-            <p className='text-center text-sm'>仅使用你的邮箱、头像、昵称.</p>
+            <p className='text-center text-sm text-gray-2'>仅使用你的邮箱、头像、昵称.</p>
             <SigninIcon />
             <p className='text-center text-sm text-gray-1'>(请先登录)</p>
           </div>
         )}
-      </Container>
+      </Widget>
 
-      <Container className='my-6'>
+      <Widget>
         {hasComments ? (
           <>
-            <h3 className='my-4 text-center font-bold tracking-widest text-dark-2 '>
-              {data?.total} 条沙雕评论
-            </h3>
+            <Widget.Header>{data?.total} 条沙雕评论</Widget.Header>
             <CommentList data={comments}>
               {(item, childClassName) => (
                 <CommentCard
@@ -160,7 +156,7 @@ const CommentView = ({ articleId }: CommentProps) => {
         ) : (
           <p className='mb-0 text-center text-sm text-gray-2'>暂无评论</p>
         )}
-      </Container>
+      </Widget>
     </>
   );
 };

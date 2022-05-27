@@ -11,13 +11,23 @@ export const API_URL = process.env.NEXT_PUBLIC_API_BASE_PATH ?? '';
 export const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION ?? '';
 
 // iconfont url
-export const ICONFONT_URL = '//at.alicdn.com/t/font_2836612_vtujcrghe07';
+export const ICONFONT_URL = '//at.alicdn.com/t/font_2836612_sky5ez7cg5k';
 
 // resource 主机
 export const RESOURCE_HOST = 'static.itsuki.cn';
 
 // resource 路径
 export const RESOURCE_URL = `https://${RESOURCE_HOST}`;
+
+// next-auth 密钥
+export const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET ?? '';
+
+export const NEXTAUTH_URL = process.env.NEXTAUTH_URL ?? '';
+
+export const NEXTAUTH_GITHUB_CLIENT_ID = process.env.NEXTAUTH_GITHUB_CLIENT_ID ?? '';
+
+export const NEXTAUTH_GITHUB_CLIENT_SECRET =
+  process.env.NEXTAUTH_GITHUB_CLIENT_SECRET ?? '';
 
 // blog meta
 export const META = {

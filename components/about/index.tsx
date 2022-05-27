@@ -13,14 +13,12 @@ const Section = ({
 );
 
 const Title = ({ children }: PropsWithChildren<unknown>) => (
-  <h3 className='mt-10 mb-4 text-center text-xl font-medium tracking-wider'>
-    {children}
-  </h3>
+  <h3 className='mb-4 text-center text-xl font-medium tracking-wider'>{children}</h3>
 );
 
 const AboutView = () => (
   <div className='mx-auto w-3/4 tracking-wider'>
-    <div className='p-6'>
+    <div className='space-y-12 p-6'>
       <NextSeo title='关于' />
 
       <header className='mt-2 mb-7 text-center'>

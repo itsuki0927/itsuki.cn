@@ -1,5 +1,5 @@
 const Description = () => (
-  <>
+  <div className='space-y-6'>
     <p>
       <strong className='mr-1'>👨‍💻</strong> 大学生活有五年, 大专生三年+本科两年,
       在大专生时加入了学校打比赛的协会, 参加了"蓝桥杯"比赛, 在那里锻炼了算法以及学习能力,
@@ -14,7 +14,7 @@ const Description = () => (
       十公里-{'>'}半马-{'>'}全马. 到本科学院因为跑步结识了现在的朋友, 现在每天5.20公里,
       不管刮风还是下雨 , 或许这就是跑步人的浪漫吧❤️❤️ .
     </p>
-  </>
+  </div>
 );
 
 export default Description;

@@ -14,7 +14,7 @@ const ArticleList = ({ articles }: { articles: ArticleArchive[] }) => (
     {articles.map(article => (
       <li className='rounded-sm p-3' key={article.id}>
         <p className='mb-2'>
-          <span className='mr-3 inline-block text-sm text-gray-1 '>
+          <span className='mr-3 inline-block text-sm text-gray-1'>
             {getDay(article.createAt)}
           </span>
           <Link href={`/article/${article.id}`}>
@@ -23,7 +23,7 @@ const ArticleList = ({ articles }: { articles: ArticleArchive[] }) => (
             </span>
           </Link>
         </p>
-        <p className='mb-0 pl-10 text-sm text-gray-2 '>{article.description}</p>
+        <p className='mb-0 pl-10 text-sm text-gray-2'>{article.description}</p>
       </li>
     ))}
   </ul>
@@ -33,7 +33,7 @@ const MonthList = ({ months }: { months: ArticleArchiveMap }) => (
   <>
     {[...months.entries()].map(([month, articles]) => (
       <ul className='list-square' key={month}>
-        <li key={month}>
+        <li key={month} className='ml-16'>
           <h3 className='my-4 text-lg'>{month}</h3>
           <ArticleList articles={articles} />
         </li>
@@ -50,7 +50,7 @@ const ArchiveView = ({ archives = new Map() }: ArchivePageProps) => (
   <Container>
     <NextSeo title='归档' />
     <header className='mt-2 mb-7 text-center'>
-      <h1 className='text-base tracking-widest'>归档</h1>
+      <h1 className='tracking-widest'>归档</h1>
     </header>
 
     <ul className='list-none pl-0'>

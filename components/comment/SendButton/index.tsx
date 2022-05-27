@@ -12,7 +12,7 @@ const SendButton = ({ onConfirm, isLoading, nickname = '无名氏' }: SendButton
     disabled={isLoading}
     type='button'
     className={classNames(
-      'flex select-none items-center bg-primary py-2 px-2 text-sm text-white outline-none transition-colors',
+      'flex select-none items-center bg-primary py-2 px-3 text-sm text-white outline-none transition-colors',
       isLoading
         ? 'cursor-not-allowed opacity-80'
         : 'cursor-pointer hover:bg-primary-hover'

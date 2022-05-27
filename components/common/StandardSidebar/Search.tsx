@@ -1,6 +1,6 @@
 import { KeyboardEvent } from 'react';
 import { useRouter } from 'next/router';
-import { Input, Widget } from '@/components/ui';
+import { Widget } from '@/components/ui';
 
 const Search = () => {
   const router = useRouter();
@@ -19,8 +19,8 @@ const Search = () => {
   return (
     <Widget>
       <Widget.Header>我寻你千百度</Widget.Header>
-      <Input
-        className='mb-2 block h-9 w-full px-3 text-xs tracking-widest  '
+      <input
+        className='mb-2 block h-9 w-full rounded-sm bg-white-1 px-3 text-sm outline-none transition-colors duration-200 hover:bg-white-2 focus:bg-white-2 '
         placeholder='搜点什么'
         onKeyUp={handleSearch}
       />

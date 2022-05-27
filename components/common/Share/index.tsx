@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 import { Icon, LinkOutlined } from '@/components/icons';
 import s from './style.module.css';
 import { getPageUrl, stringifyParams } from '@/utils/url';
@@ -75,6 +76,7 @@ const Share = () => {
   const copyPageURL = () => {
     const content = `${getTitle()} - ${getURL()}`;
     copyTextToClipboard(content);
+    toast.success('🔗 链接复制成功');
     // TODO: gtag.event
   };
 

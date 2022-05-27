@@ -25,10 +25,10 @@ const HotArticles = ({ hotArticles }: HotArticlesProps) => (
           />
         </Link>
         <div className='ml-4'>
-          <h4 className='cursor-pointer text-sm tracking-wider text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary '>
+          <h4 className='cursor-pointer text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary '>
             <Link href={getArticleDetailUrl(article.id)}>{article.title}</Link>
           </h4>
-          <span className='text-xs text-gray-1 '>
+          <span className='text-sm text-gray-1 '>
             <ToDate date={article.createAt} to='YMD' />
           </span>
         </div>

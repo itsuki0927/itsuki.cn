@@ -8,7 +8,7 @@ type BannerProps = {
 
 const Banner = ({ className, children }: BannerProps) => (
   <Container className={`relative overflow-hidden text-center ${className}`}>
-    <h1 className='text-xs tracking-wider text-gray-3'>{children}</h1>
+    <h1 className='text-sm text-gray-3'>{children}</h1>
   </Container>
 );
 

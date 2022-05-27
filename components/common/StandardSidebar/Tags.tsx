@@ -16,7 +16,7 @@ const Tags = ({ tags }: TagsProps) => {
           type='button'
           key={item.path}
           onClick={() => router.push(`/tag/${item.path}`)}
-          className='mb-2 mr-2 bg-white-1 py-1 px-3 text-xs uppercase tracking-widest hover:bg-white-2'
+          className='mb-3 mr-3 bg-white-1 py-1 px-3 text-sm hover:bg-white-2'
         >
           {item.name} ({item.count})
         </button>

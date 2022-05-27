@@ -5,7 +5,9 @@ import toast from 'react-hot-toast';
 import { GithubOutlined, QQOutlined, WechatOutlined } from '@/components/icons';
 import { getPageUrl } from '@/utils/url';
 
-const LoginIcon = () => {
+export type SigninType = 'github' | 'wechat' | 'qq';
+
+const SigninIcon = () => {
   const router = useRouter();
   return (
     <div className='flex justify-center space-x-4'>
@@ -52,4 +54,4 @@ const LoginIcon = () => {
   );
 };
 
-export default LoginIcon;
+export default SigninIcon;

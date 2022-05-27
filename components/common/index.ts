@@ -5,7 +5,7 @@ export { default as Head } from './Head';
 export { default as HomeSlider } from './HomeSlider';
 export { default as Layout } from './Layout';
 export { default as LayoutTransition } from './LayoutTransition';
-export { default as LoginIcon } from './LoginIcon';
+export { default as SigninIcon } from './SigninIcon';
 export { default as Logo } from './Logo';
 export { default as MarkdownEditor } from './MarkdownEditor';
 export { default as MyImage } from './MyImage';

@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import { LoginIcon } from '@/components/common';
+import { SigninIcon } from '@/components/common';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Container } from '@/components/ui';
 import { Comment, PostCommentBody } from '@/entities/comment';
@@ -23,8 +23,6 @@ const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor
 type CommentProps = {
   articleId: number;
 };
-
-type SignInType = 'github' | 'wechat' | 'qq';
 
 const CommentView = ({ articleId }: CommentProps) => {
   const router = useRouter();
@@ -123,9 +121,6 @@ const CommentView = ({ articleId }: CommentProps) => {
 
   return (
     <>
-      <pre className='rounded-sm bg-white p-4'>
-        <code>{JSON.stringify(session ?? undefined, null, 2)}</code>
-      </pre>
       <Container className='overflow-hidden'>
         <h3 className='text-center font-bold tracking-widest text-dark-2'>
           在留言本上留下你的足迹
@@ -136,7 +131,7 @@ const CommentView = ({ articleId }: CommentProps) => {
         ) : (
           <div className='my-2 space-y-3'>
             <p className='text-center text-sm'>仅使用你的邮箱、头像、昵称.</p>
-            <LoginIcon />
+            <SigninIcon />
             <p className='text-center text-sm text-gray-1'>(请先登录)</p>
           </div>
         )}

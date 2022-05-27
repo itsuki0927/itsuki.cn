@@ -23,3 +23,4 @@ export { default as TimeOutlined } from './TimeOutlined';
 export { default as ToTopOutlined } from './ToTopOutlined';
 export { default as WechatOutlined } from './WechatOutlined';
 export { default as YuanOutlined } from './YuanOutlined';
+export { default as SyncOutlined } from './SyncOutlined';

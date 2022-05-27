@@ -1,17 +1,14 @@
 import classNames from 'classnames';
+import { useSession } from 'next-auth/react';
 import { ReactNode, useRef } from 'react';
 import toast, { Toast } from 'react-hot-toast';
-import { useSession } from 'next-auth/react';
-import { MyImage, ToDate } from '@/components/common';
+import { ToDate } from '@/components/common';
 import {
   CloseOutlined,
   CommentOutlined,
   CompassOutlined,
-  GithubOutlined,
   LikeOutlined,
-  QQOutlined,
   TimeOutlined,
-  WechatOutlined,
 } from '@/components/icons';
 import ReplyOutlined from '@/components/icons/ReplyOutlined';
 import { MarkdownBlock } from '@/components/ui';
@@ -19,8 +16,8 @@ import { Comment } from '@/entities/comment';
 import { useMarkdown } from '@/hooks';
 import useLikeComment from '@/hooks/comment/useLikeComment';
 import { NoReturnFunction } from '@/types/fn';
-import getGravatarUrl from '@/utils/gravatar';
 import scrollTo from '@/utils/scrollTo';
+import CommentAvatar from '../CommentAvatar';
 import CommentList, { buildCommentTree, CommentTree } from '../CommentList';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
@@ -86,25 +83,7 @@ const CommentCard = ({
     >
       <div className={`relative mb-2 rounded-sm bg-white-1 p-4  ${childClassName}`}>
         <header className='flex items-center'>
-          <div className='relative min-w-[55px]'>
-            <MyImage
-              className='rounded-md border-4 border-solid border-white-3'
-              imgClassName='rounded-md'
-              src={comment.avatar ?? getGravatarUrl(comment.email)}
-              width={55}
-              height={55}
-              alt='cover'
-            />
-            <span className='absolute right-1 bottom-1 w-[40%] rounded-sm bg-[#ffffff80] text-center'>
-              {comment.loginType === 'github' && (
-                <GithubOutlined className='leading-5 text-github' />
-              )}
-              {comment.loginType === 'qq' && <QQOutlined className='leading-5 text-qq' />}
-              {comment.loginType === 'wechat' && (
-                <WechatOutlined className='leading-5 text-wechat' />
-              )}
-            </span>
-          </div>
+          <CommentAvatar avatar={comment.avatar} loginType={comment.loginType} />
           <div className='ml-4 flex-grow'>
             <div className='mb-0 flex w-full items-center justify-between text-dark-2 '>
               <span className=''>{comment.nickname}</span>

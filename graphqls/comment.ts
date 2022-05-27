@@ -13,6 +13,8 @@ export const QUERY_COMMENTS = gql`
         email
         content
         liking
+        loginType
+        avatar
         ip
         agent
         city
@@ -40,6 +42,8 @@ export const CREATE_COMMENT = gql`
       email
       content
       liking
+      loginType
+      avatar
       ip
       agent
       city

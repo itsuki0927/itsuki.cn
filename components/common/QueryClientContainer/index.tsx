@@ -18,7 +18,9 @@ const handlerError = (error: any) => {
         duration: 3500,
       });
     }
-    toast.error(`信息: ${e.message}`);
+    toast.error(`信息: ${e.message}`, {
+      duration: 3500,
+    });
   });
 };
 

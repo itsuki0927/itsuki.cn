@@ -2,11 +2,11 @@ import Link from 'next/link';
 import { Share } from '@/components/common';
 
 const Author = () => (
-  <div className='leading-12 tracking-wider'>
-    <span className='text-xs'>BY</span>
+  <div className='uppercase leading-12 tracking-wider'>
+    <span className='text-sm'>by</span>
     <Link href='/about'>
-      <span className='ml-1 cursor-pointer text-sm font-bold transition-colors duration-500 hover:text-primary'>
-        ITSUKI
+      <span className='ml-1 cursor-pointer font-bold transition-colors duration-500 hover:text-primary'>
+        itsuki
       </span>
     </Link>
   </div>

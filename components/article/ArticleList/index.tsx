@@ -1,12 +1,13 @@
-import { Empty, Loading } from '@/components/ui';
+import { Empty } from '@/components/ui';
 import { UseArticles } from '@/hooks/article/useArticles';
 import ArticleCard from '../ArticleCard';
+import { ArticleSkeletonList } from '../ArticleSkeleton';
 
 type ArticleListProps = UseArticles;
 
 const ArticleList = ({ data, ...rest }: ArticleListProps) => {
   if (rest.isFetching || rest.isLoading) {
-    return <Loading />;
+    return <ArticleSkeletonList />;
   }
 
   if (data?.total === 0) {

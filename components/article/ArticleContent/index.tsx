@@ -7,6 +7,7 @@ import ArticleAction from '../ArticleAction';
 import ArticleFooter from '../ArticleFooter';
 import ArticleHeader from '../ArticleHeader';
 import ArticleMeta from '../ArticleMeta';
+import { Share } from '@/components/common';
 
 interface ArticleContentProps {
   article: ArticleDetailResponse;
@@ -42,6 +43,8 @@ const ArticleContent = ({ article }: ArticleContentProps) => {
       <ArticleMeta />
 
       <ArticleFooter />
+
+      <Share />
     </Container>
   );
 };

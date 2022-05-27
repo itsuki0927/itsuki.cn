@@ -2,7 +2,7 @@ import router from 'next/router';
 import { WEB_URL } from '@/configs/app';
 
 const ArticleMeta = () => (
-  <div className='mb-4 flex items-center justify-center text-xs text-gray-1'>
+  <div className='mb-4 flex items-center justify-center text-sm text-gray-1'>
     <div>
       <span>永久地址: </span>
       <span className='underline'>{WEB_URL + router.asPath}</span>

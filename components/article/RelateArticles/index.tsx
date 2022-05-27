@@ -25,10 +25,10 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
               alt='relate-article-cover'
               objectFit='cover'
             />
-            <h2 className='my-2 cursor-pointer px-3 text-center text-sm tracking-widest text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary  '>
+            <h2 className='my-2 cursor-pointer px-3 text-center text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary  '>
               <Link href={getArticleDetailUrl(article.id)}>{article.title}</Link>
             </h2>
-            <span className='block text-center text-xs tracking-wider text-gray-1 '>
+            <span className='block text-center text-sm tracking-wider text-gray-1'>
               <ToDate date={article.createAt} to='YMD' />
             </span>
           </div>

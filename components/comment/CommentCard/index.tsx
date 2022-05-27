@@ -1,23 +1,27 @@
+import classNames from 'classnames';
 import { ReactNode, useRef } from 'react';
 import toast, { Toast } from 'react-hot-toast';
-import classNames from 'classnames';
+import { useSession } from 'next-auth/react';
 import { MyImage, ToDate } from '@/components/common';
 import {
   CloseOutlined,
   CommentOutlined,
   CompassOutlined,
+  GithubOutlined,
   LikeOutlined,
+  QQOutlined,
   TimeOutlined,
+  WechatOutlined,
 } from '@/components/icons';
 import ReplyOutlined from '@/components/icons/ReplyOutlined';
 import { MarkdownBlock } from '@/components/ui';
 import { Comment } from '@/entities/comment';
 import { useMarkdown } from '@/hooks';
-import { NoReturnFunction } from '@/types/fn';
-import CommentList, { buildCommentTree, CommentTree } from '../CommentList';
 import useLikeComment from '@/hooks/comment/useLikeComment';
+import { NoReturnFunction } from '@/types/fn';
 import getGravatarUrl from '@/utils/gravatar';
 import scrollTo from '@/utils/scrollTo';
+import CommentList, { buildCommentTree, CommentTree } from '../CommentList';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -45,11 +49,13 @@ const CommentCard = ({
 }: CommentCardProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const { comment, children: commentChildren } = data;
+  const { data: session } = useSession();
   const contentHtml = useMarkdown(ref, comment.content);
   const { isLike, mutation } = useLikeComment({
     articleId: Number(data.comment.articleId),
     commentId: Number(data.comment.id),
   });
+  const isSignout = !session?.user;
 
   const buildCommentReplyToast = (t: Toast) => (
     <div
@@ -80,14 +86,25 @@ const CommentCard = ({
     >
       <div className={`relative mb-2 rounded-sm bg-white-1 p-4  ${childClassName}`}>
         <header className='flex items-center'>
-          <MyImage
-            src={getGravatarUrl(comment.email)}
-            width={45}
-            height={45}
-            imgClassName='rounded-full'
-            alt='avatar'
-            className='min-w-[45px]'
-          />
+          <div className='relative min-w-[55px]'>
+            <MyImage
+              className='rounded-md border-4 border-solid border-white-3'
+              imgClassName='rounded-md'
+              src={comment.avatar ?? getGravatarUrl(comment.email)}
+              width={55}
+              height={55}
+              alt='cover'
+            />
+            <span className='absolute right-1 bottom-1 w-[40%] rounded-sm bg-[#ffffff80] text-center'>
+              {comment.loginType === 'github' && (
+                <GithubOutlined className='leading-5 text-github' />
+              )}
+              {comment.loginType === 'qq' && <QQOutlined className='leading-5 text-qq' />}
+              {comment.loginType === 'wechat' && (
+                <WechatOutlined className='leading-5 text-wechat' />
+              )}
+            </span>
+          </div>
           <div className='ml-4 flex-grow'>
             <div className='mb-0 flex w-full items-center justify-between text-dark-2 '>
               <span className=''>{comment.nickname}</span>
@@ -170,7 +187,13 @@ const CommentCard = ({
           ) : (
             <button
               type='button'
-              className='inline-block cursor-pointer rounded-sm px-2 py-1 text-xs transition-colors duration-300 hover:bg-white hover:text-dark-2'
+              disabled={isSignout}
+              className={classNames(
+                'inline-block rounded-sm px-2 py-1 text-xs transition-colors duration-300',
+                isSignout
+                  ? 'cursor-not-allowed'
+                  : 'cursor-pointer hover:bg-white hover:text-dark-2'
+              )}
               onClick={() => {
                 toast.dismiss();
                 toast.custom(buildCommentReplyToast, {

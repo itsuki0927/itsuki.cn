@@ -1,78 +1,55 @@
-import toast from 'react-hot-toast';
-import dynamic from 'next/dynamic';
-import React, { ReactNode, useState } from 'react';
+import { signOut } from 'next-auth/react';
+import React, { ReactNode } from 'react';
 import { MyImage } from '@/components/common';
-import SendButton from '../SendButton';
-import getGravatarUrl from '@/utils/gravatar';
-
-const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
-  ssr: false,
-});
+import { GithubOutlined, QQOutlined, WechatOutlined } from '@/components/icons';
 
 interface CommentFormProps {
   className?: string;
-  profile?: ReactNode;
-  onSend: (content: string) => Promise<boolean>;
-  hiddenAvatar?: boolean;
-  email?: string;
+  avatar: string | null | undefined;
+  hiddenLogout?: boolean;
+  children?: ReactNode;
+  loginType?: string;
 }
 
 const CommentForm = ({
   className,
-  onSend,
-  profile: profileNode,
-  hiddenAvatar,
-  email,
-}: CommentFormProps) => {
-  const [content, setContent] = useState('');
-
-  const handleSend = () =>
-    onSend(content).then(
-      () => {
-        setContent('');
-        return true;
-      },
-      (error: any) => {
-        const { message } = error || { message: '' };
-        toast.error(`评论发布失败: ${message}\n`);
-        return false;
-      }
-    );
-
-  return (
-    <div
-      id='commentForm'
-      className={`flex items-start ${hiddenAvatar ? '' : 'space-x-4'} ${className}`}
-    >
-      {hiddenAvatar ? null : (
+  avatar,
+  hiddenLogout,
+  children,
+  loginType,
+}: CommentFormProps) => (
+  <div id='commentForm' className={`flex items-start space-x-4 ${className}`}>
+    <div className='min-w-[55px]'>
+      <div className='relative'>
         <MyImage
-          className='min-w-[45px]'
-          imgClassName='rounded-full'
-          src={getGravatarUrl(email ?? '')}
-          width={45}
-          height={45}
+          className='rounded-md border-4 border-solid border-white-3'
+          imgClassName='rounded-md'
+          src={avatar ?? ''}
+          width={55}
+          height={55}
           alt='cover'
         />
-      )}
-
-      <div
-        className='flex-grow space-y-4'
-        style={{
-          maxWidth: hiddenAvatar ? '100%' : 'calc(100% - 61px)',
-        }}
-      >
-        {profileNode}
-        <DynamicMarkdown code={content} onChange={setContent} placeholder='见解(必填)' />
-
-        <div className='flex items-center justify-between'>
-          <div className='text-xs text-gray-2 '>
-            Tip: 不会泄漏邮箱, 支持Markdown, 还请友善评论.
-          </div>
-          <SendButton onConfirm={handleSend} />
-        </div>
+        <span className='absolute right-0 bottom-0 w-[40%] rounded-sm bg-[#00000033] text-center'>
+          {loginType === 'github' && <GithubOutlined className='leading-5 text-github' />}
+          {loginType === 'qq' && <QQOutlined className='leading-5 text-qq' />}
+          {loginType === 'wechat' && <WechatOutlined className='leading-5 text-wechat' />}
+        </span>
       </div>
+
+      {!hiddenLogout && (
+        <span
+          tabIndex={0}
+          role='button'
+          className='block text-center text-xs text-gray-1 transition-colors hover:text-dark-1'
+          onClick={() => signOut()}
+        >
+          退出
+        </span>
+      )}
     </div>
-  );
-};
+
+    {children}
+  </div>
+);
 
 export default CommentForm;

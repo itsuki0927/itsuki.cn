@@ -1,92 +1,31 @@
-/* eslint-disable jsx-a11y/mouse-events-have-key-events */
-import { useRef, useState } from 'react';
-import s from './style.module.scss';
-
-const duration = 1600;
+import classNames from 'classnames';
+import { SendOutlined, SyncOutlined } from '@/components/icons';
 
 interface SendButtonProps {
-  onConfirm?: () => Promise<boolean>;
+  onConfirm: () => Promise<boolean>;
+  isLoading: boolean;
+  nickname: string | null | undefined;
 }
 
-const SendButton = ({ onConfirm }: SendButtonProps) => {
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const [state, setState] = useState<'process' | 'success' | 'loading' | 'error' | ''>(
-    ''
-  );
-
-  const runConfirm = () => {
-    setState('loading');
-    onConfirm?.().then(res => {
-      const k = res ? 'success' : 'error';
-      setState(k);
-    });
-  };
-
-  const handleHold = (ev: any) => {
-    if (
-      ev.type !== 'keypress' ||
-      (ev.type === 'keypress' && ev.which === 32 && state !== 'process')
-    ) {
-      setState('process');
-
-      timerRef.current = setTimeout(runConfirm, duration);
-    }
-  };
-
-  const removeHold = (ev: any) => {
-    if (
-      !['success', 'loading'].includes(state) &&
-      (ev.type !== 'keyup' || (ev.type === 'keyup' && ev.which === 32))
-    ) {
-      setState('');
-      if (timerRef.current) {
-        clearTimeout(timerRef.current as unknown as number);
-        timerRef.current = null;
-      }
-    }
-  };
-
-  return (
-    <button
-      type='button'
-      onMouseDown={handleHold}
-      onTouchStart={handleHold}
-      onKeyPress={handleHold}
-      onMouseUp={removeHold}
-      onMouseOut={removeHold}
-      onTouchEnd={removeHold}
-      onKeyUp={removeHold}
-      className={`${s.send} ${state ? s[state] : ''}`}
-    >
-      <div>
-        <svg className={s.progress} viewBox='0 0 32 32'>
-          <circle r='8' cx='16' cy='16' />
-        </svg>
-
-        <svg
-          onTransitionEnd={e => {
-            if (e.propertyName === 'stroke-dashoffset') {
-              setTimeout(() => {
-                setState('');
-              }, 500);
-            }
-          }}
-          className={s.tick}
-          viewBox='0 0 24 24'
-        >
-          <polyline points='18,7 11,16 6,12' />
-        </svg>
-      </div>
-
-      <ul>
-        <li>发射</li>
-        <li>确定?</li>
-        <li>发射中</li>
-        <li>成功</li>
-        <li>失败</li>
-      </ul>
-    </button>
-  );
-};
+const SendButton = ({ onConfirm, isLoading, nickname = '无名氏' }: SendButtonProps) => (
+  <button
+    disabled={isLoading}
+    type='button'
+    className={classNames(
+      'flex select-none items-center bg-primary py-2 px-2 text-sm text-white outline-none transition-colors',
+      isLoading
+        ? 'cursor-not-allowed opacity-80'
+        : 'cursor-pointer hover:bg-primary-hover'
+    )}
+    onClick={onConfirm}
+  >
+    {isLoading ? '发布中...' : <>以 {nickname} 的身份发布</>}
+    {isLoading ? (
+      <SyncOutlined className='ml-1 animate-spin align-baseline' />
+    ) : (
+      <SendOutlined className='ml-1 align-baseline' />
+    )}
+  </button>
+);
 
 export default SendButton;

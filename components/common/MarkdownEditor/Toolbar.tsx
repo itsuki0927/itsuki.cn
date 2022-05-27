@@ -1,10 +1,13 @@
 /* eslint-disable no-param-reassign */
-import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
+import { ReactNode } from 'react';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import { EyeCloseFilled, EyeFilled } from '@/components/icons';
 
 type ToolbarProps = {
   preview?: boolean;
   onPreview?: (preview: boolean) => void;
+  children?: ReactNode;
 };
 
 /**
@@ -13,41 +16,31 @@ type ToolbarProps = {
  *
  * <Icon onMouseDown={preventDefault} />
  */
-const Toolbar = ({ preview, onPreview }: ToolbarProps) => (
-  <div className='flex items-center justify-between bg-white-1 py-[2px] px-1 leading-normal '>
-    <SwitchTransition mode='out-in'>
-      <CSSTransition
-        key={preview ? 'preview' : 'edit'}
-        addEndListener={(node, done) =>
-          node.addEventListener('transitionend', done, false)
-        }
-        classNames='move-reverse'
-      >
-        <span className='text-xxs text-gray-3 '>{preview ? 'PREVIEW' : 'EDIT'}</span>
-      </CSSTransition>
-    </SwitchTransition>
-
-    <SwitchTransition mode='out-in'>
-      <CSSTransition
-        key={preview ? 'preview' : 'edit'}
-        addEndListener={(node, done) =>
-          node.addEventListener('transitionend', done, false)
-        }
-        classNames='move'
-      >
-        <button
-          type='button'
-          className={classNames(
-            'bg-white-3 py-1 px-2 text-xxs text-gray-3 hover:bg-white-2 hover:text-dark-1  '
-          )}
-          onClick={() => {
-            onPreview?.(!preview);
-          }}
+const Toolbar = ({ preview, onPreview, children }: ToolbarProps) => (
+  <div className='flex justify-between bg-white-2 leading-normal '>
+    <button
+      type='button'
+      className={classNames(
+        'px-3 text-xxs text-gray-3 hover:bg-white-3 hover:text-dark-1'
+      )}
+      onClick={() => {
+        onPreview?.(!preview);
+      }}
+    >
+      <SwitchTransition mode='out-in'>
+        <CSSTransition
+          key={preview ? 'preview' : 'edit'}
+          addEndListener={(node, done) =>
+            node.addEventListener('transitionend', done, false)
+          }
+          classNames='move'
         >
-          {preview ? '编辑' : '预览'}
-        </button>
-      </CSSTransition>
-    </SwitchTransition>
+          {preview ? <EyeCloseFilled key='edit' /> : <EyeFilled key='preview' />}
+        </CSSTransition>
+      </SwitchTransition>
+    </button>
+
+    {children}
   </div>
 );
 

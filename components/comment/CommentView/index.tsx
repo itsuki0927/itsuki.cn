@@ -1,68 +1,63 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useSession } from 'next-auth/react';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import React, { useCallback, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useCallback, useMemo, useState } from 'react';
-import { Container, Loading } from '@/components/ui';
-import { initialCommentProfile, USER_COMMENT_PROFILE } from '@/constants/comment';
+import { LoginIcon } from '@/components/common';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Container } from '@/components/ui';
 import { Comment, PostCommentBody } from '@/entities/comment';
-import { useLocalStorage } from '@/hooks';
 import { useComments, useCreateComment } from '@/hooks/comment';
 import purifyDomString from '@/utils/purify';
+import CommentCard from '../CommentCard';
 import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';
-import CommentProfile from '../CommentProfile';
+import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
+import SendButton from '../SendButton';
 import { convertToCommentTreeData } from './utils';
-import { isEmail } from '@/utils/validate';
-import CommentCard from '../CommentCard';
+
+const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
+  ssr: false,
+});
 
 type CommentProps = {
   articleId: number;
 };
 
+type SignInType = 'github' | 'wechat' | 'qq';
+
 const CommentView = ({ articleId }: CommentProps) => {
+  const router = useRouter();
+  const loginType = String(router.query?.type ?? 'github');
+
+  const { data: session } = useSession();
   const { data, isLoading, isFetching } = useComments(articleId);
   const [replyId, setReplyId] = useState<number | null>(null);
-  const [profile, setProfile] = useLocalStorage(
-    USER_COMMENT_PROFILE,
-    initialCommentProfile
-  );
+  const [content, setContent] = useState('');
   const mutation = useCreateComment(articleId);
   const comments = useMemo(() => convertToCommentTreeData(data?.data), [data?.data]);
   const hasComments = !!comments.length;
 
-  const validateComment = useCallback(
-    (content: string) => {
-      const validateMap = new Map([
-        [() => !content, '老铁 内容呢?'],
-        [() => !profile.email, '老铁 邮箱呢?'],
-        [() => !profile.nickname, '老铁 昵称呢?'],
-        [() => profile.nickname.length >= 10, '老铁 昵称不能超过10位?'],
-        [() => !isEmail(profile.email), '老铁 正确的邮箱?'],
-      ]);
-
-      const result = [...validateMap.entries()].find(([fn, msg]) => fn() && msg);
-      if (result) {
-        const [, message] = result;
-        return { message };
-      }
-      return true;
-    },
-    [profile.email, profile.nickname]
-  );
-
   const handleSend = useCallback(
-    (content: string) =>
+    () =>
       new Promise<boolean>((resolve, reject) => {
-        const params: PostCommentBody = {
-          ...profile,
-          articleId,
-          agent: navigator.userAgent,
-          parentId: replyId ?? undefined,
-          content: purifyDomString(content),
-        };
+        if (session?.user) {
+          const params: PostCommentBody = {
+            articleId,
+            loginType,
+            agent: navigator.userAgent,
+            parentId: replyId ?? undefined,
+            content: purifyDomString(content),
+            email: session.user?.email ?? '',
+            avatar: session.user?.image ?? '',
+            nickname: session.user.name ?? '',
+          };
 
-        const validate = validateComment(content);
+          if (!content) {
+            toast.error(`评论发布失败: 老铁, 内容呢?\n`);
+            return;
+          }
 
-        if (validate === true) {
           toast
             .promise(mutation.mutateAsync(params), {
               loading: '发射中...',
@@ -70,52 +65,87 @@ const CommentView = ({ articleId }: CommentProps) => {
               error: <b>🙌 发射失败</b>,
             })
             .then(() => {
+              setContent('');
               setReplyId(null);
               resolve(true);
             }, reject);
-        } else {
-          reject(validate);
         }
       }),
-    [articleId, mutation, profile, replyId, validateComment]
+    [articleId, content, loginType, mutation, replyId, session?.user]
+  );
+
+  const commentformDom = useMemo(
+    () => (
+      <CommentForm loginType={loginType} avatar={session?.user?.image}>
+        <DynamicMarkdown
+          className='flex-grow'
+          code={content}
+          onChange={setContent}
+          placeholder='见解(必填)'
+        >
+          <SendButton
+            onConfirm={handleSend}
+            isLoading={mutation.isLoading}
+            nickname={session?.user?.name}
+          />
+        </DynamicMarkdown>
+      </CommentForm>
+    ),
+    [
+      content,
+      handleSend,
+      mutation.isLoading,
+      loginType,
+      session?.user?.image,
+      session?.user?.name,
+    ]
   );
 
   const replyCallback = useCallback(
     (comment: Comment) =>
-      replyId === comment.id ? (
-        <CommentForm
-          className='mt-4'
-          hiddenAvatar
-          onSend={handleSend}
-          profile={<CommentProfile value={profile} onChange={setProfile} />}
-        />
-      ) : null,
-    [handleSend, profile, replyId, setProfile]
+      replyId === comment.id
+        ? React.cloneElement(commentformDom, {
+            className: 'mt-4',
+            hiddenLogout: true,
+          })
+        : null,
+    [commentformDom, replyId]
   );
 
   if (isLoading || isFetching) {
-    return <Loading />;
+    return (
+      <>
+        <CommentFormSkeletion />
+        <CommentListSkeleton />
+      </>
+    );
   }
 
   return (
     <>
-      <Container>
-        <div className='overflow-hidden'>
-          <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 '>
-            陈独秀请发言
-          </h3>
-          <CommentForm
-            email={profile.email}
-            onSend={handleSend}
-            profile={<CommentProfile value={profile} onChange={setProfile} />}
-          />
-        </div>
+      <pre className='rounded-sm bg-white p-4'>
+        <code>{JSON.stringify(session ?? undefined, null, 2)}</code>
+      </pre>
+      <Container className='overflow-hidden'>
+        <h3 className='text-center font-bold tracking-widest text-dark-2'>
+          在留言本上留下你的足迹
+        </h3>
+
+        {session?.user ? (
+          <div className='my-4'>{commentformDom}</div>
+        ) : (
+          <div className='my-2 space-y-3'>
+            <p className='text-center text-sm'>仅使用你的邮箱、头像、昵称.</p>
+            <LoginIcon />
+            <p className='text-center text-sm text-gray-1'>(请先登录)</p>
+          </div>
+        )}
       </Container>
 
       <Container className='my-6'>
         {hasComments ? (
           <>
-            <h3 className='my-4 text-center text-sm font-bold tracking-widest text-dark-2 '>
+            <h3 className='my-4 text-center font-bold tracking-widest text-dark-2 '>
               {data?.total} 条沙雕评论
             </h3>
             <CommentList data={comments}>

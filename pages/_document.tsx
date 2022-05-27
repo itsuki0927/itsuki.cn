@@ -5,6 +5,20 @@ const Document = () => (
   <Html className='dark' lang='zh'>
     <Head>
       <meta name='viewport' content='width=device-width, initial-scale=1' />
+      <link
+        rel='preload'
+        href='/fonts/ibm-plex-sans-var.woff2'
+        as='font'
+        type='font/woff2'
+        crossOrigin='anonymous'
+      />
+      <link
+        rel='preload'
+        href='/fonts/FiraCode.ttf'
+        as='font'
+        type='font/ttf'
+        crossOrigin='anonymous'
+      />
       <link rel='icon' href='/favicon.ico' />
       <link rel='manifest' href='/site.webmanifest' key='site-manifest' />
       <link

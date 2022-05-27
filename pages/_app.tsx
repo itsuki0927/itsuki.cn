@@ -1,13 +1,16 @@
+import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import { Toaster } from 'react-hot-toast';
 import { ReactNode } from 'react';
 import { SessionProvider } from 'next-auth/react';
 /* eslint-disable import/extensions */
-import { GA, Head, LayoutTransition, QueryClientContainer } from '@/components/common';
+import { GA, LayoutTransition, QueryClientContainer } from '@/components/common';
 import { PageLoadingProgress } from '@/components/ui';
 import { useMount, useUnMount, useCopyright } from '@/hooks';
 import '@/styles/global.css';
 import { ManagedUIContext } from '@/components/ui/context';
+import config from '@/configs/seo';
+import { META } from '@/configs/app';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const getLayout = (Component as any).getLayout || ((page: ReactNode) => page);
@@ -18,7 +21,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Head />
+      <DefaultSeo
+        {...config}
+        additionalMetaTags={[
+          {
+            name: 'keywords',
+            content: META.keywords,
+          },
+        ]}
+      />
       <GA />
       <PageLoadingProgress />
       <Toaster

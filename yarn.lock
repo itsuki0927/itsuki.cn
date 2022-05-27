@@ -1379,6 +1379,13 @@ dom-helpers@^5.0.1:
     "@babel/runtime" "^7.8.7"
     csstype "^3.0.2"
 
+dom7@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.npmjs.org/dom7/-/dom7-4.0.4.tgz#8b68c5d8e5e2ed0fddb1cb93e433bc9060c8f3fb"
+  integrity sha512-DSSgBzQ4rJWQp1u6o+3FVwMNnT5bzQbMb+o31TjYYeRi05uAcpF8koxdfzeoe5ElzPmua7W7N28YJhF7iEKqIw==
+  dependencies:
+    ssr-window "^4.0.0"
+
 dompurify@^2.3.6:
   version "2.3.6"
   resolved "https://registry.npmjs.org/dompurify/-/dompurify-2.3.6.tgz#2e019d7d7617aacac07cbbe3d88ae3ad354cf875"
@@ -3646,6 +3653,11 @@ split2@^3.0.0:
   dependencies:
     readable-stream "^3.0.0"
 
+ssr-window@^4.0.0, ssr-window@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.npmjs.org/ssr-window/-/ssr-window-4.0.2.tgz#dc6b3ee37be86ac0e3ddc60030f7b3bc9b8553be"
+  integrity sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ==
+
 string-argv@^0.3.1:
   version "0.3.1"
   resolved "https://registry.npmjs.org/string-argv/-/string-argv-0.3.1.tgz#95e2fbec0427ae19184935f816d74aaa4c5c19da"
@@ -3900,6 +3912,14 @@ svg-tags@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/svg-tags/-/svg-tags-1.0.0.tgz#58f71cee3bd519b59d4b2a843b6c7de64ac04764"
   integrity sha1-WPcc7jvVGbWdSyqEO2x95krAR2Q=
+
+swiper@^8.1.6:
+  version "8.1.6"
+  resolved "https://registry.npmjs.org/swiper/-/swiper-8.1.6.tgz#740613aa453c85b11223e5bbf7cd3656488b1997"
+  integrity sha512-KqnqIBbIQaIiG/sK2ckcQZbqK38486WlvJe99s2KOCu8jOOQGra6cdShdI9LDyh8DALV/5nwycczFmmNWhxs2A==
+  dependencies:
+    dom7 "^4.0.4"
+    ssr-window "^4.0.2"
 
 table@^6.8.0:
   version "6.8.0"

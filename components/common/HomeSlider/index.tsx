@@ -1,19 +1,31 @@
+import { Pagination, EffectFade } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import router from 'next/router';
 import React from 'react';
-import { Carousel } from '@/components/ui';
 import ToDate from '../ToDate';
 import { MyImage } from '..';
 import { getArticleDetailUrl } from '@/utils/url';
 import { SiteInfo } from '@/entities/siteInfo';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 
 type HomeSliderProps = {
   articles?: SiteInfo['bannerArticles'];
 };
 
 const HomeSlider = ({ articles }: HomeSliderProps) => (
-  <Carousel autoplay={false}>
+  <Swiper
+    lazy
+    modules={[Pagination, EffectFade]}
+    pagination={{
+      clickable: true,
+      type: 'bullets',
+    }}
+    scrollbar={{ draggable: true }}
+  >
     {articles?.map(article => (
-      <div
+      <SwiperSlide
         role='banner'
         className='group relative opacity-90 transition-opacity'
         key={article.id}
@@ -42,9 +54,9 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
             </h2>
           </header>
         </div>
-      </div>
+      </SwiperSlide>
     ))}
-  </Carousel>
+  </Swiper>
 );
 
 export default HomeSlider;

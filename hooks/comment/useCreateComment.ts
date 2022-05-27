@@ -23,7 +23,7 @@ const useCreateComment = (articleId: number) => {
             }
             return {
               ...oldData,
-              data: oldData.data.concat(newData),
+              data: [newData, ...oldData.data],
               total: oldData.total + 1,
             };
           }

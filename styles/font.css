@@ -1,24 +1,24 @@
 @font-face {
-  font-family: 'iA Writer Quattro';
+  font-family: 'IBM Plex Sans';
   font-weight: 500 600 700 800 bold bolder;
   font-display: swap;
-  src: url('https://static.itsuki.cn/fonts/ia-qa/iAWriterQuattroSBold.ttf')
+  src: url('https://static.itsuki.cn/fonts/IBMPlexSans/IBMPlexSans-Medium.ttf')
     format('truetype');
 }
 
 @font-face {
-  font-family: 'iA Writer Quattro';
-  font-style: italic;
-  font-display: swap;
-  src: url('https://static.itsuki.cn/fonts/ia-qa/iAWriterQuattroSItalic.ttf')
-    format('truetype');
-}
-
-@font-face {
-  font-family: 'iA Writer Quattro';
+  font-family: 'IBM Plex Sans';
   font-weight: 400;
   font-display: swap;
-  src: url('https://static.itsuki.cn/fonts/ia-qa/iAWriterQuattroSRegular.ttf')
+  src: url('https://static.itsuki.cn/fonts/IBMPlexSans/IBMPlexSans-Regular.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-weight: 300;
+  font-display: swap;
+  src: url('https://static.itsuki.cn/fonts/IBMPlexSans/IBMPlexSans-Light.ttf')
     format('truetype');
 }
 

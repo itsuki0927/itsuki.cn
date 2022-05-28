@@ -1,4 +1,4 @@
-import React, { cloneElement, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import {
   CodeSvg,
   HeadsetSvg,
@@ -12,7 +12,7 @@ const hoobyList = [
   {
     title: '代码',
     icon: <CodeSvg width={24} height={24} />,
-    description: '从精通到入门: Code 👨‍💻',
+    description: '精通到入门, 入门到入坟 👨‍💻',
   },
   {
     title: '跑步',
@@ -22,7 +22,7 @@ const hoobyList = [
   {
     title: '电影',
     icon: <MovieSvg width={24} height={24} />,
-    description: '豆瓣TOP125, 继续加油 🎬',
+    description: '豆瓣TOP 125/250 🎬',
   },
   {
     title: '音乐',
@@ -32,12 +32,12 @@ const hoobyList = [
   {
     title: '奶茶',
     icon: <MilkteaSvg width={24} height={24} />,
-    description: '嘿, 你要不要喝奶茶?🥤',
+    description: '古茗的杨枝甘露真好喝 🥤',
   },
   {
     title: '爱好',
     icon: <ReloadSvg width={24} height={24} />,
-    description: '绞尽脑汁, 后面再补 🔚',
+    description: '绞尽脑汁, 暂且这些 🔚',
   },
 ];
 
@@ -48,15 +48,13 @@ type HoobyProps = {
 };
 
 const HoobyCard = ({ title, description, icon }: HoobyProps) => (
-  <div className='bg-transparent tracking-wider'>
-    <div className='my-2'>
-      {cloneElement(icon as any, {
-        className: 'inline-block align-top mr-1',
-      })}
-      <h5 className='inline-block text-base font-medium'>{title}</h5>
+  <div>
+    <div className='my-2 flex items-center space-x-2'>
+      {icon}
+      <h5 className='capsize font-medium'>{title}</h5>
     </div>
 
-    <span className='text-gray-3 '>{description}</span>
+    <span className='text-sm text-gray-3'>{description}</span>
   </div>
 );
 

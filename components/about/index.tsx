@@ -5,58 +5,95 @@ import Description from './Description';
 import ExperienceList from './ExperienceList';
 import HoobyList from './HoobyList';
 
-const Section = ({
-  children,
-  className = '',
-}: PropsWithChildren<{ className?: string }>) => (
-  <section className={`px-4 ${className}`}>{children}</section>
+const Title = ({ children }: PropsWithChildren<unknown>) => (
+  <h3 className='text-2xl font-medium tracking-tight md:text-2xl'>{children}</h3>
 );
 
-const Title = ({ children }: PropsWithChildren<unknown>) => (
-  <h3 className='mb-4 text-center text-xl font-medium tracking-wider'>{children}</h3>
-);
+interface BlogEntryProps {
+  body: string;
+  url: string;
+  author: string;
+}
+
+function BlogEntry({ body, url, author }: BlogEntryProps) {
+  return (
+    <div className='flex flex-col'>
+      <div className='w-full'>{body}</div>
+      <div className='flex items-center space-x-3'>
+        <p className='text-sm'>{author}</p>
+        <span className='text-gray-1'>/</span>
+        <a
+          href={url}
+          className='text-sm text-gray-3 transition-colors hover:text-dark-2'
+          target='_blank'
+          rel='noreferrer'
+        >
+          Github
+        </a>
+      </div>
+    </div>
+  );
+}
 
 const AboutView = () => (
   <div className='mx-auto w-3/4 tracking-wider'>
-    <div className='space-y-12 p-6'>
+    <div className='space-y-16 p-6'>
       <NextSeo title='关于' />
 
-      <header className='mt-2 mb-7 text-center'>
-        <h1 className='my-12 text-3xl text-dark-2 '>
-          Hi<span className='origin-[70% 70%] mx-1 inline-block animate-wave'>👋</span>,
-          我是
-          <strong>五木</strong>, 英文名: itsuki, 喜欢 👨‍💻 和 🏃 的前端 🐶
-        </h1>
-      </header>
+      <section className='mt-16 flex flex-col-reverse items-start px-4 sm:flex-row'>
+        <div className='flex flex-col pr-8'>
+          <h1 className='mb-1 text-3xl font-medium tracking-tight dark:text-white md:text-5xl'>
+            五木 - Itsuki
+          </h1>
+          <h2 className='mb-4'>
+            字节跳动前端工程师
+            <span className='font-semibold'>(待入职)</span>
+          </h2>
+          <p className='mb-16 text-lg'>
+            Hi<span className='origin-[70% 70%] mx-1 inline-block animate-wave'>👋</span>,
+            我是 五木, 英文名: itsuki, 喜欢 👨‍💻 和 🏃 的前端 🐶
+          </p>
+        </div>
+        <div className='relative mb-8 w-[80px] text-center sm:mb-0 sm:w-[176px]'>
+          <MyImage alt='itsuki0927' height={121} width={121} src='/avatar.jpeg' circle />
+        </div>
+      </section>
 
-      <Section className='text-center'>
-        <MyImage
-          src='/about.png'
-          width={670}
-          height={407}
-          alt='about-decorate-placeholder'
-        />
-        <p className='mt-1 text-xs text-gray-3 '>(一张装饰图)</p>
-      </Section>
-
-      <Section>
+      <section className='space-y-4 px-4'>
         <Title>一段简介</Title>
         <Description />
-      </Section>
+      </section>
 
-      <Section>
+      <section className='space-y-4 px-4'>
         <Title>几个爱好</Title>
         <HoobyList />
-      </Section>
+      </section>
 
-      <Section>
+      <section className='space-y-4 px-4'>
         <Title>一些经历</Title>
         <ExperienceList />
-      </Section>
+      </section>
 
-      <Section className='mt-6 p-4 tracking-widest'>
-        <strong className='text-gray-2 '>一个应用要写好太难了, 即使是博客!!!</strong>
-      </Section>
+      <section className='space-y-4 px-4'>
+        <Title>一个博客</Title>
+        <div className='space-y-6'>
+          <BlogEntry
+            body='前端: 基于 Next.js、React-Query、TailwindCss、Graphql 的 ISR 应用'
+            url='https://github.com/itsuki0927/itsuki.cn'
+            author='itsuki'
+          />
+          <BlogEntry
+            body='后端: 基于 SpringBoot、SpringBootJPA、Mysql、Graphql 的后端应用'
+            url='https://github.com/itsuki0927/itsuki-server.cn'
+            author='itsuki'
+          />
+          <BlogEntry
+            body='管理: 基本 React.js、Ant-Design-Pro、Pro-Components、Graphql 的 Web 应用'
+            url='https://github.com/itsuki0927/itsuki-admin.cn'
+            author='itsuki'
+          />
+        </div>
+      </section>
     </div>
   </div>
 );

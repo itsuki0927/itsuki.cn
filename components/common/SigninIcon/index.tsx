@@ -2,7 +2,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { GithubOutlined, QQOutlined, WechatOutlined } from '@/components/icons';
+import { GithubOutlined, QQOutlined } from '@/components/icons';
 import { getPageUrl } from '@/utils/url';
 
 export type SigninType = 'github' | 'wechat' | 'qq';
@@ -36,19 +36,6 @@ const SigninIcon = () => {
       >
         <QQOutlined className='mr-1 align-baseline' />
         QQ
-      </a>
-      <a
-        href='/api/auth/sign/wechat'
-        className='flex items-center rounded-sm bg-wechat py-1 px-3 text-sm text-white opacity-90 transition-opacity hover:opacity-100'
-        onClick={e => {
-          e.preventDefault();
-          toast.loading('秃头开发中...', {
-            duration: 3000,
-          });
-        }}
-      >
-        <WechatOutlined className='mr-1 align-baseline' />
-        WeChat
       </a>
     </div>
   );

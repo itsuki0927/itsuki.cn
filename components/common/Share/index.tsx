@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { Icon, LinkOutlined } from '@/components/icons';
-import s from './style.module.css';
+import s from './style.module.scss';
 import { getPageUrl, stringifyParams } from '@/utils/url';
 import { META } from '@/configs/app';
 import { renderTextToQRCodeDataURL } from '@/libs/qrcode';

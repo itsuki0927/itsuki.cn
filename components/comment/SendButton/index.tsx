@@ -12,19 +12,15 @@ const SendButton = ({ onConfirm, isLoading, nickname = '无名氏' }: SendButton
     disabled={isLoading}
     type='button'
     className={classNames(
-      'flex select-none items-center bg-primary py-2 px-3 text-sm text-white outline-none transition-colors',
+      'flex select-none items-end space-x-1 bg-primary py-2 px-3 text-sm text-white outline-none transition-colors',
       isLoading
         ? 'cursor-not-allowed opacity-80'
         : 'cursor-pointer hover:bg-primary-hover'
     )}
     onClick={onConfirm}
   >
-    {isLoading ? '发布中...' : <>以 {nickname} 的身份发布</>}
-    {isLoading ? (
-      <SyncOutlined className='ml-1 animate-spin align-baseline' />
-    ) : (
-      <SendOutlined className='ml-1 align-baseline' />
-    )}
+    <span className='capsize'>{isLoading ? '发布中' : `以 ${nickname} 的身份发布`}</span>
+    {isLoading ? <SyncOutlined className='animate-spin' /> : <SendOutlined />}
   </button>
 );
 

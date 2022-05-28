@@ -7,6 +7,7 @@ import {
   CloseOutlined,
   CommentOutlined,
   CompassOutlined,
+  LikeFilled,
   LikeOutlined,
   TimeOutlined,
 } from '@/components/icons';
@@ -145,7 +146,11 @@ const CommentCard = ({
               }}
               type='button'
             >
-              <LikeOutlined className='mr-1 align-baseline' />
+              {isLike ? (
+                <LikeFilled className='mr-1 align-baseline' />
+              ) : (
+                <LikeOutlined className='mr-1 align-baseline' />
+              )}
               {comment.liking}
             </button>
           </div>

@@ -124,9 +124,9 @@ const CommentCard = ({
         />
 
         <div className='flex justify-between text-gray-1'>
-          <div>
+          <div className='space-x-3'>
             {!!commentChildren.length && (
-              <span className='mr-3 inline-block cursor-pointer rounded-sm px-2 py-1 text-sm transition-colors duration-300 hover:bg-primary-light hover:text-primary  '>
+              <span className='capsize inline-block cursor-pointer rounded-sm px-2 py-1 text-sm transition-colors duration-300 hover:bg-primary-light hover:text-primary  '>
                 <CommentOutlined className='mr-1 align-baseline' />
                 {commentChildren.length}
               </span>

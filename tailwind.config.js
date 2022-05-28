@@ -56,6 +56,9 @@ module.exports = {
                 lineHeight,
                 fontFamily: 'Fira Code',
               },
+              img: {
+                cursor: 'pointer',
+              },
             },
           },
           invert: {

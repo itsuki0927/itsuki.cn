@@ -19,7 +19,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
       height={200}
       objectFit='cover'
       src={article.cover}
-      className='min-w-[286px]'
+      className='min-w-[286px] cursor-pointer'
       imgClassName='opacity-90 transition-all group-hover:scale-105 group-hover:opacity-100'
       onClick={() => router.push(getArticleDetailUrl(article.id))}
     />

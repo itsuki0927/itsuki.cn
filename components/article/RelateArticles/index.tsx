@@ -22,6 +22,7 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
               width={210}
               height={158}
               onClick={() => router.push(getArticleDetailUrl(article.id))}
+              className='cursor-pointer'
               alt='relate-article-cover'
               objectFit='cover'
             />

@@ -21,7 +21,7 @@ const HotArticles = ({ hotArticles }: HotArticlesProps) => (
             width={94}
             height={68}
             alt='hot-article-cover'
-            className='min-w-[94px]'
+            className='min-w-[94px] cursor-pointer'
           />
         </Link>
         <div className='ml-4'>

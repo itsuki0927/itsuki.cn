@@ -59,6 +59,7 @@ const ArticleHeader = ({ article, openPopup }: ArticleHeaderProps) => {
         height={300}
         objectFit='cover'
         alt='article-header-cover'
+        className='cursor-pointer'
       />
     </div>
   );

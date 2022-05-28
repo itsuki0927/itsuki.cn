@@ -1,19 +1,19 @@
 .ejector {
-  @apply flex h-8 w-8 items-center justify-center rounded-sm text-center;
+  @apply flex h-8 w-8 items-center justify-center rounded-sm text-center text-white opacity-90 transition-opacity hover:opacity-100;
 }
 
-.qq:hover {
+.qq {
   background-color: #1abcfa;
 }
 
-.wechat:hover {
+.wechat {
   background-color: #2bae67;
 }
 
-.douban:hover {
+.douban {
   background-color: #05d212;
 }
 
-.link:hover {
+.link {
   background-color: #0088f5;
 }

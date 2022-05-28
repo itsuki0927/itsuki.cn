@@ -1,6 +1,8 @@
+import { Share } from '@/components/common';
 import { ArticleDetailResponse } from '@/entities/article';
 import { useLikeArticle } from '@/hooks/article';
 import FavoriteButton from '../FavoriteButton';
+import SponsorButton from '../SponsorButton';
 
 interface ArticleActionProps {
   article: ArticleDetailResponse;
@@ -9,7 +11,7 @@ interface ArticleActionProps {
 const ArticleAction = ({ article }: ArticleActionProps) => {
   const { isLike, mutation } = useLikeArticle(article.id);
   return (
-    <div className='mx-auto my-4 flex w-52 justify-center'>
+    <div className='mx-auto flex w-52 justify-center space-x-4'>
       <FavoriteButton
         isLike={isLike}
         onLike={() => {
@@ -17,6 +19,10 @@ const ArticleAction = ({ article }: ArticleActionProps) => {
         }}
         liking={article.liking}
       />
+
+      <SponsorButton />
+
+      <Share />
     </div>
   );
 };

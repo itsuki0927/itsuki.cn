@@ -4,7 +4,6 @@ import { useUI } from '@/components/ui/context';
 import { ArticleDetailResponse } from '@/entities/article';
 import { off, on } from '@/utils/events';
 import ArticleAction from '../ArticleAction';
-import ArticleFooter from '../ArticleFooter';
 import ArticleHeader from '../ArticleHeader';
 import ArticleMeta from '../ArticleMeta';
 
@@ -32,16 +31,16 @@ const ArticleContent = ({ article }: ArticleContentProps) => {
   }, [openPopup]);
 
   return (
-    <Container className='relative rounded-sm pb-16'>
+    <Container className='relative rounded-sm'>
       <ArticleHeader article={article} openPopup={openPopup} />
 
       <MarkdownBlock className='my-5' htmlContent={article.content} />
 
-      <ArticleAction article={article} />
-
       <ArticleMeta />
 
-      <ArticleFooter />
+      <div className='my-4 border-t border-dashed border-gray-2' />
+
+      <ArticleAction article={article} />
     </Container>
   );
 };

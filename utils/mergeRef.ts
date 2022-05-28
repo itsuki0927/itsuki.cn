@@ -11,14 +11,16 @@ function toFnRef<T>(ref?: Ref<T> | null) {
       };
 }
 
-function mergeRefs<T>(refA?: Ref<T> | null, refB?: Ref<T> | null) {
-  const a = toFnRef(refA);
-  const b = toFnRef(refB);
+function mergeRefs<T>(...refs: (Ref<T> | null)[]) {
   return (value: T | null) => {
-    if (value) {
-      if (typeof a === 'function') a(value);
-      if (typeof b === 'function') b(value);
-    }
+    refs.forEach(ref => {
+      if (value) {
+        const fnRef = toFnRef(ref);
+        if (fnRef) {
+          fnRef(value);
+        }
+      }
+    });
   };
 }
 

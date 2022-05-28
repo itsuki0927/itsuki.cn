@@ -150,22 +150,6 @@ module.exports = {
         square: 'square',
       },
       keyframes: {
-        'move-left-half': {
-          '0%': {
-            transform: 'none',
-          },
-          '100%': {
-            transform: 'translateX(-50%)',
-          },
-        },
-        'move-left-half-vertical': {
-          '0%': {
-            transform: 'none',
-          },
-          '100%': {
-            transform: 'translateY(-50%)',
-          },
-        },
         wave: {
           '0%': {
             transform: 'rotate(0deg)',
@@ -202,8 +186,6 @@ module.exports = {
         },
       },
       animation: {
-        'move-left-half': 'move-left-half 0.3s ease forwards',
-        'move-left-half-vertical': 'move-left-half-vertical 0.3s ease forwards',
         wave: 'wave 2s linear 15',
         enter: 'enter 200ms ease-out',
         leave: 'leave 150ms ease-in forwards',

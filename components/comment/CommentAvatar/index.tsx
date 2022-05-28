@@ -1,5 +1,5 @@
 import { MyImage } from '@/components/common';
-import { GithubOutlined, QQOutlined, WechatOutlined } from '@/components/icons';
+import { GithubOutlined, QQOutlined } from '@/components/icons';
 
 interface CommentAvatarProps {
   avatar: string | null | undefined;
@@ -17,9 +17,10 @@ const CommentAvatar = ({ avatar, loginType }: CommentAvatarProps) => (
       alt='cover'
     />
     <span className='absolute right-1 bottom-1 w-[40%] rounded-sm bg-[#ffffff80] text-center'>
-      {loginType === 'github' && <GithubOutlined className='leading-5 text-github' />}
-      {loginType === 'qq' && <QQOutlined className='leading-5 text-qq' />}
-      {loginType === 'wechat' && <WechatOutlined className='leading-5 text-wechat' />}
+      {loginType === 'github' && (
+        <GithubOutlined className='capsize leading-5 text-github' />
+      )}
+      {loginType === 'qq' && <QQOutlined className='capsize leading-5 text-qq' />}
     </span>
   </div>
 );

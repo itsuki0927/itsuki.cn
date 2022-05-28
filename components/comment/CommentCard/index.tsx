@@ -175,7 +175,7 @@ const CommentCard = ({
               onClick={() => {
                 toast.dismiss();
                 toast.custom(buildCommentReplyToast, {
-                  duration: Infinity,
+                  duration: 3000,
                 });
                 onReply?.(comment);
               }}

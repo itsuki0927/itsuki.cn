@@ -33,7 +33,6 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
         <MyImage
           src={article.cover}
           objectFit='cover'
-          placeholder='empty'
           width={1050}
           height={500}
           property='0.8'

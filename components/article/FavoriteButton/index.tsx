@@ -26,7 +26,7 @@ const FavoriteButton = ({ isLike, liking, onLike }: FavoriteButtonProps) => {
       onClick={handleLike}
     >
       {isLike ? <LikeFilled className='text-white' /> : <LikeOutlined />}
-      <strong className='ml-2 mr-1 text-white'>{liking}</strong>
+      <strong className='capsize ml-2 mr-1 text-white'>{liking}</strong>
     </button>
   );
 };

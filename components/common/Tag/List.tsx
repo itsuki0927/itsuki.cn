@@ -7,7 +7,7 @@ interface TagListProps {
 }
 
 const TagList = ({ tags, className = '' }: TagListProps) => (
-  <div className={`space-x-2 ${className}`}>
+  <div className={`flex ${className}`}>
     {tags.map(tag => (
       <Tag tag={tag} key={tag.id} />
     ))}

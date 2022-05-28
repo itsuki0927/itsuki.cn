@@ -97,7 +97,7 @@ const Share = () => {
   };
 
   return (
-    <div className='items-center space-x-3'>
+    <div className='flex items-center space-x-3'>
       {socials.map(social => (
         <button
           type='button'
@@ -106,7 +106,7 @@ const Share = () => {
           title={`分享到${social.name}`}
           onClick={() => handleShare(social)}
         >
-          <Icon className='text-lg leading-8' name={social.id} />
+          <Icon className='capsize text-lg' name={social.id} />
         </button>
       ))}
       <button
@@ -114,7 +114,7 @@ const Share = () => {
         className={classNames(s.ejector, s.link)}
         onClick={copyPageURL}
       >
-        <LinkOutlined className='text-lg leading-8' />
+        <LinkOutlined className='capsize text-lg' />
       </button>
     </div>
   );

@@ -45,3 +45,15 @@ textarea::placeholder {
 blockquote {
   @apply border-l-4 border-solid border-dark-3 bg-white-1 py-1 pl-4 pr-3 indent-0;
 }
+
+.capsize::before {
+  content: '';
+  margin-bottom: -0.098em;
+  display: table;
+}
+
+.capsize::after {
+  content: '';
+  margin-top: -0.219em;
+  display: table;
+}

@@ -24,14 +24,14 @@ const ArticleListPagination = ({
         });
       }}
       className={classNames(
-        'flex items-center rounded-sm px-4 py-2 text-sm tracking-widest transition-colors duration-300 ',
+        'capsize flex items-center rounded-sm px-4 py-2 text-sm tracking-widest transition-colors duration-300 ',
         !hasPrev
           ? 'cursor-not-allowed text-gray-1'
           : 'bg-white text-primary hover:bg-primary hover:text-white'
       )}
     >
       <LeftOutlined className='mr-2 text-xxs' />
-      以后
+      <span className='capsize'>以后</span>
     </button>
     <button
       type='button'
@@ -49,7 +49,7 @@ const ArticleListPagination = ({
           : 'bg-white text-primary hover:bg-primary hover:text-white'
       )}
     >
-      以前
+      <span className='capsize'>以前</span>
       <RightOutlined className='ml-2 text-xxs' />
     </button>
   </div>

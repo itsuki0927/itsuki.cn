@@ -98,13 +98,13 @@ const CommentCard = ({
               )}
             </div>
 
-            <div className='mt-1 flex flex-grow items-center text-sm text-gray-2 '>
-              <span>
+            <div className='mt-1 flex flex-grow items-center space-x-2 text-sm text-gray-2'>
+              <span className='capsize'>
                 <TimeOutlined className='mr-1 align-baseline text-sm' />
                 <ToDate date={comment.createAt} />
               </span>
 
-              <span className='ml-2'>
+              <span className='capsize'>
                 <CompassOutlined className='mr-1 align-baseline text-sm' />
                 <span className='text-sm'>
                   {comment.province}
@@ -132,7 +132,7 @@ const CommentCard = ({
             )}
             <button
               className={classNames(
-                'inline-block cursor-pointer rounded-sm px-3 py-1 text-sm transition-colors duration-300 ',
+                'capsize inline-block cursor-pointer rounded-sm px-3 py-1 text-sm transition-colors duration-300',
                 isLike
                   ? 'bg-danger-light text-danger'
                   : 'hover:bg-danger-light hover:text-danger'
@@ -153,7 +153,7 @@ const CommentCard = ({
           {replyId === comment.id ? (
             <button
               type='button'
-              className='inline-block cursor-pointer rounded-sm bg-white px-3 py-1 text-sm text-dark-2 transition-colors duration-300'
+              className='capsize inline-block cursor-pointer rounded-sm bg-white px-3 py-1 text-sm text-dark-2 transition-colors duration-300'
               onClick={() => {
                 onCancelReply?.();
                 toast.dismiss();
@@ -167,7 +167,7 @@ const CommentCard = ({
               type='button'
               disabled={isSignout}
               className={classNames(
-                'inline-block rounded-sm px-3 py-1 text-sm transition-colors duration-300',
+                'capsize inline-block rounded-sm px-3 py-1 text-sm transition-colors duration-300',
                 isSignout
                   ? 'cursor-not-allowed'
                   : 'cursor-pointer hover:bg-white hover:text-dark-2'

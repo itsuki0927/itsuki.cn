@@ -17,13 +17,14 @@ const ArticleHeader = ({ article, openPopup }: ArticleHeaderProps) => {
       <header className='mt-4 mb-6 space-y-2'>
         <h1 className='text-3xl'>{article.title}</h1>
 
-        <TagList tags={article.tags} />
+        <TagList className='flex justify-center' tags={article.tags} />
 
         <ul className='flex items-center justify-center space-x-2 text-sm text-gray-1 '>
           <li className='flex items-center'>
             <MyImage
+              circle
               className='mr-1 inline-block'
-              src='https://avatars.githubusercontent.com/u/40518195?v=4?imageView2/2/w/128/interlace/1/q/60'
+              src='https://static.itsuki.cn/avatar1.jpg'
               width={24}
               height={24}
             />

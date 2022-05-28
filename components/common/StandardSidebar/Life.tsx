@@ -5,7 +5,7 @@ const Life = () => {
 
   return (
     <div className='bg-white p-4 text-center text-sm tracking-wider text-gray-3  '>
-      有人活了 <strong className='text-basic '>{days}</strong> 天
+      有人活了 <strong className='font-medium text-basic'>{days}</strong> 天
       <span className='absolute ml-1 mt-[2px] text-xs text-gray-1'>(本网站)</span>
     </div>
   );

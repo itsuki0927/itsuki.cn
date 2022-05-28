@@ -1,5 +1,5 @@
 .ejector {
-  @apply inline-block h-8 w-8 rounded-sm text-center leading-8;
+  @apply flex h-8 w-8 items-center justify-center rounded-sm text-center;
 }
 
 .qq:hover {

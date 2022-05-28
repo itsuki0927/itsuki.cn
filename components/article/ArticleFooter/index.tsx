@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { Share } from '@/components/common';
 
 const Author = () => (
-  <div className='uppercase leading-12 tracking-wider'>
+  <div className='capsize uppercase leading-12 tracking-wider'>
     <span className='text-sm'>by</span>
     <Link href='/about'>
-      <span className='ml-1 cursor-pointer font-bold transition-colors duration-500 hover:text-primary'>
+      <span className='ml-1 cursor-pointer font-medium transition-colors duration-500 hover:text-primary'>
         itsuki
       </span>
     </Link>

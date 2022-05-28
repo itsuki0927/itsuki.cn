@@ -1,5 +1,5 @@
 import { MyImage } from '@/components/common';
-import { GithubOutlined, QQOutlined } from '@/components/icons';
+import { GithubOutlined, Icon, QQOutlined } from '@/components/icons';
 
 interface CommentAvatarProps {
   avatar: string | null | undefined;
@@ -21,6 +21,9 @@ const CommentAvatar = ({ avatar, loginType }: CommentAvatarProps) => (
         <GithubOutlined className='capsize leading-5 text-github' />
       )}
       {loginType === 'qq' && <QQOutlined className='capsize leading-5 text-qq' />}
+      {loginType === 'anonymous' && (
+        <Icon name='user-fill' className='capsize leading-5 text-white' />
+      )}
     </span>
   </div>
 );

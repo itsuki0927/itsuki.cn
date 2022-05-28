@@ -1,3 +1,4 @@
+const { fontFamily } = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
 /*  @type {import('tailwindcss/tailwind-config').TailwindConfig} */
@@ -27,9 +28,36 @@ module.exports = {
       wechat: 'var(--wechat)',
     },
     extend: {
+      fontFamily: {
+        sans: ['IBM Plex Sans', ...fontFamily.sans],
+      },
       typography: ({ theme }) => {
         const [fontSize, { lineHeight }] = theme('fontSize.sm');
         return {
+          DEFAULT: {
+            css: {
+              a: {
+                color: 'var(--text-primary)',
+                transition: 'color 0.3s ease',
+                '&:hover': {
+                  color: 'var(--text-primary-hover)',
+                },
+              },
+              'blockquote p': {
+                marginTop: theme('spacing.1'),
+                marginBottom: theme('spacing.1'),
+              },
+              pre: {
+                borderRadius: theme('borderRadius.sm'),
+                fontFamily: 'Fira Code',
+              },
+              code: {
+                fontSize,
+                lineHeight,
+                fontFamily: 'Fira Code',
+              },
+            },
+          },
           invert: {
             css: {
               '--tw-prose-body': '#cecac3',
@@ -48,23 +76,6 @@ module.exports = {
               '--tw-prose-pre-bg': 'rgba(0, 0, 0, 0.5)',
               '--tw-prose-th-borders': '#6f675b',
               '--tw-prose-td-borders': '#766d61',
-            },
-          },
-          base: {
-            css: {
-              'blockquote p': {
-                marginTop: theme('spacing.1'),
-                marginBottom: theme('spacing.1'),
-              },
-              pre: {
-                borderRadius: theme('borderRadius.sm'),
-                fontFamily: 'Fira Code',
-              },
-              code: {
-                fontSize,
-                lineHeight,
-                fontFamily: 'Fira Code',
-              },
             },
           },
         };

@@ -23,5 +23,6 @@ export { default as SmileFilled } from './SmileFilled';
 export { default as SyncOutlined } from './SyncOutlined';
 export { default as TimeOutlined } from './TimeOutlined';
 export { default as ToTopOutlined } from './ToTopOutlined';
+export { default as UserFilled } from './UserFilled';
 export { default as WechatOutlined } from './WechatOutlined';
 export { default as YuanOutlined } from './YuanOutlined';

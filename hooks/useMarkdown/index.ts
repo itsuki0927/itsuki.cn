@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useState } from 'react';
-import markedToHtml from '@/utils/marked';
+import markedToHtml from '@/libs/marked';
 import useIntersectionObserver from '../useIntersectionObserver';
 
 const useMarkdown = (ref: RefObject<Element>, content: string) => {

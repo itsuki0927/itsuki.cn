@@ -5,7 +5,7 @@ import { Icon, LinkOutlined } from '@/components/icons';
 import s from './style.module.css';
 import { getPageUrl, stringifyParams } from '@/utils/url';
 import { META } from '@/configs/app';
-import { renderTextToQRCodeDataURL } from '@/utils/qrcode';
+import { renderTextToQRCodeDataURL } from '@/libs/qrcode';
 import { useUI } from '@/components/ui/context';
 import { copyTextToClipboard } from '@/hooks/useCopyToClipboard';
 

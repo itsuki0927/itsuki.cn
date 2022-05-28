@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { ReactNode, useState } from 'react';
 import { MarkdownBlock } from '@/components/ui';
 import { MarkdownEditorOptions } from '@/utils/editor';
-import markedToHtml from '@/utils/marked';
+import markedToHtml from '@/libs/marked';
 import Toolbar from './Toolbar';
 import styles from './style.module.css';
 import useEditor from './useEditor';

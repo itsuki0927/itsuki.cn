@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { getArticle } from '@/api/article';
-import markedToHtml from '@/utils/marked';
+import markedToHtml from '@/libs/marked';
 import { articleKeys } from '@/constants/queryKeys';
 
 const useArticle = (articleId: number) =>

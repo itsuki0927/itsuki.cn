@@ -1,6 +1,6 @@
 import { marked } from 'marked';
-import highlight from '@/utils/highlight';
-import purifyDomString from '@/utils/purify';
+import highlight from './highlight';
+import purifyDomString from './purify';
 
 marked.use({
   gfm: true,

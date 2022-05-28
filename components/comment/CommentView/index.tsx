@@ -8,7 +8,7 @@ import { SigninIcon } from '@/components/common';
 import { Container, Widget } from '@/components/ui';
 import { Comment, PostCommentBody } from '@/entities/comment';
 import { useComments, useCreateComment } from '@/hooks/comment';
-import purifyDomString from '@/utils/purify';
+import purifyDomString from '@/libs/purify';
 import CommentCard from '../CommentCard';
 import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';

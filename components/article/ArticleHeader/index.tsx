@@ -17,7 +17,7 @@ const ArticleHeader = ({ article, openPopup }: ArticleHeaderProps) => {
       <header className='mt-4 mb-6 space-y-2'>
         <h1 className='text-3xl'>{article.title}</h1>
 
-        <TagList className='flex justify-center' tags={article.tags} />
+        <TagList tags={article.tags} />
 
         <ul className='flex items-center justify-center space-x-2 text-sm text-gray-1 '>
           <li className='flex items-center'>

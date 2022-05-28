@@ -25,7 +25,6 @@
     "feed": "^4.2.2",
     "graphql": "^16.5.0",
     "graphql-request": "^4.2.0",
-    "gravatar": "^1.8.2",
     "highlight.js": "^11.5.1",
     "marked": "^4.0.15",
     "next": "^12.1.6",

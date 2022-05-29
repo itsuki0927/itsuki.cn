@@ -14,7 +14,7 @@ const GA = () => {
 
   const handleRouteChange = useCallback(
     (url: string) => {
-      if (needGA && window.gtag) {
+      if (needGA && !!window.gtag) {
         pageview(url);
       }
     },

@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router';
 import { SiteInfo } from '@/entities/siteInfo';
 import Search from './Search';
 import ChickenSoup from './ChickenSoup';
 import HotArticles from './HotArticles';
 import Life from './Life';
 import Tags from './Tags';
+import ArticleNav from './ArticleNav';
+import { isArticleRoute } from '@/utils/url';
 
 interface SidebarProps {
   className?: string;
@@ -13,18 +16,24 @@ interface SidebarProps {
   onToggle: () => void;
 }
 
-const StandardSidebar = ({ tags = [], hotArticles = [], className }: SidebarProps) => (
-  <aside className={className}>
-    <Life />
+const StandardSidebar = ({ tags = [], hotArticles = [], className }: SidebarProps) => {
+  const router = useRouter();
+  const displayArticleNav = isArticleRoute(router.asPath);
 
-    <Search />
+  return (
+    <aside className={className}>
+      <Life />
 
-    <ChickenSoup />
+      <Search />
 
-    <HotArticles hotArticles={hotArticles} />
+      <ChickenSoup />
 
-    <Tags tags={tags} />
-  </aside>
-);
+      <HotArticles hotArticles={hotArticles} />
 
+      <Tags tags={tags} />
+
+      {displayArticleNav && <ArticleNav />}
+    </aside>
+  );
+};
 export default StandardSidebar;

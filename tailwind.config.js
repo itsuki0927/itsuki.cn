@@ -152,6 +152,12 @@ module.exports = {
       listStyleType: {
         square: 'square',
       },
+      padding: {
+        18: '3.5rem',
+      },
+      margin: {
+        18: '3.5rem',
+      },
       keyframes: {
         wave: {
           '0%': {

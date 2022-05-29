@@ -12,7 +12,7 @@ interface ArticleContentProps {
 }
 
 const ArticleContent = ({ article }: ArticleContentProps) => {
-  const { openPopup } = useUI();
+  const { openPopup, setPopupView } = useUI();
 
   useEffect(() => {
     const imgs = [...document.querySelectorAll('[name^=article-cover]')];
@@ -40,7 +40,13 @@ const ArticleContent = ({ article }: ArticleContentProps) => {
 
       <div className='my-4 border-t border-dashed border-gray-2' />
 
-      <ArticleAction article={article} />
+      <ArticleAction
+        article={article}
+        openPopup={() => {
+          setPopupView('SPONSOR_VIEW');
+          openPopup();
+        }}
+      />
     </Container>
   );
 };

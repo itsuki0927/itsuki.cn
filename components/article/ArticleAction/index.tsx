@@ -6,9 +6,10 @@ import SponsorButton from '../SponsorButton';
 
 interface ArticleActionProps {
   article: ArticleDetailResponse;
+  openPopup: () => void;
 }
 
-const ArticleAction = ({ article }: ArticleActionProps) => {
+const ArticleAction = ({ article, openPopup }: ArticleActionProps) => {
   const { isLike, mutation } = useLikeArticle(article.id);
   return (
     <div className='mx-auto flex w-52 justify-center space-x-4'>
@@ -20,7 +21,7 @@ const ArticleAction = ({ article }: ArticleActionProps) => {
         liking={article.liking}
       />
 
-      <SponsorButton />
+      <SponsorButton onClick={openPopup} />
 
       <Share />
     </div>

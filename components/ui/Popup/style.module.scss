@@ -1,0 +1,52 @@
+$anime-time: 8s;
+$box-size: 150px;
+$clip-distance: 0.05;
+$clip-size: $box-size * (1 + $clip-distance * 2);
+$path-width: 2px;
+
+.sponsor {
+  position: relative;
+  width: $box-size;
+  height: $box-size;
+  display: inline-block;
+  border-radius: 2px;
+  transition: color 0.3s ease;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '';
+    margin: -1 * $clip-distance * 100%;
+    box-shadow: inset 0 0 0 $path-width;
+    animation: clip-boxshaow $anime-time linear infinite;
+    opacity: 0.7;
+    border-radius: 2px;
+  }
+
+  &::before {
+    animation-delay: $anime-time * -0.5;
+  }
+}
+
+@keyframes clip-boxshaow {
+  0%,
+  100% {
+    clip: rect(0, $clip-size, $path-width, 0);
+  }
+
+  25% {
+    clip: rect(0, $path-width, $clip-size, 0);
+  }
+
+  50% {
+    clip: rect($clip-size - $path-width, $clip-size, $clip-size, 0);
+  }
+
+  75% {
+    clip: rect(0, $clip-size, $clip-size, $clip-size - $path-width);
+  }
+}

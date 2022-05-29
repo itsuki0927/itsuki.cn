@@ -1,3 +1,4 @@
+export { default as AlipayOutlined } from './AlipayOutlined';
 export { default as CloseOutlined } from './CloseOutlined';
 export { default as CommentOutlined } from './CommentOutlined';
 export { default as CompassOutlined } from './CompassOutlined';

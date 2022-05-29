@@ -7,6 +7,7 @@ import { useTheme } from '@/hooks';
 import { PopupViews, SidebarViews, UIParams, useUI } from '@/components/ui/context';
 import { SiteInfo } from '@/entities/siteInfo';
 import ImagePopup from '@/components/ui/Popup/ImagePopup';
+import SponsorPopup from '@/components/ui/Popup/SponsorPopup';
 
 const SidebarView: React.FC<{
   sidebarView: SidebarViews;
@@ -51,7 +52,7 @@ const PopupView: React.FC<{
 }> = ({ popupView, popupParams }) => (
   <Popup>
     {popupView === 'IMAGE_VIEW' && <ImagePopup src={popupParams?.src} />}
-    {popupView === 'SPONSOR_VIEW' && <div>not implement</div>}
+    {popupView === 'SPONSOR_VIEW' && <SponsorPopup />}
   </Popup>
 );
 

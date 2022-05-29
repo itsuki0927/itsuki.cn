@@ -21,7 +21,7 @@ export const getTagRoute = (path: string) => `/tag/${path}`;
 /**
  * 获取分类路径
  */
-export const getCategoryUrl = (path: string) => `/category/${path}`;
+export const getCategoryRoute = (path: string) => `/category/${path}`;
 
 /**
  * stringify 参数

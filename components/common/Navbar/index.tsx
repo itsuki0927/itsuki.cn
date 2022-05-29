@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Logo } from '@/components/common';
 import { Category } from '@/entities/category';
 import { RssIcon } from '@/components/icons';
-import { getCategoryUrl } from '@/utils/url';
+import { getCategoryRoute } from '@/utils/url';
 import { shank } from '@/utils/array';
 import ThemeSwitch, { ThemeSwitchProps } from '../ThemeSwitch';
 
@@ -39,7 +39,7 @@ const DEFAULT_NAV_LIST = [
 const Navbar = ({ links, ...themeProps }: NavbarProps) => {
   const categoriesDom = useMemo(() => {
     const addNavList =
-      links?.map(item => ({ ...item, path: getCategoryUrl(item.path) })) || [];
+      links?.map(item => ({ ...item, path: getCategoryRoute(item.path) })) || [];
 
     // 将查询到的分类添加到首页的后面
     const navDom = shank(DEFAULT_NAV_LIST, 1, 0, ...addNavList).map(item => (

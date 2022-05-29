@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Widget } from '@/components/ui';
 import { Article } from '@/entities/article';
-import { getArticleDetailUrl } from '@/utils/url';
+import { getArticleDetailRoute } from '@/utils/url';
 import ToDate from '../ToDate';
 import { MyImage } from '..';
 
@@ -14,7 +14,7 @@ const HotArticles = ({ hotArticles }: HotArticlesProps) => (
     <Widget.Header>最佳歌手</Widget.Header>
     {hotArticles.slice(0, 6).map(article => (
       <div className='mb-4 flex items-center rounded-sm' key={article.id}>
-        <Link href={getArticleDetailUrl(article.id)}>
+        <Link href={getArticleDetailRoute(article.id)}>
           <MyImage
             src={article.cover}
             objectFit='cover'
@@ -26,7 +26,7 @@ const HotArticles = ({ hotArticles }: HotArticlesProps) => (
         </Link>
         <div className='ml-4'>
           <h4 className='cursor-pointer text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary '>
-            <Link href={getArticleDetailUrl(article.id)}>{article.title}</Link>
+            <Link href={getArticleDetailRoute(article.id)}>{article.title}</Link>
           </h4>
           <span className='text-sm text-gray-1 '>
             <ToDate date={article.createAt} to='YMD' />

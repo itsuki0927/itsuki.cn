@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { MyImage, ToDate } from '@/components/common';
 import { Widget } from '@/components/ui';
 import { Article } from '@/entities/article';
-import { getArticleDetailUrl } from '@/utils/url';
+import { getArticleDetailRoute } from '@/utils/url';
 
 interface RelateArticlesProps {
   relateArticles: Article[];
@@ -21,13 +21,13 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
               src={article.cover}
               width={210}
               height={158}
-              onClick={() => router.push(getArticleDetailUrl(article.id))}
+              onClick={() => router.push(getArticleDetailRoute(article.id))}
               className='cursor-pointer'
               alt='relate-article-cover'
               objectFit='cover'
             />
             <h2 className='my-2 cursor-pointer px-3 text-center text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary  '>
-              <Link href={getArticleDetailUrl(article.id)}>{article.title}</Link>
+              <Link href={getArticleDetailRoute(article.id)}>{article.title}</Link>
             </h2>
             <span className='block text-center text-sm tracking-wider text-gray-1'>
               <ToDate date={article.createAt} to='YMD' />

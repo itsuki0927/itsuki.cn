@@ -5,13 +5,13 @@ export const getPageUrl = (uri: string) => `${WEB_URL}${uri}`;
 /**
  * 获取文章路径
  */
-export const getArticleDetailUrl = (articleId: number) => `/article/${articleId}`;
+export const getArticleDetailRoute = (articleId: number) => `/article/${articleId}`;
 
 /**
  * 获取完整的文章路径
  */
 export const getArticleDetailFullUrl = (articleId: number) =>
-  getPageUrl(getArticleDetailUrl(articleId));
+  getPageUrl(getArticleDetailRoute(articleId));
 
 /**
  * 获取标签路径

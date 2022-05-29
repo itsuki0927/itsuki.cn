@@ -4,7 +4,7 @@ import { MyImage, ToDate } from '@/components/common';
 import { Article } from '@/entities/article';
 import { MessageOutlined, EyeOutlined, LikeOutlined } from '@/components/icons';
 import s from './style.module.scss';
-import { getArticleDetailUrl } from '@/utils/url';
+import { getArticleDetailRoute } from '@/utils/url';
 
 type ArticleCardProps = {
   article: Article;
@@ -21,7 +21,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
       src={article.cover}
       className='min-w-[286px] cursor-pointer'
       imgClassName='opacity-90 transition-all group-hover:scale-105 group-hover:opacity-100'
-      onClick={() => router.push(getArticleDetailUrl(article.id))}
+      onClick={() => router.push(getArticleDetailRoute(article.id))}
     />
     <div className='ml-4 flex flex-grow flex-col items-start justify-between'>
       <header className='mt-1 mb-1'>
@@ -31,7 +31,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
 
         <h3
           className='cursor-pointer text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary'
-          onClick={() => router.push(getArticleDetailUrl(article.id))}
+          onClick={() => router.push(getArticleDetailRoute(article.id))}
         >
           {article.title}
         </h3>
@@ -43,7 +43,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
 
       <button
         type='button'
-        onClick={() => router.push(getArticleDetailUrl(article.id))}
+        onClick={() => router.push(getArticleDetailRoute(article.id))}
         className='capsize mb-3 rounded-sm bg-white-1 py-2 px-6 text-sm text-primary transition-colors duration-300 hover:bg-primary hover:text-white'
       >
         READ MORE

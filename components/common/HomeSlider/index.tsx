@@ -4,7 +4,7 @@ import router from 'next/router';
 import React from 'react';
 import ToDate from '../ToDate';
 import { MyImage } from '..';
-import { getArticleDetailUrl } from '@/utils/url';
+import { getArticleDetailRoute } from '@/utils/url';
 import { SiteInfo } from '@/entities/siteInfo';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -47,7 +47,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
 
             <h2
               className='cursor-pointer tracking-widest text-dark-2 transition-colors hover:text-primary'
-              onClick={() => router.push(getArticleDetailUrl(article.id))}
+              onClick={() => router.push(getArticleDetailRoute(article.id))}
             >
               {article.title}
             </h2>

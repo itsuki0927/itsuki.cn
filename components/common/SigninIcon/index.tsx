@@ -9,17 +9,22 @@ export type SigninType = 'github' | 'wechat' | 'qq';
 
 const SigninIcon = () => {
   const router = useRouter();
+
+  const handleSigin = (e: any, type: string) => {
+    e.preventDefault();
+    const params = `?type=${type}`;
+    const path = router.asPath.replaceAll(params, '');
+    signIn('github', {
+      callbackUrl: `${getPageUrl(path)}${params}`,
+    });
+  };
+
   return (
     <div className='flex justify-center space-x-4'>
       <a
         href='/api/auth/sign/github'
         className='flex items-center rounded-sm bg-github py-1 px-3 text-sm text-white opacity-90 transition-opacity hover:opacity-100'
-        onClick={e => {
-          e.preventDefault();
-          signIn('github', {
-            callbackUrl: `${getPageUrl(router.asPath)}?type=github`,
-          });
-        }}
+        onClick={e => handleSigin(e, 'github')}
       >
         <GithubOutlined className='mr-1 align-baseline' />
         Github

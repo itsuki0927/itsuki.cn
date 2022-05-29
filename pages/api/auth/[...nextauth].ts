@@ -13,7 +13,7 @@ export default NextAuth({
       clientId: NEXTAUTH_GITHUB_CLIENT_ID,
       clientSecret: NEXTAUTH_GITHUB_CLIENT_SECRET,
       httpOptions: {
-        timeout: 100000,
+        timeout: 40000,
       },
     }),
   ],

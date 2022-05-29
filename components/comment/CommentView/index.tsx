@@ -5,7 +5,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { SigninIcon } from '@/components/common';
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Container, Widget } from '@/components/ui';
+import { Empty, Widget } from '@/components/ui';
 import { Comment, PostCommentBody } from '@/entities/comment';
 import { useComments, useCreateComment } from '@/hooks/comment';
 import purifyDomString from '@/libs/purify';
@@ -29,12 +29,11 @@ const CommentView = ({ articleId }: CommentProps) => {
   const loginType = String(router.query?.type ?? 'github');
 
   const { data: session } = useSession();
-  const { data, isLoading, isFetching } = useComments(articleId);
+  const { data, isLoading, isFetching, isEmpty } = useComments(articleId);
   const [replyId, setReplyId] = useState<number | null>(null);
   const [content, setContent] = useState('');
   const mutation = useCreateComment(articleId);
   const comments = useMemo(() => convertToCommentTreeData(data?.data), [data?.data]);
-  const hasComments = !!comments.length;
 
   const handleSend = useCallback(
     () =>
@@ -135,28 +134,26 @@ const CommentView = ({ articleId }: CommentProps) => {
         )}
       </Widget>
 
-      <Widget>
-        {hasComments ? (
-          <>
-            <Widget.Header>{data?.total} 条沙雕评论</Widget.Header>
-            <CommentList data={comments}>
-              {(item, childClassName) => (
-                <CommentCard
-                  replyId={replyId}
-                  onReply={comment => setReplyId(comment.id)}
-                  onCancelReply={() => setReplyId(null)}
-                  reply={replyCallback}
-                  key={item.comment.id}
-                  data={item}
-                  childClassName={childClassName}
-                />
-              )}
-            </CommentList>
-          </>
-        ) : (
-          <p className='mb-0 text-center text-sm text-gray-2'>暂无评论</p>
-        )}
-      </Widget>
+      {isEmpty ? (
+        <Empty />
+      ) : (
+        <Widget>
+          <Widget.Header>{data?.total} 条沙雕评论</Widget.Header>
+          <CommentList data={comments}>
+            {(item, childClassName) => (
+              <CommentCard
+                replyId={replyId}
+                onReply={comment => setReplyId(comment.id)}
+                onCancelReply={() => setReplyId(null)}
+                reply={replyCallback}
+                key={item.comment.id}
+                data={item}
+                childClassName={childClassName}
+              />
+            )}
+          </CommentList>
+        </Widget>
+      )}
     </>
   );
 };

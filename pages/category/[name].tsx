@@ -11,6 +11,8 @@ import { Banner, BannerSkeleton } from '@/components/ui';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { useCategoryArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
+import { getExpandValue } from '@/utils/expands';
+import { Icon } from '@/components/icons';
 
 export const getStaticPaths = async () => {
   const paths = await getAllCategoryPaths();
@@ -47,6 +49,7 @@ const CategoryPage = ({
   const category = data?.categories
     ? data.categories.find(item => item.path === categoryPath)
     : undefined;
+  const icon = getExpandValue(category?.expand ?? '', 'icon');
 
   if (articles.isFetching || articles.isLoading) {
     return (
@@ -65,7 +68,11 @@ const CategoryPage = ({
         description={category?.description}
       />
 
-      <Banner>分类: {category?.name}</Banner>
+      <Banner
+        title={`分类: ${category?.name}`}
+        description={category?.description}
+        icon={<Icon name={icon} />}
+      />
 
       <ArticleList {...articles} />
     </div>

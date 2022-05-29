@@ -11,7 +11,7 @@ export const API_URL = process.env.NEXT_PUBLIC_API_BASE_PATH ?? '';
 export const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION ?? '';
 
 // iconfont url
-export const ICONFONT_URL = '//at.alicdn.com/t/font_2836612_bado60jx7zn';
+export const ICONFONT_URL = '//at.alicdn.com/t/font_2836612_fmqifultb3r';
 
 // resource 主机
 export const RESOURCE_HOST = 'static.itsuki.cn';

@@ -11,6 +11,8 @@ import { Banner, BannerSkeleton } from '@/components/ui';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { useTagArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
+import { getExpandValue } from '@/utils/expands';
+import { Icon } from '@/components/icons';
 
 export const getStaticPaths = async () => {
   const paths = await getAllTagPaths();
@@ -45,6 +47,7 @@ const ArticleTagPage = ({
   const articles = useTagArticles(tagPath);
   const { data } = useGlobalData();
   const tag = data?.tags ? data.tags.find(item => item.path === tagPath) : undefined;
+  const icon = getExpandValue(tag?.expand ?? '', 'icon');
 
   if (articles.isFetching || articles.isLoading) {
     return (
@@ -63,7 +66,11 @@ const ArticleTagPage = ({
         description={tag?.description}
       />
 
-      <Banner>标签: {tag?.name}</Banner>
+      <Banner
+        title={`标签: ${tag?.name}`}
+        description={tag?.description}
+        icon={<Icon name={icon} />}
+      />
 
       <ArticleList {...articles} />
     </div>

@@ -5,6 +5,7 @@ import { ArticleList, ArticleSkeletonList } from '@/components/article';
 import { useSearch } from '@/hooks/article';
 import { Layout } from '@/components/common';
 import { Banner, BannerSkeleton } from '@/components/ui';
+import { SearchOutlined } from '@/components/icons';
 
 const Search = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const Search = () => {
     <div className='space-y-6'>
       <NextSeo title={`${keyword} - Search`} />
 
-      <Banner>关键字: {keyword}</Banner>
+      <Banner title={`关键字: ${keyword}`} description='搜索' icon={<SearchOutlined />} />
 
       <ArticleList {...articles} />
     </div>

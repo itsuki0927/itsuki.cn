@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { Tag as ArticleTag } from '@/entities/tag';
-import { getTagUrl } from '@/utils/url';
+import { getTagRoute } from '@/utils/url';
 
 interface TagProps {
   tag: ArticleTag;
 }
 
 const Tag = ({ tag }: TagProps) => (
-  <Link href={getTagUrl(tag.path)}>
+  <Link href={getTagRoute(tag.path)}>
     <span
       tabIndex={-1}
       role='button'

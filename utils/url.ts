@@ -16,7 +16,7 @@ export const getArticleDetailFullUrl = (articleId: number) =>
 /**
  * 获取标签路径
  */
-export const getTagUrl = (path: string) => `/tag/${path}`;
+export const getTagRoute = (path: string) => `/tag/${path}`;
 
 /**
  * 获取分类路径

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Image, { ImageLoaderProps, ImageProps } from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import s from './style.module.css';
 
 export type MyImageProps = Omit<
@@ -50,6 +50,12 @@ const MyImage = ({ className, imgClassName, circle, src, ...rest }: MyImageProps
   const placeholderProps: Pick<ImageProps, 'placeholder' | 'blurDataURL'> = {};
   const { width = 0, height = 0 } = rest;
   const [innerSrc, setInnerSrc] = useState(src);
+
+  useEffect(() => {
+    if (src !== innerSrc) {
+      setInnerSrc(src);
+    }
+  }, [innerSrc, src]);
 
   if (width > 40 || height > 40) {
     placeholderProps.placeholder = 'blur';

@@ -4,7 +4,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getGlobalData } from '@/api/global';
 import { readArticle, getAllArticlePaths, getArticle } from '@/api/article';
 import { ArticleSkeleton, ArticleView } from '@/components/article';
-import { ErrorHandler, Layout } from '@/components/common';
+import { Layout } from '@/components/common';
 import { useArticle } from '@/hooks/article';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { RelateArticleSkeleton } from '@/components/article/RelateArticles';
@@ -46,7 +46,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data: article, isFetching, isLoading, isError } = useArticle(articleId);
+  const { data: article, isFetching, isLoading } = useArticle(articleId);
 
   if (isFetching || isLoading || !article)
     return (
@@ -57,7 +57,6 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
         <CommentListSkeleton />
       </div>
     );
-  if (isError) return <ErrorHandler title='' message='' img='/404.jpg' />;
   return <ArticleView article={article} />;
 };
 

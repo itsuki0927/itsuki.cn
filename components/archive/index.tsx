@@ -1,45 +1,35 @@
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
-import {
-  ArticleArchive,
-  ArticleArchiveMap,
-  ArticleArchiveResponse,
-} from '@/entities/article';
-import { Container } from '../ui';
+import { ArticleArchive, ArticleArchiveResponse } from '@/entities/article';
 
-const getDay = (date: Date) => `${String(new Date(date).getDate()).padStart(2, '0')}号`;
+const getDay = (date: Date) =>
+  `${String(new Date(date).getMonth() + 1).padStart(2, '0')}月${String(
+    new Date(date).getDate()
+  ).padStart(2, '0')}号`;
 
 const ArticleList = ({ articles }: { articles: ArticleArchive[] }) => (
-  <ul className='list-none pl-4'>
+  <ul className='relative ml-9 list-none border-l-2 border-dashed border-l-gray-1 pl-8 '>
     {articles.map(article => (
-      <li className='rounded-sm p-3' key={article.id}>
-        <p className='mb-2'>
-          <span className='mr-3 inline-block text-sm text-gray-1'>
-            {getDay(article.createAt)}
-          </span>
-          <Link href={`/article/${article.id}`}>
-            <span className='cursor-pointer border-b border-solid border-transparent tracking-wider text-dark-2 transition-all hover:text-gray-3 '>
-              {article.title}
-            </span>
-          </Link>
+      <div className='mb-8 w-full'>
+        <p className='mb-4 w-32 text-right text-sm text-gray-2 md:mb-0 md:text-left'>
+          {getDay(article.createAt)}
         </p>
-        <p className='mb-0 pl-10 text-sm text-gray-2'>{article.description}</p>
-      </li>
+        <div className='flex flex-col justify-between md:flex-row'>
+          <Link key={article.id} href={`/article/${article.id}`}>
+            <h4 className='mb-2 w-full cursor-pointer text-lg font-medium transition-colors hover:text-dark-2 md:text-xl'>
+              {article.title}
+            </h4>
+          </Link>
+          <p className='mb-4 w-32 text-left text-gray-2 md:mb-0 md:text-right'>
+            {`${
+              article.reading ? Number(article.reading).toLocaleString() : '–––'
+            } views`}
+          </p>
+        </div>
+        <p className='text-gray-3'>{article.description}</p>
+      </div>
     ))}
   </ul>
-);
-
-const MonthList = ({ months }: { months: ArticleArchiveMap }) => (
-  <>
-    {[...months.entries()].map(([month, articles]) => (
-      <ul className='list-square' key={month}>
-        <li key={month} className='ml-16'>
-          <h3 className='my-4 text-lg'>{month}</h3>
-          <ArticleList articles={articles} />
-        </li>
-      </ul>
-    ))}
-  </>
 );
 
 interface ArchivePageProps {
@@ -47,23 +37,25 @@ interface ArchivePageProps {
 }
 
 const ArchiveView = ({ archives = new Map() }: ArchivePageProps) => (
-  <Container>
+  <div className='mx-auto w-3/4 tracking-wider'>
     <NextSeo title='归档' />
-    <header className='mt-2 mb-7 text-center'>
-      <h1 className='tracking-widest'>归档</h1>
-    </header>
+    <div className='p-6'>
+      <h1 className='mb-4 text-3xl font-medium tracking-tight text-dark-3 md:text-5xl'>
+        归档
+      </h1>
 
-    <ul className='list-none pl-0'>
-      {[...archives.entries()].reverse().map(([year, months]) => (
-        <li key={year} className='mb-6 rounded-sm'>
-          <h2 className='mb-8 mt-0 text-2xl font-medium'>
-            <span>{year}</span>
-          </h2>
-          <MonthList months={months} />
-        </li>
-      ))}
-    </ul>
-  </Container>
+      <ul className='list-none pl-0'>
+        {[...archives.entries()].reverse().map(([year, articles]) => (
+          <li key={year} className='mb-6 rounded-sm'>
+            <h3 className='mt-8 mb-4 text-2xl font-medium tracking-tight text-dark-3 md:text-4xl'>
+              {year}
+            </h3>
+            <ArticleList articles={articles} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
 );
 
 export default ArchiveView;

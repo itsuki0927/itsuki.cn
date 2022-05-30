@@ -51,8 +51,8 @@ const ExperienceCard = ({
         <time dateTime={endTime}>{endTime}</time>
       </div>
     </div>
-    <p className='mt-4 text-sm'>{description}</p>
-    <p className='text-sm'>技术栈: {techStack}</p>
+    <p className='mt-4 mb-0 text-sm'>{description}</p>
+    <p className='my-0 text-sm'>技术栈: {techStack}</p>
   </div>
 );
 

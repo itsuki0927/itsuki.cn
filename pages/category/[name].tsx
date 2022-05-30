@@ -2,6 +2,7 @@ import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import { ReactNode } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
+import { useRouter } from 'next/router';
 import { getArticles } from '@/api/article';
 import { getAllCategoryPaths } from '@/api/category';
 import { getGlobalData } from '@/api/global';
@@ -19,7 +20,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: 'blocking',
+    fallback: true,
   };
 };
 
@@ -37,7 +38,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
       categoryPath,
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 10,
+    revalidate: 60 * 60 * 24, // 一个小时
   };
 };
 
@@ -45,13 +46,12 @@ const CategoryPage = ({
   categoryPath,
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const articles = useCategoryArticles(categoryPath);
+  const { isFallback } = useRouter();
   const { data } = useGlobalData();
-  const category = data?.categories
-    ? data.categories.find(item => item.path === categoryPath)
-    : undefined;
+  const category = data?.categories?.find(item => item.path === categoryPath);
   const icon = getExpandValue(category?.expand ?? '', 'icon');
 
-  if (articles.isFetching || articles.isLoading) {
+  if (isFallback || articles.isFetching || articles.isLoading) {
     return (
       <div className='space-y-6'>
         <BannerSkeleton />

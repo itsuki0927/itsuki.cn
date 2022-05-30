@@ -8,11 +8,11 @@ import { Banner, BannerSkeleton } from '@/components/ui';
 import { SearchOutlined } from '@/components/icons';
 
 const Search = () => {
-  const router = useRouter();
-  const keyword = (router.query.keyword ?? '').toString();
+  const { query, isFallback } = useRouter();
+  const keyword = (query.keyword ?? '').toString();
   const articles = useSearch(keyword);
 
-  if (articles.isLoading || articles.isFetching) {
+  if (isFallback || articles.isLoading || articles.isFetching) {
     return (
       <div className='space-y-6'>
         <BannerSkeleton />

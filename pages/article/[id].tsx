@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ReactNode } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
@@ -15,7 +16,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: 'blocking',
+    fallback: true,
   };
 };
 
@@ -41,14 +42,15 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
       articleId,
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 10,
+    revalidate: 60 * 60 * 24, // 一个小时
   };
 };
 
 const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { data: article, isFetching, isLoading } = useArticle(articleId);
+  const { isFallback } = useRouter();
 
-  if (isFetching || isLoading || !article)
+  if (isFallback || isFetching || isLoading || !article)
     return (
       <div className='space-y-6'>
         <ArticleSkeleton />

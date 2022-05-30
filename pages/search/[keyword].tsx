@@ -13,14 +13,14 @@ export async function getStaticProps() {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 200,
+    revalidate: 60 * 60 * 24, // 一个小时
   };
 }
 
 export function getStaticPaths(): GetStaticPathsResult {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: true,
   };
 }
 

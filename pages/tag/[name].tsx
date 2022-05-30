@@ -2,6 +2,7 @@ import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import { ReactNode } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
+import { useRouter } from 'next/router';
 import { getArticles } from '@/api/article';
 import { getGlobalData } from '@/api/global';
 import { getAllTagPaths } from '@/api/tag';
@@ -19,7 +20,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: 'blocking',
+    fallback: true,
   };
 };
 
@@ -37,7 +38,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
       tagPath,
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 10,
+    revalidate: 200,
   };
 };
 
@@ -46,10 +47,11 @@ const ArticleTagPage = ({
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const articles = useTagArticles(tagPath);
   const { data } = useGlobalData();
+  const { isFallback } = useRouter();
   const tag = data?.tags ? data.tags.find(item => item.path === tagPath) : undefined;
   const icon = getExpandValue(tag?.expand ?? '', 'icon');
 
-  if (articles.isFetching || articles.isLoading) {
+  if (isFallback || articles.isFetching || articles.isLoading) {
     return (
       <div className='space-y-6'>
         <BannerSkeleton />

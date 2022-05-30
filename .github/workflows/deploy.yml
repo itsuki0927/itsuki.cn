@@ -45,14 +45,6 @@ jobs:
         continue-on-error: true
         run: yarn --frozen-lockfile
 
-      - name: Set production environment variable
-        run: |
-          # 设置开发环境变量
-          sed -i "s@NEXTAUTH_SECRET=.*@NEXTAUTH_SECRET=${{secrets.NEXTAUTH_SECRET}}@g" .env.production
-          sed -i "s@NEXTAUTH_URL=.*@NEXTAUTH_URL=${{secrets.NEXTAUTH_URL}}@g" .env.production
-          sed -i "s@NEXTAUTH_GITHUB_CLIENT_ID=.*@NEXTAUTH_GITHUB_CLIENT_ID=${{secrets.NEXTAUTH_GITHUB_CLIENT_ID}}@g" .env.production
-          sed -i "s@NEXTAUTH_GITHUB_CLIENT_SECRET=.*@NEXTAUTH_GITHUB_CLIENT_SECRET=${{secrets.NEXTAUTH_GITHUB_CLIENT_SECRET}}@g" .env.production
-
       # 构建
       - name: Run build
         run: yarn build
@@ -116,11 +108,21 @@ jobs:
             # 删除缓存
             echo "[deploy] remove cache..."
             rm -rf .next
+            rm -rf .env.production.local
             rm -rf node_modules
+
+            # 设置生产环境变量
+            echo "NEXTAUTH_SECRET=${{secrets.NEXTAUTH_SECRET}}" >>.env.production.local
+            echo "NEXTAUTH_URL=${{secrets.NEXTAUTH_URL}}" >>.env.production.local
+            echo "NEXTAUTH_GITHUB_CLIENT_ID=${{secrets.NEXTAUTH_GITHUB_CLIENT_ID}}" >>.env.production.local
+            echo "NEXTAUTH_GITHUB_CLIENT_SECRET=${{secrets.NEXTAUTH_GITHUB_CLIENT_SECRET}}" >>.env.production.local
 
             # 添加刚刚打包的文件
             echo "[deploy] add .next..."
             mv build .next
+
+            echo "[deploy] ls..."
+            ls -a
 
             # 初始化
             echo "[deploy] yarn install..."

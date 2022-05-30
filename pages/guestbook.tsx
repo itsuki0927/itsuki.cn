@@ -18,7 +18,7 @@ export const getStaticProps = async () => {
 
 const GuestBookPage = () => (
   <div className='space-y-6'>
-    <CommentView articleId={9} />
+    <CommentView articleId={0} />
   </div>
 );
 

@@ -8,6 +8,7 @@ import { PopupViews, SidebarViews, UIParams, useUI } from '@/components/ui/conte
 import { SiteInfo } from '@/entities/siteInfo';
 import ImagePopup from '@/components/ui/Popup/ImagePopup';
 import SponsorPopup from '@/components/ui/Popup/SponsorPopup';
+import WechatPopup from '@/components/ui/Popup/WechatPopup';
 
 const SidebarView: React.FC<{
   sidebarView: SidebarViews;
@@ -53,6 +54,7 @@ const PopupView: React.FC<{
   <Popup>
     {popupView === 'IMAGE_VIEW' && <ImagePopup src={popupParams?.src} />}
     {popupView === 'SPONSOR_VIEW' && <SponsorPopup />}
+    {popupView === 'WECHAT_VIEW' && <WechatPopup />}
   </Popup>
 );
 

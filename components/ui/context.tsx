@@ -82,7 +82,7 @@ type Action =
     };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export type PopupViews = 'IMAGE_VIEW' | 'SPONSOR_VIEW';
+export type PopupViews = 'IMAGE_VIEW' | 'SPONSOR_VIEW' | 'WECHAT_VIEW';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export type SidebarViews = 'STANDARD_VIEW' | 'COMMENT_LEADERBOARD_VIEW';

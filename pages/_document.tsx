@@ -4,7 +4,6 @@ import { ICONFONT_URL, META } from '@/configs/app';
 const Document = () => (
   <Html className='dark' lang='zh'>
     <Head>
-      <meta name='viewport' content='width=device-width, initial-scale=1' />
       <link
         rel='preload'
         href='/fonts/ibm-plex-sans-var.woff2'

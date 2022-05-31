@@ -1,16 +1,16 @@
+import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
-import { Toaster } from 'react-hot-toast';
 import { ReactNode } from 'react';
-import { SessionProvider } from 'next-auth/react';
+import { Toaster } from 'react-hot-toast';
 /* eslint-disable import/extensions */
-import { GA, LayoutTransition, QueryClientContainer } from '@/components/common';
+import { GA, LayoutTransition, MyHead, QueryClientContainer } from '@/components/common';
 import { PageLoadingProgress } from '@/components/ui';
-import { useMount, useUnMount, useCopyright } from '@/hooks';
-import '@/styles/global.css';
 import { ManagedUIContext } from '@/components/ui/context';
-import config from '@/configs/seo';
 import { META } from '@/configs/app';
+import config from '@/configs/seo';
+import { useCopyright, useMount, useUnMount } from '@/hooks';
+import '@/styles/global.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const getLayout = (Component as any).getLayout || ((page: ReactNode) => page);
@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         ]}
       />
       <GA />
+      <MyHead />
       <PageLoadingProgress />
       <Toaster
         toastOptions={{

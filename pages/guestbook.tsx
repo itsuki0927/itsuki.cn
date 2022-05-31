@@ -4,6 +4,7 @@ import { getGlobalData } from '@/api/global';
 import { CommentView } from '@/components/comment';
 import { Layout } from '@/components/common';
 import { globalDataKeys } from '@/constants/queryKeys';
+import { GUESTBOOK } from '@/constants/value';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -18,7 +19,7 @@ export const getStaticProps = async () => {
 
 const GuestBookPage = () => (
   <div className='space-y-6'>
-    <CommentView articleId={0} />
+    <CommentView articleId={GUESTBOOK} />
   </div>
 );
 

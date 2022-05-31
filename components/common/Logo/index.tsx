@@ -15,6 +15,7 @@ const Logo = () => (
       objectFit='cover'
       width={60}
       height={60}
+      unoptimized
       alt='logo'
       className='h-full'
     />

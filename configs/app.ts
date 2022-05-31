@@ -29,6 +29,8 @@ export const NEXTAUTH_GITHUB_CLIENT_ID = process.env.NEXTAUTH_GITHUB_CLIENT_ID ?
 export const NEXTAUTH_GITHUB_CLIENT_SECRET =
   process.env.NEXTAUTH_GITHUB_CLIENT_SECRET ?? '';
 
+export const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? '';
+
 // blog meta
 export const META = {
   title: 'Itsuki Blog | 五木',
@@ -37,5 +39,5 @@ export const META = {
   description: 'Itsuki Blog - 五木 博客 - 心之所向,行之所往 - https://itsuki.cn',
   url: WEB_URL,
   author: 'itsuki',
-  email: '2309899048@qq.com',
+  email: EMAIL,
 };

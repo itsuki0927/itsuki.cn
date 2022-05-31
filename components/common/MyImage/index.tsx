@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Image, { ImageLoaderProps, ImageProps } from 'next/image';
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import s from './style.module.css';
 
 export type MyImageProps = Omit<
@@ -46,47 +46,50 @@ const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
   return isAbsoluteUrl ? `${src}?${getImageParams({ width, quality })}` : src;
 };
 
-const MyImage = ({ className, imgClassName, circle, src, ...rest }: MyImageProps) => {
-  const placeholderProps: Pick<ImageProps, 'placeholder' | 'blurDataURL'> = {};
-  const { width = 0, height = 0 } = rest;
-  const [innerSrc, setInnerSrc] = useState(src);
+const MyImage = forwardRef<any, MyImageProps>(
+  ({ className, imgClassName, circle, src, ...rest }, ref) => {
+    const placeholderProps: Pick<ImageProps, 'placeholder' | 'blurDataURL'> = {};
+    const { width = 0, height = 0 } = rest;
+    const [innerSrc, setInnerSrc] = useState(src);
 
-  useEffect(() => {
-    if (src !== innerSrc) {
-      setInnerSrc(src);
+    useEffect(() => {
+      if (src !== innerSrc) {
+        setInnerSrc(src);
+      }
+    }, [innerSrc, src]);
+
+    if (width > 40 || height > 40) {
+      placeholderProps.placeholder = 'blur';
+      placeholderProps.blurDataURL = `data:image/svg+xml;base64,${buildBase64(
+        width,
+        height
+      )}`;
     }
-  }, [innerSrc, src]);
 
-  if (width > 40 || height > 40) {
-    placeholderProps.placeholder = 'blur';
-    placeholderProps.blurDataURL = `data:image/svg+xml;base64,${buildBase64(
-      width,
-      height
-    )}`;
-  }
-
-  return (
-    <figure
-      className={classNames(s.root, className, {
-        'rounded-full': circle,
-      })}
-    >
-      <Image
-        {...rest}
-        {...placeholderProps}
-        src={innerSrc}
-        loading='lazy'
-        loader={imageLoader}
-        className={classNames(imgClassName, {
+    return (
+      <figure
+        ref={ref}
+        className={classNames(s.root, className, {
           'rounded-full': circle,
         })}
-        onError={() => {
-          setInnerSrc('/anonymous.jpeg');
-          console.error('[image]: load error', src);
-        }}
-      />
-    </figure>
-  );
-};
+      >
+        <Image
+          {...rest}
+          {...placeholderProps}
+          src={innerSrc}
+          loading='lazy'
+          loader={imageLoader}
+          className={classNames(imgClassName, {
+            'rounded-full': circle,
+          })}
+          onError={() => {
+            setInnerSrc('/anonymous.jpeg');
+            console.error('[image]: load error', src);
+          }}
+        />
+      </figure>
+    );
+  }
+);
 
 export default MyImage;

@@ -35,7 +35,7 @@ const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => 
 const DEFAULT_NAV_LIST = [
   { path: '/', name: '首页' },
   { path: '/archive', name: '归档' },
-  // { path: '/about', name: '关于' },
+  { path: '/about', name: '关于' },
 ];
 
 const Navbar = ({ links, ...themeProps }: NavbarProps) => {

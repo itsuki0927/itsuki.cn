@@ -17,6 +17,7 @@ import SendButton from '../SendButton';
 import { convertToCommentTreeData } from './utils';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
+import { useGlobalData } from '@/hooks/globalData';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -27,6 +28,7 @@ type CommentProps = {
 };
 
 const CommentView = ({ articleId }: CommentProps) => {
+  const { data: globalData } = useGlobalData();
   const router = useRouter();
   const loginType = String(router.query?.type ?? 'github');
 
@@ -36,45 +38,77 @@ const CommentView = ({ articleId }: CommentProps) => {
   const [content, setContent] = useState('');
   const mutation = useCreateComment(articleId);
   const comments = useMemo(() => convertToCommentTreeData(data?.data), [data?.data]);
+  const blacklist = globalData?.blacklist;
+
+  const ensureCommentCanPush = useCallback(() => {
+    const sensitiveKeyword = blacklist?.keyword.find(k => content.includes(k));
+    if (sensitiveKeyword) {
+      toast.error(`老铁, 评论内容有敏感词: ${sensitiveKeyword}\n`, {
+        duration: 2500,
+      });
+      return false;
+    }
+    if (blacklist?.email.includes(session?.user?.email ?? '')) {
+      toast.error(`老铁, 做了坏事情, 被拉黑了\n`, {
+        duration: 2500,
+      });
+      return false;
+    }
+    if (!content) {
+      toast.error(`老铁, 内容呢?\n`);
+      return false;
+    }
+
+    return true;
+  }, [blacklist?.email, blacklist?.keyword, content, session?.user?.email]);
 
   const handleSend = useCallback(
     () =>
       new Promise<boolean>((resolve, reject) => {
         if (session?.user) {
+          const email = session.user.email ?? '';
+          const avatar = session.user.image ?? '';
+          const nickname = session.user.name ?? '';
           const params: PostCommentBody = {
             articleId,
             loginType,
+            email,
+            avatar,
+            nickname,
             agent: navigator.userAgent,
             parentId: replyId ?? undefined,
             content: purifyDomString(content),
-            email: session.user?.email ?? '',
-            avatar: session.user?.image ?? '',
-            nickname: session.user.name ?? '',
           };
 
-          if (!content) {
-            toast.error(`评论发布失败: 老铁, 内容呢?\n`);
-            return;
-          }
-          gtag.event('push_comment', {
-            category: GAEventCategories.Comment,
-            label: `article_id: ${articleId}`,
-          });
+          if (ensureCommentCanPush()) {
+            gtag.event('push_comment', {
+              category: GAEventCategories.Comment,
+              label: `article_id: ${articleId}`,
+            });
 
-          toast
-            .promise(mutation.mutateAsync(params), {
-              loading: '发射中...',
-              success: <b>👏 发射成功</b>,
-              error: <b>🙌 发射失败</b>,
-            })
-            .then(() => {
-              setContent('');
-              setReplyId(null);
-              resolve(true);
-            }, reject);
+            toast
+              .promise(mutation.mutateAsync(params), {
+                loading: '发射中...',
+                success: <b>👏 发射成功</b>,
+                error: <b>🙌 发射失败</b>,
+              })
+              .then(() => {
+                setContent('');
+                setReplyId(null);
+                resolve(true);
+              }, reject);
+          }
         }
       }),
-    [articleId, content, loginType, mutation, replyId, session?.user]
+    [
+      session?.user,
+      articleId,
+      loginType,
+      replyId,
+      content,
+      ensureCommentCanPush,
+      mutation,
+    ]
   );
 
   const commentformDom = useMemo(

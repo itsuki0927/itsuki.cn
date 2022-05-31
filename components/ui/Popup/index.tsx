@@ -1,16 +1,13 @@
-import { useCallback, useEffect, forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
+import { ReactNode, useCallback, useEffect } from 'react';
 import { off, on } from '@/utils/events';
 import { useUI } from '../context';
 
 export type PopupProps = {
   children?: ReactNode;
 };
-export type PopupRef = {
-  open: (url: string) => void;
-};
 
-const Popup = forwardRef<PopupRef, PopupProps>(({ children }) => {
+const Popup = ({ children }: PopupProps) => {
   const { displayPopup, closePopup } = useUI();
 
   const handleClick = useCallback(
@@ -54,6 +51,6 @@ const Popup = forwardRef<PopupRef, PopupProps>(({ children }) => {
       {children}
     </div>
   );
-});
+};
 
 export default Popup;

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
 import { ReactNode, useRef } from 'react';
@@ -22,6 +23,7 @@ import CommentAvatar from '../CommentAvatar';
 import CommentList, { buildCommentTree, CommentTree } from '../CommentList';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
+import { isAdminEmail } from '@/utils/validate';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -89,7 +91,16 @@ const CommentCard = ({
           <CommentAvatar avatar={comment.avatar} loginType={comment.loginType} />
           <div className='ml-4 flex-grow'>
             <div className='mb-0 flex w-full items-center justify-between text-dark-2 '>
-              <span className=''>{comment.nickname}</span>
+              <p className='flex items-center'>
+                <span className='capsize'>{comment.nickname}</span>
+                {isAdminEmail(comment.email) && (
+                  <Link href='/about'>
+                    <small className='ml-1 cursor-pointer rounded-sm bg-primary px-1 py-[2px] text-xxs text-white opacity-70 transition-opacity hover:opacity-100'>
+                      博主
+                    </small>
+                  </Link>
+                )}
+              </p>
 
               {Number(comment.parentId) > 0 && (
                 <div className='text-sm text-gray-2'>

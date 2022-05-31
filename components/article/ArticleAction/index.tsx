@@ -1,6 +1,8 @@
 import { Share } from '@/components/common';
+import { GAEventCategories } from '@/constants/gtag';
 import { ArticleDetailResponse } from '@/entities/article';
 import { useLikeArticle } from '@/hooks/article';
+import { gtag } from '@/utils/gtag';
 import FavoriteButton from '../FavoriteButton';
 import SponsorButton from '../SponsorButton';
 
@@ -17,11 +19,22 @@ const ArticleAction = ({ article, openPopup }: ArticleActionProps) => {
         isLike={isLike}
         onLike={() => {
           mutation.mutateAsync();
+          gtag.event('like_article', {
+            category: GAEventCategories.Article,
+            label: article.title,
+          });
         }}
         liking={article.liking}
       />
 
-      <SponsorButton onClick={openPopup} />
+      <SponsorButton
+        onClick={() => {
+          gtag.event('sponsor_article', {
+            category: GAEventCategories.Widget,
+          });
+          openPopup();
+        }}
+      />
 
       <Share />
     </div>

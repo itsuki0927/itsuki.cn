@@ -20,6 +20,8 @@ import { NoReturnFunction } from '@/types/fn';
 import scrollTo from '@/utils/scrollTo';
 import CommentAvatar from '../CommentAvatar';
 import CommentList, { buildCommentTree, CommentTree } from '../CommentList';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -142,6 +144,9 @@ const CommentCard = ({
                 if (isLike) {
                   return;
                 }
+                gtag.event('like_comment', {
+                  category: GAEventCategories.Comment,
+                });
                 mutation.mutateAsync();
               }}
               type='button'
@@ -162,6 +167,9 @@ const CommentCard = ({
               onClick={() => {
                 onCancelReply?.();
                 toast.dismiss();
+                gtag.event('cancel_reply_comment', {
+                  category: GAEventCategories.Comment,
+                });
               }}
             >
               <CloseOutlined className='mr-1 align-baseline' />
@@ -181,6 +189,9 @@ const CommentCard = ({
                 toast.dismiss();
                 toast.custom(buildCommentReplyToast, {
                   duration: 3000,
+                });
+                gtag.event('reply_comment', {
+                  category: GAEventCategories.Comment,
                 });
                 onReply?.(comment);
               }}

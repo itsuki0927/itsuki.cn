@@ -14,6 +14,9 @@ import { useTagArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
 import { getExpandValue } from '@/utils/expands';
 import { Icon } from '@/components/icons';
+import { useMount } from '@/hooks';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 export const getStaticPaths = async () => {
   const paths = await getAllTagPaths();
@@ -50,6 +53,13 @@ const ArticleTagPage = ({
   const { isFallback } = useRouter();
   const tag = data?.tags ? data.tags.find(item => item.path === tagPath) : undefined;
   const icon = getExpandValue(tag?.expand ?? '', 'icon');
+
+  useMount(() => {
+    gtag.event('tag_view', {
+      category: GAEventCategories.Tag,
+      label: tag?.name,
+    });
+  });
 
   if (isFallback || articles.isFetching || articles.isLoading) {
     return (

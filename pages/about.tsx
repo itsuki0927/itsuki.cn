@@ -4,6 +4,9 @@ import { getGlobalData } from '@/api/global';
 import AboutView from '@/components/about';
 import { Layout } from '@/components/common';
 import { globalDataKeys } from '@/constants/queryKeys';
+import { useMount } from '@/hooks';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -16,7 +19,15 @@ export const getStaticProps = async () => {
   };
 };
 
-const AboutPage = () => <AboutView />;
+const AboutPage = () => {
+  useMount(() => {
+    gtag.event('about', {
+      category: GAEventCategories.About,
+    });
+  });
+
+  return <AboutView />;
+};
 
 AboutPage.getLayout = (page: ReactNode) => <Layout showSidebar={false}>{page} </Layout>;
 

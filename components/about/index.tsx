@@ -1,5 +1,7 @@
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import { GAEventCategories } from '@/constants/gtag';
+import { gtag } from '@/utils/gtag';
 import { MyImage } from '../common';
 import { useUI } from '../ui/context';
 import Description from './Description';
@@ -86,6 +88,9 @@ const AboutView = () => {
                     e.preventDefault();
                     setPopupView('WECHAT_VIEW');
                     openPopup();
+                    gtag.event('wechat_popup', {
+                      category: GAEventCategories.Widget,
+                    });
                   }}
                 >
                   @点击有惊喜

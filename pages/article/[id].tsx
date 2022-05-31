@@ -10,6 +10,9 @@ import { useArticle } from '@/hooks/article';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { RelateArticleSkeleton } from '@/components/article/RelateArticles';
 import { CommentFormSkeletion, CommentListSkeleton } from '@/components/comment';
+import { useMount } from '@/hooks';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePaths();
@@ -50,6 +53,13 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
   const { data: article, isFetching, isLoading } = useArticle(articleId);
   const { isFallback } = useRouter();
 
+  useMount(() => {
+    gtag.event('article_view', {
+      category: GAEventCategories.Article,
+      label: article?.title,
+    });
+  });
+
   if (isFallback || isFetching || isLoading || !article)
     return (
       <div className='space-y-6'>
@@ -59,6 +69,7 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
         <CommentListSkeleton />
       </div>
     );
+
   return <ArticleView article={article} />;
 };
 

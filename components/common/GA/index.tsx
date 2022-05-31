@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react';
 import { GA_TRACKING_ID } from '@/configs/app';
 import { isProd } from '@/configs/environment';
 import { CustomWindow } from '@/types/window';
-import { pageview } from '@/utils/gtag';
+import { gtag } from '@/utils/gtag';
 
 declare const window: CustomWindow;
 
@@ -15,7 +15,7 @@ const GA = () => {
   const handleRouteChange = useCallback(
     (url: string) => {
       if (needGA && !!window.gtag) {
-        pageview(url);
+        gtag.pageview(url);
       }
     },
     [needGA]
@@ -40,7 +40,7 @@ const GA = () => {
         onLoad={() => {
           if (window.gtag == null) {
             window.dataLayer = window.dataLayer || [];
-            window.gtag = function () {
+            window.gtag = function gtagHandler() {
               // eslint-disable-next-line prefer-rest-params
               window.dataLayer.push(arguments);
             };

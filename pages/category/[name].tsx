@@ -14,6 +14,9 @@ import { useCategoryArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
 import { getExpandValue } from '@/utils/expands';
 import { Icon } from '@/components/icons';
+import { useMount } from '@/hooks';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 export const getStaticPaths = async () => {
   const paths = await getAllCategoryPaths();
@@ -50,6 +53,13 @@ const CategoryPage = ({
   const { data } = useGlobalData();
   const category = data?.categories?.find(item => item.path === categoryPath);
   const icon = getExpandValue(category?.expand ?? '', 'icon');
+
+  useMount(() => {
+    gtag.event('category_view', {
+      category: GAEventCategories.Category,
+      label: category?.name,
+    });
+  });
 
   if (isFallback || articles.isFetching || articles.isLoading) {
     return (

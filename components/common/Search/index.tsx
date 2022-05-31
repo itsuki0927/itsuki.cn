@@ -6,11 +6,21 @@ import { useSearch } from '@/hooks/article';
 import { Layout } from '@/components/common';
 import { Banner, BannerSkeleton } from '@/components/ui';
 import { SearchOutlined } from '@/components/icons';
+import { useMount } from '@/hooks';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 const Search = () => {
   const { query, isFallback } = useRouter();
   const keyword = (query.keyword ?? '').toString();
   const articles = useSearch(keyword);
+
+  useMount(() => {
+    gtag.event('search', {
+      category: GAEventCategories.Search,
+      label: keyword,
+    });
+  });
 
   if (isFallback || articles.isLoading || articles.isFetching) {
     return (

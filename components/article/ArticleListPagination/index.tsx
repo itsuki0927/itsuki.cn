@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { LeftOutlined, RightOutlined } from '@/components/icons';
 import scrollTo from '@/utils/scrollTo';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 interface ArticleListPaginationProps {
   hasPrev?: boolean;
@@ -19,6 +21,9 @@ const ArticleListPagination = ({
       disabled={!hasPrev}
       onClick={() => {
         onChange(-1);
+        gtag.event('prev_articles', {
+          category: GAEventCategories.Index,
+        });
         scrollTo('#dashboard', 300, {
           offset: -80,
         });
@@ -38,6 +43,9 @@ const ArticleListPagination = ({
       disabled={!hasNext}
       onClick={() => {
         onChange(1);
+        gtag.event('next_articles', {
+          category: GAEventCategories.Index,
+        });
         scrollTo('#dashboard', 300, {
           offset: -80,
         });

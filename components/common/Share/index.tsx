@@ -8,6 +8,8 @@ import { META } from '@/configs/app';
 import { renderTextToQRCodeDataURL } from '@/libs/qrcode';
 import { useUI } from '@/components/ui/context';
 import { copyTextToClipboard } from '@/hooks/useCopyToClipboard';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 enum SocialMedia {
   QQ = 'qq',
@@ -88,9 +90,16 @@ const Share = () => {
       cover: getCover(),
     };
     if (social.asyncUrl) {
+      gtag.event('share_social', {
+        category: GAEventCategories.Widget,
+        label: social.name,
+      });
       const src = await social.asyncUrl(shareParams);
       openPopup({ src });
     } else {
+      gtag.event('copy_url', {
+        category: GAEventCategories.Widget,
+      });
       window.open(social.url!(shareParams), `分享到${social.name}`);
     }
     // TODO: gtag.event

@@ -15,6 +15,8 @@ import CommentList from '../CommentList';
 import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
 import SendButton from '../SendButton';
 import { convertToCommentTreeData } from './utils';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -54,6 +56,10 @@ const CommentView = ({ articleId }: CommentProps) => {
             toast.error(`评论发布失败: 老铁, 内容呢?\n`);
             return;
           }
+          gtag.event('push_comment', {
+            category: GAEventCategories.Comment,
+            label: `article_id: ${articleId}`,
+          });
 
           toast
             .promise(mutation.mutateAsync(params), {

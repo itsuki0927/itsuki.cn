@@ -4,6 +4,8 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import { GithubOutlined, QQOutlined } from '@/components/icons';
 import { getPageUrl } from '@/utils/url';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 export type SigninType = 'github' | 'wechat' | 'qq';
 
@@ -14,6 +16,10 @@ const SigninIcon = () => {
     e.preventDefault();
     const params = `?type=${type}`;
     const path = router.asPath.replaceAll(params, '');
+    gtag.event('login', {
+      category: GAEventCategories.Comment,
+      label: `login_${type}`,
+    });
     signIn('github', {
       callbackUrl: `${getPageUrl(path)}${params}`,
     });

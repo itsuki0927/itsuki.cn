@@ -8,6 +8,8 @@ import { RssIcon } from '@/components/icons';
 import { getCategoryRoute } from '@/utils/url';
 import { shank } from '@/utils/array';
 import ThemeSwitch, { ThemeSwitchProps } from '../ThemeSwitch';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 type NavbarProps = Omit<ThemeSwitchProps, 'onChange'> & {
   links?: Category[];
@@ -50,10 +52,32 @@ const Navbar = ({ links, ...themeProps }: NavbarProps) => {
 
     // 添加主题按钮
     return navDom.concat(
-      <div key='theme' className='px-5 text-center'>
+      <div
+        tabIndex={0}
+        role='button'
+        key='theme'
+        className='px-5 text-center'
+        onClick={() => {
+          gtag.event('theme_switch', {
+            category: GAEventCategories.Widget,
+            label: themeProps.theme,
+          });
+        }}
+      >
         <ThemeSwitch theme={themeProps.theme} onChange={themeProps.onThemeChange} />
       </div>,
-      <div key='rss' className='px-5 text-center'>
+      <div
+        tabIndex={0}
+        role='button'
+        key='rss'
+        className='px-5 text-center'
+        onClick={() => {
+          gtag.event('rss', {
+            category: GAEventCategories.Widget,
+            label: themeProps.theme,
+          });
+        }}
+      >
         <RssIcon />
       </div>
     );

@@ -1,5 +1,7 @@
 import { signOut } from 'next-auth/react';
 import React, { ReactNode } from 'react';
+import { GAEventCategories } from '@/constants/gtag';
+import { gtag } from '@/utils/gtag';
 import CommentAvatar from '../CommentAvatar';
 
 interface CommentFormProps {
@@ -26,7 +28,12 @@ const CommentForm = ({
           tabIndex={0}
           role='button'
           className='block text-center text-xs text-gray-1 transition-colors hover:text-dark-1'
-          onClick={() => signOut()}
+          onClick={() => {
+            gtag.event('signout', {
+              category: GAEventCategories.Comment,
+            });
+            signOut();
+          }}
         >
           退出
         </span>

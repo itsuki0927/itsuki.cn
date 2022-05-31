@@ -116,6 +116,7 @@ jobs:
             echo "NEXTAUTH_URL=${{secrets.NEXTAUTH_URL}}" >>.env.production.local
             echo "NEXTAUTH_GITHUB_CLIENT_ID=${{secrets.NEXTAUTH_GITHUB_CLIENT_ID}}" >>.env.production.local
             echo "NEXTAUTH_GITHUB_CLIENT_SECRET=${{secrets.NEXTAUTH_GITHUB_CLIENT_SECRET}}" >>.env.production.local
+            echo "NEXT_PUBLIC_EMAIL=${{secrets.NEXT_PUBLIC_EMAIL}}" >>.env.production.local
 
             # 添加刚刚打包的文件
             echo "[deploy] add .next..."

@@ -12,8 +12,6 @@ import { Banner, BannerSkeleton } from '@/components/ui';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { useTagArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
-import { getExpandValue } from '@/utils/expands';
-import { Icon } from '@/components/icons';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
@@ -52,7 +50,6 @@ const ArticleTagPage = ({
   const { data } = useGlobalData();
   const { isFallback } = useRouter();
   const tag = data?.tags ? data.tags.find(item => item.path === tagPath) : undefined;
-  const icon = getExpandValue(tag?.expand ?? '', 'icon');
 
   useMount(() => {
     gtag.event('tag_view', {
@@ -78,11 +75,7 @@ const ArticleTagPage = ({
         description={tag?.description}
       />
 
-      <Banner
-        title={`标签: ${tag?.name}`}
-        description={tag?.description}
-        icon={<Icon name={icon} />}
-      />
+      <Banner title={`标签: ${tag?.name}`} description={tag?.description} />
 
       <ArticleList {...articles} />
     </div>

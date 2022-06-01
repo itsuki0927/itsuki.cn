@@ -12,8 +12,6 @@ import { Banner, BannerSkeleton } from '@/components/ui';
 import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
 import { useCategoryArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
-import { getExpandValue } from '@/utils/expands';
-import { Icon } from '@/components/icons';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
@@ -52,7 +50,6 @@ const CategoryPage = ({
   const { isFallback } = useRouter();
   const { data } = useGlobalData();
   const category = data?.categories?.find(item => item.path === categoryPath);
-  const icon = getExpandValue(category?.expand ?? '', 'icon');
 
   useMount(() => {
     gtag.event('category_view', {
@@ -78,11 +75,7 @@ const CategoryPage = ({
         description={category?.description}
       />
 
-      <Banner
-        title={`分类: ${category?.name}`}
-        description={category?.description}
-        icon={<Icon name={icon} />}
-      />
+      <Banner title={`分类: ${category?.name}`} description={category?.description} />
 
       <ArticleList {...articles} />
     </div>

@@ -5,7 +5,6 @@ import { ArticleList, ArticleSkeletonList } from '@/components/article';
 import { useSearch } from '@/hooks/article';
 import { Layout } from '@/components/common';
 import { Banner, BannerSkeleton } from '@/components/ui';
-import { SearchOutlined } from '@/components/icons';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
@@ -36,7 +35,7 @@ const Search = () => {
     <div className='space-y-6'>
       <NextSeo title={`${keyword} - Search`} />
 
-      <Banner title={`关键字: ${keyword}`} description='搜索' icon={<SearchOutlined />} />
+      <Banner title={`关键字: ${keyword}`} description='搜索' />
 
       <ArticleList {...articles} />
     </div>

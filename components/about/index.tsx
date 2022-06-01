@@ -47,8 +47,8 @@ const AboutView = () => {
               五木 - Itsuki
             </h1>
             <h2 className='mb-4'>
-              字节跳动前端工程师
-              <span className='font-semibold'>(待入职)</span>
+              {/* 字节跳动前端工程师 */}
+              {/* <span className='font-semibold'>(待入职)</span> */}
             </h2>
             <p className='mb-16 text-lg'>
               Hi

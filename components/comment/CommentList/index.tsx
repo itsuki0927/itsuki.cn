@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Comment } from '@/entities/comment';
+import CommentCard from '../CommentCard';
 
 export type CommentTree = {
   comment: Comment;
@@ -9,9 +10,9 @@ export type CommentTree = {
 
 type CommentListProps = {
   className?: string;
-  children: (comment: CommentTree, itemClassName?: string) => ReactNode;
   data?: CommentTree[];
   childClassName?: string;
+  children?: (comment: Comment) => ReactNode;
 };
 
 export const buildCommentTree = (comments: Comment[]): Array<CommentTree> =>
@@ -24,7 +25,19 @@ const CommentList = ({ data, className, childClassName, children }: CommentListP
   <TransitionGroup className={`space-y-4 ${className}`}>
     {data?.map(item => (
       <CSSTransition key={item.comment.id} timeout={500} classNames='comment'>
-        {children(item, childClassName)}
+        <CommentCard key={item.comment.id} className={childClassName} data={item}>
+          {children?.(item.comment)}
+
+          {!!item.children.length && (
+            <CommentList
+              // eslint-disable-next-line react/no-children-prop
+              children={children}
+              className='mt-4'
+              childClassName='ml-12'
+              data={buildCommentTree(item.children)}
+            />
+          )}
+        </CommentCard>
       </CSSTransition>
     ))}
   </TransitionGroup>

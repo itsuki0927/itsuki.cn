@@ -115,7 +115,7 @@ const CommentForm = ({
   return (
     <div id='commentForm' className={`flex items-start space-x-4 ${className}`}>
       {!hiddenAvatar && (
-        <div className='min-w-[63px]'>
+        <div className='min-w-[48px]'>
           <CommentAvatar avatar={avatar} loginType={loginType} />
 
           {!hiddenLogout && (

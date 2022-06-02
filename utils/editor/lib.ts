@@ -419,6 +419,14 @@ function markdownEditorUtil(
     }
   });
 
+  function initEditorFocus() {
+    const s = getSelection();
+    // 如果一开始点击了toolbar, 此时没有聚焦, 就会throw error
+    if (!s.anchorNode || !s.focusNode) {
+      editor.focus();
+    }
+  }
+
   function insertMarkdownBold() {
     const s = getSelection();
     // 如果没有选中内容
@@ -486,11 +494,7 @@ function markdownEditorUtil(
   }
 
   function insertMarkdownOption(tag: string) {
-    const s = getSelection();
-    // 如果一开始点击了toolbar, 此时没有聚焦, 就会throw error
-    if (!s.anchorNode || !s.focusNode) {
-      editor.focus();
-    }
+    initEditorFocus();
     if (tag === 'bold') {
       insertMarkdownBold();
     } else if (tag === 'ul') {
@@ -513,9 +517,17 @@ function markdownEditorUtil(
     }
   }
 
+  function insertEmoji(emoji: string) {
+    initEditorFocus();
+    insert(`${emoji} `);
+    const pos = save();
+    restore(pos);
+  }
+
   return {
     insert,
     insertMarkdownOption,
+    insertEmoji,
     updateOptions(newOptions: Partial<MarkdownEditorOptions>) {
       Object.assign(options, newOptions);
     },

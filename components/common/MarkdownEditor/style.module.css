@@ -1,3 +1,7 @@
+.root {
+  font-family: 'Fira Code';
+}
+
 .root:empty::before {
   @apply text-gray-2;
   content: attr(placeholder);
@@ -5,4 +9,12 @@
 
 .root:not(:empty):focus::before {
   content: '';
+}
+
+.emojiList {
+  display: none;
+}
+
+.emoji:hover > .emojiList {
+  display: block;
 }

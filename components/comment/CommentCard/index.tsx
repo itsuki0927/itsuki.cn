@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { ReactNode, useRef } from 'react';
 import toast, { Toast } from 'react-hot-toast';
 import { ToDate } from '@/components/common';
@@ -14,16 +14,15 @@ import {
 } from '@/components/icons';
 import ReplyOutlined from '@/components/icons/ReplyOutlined';
 import { MarkdownBlock } from '@/components/ui';
-import { Comment } from '@/entities/comment';
+import { GAEventCategories } from '@/constants/gtag';
 import { useMarkdown } from '@/hooks';
 import useLikeComment from '@/hooks/comment/useLikeComment';
-import { NoReturnFunction } from '@/types/fn';
-import scrollTo from '@/utils/scrollTo';
-import CommentAvatar from '../CommentAvatar';
-import CommentList, { buildCommentTree, CommentTree } from '../CommentList';
 import { gtag } from '@/utils/gtag';
-import { GAEventCategories } from '@/constants/gtag';
+import scrollTo from '@/utils/scrollTo';
 import { isAdminEmail } from '@/utils/validate';
+import CommentAvatar from '../CommentAvatar';
+import { CommentTree } from '../CommentList';
+import { useReply } from '../context';
 
 export const buildCommentDomId = (id: number) => `comment-${id}`;
 
@@ -32,23 +31,12 @@ interface CommentCardCommonProps {
 }
 
 interface CommentCardProps extends CommentCardCommonProps {
-  onReply?: NoReturnFunction<Comment>;
-  replyId: number | null;
-  reply?: (comment: Comment) => ReactNode;
-  onCancelReply?: () => void;
   className?: string;
   childClassName?: string;
+  children?: ReactNode;
 }
 
-const CommentCard = ({
-  data,
-  onReply,
-  reply,
-  replyId,
-  onCancelReply,
-  className,
-  childClassName,
-}: CommentCardProps) => {
+const CommentCard = ({ data, children, className, childClassName }: CommentCardProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const { comment, children: commentChildren } = data;
   const { data: session } = useSession();
@@ -58,6 +46,7 @@ const CommentCard = ({
     commentId: Number(data.comment.id),
   });
   const isSignout = !session?.user;
+  const { setReply, cancelReply, reply } = useReply();
 
   const buildCommentReplyToast = (t: Toast) => (
     <div
@@ -80,13 +69,42 @@ const CommentCard = ({
     </div>
   );
 
+  const handleLike = () => {
+    if (isLike) {
+      return;
+    }
+    gtag.event('like_comment', {
+      category: GAEventCategories.Comment,
+    });
+    mutation.mutateAsync();
+  };
+
+  const handleCancelReply = () => {
+    cancelReply();
+    toast.dismiss();
+    gtag.event('cancel_reply_comment', {
+      category: GAEventCategories.Comment,
+    });
+  };
+
+  const handleReply = () => {
+    toast.dismiss();
+    toast.custom(buildCommentReplyToast, {
+      duration: 3000,
+    });
+    gtag.event('reply_comment', {
+      category: GAEventCategories.Comment,
+    });
+    setReply(comment);
+  };
+
   return (
     <div
       id={buildCommentDomId(comment.id)}
       key={comment.id}
       className={`transition-all duration-500 ${className}`}
     >
-      <div className={`relative mb-2 rounded-sm bg-white-1 p-4 ${childClassName}`}>
+      <div className={`relative rounded-sm bg-white-1 p-4 ${childClassName}`}>
         <header className='flex items-center'>
           <CommentAvatar avatar={comment.avatar} loginType={comment.loginType} />
           <div className='ml-4 flex-grow'>
@@ -102,7 +120,7 @@ const CommentCard = ({
                 )}
               </p>
 
-              {Number(comment.parentId) > 0 && (
+              {!!Number(comment.parentId) && (
                 <div className='text-sm text-gray-2'>
                   回复
                   <span className='ml-1 cursor-pointer transition-colors duration-300 hover:text-dark-2 '>
@@ -151,15 +169,7 @@ const CommentCard = ({
                   ? 'bg-danger-light text-danger'
                   : 'hover:bg-danger-light hover:text-danger'
               )}
-              onClick={() => {
-                if (isLike) {
-                  return;
-                }
-                gtag.event('like_comment', {
-                  category: GAEventCategories.Comment,
-                });
-                mutation.mutateAsync();
-              }}
+              onClick={handleLike}
               type='button'
             >
               {isLike ? (
@@ -171,17 +181,11 @@ const CommentCard = ({
             </button>
           </div>
 
-          {replyId === comment.id ? (
+          {reply?.id === comment.id ? (
             <button
               type='button'
               className='capsize inline-block cursor-pointer rounded-sm bg-white px-3 py-1 text-sm text-dark-2 transition-colors duration-300'
-              onClick={() => {
-                onCancelReply?.();
-                toast.dismiss();
-                gtag.event('cancel_reply_comment', {
-                  category: GAEventCategories.Comment,
-                });
-              }}
+              onClick={handleCancelReply}
             >
               <CloseOutlined className='mr-1 align-baseline' />
               取消回复
@@ -196,16 +200,7 @@ const CommentCard = ({
                   ? 'cursor-not-allowed'
                   : 'cursor-pointer hover:bg-white hover:text-dark-2'
               )}
-              onClick={() => {
-                toast.dismiss();
-                toast.custom(buildCommentReplyToast, {
-                  duration: 3000,
-                });
-                gtag.event('reply_comment', {
-                  category: GAEventCategories.Comment,
-                });
-                onReply?.(comment);
-              }}
+              onClick={handleReply}
             >
               <ReplyOutlined className='mr-1' />
               回复
@@ -213,23 +208,8 @@ const CommentCard = ({
           )}
         </div>
       </div>
-      {reply?.(comment)}
 
-      {!!commentChildren.length && (
-        <CommentList className='ml-12 mt-4' data={buildCommentTree(commentChildren)}>
-          {item => (
-            <CommentCard
-              key={item.comment.id}
-              data={item}
-              childClassName='border-l-4 border-solid border-white-2 '
-              replyId={replyId}
-              reply={reply}
-              onReply={onReply}
-              onCancelReply={onCancelReply}
-            />
-          )}
-        </CommentList>
-      )}
+      {children}
     </div>
   );
 };

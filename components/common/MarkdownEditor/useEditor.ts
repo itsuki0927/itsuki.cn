@@ -37,7 +37,7 @@ const useEditor = (props: MarkdownEditorProps) => {
   useMount(() => {
     initMarkdownEditor();
 
-    return () => codeRef.current!.destroy();
+    return () => codeRef.current?.destroy();
   });
 
   useEffect(() => {

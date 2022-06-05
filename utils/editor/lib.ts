@@ -522,6 +522,14 @@ function markdownEditorUtil(
     insert(`${emoji} `);
     const pos = save();
     restore(pos);
+
+    if (!recording) {
+      recordHistory();
+      recording = true;
+    }
+    if (callback) {
+      callback(toString());
+    }
   }
 
   return {

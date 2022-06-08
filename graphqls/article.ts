@@ -14,9 +14,6 @@ export const QUERY_ARTICLES = gql`
         liking
         reading
         author
-        category {
-          name
-        }
         tags {
           name
         }
@@ -60,11 +57,6 @@ export const QUERY_ARTICLE = gql`
         name
         id
         path
-      }
-      category {
-        name
-        path
-        id
       }
       prevArticle {
         id

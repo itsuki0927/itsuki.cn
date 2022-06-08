@@ -105,22 +105,6 @@ const MobileMenu = () => {
           </li>
           <li
             className='border-b border-gray-300 text-sm font-semibold text-gray-900'
-            style={{ transitionDelay: '175ms' }}
-          >
-            <Link href='/category/code'>
-              <a className='flex w-auto pb-4'>何文</a>
-            </Link>
-          </li>
-          <li
-            className='border-b border-gray-300 text-sm font-semibold text-gray-900'
-            style={{ transitionDelay: '200ms' }}
-          >
-            <Link href='/category/talk'>
-              <a className='flex w-auto pb-4'>何言</a>
-            </Link>
-          </li>
-          <li
-            className='border-b border-gray-300 text-sm font-semibold text-gray-900'
             style={{ transitionDelay: '250ms' }}
           >
             <Link href='/guestbook'>

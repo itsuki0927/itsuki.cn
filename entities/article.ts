@@ -1,6 +1,5 @@
 import { ArticleOrigin } from '@/constants/article/origin';
 import { ArticleOpen } from '@/constants/article/public';
-import { Category } from './category';
 import { Comment } from './comment';
 import { IdentifiableEntity, SearchRequest, SearchResponse } from '../types/response';
 import { Tag } from './tag';
@@ -23,7 +22,6 @@ export type Article = IdentifiableEntity<{
   liking: number;
   commenting: number;
   tags: Tag[];
-  category: Category;
   comments: Comment[];
 }>;
 
@@ -31,7 +29,6 @@ export type SearchArticlesBody = {
   search?: string;
   name?: string;
   tagPath?: string;
-  categoryPath?: string;
   recent?: boolean;
   hot?: number;
   banner?: number;

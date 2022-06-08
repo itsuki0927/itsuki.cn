@@ -15,9 +15,6 @@ export const QUERY_SITE_INFO = gql`
         createAt
         description
         author
-        category {
-          name
-        }
         tags {
           name
         }

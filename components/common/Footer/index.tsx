@@ -1,37 +1,83 @@
-const Footer = () => (
-  <footer className='h-20 bg-[#ffffff80] px-4 text-sm leading-[80px] text-gray-2 backdrop-blur-[2px] backdrop-saturate-150 dark:bg-[#0d0d1050]'>
-    <div className='container text-center tracking-wider'>
-      Build by {'  '}
-      <a
-        className='transition-colors hover:text-basic '
-        href='https://github.com/itsuki0927/blog-web'
-        target='_blank'
-        rel='external nofollow noopener noreferrer'
-      >
-        Next.JS
-      </a>{' '}
-      、
-      <a
-        className='transition-colors hover:text-basic '
-        href='https://github.com/itsuki0927/blog-server'
-        target='_blank'
-        rel='external nofollow noopener noreferrer'
-      >
-        SpringBoot
-      </a>
-      <span className='mx-2'>|</span>
-      <a
-        className='transition-colors hover:text-basic '
-        href='https://beian.miit.gov.cn'
-        target='_blank'
-        rel='external nofollow noopener noreferrer'
-      >
-        湘ICP备2021020356号
-      </a>
-      <span className='mx-2'>|</span>
-      <span>Copyright © Itsuki's Blog 2022</span>
-    </div>
-  </footer>
+import Link from 'next/link';
+import { ReactNode } from 'react';
+import { useGlobalData } from '@/hooks/globalData';
+import { getTagRoute } from '@/utils/url';
+
+interface ExternalLinkProps {
+  href: string;
+  children: ReactNode;
+}
+
+const ExternalLink = ({ href, children }: ExternalLinkProps) => (
+  <a
+    className='text-gray-500 transition hover:text-gray-600'
+    target='_blank'
+    rel='noopener noreferrer'
+    href={href}
+  >
+    {children}
+  </a>
 );
+
+const Footer = () => {
+  const { data } = useGlobalData();
+  return (
+    <footer className='bg-white'>
+      <div className='mx-auto flex w-full max-w-5xl flex-col items-start justify-center px-4 '>
+        <div className='grid w-full max-w-5xl grid-cols-3 gap-2 py-8 sm:grid-cols-3 sm:gap-4'>
+          <div className='flex flex-col space-y-2 sm:space-y-4'>
+            <span className='font-medium'>标签</span>
+            <div className='grid grid-cols-1 gap-2 sm:gap-4'>
+              {data?.tags?.map(tag => (
+                <Link href={getTagRoute(tag.path)}>
+                  <a className='text-gray-500 transition hover:text-gray-600'>
+                    {tag.name}
+                  </a>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className='flex flex-col space-y-2 sm:space-y-4'>
+            <span className='font-medium'>链接</span>
+            <Link href='/'>
+              <a className='text-gray-500 transition hover:text-gray-600'>Home</a>
+            </Link>
+            <Link href='/blog'>
+              <a className='text-gray-500 transition hover:text-gray-600'>Blog</a>
+            </Link>
+            <Link href='/guestbook'>
+              <a className='text-gray-500 transition hover:text-gray-600'>Guestbook</a>
+            </Link>
+            <Link href='/archive'>
+              <span className='cursor-pointer text-gray-500 transition hover:text-gray-600'>
+                Archive
+              </span>
+            </Link>
+            <Link href='/about'>
+              <a className='text-gray-500 transition hover:text-gray-600'>About</a>
+            </Link>
+          </div>
+          <div className='flex flex-col space-y-2 sm:space-y-4'>
+            <span className='font-medium'>社区</span>
+            <ExternalLink href='https://github.com/itsuki0927'>GitHub</ExternalLink>
+            <ExternalLink href='https://juejin.cn/user/2436173499466350'>
+              Juejin
+            </ExternalLink>
+            <ExternalLink href='https://segmentfault.com/u/itsuki0927'>
+              Sifou
+            </ExternalLink>
+          </div>
+        </div>
+
+        <div className='flex w-full items-center space-x-4 border-t  border-t-gray-200 py-8 text-sm'>
+          <ExternalLink href='https://beian.miit.gov.cn'>
+            湘ICP备2021020356号
+          </ExternalLink>
+          <span className='text-gray-500'>Copyright © Itsuki's Blog 2022</span>
+        </div>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

@@ -12,7 +12,7 @@ const MarkdownBlock = forwardRef<HTMLDivElement, MarkdownBlockProps>(
     <div
       ref={ref}
       className={classNames(
-        'prose prose-base max-w-none tracking-normal prose-img:hover:cursor-pointer dark:prose-invert',
+        'prose prose-base tracking-normal prose-img:hover:cursor-pointer dark:prose-invert md:max-w-none',
         className
       )}
       // eslint-disable-next-line react/no-danger

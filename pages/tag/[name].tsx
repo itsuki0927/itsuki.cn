@@ -1,15 +1,13 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
-import { ReactNode } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import { useRouter } from 'next/router';
 import { getArticles } from '@/api/article';
-import { getGlobalData } from '@/api/global';
-import { getAllTagPaths } from '@/api/tag';
+import { getAllTagPaths, getAllTags } from '@/api/tag';
 import { ArticleList, ArticleSkeletonList } from '@/components/article';
-import { Layout } from '@/components/common';
+import { Layout, Navbar } from '@/components/common';
 import { Banner, BannerSkeleton } from '@/components/ui';
-import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
+import { articleKeys, tagKeys } from '@/constants/queryKeys';
 import { useTagArticles } from '@/hooks/article';
 import { useGlobalData } from '@/hooks/globalData';
 import { useMount } from '@/hooks';
@@ -29,7 +27,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const tagPath = (params?.name ?? '') as string;
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(globalDataKeys.globalData, () => getGlobalData());
+  await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
   await queryClient.prefetchQuery(articleKeys.tag(tagPath), () =>
     getArticles({ tagPath })
   );
@@ -69,19 +67,28 @@ const ArticleTagPage = ({
   }
 
   return (
-    <div className='space-y-6'>
-      <NextSeo
-        title={`${tag?.name} - ${tag?.path} - Tag`}
-        description={tag?.description}
-      />
+    <Layout
+      hero={
+        <div className='space-y-20 bg-white py-10'>
+          <Navbar />
+          <Banner
+            className='container'
+            title={`标签: ${tag?.name}`}
+            description={tag?.description}
+          />
+        </div>
+      }
+    >
+      <div className='space-y-6'>
+        <NextSeo
+          title={`${tag?.name} - ${tag?.path} - Tag`}
+          description={tag?.description}
+        />
 
-      <Banner title={`标签: ${tag?.name}`} description={tag?.description} />
-
-      <ArticleList {...articles} />
-    </div>
+        <ArticleList {...articles} />
+      </div>
+    </Layout>
   );
 };
-
-ArticleTagPage.getLayout = (page: ReactNode) => <Layout>{page}</Layout>;
 
 export default ArticleTagPage;

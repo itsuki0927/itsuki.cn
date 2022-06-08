@@ -19,6 +19,8 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
+    // 关闭a链接href警告
+    'jsx-a11y/anchor-is-valid': OFF,
     // jsx 中使用单引号
     'jsx-quotes': [ERROR, 'prefer-single'],
     // 导入扩展名

@@ -13,6 +13,13 @@ export const QUERY_ARTICLES = gql`
         commenting
         liking
         reading
+        author
+        category {
+          name
+        }
+        tags {
+          name
+        }
       }
       total
     }

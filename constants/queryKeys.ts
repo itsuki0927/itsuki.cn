@@ -1,6 +1,7 @@
 export const articleKeys = {
   article: ['article'] as const,
   lists: () => [...articleKeys.article, 'list'] as const,
+  recent: () => [...articleKeys.article, 'recent'] as const,
   pagination: (current: number) => [...articleKeys.article, 'page', current] as const,
   tag: (tag: string) => [...articleKeys.article, 'tag', tag] as const,
   category: (category: string) => [...articleKeys.article, 'category', category] as const,
@@ -16,6 +17,11 @@ export const commentKeys = {
   lists: (articleId: number) =>
     [...articleKeys.article, articleId, ...commentKeys.comment, 'list'] as const,
   like: (id: number) => [...commentKeys.comment, id, 'like'] as const,
+};
+
+export const tagKeys = {
+  tag: ['tag'] as const,
+  lists: () => [...tagKeys.tag, 'list'] as const,
 };
 
 export const globalDataKeys = {

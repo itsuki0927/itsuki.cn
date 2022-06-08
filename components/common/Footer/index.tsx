@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import { useGlobalData } from '@/hooks/globalData';
 import { getTagRoute } from '@/utils/url';
+import useTags from '@/hooks/tag';
 
 interface ExternalLinkProps {
   href: string;
@@ -20,7 +20,7 @@ const ExternalLink = ({ href, children }: ExternalLinkProps) => (
 );
 
 const Footer = () => {
-  const { data } = useGlobalData();
+  const { data } = useTags();
   return (
     <footer className='bg-white'>
       <div className='mx-auto flex w-full max-w-5xl flex-col items-start justify-center px-4 '>
@@ -28,7 +28,7 @@ const Footer = () => {
           <div className='flex flex-col space-y-2 sm:space-y-4'>
             <span className='font-medium'>标签</span>
             <div className='grid grid-cols-1 gap-2 sm:gap-4'>
-              {data?.tags?.map(tag => (
+              {data?.map(tag => (
                 <Link href={getTagRoute(tag.path)}>
                   <a className='text-gray-500 transition hover:text-gray-600'>
                     {tag.name}

@@ -26,14 +26,6 @@ export const QUERY_SITE_INFO = gql`
         cover
         createAt
       }
-      categories {
-        id
-        name
-        path
-        count
-        expand
-        description
-      }
       tags {
         id
         path

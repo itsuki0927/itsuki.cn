@@ -12,6 +12,7 @@ module.exports = {
       black: colors.black,
       white: colors.white,
       mask: 'rgba(0, 0, 0, 0.35)',
+      gray: colors.gray,
 
       // #f8f8f8
       // #f2f2f2

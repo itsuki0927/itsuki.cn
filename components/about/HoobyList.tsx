@@ -72,7 +72,7 @@ const HoobyCard = ({ title, description, index }: HoobyProps) => (
         <h4 className='my-0 w-full text-base font-normal text-basic'>{title}</h4>
       </div>
       <div className='mt-2 flex w-full items-center justify-between sm:mt-0 sm:w-auto'>
-        <p className='text-lkft my-0 mr-2 ml-10 w-64 text-sm text-gray-3 sm:ml-0 sm:text-right md:mb-0'>
+        <p className='my-0 mr-2 ml-9 w-64 text-sm text-gray-3 sm:ml-0 sm:text-right md:mb-0'>
           {description}
         </p>
       </div>

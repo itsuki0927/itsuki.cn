@@ -44,7 +44,7 @@ const ExperienceCard = ({
 }: ExperienceCardProps) => (
   <div className='border-b border-dashed border-gray-1 pt-2 pb-6 pl-0 before:contents '>
     <h3 className='m-0 text-base font-normal'>{post}</h3>
-    <div className='flex justify-between text-sm text-gray-3 '>
+    <div className='flex flex-col justify-between text-sm text-gray-3 sm:flex-row '>
       <div>{company}</div>
       <div>
         <time dateTime={startTime}>{startTime}</time> -{' '}

@@ -1,21 +1,23 @@
-import { ReactNode, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
-import { getArticles } from '@/api/article';
-import { getGlobalData } from '@/api/global';
+import { getBannerArticles, getRecentArticles } from '@/api/article';
 import { ArticleList, ArticleSkeletonList } from '@/components/article';
-import ArticleListPagination from '@/components/article/ArticleListPagination';
-import { Layout } from '@/components/common';
-import { DEFAULT_CURRENT, DEFAULT_PAGE_SIZE } from '@/constants/pagination';
-import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
-import { useArticles } from '@/hooks/article';
+import { HomeSlider, Layout, Navbar } from '@/components/common';
+import { articleKeys, tagKeys } from '@/constants/queryKeys';
+import { RightOutlined } from '@/components/icons';
+import { getTagRoute } from '@/utils/url';
+import { getAllTags } from '@/api/tag';
+import useTags from '@/hooks/tag';
+import useBannerArticles from '@/hooks/article/useBannerArticles';
+import useRecentArticles from '@/hooks/article/useRecentArticles';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(articleKeys.pagination(1), () =>
-    getArticles({ current: DEFAULT_CURRENT, pageSize: DEFAULT_PAGE_SIZE })
-  );
-  await queryClient.prefetchQuery(globalDataKeys.globalData, () => getGlobalData());
+  await queryClient.prefetchQuery(articleKeys.recent(), () => getRecentArticles());
+  await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
+  await queryClient.prefetchQuery(articleKeys.banner(), () => getBannerArticles());
 
   return {
     props: {
@@ -26,26 +28,79 @@ export const getStaticProps = async () => {
 };
 
 const HomePage = () => {
-  const [current, setCurrent] = useState(1);
-  const articles = useArticles(current);
+  const router = useRouter();
+  const articles = useRecentArticles();
+  const { data: tags } = useTags();
+  const { data: bannerArticles } = useBannerArticles();
 
   if (articles.isLoading || articles.isFetching) {
     return <ArticleSkeletonList />;
   }
 
   return (
-    <div className='home space-y-6' id='dashboard'>
-      <ArticleList {...articles} />
+    <Layout
+      hero={
+        <div className='space-y-20 bg-white py-10'>
+          <Navbar />
 
-      <ArticleListPagination
-        hasNext={articles.data?.hasNext}
-        hasPrev={articles.data?.hasPrev}
-        onChange={c => setCurrent(current + c)}
-      />
-    </div>
+          <HomeSlider articles={bannerArticles?.data} />
+        </div>
+      }
+    >
+      <div className='home space-y-6' id='dashboard'>
+        <div className='prose max-w-full'>
+          <section className='space-y-4'>
+            <div className='flex items-end justify-between px-4'>
+              <h2>最近文章</h2>
+              <Link href='/blog'>
+                <p className='flex cursor-pointer items-center transition-colors hover:text-primary'>
+                  <span className='capsize mr-2'>查看更多</span>
+                  <RightOutlined />
+                </p>
+              </Link>
+            </div>
+            <ArticleList {...articles} />
+          </section>
+        </div>
+
+        <div className='prose max-w-full'>
+          <section className='space-y-4'>
+            <div className='flex items-end justify-between px-4'>
+              <h2>标签</h2>
+              <p>{tags?.length} Tags</p>
+            </div>
+            <div className='flex flex-wrap space-y-4 space-x-4 px-4'>
+              {tags?.map(tag => (
+                <button
+                  type='button'
+                  key={tag.path}
+                  onClick={() => router.push(getTagRoute(tag.path))}
+                  className='rounded-sm bg-white-2 py-2 px-6 hover:bg-white-3'
+                >
+                  {tag.name}
+                </button>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        <div className='prose max-w-full'>
+          <section className='space-y-4'>
+            <div className='flex items-end justify-between px-4'>
+              <h2>代办</h2>
+              <p>3 Actives</p>
+            </div>
+            <ul className='flex flex-col px-4'>
+              <li>移动端样式...</li>
+              <li>更新UI...</li>
+              <li>写文章中...</li>
+              <li className='line-through'>完成新版样式...</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </Layout>
   );
 };
-
-HomePage.getLayout = (page: ReactNode) => <Layout showSlider>{page}</Layout>;
 
 export default HomePage;

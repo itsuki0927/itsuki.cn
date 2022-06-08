@@ -13,6 +13,14 @@ export const QUERY_SITE_INFO = gql`
         title
         cover
         createAt
+        description
+        author
+        category {
+          name
+        }
+        tags {
+          name
+        }
       }
       hotArticles {
         id

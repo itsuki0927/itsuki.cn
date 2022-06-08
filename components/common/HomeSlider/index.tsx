@@ -1,4 +1,4 @@
-import { Pagination, EffectFade } from 'swiper';
+import { EffectFade } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import router from 'next/router';
 import React from 'react';
@@ -15,47 +15,41 @@ type HomeSliderProps = {
 };
 
 const HomeSlider = ({ articles }: HomeSliderProps) => (
-  <Swiper
-    lazy
-    modules={[Pagination, EffectFade]}
-    pagination={{
-      clickable: true,
-      type: 'bullets',
-    }}
-    scrollbar={{ draggable: true }}
-  >
-    {articles?.map(article => (
-      <SwiperSlide
-        role='banner'
-        className='group relative opacity-90 transition-opacity'
-        key={article.id}
-      >
-        <MyImage
-          src={article.cover}
-          objectFit='cover'
-          width={1050}
-          height={500}
-          property='0.8'
-          alt='banner-cover'
-          className='group-hover: rounded-sm align-middle opacity-100'
-        />
-        <div className='absolute top-6 right-6 rounded-sm bg-white py-2 px-6 text-center opacity-70 transition-all duration-500 hover:opacity-100 '>
-          <header>
-            <span className='text-sm tracking-tighter text-gray-1 '>
-              <ToDate date={article.createAt ?? new Date()} to='YMD' />
-            </span>
+  <div className='container'>
+    <Swiper lazy modules={[EffectFade]} scrollbar={{ draggable: true }}>
+      {articles?.map(article => (
+        <SwiperSlide
+          role='banner'
+          className='group relative flex flex-col items-start px-4 opacity-90 transition-opacity md:flex-row md:items-center'
+          key={article.id}
+        >
+          <MyImage src={article?.cover} width={500} height={300} />
+          <div className='prose md:ml-10'>
+            <p className='mt-5 mb-3 text-gray-2 before:border-l-2 before:border-l-wechat before:pr-2'>
+              {article?.tags?.map(v => v.name).join('、')}
+            </p>
 
-            <h2
-              className='cursor-pointer tracking-widest text-dark-2 transition-colors hover:text-primary'
-              onClick={() => router.push(getArticleDetailRoute(article.id))}
+            <h3
+              className='capsize mt-0 mb-3 cursor-pointer text-2xl text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary'
+              onClick={() => router.push(getArticleDetailRoute(article?.id))}
             >
-              {article.title}
-            </h2>
-          </header>
-        </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
+              {article?.title}
+            </h3>
+
+            <p className='capsize mt-0 mb-3 cursor-pointer text-lg text-gray-3'>
+              {article?.description}
+            </p>
+
+            <div className='mb-1 flex items-end space-x-6 text-gray-1'>
+              <ToDate date={article?.createAt} />
+              <span className='mx-2'>/</span>
+              {article?.author}
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  </div>
 );
 
 export default HomeSlider;

@@ -2,7 +2,6 @@ import { CSSProperties } from 'react';
 import router from 'next/router';
 import { MyImage, ToDate } from '@/components/common';
 import { Article } from '@/entities/article';
-import { MessageOutlined, EyeOutlined, LikeOutlined } from '@/components/icons';
 import s from './style.module.scss';
 import { getArticleDetailRoute } from '@/utils/url';
 
@@ -12,57 +11,36 @@ type ArticleCardProps = {
 };
 
 const ArticleCard = ({ article, style }: ArticleCardProps) => (
-  <article className={`group flex rounded-sm bg-white p-4 ${s.card}`} style={style}>
+  <article
+    className={`group mb-8 flex w-full flex-col px-4 md:w-1/3 lg:w-1/3 ${s.card}`}
+    style={style}
+  >
     <MyImage
       alt='article-cover'
-      width={286}
-      height={200}
-      objectFit='cover'
+      width={368}
+      height={276}
+      layout='responsive'
       src={article.cover}
-      className='min-w-[286px] cursor-pointer'
-      imgClassName='opacity-90 transition-all group-hover:scale-105 group-hover:opacity-100'
+      objectFit='cover'
+      className='cursor-pointer opacity-90 transition-opacity group-hover:opacity-100'
       onClick={() => router.push(getArticleDetailRoute(article.id))}
     />
-    <div className='ml-4 flex flex-grow flex-col items-start justify-between'>
-      <header className='mt-1 mb-1'>
-        <span className='block text-sm text-gray-2'>
-          <ToDate date={article.createAt} />
-        </span>
 
-        <h3
-          className='cursor-pointer text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary'
-          onClick={() => router.push(getArticleDetailRoute(article.id))}
-        >
-          {article.title}
-        </h3>
-      </header>
+    <p className='mt-5 mb-3 text-sm text-gray-2 before:border-l-2 before:border-l-wechat before:pr-2'>
+      {article.tags?.map(v => v.name).join('、')}
+    </p>
 
-      <div className='my-2 flex-grow text-gray-3'>
-        <p className='line-clamp-2'>{article.description}</p>
-      </div>
+    <h3
+      className='capsize mt-0 mb-3 cursor-pointer text-lg text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary'
+      onClick={() => router.push(getArticleDetailRoute(article.id))}
+    >
+      {article.title}
+    </h3>
 
-      <button
-        type='button'
-        onClick={() => router.push(getArticleDetailRoute(article.id))}
-        className='capsize mb-3 rounded-sm bg-white-1 py-2 px-6 text-sm text-primary transition-colors duration-300 hover:bg-primary hover:text-white'
-      >
-        READ MORE
-      </button>
-
-      <div className='mb-1 flex items-end space-x-6 text-sm text-gray-1'>
-        <span>
-          <LikeOutlined className='mr-1 align-bottom text-sm' />
-          {article.liking}
-        </span>
-        <span>
-          <EyeOutlined className='mr-1 align-bottom text-sm' />
-          {article.reading}
-        </span>
-        <span>
-          <MessageOutlined className='mr-1 align-bottom text-sm' />
-          {article.commenting}
-        </span>
-      </div>
+    <div className='mb-1 flex items-end space-x-6 text-sm text-gray-1'>
+      <ToDate date={article.createAt} />
+      <span className='mx-2'>/</span>
+      {article.author}
     </div>
   </article>
 );

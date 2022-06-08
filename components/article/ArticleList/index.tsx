@@ -15,7 +15,7 @@ const ArticleList = ({ data, ...rest }: ArticleListProps) => {
   }
 
   return (
-    <div className='space-y-6'>
+    <div className='flex flex-wrap'>
       {data?.data.map((article, i) => (
         <ArticleCard
           style={{ animationDelay: `${0.2 * i}s` }}

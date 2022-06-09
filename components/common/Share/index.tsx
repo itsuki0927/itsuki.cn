@@ -79,7 +79,9 @@ const Share = () => {
     const content = `${getTitle()} - ${getURL()}`;
     copyTextToClipboard(content);
     toast.success('🔗 链接复制成功');
-    // TODO: gtag.event
+    gtag.event('copy_url', {
+      category: GAEventCategories.Widget,
+    });
   };
 
   const handleShare = async (social: SocialItem) => {
@@ -89,24 +91,20 @@ const Share = () => {
       description: getDescription(),
       cover: getCover(),
     };
+    gtag.event('share_social', {
+      category: GAEventCategories.Widget,
+      label: social.name,
+    });
     if (social.asyncUrl) {
-      gtag.event('share_social', {
-        category: GAEventCategories.Widget,
-        label: social.name,
-      });
       const src = await social.asyncUrl(shareParams);
       openPopup({ src });
     } else {
-      gtag.event('copy_url', {
-        category: GAEventCategories.Widget,
-      });
       window.open(social.url!(shareParams), `分享到${social.name}`);
     }
-    // TODO: gtag.event
   };
 
   return (
-    <div className='flex items-center space-x-3'>
+    <div className='flex items-center space-x-4'>
       {socials.map(social => (
         <button
           type='button'

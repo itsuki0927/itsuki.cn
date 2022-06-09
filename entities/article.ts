@@ -30,7 +30,7 @@ export type SearchArticlesBody = {
   name?: string;
   tagPath?: string;
   recent?: boolean;
-  hot?: number;
+  hot?: boolean;
   banner?: number;
   pageSize?: number;
   current?: number;

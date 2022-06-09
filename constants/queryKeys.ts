@@ -5,8 +5,9 @@ export const articleKeys = {
   pagination: (current: number) => [...articleKeys.article, 'page', current] as const,
   tag: (tag: string) => [...articleKeys.article, 'tag', tag] as const,
   detail: (id: number) => [...articleKeys.article, 'detail', id] as const,
-  publish: () => ['publish', ...articleKeys.lists()] as const,
-  banner: () => ['banner', ...articleKeys.lists()] as const,
+  publish: () => [...articleKeys.lists(), 'publish'] as const,
+  banner: () => [...articleKeys.lists(), 'banner'] as const,
+  hot: () => [...articleKeys.lists(), 'hot'] as const,
   search: (keywords: string) => [...articleKeys.article, 'search', keywords] as const,
   archive: () => [...articleKeys.article, 'archive'] as const,
 };

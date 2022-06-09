@@ -49,7 +49,7 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
           placeholder={placeholder}
           className={classNames(
             s.root,
-            'max-h-[460px] min-h-[120px]  overflow-y-scroll p-3 text-base leading-5'
+            'max-h-[150px] min-h-[120px] overflow-y-scroll  p-3 text-base leading-5 sm:max-h-[460px]'
           )}
           ref={editorRef as any}
         />
@@ -100,7 +100,7 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
             <div
               className={classNames(
                 s.emojiList,
-                'absolute left-0 right-0 top-0 bottom-8 bg-white-2 p-3 text-left opacity-80 transition-all duration-300 '
+                'absolute left-0 right-0 top-0 bottom-8 overflow-y-scroll bg-white-2 p-3 text-left opacity-80 transition-all duration-300 '
               )}
             >
               {EMOJIS.map(emoji => (

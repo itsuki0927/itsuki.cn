@@ -117,6 +117,9 @@ module.exports = {
         'dark-2': 'var(--border-dark-2)',
         'dark-3': 'var(--border-dark-3)',
         'dark-4': 'var(--border-dark-4)',
+        primary: 'var(--text-primary)',
+        'primary-hover': 'var(--text-primary-hover)',
+        'primary-light': 'var(--text-primary-light)',
       },
       backgroundColor: {
         basic: 'var(--bg-basic)',

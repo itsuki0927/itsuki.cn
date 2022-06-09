@@ -33,7 +33,7 @@ const CommentList = ({ data, className, childClassName, children }: CommentListP
               // eslint-disable-next-line react/no-children-prop
               children={children}
               className='mt-4'
-              childClassName='ml-12'
+              childClassName='ml-4 sm:ml-8'
               data={buildCommentTree(item.children)}
             />
           )}

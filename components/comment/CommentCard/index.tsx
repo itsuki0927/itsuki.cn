@@ -104,13 +104,13 @@ const CommentCard = ({ data, children, className, childClassName }: CommentCardP
       key={comment.id}
       className={`transition-all duration-500 ${className}`}
     >
-      <div className={`relative rounded-sm bg-white-1 p-4 ${childClassName}`}>
+      <div className={`relative rounded-sm bg-white-1 p-3 ${childClassName}`}>
         <header className='flex items-center'>
           <CommentAvatar avatar={comment.avatar} loginType={comment.loginType} />
-          <div className='ml-4 flex-grow'>
+          <div className='ml-3 flex-grow'>
             <div className='mb-0 flex w-full items-center justify-between text-dark-2 '>
-              <p className='flex items-center'>
-                <span className='capsize'>{comment.nickname}</span>
+              <p className='flex max-w-[80%] items-center'>
+                <span className='capsize line-clamp-1'>{comment.nickname}</span>
                 {isAdminEmail(comment.email) && (
                   <Link href='/about'>
                     <small className='ml-1 cursor-pointer rounded-sm bg-primary px-1 py-[2px] text-xxs text-white opacity-70 transition-opacity hover:opacity-100'>
@@ -121,12 +121,9 @@ const CommentCard = ({ data, children, className, childClassName }: CommentCardP
               </p>
 
               {!!Number(comment.parentId) && (
-                <div className='text-sm text-gray-2'>
-                  回复
-                  <span className='ml-1 cursor-pointer transition-colors duration-300 hover:text-dark-2 '>
-                    #{comment.parentNickName}
-                  </span>
-                </div>
+                <span className='cursor-pointer text-sm text-gray-2 transition-colors duration-300 hover:text-dark-2 '>
+                  @{comment.parentNickName}
+                </span>
               )}
             </div>
 

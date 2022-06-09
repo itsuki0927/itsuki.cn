@@ -1,11 +1,8 @@
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import toast from 'react-hot-toast';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import React, { useCallback, useState } from 'react';
-import { GAEventCategories } from '@/constants/gtag';
-import { gtag } from '@/utils/gtag';
-import CommentAvatar from '../CommentAvatar';
 import { useGlobalData } from '@/hooks/globalData';
 import { useReply } from '../context';
 import { PostCommentBody } from '@/entities/comment';
@@ -18,8 +15,6 @@ const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor
 
 interface CommentFormProps {
   className?: string;
-  hiddenLogout?: boolean;
-  hiddenAvatar?: boolean;
   articleId: number;
   loading?: boolean;
   onSend?: (params: PostCommentBody) => Promise<boolean>;
@@ -31,14 +26,7 @@ const useLoginType = () => {
   return loginType;
 };
 
-const CommentForm = ({
-  className,
-  hiddenLogout,
-  hiddenAvatar,
-  articleId,
-  onSend,
-  loading,
-}: CommentFormProps) => {
+const CommentForm = ({ className, articleId, onSend, loading }: CommentFormProps) => {
   const loginType = useLoginType();
   const { reply, cancelReply } = useReply();
   const { data: session } = useSession();
@@ -113,33 +101,12 @@ const CommentForm = ({
   );
 
   return (
-    <div id='commentForm' className={`flex items-start space-x-4 ${className}`}>
-      {!hiddenAvatar && (
-        <div className='min-w-[48px]'>
-          <CommentAvatar avatar={avatar} loginType={loginType} />
-
-          {!hiddenLogout && (
-            <span
-              tabIndex={0}
-              role='button'
-              className='block text-center text-xs text-gray-1 transition-colors hover:text-dark-1'
-              onClick={() => {
-                gtag.event('signout', {
-                  category: GAEventCategories.Comment,
-                });
-                signOut();
-              }}
-            >
-              退出
-            </span>
-          )}
-        </div>
-      )}
+    <div id='commentForm' className={className}>
       <DynamicMarkdown
         code={content}
         onChange={setContent}
         className='flex-grow'
-        placeholder='可输入Markdown, 支持换行自动缩进、捕捉Tab、自动补全括号, 还请友善评论'
+        placeholder='见解'
       >
         <SendButton
           onConfirm={handleSend}

@@ -7,9 +7,7 @@ interface WidgetProps {
 }
 
 const Header = ({ className = '', children }: WidgetProps) => (
-  <h3 className={`my-3 pb-2 text-center text-sm tracking-widest ${className}`}>
-    {children}
-  </h3>
+  <h3 className={`my-3 pb-2 font-medium tracking-widest ${className}`}>{children}</h3>
 );
 
 const Widget: FC<WidgetProps> & {

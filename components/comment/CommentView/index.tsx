@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import toast from 'react-hot-toast';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { SigninIcon } from '@/components/common';
-import { Empty, Widget } from '@/components/ui';
+import { Widget } from '@/components/ui';
 import { GAEventCategories } from '@/constants/gtag';
 import { useComments, useCreateComment } from '@/hooks/comment';
 import { gtag } from '@/utils/gtag';
@@ -12,6 +12,10 @@ import CommentList from '../CommentList';
 import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
 import { ReplyProvider, useReply } from '../context';
 import { convertToCommentTreeData } from './utils';
+import { GUESTBOOK } from '@/constants/value';
+
+const getCommentTitleSuffixText = (articleId: number) =>
+  articleId === GUESTBOOK ? '留言' : '评论';
 
 type CommentProps = {
   articleId: number;
@@ -65,40 +69,36 @@ const CommentView = ({ articleId }: CommentProps) => {
   }
 
   return (
-    <>
-      <Widget>
-        <Widget.Header>留下你的足迹</Widget.Header>
+    <Widget>
+      <Widget.Header>
+        {isEmpty
+          ? `暂无${getCommentTitleSuffixText(articleId)}`
+          : `${comments.length} 条${getCommentTitleSuffixText(articleId)}`}
+      </Widget.Header>
 
-        {session?.user ? (
-          <div className='my-4'>{commentFormDom}</div>
-        ) : (
-          <div className='my-2 space-y-3'>
-            <p className='text-center text-sm text-gray-2'>仅使用你的邮箱、头像、昵称.</p>
-            <SigninIcon />
-            <p className='text-center text-sm text-gray-1'>(请先登录)</p>
-          </div>
-        )}
-      </Widget>
-
-      {isEmpty ? (
-        <Empty />
+      {session?.user ? (
+        <div className='my-4'>{commentFormDom}</div>
       ) : (
-        <Widget>
-          <Widget.Header>{data?.total} 条沙雕评论</Widget.Header>
-          <CommentList className='space-y-4' data={comments}>
-            {comment =>
-              reply?.id === comment.id
-                ? React.cloneElement(commentFormDom, {
-                    hiddenLogout: true,
-                    hiddenAvatar: true,
-                    className: 'mt-4',
-                  })
-                : null
-            }
-          </CommentList>
-        </Widget>
+        <div className='my-2 space-y-3 rounded-sm border border-solid border-primary bg-primary-light py-4'>
+          <p className='text-center text-sm text-gray-2'>仅使用你的邮箱、头像、昵称.</p>
+          <SigninIcon />
+          <p className='text-center text-sm text-gray-1'>(请先登录)</p>
+        </div>
       )}
-    </>
+      {!isEmpty && (
+        <CommentList className='space-y-4' data={comments}>
+          {comment =>
+            reply?.id === comment.id
+              ? React.cloneElement(commentFormDom, {
+                  hiddenLogout: true,
+                  hiddenAvatar: true,
+                  className: 'mt-4',
+                })
+              : null
+          }
+        </CommentList>
+      )}
+    </Widget>
   );
 };
 

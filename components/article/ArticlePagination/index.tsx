@@ -12,8 +12,8 @@ interface ArticlePaginationProps {
 const ArticlePagination = ({ prevArticle, nextArticle }: ArticlePaginationProps) => {
   const router = useRouter();
   return (
-    <div className='flex justify-between'>
-      <div className='w-1/2 border-r border-solid border-white-2 bg-white py-4 px-6  '>
+    <div className='flex justify-between border-b border-solid border-white-2'>
+      <div className='w-1/2 border-r border-solid border-white-2 bg-white py-2 px-4 sm:py-4 sm:px-6'>
         <span className='mb-2'>上一篇</span>
         {prevArticle ? (
           <h3
@@ -24,7 +24,7 @@ const ArticlePagination = ({ prevArticle, nextArticle }: ArticlePaginationProps)
                 category: GAEventCategories.Article,
               });
             }}
-            className='cursor-pointer text-sm text-gray-1 transition-colors duration-500 hover:text-dark-2 '
+            className='cursor-pointer text-sm text-gray-1 transition-colors duration-500 line-clamp-1 hover:text-dark-2 '
           >
             {prevArticle.title}
           </h3>
@@ -33,7 +33,7 @@ const ArticlePagination = ({ prevArticle, nextArticle }: ArticlePaginationProps)
         )}
       </div>
 
-      <div className='w-1/2 bg-white py-4 px-6 text-right '>
+      <div className='w-1/2 bg-white py-2 px-4 text-right sm:py-4 sm:px-6 '>
         <span className='mb-2'>下一篇</span>
         {nextArticle ? (
           <h3
@@ -44,7 +44,7 @@ const ArticlePagination = ({ prevArticle, nextArticle }: ArticlePaginationProps)
                 category: GAEventCategories.Article,
               });
             }}
-            className='cursor-pointer text-right text-sm text-gray-1 transition-colors duration-500 hover:text-dark-2 '
+            className='cursor-pointer text-right text-sm text-gray-1 transition-colors duration-500 line-clamp-1 hover:text-dark-2 '
           >
             {nextArticle.title}
           </h3>

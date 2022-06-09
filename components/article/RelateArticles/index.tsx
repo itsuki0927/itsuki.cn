@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { MyImage, ToDate } from '@/components/common';
 import { Widget } from '@/components/ui';
@@ -9,35 +8,34 @@ interface RelateArticlesProps {
   relateArticles: Article[];
 }
 
-const RelateArticles = ({ relateArticles }: RelateArticlesProps) => {
-  const router = useRouter();
-  return (
-    <Widget>
-      <Widget.Header> 看看这些? </Widget.Header>
-      <div className='mb-2 flex justify-between'>
-        {relateArticles.map(article => (
-          <div key={article.id} className='max-w-[210px]'>
+const RelateArticles = ({ relateArticles }: RelateArticlesProps) => (
+  <Widget>
+    <Widget.Header>你可能喜欢</Widget.Header>
+    <div className='flex justify-between space-x-4'>
+      {relateArticles.map(article => (
+        <div key={article.id} className='w-1/3 flex-grow'>
+          <Link href={getArticleDetailRoute(article.id)}>
             <MyImage
               src={article.cover}
               width={210}
               height={158}
-              onClick={() => router.push(getArticleDetailRoute(article.id))}
+              layout='responsive'
               className='cursor-pointer'
               alt='relate-article-cover'
               objectFit='cover'
             />
-            <h2 className='my-2 cursor-pointer px-3 text-center text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary  '>
-              <Link href={getArticleDetailRoute(article.id)}>{article.title}</Link>
-            </h2>
-            <span className='block text-center text-sm tracking-wider text-gray-1'>
-              <ToDate date={article.createAt} to='YMD' />
-            </span>
-          </div>
-        ))}
-      </div>
-    </Widget>
-  );
-};
+          </Link>
+          <h2 className='my-2 cursor-pointer px-3 text-center text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary  '>
+            <Link href={getArticleDetailRoute(article.id)}>{article.title}</Link>
+          </h2>
+          <span className='block text-center text-sm tracking-wider text-gray-1'>
+            <ToDate date={article.createAt} to='YMD' />
+          </span>
+        </div>
+      ))}
+    </div>
+  </Widget>
+);
 
 export const RelateArticleSkeleton = () => (
   <div className='mx-auto w-full rounded-sm bg-white p-4'>

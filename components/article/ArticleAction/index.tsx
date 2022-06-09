@@ -14,7 +14,7 @@ interface ArticleActionProps {
 const ArticleAction = ({ article, openPopup }: ArticleActionProps) => {
   const { isLike, mutation } = useLikeArticle(article.id);
   return (
-    <div className='mx-auto flex w-52 justify-center space-x-4'>
+    <div className='mx-auto flex items-center justify-center space-x-4'>
       <FavoriteButton
         isLike={isLike}
         onLike={() => {
@@ -26,7 +26,6 @@ const ArticleAction = ({ article, openPopup }: ArticleActionProps) => {
         }}
         liking={article.liking}
       />
-
       <SponsorButton
         onClick={() => {
           gtag.event('sponsor_article', {
@@ -35,7 +34,6 @@ const ArticleAction = ({ article, openPopup }: ArticleActionProps) => {
           openPopup();
         }}
       />
-
       <Share />
     </div>
   );

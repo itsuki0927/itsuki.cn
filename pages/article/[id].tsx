@@ -1,18 +1,28 @@
-import { useRouter } from 'next/router';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
-import { ReactNode } from 'react';
+import { ArticleJsonLd, NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
-import { getGlobalData } from '@/api/global';
-import { readArticle, getAllArticlePaths, getArticle } from '@/api/article';
-import { ArticleSkeleton, ArticleView } from '@/components/article';
-import { Layout } from '@/components/common';
-import { useArticle } from '@/hooks/article';
-import { articleKeys, globalDataKeys } from '@/constants/queryKeys';
-import { RelateArticleSkeleton } from '@/components/article/RelateArticles';
-import { CommentFormSkeletion, CommentListSkeleton } from '@/components/comment';
-import { useMount } from '@/hooks';
-import { gtag } from '@/utils/gtag';
+import { getAllArticlePaths, getArticle, readArticle } from '@/api/article';
+import { getAllTags } from '@/api/tag';
+import { ArticlePagination, ArticleSkeleton } from '@/components/article';
+import ArticleContent from '@/components/article/ArticleContent';
+import ArticleHeader from '@/components/article/ArticleHeader';
+import RelateArticles, {
+  RelateArticleSkeleton,
+} from '@/components/article/RelateArticles';
+import {
+  CommentFormSkeletion,
+  CommentListSkeleton,
+  CommentView,
+} from '@/components/comment';
+import { Layout, Navbar } from '@/components/common';
+import ArticleNav from '@/components/common/StandardSidebar/ArticleNav';
 import { GAEventCategories } from '@/constants/gtag';
+import { articleKeys, tagKeys } from '@/constants/queryKeys';
+import { useMount } from '@/hooks';
+import { useArticle, useArticles } from '@/hooks/article';
+import { gtag } from '@/utils/gtag';
+import { getArticleDetailFullUrl } from '@/utils/url';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePaths();
@@ -38,7 +48,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   await queryClient.prefetchQuery(articleKeys.detail(articleId), () =>
     getArticle(articleId)
   );
-  await queryClient.prefetchQuery(globalDataKeys.globalData, () => getGlobalData());
+  await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
 
   return {
     props: {
@@ -50,8 +60,10 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data: article, isFetching, isLoading } = useArticle(articleId);
+  const { data: article, isLoading } = useArticle(articleId);
   const { isFallback } = useRouter();
+  const { data } = useArticles();
+  const relateArticles = data?.data.slice(0, 3) ?? [];
 
   useMount(() => {
     gtag.event('article_view', {
@@ -60,9 +72,9 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
     });
   });
 
-  if (isFallback || isFetching || isLoading || !article)
+  if (isFallback || isLoading || !article)
     return (
-      <div className='space-y-6'>
+      <div className='container space-y-6'>
         <ArticleSkeleton />
         <RelateArticleSkeleton />
         <CommentFormSkeletion />
@@ -70,9 +82,59 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
       </div>
     );
 
-  return <ArticleView article={article} />;
-};
+  return (
+    <Layout
+      hero={
+        <div className='space-y-10 bg-white py-10'>
+          <Navbar />
 
-ArticlePage.getLayout = (page: ReactNode) => <Layout>{page}</Layout>;
+          <ArticleHeader article={article} />
+        </div>
+      }
+    >
+      <div className='flex w-full'>
+        <div className='max-w-full sm:max-w-3xl'>
+          <NextSeo
+            title={article.title}
+            description={article.description}
+            additionalMetaTags={[
+              { name: 'keywords', content: article.keywords },
+              {
+                name: 'cover',
+                content: article.cover,
+              },
+            ]}
+          />
+          <ArticleJsonLd
+            url={getArticleDetailFullUrl(article.id)}
+            title={article.title}
+            images={[article.cover]}
+            datePublished={article.createAt.toString()}
+            dateModified={article.updateAt.toString()}
+            authorName={article.author}
+            description={article.description}
+          />
+
+          <ArticleContent article={article} />
+        </div>
+
+        <div className='hidden flex-grow sm:block'>
+          <ArticleNav article={article} />
+        </div>
+      </div>
+
+      <div className='bg-white sm:max-w-3xl'>
+        <ArticlePagination
+          prevArticle={article.prevArticle}
+          nextArticle={article.nextArticle}
+        />
+
+        <RelateArticles relateArticles={relateArticles} />
+
+        <CommentView articleId={article.id} />
+      </div>
+    </Layout>
+  );
+};
 
 export default ArticlePage;

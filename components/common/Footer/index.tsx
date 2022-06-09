@@ -69,7 +69,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className='flex w-full items-center space-x-4 border-t  border-t-gray-200 py-8 text-sm'>
+        <div className='flex w-full flex-col border-t border-t-gray-200 py-8 text-sm sm:flex-row sm:items-center sm:space-x-4'>
           <ExternalLink href='https://beian.miit.gov.cn'>
             湘ICP备2021020356号
           </ExternalLink>

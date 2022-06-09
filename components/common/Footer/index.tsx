@@ -29,7 +29,7 @@ const Footer = () => {
             <span className='font-medium'>标签</span>
             <div className='grid grid-cols-1 gap-2 sm:gap-4'>
               {data?.map(tag => (
-                <Link href={getTagRoute(tag.path)}>
+                <Link key={tag.path} href={getTagRoute(tag.path)}>
                   <a className='text-gray-500 transition hover:text-gray-600'>
                     {tag.name}
                   </a>

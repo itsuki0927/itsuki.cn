@@ -32,7 +32,11 @@ const HomePage = () => {
   const { data: bannerArticles } = useBannerArticles();
 
   if (articles.isLoading || articles.isFetching) {
-    return <ArticleSkeletonList />;
+    return (
+      <Layout>
+        <ArticleSkeletonList />
+      </Layout>
+    );
   }
 
   return (

@@ -74,12 +74,14 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
 
   if (isFallback || isLoading || !article)
     return (
-      <div className='container space-y-6'>
-        <ArticleSkeleton />
-        <RelateArticleSkeleton />
-        <CommentFormSkeletion />
-        <CommentListSkeleton />
-      </div>
+      <Layout>
+        <div className='container space-y-6'>
+          <ArticleSkeleton />
+          <RelateArticleSkeleton />
+          <CommentFormSkeletion />
+          <CommentListSkeleton />
+        </div>
+      </Layout>
     );
 
   return (

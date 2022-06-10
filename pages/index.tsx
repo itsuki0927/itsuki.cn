@@ -89,9 +89,10 @@ const HomePage = () => {
               <p>3 Actives</p>
             </div>
             <ul className='flex flex-col px-4'>
-              <li>移动端样式...</li>
               <li>更新UI...</li>
               <li>写文章中...</li>
+              <li>暗黑模式...</li>
+              <li className='line-through'>移动端样式...</li>
               <li className='line-through'>完成新版样式...</li>
             </ul>
           </section>

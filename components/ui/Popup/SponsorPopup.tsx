@@ -8,8 +8,8 @@ import s from './style.module.scss';
 const SponsorPopup = () => {
   const [type, setType] = useState<'wechatpay' | 'alipay'>('wechatpay');
   return (
-    <Container className='max-w-[90%] border-8 border-white-3 bg-white-1'>
-      <div className='my-16 text-center'>
+    <Container className='max-w-[90%] border-8 border-white-3 bg-white-1 sm:px-8'>
+      <div className='my-8 text-center sm:my-16'>
         <MyImage
           src={`/${type}.png`}
           className={classNames(

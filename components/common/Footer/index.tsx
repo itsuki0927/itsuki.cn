@@ -41,13 +41,24 @@ const Footer = () => {
               <a className='text-gray-500 transition hover:text-gray-600'>About</a>
             </Link>
           </div>
-          <div className='flex flex-col space-y-2 sm:space-y-4'>
+          <div className='flex  flex-col space-y-2 sm:space-y-4'>
             <span className='font-medium'>社区</span>
-            <ExternalLink href='https://github.com/itsuki0927'>GitHub</ExternalLink>
-            <ExternalLink href='https://juejin.cn/user/2436173499466350'>
+            <ExternalLink
+              className='text-gray-500 transition hover:text-gray-600'
+              href='https://github.com/itsuki0927'
+            >
+              GitHub
+            </ExternalLink>
+            <ExternalLink
+              className='text-gray-500 transition hover:text-gray-600'
+              href='https://juejin.cn/user/2436173499466350'
+            >
               Juejin
             </ExternalLink>
-            <ExternalLink href='https://segmentfault.com/u/itsuki0927'>
+            <ExternalLink
+              className='text-gray-500 transition hover:text-gray-600'
+              href='https://segmentfault.com/u/itsuki0927'
+            >
               Sifou
             </ExternalLink>
           </div>

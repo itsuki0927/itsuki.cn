@@ -3,6 +3,7 @@ import Link from 'next/link';
 import useDelayedRender from 'use-delayed-render';
 import { useState, useEffect } from 'react';
 import styles from './mobile-menu.module.css';
+import { IconNav } from '../Navbar';
 
 const MenuIcon = (props: JSX.IntrinsicElements['svg']) => (
   <svg
@@ -88,46 +89,58 @@ const MobileMenu = () => {
         <CrossIcon data-hide={!isMenuOpen} />
       </button>
       {isMenuMounted && (
-        <ul
+        <div
           className={cn(
             styles.menu,
             'absolute flex flex-col bg-white',
             isMenuRendered && styles.menuRendered
           )}
         >
-          <li
-            className='border-b border-gray-300 text-sm font-semibold text-gray-900'
-            style={{ transitionDelay: '150ms' }}
-          >
-            <Link href='/'>
-              <a className='flex w-auto pb-4'>首页</a>
-            </Link>
-          </li>
-          <li
-            className='border-b border-gray-300 text-sm font-semibold text-gray-900'
-            style={{ transitionDelay: '250ms' }}
-          >
-            <Link href='/guestbook'>
-              <a className='flex w-auto pb-4'>留言板</a>
-            </Link>
-          </li>
-          <li
-            className='border-b border-gray-300 text-sm font-semibold text-gray-900'
-            style={{ transitionDelay: '275ms' }}
-          >
-            <Link href='/archive'>
-              <a className='flex w-auto pb-4'>归档</a>
-            </Link>
-          </li>
-          <li
-            className='border-b border-gray-300 text-sm font-semibold text-gray-900'
-            style={{ transitionDelay: '300ms' }}
-          >
-            <Link href='/about'>
-              <a className='flex w-auto pb-4'>关于</a>
-            </Link>
-          </li>
-        </ul>
+          <ul className='flex flex-col space-y-6'>
+            <li
+              className='border-b border-gray-300 text-sm font-semibold text-gray-900'
+              style={{ transitionDelay: '150ms' }}
+            >
+              <Link href='/'>
+                <a className='flex w-auto pb-4'>首页</a>
+              </Link>
+            </li>
+            <li
+              className='border-b border-gray-300 text-sm font-semibold text-gray-900'
+              style={{ transitionDelay: '150ms' }}
+            >
+              <Link href='/'>
+                <a className='flex w-auto pb-4'>文章</a>
+              </Link>
+            </li>
+            <li
+              className='border-b border-gray-300 text-sm font-semibold text-gray-900'
+              style={{ transitionDelay: '250ms' }}
+            >
+              <Link href='/guestbook'>
+                <a className='flex w-auto pb-4'>留言板</a>
+              </Link>
+            </li>
+            <li
+              className='border-b border-gray-300 text-sm font-semibold text-gray-900'
+              style={{ transitionDelay: '275ms' }}
+            >
+              <Link href='/archive'>
+                <a className='flex w-auto pb-4'>归档</a>
+              </Link>
+            </li>
+            <li
+              className='border-b border-gray-300 text-sm font-semibold text-gray-900'
+              style={{ transitionDelay: '300ms' }}
+            >
+              <Link href='/about'>
+                <a className='flex w-auto pb-4'>关于</a>
+              </Link>
+            </li>
+          </ul>
+
+          <IconNav className='mt-6 flex' />
+        </div>
       )}
     </>
   );

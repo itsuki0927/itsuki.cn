@@ -26,7 +26,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
       onClick={() => router.push(getArticleDetailRoute(article.id))}
     />
 
-    <p className='mt-5 mb-3 text-sm text-gray-2 before:border-l-2 before:border-l-wechat before:pr-2'>
+    <p className='mt-5 mb-3 text-sm text-gray-2 before:border-l-2 before:border-l-primary before:pr-2'>
       {article.tags?.map(v => v.name).join('、')}
     </p>
 
@@ -37,7 +37,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
       {article.title}
     </h3>
 
-    <div className='mb-1 flex items-end space-x-6 text-sm text-gray-1'>
+    <div className='mb-1 flex items-end space-x-6 text-sm text-gray-2'>
       <ToDate date={article.createAt} />
       <span className='mx-2'>/</span>
       {article.author}

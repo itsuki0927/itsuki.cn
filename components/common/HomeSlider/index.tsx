@@ -25,7 +25,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
         >
           <MyImage src={article?.cover} width={500} height={300} />
           <div className='prose md:ml-10'>
-            <p className='mt-5 mb-3 text-gray-2 before:border-l-2 before:border-l-wechat before:pr-2'>
+            <p className='mt-5 mb-3 text-gray-2 before:border-l-2 before:border-l-primary before:pr-2'>
               {article?.tags?.map(v => v.name).join('、')}
             </p>
 
@@ -40,7 +40,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
               {article?.description}
             </p>
 
-            <div className='mb-1 flex items-end space-x-6 text-gray-1'>
+            <div className='mb-1 flex items-end space-x-6 text-gray-2'>
               <ToDate date={article?.createAt} />
               <span className='mx-2'>/</span>
               {article?.author}

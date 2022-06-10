@@ -6,6 +6,7 @@ import { useUI } from '../ui/context';
 import Description from './Description';
 import ExperienceList from './ExperienceList';
 import HoobyList from './HoobyList';
+import { ExternalLink } from '../common';
 
 interface BlogEntryProps {
   body: string;
@@ -20,14 +21,12 @@ function BlogEntry({ body, url, author }: BlogEntryProps) {
       <div className='flex items-center space-x-3'>
         <p className='my-0 text-sm'>{author}</p>
         <span className='text-gray-1'>/</span>
-        <a
+        <ExternalLink
           href={url}
           className='text-sm text-gray-3 transition-colors hover:text-dark-2'
-          target='_blank'
-          rel='noreferrer'
         >
           Github
-        </a>
+        </ExternalLink>
       </div>
     </div>
   );
@@ -45,17 +44,18 @@ const AboutView = () => {
           <ul>
             <li>
               GitHub:{' '}
-              <a href='https://github.com/itsuki0927' target='_blank' rel='noreferrer'>
+              <ExternalLink href='https://github.com/itsuki0927'>
                 @itsuki0927
-              </a>
+              </ExternalLink>
             </li>
             <li>
               Website: <Link href='https://itsuki.cn'>https://itsuki.cn</Link>
             </li>
             <li>
-              Wechat: {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              Wechat:
               <a
-                href='#'
+                tabIndex={0}
+                role='button'
                 onClick={e => {
                   e.preventDefault();
                   setPopupView('WECHAT_VIEW');
@@ -70,23 +70,15 @@ const AboutView = () => {
             </li>
             <li>
               Sifou:{' '}
-              <a
-                href='https://segmentfault.com/u/itsuki0927'
-                target='_blank'
-                rel='noreferrer'
-              >
+              <ExternalLink href='https://segmentfault.com/u/itsuki0927'>
                 @你要不要喝奶茶
-              </a>
+              </ExternalLink>
             </li>
             <li>
               Juejin:{' '}
-              <a
-                href='https://juejin.cn/user/2436173499466350'
-                target='_blank'
-                rel='noreferrer'
-              >
+              <ExternalLink href='https://juejin.cn/user/2436173499466350'>
                 @你要不要喝奶茶
-              </a>
+              </ExternalLink>
             </li>
           </ul>
         </section>

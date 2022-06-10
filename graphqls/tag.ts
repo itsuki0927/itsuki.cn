@@ -21,7 +21,9 @@ export const QUERY_TAGS = gql`
 export const QUERY_TAG_PATHS = gql`
   query findTagPaths {
     tags {
-      path
+      data {
+        path
+      }
     }
   }
 `;

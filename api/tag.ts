@@ -14,6 +14,5 @@ export const getAllTags = async () => {
   const { tags } = await request<QueryTagResponse, any>(endpoint, QUERY_TAGS, {
     search: {},
   });
-  console.log('data', tags);
   return tags.data;
 };

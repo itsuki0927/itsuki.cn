@@ -9,10 +9,10 @@ import { Layout, Navbar } from '@/components/common';
 import { Banner, BannerSkeleton } from '@/components/ui';
 import { articleKeys, tagKeys } from '@/constants/queryKeys';
 import { useTagArticles } from '@/hooks/article';
-import { useGlobalData } from '@/hooks/globalData';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
+import useTags from '@/hooks/tag';
 
 export const getStaticPaths = async () => {
   const paths = await getAllTagPaths();
@@ -45,9 +45,9 @@ const ArticleTagPage = ({
   tagPath,
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const articles = useTagArticles(tagPath);
-  const { data } = useGlobalData();
+  const { data } = useTags();
   const { isFallback } = useRouter();
-  const tag = data?.tags ? data.tags.find(item => item.path === tagPath) : undefined;
+  const tag = data ? data.find(item => item.path === tagPath) : undefined;
 
   useMount(() => {
     gtag.event('tag_view', {
@@ -58,11 +58,12 @@ const ArticleTagPage = ({
 
   if (isFallback || articles.isFetching || articles.isLoading) {
     return (
-      <div className='space-y-6'>
-        <BannerSkeleton />
-
-        <ArticleSkeletonList />
-      </div>
+      <Layout>
+        <div className='space-y-6'>
+          <BannerSkeleton />
+          <ArticleSkeletonList />
+        </div>
+      </Layout>
     );
   }
 

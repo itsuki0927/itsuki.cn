@@ -49,7 +49,7 @@ const HomePage = () => {
         <div className='prose max-w-full'>
           <section className='space-y-4'>
             <div className='flex items-end justify-between px-4'>
-              <h2>最近文章</h2>
+              <h2 className='capsize mb-5'>最近文章</h2>
               <Link href='/blog'>
                 <p className='flex cursor-pointer items-center transition-colors hover:text-primary'>
                   <span className='capsize mr-2'>查看更多</span>
@@ -64,7 +64,7 @@ const HomePage = () => {
         <div className='prose max-w-full'>
           <section className='space-y-4'>
             <div className='flex items-end justify-between px-4'>
-              <h2>标签</h2>
+              <h2 className='capsize mb-5'>标签</h2>
               <p>{tags?.length} Tags</p>
             </div>
             <div className='flex flex-wrap space-y-4 space-x-4 px-4'>
@@ -85,7 +85,7 @@ const HomePage = () => {
         <div className='prose max-w-full'>
           <section className='space-y-4'>
             <div className='flex items-end justify-between px-4'>
-              <h2>代办</h2>
+              <h2 className='capsize mb-5'>代办</h2>
               <p>3 Actives</p>
             </div>
             <ul className='flex flex-col px-4'>

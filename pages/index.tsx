@@ -71,12 +71,12 @@ const HomePage = () => {
               <h2 className='capsize mb-5'>标签</h2>
               <p>{tags?.length} Tags</p>
             </div>
-            <div className='flex flex-wrap space-y-4 space-x-4 px-4'>
+            <div className='not-prose flex flex-wrap px-4'>
               {tags?.map(tag => (
                 <Link href={getTagRoute(tag.path)}>
                   <a
                     key={tag.path}
-                    className='rounded-sm bg-white-2 py-[6px] px-6 hover:bg-white-3'
+                    className='mr-4 mb-4 rounded-sm bg-white-2 py-1 px-4 align-bottom hover:bg-white-3 sm:py-[6px] sm:px-6'
                   >
                     {tag.name}
                   </a>

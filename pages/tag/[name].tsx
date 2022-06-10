@@ -74,7 +74,7 @@ const ArticleTagPage = ({
           <Navbar />
           <Banner
             className='container'
-            title={`标签: ${tag?.name}`}
+            title={`标签: ${tag?.name} (${tag?.count})`}
             description={tag?.description}
           />
         </div>

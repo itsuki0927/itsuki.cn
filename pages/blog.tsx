@@ -40,7 +40,7 @@ const BlogPage = () => {
             <h1 className='mb-4 text-3xl font-medium tracking-tight text-dark-3 md:text-5xl'>
               文章
             </h1>
-            <p>你看的每一个文字, 都是我走过的路</p>
+            <p>这里的每一个文字, 都是我走过的路</p>
           </div>
         </div>
       }

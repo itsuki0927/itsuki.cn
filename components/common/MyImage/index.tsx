@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Image, { ImageLoaderProps, ImageProps } from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export type MyImageProps = Omit<
   ImageProps,
@@ -50,11 +50,12 @@ const MyImage = ({ className, imgClassName, circle, src, ...rest }: MyImageProps
   const { width = 0, height = 0 } = rest;
   const [innerSrc, setInnerSrc] = useState(src);
 
-  // useEffect(() => {
-  //   if (src !== innerSrc) {
-  //     setInnerSrc(src);
-  //   }
-  // }, [innerSrc, src]);
+  useEffect(() => {
+    if (src !== innerSrc) {
+      setInnerSrc(src);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [src]);
 
   if (width > 40 || height > 40) {
     placeholderProps.placeholder = 'blur';

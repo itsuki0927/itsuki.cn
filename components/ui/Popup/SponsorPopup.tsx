@@ -10,16 +10,19 @@ const SponsorPopup = () => {
   return (
     <Container className='max-w-[90%] border-8 border-white-3 bg-white-1 sm:px-8'>
       <div className='my-8 text-center sm:my-16'>
-        <MyImage
-          src={`/${type}.png`}
+        <figure
           className={classNames(
             s.sponsor,
             type === 'wechatpay' ? 'text-wechat' : 'text-primary'
           )}
-          imgClassName='rounded-sm opacity-80'
-          width={150}
-          height={150}
-        />
+        >
+          <MyImage
+            src={`/${type}.png`}
+            className='rounded-sm opacity-80'
+            width={150}
+            height={150}
+          />
+        </figure>
         <p className='mt-4 text-sm'>
           请使用{type === 'wechatpay' ? '微信' : '支付宝'}扫码
         </p>

@@ -9,6 +9,7 @@ export { default as EyeCloseFilled } from './EyeCloseFilled';
 export { default as EyeFilled } from './EyeFilled';
 export { default as EyeOutlined } from './EyeOutlined';
 export { default as GithubOutlined } from './GithubOutlined';
+export { default as GithubIcon } from './GithubIcon';
 export { default as Icon } from './Icon/index';
 export { default as LeftOutlined } from './LeftOutlined';
 export { default as LikeFilled } from './LikeFilled';

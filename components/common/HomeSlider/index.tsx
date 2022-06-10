@@ -40,7 +40,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
             </p>
 
             <h3
-              className='capsize mt-0 mb-3 cursor-pointer text-2xl text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary'
+              className='mt-0 mb-3 cursor-pointer text-2xl text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary'
               onClick={() => router.push(getArticleDetailRoute(article?.id))}
             >
               {article?.title}

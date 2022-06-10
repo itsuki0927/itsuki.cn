@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { LogoJsonLd } from 'next-seo';
-import { RESOURCE_URL, WEB_URL } from '@/configs/app';
+import { WEB_URL } from '@/configs/app';
 import { MyImage } from '..';
 
 const Logo = () => (
   <Link href='/'>
-    <>
+    <a>
       <MyImage
         src='/logo.png'
         objectFit='cover'
@@ -15,8 +15,8 @@ const Logo = () => (
         alt='logo'
         className='h-full'
       />
-      <LogoJsonLd logo={`${RESOURCE_URL}/logo.png`} url={WEB_URL} />
-    </>
+      <LogoJsonLd logo='/logo.png' url={WEB_URL} />
+    </a>
   </Link>
 );
 

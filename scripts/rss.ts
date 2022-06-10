@@ -10,14 +10,14 @@ const generateRSSFeed = async () => {
   const baseUrl = META.url;
   const author = {
     name: META.author,
-    email: META.url,
+    email: META.email,
     link: META.url,
   };
+  const copyright = `All rights reserved ${now.getFullYear()}, Itsuki`;
 
   const feed = new Feed({
     title: META.title,
-    description:
-      'You can find me talking about topics related to JavaScript, TypeScript, React, Web development and technical/coding interviews',
+    description: META.description,
     id: baseUrl,
     link: baseUrl,
     language: 'zh',
@@ -26,23 +26,26 @@ const generateRSSFeed = async () => {
     },
     updated: now,
     author,
-    copyright: `All rights reserved ${now.getFullYear()}, Itsuki`,
+    copyright,
   });
 
   articles.data?.forEach(article => {
-    const { title, cover, createAt, id, description } = article;
-    const url = getArticleDetailFullUrl(id);
+    const { title, tags, content, cover: image, createAt, id, description } = article;
+    const link = getArticleDetailFullUrl(id);
+    const date = new Date(createAt);
 
     feed.addItem({
       title,
       description,
-      image: cover,
-      id: url,
-      link: url,
-      content: description,
+      content,
+      copyright,
+      link,
+      image,
+      date,
+      category: tags.map(tag => ({ name: tag.name })),
+      id: `${id}`,
       author: [author],
-      date: new Date(createAt),
-      published: new Date(createAt),
+      published: date,
     });
   });
 

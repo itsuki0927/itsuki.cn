@@ -1,5 +1,3 @@
-import { ArticleOrigin } from '@/constants/article/origin';
-import { ArticleOpen } from '@/constants/article/public';
 import { Comment } from './comment';
 import { IdentifiableEntity, SearchRequest, SearchResponse } from '../types/response';
 import { Tag } from './tag';
@@ -14,8 +12,6 @@ export type Article = IdentifiableEntity<{
   cover: string;
   status: number;
   keywords: string;
-  open: ArticleOpen;
-  origin: ArticleOrigin;
   publish: number;
   banner: number;
   reading: number;

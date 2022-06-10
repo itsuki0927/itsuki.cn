@@ -17,7 +17,7 @@ import {
   QUERY_ARTICLE_PATHS,
   READ_ARTICLE,
 } from '@/graphqls/article';
-import { DEFAULT_CURRENT } from '@/constants/pagination';
+import { DEFAULT_CURRENT } from '@/constants/value';
 
 export const getArticles = async (params?: SearchArticlesBody) => {
   const { articles } = await request<QueryArticlesResponse, QueryArticleSearch>(

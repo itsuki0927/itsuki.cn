@@ -38,7 +38,7 @@ const ArchivePage = () => {
             <h1 className='mb-4 text-3xl font-medium tracking-tight text-dark-3 md:text-5xl'>
               归档
             </h1>
-            <p>将文章归档</p>
+            <p>给文章加上日期, 留在过往的时光</p>
           </div>
         </div>
       }

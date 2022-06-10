@@ -1,8 +1,9 @@
+import toast from 'react-hot-toast';
 import Head from 'next/head';
 import useTheme from '@/hooks/useTheme';
 
 const ThemeSwitch = () => {
-  const [theme, setTheme] = useTheme();
+  const [theme] = useTheme();
   return (
     <>
       <Head>
@@ -13,7 +14,9 @@ const ThemeSwitch = () => {
         aria-label='Toggle Dark Mode'
         type='button'
         className='flex h-6 w-6 items-center justify-center rounded-lg transition-all'
-        onClick={setTheme}
+        onClick={() => {
+          toast.loading('暗黑模式秃头开发中...');
+        }}
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'

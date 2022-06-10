@@ -1,3 +1,4 @@
+export { default as ExternalLink } from './ExternalLink';
 export { default as Footer } from './Footer';
 export { default as GA } from './GA';
 export { default as HomeSlider } from './HomeSlider';

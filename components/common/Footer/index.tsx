@@ -1,23 +1,7 @@
 import Link from 'next/link';
-import { ReactNode } from 'react';
 import { getTagRoute } from '@/utils/url';
 import useTags from '@/hooks/tag';
-
-interface ExternalLinkProps {
-  href: string;
-  children: ReactNode;
-}
-
-const ExternalLink = ({ href, children }: ExternalLinkProps) => (
-  <a
-    className='text-gray-500 transition hover:text-gray-600'
-    target='_blank'
-    rel='noopener noreferrer'
-    href={href}
-  >
-    {children}
-  </a>
-);
+import ExternalLink from '../ExternalLink';
 
 const Footer = () => {
   const { data } = useTags();

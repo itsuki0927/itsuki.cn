@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
 import { getBannerArticles, getRecentArticles } from '@/api/article';
 import { ArticleList, ArticleSkeletonList } from '@/components/article';
@@ -28,7 +27,6 @@ export const getStaticProps = async () => {
 };
 
 const HomePage = () => {
-  const router = useRouter();
   const articles = useRecentArticles();
   const { data: tags } = useTags();
   const { data: bannerArticles } = useBannerArticles();
@@ -71,14 +69,14 @@ const HomePage = () => {
             </div>
             <div className='flex flex-wrap space-y-4 space-x-4 px-4'>
               {tags?.map(tag => (
-                <button
-                  type='button'
-                  key={tag.path}
-                  onClick={() => router.push(getTagRoute(tag.path))}
-                  className='rounded-sm bg-white-2 py-2 px-6 hover:bg-white-3'
-                >
-                  {tag.name}
-                </button>
+                <Link href={getTagRoute(tag.path)}>
+                  <a
+                    key={tag.path}
+                    className='rounded-sm bg-white-2 py-[6px] px-6 hover:bg-white-3'
+                  >
+                    {tag.name}
+                  </a>
+                </Link>
               ))}
             </div>
           </section>

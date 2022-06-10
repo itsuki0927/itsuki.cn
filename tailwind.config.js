@@ -47,10 +47,10 @@ module.exports = {
           DEFAULT: {
             css: {
               a: {
-                color: 'var(--text-primary)',
+                color: 'var(--primary)',
                 transition: 'color 0.3s ease',
                 '&:hover': {
-                  color: 'var(--text-primary-hover)',
+                  color: 'var(--primary-hover)',
                 },
               },
               'blockquote p': {
@@ -65,9 +65,6 @@ module.exports = {
                 fontSize,
                 lineHeight,
                 fontFamily: 'Fira Code',
-              },
-              img: {
-                cursor: 'pointer',
               },
             },
           },

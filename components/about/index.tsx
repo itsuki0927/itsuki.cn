@@ -38,7 +38,7 @@ const AboutView = () => {
     <div className='mx-auto tracking-wider'>
       <NextSeo title='关于' />
 
-      <div className='prose max-w-full px-4'>
+      <div className='prose prose-zinc max-w-full px-4'>
         <section className='space-y-4'>
           <h2>一堆链接</h2>
           <ul>

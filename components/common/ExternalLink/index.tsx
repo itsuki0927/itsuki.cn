@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { ReactNode } from 'react';
 
 type ExternalLinkProps = Omit<
@@ -12,7 +11,7 @@ type ExternalLinkProps = Omit<
 const ExternalLink = ({ href, children, className = '', ...rest }: ExternalLinkProps) => (
   <a
     {...rest}
-    className={classNames('text-gray-500 transition hover:text-gray-600', className)}
+    className={className}
     target='_blank'
     rel='noopener noreferrer'
     href={href}

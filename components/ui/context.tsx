@@ -10,22 +10,10 @@ import {
 export type UIParams = Record<string, any>;
 
 export interface UIContextType {
-  // sidebar action
-  openSidebar: (params?: UIParams) => void;
-  setSidebarView: (view: SidebarViews) => void;
-  closeSidebar: () => void;
-  toggleSidebar: () => void;
-  closeSidebarIfPresent: () => void;
-
   // popup action
   openPopup: (params?: UIParams) => void;
   setPopupView: (view: PopupViews) => void;
   closePopup: () => void;
-
-  // sidebar args
-  sidebarView: SidebarViews;
-  displaySidebar: boolean;
-  sidebarParams?: UIParams;
 
   // popup args
   popupView: PopupViews;
@@ -59,13 +47,6 @@ const initialState: State = {
 
 type Action =
   | {
-      type: 'OPEN_SIDEBAR';
-      params?: UIParams;
-    }
-  | {
-      type: 'CLOSE_SIDEBAR';
-    }
-  | {
       type: 'OPEN_POPUP';
       params?: UIParams;
     }
@@ -75,10 +56,6 @@ type Action =
   | {
       type: 'SET_POPUP_VIEW';
       view: PopupViews;
-    }
-  | {
-      type: 'SET_SIDEBAR_VIEW';
-      view: SidebarViews;
     };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -94,25 +71,6 @@ UIContext.displayName = 'UIContext';
 function uiReducer(state: State, action: Action) {
   // eslint-disable-next-line default-case
   switch (action.type) {
-    case 'OPEN_SIDEBAR': {
-      return {
-        ...state,
-        sidebar: {
-          ...state.sidebar,
-          ...(action.params && { params: { ...state.sidebar.params, ...action.params } }),
-          display: true,
-        },
-      };
-    }
-    case 'CLOSE_SIDEBAR': {
-      return {
-        ...state,
-        sidebar: {
-          ...state.sidebar,
-          display: false,
-        },
-      };
-    }
     case 'OPEN_POPUP': {
       return {
         ...state,
@@ -141,37 +99,11 @@ function uiReducer(state: State, action: Action) {
         },
       };
     }
-    case 'SET_SIDEBAR_VIEW': {
-      return {
-        ...state,
-        sidebar: {
-          ...state.sidebar,
-          view: action.view,
-        },
-      };
-    }
   }
 }
 
 export const UIProvider = (props: PropsWithChildren<Record<string, any>>) => {
   const [state, dispatch] = useReducer(uiReducer, initialState);
-
-  const openSidebar = useCallback(
-    (params?: UIParams) => dispatch({ type: 'OPEN_SIDEBAR', params }),
-    [dispatch]
-  );
-  const closeSidebar = useCallback(() => dispatch({ type: 'CLOSE_SIDEBAR' }), [dispatch]);
-  const toggleSidebar = useCallback(
-    () =>
-      state.sidebar.display
-        ? dispatch({ type: 'CLOSE_SIDEBAR' })
-        : dispatch({ type: 'OPEN_SIDEBAR' }),
-    [dispatch, state.sidebar.display]
-  );
-  const closeSidebarIfPresent = useCallback(
-    () => state.sidebar.display && dispatch({ type: 'CLOSE_SIDEBAR' }),
-    [dispatch, state.sidebar.display]
-  );
 
   const openPopup = useCallback(
     (params?: UIParams) => dispatch({ type: 'OPEN_POPUP', params }),
@@ -184,28 +116,15 @@ export const UIProvider = (props: PropsWithChildren<Record<string, any>>) => {
     [dispatch]
   );
 
-  const setSidebarView = useCallback(
-    (view: SidebarViews) => dispatch({ type: 'SET_SIDEBAR_VIEW', view }),
-    [dispatch]
-  );
-
   const value = useMemo(
     () => ({
-      sidebarView: state.sidebar.view,
-      displaySidebar: state.sidebar.display,
-      sidebarParams: state.sidebar.params,
       popupView: state.popup.view,
       displayPopup: state.popup.display,
       popupParams: state.popup.params,
 
-      openSidebar,
-      closeSidebar,
-      toggleSidebar,
-      closeSidebarIfPresent,
       openPopup,
       closePopup,
       setPopupView,
-      setSidebarView,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state]

@@ -30,7 +30,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
       {articles?.map(article => (
         <SwiperSlide
           role='banner'
-          className='group relative flex flex-col items-start opacity-90 transition-opacity md:flex-row md:items-center'
+          className='group relative flex flex-col items-start pb-6 opacity-90 transition-opacity sm:pb-0 md:flex-row md:items-center'
           key={article.id}
         >
           <MyImage src={article?.cover} width={500} height={300} />

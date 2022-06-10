@@ -7,6 +7,7 @@ import { getAllTags } from '@/api/tag';
 import { ArticlePagination, ArticleSkeleton } from '@/components/article';
 import ArticleContent from '@/components/article/ArticleContent';
 import ArticleHeader from '@/components/article/ArticleHeader';
+import ArticleAside from '@/components/article/ArticleAside';
 import RelateArticles, {
   RelateArticleSkeleton,
 } from '@/components/article/RelateArticles';
@@ -16,7 +17,6 @@ import {
   CommentView,
 } from '@/components/comment';
 import { Layout, Navbar } from '@/components/common';
-import ArticleNav from '@/components/common/StandardSidebar/ArticleNav';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, tagKeys } from '@/constants/queryKeys';
 import { useMount } from '@/hooks';
@@ -119,7 +119,7 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
         </div>
 
         <div className='hidden flex-grow sm:block'>
-          <ArticleNav article={article} />
+          <ArticleAside article={article} />
         </div>
       </div>
 

@@ -1,4 +1,5 @@
-import { EffectFade } from 'swiper';
+import classNames from 'classnames';
+import { EffectFade, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import router from 'next/router';
 import React from 'react';
@@ -9,18 +10,27 @@ import { SiteInfo } from '@/entities/siteInfo';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
+import s from './style.module.css';
 
 type HomeSliderProps = {
   articles?: SiteInfo['bannerArticles'];
 };
 
 const HomeSlider = ({ articles }: HomeSliderProps) => (
-  <div className='container'>
-    <Swiper lazy modules={[EffectFade]} scrollbar={{ draggable: true }}>
+  <div className={classNames('container px-4', s.slider)}>
+    <Swiper
+      lazy
+      modules={[Pagination, EffectFade]}
+      pagination={{
+        clickable: true,
+        type: 'bullets',
+      }}
+      scrollbar={{ draggable: true }}
+    >
       {articles?.map(article => (
         <SwiperSlide
           role='banner'
-          className='group relative flex flex-col items-start px-4 opacity-90 transition-opacity md:flex-row md:items-center'
+          className='group relative flex flex-col items-start opacity-90 transition-opacity md:flex-row md:items-center'
           key={article.id}
         >
           <MyImage src={article?.cover} width={500} height={300} />
@@ -36,7 +46,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
               {article?.title}
             </h3>
 
-            <p className='capsize mt-0 mb-3 cursor-pointer text-lg text-gray-3'>
+            <p className='capsize mt-0 mb-3 cursor-pointer text-lg text-gray-3 line-clamp-1'>
               {article?.description}
             </p>
 

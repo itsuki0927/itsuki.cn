@@ -1,0 +1,12 @@
+.slider :global(.swiper-pagination-bullet) {
+  @apply h-2 w-2 rounded-sm bg-gray-3 transition-all duration-300 sm:bg-[#ffffffcc];
+}
+
+.slider :global(.swiper-pagination-bullet-active) {
+  @apply w-6 bg-primary;
+}
+
+.slider :global(.swiper-pagination) {
+  @apply bottom-0 sm:bottom-2;
+  max-width: 500px;
+}

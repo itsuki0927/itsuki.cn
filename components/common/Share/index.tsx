@@ -66,7 +66,7 @@ const socials: SocialItem[] = [
 ];
 
 const Share = () => {
-  const { openPopup } = useUI();
+  const { openPopup, setPopupView } = useUI();
   const router = useRouter();
   const getURL = () => getPageUrl(router.asPath);
   const getTitle = () => document.title || META.title;
@@ -97,6 +97,7 @@ const Share = () => {
     });
     if (social.asyncUrl) {
       const src = await social.asyncUrl(shareParams);
+      setPopupView('IMAGE_VIEW');
       openPopup({ src });
     } else {
       window.open(social.url!(shareParams), `分享到${social.name}`);

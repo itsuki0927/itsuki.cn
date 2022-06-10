@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { Share } from '@/components/common';
 import { GAEventCategories } from '@/constants/gtag';
 import { ArticleDetailResponse } from '@/entities/article';
@@ -18,10 +19,12 @@ const ArticleAction = ({ article, openPopup }: ArticleActionProps) => {
       <FavoriteButton
         isLike={isLike}
         onLike={() => {
-          mutation.mutateAsync();
-          gtag.event('like_article', {
-            category: GAEventCategories.Article,
-            label: article.title,
+          mutation.mutateAsync().then(() => {
+            toast.success('感谢你对我的鼓励!!!');
+            gtag.event('like_article', {
+              category: GAEventCategories.Article,
+              label: article.title,
+            });
           });
         }}
         liking={article.liking}

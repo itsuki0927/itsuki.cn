@@ -66,6 +66,11 @@ module.exports = {
                 lineHeight,
                 fontFamily: 'Fira Code',
               },
+              img: {
+                textAlign: 'center',
+                margin: '0 auto',
+                maxHeight: theme('maxHeight.96'),
+              },
             },
           },
         };

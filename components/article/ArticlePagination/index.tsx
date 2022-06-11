@@ -24,16 +24,16 @@ const ArticlePagination = ({ prevArticle, nextArticle }: ArticlePaginationProps)
                 category: GAEventCategories.Article,
               });
             }}
-            className='cursor-pointer text-sm text-gray-1 transition-colors duration-500 line-clamp-1 hover:text-dark-2 '
+            className='cursor-pointer text-sm text-gray-2 transition-colors duration-500 line-clamp-1 hover:text-dark-2 '
           >
             {prevArticle.title}
           </h3>
         ) : (
-          <h3 className='text-sm text-gray-1'>无</h3>
+          <h3 className='text-sm text-gray-2'>无</h3>
         )}
       </div>
 
-      <div className='w-1/2 bg-white py-2 px-4 text-right sm:py-4 sm:px-6 '>
+      <div className='w-1/2 bg-white py-2 px-4 text-right sm:py-4 sm:px-6'>
         <span className='mb-2'>下一篇</span>
         {nextArticle ? (
           <h3
@@ -44,12 +44,12 @@ const ArticlePagination = ({ prevArticle, nextArticle }: ArticlePaginationProps)
                 category: GAEventCategories.Article,
               });
             }}
-            className='cursor-pointer text-right text-sm text-gray-1 transition-colors duration-500 line-clamp-1 hover:text-dark-2 '
+            className='cursor-pointer text-right text-sm text-gray-2 transition-colors duration-500 line-clamp-1 hover:text-dark-2 '
           >
             {nextArticle.title}
           </h3>
         ) : (
-          <h3 className='text-sm text-gray-1 '>无</h3>
+          <h3 className='text-sm text-gray-2'>无</h3>
         )}
       </div>
     </div>

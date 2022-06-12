@@ -108,6 +108,7 @@ const Share = () => {
     <div className='flex items-center space-x-4'>
       {socials.map(social => (
         <button
+          aria-label={`share to ${social.name}`}
           type='button'
           key={social.id}
           className={classNames(s.ejector, s[social.id])}
@@ -119,6 +120,7 @@ const Share = () => {
       ))}
       <button
         type='button'
+        aria-label='copy article link'
         className={classNames(s.ejector, s.link)}
         onClick={copyPageURL}
       >

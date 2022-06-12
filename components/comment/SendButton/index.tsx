@@ -9,6 +9,7 @@ interface SendButtonProps {
 
 const SendButton = ({ onConfirm, loading, nickname = '无名氏' }: SendButtonProps) => (
   <button
+    aria-label='push comment'
     disabled={loading}
     type='button'
     className={classNames(

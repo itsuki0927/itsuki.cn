@@ -19,6 +19,7 @@ const Toolbar = ({ preview, onPreview, children }: ToolbarProps) => (
   <div className='flex justify-between bg-white-2 leading-9'>
     <div className='flex'>
       <button
+        aria-label='preview markdown'
         type='button'
         className={classNames(
           'px-3 text-xxs text-gray-3 hover:bg-white-3 hover:text-dark-1'

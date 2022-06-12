@@ -90,6 +90,7 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
 
           <button
             type='button'
+            aria-label='insert emoji'
             className={classNames(
               s.emoji,
               'px-3 text-xxs text-gray-3 hover:bg-white-3 hover:text-dark-1'
@@ -106,6 +107,7 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
               {EMOJIS.map(emoji => (
                 <button
                   type='button'
+                  aria-label='emoji'
                   className='inline-block cursor-pointer rounded-sm py-1 px-2 text-xl hover:bg-[#ccc]'
                   onClick={() => insertEmoji(emoji)}
                   key={emoji}

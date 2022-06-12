@@ -16,6 +16,7 @@ const FavoriteButton = ({ isLike, liking, onLike }: FavoriteButtonProps) => {
 
   return (
     <button
+      aria-label='favorite article'
       type='button'
       className={classNames(
         'flex flex-grow items-center justify-center rounded-sm bg-danger px-6 py-2 text-sm font-medium text-white outline-none sm:max-w-[140px]',

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { EffectFade, Pagination } from 'swiper';
+import { A11y, Autoplay, Keyboard, Lazy, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import router from 'next/router';
 import React from 'react';
@@ -9,7 +9,7 @@ import { getArticleDetailRoute } from '@/utils/url';
 import { SiteInfo } from '@/entities/siteInfo';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import 'swiper/css/effect-fade';
+import 'swiper/css/autoplay';
 import s from './style.module.css';
 
 type HomeSliderProps = {
@@ -20,12 +20,21 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
   <div className={classNames('container px-4', s.slider)}>
     <Swiper
       lazy
-      modules={[Pagination, EffectFade]}
+      autoplay
+      loop
+      modules={[Pagination, A11y, Autoplay, Lazy, Keyboard]}
       pagination={{
         clickable: true,
         type: 'bullets',
       }}
-      scrollbar={{ draggable: true }}
+      keyboard={{
+        enabled: true,
+        onlyInViewport: true,
+      }}
+      a11y={{
+        prevSlideMessage: 'Previous slide',
+        nextSlideMessage: 'Next slide',
+      }}
     >
       {articles?.map(article => (
         <SwiperSlide

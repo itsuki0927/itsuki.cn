@@ -1,17 +1,28 @@
+import toast from 'react-hot-toast';
 import classNames from 'classnames';
 import { LikeFilled, LikeOutlined } from '@/components/icons';
+import { useLikeArticle } from '@/hooks/article';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
+import { ArticleDetailResponse } from '@/entities/article';
 
 interface FavoriteButtonProps {
-  liking?: number;
-  isLike?: boolean;
-  onLike?: () => void;
+  article: ArticleDetailResponse;
 }
 
-const FavoriteButton = ({ isLike, liking, onLike }: FavoriteButtonProps) => {
+const FavoriteButton = ({ article }: FavoriteButtonProps) => {
+  const { isLike, mutation } = useLikeArticle(article.id);
+
   const handleLike = () => {
     if (isLike) return;
 
-    onLike?.();
+    mutation.mutateAsync().then(() => {
+      toast.success('感谢你对我的鼓励!!!');
+      gtag.event('like_article', {
+        category: GAEventCategories.Article,
+        label: article.title,
+      });
+    });
   };
 
   return (
@@ -27,7 +38,7 @@ const FavoriteButton = ({ isLike, liking, onLike }: FavoriteButtonProps) => {
       onClick={handleLike}
     >
       {isLike ? <LikeFilled className='mr-2' /> : <LikeOutlined className='mr-2' />}
-      <strong className='capsize font-medium'>{liking}</strong>
+      <strong className='capsize font-medium'>{article.liking}</strong>
     </button>
   );
 };

@@ -6,8 +6,10 @@ import { useEventListener } from '../index';
 type SetValue<T> = Dispatch<SetStateAction<T>>;
 
 const useLocalStorage = <T>(key: string, initialValue: T): [T, SetValue<T>] => {
+  const hasWindow = typeof window !== 'undefined';
+
   const readValue = (): T => {
-    if (typeof window === 'undefined') return initialValue;
+    if (!hasWindow) return initialValue;
 
     try {
       const item = getJSON(key) as T;
@@ -21,7 +23,7 @@ const useLocalStorage = <T>(key: string, initialValue: T): [T, SetValue<T>] => {
   const [storedValue, setStoredValue] = useState<T>(readValue);
 
   const setValue: SetValue<T> = value => {
-    if (typeof window === 'undefined') {
+    if (!hasWindow) {
       console.warn(
         `Tried setting localStorage key “${key}” even though environment is not a client`
       );
@@ -40,9 +42,11 @@ const useLocalStorage = <T>(key: string, initialValue: T): [T, SetValue<T>] => {
   };
 
   useEffect(() => {
-    setStoredValue(readValue());
+    if (hasWindow) {
+      setStoredValue(readValue());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [hasWindow]);
 
   const handleStorageChange = () => {
     setStoredValue(readValue());

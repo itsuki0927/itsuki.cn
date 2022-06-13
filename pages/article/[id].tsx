@@ -18,11 +18,13 @@ import {
 } from '@/components/comment';
 import { Layout, Navbar } from '@/components/common';
 import { GAEventCategories } from '@/constants/gtag';
-import { articleKeys, tagKeys } from '@/constants/queryKeys';
+import { articleKeys, blacklistKeys, commentKeys, tagKeys } from '@/constants/queryKeys';
 import { useMount } from '@/hooks';
 import { useArticle, useArticles } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
 import { getArticleDetailFullUrl } from '@/utils/url';
+import { getComments } from '@/api/comment';
+import { getBlackList } from '@/api/blacklist';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePaths();
@@ -49,6 +51,10 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     getArticle(articleId)
   );
   await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
+  await queryClient.prefetchQuery(commentKeys.lists(articleId), () =>
+    getComments(articleId)
+  );
+  await queryClient.prefetchQuery(blacklistKeys.list, () => getBlackList());
 
   return {
     props: {

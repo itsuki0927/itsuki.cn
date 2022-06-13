@@ -3,11 +3,11 @@ import dynamic from 'next/dynamic';
 import toast from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 import React, { useCallback, useState } from 'react';
-import { useGlobalData } from '@/hooks/globalData';
 import { useReply } from '../context';
 import { PostCommentBody } from '@/entities/comment';
 import purifyDomString from '@/libs/purify';
 import SendButton from '../SendButton';
+import useBlackList from '@/hooks/blacklist';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -31,9 +31,8 @@ const CommentForm = ({ className, articleId, onSend, loading }: CommentFormProps
   const { reply, cancelReply } = useReply();
   const { data: session } = useSession();
   const [content, setContent] = useState('');
-  const { data: globalData } = useGlobalData();
+  const { data: blacklist } = useBlackList();
 
-  const blacklist = globalData?.blacklist;
   const email = session?.user?.email ?? '';
   const avatar = session?.user?.image ?? '';
   const nickname = session?.user?.name ?? '';

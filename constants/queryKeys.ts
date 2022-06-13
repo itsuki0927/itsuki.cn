@@ -24,6 +24,6 @@ export const tagKeys = {
   lists: () => [...tagKeys.tag, 'list'] as const,
 };
 
-export const globalDataKeys = {
-  globalData: ['globalData'] as const,
+export const blacklistKeys = {
+  list: ['blacklist'] as const,
 };

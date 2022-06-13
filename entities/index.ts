@@ -1,6 +1,6 @@
 import * as Article from './article';
 import * as Comment from './comment';
-import * as SiteInfo from './siteInfo';
+import * as BlackList from './blacklist';
 import * as Tag from './tag';
 
-export type { Article, Comment, SiteInfo, Tag };
+export type { Article, Comment, BlackList, Tag };

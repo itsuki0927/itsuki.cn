@@ -43,7 +43,7 @@ const ArchiveView = ({ archives = new Map() }: ArchivePageProps) => (
     <NextSeo title='归档' />
 
     <ul className='list-none pl-0'>
-      {[...archives.entries()].reverse().map(([year, articles]) => (
+      {[...archives.entries()].map(([year, articles]) => (
         <li key={year} className='mb-6 rounded-sm'>
           <h3 className='mt-8 mb-4 text-2xl font-medium tracking-tight text-dark-3 md:text-4xl'>
             {year}

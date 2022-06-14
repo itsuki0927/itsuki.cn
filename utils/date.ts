@@ -10,15 +10,15 @@ export const wrapToDate = (date: string | Date) =>
 export const getLocalString = (dateString: string | Date) =>
   wrapToDate(dateString).toLocaleDateString();
 
+const pad = (val: any) => String(val).padStart(2, '0');
+
 // date -> YY-MM-DD
 export const dateToYMD = (date: Date, separator = '-') => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
-  const day = date.getDay();
+  const day = date.getDate();
 
-  return [year, String(month).padStart(2, '0'), String(day).padStart(2, '0')].join(
-    separator
-  );
+  return [year, pad(month), pad(day)].join(separator);
 };
 
 const getDateSuffix = (date: Date) => {

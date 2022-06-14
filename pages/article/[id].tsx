@@ -44,8 +44,6 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     };
   }
 
-  await readArticle(articleId);
-
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(articleKeys.detail(articleId), () =>
     getArticle(articleId)
@@ -72,6 +70,7 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
   const relateArticles = data?.data.slice(0, 3) ?? [];
 
   useMount(() => {
+    readArticle(articleId);
     gtag.event('article_view', {
       category: GAEventCategories.Article,
       label: article?.title,

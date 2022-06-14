@@ -22,7 +22,7 @@ module.exports = withBundleAnalyzer({
   },
   compiler: {
     // 生产环境清除console.log
-    removeConsole: isProd ? { exclude: ['error'] } : false,
+    removeConsole: isProd ? { exclude: ['error', 'debug'] } : false,
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.optimization = {

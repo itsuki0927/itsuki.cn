@@ -29,15 +29,15 @@ const SigninIcon = () => {
     <div className='flex justify-center space-x-4'>
       <a
         href='/api/auth/sign/github'
-        className='flex items-center rounded-sm bg-github py-1 px-3 text-sm text-white opacity-90 transition-opacity hover:opacity-100'
+        className='flex items-end rounded-sm bg-github py-1 px-3 text-sm text-white opacity-90 transition-opacity hover:opacity-100'
         onClick={e => handleSigin(e, 'github')}
       >
-        <GithubOutlined className='mr-1 align-baseline' />
-        Github
+        <GithubOutlined className='mr-1' />
+        <span className='capsize'>Github</span>
       </a>
       <a
         href='/api/auth/sign/qq'
-        className='flex items-center rounded-sm bg-qq py-1 px-3 text-sm text-white opacity-90 transition-opacity hover:opacity-100'
+        className='flex items-end rounded-sm bg-qq py-1 px-3 text-sm text-white opacity-90 transition-opacity hover:opacity-100'
         onClick={e => {
           e.preventDefault();
           toast.loading('秃头开发中...', {
@@ -45,8 +45,8 @@ const SigninIcon = () => {
           });
         }}
       >
-        <QQOutlined className='mr-1 align-baseline' />
-        QQ
+        <QQOutlined className='mr-1' />
+        <span className='capsize'>QQ</span>
       </a>
     </div>
   );

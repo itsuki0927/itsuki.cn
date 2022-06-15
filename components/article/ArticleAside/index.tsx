@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { Container, Widget } from '@/components/ui';
+import { ArticleDetailResponse } from '@/entities/article';
 import { useArticle } from '@/hooks/article';
 import { ArticleHeading } from '@/hooks/article/useArticle';
 import scrollTo from '@/utils/scrollTo';
-import { ArticleDetailResponse } from '@/entities/article';
 
 const getHeadingArchorIndent = (level: number) => `ml-${(level - 1) * 4}`;
 

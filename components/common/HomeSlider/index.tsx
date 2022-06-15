@@ -1,16 +1,15 @@
 import classNames from 'classnames';
-import { A11y, Autoplay, Keyboard, Lazy, Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import router from 'next/router';
-import React from 'react';
-import ToDate from '../ToDate';
-import { MyImage } from '..';
-import { getArticleDetailRoute } from '@/utils/url';
+import { A11y, Autoplay, Keyboard, Lazy, Pagination } from 'swiper';
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
-import s from './style.module.css';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { MyImage } from '..';
 import { Article } from '@/entities/article';
+import { getArticleDetailRoute } from '@/utils/url';
+import ToDate from '../ToDate';
+import s from './style.module.css';
 
 type HomeSliderProps = {
   articles?: Article[];

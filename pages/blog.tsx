@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
-import { Layout, Navbar } from '@/components/common';
-import { articleKeys } from '@/constants/queryKeys';
 import { getArticles, getHotArticles } from '@/api/article';
-import { useArticles } from '@/hooks/article';
 import { ArticleList } from '@/components/article';
-import useHotArticles from '@/hooks/article/useHotArticles';
+import { Layout, Navbar } from '@/components/common';
 import { SearchOutlined } from '@/components/icons';
+import { articleKeys } from '@/constants/queryKeys';
+import { useArticles } from '@/hooks/article';
+import useHotArticles from '@/hooks/article/useHotArticles';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();

@@ -1,11 +1,10 @@
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import React from 'react';
 import toast from 'react-hot-toast';
 import { GithubOutlined, QQOutlined } from '@/components/icons';
-import { getPageUrl } from '@/utils/url';
-import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
+import { gtag } from '@/utils/gtag';
+import { getPageUrl } from '@/utils/url';
 
 export type SigninType = 'github' | 'wechat' | 'qq';
 

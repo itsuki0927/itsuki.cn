@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import { WEB_URL } from '@/configs/app';
 import { ExternalLink } from '@/components/common';
+import { WEB_URL } from '@/configs/app';
 
 const ArticleMeta = () => {
   const router = useRouter();

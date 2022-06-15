@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
+import { GAEventCategories } from '@/constants/gtag';
 import { Article } from '@/entities/article';
 import { gtag } from '@/utils/gtag';
-import { GAEventCategories } from '@/constants/gtag';
 import { getArticleDetailRoute } from '@/utils/url';
 
 interface ArticlePaginationProps {

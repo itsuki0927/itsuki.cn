@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 import { MyImage } from '@/components/common';
-import Container from '../Container';
 import { AlipayOutlined, WechatOutlined } from '@/components/icons';
+import Container from '../Container';
 import s from './style.module.scss';
 
 const SponsorPopup = () => {

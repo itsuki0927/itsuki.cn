@@ -1,15 +1,15 @@
-import { PropsWithChildren } from 'react';
+import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import classNames from 'classnames';
+import { PropsWithChildren } from 'react';
 import { Logo } from '@/components/common';
 import { GithubIcon, RssIcon } from '@/components/icons';
-import ThemeSwitch from '../ThemeSwitch';
-import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
-import MobileMenu from '../Layout/MobileMenu';
 import { useTheme } from '@/hooks';
+import { gtag } from '@/utils/gtag';
 import ExternalLink from '../ExternalLink';
+import MobileMenu from '../Layout/MobileMenu';
+import ThemeSwitch from '../ThemeSwitch';
 
 const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => {
   const { asPath } = useRouter();

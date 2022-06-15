@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { Layout } from '@/components/common';
+import { GAEventCategories } from '@/constants/gtag';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
-import { GAEventCategories } from '@/constants/gtag';
 
 const NotFound = () => {
   useMount(() => {

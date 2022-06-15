@@ -1,11 +1,11 @@
 import { dehydrate, QueryClient } from 'react-query';
+import { getBlackList } from '@/api/blacklist';
+import { getComments } from '@/api/comment';
 import { CommentView } from '@/components/comment';
 import { Layout, Navbar } from '@/components/common';
+import { Banner } from '@/components/ui';
 import { blacklistKeys, commentKeys } from '@/constants/queryKeys';
 import { GUESTBOOK } from '@/constants/value';
-import { Banner } from '@/components/ui';
-import { getComments } from '@/api/comment';
-import { getBlackList } from '@/api/blacklist';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();

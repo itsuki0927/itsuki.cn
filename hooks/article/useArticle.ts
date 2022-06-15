@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import { getArticle } from '@/api/article';
-import markedToHtml from '@/libs/marked';
-import { articleKeys } from '@/constants/queryKeys';
 import { getArticleHeadingElementId } from '@/constants/anchor';
+import { articleKeys } from '@/constants/queryKeys';
+import markedToHtml from '@/libs/marked';
 
 export interface ArticleHeading {
   text: string;

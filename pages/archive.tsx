@@ -2,11 +2,11 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getArchives } from '@/api/article';
 import ArchiveView from '@/components/archive';
 import { Layout, Navbar } from '@/components/common';
-import { articleKeys } from '@/constants/queryKeys';
-import { useArchives } from '@/hooks/article';
-import { useMount } from '@/hooks';
-import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
+import { articleKeys } from '@/constants/queryKeys';
+import { useMount } from '@/hooks';
+import { useArchives } from '@/hooks/article';
+import { gtag } from '@/utils/gtag';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();

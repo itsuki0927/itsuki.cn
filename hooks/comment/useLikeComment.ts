@@ -4,8 +4,8 @@ import { likeComment } from '@/api/comment';
 import { initialLikeValue, LikeComments, LikeCommentsKey } from '@/constants/like';
 import { commentKeys } from '@/constants/queryKeys';
 import { Comment, LikeCommentResponse } from '@/entities/comment';
-import { useLocalStorage } from '..';
 import { SearchResponse } from '@/types/response';
+import { useLocalStorage } from '..';
 
 type UseLikeCommentHook = {
   articleId: number;

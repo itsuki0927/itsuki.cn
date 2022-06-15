@@ -151,7 +151,7 @@ const CommentCard = ({ data, children, className, childClassName }: CommentCardP
           className='lazy clear-left my-3 max-h-[600px] overflow-y-auto'
         />
 
-        <div className='flex justify-between text-gray-1'>
+        <div className='flex justify-between text-gray-2'>
           <div className='space-x-3'>
             {!!commentChildren.length && (
               <span className='capsize inline-block cursor-pointer rounded-sm px-2 py-1 text-sm transition-colors duration-300 hover:bg-primary-light hover:text-primary  '>

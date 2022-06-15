@@ -1,9 +1,9 @@
-import { CSSProperties } from 'react';
 import router from 'next/router';
+import { CSSProperties } from 'react';
 import { MyImage, ToDate } from '@/components/common';
 import { Article } from '@/entities/article';
-import s from './style.module.scss';
 import { getArticleDetailRoute } from '@/utils/url';
+import s from './style.module.scss';
 
 type ArticleCardProps = {
   article: Article;

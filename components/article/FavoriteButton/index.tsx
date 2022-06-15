@@ -1,10 +1,10 @@
-import toast from 'react-hot-toast';
 import classNames from 'classnames';
+import toast from 'react-hot-toast';
 import { LikeFilled, LikeOutlined } from '@/components/icons';
-import { useLikeArticle } from '@/hooks/article';
-import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
 import { ArticleDetailResponse } from '@/entities/article';
+import { useLikeArticle } from '@/hooks/article';
+import { gtag } from '@/utils/gtag';
 
 interface FavoriteButtonProps {
   article: ArticleDetailResponse;

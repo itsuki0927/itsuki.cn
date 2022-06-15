@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { getTagRoute } from '@/utils/url';
 import useTags from '@/hooks/tag';
+import { getTagRoute } from '@/utils/url';
 import ExternalLink from '../ExternalLink';
 
 const Footer = () => {

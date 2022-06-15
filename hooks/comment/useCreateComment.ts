@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from 'react-query';
 import { GraphQLError } from 'graphql';
+import { useMutation, useQueryClient } from 'react-query';
 import { createComment } from '@/api/comment';
-import { Comment, PostCommentBody, QueryCommentsResponse } from '@/entities/comment';
 import { commentKeys } from '@/constants/queryKeys';
+import { Comment, PostCommentBody, QueryCommentsResponse } from '@/entities/comment';
 
 const useCreateComment = (articleId: number) => {
   const queryClient = useQueryClient();

@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import { dehydrate, QueryClient } from 'react-query';
 import { getBannerArticles, getRecentArticles } from '@/api/article';
+import { getAllTags } from '@/api/tag';
 import { ArticleList, ArticleSkeletonList } from '@/components/article';
 import { HomeSlider, Layout, Navbar } from '@/components/common';
-import { articleKeys, tagKeys } from '@/constants/queryKeys';
 import { RightOutlined } from '@/components/icons';
-import { getTagRoute } from '@/utils/url';
-import { getAllTags } from '@/api/tag';
-import useTags from '@/hooks/tag';
+import { articleKeys, tagKeys } from '@/constants/queryKeys';
 import useBannerArticles from '@/hooks/article/useBannerArticles';
 import useRecentArticles from '@/hooks/article/useRecentArticles';
+import useTags from '@/hooks/tag';
+import { getTagRoute } from '@/utils/url';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();

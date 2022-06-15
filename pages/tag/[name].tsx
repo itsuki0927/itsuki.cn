@@ -1,18 +1,18 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
-import { dehydrate, QueryClient } from 'react-query';
 import { useRouter } from 'next/router';
+import { dehydrate, QueryClient } from 'react-query';
 import { getArticles } from '@/api/article';
 import { getAllTagPaths, getAllTags } from '@/api/tag';
 import { ArticleList, ArticleSkeletonList } from '@/components/article';
 import { Layout, Navbar } from '@/components/common';
 import { Banner, BannerSkeleton } from '@/components/ui';
-import { articleKeys, tagKeys } from '@/constants/queryKeys';
-import { useTagArticles } from '@/hooks/article';
-import { useMount } from '@/hooks';
-import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
+import { articleKeys, tagKeys } from '@/constants/queryKeys';
+import { useMount } from '@/hooks';
+import { useTagArticles } from '@/hooks/article';
 import useTags from '@/hooks/tag';
+import { gtag } from '@/utils/gtag';
 
 export const getStaticPaths = async () => {
   const paths = await getAllTagPaths();

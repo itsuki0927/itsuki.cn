@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { SigninIcon } from '@/components/common';
 import { Widget } from '@/components/ui';
 import { GAEventCategories } from '@/constants/gtag';
+import { GUESTBOOK } from '@/constants/value';
 import { useComments, useCreateComment } from '@/hooks/comment';
 import { gtag } from '@/utils/gtag';
 import CommentForm from '../CommentForm';
@@ -12,7 +13,6 @@ import CommentList from '../CommentList';
 import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
 import { ReplyProvider, useReply } from '../context';
 import { convertToCommentTreeData } from './utils';
-import { GUESTBOOK } from '@/constants/value';
 
 const getCommentTitleSuffixText = (articleId: number) =>
   articleId === GUESTBOOK ? '留言' : '评论';

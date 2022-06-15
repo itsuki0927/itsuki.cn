@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import { blacklistKeys } from '@/constants/queryKeys';
 import { getBlackList } from '@/api/blacklist';
+import { blacklistKeys } from '@/constants/queryKeys';
 
 const strToStringArray = (val: any) => (JSON.parse(val ?? undefined) ?? []) as string[];
 

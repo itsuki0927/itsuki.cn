@@ -1,9 +1,9 @@
 import { dehydrate, QueryClient } from 'react-query';
 import AboutView from '@/components/about';
 import { Layout, MyImage, Navbar } from '@/components/common';
+import { GAEventCategories } from '@/constants/gtag';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
-import { GAEventCategories } from '@/constants/gtag';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -33,10 +33,10 @@ const AboutPage = () => {
               <h1 className='mb-1 text-3xl font-medium tracking-tight text-dark-4 md:text-5xl'>
                 五木 - Itsuki
               </h1>
-              <h2 className='mb-4'>
-                {/* 字节跳动前端工程师 */}
-                {/* <span className='font-semibold'>(待入职)</span> */}
-              </h2>
+              {/* <h2 className='mb-4'> */}
+              {/*   字节跳动前端工程师 */}
+              {/*   <span className='font-semibold'>(入职中...)</span> */}
+              {/* </h2> */}
               <p className='mb-10 text-lg'>
                 Hi
                 <span className='origin-[70% 70%] mx-1 inline-block animate-wave'>

@@ -1,13 +1,13 @@
-import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
-import toast from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
-import React, { useCallback, useState } from 'react';
-import { useReply } from '../context';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useCallback, useState } from 'react';
+import toast from 'react-hot-toast';
 import { PostCommentBody } from '@/entities/comment';
-import purifyDomString from '@/libs/purify';
-import SendButton from '../SendButton';
 import useBlackList from '@/hooks/blacklist';
+import purifyDomString from '@/libs/purify';
+import { useReply } from '../context';
+import SendButton from '../SendButton';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,

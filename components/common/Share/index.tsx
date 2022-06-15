@@ -2,14 +2,14 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { Icon, LinkOutlined } from '@/components/icons';
-import s from './style.module.scss';
-import { getPageUrl, stringifyParams } from '@/utils/url';
-import { META } from '@/configs/app';
-import { renderTextToQRCodeDataURL } from '@/libs/qrcode';
 import { useUI } from '@/components/ui/context';
-import { copyTextToClipboard } from '@/hooks/useCopyToClipboard';
-import { gtag } from '@/utils/gtag';
+import { META } from '@/configs/app';
 import { GAEventCategories } from '@/constants/gtag';
+import { copyTextToClipboard } from '@/hooks/useCopyToClipboard';
+import { renderTextToQRCodeDataURL } from '@/libs/qrcode';
+import { gtag } from '@/utils/gtag';
+import { getPageUrl, stringifyParams } from '@/utils/url';
+import s from './style.module.scss';
 
 enum SocialMedia {
   QQ = 'qq',

@@ -3,11 +3,13 @@ import { ArticleJsonLd, NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from 'react-query';
 import { getAllArticlePaths, getArticle, readArticle } from '@/api/article';
+import { getBlackList } from '@/api/blacklist';
+import { getComments } from '@/api/comment';
 import { getAllTags } from '@/api/tag';
 import { ArticlePagination, ArticleSkeleton } from '@/components/article';
+import ArticleAside from '@/components/article/ArticleAside';
 import ArticleContent from '@/components/article/ArticleContent';
 import ArticleHeader from '@/components/article/ArticleHeader';
-import ArticleAside from '@/components/article/ArticleAside';
 import RelateArticles, {
   RelateArticleSkeleton,
 } from '@/components/article/RelateArticles';
@@ -23,8 +25,6 @@ import { useMount } from '@/hooks';
 import { useArticle, useArticles } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
 import { getArticleDetailFullUrl } from '@/utils/url';
-import { getComments } from '@/api/comment';
-import { getBlackList } from '@/api/blacklist';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePaths();

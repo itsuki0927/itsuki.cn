@@ -45,14 +45,12 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   }
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(articleKeys.detail(articleId), () =>
-    getArticle(articleId)
-  );
-  await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
-  await queryClient.prefetchQuery(commentKeys.lists(articleId), () =>
-    getComments(articleId)
-  );
-  await queryClient.prefetchQuery(blacklistKeys.list, () => getBlackList());
+  await Promise.all([
+    queryClient.prefetchQuery(articleKeys.detail(articleId), () => getArticle(articleId)),
+    queryClient.prefetchQuery(commentKeys.lists(articleId), () => getComments(articleId)),
+    queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags()),
+    queryClient.prefetchQuery(blacklistKeys.list, () => getBlackList()),
+  ]);
 
   return {
     props: {

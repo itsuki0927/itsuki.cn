@@ -1,5 +1,5 @@
 import { META } from '@/configs/app';
-import { off, on, preventDefault } from '@/utils/events';
+import { off, on } from '@/utils/events';
 import { getSelection } from '@/utils/editor/cursor';
 
 const copyrightText = () =>
@@ -24,7 +24,7 @@ const useCopyright = () => {
       const content = selection.toString() ?? '';
       event.clipboardData.setData('text/plain', buildCopyrightText(content));
       event.clipboardData.setData('text/html', buildCopyrightText(content));
-      preventDefault(event);
+      event.preventDefault();
     }
   };
   const enableCopyright = () => on(document, 'copy', handleCopyright);

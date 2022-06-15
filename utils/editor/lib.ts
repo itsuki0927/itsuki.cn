@@ -1,7 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
 import debounce from '../debounce';
-import { preventDefault } from '../events';
 import { isEnter, isRedo, isShift, isTab, isUndo } from '../validate';
 import { findPadding, insert, shouldRecord, visit } from './util';
 import { textAfterCursor, textBeforeCursor, getSelection } from './cursor';
@@ -190,7 +189,7 @@ function markdownEditorUtil(
 
   function legacyNewLineFix(event: KeyboardEvent) {
     if (isLegacy && isEnter(event)) {
-      preventDefault(event);
+      event.preventDefault();
       event.stopPropagation();
       if (textAfterCursor(editor) === '') {
         insert('\n ');
@@ -212,7 +211,7 @@ function markdownEditorUtil(
     const charAfter = codeAfter.substr(0, 1);
     if (close.includes(event.key) && !escapeCharacter && charAfter === event.key) {
       const pos = save();
-      preventDefault(event);
+      event.preventDefault();
       pos.start = ++pos.end;
       restore(pos);
     } else if (
@@ -220,7 +219,7 @@ function markdownEditorUtil(
       !escapeCharacter &&
       (`"'`.includes(event.key) || ['', ' ', '\n'].includes(charAfter))
     ) {
-      preventDefault(event);
+      event.preventDefault();
       const pos = save();
       const wrapText = pos.start === pos.end ? '' : getSelection().toString();
       const text = event.key + wrapText + close[open.indexOf(event.key)];
@@ -233,7 +232,7 @@ function markdownEditorUtil(
 
   function handleTabCharacters(event: KeyboardEvent) {
     if (isTab(event)) {
-      preventDefault(event);
+      event.preventDefault();
       if (isShift(event)) {
         const before = textBeforeCursor(editor);
         const [padding, start] = findPadding(before);
@@ -254,7 +253,7 @@ function markdownEditorUtil(
 
   function handleUndoRedo(event: KeyboardEvent) {
     if (isUndo(event)) {
-      preventDefault(event);
+      event.preventDefault();
       at--;
       const record = history[at];
       if (record) {
@@ -265,7 +264,7 @@ function markdownEditorUtil(
     }
 
     if (isRedo(event)) {
-      preventDefault(event);
+      event.preventDefault();
       at++;
       const record = history[at];
       if (record) {
@@ -277,7 +276,7 @@ function markdownEditorUtil(
   }
 
   function handlePaste(event: ClipboardEvent) {
-    preventDefault(event);
+    event.preventDefault();
     const text = ((event as any).originalEvent || event).clipboardData
       .getData('text/plain')
       .replace(/\r/g, '');
@@ -327,7 +326,7 @@ function markdownEditorUtil(
       }
 
       if (newLinePadding.length) {
-        preventDefault(event);
+        event.preventDefault();
         event.stopPropagation();
         insert(`\n${newLinePadding}`);
       } else {

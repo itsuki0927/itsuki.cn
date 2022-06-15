@@ -1,4 +1,3 @@
-import { wrapToArray } from './array';
 import { off, on } from './events';
 import { getOffset, getWindow } from './query';
 
@@ -26,17 +25,21 @@ type ScrollOptions = {
   effect?: ScrollEffect;
 };
 
+function humanlize<T>(val: T | T[]) {
+  return Array.isArray(val) ? val : [val];
+}
+
 const helper = {
   query(selector: string) {
     return document.querySelector(selector);
   },
   bind(element: Element, events: ElementEvent[], handler: () => void) {
-    wrapToArray(events).forEach(event => {
+    humanlize(events).forEach(event => {
       on(element, event as any, handler, { passive: true });
     });
   },
   unbind(element: Element, events: ElementEvent[], handler: () => void) {
-    wrapToArray(events).forEach(event => {
+    humanlize(events).forEach(event => {
       off(element, event as any, handler);
     });
   },

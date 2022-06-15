@@ -3,21 +3,23 @@ import { Container, Widget } from '@/components/ui';
 import { ArticleDetailResponse } from '@/entities/article';
 import { useArticle } from '@/hooks/article';
 import { ArticleHeading } from '@/hooks/article/useArticle';
-import scrollTo from '@/utils/scrollTo';
+import { useScrollTo } from '@/hooks';
 
 const getHeadingArchorIndent = (level: number) => `ml-${(level - 1) * 4}`;
 
-const HeadingArchor = ({ heading }: { heading: ArticleHeading }) => (
+const HeadingArchor = ({
+  heading,
+  onClick,
+}: {
+  heading: ArticleHeading;
+  onClick: () => void;
+}) => (
   <li
     className={classNames(
       getHeadingArchorIndent(heading.level),
       'block cursor-pointer transition-colors line-clamp-1 hover:text-primary'
     )}
-    onClick={() => {
-      scrollTo(`#${heading.id}`, 300, {
-        offset: -100,
-      });
-    }}
+    onClick={onClick}
   >
     <span className='text-sm'>{heading.text}</span>
   </li>
@@ -44,6 +46,7 @@ interface ArticleAsideProps {
 const ArticleAside = ({ article }: ArticleAsideProps) => {
   const articleId = article.id;
   const { data, isLoading, isFetching } = useArticle(articleId);
+  const { scrollTo } = useScrollTo();
 
   if (Number.isNaN(articleId)) return <div>Error</div>;
   if (isFetching || isLoading) return <ArticleAsideSkeleton />;
@@ -52,8 +55,12 @@ const ArticleAside = ({ article }: ArticleAsideProps) => {
     <Widget className='sticky top-16'>
       <ul className='max-h-[calc(100vh-148px)] space-y-1 overflow-y-scroll'>
         <Widget.Header>文章目录</Widget.Header>
-        {data?.headings.map(item => (
-          <HeadingArchor heading={item} key={item.id} />
+        {data?.headings.map(heading => (
+          <HeadingArchor
+            onClick={() => scrollTo(`#${heading.id}`)}
+            heading={heading}
+            key={heading.id}
+          />
         ))}
       </ul>
     </Widget>

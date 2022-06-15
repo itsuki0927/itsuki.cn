@@ -1,8 +1,10 @@
 import { ToTopOutlined } from '@/components/icons';
-import scrollTo from '@/utils/scrollTo';
+import { useScrollTo } from '@/hooks';
 
 const BackTop = () => {
-  const backToTop = () => scrollTo(0, 600);
+  const { scrollTo } = useScrollTo();
+
+  const backToTop = () => scrollTo(0);
 
   return (
     <div className='fixed bottom-9 right-4 z-10 sm:bottom-36'>

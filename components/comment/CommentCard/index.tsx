@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { ReactNode, useRef } from 'react';
+import { Key, ReactNode, useRef } from 'react';
 import toast, { Toast } from 'react-hot-toast';
 import { ToDate } from '@/components/common';
 import {
@@ -15,16 +15,16 @@ import {
 import ReplyOutlined from '@/components/icons/ReplyOutlined';
 import { MarkdownBlock } from '@/components/ui';
 import { GAEventCategories } from '@/constants/gtag';
-import { useMarkdown } from '@/hooks';
+import { useMarkdown, useScrollTo } from '@/hooks';
 import useLikeComment from '@/hooks/comment/useLikeComment';
 import { gtag } from '@/utils/gtag';
-import scrollTo from '@/utils/scrollTo';
 import { isAdminEmail } from '@/utils/validate';
 import CommentAvatar from '../CommentAvatar';
 import { CommentTree } from '../CommentList';
 import { useReply } from '../context';
+import { getCommentElementId } from '@/constants/anchor';
 
-export const buildCommentDomId = (id: number) => `comment-${id}`;
+const buildCommentElementId = (id: Key) => `#${getCommentElementId(id)}`;
 
 interface CommentCardCommonProps {
   data: CommentTree;
@@ -47,6 +47,11 @@ const CommentCard = ({ data, children, className, childClassName }: CommentCardP
   });
   const isSignout = !session?.user;
   const { setReply, cancelReply, reply } = useReply();
+  const { scrollTo } = useScrollTo();
+
+  const handleScroll = (id: number) => {
+    scrollTo(buildCommentElementId(id));
+  };
 
   const buildCommentReplyToast = (t: Toast) => (
     <div
@@ -57,12 +62,7 @@ const CommentCard = ({ data, children, className, childClassName }: CommentCardP
     >
       <p
         className='mb-0 text-center text-sm text-white'
-        onClick={() => {
-          const commentDom = document.getElementById(buildCommentDomId(comment.id));
-          if (commentDom) {
-            scrollTo(commentDom);
-          }
-        }}
+        onClick={() => handleScroll(comment.id)}
       >
         回复 #{comment.nickname} 中
       </p>
@@ -100,7 +100,7 @@ const CommentCard = ({ data, children, className, childClassName }: CommentCardP
 
   return (
     <div
-      id={buildCommentDomId(comment.id)}
+      id={getCommentElementId(comment.id)}
       key={comment.id}
       className={`transition-all duration-500 ${className}`}
     >
@@ -121,7 +121,13 @@ const CommentCard = ({ data, children, className, childClassName }: CommentCardP
               </p>
 
               {!!Number(comment.parentId) && (
-                <span className='cursor-pointer text-sm text-gray-2 transition-colors duration-300 hover:text-dark-2 '>
+                <span
+                  aria-label='parent comment'
+                  tabIndex={0}
+                  role='button'
+                  onClick={() => handleScroll(comment.parentId)}
+                  className='cursor-pointer text-sm text-gray-2 transition-colors duration-300 hover:text-dark-2 '
+                >
                   @{comment.parentNickName}
                 </span>
               )}

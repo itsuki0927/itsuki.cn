@@ -20,15 +20,11 @@ const CommentAvatar = ({ avatar, loginType, className = '' }: CommentAvatarProps
   >
     <MyImage src={avatar ?? DEFAULT_AVATAR} width={52} height={52} alt='cover' />
 
-    <span className='capsize absolute right-0 bottom-0 w-[40%] rounded-sm bg-[#ffffff80] text-center'>
-      {loginType === 'github' && (
-        <GithubOutlined className='capsize leading-5 text-github' />
-      )}
-      {loginType === 'qq' && <QQOutlined className='capsize leading-5 text-qq' />}
+    <span className='absolute right-0 bottom-0 flex w-[40%] items-center justify-center rounded-sm rounded-r-none rounded-b-none bg-[#ffffff80] py-[2px]'>
+      {loginType === 'github' && <GithubOutlined className='text-github' />}
+      {loginType === 'qq' && <QQOutlined className='text-qq' />}
       {!loginType ||
-        (loginType === 'anonymous' && (
-          <Icon name='user-fill' className='capsize leading-5 text-white' />
-        ))}
+        (loginType === 'anonymous' && <Icon name='user-fill' className='text-white' />)}
     </span>
   </div>
 );

@@ -8,7 +8,7 @@ interface ArticleHeaderProps {
 
 const ArticleHeader = ({ article }: ArticleHeaderProps) => (
   <div className='container flex flex-col justify-between px-4 sm:flex-row sm:items-center'>
-    <header className='justify-between space-y-2'>
+    <header className='flex-grow justify-between space-y-2'>
       <h1 className='text-3xl font-medium'>{article.title}</h1>
 
       <ul className='flex flex-col text-sm text-gray-3 sm:flex-row sm:items-center sm:space-x-1'>

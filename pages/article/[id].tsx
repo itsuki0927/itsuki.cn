@@ -120,6 +120,8 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
             description={article.description}
           />
 
+          <blockquote>{article.description}</blockquote>
+
           <ArticleContent article={article} />
         </div>
 

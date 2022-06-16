@@ -76,7 +76,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.KEY }}
           source: 'build,package.json,public'
           target: '~/blog/web'
 
@@ -95,7 +95,7 @@ jobs:
           command_timeout: 4m
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.KEY }}
           script: |
             echo "[deploy] start deployment..."
             # 进到当前文件夹

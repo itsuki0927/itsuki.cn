@@ -75,7 +75,7 @@ const CommentView = ({ articleId }: CommentProps) => {
           `暂无${getCommentTitleSuffixText(articleId)}`
         ) : (
           <>
-            <CountDown num={comments.length} /> 条{getCommentTitleSuffixText(articleId)}
+            <CountDown num={data?.total} /> 条{getCommentTitleSuffixText(articleId)}
           </>
         )}
       </Widget.Header>

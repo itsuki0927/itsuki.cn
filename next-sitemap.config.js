@@ -1,7 +1,8 @@
 /** @type {import('next-sitemap').IConfig} */
-
-module.exports = {
-  siteUrl: 'https://itsuki.cn',
-  generateRobotsTxt: true, // (optional)
+const config = {
+  siteUrl: process.env.NEXT_PUBLIC_WEB_URL,
+  generateRobotsTxt: true,
   sourceDir: 'build',
 };
+
+export default config;

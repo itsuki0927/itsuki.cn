@@ -78,7 +78,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
           source: 'build,package.json,public'
-          target: '~/blog/web'
+          target: ${{ secrets.WWW_PATH }}
 
   # 发布
   deploy:
@@ -91,15 +91,18 @@ jobs:
 
       - name: Run Deploy
         uses: appleboy/ssh-action@master
+        env:
+          WWW_PATH: ${{ secrets.WWW_PATH }}
         with:
           command_timeout: 4m
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
+          envs: WWW_PATH
           script: |
             echo "[deploy] start deployment..."
             # 进到当前文件夹
-            cd ~/blog/web
+            cd $WWW_PATH
 
             echo "[deploy] stop server..."
             # 停止服务

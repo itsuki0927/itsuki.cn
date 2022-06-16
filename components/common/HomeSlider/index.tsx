@@ -41,8 +41,10 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
           className='group relative flex flex-col items-start pb-6 opacity-90 transition-opacity sm:pb-0 md:flex-row md:items-center'
           key={article.id}
         >
-          <MyImage src={article?.cover} width={500} height={300} />
-          <div className='prose md:ml-10'>
+          <div className='max-w-full sm:max-h-[320px] sm:max-w-[500px] sm:flex-grow'>
+            <MyImage src={article?.cover} objectFit='cover' width={500} height={320} />
+          </div>
+          <div className='prose w-full sm:w-fit md:ml-10'>
             <p className='mt-5 mb-3 text-gray-2 before:border-l-2 before:border-l-primary before:pr-2'>
               {article?.tags?.map(v => v.name).join('、')}
             </p>

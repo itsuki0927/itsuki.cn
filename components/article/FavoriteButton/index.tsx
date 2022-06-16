@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import toast from 'react-hot-toast';
+import { CountDown } from '@/components/common';
 import { LikeFilled, LikeOutlined } from '@/components/icons';
 import { GAEventCategories } from '@/constants/gtag';
 import { ArticleDetailResponse } from '@/entities/article';
@@ -38,7 +39,9 @@ const FavoriteButton = ({ article }: FavoriteButtonProps) => {
       onClick={handleLike}
     >
       {isLike ? <LikeFilled className='mr-2' /> : <LikeOutlined className='mr-2' />}
-      <strong className='capsize font-medium'>{article.liking}</strong>
+      <strong className='capsize font-medium'>
+        <CountDown num={article.liking} />
+      </strong>
     </button>
   );
 };

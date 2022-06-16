@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Key, ReactNode, useRef } from 'react';
 import toast, { Toast } from 'react-hot-toast';
-import { ToDate } from '@/components/common';
+import { ToDate, CountDown } from '@/components/common';
 import {
   CloseOutlined,
   CommentOutlined,
@@ -162,7 +162,7 @@ const CommentCard = ({ data, children, className, childClassName }: CommentCardP
             {!!commentChildren.length && (
               <span className='capsize inline-block cursor-pointer rounded-sm px-2 py-1 text-sm transition-colors duration-300 hover:bg-primary-light hover:text-primary  '>
                 <CommentOutlined className='mr-1 align-baseline' />
-                {commentChildren.length}
+                <CountDown num={commentChildren.length} />
               </span>
             )}
             <button
@@ -180,7 +180,7 @@ const CommentCard = ({ data, children, className, childClassName }: CommentCardP
               ) : (
                 <LikeOutlined className='mr-1 align-baseline' />
               )}
-              {comment.liking}
+              <CountDown num={comment.liking} />
             </button>
           </div>
 

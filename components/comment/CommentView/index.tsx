@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import React, { useCallback, useMemo } from 'react';
 import toast from 'react-hot-toast';
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { SigninIcon } from '@/components/common';
+import { CountDown, SigninIcon } from '@/components/common';
 import { Widget } from '@/components/ui';
 import { GAEventCategories } from '@/constants/gtag';
 import { GUESTBOOK } from '@/constants/value';
@@ -71,9 +71,13 @@ const CommentView = ({ articleId }: CommentProps) => {
   return (
     <Widget>
       <Widget.Header>
-        {isEmpty
-          ? `暂无${getCommentTitleSuffixText(articleId)}`
-          : `${comments.length} 条${getCommentTitleSuffixText(articleId)}`}
+        {isEmpty ? (
+          `暂无${getCommentTitleSuffixText(articleId)}`
+        ) : (
+          <>
+            <CountDown num={comments.length} /> 条{getCommentTitleSuffixText(articleId)}
+          </>
+        )}
       </Widget.Header>
 
       {session?.user ? (

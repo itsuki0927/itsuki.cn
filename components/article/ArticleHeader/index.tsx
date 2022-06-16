@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MyImage, ToDate } from '@/components/common';
+import { MyImage, ToDate, CountDown } from '@/components/common';
 import { ArticleDetailResponse } from '@/entities/article';
 
 interface ArticleHeaderProps {
@@ -21,7 +21,10 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => (
         </li>
 
         <li className='text-primary'>
-          {article.reading}人浏览 • {article.commenting}条评论 • {article.liking}人喜欢
+          <CountDown key='reading' num={article.reading} />
+          人浏览 • <CountDown key='commenting' num={article.commenting} />
+          条评论 • <CountDown key='liking' num={article.liking} />
+          人喜欢
         </li>
       </ul>
 

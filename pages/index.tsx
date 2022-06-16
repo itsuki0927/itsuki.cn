@@ -73,7 +73,7 @@ const HomePage = () => {
             </div>
             <div className='not-prose flex flex-wrap px-4'>
               {tags?.map(tag => (
-                <Link href={getTagRoute(tag.path)}>
+                <Link key={tag.path} href={getTagRoute(tag.path)}>
                   <a
                     key={tag.path}
                     className='mr-4 mb-4 rounded-sm bg-white-2 py-1 px-4 align-bottom hover:bg-white-3 sm:py-[6px] sm:px-6'

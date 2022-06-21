@@ -5,4 +5,4 @@ const config = {
   sourceDir: 'build',
 };
 
-export default config;
+module.exports = config;

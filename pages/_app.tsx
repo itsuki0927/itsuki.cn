@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
@@ -13,9 +14,16 @@ import '@/styles/global.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { enableCopyright, disableCopyright } = useCopyright();
+  const { route } = useRouter();
 
   useMount(enableCopyright);
   useUnMount(disableCopyright);
+
+  const items = {
+    pageProps,
+    id: route,
+    Component,
+  };
 
   return (
     <>
@@ -43,9 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SessionProvider session={pageProps.session}>
         <ManagedUIContext>
           <QueryClientContainer pageProps={pageProps}>
-            <LayoutTransition>
-              <Component {...pageProps} />
-            </LayoutTransition>
+            <LayoutTransition items={items} />
           </QueryClientContainer>
         </ManagedUIContext>
       </SessionProvider>

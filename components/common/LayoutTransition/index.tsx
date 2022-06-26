@@ -1,26 +1,31 @@
-import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
-import { SwitchTransition, CSSTransition } from 'react-transition-group';
+import { ComponentType, Key } from 'react';
+import { animated, Transition } from '@react-spring/web';
 
-interface LayoutTransitionProps {
-  children?: ReactNode;
+export interface TransitionItem {
+  id: Key;
+  Component: ComponentType<any>;
+  pageProps: Record<string, any>;
 }
 
-const LayoutTransition = ({ children }: LayoutTransitionProps) => {
-  const router = useRouter();
-  return (
-    <SwitchTransition mode='out-in'>
-      <CSSTransition
-        key={router.asPath}
-        addEndListener={(node, done) =>
-          node.addEventListener('transitionend', done, false)
-        }
-        classNames='move'
-      >
-        {children}
-      </CSSTransition>
-    </SwitchTransition>
-  );
-};
+interface LayoutTransitionProps {
+  items: TransitionItem;
+}
+
+const LayoutTransition = ({ items }: LayoutTransitionProps) => (
+  <Transition
+    items={items}
+    keys={(item: TransitionItem) => item.id}
+    from={{ opacity: 0 }}
+    initial={{ opacity: 0 }}
+    enter={{ opacity: 1 }}
+    leave={{ opacity: 0, position: 'absolute' }}
+  >
+    {(styles, { pageProps, Component }) => (
+      <animated.div style={{ ...styles, width: '100%' }}>
+        <Component {...pageProps} />
+      </animated.div>
+    )}
+  </Transition>
+);
 
 export default LayoutTransition;

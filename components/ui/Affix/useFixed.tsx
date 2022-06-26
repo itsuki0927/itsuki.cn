@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
+import throttle from 'lodash.throttle';
 import { useEventListener } from '@/hooks';
 import { Offset } from '@/utils/query/getOffset';
-import throttle from '@/utils/throttle';
 import { AffixProps } from './index';
 
 /**

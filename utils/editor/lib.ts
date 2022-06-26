@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
-import debounce from '../debounce';
+import debounce from 'lodash.debounce';
 import { isEnter, isRedo, isShift, isTab, isUndo } from '../validate';
 import { findPadding, insert, shouldRecord, visit } from './util';
 import { textAfterCursor, textBeforeCursor, getSelection } from './cursor';

@@ -37,7 +37,7 @@ const PageLoadingProgress = () => {
   return (
     <div
       className={classNames(
-        'pointer-events-none fixed left-0 top-0 z-50 h-full w-full opacity-0 backdrop-blur-sm transition-opacity',
+        'pointer-events-none fixed left-0 top-0 z-50 h-full w-full opacity-0 transition-opacity',
         {
           'pointer-events-auto opacity-100': isLoading,
         }

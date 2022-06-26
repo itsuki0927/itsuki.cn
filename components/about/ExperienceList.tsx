@@ -1,5 +1,13 @@
 const experienceList: ExperienceCardProps[] = [
   {
+    post: '前端工程师',
+    company: '字节跳动',
+    startTime: '22/06',
+    endTime: '至今',
+    description: '还在熟悉项目中...',
+    techStack: 'React、Next.js、Node.js',
+  },
+  {
     post: '前端实习生',
     company: '网易',
     startTime: '22/03',

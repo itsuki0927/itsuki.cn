@@ -1,7 +1,6 @@
 import { useSession } from 'next-auth/react';
 import React, { useCallback, useMemo } from 'react';
 import toast from 'react-hot-toast';
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CountDown, SigninIcon } from '@/components/common';
 import { Widget } from '@/components/ui';
 import { GAEventCategories } from '@/constants/gtag';
@@ -86,7 +85,7 @@ const CommentView = ({ articleId }: CommentProps) => {
         <div className='my-2 space-y-3 rounded-sm border border-solid border-primary bg-primary-light py-4'>
           <p className='text-center text-sm text-gray-2'>仅使用你的邮箱、头像、昵称.</p>
           <SigninIcon />
-          <p className='text-center text-sm text-gray-1'>(请先登录)</p>
+          <p className='text-center text-sm text-gray-2'>(请先登录)</p>
         </div>
       )}
       {!isEmpty && (

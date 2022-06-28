@@ -1,3 +1,4 @@
+import escape from 'lodash.escape';
 import { marked } from 'marked';
 import { WEB_URL } from '@/configs/app';
 import highlight from './highlight';
@@ -74,9 +75,9 @@ const getRenderer = (options?: Partial<RendererGetterOption>) => {
 
   // 解析代码
   renderer.code = function renderCode(code: string, language: string, escaped: boolean) {
-    if ((this as any).options.highlight) {
-      const output = (this as any).options.highlight(code, language);
-      if (output !== null) {
+    if (renderer.options.highlight) {
+      const output = renderer.options.highlight(code, language) || '';
+      if (output) {
         // eslint-disable-next-line no-param-reassign
         code = output;
         // eslint-disable-next-line no-param-reassign
@@ -92,9 +93,9 @@ const getRenderer = (options?: Partial<RendererGetterOption>) => {
      * 为什么这么写会有一个换行
      */
     return language
-      ? `<pre data-lang=${language}><code class='${
-          (this as any).options.langPrefix
-        }${escape(language)}'>${escaped ? code : escape(code)}</code></pre>`
+      ? `<pre data-lang=${language}><code class='${renderer.options.langPrefix}${escape(
+          language
+        )}'>${escaped ? code : escape(code)}</code></pre>`
       : `<pre><code>${escaped ? code : escape(code)}\n</code></pre>`;
   };
 

@@ -467,6 +467,13 @@
   dependencies:
     "@types/lodash" "*"
 
+"@types/lodash.escape@^4.0.7":
+  version "4.0.7"
+  resolved "https://registry.npmjs.org/@types/lodash.escape/-/lodash.escape-4.0.7.tgz#0852665cece4ae0fdf5870dbd97ce99a3d4f4a01"
+  integrity sha512-k6BN7TWKe5rO11yIhMsVh2K9IZ0h9Vfw168/D/+Bv39qCz7vk0WIKTo8OORsah9o1vlDlkUoieAiU8AuYhXpwQ==
+  dependencies:
+    "@types/lodash" "*"
+
 "@types/lodash.throttle@^4.1.7":
   version "4.1.7"
   resolved "https://registry.npmjs.org/@types/lodash.throttle/-/lodash.throttle-4.1.7.tgz#4ef379eb4f778068022310ef166625f420b6ba58"
@@ -2604,6 +2611,11 @@ lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
+
+lodash.escape@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/lodash.escape/-/lodash.escape-4.0.1.tgz#c9044690c21e04294beaa517712fded1fa88de98"
+  integrity sha512-nXEOnb/jK9g0DYMr1/Xvq6l5xMD7GDG55+GSYIYmS0G4tBk/hURD4JR9WCavs04t33WmJx9kCyp9vJ+mr4BOUw==
 
 lodash.isplainobject@^4.0.6:
   version "4.0.6"

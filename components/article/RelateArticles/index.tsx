@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { MyImage, ToDate } from '@/components/common';
-import { Widget } from '@/components/ui';
+import { Container } from '@/components/ui';
 import { Article } from '@/entities/article';
 import { getArticleDetailRoute } from '@/utils/url';
 
@@ -9,8 +9,8 @@ interface RelateArticlesProps {
 }
 
 const RelateArticles = ({ relateArticles }: RelateArticlesProps) => (
-  <Widget>
-    <Widget.Header>你可能喜欢</Widget.Header>
+  <Container>
+    <h3 className='my-3 pb-2 font-medium tracking-widest'>你可能喜欢</h3>
     <div className='flex justify-between space-x-4'>
       {relateArticles.map(article => (
         <div key={article.id} className='w-1/3 flex-grow'>
@@ -34,7 +34,7 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => (
         </div>
       ))}
     </div>
-  </Widget>
+  </Container>
 );
 
 export const RelateArticleSkeleton = () => (

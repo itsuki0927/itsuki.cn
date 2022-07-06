@@ -7,4 +7,3 @@ export { default as Empty } from './Empty';
 export { default as Popup } from './Popup';
 export { default as MarkdownBlock } from './MarkdownBlock';
 export { default as PageLoadingProgress } from './PageLoadingProgress';
-export { default as Widget } from './Widget';

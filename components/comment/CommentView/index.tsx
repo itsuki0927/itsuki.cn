@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import React, { useCallback, useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { CountDown, SigninIcon } from '@/components/common';
-import { Widget } from '@/components/ui';
+import { Container } from '@/components/ui';
 import { GAEventCategories } from '@/constants/gtag';
 import { GUESTBOOK } from '@/constants/value';
 import { useComments, useCreateComment } from '@/hooks/comment';
@@ -12,6 +12,7 @@ import CommentList from '../CommentList';
 import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
 import { ReplyProvider, useReply } from '../context';
 import { convertToCommentTreeData } from './utils';
+import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 
 const getCommentTitleSuffixText = (articleId: number) =>
   articleId === GUESTBOOK ? '留言' : '评论';
@@ -68,8 +69,8 @@ const CommentView = ({ articleId }: CommentProps) => {
   }
 
   return (
-    <Widget>
-      <Widget.Header>
+    <Container id={COMMENT_VIEW_ELEMENT_ID}>
+      <h3 className='my-3 pb-2 font-medium tracking-widest'>
         {isEmpty ? (
           `暂无${getCommentTitleSuffixText(articleId)}`
         ) : (
@@ -77,7 +78,7 @@ const CommentView = ({ articleId }: CommentProps) => {
             <CountDown num={data?.total} /> 条{getCommentTitleSuffixText(articleId)}
           </>
         )}
-      </Widget.Header>
+      </h3>
 
       {session?.user ? (
         <div className='my-4'>{commentFormDom}</div>
@@ -101,7 +102,7 @@ const CommentView = ({ articleId }: CommentProps) => {
           }
         </CommentList>
       )}
-    </Widget>
+    </Container>
   );
 };
 

@@ -4,6 +4,8 @@ import Container from '../Container';
 interface WidgetProps {
   className?: string;
   children?: ReactNode;
+  // eslint-disable-next-line react/no-unused-prop-types
+  id?: string;
 }
 
 const Header = ({ className = '', children }: WidgetProps) => (
@@ -12,8 +14,10 @@ const Header = ({ className = '', children }: WidgetProps) => (
 
 const Widget: FC<WidgetProps> & {
   Header: typeof Header;
-} = ({ className, children }: WidgetProps) => (
-  <Container className={className ?? ''}>{children}</Container>
+} = ({ className, children, id }: WidgetProps) => (
+  <Container className={className ?? ''} id={id}>
+    {children}
+  </Container>
 );
 
 Widget.Header = Header;

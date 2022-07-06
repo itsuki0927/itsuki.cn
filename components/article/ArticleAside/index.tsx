@@ -1,9 +1,14 @@
 import classNames from 'classnames';
-import { Container, Widget } from '@/components/ui';
+import { Container } from '@/components/ui';
 import { ArticleDetailResponse } from '@/entities/article';
 import { useArticle } from '@/hooks/article';
 import { ArticleHeading } from '@/hooks/article/useArticle';
 import { useScrollTo } from '@/hooks';
+import {
+  COMMENT_VIEW_ELEMENT_ID,
+  ARTICLE_ACTIONS_ELEMENT_ID,
+  getElementId,
+} from '@/constants/anchor';
 
 const getHeadingArchorIndent = (level: number) => `ml-${(level - 1) * 4}`;
 
@@ -51,19 +56,40 @@ const ArticleAside = ({ article }: ArticleAsideProps) => {
   if (Number.isNaN(articleId)) return <div>Error</div>;
   if (isFetching || isLoading) return <ArticleAsideSkeleton />;
 
+  const handleScrollTo = (id: string) => {
+    scrollTo(getElementId(id), id === ARTICLE_ACTIONS_ELEMENT_ID ? -200 : 0);
+  };
+
   return (
-    <Widget className='sticky top-16'>
+    <Container className='sticky top-16 text-gray-400'>
       <ul className='max-h-[calc(100vh-148px)] space-y-1 overflow-y-scroll'>
-        <Widget.Header>文章目录</Widget.Header>
         {data?.headings.map(heading => (
           <HeadingArchor
-            onClick={() => scrollTo(`#${heading.id}`)}
+            onClick={() => handleScrollTo(heading.id)}
             heading={heading}
             key={heading.id}
           />
         ))}
       </ul>
-    </Widget>
+
+      <div
+        tabIndex={0}
+        role='button'
+        className='mt-2 cursor-pointer transition-colors hover:text-primary'
+        onClick={() => handleScrollTo(ARTICLE_ACTIONS_ELEMENT_ID)}
+      >
+        <span className='text-sm'>点赞分享~</span>
+      </div>
+
+      <div
+        tabIndex={0}
+        role='button'
+        className='mt-2 cursor-pointer transition-colors hover:text-primary'
+        onClick={() => handleScrollTo(COMMENT_VIEW_ELEMENT_ID)}
+      >
+        <span className='text-sm'>评论区</span>
+      </div>
+    </Container>
   );
 };
 

@@ -4,6 +4,7 @@ import { GAEventCategories } from '@/constants/gtag';
 import { ArticleDetailResponse } from '@/entities/article';
 import { gtag } from '@/utils/gtag';
 import SponsorButton from '../SponsorButton';
+import { ARTICLE_ACTIONS_ELEMENT_ID } from '@/constants/anchor';
 
 const DynamicFavoriteButton = dynamic(() => import('../FavoriteButton'), {
   ssr: false,
@@ -15,7 +16,10 @@ interface ArticleActionProps {
 }
 
 const ArticleAction = ({ article, openPopup }: ArticleActionProps) => (
-  <div className='mx-auto flex items-center justify-center space-x-4'>
+  <div
+    id={ARTICLE_ACTIONS_ELEMENT_ID}
+    className='mx-auto flex scroll-m-20 items-center justify-center space-x-4'
+  >
     <DynamicFavoriteButton article={article} />
     <SponsorButton
       onClick={() => {

@@ -114,7 +114,7 @@ const AboutView = () => {
               author='itsuki'
             />
             <BlogEntry
-              body='管理: 基本 React.js、Ant-Design-Pro、Pro-Components、Graphql 的 Web 应用'
+              body='管理: 基于 React.js、Vite、Pro-Components、Graphql 的 Web 应用'
               url='https://github.com/itsuki0927/itsuki-admin.cn'
               author='itsuki'
             />

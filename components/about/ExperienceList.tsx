@@ -4,15 +4,15 @@ const experienceList: ExperienceCardProps[] = [
     company: '字节跳动',
     startTime: '22/06',
     endTime: '至今',
-    description: '还在熟悉项目中...',
-    techStack: 'React、Next.js、Node.js',
+    description: 'Creative Center: 关于创意的全站式服务...',
+    techStack: 'React、Next.js、Node.js、Typescript',
   },
   {
     post: '前端实习生',
     company: '网易',
     startTime: '22/03',
     endTime: '22/05',
-    description: '正在构建永劫无间相关的双端项目...',
+    description: '永劫无间官网的双端项目以及游戏内嵌网页.',
     techStack: 'Vue2.0、 Jquery、 JavaScript、 Css',
   },
   {

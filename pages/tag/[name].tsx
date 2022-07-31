@@ -81,10 +81,7 @@ const ArticleTagPage = ({
       }
     >
       <div className='space-y-6'>
-        <NextSeo
-          title={`${tag?.name} - ${tag?.path} - Tag`}
-          description={tag?.description}
-        />
+        <NextSeo title={tag?.name} />
 
         <ArticleList {...articles} />
       </div>

@@ -25,6 +25,7 @@ import { useMount } from '@/hooks';
 import { useArticle, useArticles } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
 import { getArticleDetailFullUrl } from '@/utils/url';
+import { META } from '@/configs/app';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePaths();
@@ -109,6 +110,24 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
                 content: article.cover,
               },
             ]}
+            openGraph={{
+              title: article.title,
+              description: article.description,
+              url: getArticleDetailFullUrl(article.id),
+              type: 'article',
+              article: {
+                publishedTime: article.createAt.toString(),
+                modifiedTime: article.updateAt.toString(),
+                expirationTime: article.updateAt.toString(),
+                authors: [META.url],
+                tags: article.tags.map(v => v.name),
+              },
+              images: [
+                {
+                  url: article.cover,
+                },
+              ],
+            }}
           />
           <ArticleJsonLd
             url={getArticleDetailFullUrl(article.id)}
@@ -116,8 +135,9 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
             images={[article.cover]}
             datePublished={article.createAt.toString()}
             dateModified={article.updateAt.toString()}
-            authorName={article.author}
+            authorName={[{ name: article.author, url: META.url }]}
             description={article.description}
+            publisherName={article.title}
           />
 
           <blockquote>{article.description}</blockquote>

@@ -33,11 +33,10 @@ export const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? '';
 
 // blog meta
 export const META = {
-  title: 'Itsuki Blog | 五木',
-  keywords:
-    'Itsuki 博客, Itsuki Blog, 五木, React, Next.js 博客,前端技术博客, JavaScript 技术',
-  description: 'Itsuki Blog - 五木 博客 - 要做一个很酷的人 - https://itsuki.cn',
+  title: '五木',
+  keywords: '五木,前端技术博客,React,Next.js,JavaScript,TypeScript',
+  description: '有关于前端和个人思考的文章: TypeScript、JavaScript、React、Nextjs等等!',
   url: WEB_URL,
-  author: 'itsuki',
+  author: '五木',
   email: EMAIL,
 };

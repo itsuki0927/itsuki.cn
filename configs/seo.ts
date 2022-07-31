@@ -3,7 +3,7 @@ import { META } from './app';
 const seoConfig = {
   title: META.title,
   defaultTitle: META.title,
-  titleTemplate: '%s - Itsuki Blog',
+  titleTemplate: '%s | 五木',
   description: META.description,
   keywords: META.keywords,
   openGraph: {
@@ -12,19 +12,19 @@ const seoConfig = {
     type: 'website',
     locale: 'zh-cn',
     url: META.url,
-    site_name: 'Itsuki Blog',
+    site_name: '五木',
     images: [
       {
-        url: '/card.png',
-        width: 800,
-        height: 600,
-        alt: 'Itsuki Blog',
+        url: '/logo.png',
+        width: 60,
+        height: 60,
+        alt: '五木',
       },
     ],
   },
   twitter: {
     handle: META.author,
-    site: 'Itsuki Blog',
+    site: '五木',
     cardType: 'summary',
   },
 };

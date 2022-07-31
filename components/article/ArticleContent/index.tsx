@@ -13,7 +13,7 @@ const ArticleContent = ({ article }: ArticleContentProps) => {
 
   return (
     <Container className='relative rounded-sm'>
-      <MarkdownBlock className='my-5' htmlContent={article.content} />
+      <MarkdownBlock className='my-5' htmlContent={article.htmlContent} />
 
       <ArticleMeta />
 

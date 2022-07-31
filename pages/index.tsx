@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { dehydrate, QueryClient } from 'react-query';
+import { NextSeo } from 'next-seo';
 import { getBannerArticles, getRecentArticles } from '@/api/article';
 import { getAllTags } from '@/api/tag';
 import { ArticleList, ArticleSkeletonList } from '@/components/article';
@@ -49,6 +50,7 @@ const HomePage = () => {
         </div>
       }
     >
+      <NextSeo defaultTitle='五木' />
       <div className='home space-y-6' id='dashboard'>
         <div className='prose max-w-full'>
           <section className='space-y-4'>

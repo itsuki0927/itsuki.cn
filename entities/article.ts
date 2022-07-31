@@ -36,6 +36,7 @@ export type SearchArticlesBody = {
 export type ArticleDetailResponse = Article & {
   prevArticle: Article | null;
   nextArticle: Article | null;
+  htmlContent: string;
 };
 
 export type LikeArticleBody = {

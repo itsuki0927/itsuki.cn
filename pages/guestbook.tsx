@@ -1,4 +1,5 @@
 import { dehydrate, QueryClient } from 'react-query';
+import { NextSeo } from 'next-seo';
 import { getBlackList } from '@/api/blacklist';
 import { getComments } from '@/api/comment';
 import { CommentView } from '@/components/comment';
@@ -33,6 +34,7 @@ const GuestBookPage = () => (
       </div>
     }
   >
+    <NextSeo title='留言板' />
     <div className='mx-auto max-w-2xl space-y-6 bg-white'>
       <CommentView articleId={GUESTBOOK} />
     </div>

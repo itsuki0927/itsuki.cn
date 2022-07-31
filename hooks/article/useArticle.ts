@@ -28,7 +28,7 @@ const useArticle = (articleId: number) =>
       return {
         ...data,
         id: articleId,
-        content: htmlContent,
+        htmlContent,
         headings,
       };
     },

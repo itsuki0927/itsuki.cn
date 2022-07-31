@@ -28,6 +28,7 @@
     "check-format": "prettier --check .",
     "check-style": "stylelint --fix '**/*.scss'",
     "check-types": "tsc -p ./tsconfig.json --noEmit --pretty",
+    "pm2": "pm2 start yarn --name 'itsuki.cn' --interpreter bash -- start ",
     "update:deps": "yarn upgrade-interactive --latest"
   },
   "dependencies": {

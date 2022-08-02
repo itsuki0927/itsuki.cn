@@ -13,7 +13,7 @@ const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor
   ssr: false,
 });
 
-interface CommentFormProps {
+export interface CommentFormProps {
   className?: string;
   articleId: number;
   loading?: boolean;

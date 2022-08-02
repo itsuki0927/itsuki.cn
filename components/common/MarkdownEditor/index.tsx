@@ -43,7 +43,7 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
   };
 
   return (
-    <div className={classNames('relative bg-white-1 text-sm', className)}>
+    <div className={classNames('relative bg-white text-sm', className)}>
       <div className='relative'>
         <div
           placeholder={placeholder}
@@ -55,7 +55,7 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
         />
         <MarkdownBlock
           className={classNames(
-            'absolute left-0 right-0 top-0 bottom-0 cursor-not-allowed overflow-y-scroll bg-white-2 p-3 transition-all duration-300 ',
+            'absolute left-0 right-0 top-0 bottom-0 cursor-not-allowed overflow-y-scroll bg-white-1 p-3 transition-all duration-300 ',
             preview ? 'z-10 h-full' : '-z-10 h-0'
           )}
           htmlContent={markedToHtml(props.code || '', {
@@ -64,12 +64,12 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
         />
       </div>
 
-      <div className='flex justify-between bg-white-2 leading-9'>
+      <div className='flex justify-between bg-white-1 leading-9'>
         <div className='flex'>
           <button
             type='button'
             className={classNames(
-              'px-3 text-xxs text-gray-3 hover:bg-white-3 hover:text-dark-1'
+              'px-3 text-xxs text-gray-3 hover:bg-white-2 hover:text-dark-1'
             )}
             onClick={() => {
               setPreview(!preview);
@@ -93,7 +93,7 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
             aria-label='insert emoji'
             className={classNames(
               s.emoji,
-              'px-3 text-xxs text-gray-3 hover:bg-white-3 hover:text-dark-1'
+              'px-3 text-xxs text-gray-3 hover:bg-white-2 hover:text-dark-1'
             )}
           >
             <SmileFilled />
@@ -101,7 +101,7 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
             <div
               className={classNames(
                 s.emojiList,
-                'absolute left-0 right-0 top-0 bottom-8 overflow-y-scroll bg-white-2 p-3 text-left opacity-80 transition-all duration-300 '
+                'absolute left-0 right-0 top-0 bottom-8 overflow-y-scroll bg-white-1 p-3 text-left opacity-80 transition-all duration-300 '
               )}
             >
               {EMOJIS.map(emoji => (

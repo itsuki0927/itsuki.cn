@@ -1,7 +1,6 @@
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
-import { GithubOutlined, QQOutlined } from '@/components/icons';
+import { GithubOutlined } from '@/components/icons';
 import { GAEventCategories } from '@/constants/gtag';
 import { gtag } from '@/utils/gtag';
 import { getPageUrl } from '@/utils/url';
@@ -25,29 +24,14 @@ const SigninIcon = () => {
   };
 
   return (
-    <div className='flex justify-center space-x-4'>
-      <a
-        href='/api/auth/sign/github'
-        className='flex items-end rounded-sm bg-github py-1 px-3 text-sm text-white opacity-90 transition-opacity hover:opacity-100'
-        onClick={e => handleSigin(e, 'github')}
-      >
-        <GithubOutlined className='mr-1' />
-        <span className='capsize'>Github</span>
-      </a>
-      <a
-        href='/api/auth/sign/qq'
-        className='flex items-end rounded-sm bg-qq py-1 px-3 text-sm text-white opacity-90 transition-opacity hover:opacity-100'
-        onClick={e => {
-          e.preventDefault();
-          toast.loading('秃头开发中...', {
-            duration: 3000,
-          });
-        }}
-      >
-        <QQOutlined className='mr-1' />
-        <span className='capsize'>QQ</span>
-      </a>
-    </div>
+    <a
+      href='/api/auth/sign/github'
+      className='my-4 flex h-8 w-28 items-center justify-center rounded-sm bg-github text-sm text-white opacity-90 transition-opacity hover:opacity-100'
+      onClick={e => handleSigin(e, 'github')}
+    >
+      <GithubOutlined className='mr-1' />
+      <span className='capsize'>Github</span>
+    </a>
   );
 };
 

@@ -35,7 +35,7 @@ const GuestBookPage = () => (
     }
   >
     <NextSeo title='留言板' />
-    <div className='mx-auto max-w-2xl space-y-6 bg-white'>
+    <div className='mx-auto max-w-3xl space-y-6'>
       <CommentView articleId={GUESTBOOK} />
     </div>
   </Layout>

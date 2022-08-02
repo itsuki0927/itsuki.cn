@@ -1,21 +1,24 @@
 import { useSession } from 'next-auth/react';
-import React, { useCallback, useMemo } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { CountDown, SigninIcon } from '@/components/common';
+import { SigninIcon } from '@/components/common';
 import { Container } from '@/components/ui';
+import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
 import { GUESTBOOK } from '@/constants/value';
+import { Comment } from '@/entities/comment';
+import { useScrollTo } from '@/hooks';
 import { useComments, useCreateComment } from '@/hooks/comment';
 import { gtag } from '@/utils/gtag';
+import CommentCard from '../CommentCard';
 import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';
 import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
-import { ReplyProvider, useReply } from '../context';
-import { convertToCommentTreeData } from './utils';
-import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
+import { ReplyProvider } from '../context';
 
 const getCommentTitleSuffixText = (articleId: number) =>
-  articleId === GUESTBOOK ? '留言' : '评论';
+  articleId === GUESTBOOK ? '留言板' : '评论区';
 
 type CommentProps = {
   articleId: number;
@@ -23,10 +26,22 @@ type CommentProps = {
 
 const CommentView = ({ articleId }: CommentProps) => {
   const mutation = useCreateComment(articleId);
-  const { reply } = useReply();
   const { data: session } = useSession();
   const { data, isLoading, isFetching, isEmpty } = useComments(articleId);
-  const comments = useMemo(() => convertToCommentTreeData(data?.data), [data?.data]);
+  const { pathname, asPath } = useRouter();
+  const { scrollTo } = useScrollTo();
+
+  useEffect(() => {
+    const currentRouteCommentId = asPath.replace(pathname, '');
+    console.log('currentRouteCommentId', currentRouteCommentId);
+    if (
+      ['/guestbook'].includes(pathname) &&
+      currentRouteCommentId &&
+      currentRouteCommentId.startsWith('#')
+    ) {
+      scrollTo(currentRouteCommentId);
+    }
+  }, [asPath, pathname, scrollTo]);
 
   const handleSend = useCallback(
     (params: any) => {
@@ -48,15 +63,9 @@ const CommentView = ({ articleId }: CommentProps) => {
     [articleId, mutation]
   );
 
-  const commentFormDom = useMemo(
-    () => (
-      <CommentForm
-        articleId={articleId}
-        loading={mutation.isLoading}
-        onSend={handleSend}
-      />
-    ),
-    [articleId, handleSend, mutation.isLoading]
+  const commentRender = useCallback(
+    (comment: Comment) => <CommentCard data={comment} key={comment.id} />,
+    []
   );
 
   if (isLoading || isFetching) {
@@ -70,37 +79,27 @@ const CommentView = ({ articleId }: CommentProps) => {
 
   return (
     <Container id={COMMENT_VIEW_ELEMENT_ID}>
-      <h3 className='my-3 pb-2 font-medium tracking-widest'>
-        {isEmpty ? (
-          `暂无${getCommentTitleSuffixText(articleId)}`
+      <div className='my-4 mb-12 rounded-sm border border-solid border-primary bg-primary-light p-6'>
+        <h5 className='my-1 text-lg font-bold text-gray-900 dark:text-gray-100 md:text-xl'>
+          {getCommentTitleSuffixText(articleId)}
+        </h5>
+        <p className='text-sm text-gray-800'>在这里留下你的足迹吧~</p>
+        {session?.user ? (
+          <div className='my-4'>
+            <CommentForm
+              articleId={articleId}
+              loading={mutation.isLoading}
+              onSend={handleSend}
+            />
+          </div>
         ) : (
-          <>
-            <CountDown num={data?.total} /> 条{getCommentTitleSuffixText(articleId)}
-          </>
-        )}
-      </h3>
-
-      {session?.user ? (
-        <div className='my-4'>{commentFormDom}</div>
-      ) : (
-        <div className='my-2 space-y-3 rounded-sm border border-solid border-primary bg-primary-light py-4'>
-          <p className='text-center text-sm text-gray-2'>仅使用你的邮箱、头像、昵称.</p>
           <SigninIcon />
-          <p className='text-center text-sm text-gray-2'>(请先登录)</p>
-        </div>
-      )}
+        )}
+        <p className='text-sm text-gray-800'>仅使用你的邮箱、头像、昵称.</p>
+      </div>
+
       {!isEmpty && (
-        <CommentList className='space-y-4' data={comments}>
-          {comment =>
-            reply?.id === comment.id
-              ? React.cloneElement(commentFormDom, {
-                  hiddenLogout: true,
-                  hiddenAvatar: true,
-                  className: 'mt-4',
-                })
-              : null
-          }
-        </CommentList>
+        <CommentList className='space-y-4' data={data?.data} itemRender={commentRender} />
       )}
     </Container>
   );

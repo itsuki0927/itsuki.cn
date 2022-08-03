@@ -93,7 +93,7 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
 
   return (
     <Layout
-      className='flex flex-row'
+      className=''
       hero={
         <div className='space-y-10 bg-white py-10'>
           <Navbar />
@@ -142,23 +142,31 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
         publisherName={article.title}
       />
 
-      <div className='max-w-full sm:max-w-3xl'>
-        <blockquote>{article.description}</blockquote>
+      <div className='flex flex-row'>
+        <div className='max-w-full sm:max-w-3xl'>
+          <blockquote>{article.description}</blockquote>
 
-        <Container className='relative rounded-sm'>
-          <MarkdownBlock className='my-5' htmlContent={article.htmlContent} />
+          <Container className='relative rounded-sm'>
+            <MarkdownBlock className='my-5' htmlContent={article.htmlContent} />
 
-          <ArticleMeta article={article} />
+            <ArticleMeta article={article} />
 
-          <div
-            id={ARTICLE_ACTIONS_ELEMENT_ID}
-            className='flex w-max scroll-m-20 flex-col items-center justify-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'
-          >
-            <FavoriteButton article={article} />
-            <Share />
-          </div>
-        </Container>
+            <div
+              id={ARTICLE_ACTIONS_ELEMENT_ID}
+              className='flex w-max scroll-m-20 flex-col items-center justify-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'
+            >
+              <FavoriteButton article={article} />
+              <Share />
+            </div>
+          </Container>
+        </div>
 
+        <div className='hidden sm:block sm:flex-grow'>
+          <ArticleAside article={article} />
+        </div>
+      </div>
+
+      <div className='max-w-3xl'>
         <ArticlePagination
           prevArticle={article.prevArticle}
           nextArticle={article.nextArticle}
@@ -167,10 +175,6 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
         <RelateArticles relateArticles={relateArticles} />
 
         <CommentView articleId={article.id} />
-      </div>
-
-      <div className='hidden sm:block sm:flex-grow'>
-        <ArticleAside article={article} />
       </div>
     </Layout>
   );

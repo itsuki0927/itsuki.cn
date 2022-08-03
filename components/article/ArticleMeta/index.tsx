@@ -1,17 +1,29 @@
 import { useRouter } from 'next/router';
-import { ExternalLink } from '@/components/common';
+import { ExternalLink, ToDate } from '@/components/common';
 import { WEB_URL } from '@/configs/app';
+import { ArticleDetailResponse } from '@/entities/article';
 
-const ArticleMeta = () => {
+interface ArticleMetaProps {
+  article: ArticleDetailResponse;
+}
+
+const ArticleMeta = ({ article }: ArticleMetaProps) => {
   const router = useRouter();
   return (
-    <div className='my-4 flex flex-col text-sm text-gray-2 sm:flex-row sm:items-center sm:justify-center'>
+    <div className='my-4 flex flex-col space-y-3 text-sm text-gray-2'>
+      <span className='w-max rounded-sm text-sm'>
+        <span>最后更新: </span>
+        <ToDate date={article.updateAt} to='YMDm' />
+      </span>
+
       <div>
         <span>永久地址: </span>
-        <span className='underline'>{WEB_URL + router.asPath}</span>
+        <span className='underline'>
+          {WEB_URL + router.pathname.replace('[id]', `${article.id}`)}
+        </span>
       </div>
 
-      <div className='mt-2 sm:ml-2 sm:mt-0'>
+      <div>
         <span>版权声明: </span>
         <ExternalLink
           className='no-underline transition-colors hover:text-basic hover:underline'

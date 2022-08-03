@@ -1,15 +1,17 @@
+import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { dehydrate, QueryClient } from 'react-query';
-import { NextSeo } from 'next-seo';
 import { getBannerArticles, getRecentArticles } from '@/api/article';
 import { getAllTags } from '@/api/tag';
 import { ArticleList, ArticleSkeletonList } from '@/components/article';
 import { HomeSlider, Layout, Navbar } from '@/components/common';
 import { RightOutlined } from '@/components/icons';
+import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, tagKeys } from '@/constants/queryKeys';
 import useBannerArticles from '@/hooks/article/useBannerArticles';
 import useRecentArticles from '@/hooks/article/useRecentArticles';
 import useTags from '@/hooks/tag';
+import { gtag } from '@/utils/gtag';
 import { getTagRoute } from '@/utils/url';
 
 export const getStaticProps = async () => {
@@ -57,7 +59,14 @@ const HomePage = () => {
             <div className='flex items-end justify-between px-4'>
               <h2 className='capsize mb-5'>最近文章</h2>
               <Link href='/blog'>
-                <p className='flex cursor-pointer items-center transition-colors hover:text-primary'>
+                <p
+                  className='flex cursor-pointer items-center transition-colors hover:text-primary'
+                  onClick={() => {
+                    gtag.event('find_article_more', {
+                      category: GAEventCategories.Article,
+                    });
+                  }}
+                >
                   <span className='capsize mr-2'>查看更多</span>
                   <RightOutlined />
                 </p>
@@ -77,8 +86,16 @@ const HomePage = () => {
               {tags?.map(tag => (
                 <Link key={tag.path} href={getTagRoute(tag.path)}>
                   <a
+                    tabIndex={0}
+                    role='button'
                     key={tag.path}
                     className='mr-4 mb-4 rounded-sm bg-white-2 py-1 px-4 align-bottom hover:bg-white-3 sm:py-[6px] sm:px-6'
+                    onClick={() => {
+                      gtag.event('tag', {
+                        category: GAEventCategories.Tag,
+                        label: tag.name,
+                      });
+                    }}
                   >
                     {tag.name}
                   </a>

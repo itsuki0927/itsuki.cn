@@ -1,11 +1,9 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
-import { Icon, LinkOutlined } from '@/components/icons';
+import { Icon } from '@/components/icons';
 import { useUI } from '@/components/ui/context';
 import { META } from '@/configs/app';
 import { GAEventCategories } from '@/constants/gtag';
-import { copyTextToClipboard } from '@/hooks/useCopyToClipboard';
 import { renderTextToQRCodeDataURL } from '@/libs/qrcode';
 import { gtag } from '@/utils/gtag';
 import { getPageUrl, stringifyParams } from '@/utils/url';
@@ -75,15 +73,6 @@ const Share = () => {
   const getCover = () =>
     document.getElementsByName('cover')?.[0].getAttribute('content') || '';
 
-  const copyPageURL = () => {
-    const content = `${getTitle()} - ${getURL()}`;
-    copyTextToClipboard(content);
-    toast.success('🔗 链接复制成功');
-    gtag.event('copy_url', {
-      category: GAEventCategories.Widget,
-    });
-  };
-
   const handleShare = async (social: SocialItem) => {
     const shareParams: ShareParams = {
       url: getURL(),
@@ -105,7 +94,7 @@ const Share = () => {
   };
 
   return (
-    <div className='flex items-center space-x-4'>
+    <div className='flex flex-col justify-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'>
       {socials.map(social => (
         <button
           aria-label={`share to ${social.name}`}
@@ -118,14 +107,6 @@ const Share = () => {
           <Icon className='capsize text-lg' name={social.id} />
         </button>
       ))}
-      <button
-        type='button'
-        aria-label='copy article link'
-        className={classNames(s.ejector, s.link)}
-        onClick={copyPageURL}
-      >
-        <LinkOutlined className='capsize text-lg' />
-      </button>
     </div>
   );
 };

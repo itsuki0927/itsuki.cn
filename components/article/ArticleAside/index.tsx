@@ -9,6 +9,8 @@ import {
   ARTICLE_ACTIONS_ELEMENT_ID,
   getElementId,
 } from '@/constants/anchor';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 const getHeadingArchorIndent = (level: number) => `ml-${(level - 1) * 4}`;
 
@@ -57,6 +59,9 @@ const ArticleAside = ({ article }: ArticleAsideProps) => {
   if (isFetching || isLoading) return <ArticleAsideSkeleton />;
 
   const handleScrollTo = (id: string) => {
+    gtag.event('article_aside', {
+      category: GAEventCategories.Article,
+    });
     scrollTo(getElementId(id), id === ARTICLE_ACTIONS_ELEMENT_ID ? -200 : 0);
   };
 
@@ -71,15 +76,6 @@ const ArticleAside = ({ article }: ArticleAsideProps) => {
           />
         ))}
       </ul>
-
-      <div
-        tabIndex={0}
-        role='button'
-        className='mt-2 cursor-pointer transition-colors hover:text-primary'
-        onClick={() => handleScrollTo(ARTICLE_ACTIONS_ELEMENT_ID)}
-      >
-        <span className='text-sm'>点赞分享~</span>
-      </div>
 
       <div
         tabIndex={0}

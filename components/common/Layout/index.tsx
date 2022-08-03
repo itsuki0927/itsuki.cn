@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { PropsWithChildren, ReactNode } from 'react';
 import { BackTop, Popup } from '@/components/ui';
 import { PopupViews, UIParams, useUI } from '@/components/ui/context';
@@ -24,13 +25,16 @@ const PopupUI: React.FC = () => {
 
 export interface PageProps {
   hero?: ReactNode;
+  className?: string;
 }
 
-const Layout = ({ children, hero }: PropsWithChildren<PageProps>) => (
+const Layout = ({ children, hero, className = '' }: PropsWithChildren<PageProps>) => (
   <div className='app'>
     {hero}
 
-    <main className='container mx-auto mb-6 space-y-6 py-10'>{children}</main>
+    <main className={classNames('container mb-6 space-y-6 py-10', className)}>
+      {children}
+    </main>
 
     <Footer />
 

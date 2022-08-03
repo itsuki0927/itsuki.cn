@@ -8,8 +8,9 @@ import { getComments } from '@/api/comment';
 import { getAllTags } from '@/api/tag';
 import { ArticlePagination, ArticleSkeleton } from '@/components/article';
 import ArticleAside from '@/components/article/ArticleAside';
-import ArticleContent from '@/components/article/ArticleContent';
 import ArticleHeader from '@/components/article/ArticleHeader';
+import ArticleMeta from '@/components/article/ArticleMeta';
+import FavoriteButton from '@/components/article/FavoriteButton';
 import RelateArticles, {
   RelateArticleSkeleton,
 } from '@/components/article/RelateArticles';
@@ -18,14 +19,16 @@ import {
   CommentListSkeleton,
   CommentView,
 } from '@/components/comment';
-import { Layout, Navbar } from '@/components/common';
+import { Layout, Navbar, Share } from '@/components/common';
+import { Container, MarkdownBlock } from '@/components/ui';
+import { META } from '@/configs/app';
+import { ARTICLE_ACTIONS_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, blacklistKeys, commentKeys, tagKeys } from '@/constants/queryKeys';
 import { useMount } from '@/hooks';
 import { useArticle, useArticles } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
 import { getArticleDetailFullUrl } from '@/utils/url';
-import { META } from '@/configs/app';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePaths();
@@ -90,6 +93,7 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
 
   return (
     <Layout
+      className='flex flex-row'
       hero={
         <div className='space-y-10 bg-white py-10'>
           <Navbar />
@@ -98,59 +102,63 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
         </div>
       }
     >
-      <div className='flex w-full'>
-        <div className='max-w-full sm:max-w-3xl'>
-          <NextSeo
-            title={article.title}
-            description={article.description}
-            additionalMetaTags={[
-              { name: 'keywords', content: article.keywords },
-              {
-                name: 'cover',
-                content: article.cover,
-              },
-            ]}
-            openGraph={{
-              title: article.title,
-              description: article.description,
-              url: getArticleDetailFullUrl(article.id),
-              type: 'article',
-              article: {
-                publishedTime: article.createAt.toString(),
-                modifiedTime: article.updateAt.toString(),
-                expirationTime: article.updateAt.toString(),
-                authors: [META.url],
-                tags: article.tags.map(v => v.name),
-              },
-              images: [
-                {
-                  url: article.cover,
-                },
-              ],
-            }}
-          />
-          <ArticleJsonLd
-            url={getArticleDetailFullUrl(article.id)}
-            title={article.title}
-            images={[article.cover]}
-            datePublished={article.createAt.toString()}
-            dateModified={article.updateAt.toString()}
-            authorName={[{ name: article.author, url: META.url }]}
-            description={article.description}
-            publisherName={article.title}
-          />
+      <NextSeo
+        title={article.title}
+        description={article.description}
+        additionalMetaTags={[
+          { name: 'keywords', content: article.keywords },
+          {
+            name: 'cover',
+            content: article.cover,
+          },
+        ]}
+        openGraph={{
+          title: article.title,
+          description: article.description,
+          url: getArticleDetailFullUrl(article.id),
+          type: 'article',
+          article: {
+            publishedTime: article.createAt.toString(),
+            modifiedTime: article.updateAt.toString(),
+            expirationTime: article.updateAt.toString(),
+            authors: [META.url],
+            tags: article.tags.map(v => v.name),
+          },
+          images: [
+            {
+              url: article.cover,
+            },
+          ],
+        }}
+      />
+      <ArticleJsonLd
+        url={getArticleDetailFullUrl(article.id)}
+        title={article.title}
+        images={[article.cover]}
+        datePublished={article.createAt.toString()}
+        dateModified={article.updateAt.toString()}
+        authorName={[{ name: article.author, url: META.url }]}
+        description={article.description}
+        publisherName={article.title}
+      />
 
-          <blockquote>{article.description}</blockquote>
+      <div className='max-w-full sm:max-w-3xl'>
+        <blockquote>{article.description}</blockquote>
 
-          <ArticleContent article={article} />
-        </div>
+        <Container className='relative rounded-sm'>
+          <MarkdownBlock className='my-5' htmlContent={article.htmlContent} />
 
-        <div className='hidden flex-grow sm:block'>
-          <ArticleAside article={article} />
-        </div>
-      </div>
+          <ArticleMeta article={article} />
 
-      <div className='bg-white sm:max-w-3xl'>
+          <div
+            id={ARTICLE_ACTIONS_ELEMENT_ID}
+            className='flex w-max scroll-m-20 flex-col items-center justify-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'
+          >
+            <FavoriteButton article={article} />
+            <Share />
+          </div>
+        </Container>
+
         <ArticlePagination
           prevArticle={article.prevArticle}
           nextArticle={article.nextArticle}
@@ -159,6 +167,10 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
         <RelateArticles relateArticles={relateArticles} />
 
         <CommentView articleId={article.id} />
+      </div>
+
+      <div className='hidden sm:block sm:flex-grow'>
+        <ArticleAside article={article} />
       </div>
     </Layout>
   );

@@ -31,7 +31,7 @@ const FavoriteButton = ({ article }: FavoriteButtonProps) => {
       aria-label='favorite article'
       type='button'
       className={classNames(
-        'flex flex-grow items-center justify-center rounded-sm bg-danger px-6 py-2 text-sm font-medium text-white outline-none sm:max-w-[140px]',
+        'flex min-w-[100px] items-center justify-center rounded-sm bg-danger px-6 py-2 text-sm font-medium text-white outline-none',
         isLike
           ? 'cursor-not-allowed'
           : 'transition-colors duration-300 hover:bg-danger-hover'

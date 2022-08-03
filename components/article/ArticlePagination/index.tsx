@@ -12,8 +12,8 @@ interface ArticlePaginationProps {
 const ArticlePagination = ({ prevArticle, nextArticle }: ArticlePaginationProps) => {
   const router = useRouter();
   return (
-    <div className='flex justify-between border-b border-solid border-white-2'>
-      <div className='w-1/2 border-r border-solid border-white-2 bg-white py-2 px-4 sm:py-4 sm:px-6'>
+    <div className='flex justify-between'>
+      <div className='w-1/2 py-2 px-4 sm:py-4 sm:px-4'>
         <span className='mb-2'>上一篇</span>
         {prevArticle ? (
           <h3
@@ -33,7 +33,7 @@ const ArticlePagination = ({ prevArticle, nextArticle }: ArticlePaginationProps)
         )}
       </div>
 
-      <div className='w-1/2 bg-white py-2 px-4 text-right sm:py-4 sm:px-6'>
+      <div className='w-1/2 py-2 px-4 text-right sm:py-4 sm:px-4'>
         <span className='mb-2'>下一篇</span>
         {nextArticle ? (
           <h3

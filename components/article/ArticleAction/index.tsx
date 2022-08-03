@@ -1,14 +1,10 @@
-import dynamic from 'next/dynamic';
 import { Share } from '@/components/common';
 import { GAEventCategories } from '@/constants/gtag';
 import { ArticleDetailResponse } from '@/entities/article';
 import { gtag } from '@/utils/gtag';
 import SponsorButton from '../SponsorButton';
 import { ARTICLE_ACTIONS_ELEMENT_ID } from '@/constants/anchor';
-
-const DynamicFavoriteButton = dynamic(() => import('../FavoriteButton'), {
-  ssr: false,
-});
+import FavoriteButton from '../FavoriteButton';
 
 interface ArticleActionProps {
   article: ArticleDetailResponse;
@@ -18,9 +14,8 @@ interface ArticleActionProps {
 const ArticleAction = ({ article, openPopup }: ArticleActionProps) => (
   <div
     id={ARTICLE_ACTIONS_ELEMENT_ID}
-    className='mx-auto flex scroll-m-20 items-center justify-center space-x-4'
+    className='sticky top-16 flex scroll-m-20 flex-col items-center justify-center space-y-4 opacity-80 transition-opacity duration-300 hover:opacity-100'
   >
-    <DynamicFavoriteButton article={article} />
     <SponsorButton
       onClick={() => {
         gtag.event('sponsor_article', {
@@ -30,6 +25,7 @@ const ArticleAction = ({ article, openPopup }: ArticleActionProps) => (
       }}
     />
     <Share />
+    <FavoriteButton article={article} />
   </div>
 );
 

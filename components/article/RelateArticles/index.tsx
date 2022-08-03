@@ -9,31 +9,28 @@ interface RelateArticlesProps {
 }
 
 const RelateArticles = ({ relateArticles }: RelateArticlesProps) => (
-  <Container>
-    <h3 className='my-3 pb-2 font-medium tracking-widest'>你可能喜欢</h3>
-    <div className='flex justify-between space-x-4'>
-      {relateArticles.map(article => (
-        <div key={article.id} className='w-1/3 flex-grow'>
-          <Link href={getArticleDetailRoute(article.id)}>
-            <MyImage
-              src={article.cover}
-              width={210}
-              height={158}
-              layout='responsive'
-              className='cursor-pointer'
-              alt='relate-article-cover'
-              objectFit='cover'
-            />
-          </Link>
-          <h2 className='my-2 cursor-pointer px-3 text-center text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary  '>
-            <Link href={getArticleDetailRoute(article.id)}>{article.title}</Link>
-          </h2>
-          <span className='block text-center text-sm tracking-wider text-gray-2'>
-            <ToDate date={article.createAt} to='YMD' />
-          </span>
-        </div>
-      ))}
-    </div>
+  <Container className='flex justify-between space-x-4'>
+    {relateArticles.map(article => (
+      <div key={article.id} className='w-1/3 flex-grow'>
+        <Link href={getArticleDetailRoute(article.id)}>
+          <MyImage
+            src={article.cover}
+            width={210}
+            height={158}
+            layout='responsive'
+            className='cursor-pointer'
+            alt='relate-article-cover'
+            objectFit='cover'
+          />
+        </Link>
+        <h2 className='my-2 cursor-pointer px-3 text-center text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary  '>
+          <Link href={getArticleDetailRoute(article.id)}>{article.title}</Link>
+        </h2>
+        <span className='block text-center text-sm tracking-wider text-gray-2'>
+          <ToDate date={article.createAt} to='YMD' />
+        </span>
+      </div>
+    ))}
   </Container>
 );
 

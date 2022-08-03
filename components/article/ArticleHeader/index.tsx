@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { MyImage, ToDate, CountDown } from '@/components/common';
 import { ArticleDetailResponse } from '@/entities/article';
+import { getTagRoute } from '@/utils/url';
 
 interface ArticleHeaderProps {
   article: ArticleDetailResponse;
@@ -28,11 +29,14 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => (
         </li>
       </ul>
 
-      <div>
-        <span className='rounded-sm bg-primary-light px-2 py-1 text-sm text-primary'>
-          最后更新于
-          <ToDate date={article.updateAt} to='YMDm' />
-        </span>
+      <div className='space-x-2'>
+        {article.tags.map(tag => (
+          <Link href={getTagRoute(tag.path)}>
+            <span className='cursor-pointer rounded-sm bg-primary-light px-2 py-1 text-sm text-primary transition-colors'>
+              {tag.name}
+            </span>
+          </Link>
+        ))}
       </div>
     </header>
 
@@ -44,6 +48,7 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => (
         objectFit='cover'
         alt='article-header-cover'
         className='cursor-pointer'
+        id='articleCover'
       />
     </div>
   </div>

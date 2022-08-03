@@ -4,6 +4,8 @@ import { MyImage, ToDate } from '@/components/common';
 import { Article } from '@/entities/article';
 import { getArticleDetailRoute } from '@/utils/url';
 import s from './style.module.scss';
+import { gtag } from '@/utils/gtag';
+import { GAEventCategories } from '@/constants/gtag';
 
 type ArticleCardProps = {
   article: Article;
@@ -23,7 +25,13 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
       src={article.cover}
       objectFit='cover'
       className='cursor-pointer opacity-90 transition-opacity group-hover:opacity-100'
-      onClick={() => router.push(getArticleDetailRoute(article.id))}
+      onClick={() => {
+        gtag.event('article detail', {
+          category: GAEventCategories.Article,
+          value: article.id,
+        });
+        router.push(getArticleDetailRoute(article.id));
+      }}
     />
 
     <p className='mt-5 mb-3 text-sm text-gray-2 before:border-l-2 before:border-l-primary before:pr-2'>

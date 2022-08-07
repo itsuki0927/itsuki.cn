@@ -48,3 +48,10 @@ blockquote {
   margin-top: -0.219em;
   display: table;
 }
+
+.reply-comment {
+  font-weight: 500;
+  text-decoration: none;
+  color: inherit;
+  font-style: normal;
+}

@@ -108,8 +108,9 @@ const getRenderer = (options?: Partial<RendererGetterOption>) => {
       const index = parentName.indexOf('-');
       const name = parentName.slice(0, index);
       const id = parentName.slice(index + 1);
-      // console.log(name, id);
-      return `<a href='#comment-${id}' id=${getCommentElementId(id)}>@${name}</a>`;
+      return `<a href='#comment-${id}' class='reply-comment' id=${getCommentElementId(
+        id
+      )}>@${name}</a>`;
     }
     return text;
   };

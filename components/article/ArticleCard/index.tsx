@@ -1,11 +1,11 @@
 import router from 'next/router';
 import { CSSProperties } from 'react';
 import { MyImage, ToDate } from '@/components/common';
-import { Article } from '@/entities/article';
-import { getArticleDetailRoute } from '@/utils/url';
-import s from './style.module.scss';
-import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
+import { Article } from '@/entities/article';
+import { gtag } from '@/utils/gtag';
+import { getBlogDetailRoute } from '@/utils/url';
+import s from './style.module.scss';
 
 type ArticleCardProps = {
   article: Article;
@@ -30,7 +30,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
           category: GAEventCategories.Article,
           value: article.id,
         });
-        router.push(getArticleDetailRoute(article.id));
+        router.push(getBlogDetailRoute(article.path));
       }}
     />
 
@@ -40,7 +40,7 @@ const ArticleCard = ({ article, style }: ArticleCardProps) => (
 
     <h3
       className='mt-0 mb-3 cursor-pointer text-lg text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary'
-      onClick={() => router.push(getArticleDetailRoute(article.id))}
+      onClick={() => router.push(getBlogDetailRoute(article.path))}
     >
       {article.title}
     </h3>

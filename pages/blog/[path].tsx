@@ -1,10 +1,10 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ArticleJsonLd, NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
-import { getAllArticlePaths, getArticle, readArticle } from '@/api/article';
+import { getAllArticlePathsWithPath, getArticleByPath, readArticle } from '@/api/article';
 import { getBlackList } from '@/api/blacklist';
-import { getComments } from '@/api/comment';
 import { getAllTags } from '@/api/tag';
 import { ArticlePagination, ArticleSkeleton } from '@/components/article';
 import ArticleAside from '@/components/article/ArticleAside';
@@ -24,14 +24,13 @@ import { Container, MarkdownBlock } from '@/components/ui';
 import { META } from '@/configs/app';
 import { ARTICLE_ACTIONS_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
-import { articleKeys, blacklistKeys, commentKeys, tagKeys } from '@/constants/queryKeys';
-import { useMount } from '@/hooks';
-import { useArticle, useArticles } from '@/hooks/article';
+import { articleKeys, blacklistKeys, tagKeys } from '@/constants/queryKeys';
+import { useArticles, useArticleByPath } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
-import { getBlogDetailFullUrl } from '@/utils/url';
+import { getArticleDetailFullUrl } from '@/utils/url';
 
 export const getStaticPaths = async () => {
-  const paths = await getAllArticlePaths();
+  const paths = await getAllArticlePathsWithPath();
 
   return {
     paths,
@@ -40,9 +39,10 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const articleId = Number(params?.id);
+  const path = String(params?.path);
+  console.log('path', path);
 
-  if (Number.isNaN(articleId)) {
+  if (!path) {
     return {
       notFound: true,
     };
@@ -50,34 +50,37 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
   const queryClient = new QueryClient();
   await Promise.all([
-    queryClient.prefetchQuery(articleKeys.detail(articleId), () => getArticle(articleId)),
-    queryClient.prefetchQuery(commentKeys.lists(articleId), () => getComments(articleId)),
+    queryClient.prefetchQuery(articleKeys.detailByPath(path), () =>
+      getArticleByPath(path)
+    ),
     queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags()),
     queryClient.prefetchQuery(blacklistKeys.list, () => getBlackList()),
   ]);
 
   return {
     props: {
-      articleId,
+      path,
       dehydratedState: dehydrate(queryClient),
     },
     revalidate: 60 * 60 * 24, // 一个小时
   };
 };
 
-const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data: article, isLoading } = useArticle(articleId);
+const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { data: article, isLoading } = useArticleByPath(path);
   const { isFallback } = useRouter();
   const { data } = useArticles();
   const relateArticles = data?.data.slice(0, 3) ?? [];
 
-  useMount(() => {
-    readArticle(articleId);
-    gtag.event('article_view', {
-      category: GAEventCategories.Article,
-      label: article?.title,
-    });
-  });
+  useEffect(() => {
+    if (article) {
+      readArticle(article.id);
+      gtag.event('article_view', {
+        category: GAEventCategories.Article,
+        label: article?.title,
+      });
+    }
+  }, [article]);
 
   if (isFallback || isLoading || !article)
     return (
@@ -93,7 +96,6 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
 
   return (
     <Layout
-      className=''
       hero={
         <div className='space-y-10 bg-white py-10'>
           <Navbar />
@@ -115,7 +117,7 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
         openGraph={{
           title: article.title,
           description: article.description,
-          url: getBlogDetailFullUrl(article.path),
+          url: getArticleDetailFullUrl(article.id),
           type: 'article',
           article: {
             publishedTime: article.createAt.toString(),
@@ -132,7 +134,7 @@ const ArticlePage = ({ articleId }: InferGetStaticPropsType<typeof getStaticProp
         }}
       />
       <ArticleJsonLd
-        url={getBlogDetailFullUrl(article.path)}
+        url={getArticleDetailFullUrl(article.id)}
         title={article.title}
         images={[article.cover]}
         datePublished={article.createAt.toString()}

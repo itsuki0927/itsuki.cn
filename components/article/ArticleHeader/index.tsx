@@ -31,7 +31,7 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => (
 
       <div className='space-x-2'>
         {article.tags.map(tag => (
-          <Link href={getTagRoute(tag.path)}>
+          <Link key={tag.path} href={getTagRoute(tag.path)}>
             <span className='cursor-pointer rounded-sm bg-primary-light px-2 py-1 text-sm text-primary transition-colors'>
               {tag.name}
             </span>

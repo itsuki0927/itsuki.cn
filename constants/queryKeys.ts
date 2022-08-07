@@ -5,6 +5,8 @@ export const articleKeys = {
   pagination: (current: number) => [...articleKeys.article, 'page', current] as const,
   tag: (tag: string) => [...articleKeys.article, 'tag', tag] as const,
   detail: (id: number) => [...articleKeys.article, 'detail', id] as const,
+  detailByPath: (path: string) =>
+    [...articleKeys.article, 'detail-by-path', path] as const,
   publish: () => [...articleKeys.lists(), 'publish'] as const,
   banner: () => [...articleKeys.lists(), 'banner'] as const,
   hot: () => [...articleKeys.lists(), 'hot'] as const,

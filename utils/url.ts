@@ -2,6 +2,7 @@ import { WEB_URL } from '@/configs/app';
 
 const baseUrlMap = {
   article: '/article',
+  blog: '/blog',
   tag: '/tag',
 };
 
@@ -15,6 +16,8 @@ export const isTagRoute = (url: string) => url.startsWith(baseUrlMap.tag);
 export const getArticleDetailRoute = (articleId: number) =>
   `${baseUrlMap.article}/${articleId}`;
 
+export const getBlogDetailRoute = (path: string) => `${baseUrlMap.blog}/${path}`;
+
 /**
  * 获取标签路径
  */
@@ -27,6 +30,9 @@ export const getPageUrl = (uri: string) => `${WEB_URL}${uri}`;
  */
 export const getArticleDetailFullUrl = (articleId: number) =>
   getPageUrl(getArticleDetailRoute(articleId));
+
+export const getBlogDetailFullUrl = (path: string) =>
+  getPageUrl(getBlogDetailRoute(path));
 
 /**
  * stringify 参数

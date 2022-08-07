@@ -1,6 +1,7 @@
 import request from 'graphql-request';
 import {
   LikeArticleResponse,
+  QueryArticleByPathResponse,
   QueryArticleResponse,
   QueryArticleSearch,
   QueryArticlesResponse,
@@ -14,7 +15,9 @@ import {
   LIKE_ARTICLE,
   QUERY_ARTICLE,
   QUERY_ARTICLES,
+  QUERY_ARTICLE_BY_PATH,
   QUERY_ARTICLE_PATHS,
+  QUERY_ARTICLE_PATHS_WITH_PATH,
   READ_ARTICLE,
 } from '@/graphqls/article';
 import { DEFAULT_CURRENT } from '@/constants/value';
@@ -42,6 +45,17 @@ export const getArticle = async (id: number) => {
   return article;
 };
 
+export const getArticleByPath = async (path: string) => {
+  const { articleByPath } = await request<QueryArticleByPathResponse, { path: string }>(
+    endpoint,
+    QUERY_ARTICLE_BY_PATH,
+    {
+      path,
+    }
+  );
+  return articleByPath;
+};
+
 export const getArchives = () => getArticles({ current: DEFAULT_CURRENT, pageSize: 500 });
 
 export const getAllArticlePaths = async () => {
@@ -50,6 +64,14 @@ export const getAllArticlePaths = async () => {
     QUERY_ARTICLE_PATHS
   );
   return articles.data.map(item => `/article/${item.id}`);
+};
+
+export const getAllArticlePathsWithPath = async () => {
+  const { articles } = await request<QueryArticlesResponse, QueryArticleSearch>(
+    endpoint,
+    QUERY_ARTICLE_PATHS_WITH_PATH
+  );
+  return articles.data.map(item => `/blog/${item.path}`);
 };
 
 export const getBannerArticles = () => getArticles({ banner: 1 });

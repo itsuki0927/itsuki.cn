@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { MyImage } from '..';
 import { Article } from '@/entities/article';
-import { getArticleDetailRoute } from '@/utils/url';
+import { getBlogDetailRoute } from '@/utils/url';
 import ToDate from '../ToDate';
 import s from './style.module.css';
 
@@ -51,7 +51,7 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
 
             <h3
               className='mt-0 mb-3 cursor-pointer text-2xl text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary'
-              onClick={() => router.push(getArticleDetailRoute(article?.id))}
+              onClick={() => router.push(getBlogDetailRoute(article?.path))}
             >
               {article?.title}
             </h3>

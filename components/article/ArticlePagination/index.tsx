@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { GAEventCategories } from '@/constants/gtag';
 import { Article } from '@/entities/article';
 import { gtag } from '@/utils/gtag';
-import { getArticleDetailRoute } from '@/utils/url';
+import { getBlogDetailRoute } from '@/utils/url';
 
 interface ArticlePaginationProps {
   prevArticle: Article | null;
@@ -19,7 +19,7 @@ const ArticlePagination = ({ prevArticle, nextArticle }: ArticlePaginationProps)
           <h3
             key='prev'
             onClick={() => {
-              router.push(getArticleDetailRoute(prevArticle.id));
+              router.push(getBlogDetailRoute(prevArticle.path));
               gtag.event('prev_article', {
                 category: GAEventCategories.Article,
               });
@@ -39,7 +39,7 @@ const ArticlePagination = ({ prevArticle, nextArticle }: ArticlePaginationProps)
           <h3
             key='next'
             onClick={() => {
-              router.push(getArticleDetailRoute(nextArticle.id));
+              router.push(getBlogDetailRoute(nextArticle.path));
               gtag.event('next_article', {
                 category: GAEventCategories.Article,
               });

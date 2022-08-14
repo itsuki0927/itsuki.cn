@@ -29,8 +29,8 @@ const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => 
 
 const DEFAULT_NAV_LIST = [
   { path: '/blog', name: '文章' },
-  { path: '/guestbook', name: '留言' },
   { path: '/archive', name: '归档' },
+  { path: '/guestbook', name: '留言' },
   { path: '/about', name: '关于' },
 ];
 

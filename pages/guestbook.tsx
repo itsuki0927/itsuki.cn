@@ -4,7 +4,6 @@ import { getBlackList } from '@/api/blacklist';
 import { getComments } from '@/api/comment';
 import { CommentView } from '@/components/comment';
 import { Layout, Navbar } from '@/components/common';
-import { Banner } from '@/components/ui';
 import { blacklistKeys, commentKeys } from '@/constants/queryKeys';
 import { GUESTBOOK } from '@/constants/value';
 
@@ -29,7 +28,10 @@ const GuestBookPage = () => (
         <Navbar />
 
         <div className='container px-4'>
-          <Banner title='留言板' description='世界很大, 我们总会相遇' />
+          <h1 className='mb-4 text-3xl font-medium tracking-tight text-dark-3 md:text-5xl'>
+            留言板
+          </h1>
+          <p>世界很大, 我们总会相遇</p>
         </div>
       </div>
     }

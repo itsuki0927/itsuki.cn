@@ -52,10 +52,11 @@ interface ArticleAsideProps {
 
 const ArticleAside = ({ article }: ArticleAsideProps) => {
   const articleId = article.id;
-  const { data, isLoading, isFetching } = useArticle(articleId);
+  const articlePath = article.path;
+  const { data, isLoading, isFetching } = useArticle(articlePath);
   const { scrollTo } = useScrollTo();
 
-  if (Number.isNaN(articleId)) return <div>Error</div>;
+  if (Number.isNaN(articleId) || !articlePath) return <div>Error</div>;
   if (isFetching || isLoading) return <ArticleAsideSkeleton />;
 
   const handleScrollTo = (id: string) => {

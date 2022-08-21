@@ -3,7 +3,7 @@ import { ArticleJsonLd, NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
-import { getAllArticlePathsWithPath, getArticleByPath, readArticle } from '@/api/article';
+import { getAllArticlePathsWithPath, getArticle, readArticle } from '@/api/article';
 import { getBlackList } from '@/api/blacklist';
 import { getAllTags } from '@/api/tag';
 import { ArticlePagination, ArticleSkeleton } from '@/components/article';
@@ -25,7 +25,7 @@ import { META } from '@/configs/app';
 import { ARTICLE_ACTIONS_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, blacklistKeys, tagKeys } from '@/constants/queryKeys';
-import { useArticles, useArticleByPath } from '@/hooks/article';
+import { useArticles, useArticle } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
 import { getArticleDetailFullUrl } from '@/utils/url';
 
@@ -50,9 +50,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
   const queryClient = new QueryClient();
   await Promise.all([
-    queryClient.prefetchQuery(articleKeys.detailByPath(path), () =>
-      getArticleByPath(path)
-    ),
+    queryClient.prefetchQuery(articleKeys.detailByPath(path), () => getArticle(path)),
     queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags()),
     queryClient.prefetchQuery(blacklistKeys.list, () => getBlackList()),
   ]);
@@ -67,7 +65,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data: article, isLoading } = useArticleByPath(path);
+  const { data: article, isLoading } = useArticle(path);
   const { isFallback } = useRouter();
   const { data } = useArticles();
   const relateArticles = data?.data.slice(0, 3) ?? [];

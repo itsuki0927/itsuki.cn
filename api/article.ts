@@ -1,7 +1,6 @@
 import request from 'graphql-request';
 import {
   LikeArticleResponse,
-  QueryArticleByPathResponse,
   QueryArticleResponse,
   QueryArticleSearch,
   QueryArticlesResponse,
@@ -15,7 +14,6 @@ import {
   LIKE_ARTICLE,
   QUERY_ARTICLE,
   QUERY_ARTICLES,
-  QUERY_ARTICLE_BY_PATH,
   QUERY_ARTICLE_PATHS,
   QUERY_ARTICLE_PATHS_WITH_PATH,
   READ_ARTICLE,
@@ -38,22 +36,15 @@ export const getArticles = async (params?: SearchArticlesBody) => {
   return articles;
 };
 
-export const getArticle = async (id: number) => {
-  const { article } = await request<QueryArticleResponse, ID>(endpoint, QUERY_ARTICLE, {
-    id,
-  });
-  return article;
-};
-
-export const getArticleByPath = async (path: string) => {
-  const { articleByPath } = await request<QueryArticleByPathResponse, { path: string }>(
+export const getArticle = async (path: string) => {
+  const { article } = await request<QueryArticleResponse, { path: string }>(
     endpoint,
-    QUERY_ARTICLE_BY_PATH,
+    QUERY_ARTICLE,
     {
       path,
     }
   );
-  return articleByPath;
+  return article;
 };
 
 export const getArchives = () => getArticles({ current: DEFAULT_CURRENT, pageSize: 500 });

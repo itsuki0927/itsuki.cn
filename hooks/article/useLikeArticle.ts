@@ -6,7 +6,11 @@ import { articleKeys } from '@/constants/queryKeys';
 import { Article, LikeArticleResponse } from '@/entities/article';
 import { useLocalStorage } from '..';
 
-const useLikeArticle = (articleId: number) => {
+interface UseLikeArticleParams {
+  articleId: number;
+  articlePath: string;
+}
+const useLikeArticle = ({ articleId, articlePath }: UseLikeArticleParams) => {
   const queryClient = useQueryClient();
   const [likeArticles, setLikeArticles] = useLocalStorage<LikeArticles>(
     LikeArticlesKey,
@@ -18,7 +22,7 @@ const useLikeArticle = (articleId: number) => {
       onSuccess: ({ likeArticle: liking }) => {
         setLikeArticles({ ...likeArticles, [articleId]: true });
         queryClient.setQueryData<Article | undefined>(
-          articleKeys.detail(articleId),
+          articleKeys.detail(articlePath),
           oldArticle => {
             if (!oldArticle) return undefined;
             return {

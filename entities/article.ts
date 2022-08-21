@@ -64,10 +64,6 @@ export type QueryArticleResponse = {
   article: ArticleDetailResponse;
 };
 
-export type QueryArticleByPathResponse = {
-  articleByPath: ArticleDetailResponse;
-};
-
 export type QueryArticlesResponse = {
   articles: SearchResponse<Article>;
 };

@@ -12,7 +12,10 @@ interface FavoriteButtonProps {
 }
 
 const FavoriteButton = ({ article }: FavoriteButtonProps) => {
-  const { isLike, mutation } = useLikeArticle(article.id);
+  const { isLike, mutation } = useLikeArticle({
+    articleId: article.id,
+    articlePath: article.path,
+  });
 
   const handleLike = () => {
     if (isLike) return;

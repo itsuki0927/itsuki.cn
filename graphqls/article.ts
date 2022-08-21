@@ -45,45 +45,8 @@ export const QUERY_ARTICLE_PATHS_WITH_PATH = gql`
 `;
 
 export const QUERY_ARTICLE = gql`
-  query findArticle($id: ID!) {
-    article(id: $id) {
-      id
-      createAt
-      updateAt
-      title
-      description
-      content
-      author
-      cover
-      keywords
-      publish
-      banner
-      reading
-      liking
-      commenting
-      path
-      tags {
-        name
-        id
-        path
-      }
-      prevArticle {
-        id
-        title
-        path
-      }
-      nextArticle {
-        id
-        title
-        path
-      }
-    }
-  }
-`;
-
-export const QUERY_ARTICLE_BY_PATH = gql`
   query findArticle($path: String!) {
-    articleByPath(path: $path) {
+    article(path: $path) {
       id
       createAt
       updateAt

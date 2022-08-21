@@ -10,8 +10,8 @@ export interface ArticleHeading {
   id: string;
 }
 
-const useArticle = (articleId: number) =>
-  useQuery(articleKeys.detail(articleId), () => getArticle(articleId), {
+const useArticle = (articlePath: string) =>
+  useQuery(articleKeys.detail(articlePath), () => getArticle(articlePath), {
     select: data => {
       const headings: ArticleHeading[] = [];
       const htmlContent = markedToHtml(data.content, {
@@ -27,12 +27,11 @@ const useArticle = (articleId: number) =>
       });
       return {
         ...data,
-        id: articleId,
         htmlContent,
         headings,
       };
     },
-    enabled: !!articleId,
+    enabled: !!articlePath,
   });
 
 export default useArticle;

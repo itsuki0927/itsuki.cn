@@ -3,7 +3,7 @@ import { META } from './app';
 const seoConfig = {
   title: META.title,
   defaultTitle: META.title,
-  titleTemplate: '%s | 五木',
+  titleTemplate: '%s | 五块木头',
   description: META.description,
   keywords: META.keywords,
   openGraph: {
@@ -12,19 +12,19 @@ const seoConfig = {
     type: 'website',
     locale: 'zh-cn',
     url: META.url,
-    site_name: '五木',
+    site_name: '五块木头',
     images: [
       {
         url: '/logo.png',
         width: 60,
         height: 60,
-        alt: '五木',
+        alt: '五块木头',
       },
     ],
   },
   twitter: {
     handle: META.author,
-    site: '五木',
+    site: '五块木头',
     cardType: 'summary',
   },
 };

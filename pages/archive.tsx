@@ -1,4 +1,5 @@
 import { dehydrate, QueryClient } from 'react-query';
+import { NextSeo } from 'next-seo';
 import { getArchives } from '@/api/article';
 import ArchiveView from '@/components/archive';
 import { Layout, Navbar } from '@/components/common';
@@ -43,6 +44,7 @@ const ArchivePage = () => {
         </div>
       }
     >
+      <NextSeo title='归档' />
       <ArchiveView archives={archives.data} />
     </Layout>
   );

@@ -52,7 +52,7 @@ const HomePage = () => {
         </div>
       }
     >
-      <NextSeo defaultTitle='五木' />
+      <NextSeo defaultTitle='五块木头' />
       <div className='home space-y-6' id='dashboard'>
         <div className='prose max-w-full'>
           <section className='space-y-4'>

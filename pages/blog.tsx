@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
+import { NextSeo } from 'next-seo';
 import { getArticles, getHotArticles } from '@/api/article';
 import { ArticleList } from '@/components/article';
 import { Layout, Navbar } from '@/components/common';
@@ -45,6 +46,7 @@ const BlogPage = () => {
         </div>
       }
     >
+      <NextSeo title='文章' />
       <div className='home space-y-6' id='dashboard'>
         <div className='relative mt-10 flex w-full px-4'>
           <input

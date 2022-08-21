@@ -1,4 +1,5 @@
 import { dehydrate, QueryClient } from 'react-query';
+import { NextSeo } from 'next-seo';
 import AboutView from '@/components/about';
 import { Layout, MyImage, Navbar } from '@/components/common';
 import { GAEventCategories } from '@/constants/gtag';
@@ -40,7 +41,7 @@ const AboutPage = () => {
           <section className='container flex flex-col-reverse items-start px-4 sm:flex-row'>
             <div className='flex w-full flex-col pr-8'>
               <h1 className='mb-1 text-3xl font-medium tracking-tight text-dark-4 md:text-5xl'>
-                五木 - Itsuki
+                五块木头 - Itsuki
               </h1>
               <h2 className='mb-4'>
                 字节跳动前端工程师
@@ -51,7 +52,7 @@ const AboutPage = () => {
                 <span className='origin-[70% 70%] mx-1 inline-block animate-wave'>
                   👋
                 </span>
-                , 我是 五木, 喜欢 code 和 run 的前端dog
+                , 我是 五块木头, 喜欢 code 和 run 的前端dog
               </p>
             </div>
             <div className='relative mb-8 w-[80px] text-center sm:mb-0 sm:w-[176px]'>
@@ -67,6 +68,7 @@ const AboutPage = () => {
         </div>
       }
     >
+      <NextSeo title='关于' />
       <AboutView />
     </Layout>
   );

@@ -33,10 +33,10 @@ export const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? '';
 
 // blog meta
 export const META = {
-  title: '五木',
-  keywords: '五木,前端技术博客,React,Next.js,JavaScript,TypeScript',
+  title: '五块木头',
+  keywords: '五块木头,前端技术博客,React,Next.js,JavaScript,TypeScript',
   description: '有关于前端和个人思考的文章: TypeScript、JavaScript、React、Nextjs等等!',
   url: WEB_URL,
-  author: '五木',
+  author: '五块木头',
   email: EMAIL,
 };

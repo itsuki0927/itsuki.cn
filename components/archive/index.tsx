@@ -18,7 +18,7 @@ const ArticleList = ({ articles }: { articles: ArticleArchive[] }) => (
           {getDay(article.createAt)}
         </p>
         <div className='flex w-full flex-col-reverse justify-between text-sm sm:flex-row sm:text-base'>
-          <Link key={article.id} href={`/article/${article.id}`}>
+          <Link key={article.id} href={`/blog/${article.path}`}>
             <h4 className='capsize cursor-pointer text-lg font-medium transition-colors hover:text-primary sm:text-xl'>
               {article.title}
             </h4>

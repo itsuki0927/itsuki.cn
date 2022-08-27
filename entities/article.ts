@@ -51,7 +51,14 @@ export type ArticleTypes = {
 
 export type ArticleArchive = Pick<
   Article,
-  'id' | 'reading' | 'title' | 'createAt' | 'description' | 'commenting' | 'liking'
+  | 'id'
+  | 'reading'
+  | 'title'
+  | 'createAt'
+  | 'description'
+  | 'commenting'
+  | 'liking'
+  | 'path'
 >;
 
 export type ArticleArchiveResponse = Map<string, ArticleArchive[]>;

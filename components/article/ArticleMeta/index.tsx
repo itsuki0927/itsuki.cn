@@ -19,7 +19,7 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => {
       <div>
         <span>永久地址: </span>
         <span className='underline'>
-          {WEB_URL + router.pathname.replace('[id]', `${article.id}`)}
+          {WEB_URL + router.pathname.replace('[path]', `${article.path}`)}
         </span>
       </div>
 

@@ -3,6 +3,12 @@ import { IdentifiableEntity, SearchRequest, SearchResponse } from '../types/resp
 import { Tag } from './tag';
 import { PublishState } from '@/constants/article/publish';
 
+export enum BlogCardStyle {
+  Image,
+  Text,
+  Mixin,
+}
+
 export type Article = IdentifiableEntity<{
   title: string;
   path: string;
@@ -19,6 +25,7 @@ export type Article = IdentifiableEntity<{
   commenting: number;
   tags: Tag[];
   comments: Comment[];
+  cardStyle?: BlogCardStyle;
 }>;
 
 export type SearchArticlesBody = {

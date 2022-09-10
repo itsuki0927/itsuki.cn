@@ -2,14 +2,13 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { PropsWithChildren } from 'react';
+import { Activity, Rss } from 'react-feather';
+import MobileMenu from '../Layout/MobileMenu';
+import ThemeSwitch from '../ThemeSwitch';
 import { Logo } from '@/components/common';
-import { GithubIcon, RssIcon } from '@/components/icons';
 import { GAEventCategories } from '@/constants/gtag';
 import { useTheme } from '@/hooks';
 import { gtag } from '@/utils/gtag';
-import ExternalLink from '../ExternalLink';
-import MobileMenu from '../Layout/MobileMenu';
-import ThemeSwitch from '../ThemeSwitch';
 
 const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => {
   const { asPath } = useRouter();
@@ -38,7 +37,7 @@ interface IconNavProps {
   className?: string;
 }
 
-export const IconNav = ({ className = '' }: IconNavProps) => {
+export const IconContent = ({ className = '' }: IconNavProps) => {
   const [theme] = useTheme();
 
   const handleIconClick = (action: string, label: string) => {
@@ -64,26 +63,26 @@ export const IconNav = ({ className = '' }: IconNavProps) => {
         role='button'
         key='rss'
         className='text-center'
+        onClick={() => handleIconClick('activity', 'activity')}
+      >
+        <Activity />
+      </a>
+      <a
+        tabIndex={0}
+        role='button'
+        key='rss'
+        className='text-center'
         onClick={() => handleIconClick('rss', 'rss')}
       >
-        <RssIcon />
+        <Rss />
       </a>
-      <ExternalLink
-        tabIndex={0}
-        key='github'
-        className='text-center'
-        onClick={() => handleIconClick('rss', 'action')}
-        href='https://github.com/itsuki0927'
-      >
-        <GithubIcon />
-      </ExternalLink>
     </div>
   );
 };
 
-const Navbar = () => (
-  <header className='inset-x-0 z-10'>
-    <nav className='container flex h-full items-center justify-between px-4'>
+const Header = () => (
+  <header className='inset-x-0 z-10 h-16 bg-gray-50 backdrop-blur-[20px] backdrop-saturate-150 dark:bg-[#0D0D1050]'>
+    <nav className='container flex h-full items-center justify-between'>
       <div className='relative flex flex-grow items-center justify-between md:justify-start'>
         <Logo />
         <ul className='ml-5'>
@@ -95,10 +94,10 @@ const Navbar = () => (
           <MobileMenu />
         </ul>
 
-        <IconNav className='hidden flex-grow items-center justify-end md:flex' />
+        <IconContent className='hidden flex-grow items-center justify-end md:flex' />
       </div>
     </nav>
   </header>
 );
 
-export default Navbar;
+export default Header;

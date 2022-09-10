@@ -3,7 +3,7 @@ import Link from 'next/link';
 import useDelayedRender from 'use-delayed-render';
 import { useState, useEffect } from 'react';
 import styles from './mobile-menu.module.css';
-import { IconNav } from '../Navbar';
+import { IconContent } from '../Navbar';
 
 const MenuIcon = (props: JSX.IntrinsicElements['svg']) => (
   <svg
@@ -139,7 +139,7 @@ const MobileMenu = () => {
             </li>
           </ul>
 
-          <IconNav className='mt-6 flex' />
+          <IconContent className='mt-6 flex' />
         </div>
       )}
     </>

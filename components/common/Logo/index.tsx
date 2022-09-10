@@ -1,22 +1,14 @@
 import Link from 'next/link';
 import { LogoJsonLd } from 'next-seo';
 import { WEB_URL } from '@/configs/app';
-import { MyImage } from '..';
 
 const Logo = () => (
   <Link href='/'>
-    <a>
-      <MyImage
-        src='/logo.png'
-        objectFit='cover'
-        width={60}
-        height={60}
-        unoptimized
-        alt='logo'
-        className='h-full'
-      />
+    <div className='flex items-center'>
+      <span className='inline-block h-6 w-6 bg-gray-200' />
       <LogoJsonLd logo='/logo.png' url={WEB_URL} />
-    </a>
+      <span className='capsize ml-1 text-lg text-primary'>五块木头</span>
+    </div>
   </Link>
 );
 

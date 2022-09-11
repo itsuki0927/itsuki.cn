@@ -15,7 +15,7 @@ const BlogList = ({ data, ...rest }: ArticleListProps) => {
   }
 
   return (
-    <div className='flex flex-wrap gap-6 sm:gap-8 sm:space-y-0'>
+    <div className='flex flex-wrap items-center gap-6 sm:gap-8 sm:space-y-0'>
       {data?.data.map((blog, i) => (
         <BlogCard blog={blog} key={blog.id} style={{ animationDelay: `${0.2 * i}s` }} />
       ))}

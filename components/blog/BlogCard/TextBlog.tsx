@@ -17,7 +17,7 @@ const TextBlog = ({ blog, bgStyle, style, className }: TextBlogProps) => {
   return (
     <article
       className={classNames(
-        'flex w-full flex-col justify-center p-6 sm:w-1/3 sm:max-w-sm',
+        'flex w-full flex-col justify-center self-stretch p-6 sm:w-1/3 sm:max-w-sm',
         className,
         bgStyle === 'gray' ? 'bg-gray-50' : styles.ptn
       )}

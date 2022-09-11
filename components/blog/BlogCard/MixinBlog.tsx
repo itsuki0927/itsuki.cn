@@ -11,7 +11,10 @@ const MixinBlog = ({ blog, className, style }: BlogCardProps) => {
 
   return (
     <article
-      className={classNames('w-full bg-gray-50 sm:w-1/3 sm:max-w-sm', className)}
+      className={classNames(
+        'w-full self-stretch bg-gray-50 sm:w-1/3 sm:max-w-sm',
+        className
+      )}
       style={style}
     >
       <MyImage width={392} height={220} src={blog?.cover ?? ''} alt={blog.title} />

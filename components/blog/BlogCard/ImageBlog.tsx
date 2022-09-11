@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { MyImage, ToDate } from '@/components/common';
 import { getBlogDetailRoute } from '@/utils/url';
+import styles from './index.module.scss';
 import { BlogCardProps } from '.';
 
 const ImageBlog = ({ blog, className, style }: BlogCardProps) => {
@@ -10,7 +11,8 @@ const ImageBlog = ({ blog, className, style }: BlogCardProps) => {
   return (
     <article
       className={classNames(
-        'relative aspect-square w-full justify-center p-6 sm:w-1/3 sm:max-w-sm',
+        'relative aspect-video w-full justify-center justify-self-center p-6 transition-all sm:w-1/3 sm:max-w-sm',
+        styles.imageBlog,
         className
       )}
       style={style}

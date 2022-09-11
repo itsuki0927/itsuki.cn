@@ -1,21 +1,19 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { MyImage, ToDate } from '@/components/common';
-import { Article } from '@/entities/article';
 import { getBlogDetailRoute } from '@/utils/url';
+import { BlogCardProps } from '.';
 
-interface ImageBlogProps {
-  blog?: Article;
-}
-
-const ImageBlog = ({ blog }: ImageBlogProps) => {
+const ImageBlog = ({ blog, className, style }: BlogCardProps) => {
   if (!blog) return <div>null</div>;
 
   return (
     <article
       className={classNames(
-        'relative aspect-square w-full justify-center p-6 sm:w-1/3 sm:max-w-sm'
+        'relative aspect-square w-full justify-center p-6 sm:w-1/3 sm:max-w-sm',
+        className
       )}
+      style={style}
     >
       <MyImage
         layout='fill'

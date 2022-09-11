@@ -4,21 +4,24 @@ import { ToDate } from '@/components/common';
 import { Article } from '@/entities/article';
 import { getBlogDetailRoute } from '@/utils/url';
 import styles from './index.module.scss';
+import { BlogCardProps } from '.';
 
-interface TextBlogProps {
+type TextBlogProps = BlogCardProps & {
   blog?: Article;
   bgStyle?: 'gray' | 'ptn';
-}
+};
 
-const TextBlog = ({ blog, bgStyle }: TextBlogProps) => {
+const TextBlog = ({ blog, bgStyle, style, className }: TextBlogProps) => {
   if (!blog) return <div>null</div>;
 
   return (
     <article
       className={classNames(
         'flex w-full flex-col justify-center p-6 sm:w-1/3 sm:max-w-sm',
+        className,
         bgStyle === 'gray' ? 'bg-gray-50' : styles.ptn
       )}
+      style={style}
     >
       <div className='mb-3'>
         {blog?.tags.map(tag => (

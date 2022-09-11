@@ -6,6 +6,7 @@ import ImagePopup from '@/components/ui/Popup/ImagePopup';
 import SponsorPopup from '@/components/ui/Popup/SponsorPopup';
 import WechatPopup from '@/components/ui/Popup/WechatPopup';
 import Footer from '../Footer';
+import Navbar from '../Navbar';
 
 const PopupView: React.FC<{
   popupView: PopupViews;
@@ -25,16 +26,25 @@ const PopupUI: React.FC = () => {
 
 export interface PageProps {
   hero?: ReactNode;
+  banner?: ReactNode;
   className?: string;
+  headerTheme?: 'white' | 'gray';
 }
 
-const Layout = ({ children, hero, className = '' }: PropsWithChildren<PageProps>) => (
+const Layout = ({
+  children,
+  hero,
+  banner,
+  className = '',
+  headerTheme = 'white',
+}: PropsWithChildren<PageProps>) => (
   <div className='app'>
     {hero}
+    <Navbar theme={headerTheme} />
+    {banner}
 
-    <main className={classNames('container mb-6 space-y-6 py-10', className)}>
-      {children}
-    </main>
+    {/* <main className={classNames('container mb-6 space-y-6 py-10', className)}> */}
+    <main className={classNames('container', className)}>{children}</main>
 
     <Footer />
 

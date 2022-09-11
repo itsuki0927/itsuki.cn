@@ -80,8 +80,16 @@ export const IconContent = ({ className = '' }: IconNavProps) => {
   );
 };
 
-const Header = () => (
-  <header className='inset-x-0 z-10 h-16 bg-gray-50 backdrop-blur-[20px] backdrop-saturate-150 dark:bg-[#0D0D1050]'>
+interface HeaderProps {
+  theme?: 'white' | 'gray';
+}
+const Header = ({ theme = 'white' }: HeaderProps) => (
+  <header
+    className={classNames(
+      'inset-x-0 z-10 h-16 backdrop-blur-[20px] backdrop-saturate-150 dark:bg-[#0D0D1050]',
+      theme === 'white' ? 'bg-white' : 'bg-gray-50 '
+    )}
+  >
     <nav className='container flex h-full items-center justify-between'>
       <div className='relative flex flex-grow items-center justify-between md:justify-start'>
         <Logo />

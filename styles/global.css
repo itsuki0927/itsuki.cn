@@ -9,11 +9,11 @@
 
 html,
 body {
-  @apply m-0 bg-[#f9fafb] p-0 text-base text-basic;
+  @apply m-0 p-0 text-base text-basic;
 }
 
 .container {
-  @apply relative mx-auto max-w-5xl;
+  @apply relative mx-auto max-w-7xl px-4 sm:px-8;
 }
 
 ::selection {

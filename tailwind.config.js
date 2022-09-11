@@ -1,6 +1,20 @@
 const { fontFamily } = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
+const gray = {
+  25: '#FCFCFD',
+  50: '#F9FAFB',
+  100: '#F2F4F7',
+  200: '#EAECF0',
+  300: '#D0D5DD',
+  400: '#98A2B3',
+  500: '#667085',
+  600: '#475467',
+  700: '#344054',
+  800: '#1D2939',
+  900: '#101828',
+};
+
 /*  @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
   content: ['./pages/**/*.tsx', './components/**/*.tsx'],
@@ -11,20 +25,22 @@ module.exports = {
       current: colors.current,
       black: colors.black,
       mask: 'rgba(0, 0, 0, 0.35)',
-      gray: colors.zinc,
+      gray,
       white: 'var(--white)',
 
-      basic: 'var(--accent-700)',
-      'white-1': 'var(--accent-50)',
-      'white-2': 'var(--accent-100)',
-      'white-3': 'var(--accent-200)',
-      'gray-1': 'var(--accent-300)',
-      'gray-2': 'var(--accent-400)',
-      'gray-3': 'var(--accent-500)',
-      'dark-1': 'var(--accent-600)',
-      'dark-2': 'var(--accent-700)',
-      'dark-3': 'var(--accent-800)',
-      'dark-4': 'var(--accent-900)',
+      basic: '#344054',
+
+      // TODO: 删除
+      'white-1': gray['50'],
+      'white-2': gray['100'],
+      'white-3': gray['200'],
+      'gray-1': gray['300'],
+      'gray-2': gray['400'],
+      'gray-3': gray['500'],
+      'dark-1': gray['600'],
+      'dark-2': gray['700'],
+      'dark-3': gray['800'],
+      'dark-4': gray['900'],
 
       primary: 'var(--primary)',
       'primary-hover': 'var(--primary-hover)',
@@ -39,7 +55,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['IBM Plex Sans', ...fontFamily.sans],
+        sans: ['Inter', 'IBM Plex Sans', ...fontFamily.sans],
       },
       typography: ({ theme }) => {
         const [fontSize, { lineHeight }] = theme('fontSize.sm');

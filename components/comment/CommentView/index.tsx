@@ -1,20 +1,15 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect } from 'react';
-import toast from 'react-hot-toast';
+import { useEffect, useMemo } from 'react';
 import { SigninIcon } from '@/components/common';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
-import { GAEventCategories } from '@/constants/gtag';
 import { GUESTBOOK } from '@/constants/value';
-import { Comment } from '@/entities/comment';
 import { useScrollTo } from '@/hooks';
 import { useComments, useCreateComment } from '@/hooks/comment';
-import { gtag } from '@/utils/gtag';
-import CommentCard from '../CommentCard';
 import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';
 import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
-import { ReplyProvider } from '../context';
+import { convertToCommentTreeData } from './utils';
 
 const getCommentTitleSuffixText = (articleId: number) =>
   articleId === GUESTBOOK ? '留言板' : '评论区';
@@ -24,15 +19,18 @@ type CommentProps = {
 };
 
 const CommentView = ({ articleId }: CommentProps) => {
-  const mutation = useCreateComment(articleId);
+  const { postComment, ...rest } = useCreateComment(articleId);
   const { data: session } = useSession();
   const { data, isLoading, isFetching, isEmpty } = useComments(articleId);
+  const commentTreeData = useMemo(
+    () => convertToCommentTreeData(data?.data ?? []),
+    [data?.data]
+  );
   const { pathname, asPath } = useRouter();
   const { scrollTo } = useScrollTo();
 
   useEffect(() => {
     const currentRouteCommentId = asPath.replace(pathname, '');
-    console.log('currentRouteCommentId', currentRouteCommentId);
     if (
       ['/guestbook'].includes(pathname) &&
       currentRouteCommentId &&
@@ -41,31 +39,6 @@ const CommentView = ({ articleId }: CommentProps) => {
       scrollTo(currentRouteCommentId);
     }
   }, [asPath, pathname, scrollTo]);
-
-  const handleSend = useCallback(
-    (params: any) => {
-      gtag.event('push_comment', {
-        category: GAEventCategories.Comment,
-        label: `article_id: ${articleId}`,
-      });
-      return toast
-        .promise(mutation.mutateAsync(params), {
-          loading: '发射中...',
-          success: <b>👏 发射成功</b>,
-          error: <b>🙌 发射失败</b>,
-        })
-        .then(
-          () => true,
-          () => false
-        );
-    },
-    [articleId, mutation]
-  );
-
-  const commentRender = useCallback(
-    (comment: Comment) => <CommentCard data={comment} key={comment.id} />,
-    []
-  );
 
   if (isLoading || isFetching) {
     return (
@@ -87,8 +60,8 @@ const CommentView = ({ articleId }: CommentProps) => {
           <div className='my-4'>
             <CommentForm
               articleId={articleId}
-              loading={mutation.isLoading}
-              onSend={handleSend}
+              loading={rest.isLoading}
+              onPost={postComment}
             />
           </div>
         ) : (
@@ -97,17 +70,9 @@ const CommentView = ({ articleId }: CommentProps) => {
         <p className='text-sm text-gray-800'>仅使用你的邮箱、头像、昵称.</p>
       </div>
 
-      {!isEmpty && (
-        <CommentList className='space-y-4' data={data?.data} itemRender={commentRender} />
-      )}
+      {!isEmpty && <CommentList className='space-y-12' data={commentTreeData} />}
     </div>
   );
 };
 
-const CommentViewUI = (props: CommentProps) => (
-  <ReplyProvider>
-    <CommentView {...props} />
-  </ReplyProvider>
-);
-
-export default CommentViewUI;
+export default CommentView;

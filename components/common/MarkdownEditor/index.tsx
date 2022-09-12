@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { ReactNode, useState } from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import { EyeCloseFilled, EyeFilled, SmileFilled } from '@/components/icons';
+import { Eye, EyeOff, Smile } from 'react-feather';
 import { MarkdownBlock } from '@/components/ui';
 import markedToHtml from '@/libs/marked';
 import { MarkdownEditorOptions } from '@/utils/editor';
@@ -43,7 +43,12 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
   };
 
   return (
-    <div className={classNames('relative bg-white text-sm', className)}>
+    <div
+      className={classNames(
+        'relative border border-solid border-gray-200 bg-white text-sm',
+        className
+      )}
+    >
       <div className='relative'>
         <div
           placeholder={placeholder}
@@ -64,12 +69,12 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
         />
       </div>
 
-      <div className='flex justify-between bg-white-1 leading-9'>
+      <div className='flex justify-between bg-gray-100 leading-9'>
         <div className='flex'>
           <button
             type='button'
             className={classNames(
-              'px-3 text-xxs text-gray-3 hover:bg-white-2 hover:text-dark-1'
+              'px-3 text-xxs text-gray-500 hover:bg-gray-200 hover:text-gray-600'
             )}
             onClick={() => {
               setPreview(!preview);
@@ -83,7 +88,11 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
                 }
                 classNames='move'
               >
-                {preview ? <EyeCloseFilled key='edit' /> : <EyeFilled key='preview' />}
+                {preview ? (
+                  <EyeOff key='edit' size={16} />
+                ) : (
+                  <Eye key='preview' size={16} />
+                )}
               </CSSTransition>
             </SwitchTransition>
           </button>
@@ -93,15 +102,15 @@ const MarkdownEditor = ({ className, children, ...props }: MarkdownEditorProps) 
             aria-label='insert emoji'
             className={classNames(
               s.emoji,
-              'px-3 text-xxs text-gray-3 hover:bg-white-2 hover:text-dark-1'
+              'px-3 text-xxs text-gray-500 hover:bg-gray-200 hover:text-gray-600'
             )}
           >
-            <SmileFilled />
+            <Smile size={16} />
 
             <div
               className={classNames(
                 s.emojiList,
-                'absolute left-0 right-0 top-0 bottom-8 overflow-y-scroll bg-white-1 p-3 text-left opacity-80 transition-all duration-300 '
+                'absolute left-0 right-0 top-0 bottom-8 overflow-y-scroll bg-gray-50 p-3 text-left opacity-80 transition-all duration-300 '
               )}
             >
               {EMOJIS.map(emoji => (

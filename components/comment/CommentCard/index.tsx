@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import classNames from 'classnames';
 import { Smile } from 'react-feather';
 import Link from 'next/link';
@@ -10,18 +11,26 @@ import { isAdminEmail } from '@/utils/validate';
 import CommentAvatar from '../CommentAvatar';
 import { getCommentElementId } from '@/constants/anchor';
 import markedToHtml from '@/libs/marked';
-import { Comment } from '@/entities/comment';
+import { CommentTree } from '../CommentView/utils';
+import styles from './index.module.scss';
+import CommentForm from '../CommentForm';
+import CommentList from '../CommentList';
+import { useCreateComment } from '@/hooks/comment';
 
 type CommentCardProps = {
   className?: string;
-  data: Comment;
+  data: CommentTree;
 };
 
 const CommentCard = ({ data: comment, className }: CommentCardProps) => {
+  const articleId = Number(comment.articleId);
+  const commentId = Number(comment.id);
+  const { postComment, isLoading } = useCreateComment(articleId);
   const { isLike, mutation } = useLikeComment({
-    articleId: Number(comment.articleId),
-    commentId: Number(comment.id),
+    articleId,
+    commentId,
   });
+  const [isReply, setReply] = useState(false);
 
   const handleLike = () => {
     if (isLike) {
@@ -33,11 +42,17 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
     mutation.mutateAsync();
   };
 
+  const handleReply = () => {
+    setReply(v => !v);
+  };
+
+  const parentId = isReply ? comment.id : 0;
+
   return (
     <div
       id={getCommentElementId(comment.id)}
       key={comment.id}
-      className={`transition-all duration-500 ${className} bg-gray-50 pt-6 pb-3`}
+      className={`transition-all duration-500 ${className} bg-gray-50 pt-6 pb-3 pr-3 ${styles.comment}`}
     >
       <div className='relative flex-col space-y-2 rounded-sm'>
         <div className='flex items-center justify-between pl-6'>
@@ -85,11 +100,26 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
 
           <span className='mx-2 text-gray-200 dark:text-gray-800'>/</span>
 
-          <button type='button' className='text-sm text-gray-400'>
-            回复
+          <button type='button' className='text-sm text-gray-400' onClick={handleReply}>
+            {isReply ? '取消回复' : '回复'}
           </button>
         </div>
       </div>
+
+      {isReply ? (
+        <CommentForm
+          parentId={parentId}
+          onPost={postComment}
+          loading={isLoading}
+          articleId={comment.articleId}
+          className={styles.form}
+          onSuccess={() => {
+            setReply(false);
+          }}
+        />
+      ) : null}
+
+      {!!comment.children?.length && <CommentList data={comment.children} />}
     </div>
   );
 };

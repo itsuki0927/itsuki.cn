@@ -4,43 +4,30 @@ export type CommentTree = Comment & {
   children?: CommentTree[];
 };
 
-export function convertToCommentTreeData(comments: Comment[] = []) {
-  // only keep 2 level tree
-  const ids = comments.map(comment => comment.id);
-  const roots = comments.filter(
-    comment => +comment.parentId === 0 || !ids.includes(comment.parentId)
-  );
-  const children = comments.filter(
-    comment => +comment.parentId !== 0 && ids.includes(comment.parentId)
-  );
-  const fullMap = new Map<number, Comment>(
-    comments.map(comment => [comment.id, comment])
-  );
-  const treeMap = new Map<number, { comment: Comment; children: Array<Comment> }>(
-    roots.map(comment => [comment.id, { comment, children: [] }])
-  );
+export function convertToCommentTreeData(list: Comment[]) {
+  const map = new Map<number, number>();
+  const roots: CommentTree[] = [];
 
-  const findRootParentID = (pid: number): number | void => {
-    const target = fullMap.get(pid);
-    if (!target) {
-      return undefined;
-    }
-    return +target.parentId === 0 ? target.id : findRootParentID(target.parentId);
-  };
+  const commentTreeList = list.map((comment, idx) => {
+    map.set(comment.id, idx);
+    return {
+      ...comment,
+      children: [],
+    } as CommentTree;
+  });
 
-  children.forEach(comment => {
-    const rootPID = findRootParentID(comment.parentId);
-    if (rootPID) {
-      if (treeMap.has(rootPID)) {
-        const target = treeMap.get(rootPID)!;
-        treeMap.set(rootPID, {
-          ...target,
-          children: [comment, ...target.children],
-        });
+  commentTreeList.forEach(comment => {
+    if (Number(comment.parentId) !== 0) {
+      const parentIdx = map.get(comment.parentId);
+      if (parentIdx && commentTreeList[parentIdx]) {
+        commentTreeList[parentIdx].children?.push(comment);
       }
+    } else {
+      roots.push(comment);
     }
   });
-  return Array.from(treeMap.values());
+
+  return roots;
 }
 
 export const isEmail = (email: string) =>

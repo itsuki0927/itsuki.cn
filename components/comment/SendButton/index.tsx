@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { SendOutlined, SyncOutlined } from '@/components/icons';
+import { Loader, Send } from 'react-feather';
 
 interface SendButtonProps {
   onConfirm: () => Promise<boolean>;
@@ -18,8 +18,10 @@ const SendButton = ({ onConfirm, loading, nickname = '无名氏' }: SendButtonPr
     )}
     onClick={onConfirm}
   >
-    <span className='capsize'>{loading ? '发布中' : `以 ${nickname} 的身份发布`}</span>
-    {loading ? <SyncOutlined className='animate-spin' /> : <SendOutlined />}
+    <span className='capsize'>
+      {loading ? '正在发布中...' : `以 ${nickname} 的身份发布`}
+    </span>
+    {loading ? <Loader className='animate-spin' size={16} /> : <Send size={16} />}
   </button>
 );
 

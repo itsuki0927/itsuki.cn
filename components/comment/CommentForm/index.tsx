@@ -6,7 +6,6 @@ import toast from 'react-hot-toast';
 import { PostCommentBody } from '@/entities/comment';
 import useBlackList from '@/hooks/blacklist';
 import purifyDomString from '@/libs/purify';
-import { useReply } from '../context';
 import SendButton from '../SendButton';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
@@ -17,7 +16,10 @@ export interface CommentFormProps {
   className?: string;
   articleId: number;
   loading?: boolean;
-  onSend?: (params: PostCommentBody) => Promise<boolean>;
+  parentId?: number;
+  onPost?: (params: PostCommentBody) => Promise<boolean>;
+  onSuccess?: () => void;
+  onError?: () => void;
 }
 
 const useLoginType = () => {
@@ -26,9 +28,16 @@ const useLoginType = () => {
   return loginType;
 };
 
-const CommentForm = ({ className, articleId, onSend, loading }: CommentFormProps) => {
+const CommentForm = ({
+  className,
+  articleId,
+  onPost,
+  loading,
+  parentId = 0,
+  onSuccess,
+  onError,
+}: CommentFormProps) => {
   const loginType = useLoginType();
-  const { reply, cancelReply } = useReply();
   const { data: session } = useSession();
   const [content, setContent] = useState('');
   const { data: blacklist } = useBlackList();
@@ -59,45 +68,32 @@ const CommentForm = ({ className, articleId, onSend, loading }: CommentFormProps
     return true;
   }, [blacklist?.email, blacklist?.keyword, content, session?.user?.email]);
 
-  const handleSend = useCallback(
-    () =>
-      new Promise<boolean>((resolve, reject) => {
-        const params: PostCommentBody = {
-          articleId,
-          loginType,
-          email,
-          avatar,
-          nickname,
-          agent: navigator.userAgent,
-          parentId: reply?.id,
-          content: purifyDomString(content),
-        };
+  const handleConfirm = () =>
+    new Promise<boolean>((resolve, reject) => {
+      const params: PostCommentBody = {
+        articleId,
+        loginType,
+        email,
+        avatar,
+        nickname,
+        parentId,
+        agent: navigator.userAgent,
+        content: purifyDomString(content),
+      };
 
-        if (ensureCommentCanPush()) {
-          onSend?.(params).then(result => {
-            if (result) {
-              setContent('');
-              cancelReply();
-              resolve(true);
-            } else {
-              reject();
-            }
-          }, reject);
-        }
-      }),
-    [
-      articleId,
-      loginType,
-      email,
-      avatar,
-      nickname,
-      reply?.id,
-      content,
-      ensureCommentCanPush,
-      onSend,
-      cancelReply,
-    ]
-  );
+      if (ensureCommentCanPush()) {
+        onPost?.(params).then(result => {
+          if (result) {
+            setContent('');
+            onSuccess?.();
+            resolve(true);
+          } else {
+            onError?.();
+            reject();
+          }
+        }, reject);
+      }
+    });
 
   return (
     <div id='commentForm' className={className}>
@@ -108,7 +104,7 @@ const CommentForm = ({ className, articleId, onSend, loading }: CommentFormProps
         placeholder='见解'
       >
         <SendButton
-          onConfirm={handleSend}
+          onConfirm={handleConfirm}
           loading={loading}
           nickname={session?.user?.name}
         />

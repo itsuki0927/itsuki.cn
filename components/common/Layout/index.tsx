@@ -29,6 +29,7 @@ export interface PageProps {
   banner?: ReactNode;
   className?: string;
   headerTheme?: 'white' | 'gray';
+  footerTheme?: 'normal' | 'reverse';
 }
 
 const Layout = ({
@@ -37,16 +38,16 @@ const Layout = ({
   banner,
   className = '',
   headerTheme = 'white',
+  footerTheme = 'normal',
 }: PropsWithChildren<PageProps>) => (
   <div className='app'>
     {hero}
     <Navbar theme={headerTheme} />
     {banner}
 
-    {/* <main className={classNames('container mb-6 space-y-6 py-10', className)}> */}
-    <main className={classNames('container', className)}>{children}</main>
+    <main className={classNames(className)}>{children}</main>
 
-    <Footer />
+    <Footer theme={footerTheme} />
 
     <PopupUI />
     <BackTop />

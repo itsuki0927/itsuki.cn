@@ -1,0 +1,124 @@
+.tool {
+  border: none;
+  color: #fff;
+  transition: all 0.2s cubic-bezier(0.08, 0.82, 0.2, 1);
+  overflow: hidden;
+  display: flex;
+  flex: 0.1 0 2.5vw;
+  justify-content: center;
+  align-items: center;
+
+  &.neovim:hover {
+    background: #5bc591;
+  }
+
+  &.figma:hover {
+    background: #222;
+  }
+
+  &.github:hover {
+    background: #1b1f24;
+  }
+
+  &.unsplash:hover {
+    background: #000;
+  }
+
+  &.transmit:hover {
+    background: #abafb4;
+  }
+
+  &.idea:hover {
+    background: #4597ff;
+  }
+
+  &:hover {
+    background-color: #000;
+    border: none;
+    flex-grow: 1;
+    color: #fff;
+    box-shadow: none;
+
+    .icon1 {
+      opacity: 0;
+    }
+
+    .icon2 {
+      opacity: 1 !important;
+    }
+
+    .desc {
+      flex-basis: 90%;
+      opacity: 1;
+      padding: 0.5em 1em 0 0;
+      transition: all 0.2s cubic-bezier(0.08, 0.82, 0.2, 1);
+    }
+  }
+
+  img {
+    width: 2.5vw;
+    height: 2.5vw;
+    display: block;
+    transition: all 0.3s cubic-bezier(0.08, 0.82, 0.2, 1);
+  }
+
+  .icon {
+    transition: all 0.3s cubic-bezier(0.08, 0.82, 0.2, 1);
+    margin: 1em;
+    flex: 0 0 2.5vw;
+    height: 2.5vw;
+    position: relative;
+  }
+
+  .icon1,
+  .icon2 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.08, 0.82, 0.2, 1);
+  }
+
+  .icon1 {
+    background-color: #595959;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center center;
+    opacity: 1;
+  }
+
+  .desc {
+    flex-basis: 0;
+    width: 0;
+    opacity: 0;
+    height: auto;
+    padding: 0.5em 0 0;
+    overflow: hidden;
+    font-size: 0.8em;
+    line-height: 1.4;
+    transition: all 0.3s cubic-bezier(0.08, 0.82, 0.2, 1);
+
+    .inner {
+      height: 5.7em;
+      width: calc((100vw - 270px - 6rem) / 5);
+      overflow: hidden;
+
+      strong {
+        font-size: 1.2em;
+        font-weight: 600;
+      }
+
+      p {
+        text-overflow: ellipsis;
+        line-clamp: 2;
+        overflow: hidden;
+
+        .dummy {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

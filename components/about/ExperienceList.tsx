@@ -50,22 +50,22 @@ const ExperienceCard = ({
   description,
   techStack,
 }: ExperienceCardProps) => (
-  <div className='border-b border-dashed border-gray-1 pt-2 pb-6 pl-0 before:contents '>
+  <div className='border-b border-dashed border-gray-300 pt-2 pb-6 pl-0 before:contents '>
     <h3 className='m-0 text-base font-normal'>{post}</h3>
-    <div className='flex flex-col justify-between text-sm text-gray-3 sm:flex-row '>
+    <div className='flex flex-col justify-between text-sm text-gray-400 sm:flex-row '>
       <div>{company}</div>
       <div>
         <time dateTime={startTime}>{startTime}</time> -{' '}
         <time dateTime={endTime}>{endTime}</time>
       </div>
     </div>
-    <p className='mt-4 mb-0 text-sm'>{description}</p>
-    <p className='my-0 text-sm'>技术栈: {techStack}</p>
+    <p className='mt-4 mb-0 text-sm text-gray-600'>{description}</p>
+    <p className='my-0 text-sm text-gray-600'>技术栈: {techStack}</p>
   </div>
 );
 
 const ExperienceList = () => (
-  <div className='space-y-4'>
+  <div className='mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2'>
     {experienceList.map(experience => (
       <ExperienceCard {...experience} />
     ))}

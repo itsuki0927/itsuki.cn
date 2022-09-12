@@ -1,5 +1,5 @@
 const Description = () => (
-  <div className='space-y-6'>
+  <div className='flex'>
     <p>
       <strong className='mr-1'>Code: </strong> 大学生活有五年, 大专三年+本科两年,
       在大专生时加入了学校打比赛的协会, 参加了"蓝桥杯"比赛, 在那里锻炼了算法以及学习能力,

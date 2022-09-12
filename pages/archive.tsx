@@ -57,34 +57,29 @@ const ArchivePage = () => {
   });
 
   return (
-    <Layout
-      className='bg-gray-50'
-      footerTheme='reverse'
-      banner={
-        <>
-          <div className='relative max-h-72 items-center overflow-hidden sm:max-h-[402px]'>
-            <img
-              src='/archive-banner.jpeg'
-              className='max-h-[402px] w-full object-cover'
-              alt='archive banner'
-            />
-            <div className='container absolute top-0 bottom-0  left-0 right-0 flex flex-col justify-center px-4'>
-              <h1 className='mb-6 text-3xl font-medium tracking-tight text-gray-100 sm:text-5xl'>
-                归档
-              </h1>
-              <p className='text-xl text-gray-200'>
-                有时候幸福需要等一等
-                <span className='mx-1'> - </span>
-                <span className='text-lg text-gray-300'> 《幸福终点站》</span>
-              </p>
-            </div>
-          </div>
-
-          <Banner />
-        </>
-      }
-    >
+    <Layout className='bg-gray-50' footerTheme='reverse'>
       <NextSeo title='归档' />
+
+      <div className='relative max-h-72 items-center overflow-hidden sm:max-h-[402px]'>
+        <img
+          src='/archive-banner.jpeg'
+          className='max-h-[402px] w-full object-cover'
+          alt='archive banner'
+        />
+        <div className='container absolute top-0 bottom-0  left-0 right-0 flex flex-col justify-center px-4'>
+          <h1 className='mb-6 text-3xl font-medium tracking-tight text-gray-100 sm:text-5xl'>
+            归档
+          </h1>
+          <p className='text-xl text-gray-200'>
+            有时候幸福需要等一等
+            <span className='mx-1'> - </span>
+            <span className='text-lg text-gray-300'> 《幸福终点站》</span>
+          </p>
+        </div>
+      </div>
+
+      <Banner />
+
       <ArchiveView archives={archives.data} />
     </Layout>
   );

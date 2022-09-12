@@ -14,8 +14,8 @@ const CommentAvatar = ({ avatar, className = '' }: CommentAvatarProps) => (
   >
     <img
       src={avatar ?? DEFAULT_AVATAR}
-      width={24}
-      height={24}
+      width={32}
+      height={32}
       alt='cover'
       className='rounded-full'
     />

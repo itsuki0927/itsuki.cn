@@ -3,7 +3,6 @@ import { marked } from 'marked';
 import { WEB_URL } from '@/configs/app';
 import highlight from './highlight';
 import purifyDomString from './purify';
-import { getCommentElementId } from '@/constants/anchor';
 
 marked.use({
   gfm: true,
@@ -102,16 +101,6 @@ const getRenderer = (options?: Partial<RendererGetterOption>) => {
 
   // 解析文字
   renderer.text = function renderText(text: string) {
-    // 如果是评论@回复
-    if (text.startsWith('@') && text.includes('-')) {
-      const parentName = text.slice(1);
-      const index = parentName.indexOf('-');
-      const name = parentName.slice(0, index);
-      const id = parentName.slice(index + 1);
-      return `<a href='#comment-${id}' class='reply-comment' id=${getCommentElementId(
-        id
-      )}>@${name}</a>`;
-    }
     return text;
   };
 

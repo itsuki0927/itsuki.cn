@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { Smile } from 'react-feather';
 import Link from 'next/link';
 import { ToDate } from '@/components/common';
 import { MarkdownBlock } from '@/components/ui';
@@ -15,9 +16,6 @@ type CommentCardProps = {
   className?: string;
   data: Comment;
 };
-
-const buildReplyCommentText = (parentNickName: string, commentId: number) =>
-  `***@${parentNickName}-${commentId}***      `;
 
 const CommentCard = ({ data: comment, className }: CommentCardProps) => {
   const { isLike, mutation } = useLikeComment({
@@ -39,21 +37,12 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
     <div
       id={getCommentElementId(comment.id)}
       key={comment.id}
-      className={`transition-all duration-500 ${className}`}
+      className={`transition-all duration-500 ${className} bg-gray-50 pt-6 pb-3`}
     >
       <div className='relative flex-col space-y-2 rounded-sm'>
-        <MarkdownBlock
-          htmlContent={markedToHtml(
-            comment.parentId
-              ? `${buildReplyCommentText(comment.parentNickName, comment.id)}${
-                  comment.content
-                }`
-              : comment.content
-          )}
-        />
-        <header className='flex items-end space-x-3'>
-          <CommentAvatar avatar={comment.avatar} className='-mr-1' />
-          <span className='text-sm text-gray-500 line-clamp-1'>
+        <div className='flex items-center justify-between pl-6'>
+          <CommentAvatar avatar={comment.avatar} />
+          <span className='ml-2 flex-grow font-medium text-gray-900 line-clamp-1'>
             {comment.nickname}
             {isAdminEmail(comment.email) && (
               <Link href='/about'>
@@ -64,20 +53,24 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
             )}
           </span>
 
-          <span className=' text-gray-200 dark:text-gray-800'>/</span>
-          <span className='flex items-center text-sm text-gray-400'>
-            <ToDate date={comment.createAt} />
-          </span>
+          <div className='flex items-center pr-6'>
+            <span className='flex items-center text-sm text-gray-400'>
+              <ToDate date={comment.createAt} />
+            </span>
 
-          <span className=' text-gray-200 dark:text-gray-800'>/</span>
-          <span className='text-sm text-gray-400'>
-            {comment.province}
-            <i className='mx-1'>•</i>
-            {comment.city}
-          </span>
+            <span className='mx-2 text-gray-200 dark:text-gray-800'>/</span>
 
-          <span className='text-gray-200 dark:text-gray-800'>/</span>
+            <span className='text-sm text-gray-400'>
+              {comment.province}
+              <i className='mx-1'>•</i>
+              {comment.city}
+            </span>
+          </div>
+        </div>
 
+        <MarkdownBlock className='pl-6' htmlContent={markedToHtml(comment.content)} />
+
+        <div className='flex items-center space-x-3 pl-6'>
           <button
             key='reply-btn'
             type='button'
@@ -87,9 +80,15 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
             )}
             onClick={handleLike}
           >
-            点赞({comment.liking})
+            <Smile size={16} />
           </button>
-        </header>
+
+          <span className='mx-2 text-gray-200 dark:text-gray-800'>/</span>
+
+          <button type='button' className='text-sm text-gray-400'>
+            回复
+          </button>
+        </div>
       </div>
     </div>
   );

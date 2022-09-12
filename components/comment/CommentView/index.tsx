@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { SigninIcon } from '@/components/common';
-import { Container } from '@/components/ui';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
 import { GUESTBOOK } from '@/constants/value';
@@ -78,7 +77,7 @@ const CommentView = ({ articleId }: CommentProps) => {
   }
 
   return (
-    <Container id={COMMENT_VIEW_ELEMENT_ID}>
+    <div id={COMMENT_VIEW_ELEMENT_ID}>
       <div className='my-4 mb-12 rounded-sm border border-solid border-primary bg-primary-light p-6'>
         <h5 className='my-1 text-lg font-bold text-gray-900 dark:text-gray-100 md:text-xl'>
           {getCommentTitleSuffixText(articleId)}
@@ -101,7 +100,7 @@ const CommentView = ({ articleId }: CommentProps) => {
       {!isEmpty && (
         <CommentList className='space-y-4' data={data?.data} itemRender={commentRender} />
       )}
-    </Container>
+    </div>
   );
 };
 

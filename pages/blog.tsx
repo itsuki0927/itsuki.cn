@@ -89,7 +89,7 @@ const BlogPage = () => {
       }
     >
       <NextSeo title='文章' />
-      <div className='home py-24' id='dashboard'>
+      <div className='container py-24' id='dashboard'>
         <div className='mb-16 hidden sm:block'>
           <div className='flex space-x-3'>
             {allTags?.map(tag => (
@@ -97,7 +97,7 @@ const BlogPage = () => {
                 type='button'
                 onClick={() => setActiveTagName(tag.name)}
                 className={classNames(
-                  'round-md px-6 py-2 transition-colors hover:bg-gray-50',
+                  'rounded-md px-6 py-2 transition-colors hover:bg-gray-50',
                   activeTagName === tag?.path ? 'bg-gray-50' : ''
                 )}
                 key={tag.path}

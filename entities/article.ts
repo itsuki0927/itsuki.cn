@@ -66,6 +66,8 @@ export type ArticleArchive = Pick<
   | 'commenting'
   | 'liking'
   | 'path'
+  | 'cover'
+  | 'cardStyle'
 >;
 
 export type ArticleArchiveResponse = Map<string, ArticleArchive[]>;

@@ -1,58 +1,61 @@
-import { NextSeo } from 'next-seo';
+import classNames from 'classnames';
 import Link from 'next/link';
-import { ArticleArchive, ArticleArchiveResponse } from '@/entities/article';
-
-const getDay = (date: Date) =>
-  `${String(new Date(date).getMonth() + 1).padStart(2, '0')}-${String(
-    new Date(date).getDate()
-  ).padStart(2, '0')}`;
-
-const ArticleList = ({ articles }: { articles: ArticleArchive[] }) => (
-  <ul className='relative list-none space-y-8'>
-    {articles.map(article => (
-      <li
-        key={article.id}
-        className='flex items-center rounded-sm p-4 transition-colors hover:bg-gray-100'
-      >
-        <p className='mb-0 w-32 text-sm text-gray-2 sm:text-base'>
-          {getDay(article.createAt)}
-        </p>
-        <div className='flex w-full flex-col-reverse justify-between text-sm sm:flex-row sm:text-base'>
-          <Link key={article.id} href={`/blog/${article.path}`}>
-            <h4 className='capsize cursor-pointer text-lg font-medium transition-colors hover:text-primary sm:text-xl'>
-              {article.title}
-            </h4>
-          </Link>
-          <p className='w-32 text-left text-gray-2 md:mb-0 md:text-right'>
-            {`${
-              article.reading ? Number(article.reading).toLocaleString() : '–––'
-            } views`}
-          </p>
-        </div>
-      </li>
-    ))}
-  </ul>
-);
+import {
+  ArticleArchive,
+  ArticleArchiveResponse,
+  BlogCardStyle,
+} from '@/entities/article';
+import styles from './index.module.scss';
+import { getBlogDetailRoute } from '@/utils/url';
 
 interface ArchivePageProps {
   archives?: ArticleArchiveResponse;
 }
 
-const ArchiveView = ({ archives = new Map() }: ArchivePageProps) => (
-  <div className='px-4 tracking-wider'>
-    <NextSeo title='归档' />
+interface ArchiveCardProps {
+  article: ArticleArchive;
+  index: number;
+}
 
-    <ul className='list-none pl-0'>
-      {[...archives.entries()].map(([year, articles]) => (
-        <li key={year} className='mb-6 rounded-sm'>
-          <h3 className='mt-8 mb-4 text-2xl font-medium tracking-tight text-dark-3 md:text-4xl'>
-            {year}
-          </h3>
-          <ArticleList articles={articles} />
-        </li>
-      ))}
-    </ul>
-  </div>
+const ArchiveCard = ({ article, index }: ArchiveCardProps) => {
+  const hasCover = article.cardStyle !== BlogCardStyle.Image;
+  return (
+    <div
+      className={classNames(styles.card, hasCover && styles.hasCover)}
+      style={{
+        backgroundImage: `url(${hasCover ? article.cover : ''})`,
+      }}
+    >
+      <div className={classNames(styles.inner)}>
+        <div className={styles.singleNum}>
+          <i>#</i>
+          {index}
+        </div>
+        <Link href={getBlogDetailRoute(article.path)}>
+          <span className={classNames(styles.link)}>{article.title}</span>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+const ArchiveView = ({ archives = new Map() }: ArchivePageProps) => (
+  <ul className='container space-y-8 py-8 md:py-16'>
+    {[...archives.entries()].map(([year, articles]) => (
+      <li key={year} className='flex flex-col rounded-sm md:flex-row md:items-start'>
+        <h3 className={classNames(styles.year)}>
+          {year}
+          <span className={classNames(styles.count)}>{articles.length} 篇文章</span>
+        </h3>
+
+        <div className='flex flex-grow flex-wrap'>
+          {articles.map((article, index) => (
+            <ArchiveCard article={article} index={index + 1} />
+          ))}
+        </div>
+      </li>
+    ))}
+  </ul>
 );
 
 export default ArchiveView;

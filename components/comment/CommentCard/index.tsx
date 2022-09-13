@@ -52,10 +52,10 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
     <div
       id={getCommentElementId(comment.id)}
       key={comment.id}
-      className={`transition-all duration-500 ${className} bg-gray-50 pt-6 pb-3 pr-3 ${styles.comment}`}
+      className={`transition-all duration-500 ${className} bg-gray-50 pt-4 pb-2 pr-2 sm:pt-6 sm:pb-3 sm:pr-3 ${styles.comment}`}
     >
       <div className='relative flex-col space-y-2 rounded-sm'>
-        <div className='flex items-center justify-between pl-6'>
+        <div className='flex items-center justify-between pl-4 sm:pl-6'>
           <CommentAvatar avatar={comment.avatar} />
           <span className='ml-2 flex-grow font-medium text-gray-900 line-clamp-1'>
             {comment.nickname}
@@ -68,14 +68,14 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
             )}
           </span>
 
-          <div className='flex items-center pr-6'>
-            <span className='flex items-center text-sm text-gray-400'>
+          <div className='flex items-center pr-2 sm:pr-6'>
+            <span className='flex items-center text-xs text-gray-400 sm:text-sm'>
               <ToDate date={comment.createAt} />
             </span>
 
             <span className='mx-2 text-gray-200 dark:text-gray-800'>/</span>
 
-            <span className='text-sm text-gray-400'>
+            <span className='text-xs text-gray-400 sm:text-sm'>
               {comment.province}
               <i className='mx-1'>•</i>
               {comment.city}
@@ -83,9 +83,12 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
           </div>
         </div>
 
-        <MarkdownBlock className='pl-6' htmlContent={markedToHtml(comment.content)} />
+        <MarkdownBlock
+          className='pl-4 sm:pl-6'
+          htmlContent={markedToHtml(comment.content)}
+        />
 
-        <div className='flex items-center space-x-3 pl-6'>
+        <div className='flex items-center space-x-3 pl-4 sm:space-x-2 sm:pl-6'>
           <button
             key='reply-btn'
             type='button'
@@ -98,7 +101,7 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
             <Smile size={16} />
           </button>
 
-          <span className='mx-2 text-gray-200 dark:text-gray-800'>/</span>
+          <span className='text-gray-200 dark:text-gray-800'>/</span>
 
           <button type='button' className='text-sm text-gray-400' onClick={handleReply}>
             {isReply ? '取消回复' : '回复'}

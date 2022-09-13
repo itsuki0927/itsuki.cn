@@ -1,13 +1,10 @@
 .comment {
   .form {
-    padding: 12px;
-    padding-right: 0;
+    @apply p-2 pr-0 sm:p-3;
   }
 
   & & {
-    background: #fff;
-    margin: 12px 0 0 12px;
-    padding-bottom: 12px;
+    @apply mt-2 ml-2 bg-white pb-2 sm:mt-3 sm:ml-3 sm:pb-3;
   }
 
   & & & {

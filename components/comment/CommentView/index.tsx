@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { SigninIcon } from '@/components/common';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GUESTBOOK } from '@/constants/value';
@@ -10,6 +10,7 @@ import CommentList from '../CommentList';
 import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
 import { convertToCommentTreeData } from './utils';
 import CommentPublisher from '../CommentPublisher';
+import SortSelect, { SortItem, sortList } from '@/components/ui/SortSelect';
 
 const getCommentTitleSuffixText = (articleId: number) =>
   articleId === GUESTBOOK ? '留言板' : '评论区';
@@ -28,6 +29,7 @@ const CommentView = ({ articleId }: CommentProps) => {
   );
   const { pathname, asPath } = useRouter();
   const { scrollTo } = useScrollTo();
+  const [sort, setSort] = useState<SortItem>(sortList[0]);
 
   useEffect(() => {
     const currentRouteCommentId = asPath.replace(pathname, '');
@@ -51,23 +53,26 @@ const CommentView = ({ articleId }: CommentProps) => {
 
   return (
     <div id={COMMENT_VIEW_ELEMENT_ID}>
-      <div className='my-4 mb-12 rounded-sm border border-solid border-primary bg-primary-light p-6'>
-        <h5 className='my-1 text-lg font-bold text-gray-900 dark:text-gray-100 md:text-xl'>
-          {getCommentTitleSuffixText(articleId)}
-        </h5>
-        <p className='text-sm text-gray-800'>在这里留下你的足迹吧~</p>
-        {session?.user ? (
-          <div className='my-4'>
-            <CommentPublisher
-              articleId={articleId}
-              loading={rest.isLoading}
-              onPost={postComment}
-            />
-          </div>
-        ) : (
+      {session?.user ? (
+        <div className='pt-12'>
+          <CommentPublisher
+            articleId={articleId}
+            loading={rest.isLoading}
+            onPost={postComment}
+          />
+        </div>
+      ) : (
+        <div className='pt-12'>
           <SigninIcon />
-        )}
-        <p className='text-sm text-gray-800'>仅使用你的邮箱、头像、昵称.</p>
+        </div>
+      )}
+
+      <div className='flex items-center justify-between px-4 py-6 sm:flex-row sm:px-0'>
+        <span>
+          <strong>{data?.total}</strong> 条{getCommentTitleSuffixText(articleId)}
+        </span>
+
+        <SortSelect value={sort} onChange={setSort} />
       </div>
 
       {!isEmpty && <CommentList className='space-y-12' data={commentTreeData} />}

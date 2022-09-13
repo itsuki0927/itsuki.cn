@@ -1,7 +1,6 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
-import { SigninIcon } from '@/components/common';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GUESTBOOK } from '@/constants/value';
 import { useScrollTo } from '@/hooks';
@@ -11,6 +10,8 @@ import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
 import { convertToCommentTreeData } from './utils';
 import CommentPublisher from '../CommentPublisher';
 import SortSelect, { SortItem, sortList } from '@/components/ui/SortSelect';
+import { SigninIcon } from '@/components/common';
+import SorrySvg from '@/components/icons/SorrySvg';
 
 const getCommentTitleSuffixText = (articleId: number) =>
   articleId === GUESTBOOK ? '留言板' : '评论区';
@@ -62,14 +63,20 @@ const CommentView = ({ articleId }: CommentProps) => {
           />
         </div>
       ) : (
-        <div className='pt-12'>
+        <div className='mt-12 bg-gray-50 p-4 sm:p-6'>
+          <SorrySvg />
+
+          <div className='mt-2 text-xl font-medium text-gray-900'>请先登陆</div>
+          <div className='text-gray-600 '>仅使用你的邮箱、头像和昵称</div>
+
           <SigninIcon />
         </div>
       )}
 
-      <div className='flex items-center justify-between px-4 py-6 sm:flex-row sm:px-0'>
+      <div className='flex items-center justify-between py-4 px-4 sm:flex-row sm:py-6 sm:px-0'>
         <span>
-          <strong>{data?.total}</strong> 条{getCommentTitleSuffixText(articleId)}
+          <strong className='text-primary'>{data?.total}</strong> 条
+          {getCommentTitleSuffixText(articleId)}
         </span>
 
         <SortSelect value={sort} onChange={setSort} />

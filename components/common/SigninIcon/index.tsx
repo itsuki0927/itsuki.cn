@@ -26,7 +26,7 @@ const SigninIcon = () => {
   return (
     <a
       href='/api/auth/sign/github'
-      className='my-4 flex h-8 w-28 items-center justify-center rounded-sm bg-github text-sm text-white opacity-90 transition-opacity hover:opacity-100'
+      className='my-4 flex h-9 w-28 items-center justify-center rounded-sm bg-github text-sm text-white opacity-90 transition-opacity hover:opacity-100'
       onClick={e => handleSigin(e, 'github')}
     >
       <GithubOutlined className='mr-1' />

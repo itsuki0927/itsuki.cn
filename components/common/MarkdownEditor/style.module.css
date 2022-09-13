@@ -4,6 +4,7 @@
 
 .root:empty::before {
   @apply text-gray-2;
+
   content: attr(placeholder);
 }
 

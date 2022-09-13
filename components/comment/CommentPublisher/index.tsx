@@ -1,5 +1,5 @@
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import { Eye, EyeOff } from 'react-feather';
+import classNames from 'classnames';
+import { Code, Image, Link } from 'react-feather';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -8,8 +8,9 @@ import toast from 'react-hot-toast';
 import { PostCommentBody } from '@/entities/comment';
 import useBlackList from '@/hooks/blacklist';
 import purifyDomString from '@/libs/purify';
-import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
 import SendButton from '../SendButton';
+import CommentAvatar from '../CommentAvatar';
+import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
 import IconButton from '@/components/common/MarkdownEditor/IconButton';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
@@ -32,7 +33,7 @@ const useLoginType = () => {
   return loginType;
 };
 
-const CommentForm = ({
+const CommentPublisher = ({
   className,
   articleId,
   onPost,
@@ -49,7 +50,6 @@ const CommentForm = ({
   const email = session?.user?.email ?? '';
   const avatar = session?.user?.image ?? '';
   const nickname = session?.user?.name ?? '';
-
   const ensureCommentCanPush = useCallback(() => {
     const sensitiveKeyword = blacklist?.keyword.find(k => content.includes(k));
     if (sensitiveKeyword) {
@@ -114,40 +114,73 @@ const CommentForm = ({
     ]
   );
 
-  const renderFooter = useCallback(
-    ({ preview, onPreview, codeRef }: any) => (
-      <div className='flex justify-between bg-gray-100 leading-9'>
-        <div className='flex'>
-          <IconButton onClick={() => onPreview(!preview)}>
-            <SwitchTransition mode='out-in'>
-              <CSSTransition
-                key={preview ? 'preview' : 'edit'}
-                addEndListener={(node, done) =>
-                  node.addEventListener('transitionend', done, false)
-                }
-                classNames='move'
-              >
-                {preview ? (
-                  <EyeOff key='edit' size={16} />
-                ) : (
-                  <Eye key='preview' size={16} />
-                )}
-              </CSSTransition>
-            </SwitchTransition>
-          </IconButton>
+  const renderHeader = useCallback(
+    ({ preview, onPreview }: any) => (
+      <div className='flex justify-between border-b border-dashed border-gray-200 px-3 py-1'>
+        <div className='flex items-center'>
+          <CommentAvatar avatar={avatar} />
+          <span className='ml-2'>{nickname}</span>
+        </div>
 
+        <div className='flex items-center'>
+          <button
+            type='button'
+            onClick={() => onPreview(true)}
+            className={classNames(
+              'rounded-sm px-4 py-[2px]  text-sm',
+              preview && 'bg-primary-light text-primary'
+            )}
+          >
+            预览
+          </button>
+          <button
+            type='button'
+            onClick={() => onPreview(false)}
+            className={classNames(
+              'rounded-sm px-4 py-[2px] text-sm',
+              !preview && 'bg-primary-light text-primary'
+            )}
+          >
+            {' '}
+            编辑{' '}
+          </button>
+        </div>
+      </div>
+    ),
+    [avatar, nickname]
+  );
+
+  const renderFooter = useCallback(
+    ({ codeRef }: any) => (
+      <div className='flex justify-between border-t border-dashed border-gray-200 py-1 px-3'>
+        <div className='flex items-center space-x-2'>
+          <IconButton className='px-1 py-1 hover:bg-gray-100'>
+            <Code size={16} />
+          </IconButton>
+          <IconButton className='px-1 py-1 hover:bg-gray-100'>
+            <Image size={16} />
+          </IconButton>
+          <IconButton className='px-1 py-1 hover:bg-gray-100'>
+            <Link size={16} />
+          </IconButton>
           <EmojiButton
+            className='px-1 py-1 hover:bg-gray-100'
             onInsertEmoji={emoji => {
               codeRef.current?.insertEmoji(emoji);
             }}
           />
         </div>
-        <SendButton onConfirm={handleConfirm} loading={loading}>
-          {loading ? '正在发布中...' : `以 ${nickname} 的身份发布`}
+
+        <SendButton
+          className='space-x-2 rounded-sm px-8'
+          onConfirm={handleConfirm}
+          loading={loading}
+        >
+          发射
         </SendButton>
       </div>
     ),
-    [handleConfirm, loading, nickname]
+    [handleConfirm, loading]
   );
 
   return (
@@ -157,10 +190,11 @@ const CommentForm = ({
         onChange={setContent}
         className='flex-grow'
         placeholder='见解'
+        header={renderHeader}
         footer={renderFooter}
       />
     </div>
   );
 };
 
-export default CommentForm;
+export default CommentPublisher;

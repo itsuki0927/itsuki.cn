@@ -6,10 +6,10 @@ import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GUESTBOOK } from '@/constants/value';
 import { useScrollTo } from '@/hooks';
 import { useComments, useCreateComment } from '@/hooks/comment';
-import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';
 import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
 import { convertToCommentTreeData } from './utils';
+import CommentPublisher from '../CommentPublisher';
 
 const getCommentTitleSuffixText = (articleId: number) =>
   articleId === GUESTBOOK ? '留言板' : '评论区';
@@ -58,7 +58,7 @@ const CommentView = ({ articleId }: CommentProps) => {
         <p className='text-sm text-gray-800'>在这里留下你的足迹吧~</p>
         {session?.user ? (
           <div className='my-4'>
-            <CommentForm
+            <CommentPublisher
               articleId={articleId}
               loading={rest.isLoading}
               onPost={postComment}

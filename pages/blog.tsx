@@ -51,7 +51,7 @@ const BlogPage = () => {
       headerTheme='white'
       banner={
         <div className='bg-gray-50'>
-          <div className='container flex flex-col items-start justify-between py-16 sm:flex-row sm:py-24'>
+          <div className='container overflow-hidden py-16 sm:flex sm:flex-row sm:items-start sm:justify-between sm:py-24'>
             <div className='flex flex-col justify-center'>
               <h1 className='text-3xl font-medium tracking-tight text-gray-900 md:text-5xl'>
                 文章
@@ -68,7 +68,7 @@ const BlogPage = () => {
                       type='text'
                       onChange={e => setSearchValue(e.target.value)}
                       placeholder='搜索文章'
-                      className='block w-96 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 placeholder:text-gray-500'
+                      className='block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 placeholder:text-gray-500 sm:w-96'
                     />
                     <Search className='absolute top-3 right-4 text-gray-400 sm:right-6' />
                   </div>

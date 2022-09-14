@@ -19,7 +19,7 @@ const ThemeSwitch = () => {
           toast.loading('暗黑模式秃头开发中...');
         }}
       >
-        {theme === 'light' ? <ToggleLeft /> : <ToggleRight />}
+        {theme === 'light' ? <ToggleLeft size={16} /> : <ToggleRight size={16} />}
       </button>
     </>
   );

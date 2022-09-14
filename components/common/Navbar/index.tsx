@@ -4,10 +4,8 @@ import { useRouter } from 'next/router';
 import { PropsWithChildren } from 'react';
 import { Activity, Rss } from 'react-feather';
 import MobileMenu from '../Layout/MobileMenu';
-import ThemeSwitch from '../ThemeSwitch';
 import { Logo } from '@/components/common';
 import { GAEventCategories } from '@/constants/gtag';
-import { useTheme } from '@/hooks';
 import { gtag } from '@/utils/gtag';
 
 const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => {
@@ -38,8 +36,6 @@ interface IconNavProps {
 }
 
 export const IconContent = ({ className = '' }: IconNavProps) => {
-  const [theme] = useTheme();
-
   const handleIconClick = (action: string, label: string) => {
     gtag.event(action, {
       category: GAEventCategories.Widget,
@@ -52,29 +48,21 @@ export const IconContent = ({ className = '' }: IconNavProps) => {
       <a
         tabIndex={0}
         role='button'
-        key='theme'
-        className='text-center'
-        onClick={() => handleIconClick('theme_switch', theme)}
-      >
-        <ThemeSwitch />
-      </a>
-      <a
-        tabIndex={0}
-        role='button'
-        key='rss'
+        key='activity'
         className='text-center'
         onClick={() => handleIconClick('activity', 'activity')}
       >
-        <Activity />
+        <Activity size={20} />
       </a>
       <a
         tabIndex={0}
         role='button'
         key='rss'
         className='text-center'
+        href='/rss.xml'
         onClick={() => handleIconClick('rss', 'rss')}
       >
-        <Rss />
+        <Rss size={20} />
       </a>
     </div>
   );
@@ -86,7 +74,7 @@ interface HeaderProps {
 const Header = ({ theme = 'white' }: HeaderProps) => (
   <header
     className={classNames(
-      'inset-x-0 z-10 h-16 backdrop-blur-[20px] backdrop-saturate-150 dark:bg-[#0D0D1050]',
+      'relative inset-x-0 z-50 h-16 backdrop-blur-[20px] backdrop-saturate-150 ',
       theme === 'white' ? 'bg-white' : 'bg-gray-50 '
     )}
   >
@@ -98,7 +86,7 @@ const Header = ({ theme = 'white' }: HeaderProps) => (
             <NavbarItem key={item.path} href={item.path}>
               {item.name}
             </NavbarItem>
-          ))}{' '}
+          ))}
           <MobileMenu />
         </ul>
 

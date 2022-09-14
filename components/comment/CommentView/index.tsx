@@ -1,13 +1,13 @@
+import toast from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GUESTBOOK } from '@/constants/value';
 import { useScrollTo } from '@/hooks';
 import { useComments, useCreateComment } from '@/hooks/comment';
 import CommentList from '../CommentList';
 import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
-import { convertToCommentTreeData } from './utils';
 import CommentPublisher from '../CommentPublisher';
 import SortSelect, { SortItem, sortList } from '@/components/ui/SortSelect';
 import { SigninIcon } from '@/components/common';
@@ -23,11 +23,7 @@ type CommentProps = {
 const CommentView = ({ articleId }: CommentProps) => {
   const { postComment, ...rest } = useCreateComment(articleId);
   const { data: session } = useSession();
-  const { data, isLoading, isFetching, isEmpty } = useComments(articleId);
-  const commentTreeData = useMemo(
-    () => convertToCommentTreeData(data?.data ?? []),
-    [data?.data]
-  );
+  const { data, isLoading, isFetching, treeData } = useComments(articleId);
   const { pathname, asPath } = useRouter();
   const { scrollTo } = useScrollTo();
   const [sort, setSort] = useState<SortItem>(sortList[0]);
@@ -73,16 +69,22 @@ const CommentView = ({ articleId }: CommentProps) => {
         </div>
       )}
 
-      <div className='flex items-center justify-between py-4 px-4 sm:flex-row sm:py-6 sm:px-0'>
-        <span>
-          <strong className='text-primary'>{data?.total}</strong> 条
-          {getCommentTitleSuffixText(articleId)}
-        </span>
-
-        <SortSelect value={sort} onChange={setSort} />
-      </div>
-
-      {!isEmpty && <CommentList className='space-y-12' data={commentTreeData} />}
+      <CommentList
+        className='space-y-8 sm:space-y-12'
+        data={treeData}
+        onClick={() => {
+          toast.loading('聚焦输入框的点击事件正在实现的路上...');
+        }}
+        header={
+          <>
+            <span>
+              <strong className='text-primary'>{data?.total}</strong> 条
+              {getCommentTitleSuffixText(articleId)}
+            </span>
+            <SortSelect value={sort} onChange={setSort} />
+          </>
+        }
+      />
     </div>
   );
 };

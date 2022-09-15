@@ -34,5 +34,8 @@ export const createComment = async (input: PostCommentBody) => {
   return comment;
 };
 
-export const likeComment = (id: number) =>
-  request<LikeCommentResponse, ID>(endpoint, LIKE_COMMENT, { id });
+export const likeComment = (id: number, emoji: string) =>
+  request<LikeCommentResponse, ID & { emoji: string }>(endpoint, LIKE_COMMENT, {
+    id,
+    emoji,
+  });

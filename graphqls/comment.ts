@@ -13,6 +13,7 @@ export const QUERY_COMMENTS = gql`
         email
         content
         liking
+        emoji
         loginType
         avatar
         ip
@@ -60,7 +61,7 @@ export const CREATE_COMMENT = gql`
 `;
 
 export const LIKE_COMMENT = gql`
-  mutation likeComment($id: ID!) {
-    likeComment(id: $id)
+  mutation likeComment($id: ID!, $emoji: String!) {
+    likeComment(id: $id, emoji: $emoji)
   }
 `;

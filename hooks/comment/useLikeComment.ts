@@ -1,11 +1,9 @@
 import { GraphQLError } from 'graphql';
 import { useMutation, useQueryClient } from 'react-query';
 import { likeComment } from '@/api/comment';
-import { initialLikeValue, LikeComments, LikeCommentsKey } from '@/constants/like';
 import { commentKeys } from '@/constants/queryKeys';
 import { Comment, LikeCommentResponse } from '@/entities/comment';
 import { SearchResponse } from '@/types/response';
-import { useLocalStorage } from '..';
 
 type UseLikeCommentHook = {
   articleId: number;
@@ -14,15 +12,11 @@ type UseLikeCommentHook = {
 
 const useLikeComment = ({ articleId, commentId }: UseLikeCommentHook) => {
   const queryClient = useQueryClient();
-  const [likeComments, setLikeComments] = useLocalStorage<LikeComments>(
-    LikeCommentsKey,
-    initialLikeValue
-  );
-  const mutation = useMutation<LikeCommentResponse, GraphQLError>(
-    () => likeComment(commentId),
+  const mutation = useMutation<LikeCommentResponse, GraphQLError, { emoji: string }>(
+    variables => likeComment(commentId, variables.emoji),
     {
-      onSuccess: ({ likeComment: liking }) => {
-        setLikeComments({ ...likeComments, [commentId]: true });
+      onSuccess: ({ likeComment: emoji }) => {
+        /* setLikeComments({ ...likeComments, [commentId]: true }); */
         // NOTE: 有两种方式更新
         // 1. queryClient.invalidateQueries()
         // 2. queryClient.setQueryData()
@@ -34,7 +28,7 @@ const useLikeComment = ({ articleId, commentId }: UseLikeCommentHook) => {
               ...oldComments,
               data: oldComments.data.map(comment => {
                 if (Number(comment.id) === commentId) {
-                  return { ...comment, liking };
+                  return { ...comment, emoji, emojiMap: JSON.parse(emoji) };
                 }
                 return comment;
               }),
@@ -46,7 +40,7 @@ const useLikeComment = ({ articleId, commentId }: UseLikeCommentHook) => {
     }
   );
 
-  return { isLike: !!likeComments[commentId], mutation } as const;
+  return mutation;
 };
 
 export default useLikeComment;

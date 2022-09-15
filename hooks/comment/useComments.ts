@@ -5,7 +5,15 @@ import { commentKeys } from '@/constants/queryKeys';
 import { convertToCommentTreeData } from '@/components/comment/CommentView/utils';
 
 const useComments = (articleId: number) => {
-  const res = useQuery(commentKeys.lists(articleId), () => getComments(articleId));
+  const res = useQuery(commentKeys.lists(articleId), () => getComments(articleId), {
+    onSuccess: resData => ({
+      ...resData,
+      data: resData.data.map(comment => ({
+        ...comment,
+        emojiMap: JSON.parse(comment.emoji),
+      })),
+    }),
+  });
   const treeData = useMemo(
     () => convertToCommentTreeData(res?.data?.data ?? []),
     [res.data]

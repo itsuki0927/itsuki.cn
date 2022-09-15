@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import toast from 'react-hot-toast';
+import { MouseEvent, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Smile } from 'react-feather';
 import Link from 'next/link';
@@ -17,6 +19,8 @@ import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';
 import { useCreateComment } from '@/hooks/comment';
 
+const emojiList = ['👍', '👎', '😄', '🎉', '😕', '👀'];
+
 type CommentCardProps = {
   className?: string;
   data: CommentTree;
@@ -26,25 +30,103 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
   const articleId = Number(comment.articleId);
   const commentId = Number(comment.id);
   const { postComment, isLoading } = useCreateComment(articleId);
-  const { isLike, mutation } = useLikeComment({
+  const mutation = useLikeComment({
     articleId,
     commentId,
   });
   const [isReply, setReply] = useState(false);
+  const [active, setActive] = useState(false);
+  const [emojiMap, setEmojiMap] = useState<Record<string, Record<string, number>>>({});
+  const { data } = useSession();
+  const email = data?.user?.email ?? '2309899048@qq.com';
 
-  const handleLike = () => {
-    if (isLike) {
+  const isNotLogin = () => {
+    if (!email) {
+      toast.loading('请先登陆');
+      return true;
+    }
+    return false;
+  };
+
+  const handleReply = () => {
+    if (isNotLogin()) {
+      return;
+    }
+    setReply(v => !v);
+  };
+
+  function omit<T extends Record<string, any>>(target: T, key: keyof T) {
+    return Object.keys(target)
+      .filter(k => k !== key)
+      .reduce((r, k) => ({ ...r, [k]: target[k] }), {});
+  }
+
+  const getLastestEmojiMap = (emoji: string) => {
+    const emojiMap2 = emojiMap[emoji] || {};
+    const value = emojiMap2[email] || 0;
+    if (value) {
+      const total = Object.keys(emojiMap2).reduce((r, k) => emojiMap2[k] + r, 0);
+      // 如果总数只有1的话, 表示直接删除该emoji
+      if (total === 1) return omit(emojiMap, emoji);
+      // value == 1 删除该emoji下的email
+      if (value === 1) return { ...emojiMap, [emoji]: omit(emojiMap2, email) };
+      return {
+        ...emojiMap,
+        [emoji]: {
+          ...emojiMap2,
+          [email]: value - 1,
+        },
+      };
+    }
+    return {
+      ...emojiMap,
+      [emoji]: {
+        ...emojiMap2,
+        [email]: value + 1,
+      },
+    };
+  };
+
+  const handleEmojiClick = (emoji: string) => {
+    if (isNotLogin()) {
       return;
     }
     gtag.event('like_comment', {
       category: GAEventCategories.Comment,
     });
-    mutation.mutateAsync();
+    const lastestEmojiMap = getLastestEmojiMap(emoji);
+    console.log('lastestEmojiMap', lastestEmojiMap);
+    mutation.mutateAsync(
+      {
+        emoji: JSON.stringify(lastestEmojiMap),
+      },
+      {
+        onSuccess: () => {
+          setEmojiMap(lastestEmojiMap);
+        },
+      }
+    );
   };
 
-  const handleReply = () => {
-    setReply(v => !v);
+  const openEmojiPopover = (e: MouseEvent) => {
+    e.stopPropagation();
+    if (isNotLogin()) {
+      return;
+    }
+    setActive(true);
   };
+
+  useEffect(() => {
+    const handleClick = () => {
+      setActive(false);
+    };
+    if (active) {
+      document.addEventListener('click', handleClick);
+    }
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, [active]);
 
   const parentId = isReply ? comment.id : 0;
 
@@ -57,12 +139,12 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
       <div className='relative flex-col space-y-2 rounded-sm'>
         <div className='flex items-center justify-between pl-4 sm:pl-6'>
           <CommentAvatar avatar={comment.avatar} />
-          <span className='ml-2 flex-grow font-medium text-gray-900 line-clamp-1'>
+          <span className='ml-2 flex flex-grow items-center font-medium text-gray-900 line-clamp-1'>
             {comment.nickname}
             {isAdminEmail(comment.email) && (
               <Link href='/about'>
-                <small className='ml-1 cursor-pointer text-gray-400 opacity-70 transition-opacity hover:opacity-100'>
-                  (博主)
+                <small className='cursor-pointert ml-1 rounded-sm bg-primary-light px-1 py-[2px] text-xs text-primary opacity-90 transition-opacity hover:opacity-100'>
+                  博主
                 </small>
               </Link>
             )}
@@ -88,18 +170,63 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
           htmlContent={markedToHtml(comment.content)}
         />
 
-        <div className='flex items-center space-x-3 pl-4 sm:space-x-2 sm:pl-6'>
-          <button
-            key='reply-btn'
-            type='button'
-            className={classNames(
-              'text-sm',
-              isLike ? 'cursor-not-allowed text-danger' : 'text-gray-400'
-            )}
-            onClick={handleLike}
-          >
-            <Smile size={16} />
-          </button>
+        <div className='flex items-center space-x-2 pl-4 sm:space-x-3 sm:pl-6'>
+          <div className='relative flex'>
+            <button
+              type='button'
+              className='text-sm text-gray-600'
+              onClick={openEmojiPopover}
+            >
+              <Smile
+                size={20}
+                className='rounded-full border border-solid border-gray-300 p-[2px] hover:bg-gray-200'
+              />
+            </button>
+
+            <ul className='ml-1 flex space-x-1 sm:ml-2 sm:space-x-2'>
+              {Object.keys(emojiMap).map(key => (
+                <li>
+                  <button
+                    type='button'
+                    className={classNames(
+                      'flex items-center rounded-md border border-solid border-gray-300 py-[2px] px-1 hover:bg-gray-200'
+                    )}
+                    onClick={() => handleEmojiClick(key)}
+                  >
+                    <span className='text-xs'>{key}</span>
+                    <span className='ml-[2px] text-xs text-gray-600'>
+                      {Object.keys(emojiMap[key]).reduce(
+                        (r, k) => r + emojiMap[key][k] || 0,
+                        0
+                      )}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            <ul
+              className={classNames(
+                'absolute top-10 z-50 flex rounded-md border border-solid border-gray-200 bg-white p-1 py-0',
+                active ? 'block' : 'hidden'
+              )}
+            >
+              {emojiList.map(emoji => (
+                <li key={emoji}>
+                  <button
+                    type='button'
+                    className={classNames(
+                      'my-1 mx-[2px] h-8 w-8 rounded-md p-1 transition-colors hover:bg-gray-100',
+                      emojiMap[`${emoji}-${email}`] ? 'bg-primary-light' : ''
+                    )}
+                    onClick={() => handleEmojiClick(emoji)}
+                  >
+                    {emoji}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <span className='text-gray-200 dark:text-gray-800'>/</span>
 

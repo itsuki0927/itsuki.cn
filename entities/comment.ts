@@ -11,6 +11,8 @@ export type Comment = IdentifiableEntity<{
   avatar: string;
   content: string;
   liking: number;
+  emoji: string;
+  emojiMap?: Record<string, number>;
   ip: string;
   city: string;
   province: string;
@@ -58,5 +60,5 @@ export type QueryCommentsSearch = SearchRequest<SearchCommentsBody>;
 export type CreateCommentInput = MutationRequest<PostCommentBody>;
 
 export type LikeCommentResponse = {
-  likeComment: number;
+  likeComment: string;
 };

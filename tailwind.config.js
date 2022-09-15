@@ -18,7 +18,7 @@ const gray = {
 /*  @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
   content: ['./pages/**/*.tsx', './components/**/*.tsx'],
-  darkMode: 'class',
+  /* darkMode: 'class', */
   theme: {
     colors: {
       transparent: colors.transparent,

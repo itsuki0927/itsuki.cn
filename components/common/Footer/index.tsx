@@ -28,22 +28,7 @@ const Title = ({ children }: CommonProps) => (
 
 const Banner = ({ theme }: FooterProps) => {
   const router = useRouter();
-
-  const renderButton = () => {
-    if (router.pathname === '/guestbook') return null;
-
-    return (
-      <button
-        type='button'
-        className='mt-4 w-full rounded-sm bg-primary px-9 py-2 text-white opacity-80 transition-opacity hover:opacity-100 sm:mt-0 sm:w-auto'
-        onClick={() => {
-          router.push('/guestbook');
-        }}
-      >
-        前往留言
-      </button>
-    );
-  };
+  if (router.pathname === '/guestbook') return null;
 
   return (
     <div
@@ -57,7 +42,15 @@ const Banner = ({ theme }: FooterProps) => {
           <p className='mb-2 text-lg font-semibold text-gray-900'>感谢你可以看到这里</p>
           <p className='text-base text-gray-600'>我们俩之间只差一条留言的距离</p>
         </div>
-        {renderButton()}
+        <button
+          type='button'
+          className='mt-4 w-full rounded-sm bg-primary px-9 py-2 text-white opacity-80 transition-opacity hover:opacity-100 sm:mt-0 sm:w-auto'
+          onClick={() => {
+            router.push('/guestbook');
+          }}
+        >
+          前往留言
+        </button>
       </div>
     </div>
   );

@@ -21,6 +21,12 @@ import { useCreateComment } from '@/hooks/comment';
 
 const emojiList = ['👍', '👎', '😄', '🎉', '😕', '👀'];
 
+function omit<T extends Record<string, any>>(target: T, key: keyof T) {
+  return Object.keys(target)
+    .filter(k => k !== key)
+    .reduce((r, k) => ({ ...r, [k]: target[k] }), {});
+}
+
 type CommentCardProps = {
   className?: string;
   data: CommentTree;
@@ -38,7 +44,7 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
   const [active, setActive] = useState(false);
   const [emojiMap, setEmojiMap] = useState<Record<string, Record<string, number>>>({});
   const { data } = useSession();
-  const email = data?.user?.email ?? '2309899048@qq.com';
+  const email = data?.user?.email ?? '';
 
   const isNotLogin = () => {
     if (!email) {
@@ -55,13 +61,7 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
     setReply(v => !v);
   };
 
-  function omit<T extends Record<string, any>>(target: T, key: keyof T) {
-    return Object.keys(target)
-      .filter(k => k !== key)
-      .reduce((r, k) => ({ ...r, [k]: target[k] }), {});
-  }
-
-  const getLastestEmojiMap = (emoji: string) => {
+  const getLatestEmojiMap = (emoji: string) => {
     const emojiMap2 = emojiMap[emoji] || {};
     const value = emojiMap2[email] || 0;
     if (value) {
@@ -94,7 +94,7 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
     gtag.event('like_comment', {
       category: GAEventCategories.Comment,
     });
-    const lastestEmojiMap = getLastestEmojiMap(emoji);
+    const lastestEmojiMap = getLatestEmojiMap(emoji);
     console.log('lastestEmojiMap', lastestEmojiMap);
     mutation.mutateAsync(
       {

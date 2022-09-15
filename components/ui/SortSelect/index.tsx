@@ -3,14 +3,19 @@ import { Listbox, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { Fragment } from 'react';
 
+export enum Sort {
+  Latest = 1,
+  Earliest = 2,
+}
+
 export const sortList: SortItem[] = [
-  { value: 1, label: '最新' },
-  { value: 2, label: '最早' },
-  { value: 3, label: '最热' },
+  { value: Sort.Latest, label: '最新' },
+  { value: Sort.Earliest, label: '最早' },
+  /* { value: 3, label: '最热' }, */
 ];
 
 export type SortItem = {
-  value: number;
+  value: Sort;
   label: string;
 };
 

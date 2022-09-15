@@ -23,7 +23,7 @@ type CommentProps = {
 const CommentView = ({ articleId }: CommentProps) => {
   const { postComment, ...rest } = useCreateComment(articleId);
   const { data: session } = useSession();
-  const { data, isLoading, isFetching, treeData } = useComments(articleId);
+  const { data, isLoading, isFetching, treeData, updateSort } = useComments(articleId);
   const { pathname, asPath } = useRouter();
   const { scrollTo } = useScrollTo();
   const [sort, setSort] = useState<SortItem>(sortList[0]);
@@ -81,7 +81,13 @@ const CommentView = ({ articleId }: CommentProps) => {
               <strong className='text-primary'>{data?.total}</strong> 条
               {getCommentTitleSuffixText(articleId)}
             </span>
-            <SortSelect value={sort} onChange={setSort} />
+            <SortSelect
+              value={sort}
+              onChange={params => {
+                updateSort(params.value);
+                setSort(params);
+              }}
+            />
           </>
         }
       />

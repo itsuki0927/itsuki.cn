@@ -22,7 +22,7 @@ export const getStaticProps = async () => {
 };
 
 const GuestBookPage = () => (
-  <Layout>
+  <Layout footerTheme='reverse'>
     <NextSeo title='留言板' />
 
     <div className='relative max-h-72 items-center overflow-hidden sm:max-h-[402px]'>

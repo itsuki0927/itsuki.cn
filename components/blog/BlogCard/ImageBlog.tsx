@@ -11,7 +11,7 @@ const ImageBlog = ({ blog, className, style }: BlogCardProps) => {
   return (
     <article
       className={classNames(
-        'relative aspect-video w-full justify-center justify-self-center p-6 transition-all sm:w-1/3 sm:max-w-sm',
+        'relative aspect-video w-full justify-center justify-self-center p-6 transition-all sm:max-w-sm',
         styles.imageBlog,
         className
       )}

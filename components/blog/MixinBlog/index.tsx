@@ -1,19 +1,19 @@
-import classNames from 'classnames';
 import Link from 'next/link';
 import { MyImage, ToDate } from '@/components/common';
+import { Article } from '@/entities/article';
 import { getBlogDetailRoute } from '@/utils/url';
-import { BlogCardProps } from '.';
 
-const MixinBlog = ({ blog, className, style }: BlogCardProps) => {
+interface MixinBlogProps {
+  blog?: Article;
+}
+
+const MixinBlog = ({ blog }: MixinBlogProps) => {
   if (!blog) {
     return <div>null</div>;
   }
 
   return (
-    <article
-      className={classNames('w-full self-stretch bg-gray-50 sm:max-w-sm', className)}
-      style={style}
-    >
+    <article className='w-full bg-gray-50 sm:w-1/3 sm:max-w-sm'>
       <MyImage width={392} height={220} src={blog?.cover ?? ''} alt={blog.title} />
       <div className='px-6 py-8'>
         <Link href={getBlogDetailRoute(blog.path)}>

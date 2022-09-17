@@ -1,16 +1,15 @@
-import { CSSProperties, forwardRef, PropsWithChildren } from 'react';
+import { forwardRef } from 'react';
+import { WithAsProps } from '@/types/common';
 
-type ContainerProps = PropsWithChildren<{
-  style?: CSSProperties;
-  className?: string;
+export interface ContainerProps extends WithAsProps {
   id?: string;
-}>;
+}
 
 const Container = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ children, style, className = '', ...rest }, ref) => (
-    <div {...rest} ref={ref} className={`container ${className}`} style={style}>
+  ({ children, style, as: Component = 'div', className = '', ...rest }, ref) => (
+    <Component {...rest} ref={ref} className={`container ${className}`} style={style}>
       {children}
-    </div>
+    </Component>
   )
 );
 

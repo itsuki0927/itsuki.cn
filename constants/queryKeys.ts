@@ -19,6 +19,7 @@ export const commentKeys = {
   lists: (articleId: number) =>
     [...articleKeys.article, articleId, ...commentKeys.comment, 'list'] as const,
   like: (id: number) => [...commentKeys.comment, id, 'like'] as const,
+  recent: () => [...commentKeys.comment, 'recent'] as const,
 };
 
 export const tagKeys = {
@@ -28,4 +29,8 @@ export const tagKeys = {
 
 export const blacklistKeys = {
   list: ['blacklist'] as const,
+};
+
+export const summaryKeys = {
+  summary: () => ['summary'] as const,
 };

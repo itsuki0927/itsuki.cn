@@ -29,7 +29,8 @@ export type Comment = IdentifiableEntity<{
 }>;
 
 export type SearchCommentsBody = {
-  articleId: number;
+  articleId?: number;
+  recent?: boolean;
 };
 
 export type LikeCommentBody = {

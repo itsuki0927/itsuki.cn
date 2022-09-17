@@ -10,7 +10,7 @@ import { GUESTBOOK } from '@/constants/value';
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(commentKeys.lists(GUESTBOOK), () =>
-    getComments(GUESTBOOK)
+    getComments({ articleId: GUESTBOOK })
   );
   await queryClient.prefetchQuery(blacklistKeys.list, () => getBlackList());
 

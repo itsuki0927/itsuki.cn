@@ -1,11 +1,11 @@
 import classNames from 'classnames';
+import Image from 'next/future/image';
 import router from 'next/router';
 import { A11y, Autoplay, Keyboard, Lazy, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { MyImage } from '..';
 import { Article } from '@/entities/article';
 import { getBlogDetailRoute } from '@/utils/url';
 import s from './style.module.css';
@@ -15,7 +15,7 @@ type HomeSliderProps = {
 };
 
 const HomeSlider = ({ articles }: HomeSliderProps) => (
-  <div className={classNames('sm:max-w-[800px]', s.slider)}>
+  <div className={classNames('w-full sm:max-w-[800px]', s.slider)}>
     <Swiper
       lazy
       /* autoplay */
@@ -37,14 +37,20 @@ const HomeSlider = ({ articles }: HomeSliderProps) => (
       {articles?.map(article => (
         <SwiperSlide
           role='banner'
-          className='group relative flex pb-6 opacity-90 transition-opacity sm:pb-0 md:flex-row'
+          className='group relative flex flex-col pb-6 opacity-90 transition-opacity sm:flex-row sm:pb-0 md:flex-row'
           key={article.id}
         >
-          <div className='max-w-full sm:max-h-[316px]'>
-            <MyImage src={article?.cover} objectFit='cover' width={535} height={302} />
+          <div className='max-w-full sm:max-h-[334px]'>
+            <Image
+              src={article?.cover}
+              alt='banner cover'
+              className='object-cover sm:max-h-[334px]'
+              width={535}
+              height={334}
+            />
           </div>
-          <div className='w-full bg-gray-50 sm:w-1/3 sm:px-5'>
-            <div className='pt-8 pb-3 text-sm text-primary'>
+          <div className='w-full bg-gray-50 p-6 sm:w-1/3'>
+            <div className='pb-3 text-sm text-primary'>
               {article?.tags?.map(v => v.name).join('、')}
             </div>
 

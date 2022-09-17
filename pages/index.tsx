@@ -2,26 +2,43 @@ import { ArrowRight } from 'react-feather';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { dehydrate, QueryClient } from 'react-query';
-import { getBannerArticles, getRecentArticles } from '@/api/article';
+import { getBannerArticles, getHotArticles, getRecentArticles } from '@/api/article';
 import { getAllTags } from '@/api/tag';
-import { ArticleList, ArticleSkeletonList } from '@/components/article';
+import { ArticleSkeletonList } from '@/components/article';
 import { HomeSlider, Layout, MyImage } from '@/components/common';
-import { RightOutlined } from '@/components/icons';
 import { GAEventCategories } from '@/constants/gtag';
-import { articleKeys, tagKeys } from '@/constants/queryKeys';
+import { articleKeys, commentKeys, summaryKeys, tagKeys } from '@/constants/queryKeys';
 import useBannerArticles from '@/hooks/article/useBannerArticles';
 import useRecentArticles from '@/hooks/article/useRecentArticles';
 import useTags from '@/hooks/tag';
 import { gtag } from '@/utils/gtag';
-import { getTagRoute } from '@/utils/url';
+import { getBlogDetailRoute, getTagRoute } from '@/utils/url';
 import BlogCard from '@/components/blog/BlogCard';
+import { Container } from '@/components/ui';
+import useHotArticles from '@/hooks/article/useHotArticles';
+import PtnContainer from '@/components/ui/PtnContainer';
+import { getRecentComments } from '@/api/comment';
+import { useRecentComments } from '@/hooks/comment';
+import CommentList from '@/components/comment/CommentList';
+import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
+import { getSiteSummary } from '@/api/summary';
+import useSiteSummary from '@/hooks/useSummary';
+
+const todoList = [
+  { name: '新版UI', percent: '60%' },
+  { name: '不知道写什么博客', percent: '10%' },
+  { name: '阅读React-Query中', percent: '50%' },
+];
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(articleKeys.recent(), () => getRecentArticles());
+  await queryClient.prefetchQuery(articleKeys.hot(), () => getHotArticles());
   await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
   await queryClient.prefetchQuery(articleKeys.banner(), () => getBannerArticles());
+  await queryClient.prefetchQuery(commentKeys.recent(), () => getRecentComments());
+  await queryClient.prefetchQuery(summaryKeys.summary(), () => getSiteSummary());
 
   return {
     props: {
@@ -35,6 +52,9 @@ const HomePage = () => {
   const articles = useRecentArticles();
   const { data: tags } = useTags();
   const { data: bannerArticles } = useBannerArticles();
+  const { data: hotArticles } = useHotArticles();
+  const { data: comments } = useRecentComments();
+  const { data: siteSummary } = useSiteSummary();
 
   if (articles.isLoading || articles.isFetching) {
     return (
@@ -45,14 +65,14 @@ const HomePage = () => {
   }
 
   return (
-    <Layout>
+    <Layout className='mb-8 space-y-8'>
       <NextSeo defaultTitle='五块木头' />
-      <div className='container bg-white py-8'>
-        <div className='flex'>
-          <HomeSlider articles={bannerArticles?.data} />
+      <Container className='flex flex-col space-y-8 pt-8 sm:flex-row sm:space-y-0 sm:space-x-8'>
+        <HomeSlider articles={bannerArticles?.data} />
 
-          <div className='ml-8 flex flex-col sm:w-1/3 '>
-            <div className='flex justify-between bg-gray-50 p-6'>
+        <div className='flex flex-col justify-between sm:mt-0 sm:w-1/3'>
+          <div className='bg-gray-50 p-6'>
+            <div className='flex justify-between pb-3'>
               <div>
                 <div className='text-gray-500'>要做一个很酷的人</div>
                 <div className='text-2xl text-gray-900'>
@@ -63,47 +83,58 @@ const HomePage = () => {
 
               <MyImage src='/avatar.jpeg' width={60} height={60} circle />
             </div>
-            <div className='mt-8 bg-gray-50 p-6'>
-              <div className='mb-2 text-gray-500'>博客简介：</div>
-              <div className='flex flex-wrap '>
-                <span className='mx-2 inline-flex flex-grow items-center'>
-                  <strong className='text-2xl text-gray-900'>155</strong>
-                  <span className='ml-2 text-sm text-gray-500'>篇博客</span>
-                </span>
-                <span className='mx-2 inline-flex flex-grow items-center '>
-                  <strong className='text-2xl text-gray-900'>155</strong>
-                  <span className='ml-2 text-sm text-gray-500'>个标签</span>
-                </span>
-                <span className='mx-2 inline-flex flex-grow items-center '>
-                  <strong className='text-2xl text-gray-900'>155</strong>
-                  <span className='ml-2 text-sm text-gray-500'>条评论</span>
-                </span>
-                <span className='mx-2 inline-flex flex-grow items-center '>
-                  <strong className='text-2xl text-gray-900'>155</strong>
-                  <span className='ml-2 text-sm text-gray-500'>条留言</span>
-                </span>
-                <span className='mx-2 inline-flex flex-grow items-center '>
-                  <strong className='text-2xl text-gray-900'>155</strong>
-                  <span className='ml-2 text-sm text-gray-500'>天前建站</span>
-                </span>
-              </div>
+
+            <div className='flex flex-row items-center space-x-2 border-t border-dashed border-gray-300 pt-4 sm:space-x-4'>
+              {defaultSocials.map(social => (
+                <SocialButton
+                  social={social}
+                  className='flex-shrink px-5 py-1 text-center'
+                  key={social.name}
+                >
+                  {social.icon}
+                </SocialButton>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className='container'>
-        <div className='bg-gray-50 p-6 text-gray-600'>
-          一个平平无奇的Banner区域(如果你要问我有什么用? 装饰!!!)
+          <PtnContainer className='mt-8 p-6'>
+            <div className='mb-2 text-gray-500'>博客概览：</div>
+            <div className='flex flex-wrap '>
+              <span className='mr-4 inline-flex items-center'>
+                <strong className='text-2xl text-gray-900'>{siteSummary?.article}</strong>
+                <span className='ml-2 text-sm text-gray-500'>篇博客</span>
+              </span>
+              <span className='mr-4 inline-flex items-center '>
+                <strong className='text-2xl text-gray-900'>{siteSummary?.tag}</strong>
+                <span className='ml-2 text-sm text-gray-500'>个标签</span>
+              </span>
+              <span className='mr-4 inline-flex items-center '>
+                <strong className='text-2xl text-gray-900'>{siteSummary?.comment}</strong>
+                <span className='ml-2 text-sm text-gray-500'>条评论</span>
+              </span>
+              <span className='mr-4 inline-flex items-center '>
+                <strong className='text-2xl text-gray-900'>
+                  {siteSummary?.guestbook}
+                </strong>
+                <span className='ml-2 text-sm text-gray-500'>条留言</span>
+              </span>
+              <span className='mr-4 inline-flex items-center '>
+                <strong className='text-2xl text-gray-900'>
+                  {siteSummary?.startTime.toString()}
+                </strong>
+                <span className='ml-2 text-sm text-gray-500'>天前建站</span>
+              </span>
+            </div>
+          </PtnContainer>
         </div>
-      </div>
+      </Container>
 
-      <div className='container'>
-        <div className='sm:max-w-[800px]'>
-          <div className='my-8 flex items-end justify-between'>
+      <Container className='flex flex-col sm:flex-row'>
+        <div className='space-y-8 sm:max-w-[800px]'>
+          <div className='flex flex-grow items-center justify-between bg-gray-50 p-6'>
             <span className='text-2xl text-gray-900'>最近文章</span>
             <Link href='/blog'>
-              <span className='flex cursor-pointer items-center transition-colors duration-100 hover:text-primary'>
+              <span className='flex cursor-pointer items-center text-primary transition-colors duration-100 hover:text-primary'>
                 查看更多
                 <ArrowRight size={16} className='ml-2' />
               </span>
@@ -119,39 +150,70 @@ const HomePage = () => {
               />
             ))}
           </div>
-        </div>
-      </div>
 
-      <div className='home space-y-6' id='dashboard'>
-        <div className='prose max-w-full'>
-          <section className='space-y-4'>
-            <div className='flex items-end justify-between px-4'>
-              <h2 className='capsize mb-5'>最近文章</h2>
-              <Link href='/blog'>
-                <p
-                  className='flex cursor-pointer items-center transition-colors hover:text-primary'
-                  onClick={() => {
-                    gtag.event('find_article_more', {
-                      category: GAEventCategories.Article,
-                    });
-                  }}
+          <div className='flex items-center justify-between bg-gray-50 p-6'>
+            <span className='text-2xl text-gray-900'>最近留言</span>
+            <Link href='/blog'>
+              <span className='flex cursor-pointer items-center text-primary transition-colors duration-100 hover:text-primary'>
+                查看更多
+                <ArrowRight size={16} className='ml-2' />
+              </span>
+            </Link>
+          </div>
+
+          <div className='flex flex-col '>
+            <CommentList
+              data={comments?.data.slice(0, 2)}
+              className='space-y-6 sm:space-y-8'
+            />
+          </div>
+        </div>
+
+        <div className='mt-8 flex-grow space-y-6 border-t border-dashed border-t-gray-200 pt-8 sm:mt-0 sm:ml-8 sm:max-w-sm sm:space-y-8 sm:border-none sm:pt-0'>
+          <div className='flex h-20 items-center justify-between bg-gray-50 p-6'>
+            <span>纵有疾风起, 人生不言弃</span>
+            <span className='text-sm text-gray-400'>已跑步3800公里</span>
+          </div>
+
+          <ul className='flex flex-col space-y-2 bg-gray-50 p-6'>
+            <li className='text-xl font-medium text-gray-900'>时间</li>
+            <li className='text-gray-700'>当天已过 10 / 24 </li>
+            <li className='text-gray-600'>本周已过 06 / 07 </li>
+            <li className='text-gray-500'>本月已过 10 / 30 </li>
+            <li className='text-gray-400'>本年已过 200 / 365</li>
+          </ul>
+
+          <PtnContainer as='ul' className='flex flex-col space-y-2 p-6'>
+            <div className='text-xl font-medium text-gray-900'>热门</div>
+            {hotArticles?.data.slice(0, 6).map(blog => (
+              <Link href={getBlogDetailRoute(blog.path)}>
+                <li
+                  key={blog.id}
+                  className='cursor-pointer list-inside list-square transition-colors hover:text-primary'
                 >
-                  <span className='capsize mr-2'>查看更多</span>
-                  <RightOutlined />
-                </p>
+                  {blog.title}
+                </li>
               </Link>
-            </div>
-            <ArticleList {...articles} />
-          </section>
-        </div>
+            ))}
+          </PtnContainer>
 
-        <div className='prose max-w-full'>
-          <section className='space-y-4'>
-            <div className='flex items-end justify-between px-4'>
-              <h2 className='capsize mb-5'>标签</h2>
-              <p>{tags?.length} Tags</p>
-            </div>
-            <div className='not-prose flex flex-wrap px-4'>
+          <ul className='flex flex-col space-y-2 bg-gray-50 p-6'>
+            <div className='text-xl font-medium text-gray-900'>TODO</div>
+            {todoList.map(todo => (
+              <li
+                key={todo.name}
+                className='flex list-inside list-decimal items-center justify-between transition-colors'
+              >
+                <span>{todo.name}</span>
+
+                <span className='text-sm text-gray-500'>{todo.percent}</span>
+              </li>
+            ))}
+          </ul>
+
+          <PtnContainer className='space-y-4 p-6'>
+            <div className='text-xl font-medium text-gray-900'>标签</div>
+            <ul className='flex flex-wrap'>
               {tags?.map(tag => (
                 <Link key={tag.path} href={getTagRoute(tag.path)}>
                   <a
@@ -170,26 +232,10 @@ const HomePage = () => {
                   </a>
                 </Link>
               ))}
-            </div>
-          </section>
-        </div>
-
-        <div className='prose max-w-full'>
-          <section className='space-y-4'>
-            <div className='flex items-end justify-between px-4'>
-              <h2 className='capsize mb-5'>代办</h2>
-              <p>3 Actives</p>
-            </div>
-            <ul className='flex flex-col px-4'>
-              <li>更新UI...</li>
-              <li>写文章中...</li>
-              <li>暗黑模式...</li>
-              <li className='line-through'>移动端样式...</li>
-              <li className='line-through'>完成新版样式...</li>
             </ul>
-          </section>
+          </PtnContainer>
         </div>
-      </div>
+      </Container>
     </Layout>
   );
 };

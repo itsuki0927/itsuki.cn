@@ -11,18 +11,18 @@ import { CREATE_COMMENT, LIKE_COMMENT, QUERY_COMMENTS } from '@/graphqls/comment
 import { endpoint } from './service';
 import { ID } from '@/types/response';
 
-export const getComments = async (articleId: number) => {
+export const getComments = async (search: QueryCommentsSearch['search']) => {
   const { comments } = await request<QueryCommentsResponse, QueryCommentsSearch>(
     endpoint,
     QUERY_COMMENTS,
     {
-      search: {
-        articleId,
-      },
+      search,
     }
   );
   return comments;
 };
+
+export const getRecentComments = () => getComments({ recent: true });
 
 export const createComment = async (input: PostCommentBody) => {
   const { createComment: comment } = await request<

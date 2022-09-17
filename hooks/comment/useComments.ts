@@ -8,7 +8,7 @@ import { Sort } from '@/components/ui/SortSelect';
 
 const useComments = (articleId: number) => {
   const queryClient = useQueryClient();
-  const res = useQuery(commentKeys.lists(articleId), () => getComments(articleId), {
+  const res = useQuery(commentKeys.lists(articleId), () => getComments({ articleId }), {
     onSuccess: resData => ({
       ...resData,
       data: resData.data.map(comment => ({

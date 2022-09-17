@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { MouseEvent } from 'react';
 import toast from 'react-hot-toast';
 import classNames from 'classnames';
@@ -75,6 +76,7 @@ const SocialButton = ({
   children,
 }: SocialButtonProps) => {
   const { openPopup, setPopupView } = useUI();
+  const router = useRouter();
   const handleSocialClick = (e: MouseEvent) => {
     if (social.name === 'Wechat') {
       e.preventDefault();
@@ -84,8 +86,12 @@ const SocialButton = ({
         category: GAEventCategories.Widget,
       });
     } else if (social.name === 'Website') {
-      copyTextToClipboard('https://itsuki.cn');
-      toast.success('🔗 链接复制成功, 快去分享给其他小伙伴吧~');
+      if (router.pathname === '/about') {
+        copyTextToClipboard('https://itsuki.cn');
+        toast.success('🔗 链接复制成功, 快去分享给其他小伙伴吧~');
+      } else {
+        router.push('/about');
+      }
     } else {
       window.open(social.url);
     }

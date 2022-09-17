@@ -1,9 +1,7 @@
 import { useQuery } from 'react-query';
 import { summaryKeys } from '@/constants/queryKeys';
 import { getSiteSummary } from '@/api/summary';
-
-const getDaysDiffBetweenDates = (dateInitial: Date, dateFinal: Date) =>
-  (dateFinal.getTime() - dateInitial.getTime()) / (1000 * 3600 * 24);
+import { getDaysDiffBetweenDates } from '@/utils/date';
 
 const useSiteSummary = () => {
   const res = useQuery(summaryKeys.summary(), () => getSiteSummary(), {

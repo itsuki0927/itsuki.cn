@@ -23,6 +23,7 @@ import useTags from '@/hooks/tag';
 import useSiteSummary from '@/hooks/useSummary';
 import { gtag } from '@/utils/gtag';
 import { getBlogDetailRoute, getTagRoute } from '@/utils/url';
+import { getDayTotals } from '@/utils/date';
 
 const todoList = [
   { name: '新版UI', percent: '60%' },
@@ -55,6 +56,16 @@ const HomePage = () => {
   const { data: hotArticles } = useHotArticles();
   const { data: comments } = useRecentComments();
   const { data: siteSummary } = useSiteSummary();
+  const {
+    dayInYearTotal,
+    dayInYear,
+    dayInMonthTotal,
+    dayInMonth,
+    dayInWeekTotal,
+    dayInWeek,
+    hourInDayTotal,
+    hourInDay,
+  } = getDayTotals();
 
   if (articles.isLoading || articles.isFetching) {
     return (
@@ -175,10 +186,18 @@ const HomePage = () => {
 
           <ul className='flex flex-col space-y-2 bg-gray-50 p-6'>
             <li className='text-xl font-medium text-gray-900'>时间</li>
-            <li className='text-gray-700'>当天已过 10 / 24 </li>
-            <li className='text-gray-600'>本周已过 06 / 07 </li>
-            <li className='text-gray-500'>本月已过 10 / 30 </li>
-            <li className='text-gray-400'>本年已过 200 / 365</li>
+            <li className='text-gray-700'>
+              当天已过 {hourInDay} / {hourInDayTotal}{' '}
+            </li>
+            <li className='text-gray-600'>
+              本周已过 {dayInWeek} / {dayInWeekTotal}{' '}
+            </li>
+            <li className='text-gray-500'>
+              本月已过 {dayInMonth} / {dayInMonthTotal}{' '}
+            </li>
+            <li className='text-gray-400'>
+              本年已过 {dayInYear} / {dayInYearTotal}
+            </li>
           </ul>
 
           <PtnContainer as='ul' className='flex flex-col space-y-2 p-6'>

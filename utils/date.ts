@@ -40,3 +40,54 @@ export const dateToYMDm = (date: Date, separator = '-') => {
 
   return `${dateString} ${suffix}`;
 };
+
+// 比较两个日期相差的天数
+export const getDaysDiffBetweenDates = (dateInitial: Date, dateFinal: Date) =>
+  (dateFinal.getTime() - dateInitial.getTime()) / (1000 * 3600 * 24);
+
+// 获取一个月的天数
+export const daysInMonth = (month: number, year: number) =>
+  new Date(year, month, 0).getDate();
+
+// 获取日期在这一年是第多少天
+export const daysOfYear = (date: Date) =>
+  Math.floor(
+    (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 1000 / 60 / 60 / 24
+  );
+
+// 获取一年的天数
+export const daysInYear = (year: number) => {
+  if (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) {
+    // Leap year
+    return 366;
+  }
+  // Not a leap year
+  return 365;
+};
+
+export const getDayTotals = () => {
+  const date = new Date();
+  const hourInDay = date.getHours();
+  const hourInDayTotal = 24;
+
+  const dayInWeekTotal = 7;
+  const dayInWeek = date.getDay();
+  const dayInMonthTotal = daysInMonth(date.getMonth(), date.getFullYear());
+  const dayInMonth = date.getDate();
+
+  const dayInYear = daysOfYear(new Date());
+  const dayInYearTotal = daysInYear(date.getFullYear());
+  console.log(dayInWeek, dayInWeekTotal);
+  console.log(dayInMonth, dayInMonthTotal);
+  console.log(dayInYear, dayInYearTotal);
+  return {
+    dayInWeek,
+    dayInWeekTotal,
+    dayInMonth,
+    dayInMonthTotal,
+    dayInYear,
+    dayInYearTotal,
+    hourInDay,
+    hourInDayTotal,
+  };
+};

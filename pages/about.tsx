@@ -1,19 +1,13 @@
-import { MouseEvent } from 'react';
-import toast from 'react-hot-toast';
-import { Link2 } from 'react-feather';
-import classNames from 'classnames';
-import { dehydrate, QueryClient } from 'react-query';
 import { NextSeo } from 'next-seo';
+import { dehydrate, QueryClient } from 'react-query';
+import { getHotArticles } from '@/api/article';
 import AboutView from '@/components/about';
 import { Layout, MyImage } from '@/components/common';
+import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
 import { GAEventCategories } from '@/constants/gtag';
+import { articleKeys } from '@/constants/queryKeys';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
-import { GithubOutlined, WechatOutlined } from '@/components/icons';
-import { useUI } from '@/components/ui/context';
-import { articleKeys } from '@/constants/queryKeys';
-import { getHotArticles } from '@/api/article';
-import { copyTextToClipboard } from '@/hooks/useCopyToClipboard';
 
 const useEmploymentDays = () => {
   const startTime = new Date('06/20/2022');
@@ -21,49 +15,6 @@ const useEmploymentDays = () => {
   const days = Math.floor(ile / (1000 * 60 * 60 * 24));
   return days + 1;
 };
-
-interface SocialItem {
-  name: string;
-  class: string;
-  icon: JSX.Element | null;
-  color: string;
-  url?: string;
-}
-const socials: SocialItem[] = [
-  {
-    name: 'Website',
-    class: 'website',
-    icon: <Link2 size={16} className='mr-2' />,
-    color: 'rgba(0, 136, 245, 0.8)',
-  },
-  {
-    name: 'Github',
-    class: 'github',
-    icon: <GithubOutlined size={16} className='mr-2' />,
-    color: 'rgba(39, 39, 42, 1)',
-    url: 'https://github.com/itsuki0927',
-  },
-  {
-    name: 'Wechat',
-    class: 'wechat',
-    icon: <WechatOutlined size={16} className='mr-2' />,
-    color: 'rgba(85, 190, 105, 1)',
-  },
-  {
-    name: 'Juejin',
-    class: 'juejin',
-    icon: null,
-    color: 'rgba(31, 127, 255, 1)',
-    url: 'https://juejin.cn/user/2436173499466350',
-  },
-  {
-    name: 'Sifou',
-    class: 'sifou',
-    icon: null,
-    color: 'rgba(0, 150, 94, 1)',
-    url: 'https://segmentfault.com/u/itsuki0927',
-  },
-];
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -79,29 +30,12 @@ export const getStaticProps = async () => {
 
 const AboutPage = () => {
   const days = useEmploymentDays();
-  const { openPopup, setPopupView } = useUI();
 
   useMount(() => {
     gtag.event('about', {
       category: GAEventCategories.About,
     });
   });
-
-  const handleSocialClick = (e: MouseEvent, social: SocialItem) => {
-    if (social.name === 'Wechat') {
-      e.preventDefault();
-      setPopupView('WECHAT_VIEW');
-      openPopup();
-      gtag.event('wechat_popup', {
-        category: GAEventCategories.Widget,
-      });
-    } else if (social.name === 'Website') {
-      copyTextToClipboard('https://itsuki.cn');
-      toast.success('🔗 链接复制成功, 快去分享给其他小伙伴吧~');
-    } else {
-      window.open(social.url);
-    }
-  };
 
   return (
     <Layout>
@@ -148,21 +82,11 @@ const AboutPage = () => {
         </h2>
 
         <div className='flex flex-row flex-wrap'>
-          {socials.map(social => (
-            <button
-              aria-label={`share to ${social.name}`}
-              type='button'
-              className={classNames(
-                'mr-4 mt-4 flex items-center rounded-sm px-6 py-[6px] text-sm text-white opacity-90 hover:opacity-100'
-              )}
-              style={{
-                backgroundColor: social.color,
-              }}
-              onClick={e => handleSocialClick(e, social)}
-            >
+          {defaultSocials.map(social => (
+            <SocialButton social={social} className='px-6 py-[6px]' key={social.name}>
               {social.icon}
-              {social.name}
-            </button>
+              <span className='ml-2'>{social.name}</span>
+            </SocialButton>
           ))}
         </div>
       </div>

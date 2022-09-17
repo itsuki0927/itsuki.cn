@@ -1,28 +1,28 @@
-import { ArrowRight } from 'react-feather';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import { ArrowRight } from 'react-feather';
 import { dehydrate, QueryClient } from 'react-query';
 import { getBannerArticles, getHotArticles, getRecentArticles } from '@/api/article';
+import { getRecentComments } from '@/api/comment';
+import { getSiteSummary } from '@/api/summary';
 import { getAllTags } from '@/api/tag';
 import { ArticleSkeletonList } from '@/components/article';
+import BlogCard from '@/components/blog/BlogCard';
+import CommentList from '@/components/comment/CommentList';
 import { HomeSlider, Layout, MyImage } from '@/components/common';
+import { Container } from '@/components/ui';
+import PtnContainer from '@/components/ui/PtnContainer';
+import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, commentKeys, summaryKeys, tagKeys } from '@/constants/queryKeys';
 import useBannerArticles from '@/hooks/article/useBannerArticles';
+import useHotArticles from '@/hooks/article/useHotArticles';
 import useRecentArticles from '@/hooks/article/useRecentArticles';
+import { useRecentComments } from '@/hooks/comment';
 import useTags from '@/hooks/tag';
+import useSiteSummary from '@/hooks/useSummary';
 import { gtag } from '@/utils/gtag';
 import { getBlogDetailRoute, getTagRoute } from '@/utils/url';
-import BlogCard from '@/components/blog/BlogCard';
-import { Container } from '@/components/ui';
-import useHotArticles from '@/hooks/article/useHotArticles';
-import PtnContainer from '@/components/ui/PtnContainer';
-import { getRecentComments } from '@/api/comment';
-import { useRecentComments } from '@/hooks/comment';
-import CommentList from '@/components/comment/CommentList';
-import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
-import { getSiteSummary } from '@/api/summary';
-import useSiteSummary from '@/hooks/useSummary';
 
 const todoList = [
   { name: '新版UI', percent: '60%' },
@@ -98,7 +98,7 @@ const HomePage = () => {
           </div>
 
           <PtnContainer className='mt-8 p-6'>
-            <div className='mb-2 text-gray-500'>博客概览：</div>
+            <div className='mb-2 text-gray-500'>博客概览</div>
             <div className='flex flex-wrap '>
               <span className='mr-4 inline-flex items-center'>
                 <strong className='text-2xl text-gray-900'>{siteSummary?.article}</strong>
@@ -119,9 +119,7 @@ const HomePage = () => {
                 <span className='ml-2 text-sm text-gray-500'>条留言</span>
               </span>
               <span className='mr-4 inline-flex items-center '>
-                <strong className='text-2xl text-gray-900'>
-                  {siteSummary?.startTime.toString()}
-                </strong>
+                <strong className='text-2xl text-gray-900'>{siteSummary?.diffDay}</strong>
                 <span className='ml-2 text-sm text-gray-500'>天前建站</span>
               </span>
             </div>

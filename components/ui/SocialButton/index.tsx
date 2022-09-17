@@ -2,7 +2,12 @@ import { MouseEvent } from 'react';
 import toast from 'react-hot-toast';
 import classNames from 'classnames';
 import { Link2 } from 'react-feather';
-import { GithubOutlined, WechatOutlined } from '@/components/icons';
+import {
+  GithubOutlined,
+  WechatOutlined,
+  SifouOutlined,
+  JuejinOutlined,
+} from '@/components/icons';
 import { copyTextToClipboard } from '@/hooks/useCopyToClipboard';
 import { useUI } from '../context';
 import { GAEventCategories } from '@/constants/gtag';
@@ -40,14 +45,14 @@ export const defaultSocials: SocialItem[] = [
   {
     name: 'Juejin',
     class: 'juejin',
-    icon: null,
+    icon: <JuejinOutlined size={16} />,
     color: 'rgba(31, 127, 255, 1)',
     url: 'https://juejin.cn/user/2436173499466350',
   },
   {
     name: 'Sifou',
     class: 'sifou',
-    icon: null,
+    icon: <SifouOutlined size={16} />,
     color: 'rgba(0, 150, 94, 1)',
     url: 'https://segmentfault.com/u/itsuki0927',
   },

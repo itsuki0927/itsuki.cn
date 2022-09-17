@@ -32,3 +32,5 @@ export { default as UserFilled } from './UserFilled';
 export { default as VideoOutlined } from './VideoOutlined';
 export { default as WechatOutlined } from './WechatOutlined';
 export { default as YuanOutlined } from './YuanOutlined';
+export { default as JuejinOutlined } from './JuejinOutlined';
+export { default as SifouOutlined } from './SifouOutlined';

@@ -81,9 +81,13 @@ const AboutPage = () => {
           <span className='font-semibold'>{days}</span> day)
         </h2>
 
-        <div className='flex flex-row flex-wrap'>
+        <div className='flex flex-row flex-wrap '>
           {defaultSocials.map(social => (
-            <SocialButton social={social} className='px-6 py-[6px]' key={social.name}>
+            <SocialButton
+              social={social}
+              className='mr-4 mt-4 px-6 py-[6px]'
+              key={social.name}
+            >
               {social.icon}
               <span className='ml-2'>{social.name}</span>
             </SocialButton>

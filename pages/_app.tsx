@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         }}
       />
 
-      <SessionProvider session={pageProps.session}>
+      <SessionProvider session={(pageProps as any).session}>
         <ManagedUIContext>
           <QueryClientContainer pageProps={pageProps}>
             <LayoutTransition items={items} />

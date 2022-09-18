@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import useTags from '@/hooks/tag';
 import { getTagRoute } from '@/utils/url';
@@ -26,36 +25,6 @@ const Title = ({ children }: CommonProps) => (
   <span className='font-medium text-gray-500'>{children}</span>
 );
 
-const Banner = ({ theme }: FooterProps) => {
-  const router = useRouter();
-  if (router.pathname === '/guestbook') return null;
-
-  return (
-    <div
-      className={classNames(
-        'py-10 px-4 sm:px-0 sm:py-12',
-        theme === 'normal' ? 'bg-gray-50' : 'bg-white'
-      )}
-    >
-      <div className='container flex flex-col items-start justify-between sm:flex-row'>
-        <div>
-          <p className='mb-2 text-lg font-semibold text-gray-900'>感谢你可以看到这里</p>
-          <p className='text-base text-gray-600'>我们俩之间只差一条留言的距离</p>
-        </div>
-        <button
-          type='button'
-          className='mt-4 w-full rounded-sm bg-primary px-9 py-2 text-white opacity-80 transition-opacity hover:opacity-100 sm:mt-0 sm:w-auto'
-          onClick={() => {
-            router.push('/guestbook');
-          }}
-        >
-          前往留言
-        </button>
-      </div>
-    </div>
-  );
-};
-
 interface FooterProps {
   theme: 'normal' | 'reverse';
 }
@@ -64,8 +33,6 @@ const Footer = ({ theme = 'normal' }: FooterProps) => {
   const { data } = useTags();
   return (
     <footer className=''>
-      <Banner theme={theme} />
-
       <div className={classNames(theme === 'normal' ? 'bg-white' : 'bg-gray-50')}>
         <div className='container flex w-full flex-col items-start justify-center'>
           <div className='flex w-full flex-col py-12 sm:flex-row'>

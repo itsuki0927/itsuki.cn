@@ -9,6 +9,9 @@ import { articleKeys } from '@/constants/queryKeys';
 import { useMount } from '@/hooks';
 import { useArchives } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
+import useSiteSummary from '@/hooks/useSummary';
+import { SiteSummary } from '@/entities/summary';
+import { Container } from '@/components/ui';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -22,33 +25,39 @@ export const getStaticProps = async () => {
   };
 };
 
-const Banner = () => {
+interface BannerProps {
+  summary?: SiteSummary;
+}
+const Banner = ({ summary }: BannerProps) => {
   const list = [
-    { title: '全站文章', count: 155, icon: <Edit2 size={16} /> },
-    { title: '全站阅读', count: 155, icon: <Eye size={16} /> },
-    { title: '全站评论', count: 155, icon: <MessageSquare size={16} /> },
-    { title: '全站点赞', count: 155, icon: <ThumbsUp size={16} /> },
-    { title: '全站标签', count: 155, icon: <Tag size={16} /> },
-    { title: '全站留言', count: 155, icon: <MessageCircle size={16} /> },
+    { title: '建站天数', count: summary?.diffDay, icon: <ThumbsUp size={16} /> },
+    { title: '全站文章', count: summary?.article, icon: <Edit2 size={16} /> },
+    { title: '全站标签', count: summary?.tag, icon: <Tag size={16} /> },
+    { title: '全站阅读', count: summary?.reading, icon: <Eye size={16} /> },
+    { title: '全站留言', count: summary?.guestbook, icon: <MessageCircle size={16} /> },
+    { title: '全站评论', count: summary?.comment, icon: <MessageSquare size={16} /> },
   ];
 
   return (
-    <div className='container flex flex-row flex-wrap'>
-      {list.map(item => (
-        <div className='w-1/2 py-6 px-7 md:w-auto md:py-12 md:px-14' key={item.title}>
-          <p className='flex items-center space-x-2 text-sm text-gray-400'>
-            <span className='text-gray-500'>{item.title}</span>
-            {item.icon}
-          </p>
-          <div className='mt-2 text-3xl font-medium text-gray-700'>{item.count}</div>
-        </div>
-      ))}
+    <div className='bg-white'>
+      <Container className='flex flex-row flex-wrap'>
+        {list.map(item => (
+          <div className='w-1/2 py-6 px-7 md:w-auto md:py-12 md:px-14' key={item.title}>
+            <p className='flex items-center space-x-2 text-sm text-gray-400'>
+              <span className='text-gray-500'>{item.title}</span>
+              {item.icon}
+            </p>
+            <div className='mt-2 text-3xl font-medium text-gray-700'>{item.count}</div>
+          </div>
+        ))}
+      </Container>
     </div>
   );
 };
 
 const ArchivePage = () => {
   const archives = useArchives();
+  const { data: summary } = useSiteSummary();
 
   useMount(() => {
     gtag.event('archive', {
@@ -78,7 +87,7 @@ const ArchivePage = () => {
         </div>
       </div>
 
-      <Banner />
+      <Banner summary={summary} />
 
       <ArchiveView archives={archives.data} />
     </Layout>

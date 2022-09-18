@@ -8,6 +8,7 @@ export const QUERY_SITE_SUMMARY = gql`
       comment
       guestbook
       startTime
+      reading
     }
   }
 `;

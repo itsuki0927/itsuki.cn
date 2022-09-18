@@ -4,6 +4,8 @@ export type SiteSummary = {
   comment: number;
   guestbook: number;
   startTime: Date;
+  reading: number;
+  diffDay: number;
 };
 
 export type QuerySiteSummaryResponse = {

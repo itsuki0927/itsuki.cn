@@ -74,7 +74,7 @@ interface HeaderProps {
 const Header = ({ theme = 'white' }: HeaderProps) => (
   <header
     className={classNames(
-      'relative inset-x-0 z-50 h-16 backdrop-blur-[20px] backdrop-saturate-150 ',
+      'sticky inset-x-0 top-0 z-50 h-16 backdrop-blur-[20px] backdrop-saturate-150 ',
       theme === 'white' ? 'bg-white' : 'bg-gray-50 '
     )}
   >

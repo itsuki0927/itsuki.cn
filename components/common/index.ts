@@ -12,7 +12,7 @@ export { default as MyImage } from './MyImage';
 export { default as Navbar } from './Navbar';
 export { default as QueryClientContainer } from './QueryClientContainer';
 export { default as Share } from './Share';
-export { default as SigninIcon } from './SigninIcon';
+export { default as GithubIcon } from './GithubIcon';
 export { default as Tag } from './Tag';
 export { default as TagList } from './Tag/List';
 export { default as ToDate } from './ToDate';

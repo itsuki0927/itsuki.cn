@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { ExternalLink, ToDate } from '@/components/common';
+import { ExternalLink } from '@/components/common';
 import { WEB_URL } from '@/configs/app';
 import { ArticleDetailResponse } from '@/entities/article';
 
@@ -11,11 +11,6 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => {
   const router = useRouter();
   return (
     <div className='my-4 flex flex-col space-y-3 text-sm text-gray-2'>
-      <span className='w-max rounded-sm text-sm'>
-        <span>最后更新: </span>
-        <ToDate date={article.updateAt} to='YMDm' />
-      </span>
-
       <div>
         <span>永久地址: </span>
         <span className='underline'>

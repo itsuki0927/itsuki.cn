@@ -1,36 +1,28 @@
+import { ArrowRight } from 'react-feather';
 import Link from 'next/link';
-import { MyImage, ToDate } from '@/components/common';
 import { Container } from '@/components/ui';
 import { Article } from '@/entities/article';
-import { getBlogDetailRoute } from '@/utils/url';
+import BlogCard from '@/components/blog/BlogCard';
 
 interface RelateArticlesProps {
   relateArticles: Article[];
 }
 
 const RelateArticles = ({ relateArticles }: RelateArticlesProps) => (
-  <Container className='flex justify-between space-x-4'>
-    {relateArticles.map(article => (
-      <div key={article.id} className='w-1/3 flex-grow'>
-        <Link href={getBlogDetailRoute(article.path)}>
-          <MyImage
-            src={article.cover}
-            width={210}
-            height={158}
-            layout='responsive'
-            className='cursor-pointer'
-            alt='relate-article-cover'
-            objectFit='cover'
-          />
-        </Link>
-        <h2 className='my-2 cursor-pointer px-3 text-center text-dark-2 transition-colors duration-500 line-clamp-1 hover:text-primary  '>
-          <Link href={getBlogDetailRoute(article.path)}>{article.title}</Link>
-        </h2>
-        <span className='block text-center text-sm tracking-wider text-gray-2'>
-          <ToDate date={article.createAt} to='YMD' />
+  <Container>
+    <div className='mb-6 flex justify-between'>
+      <h3 className='text-2xl text-gray-900'>相关文章</h3>
+      <Link href='/blog'>
+        <span className='flex cursor-pointer items-center text-primary transition-all hover:text-primary-hover'>
+          查看更多 <ArrowRight size={16} className='ml-2' />
         </span>
-      </div>
-    ))}
+      </Link>
+    </div>
+    <div className='flex flex-col justify-between space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'>
+      {relateArticles.map(article => (
+        <BlogCard blog={article} />
+      ))}
+    </div>
   </Container>
 );
 

@@ -43,7 +43,7 @@ const GuestBookPage = () => (
       </div>
     </div>
 
-    <div className='mx-auto mb-12 max-w-4xl'>
+    <div className='mx-auto my-12 max-w-4xl'>
       <CommentView articleId={GUESTBOOK} />
     </div>
   </Layout>

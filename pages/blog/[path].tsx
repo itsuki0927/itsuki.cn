@@ -1,3 +1,5 @@
+import { MessageSquare } from 'react-feather';
+import Link from 'next/link';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ArticleJsonLd, NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -6,11 +8,10 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getAllArticlePathsWithPath, getArticle, readArticle } from '@/api/article';
 import { getBlackList } from '@/api/blacklist';
 import { getAllTags } from '@/api/tag';
-import { ArticlePagination, ArticleSkeleton } from '@/components/article';
+import { ArticleSkeleton } from '@/components/article';
 import ArticleAside from '@/components/article/ArticleAside';
 import ArticleHeader from '@/components/article/ArticleHeader';
 import ArticleMeta from '@/components/article/ArticleMeta';
-import FavoriteButton from '@/components/article/FavoriteButton';
 import RelateArticles, {
   RelateArticleSkeleton,
 } from '@/components/article/RelateArticles';
@@ -19,15 +20,17 @@ import {
   CommentListSkeleton,
   CommentView,
 } from '@/components/comment';
-import { Layout, Navbar, Share } from '@/components/common';
+import { CountDown, Layout, MyImage, Share, ToDate } from '@/components/common';
 import { Container, MarkdownBlock } from '@/components/ui';
 import { META } from '@/configs/app';
-import { ARTICLE_ACTIONS_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, blacklistKeys, tagKeys } from '@/constants/queryKeys';
 import { useArticles, useArticle } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
-import { getArticleDetailFullUrl } from '@/utils/url';
+import { getArticleDetailFullUrl, getTagRoute } from '@/utils/url';
+import FavoriteButton from '@/components/article/FavoriteButton';
+import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
+import { useScrollTo } from '@/hooks';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePathsWithPath();
@@ -40,7 +43,6 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const path = String(params?.path);
-  console.log('path', path);
 
   if (!path) {
     return {
@@ -69,6 +71,7 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
   const { isFallback } = useRouter();
   const { data } = useArticles();
   const relateArticles = data?.data.slice(0, 3) ?? [];
+  const { scrollTo } = useScrollTo();
 
   useEffect(() => {
     if (article) {
@@ -93,15 +96,7 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
     );
 
   return (
-    <Layout
-      hero={
-        <div className='space-y-10 bg-white py-10'>
-          <Navbar />
-
-          <ArticleHeader article={article} />
-        </div>
-      }
-    >
+    <Layout footerTheme='reverse'>
       <NextSeo
         title={article.title}
         description={article.description}
@@ -142,40 +137,103 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
         publisherName={article.title}
       />
 
-      <div className='flex flex-row'>
-        <div className='max-w-full sm:max-w-3xl'>
-          <blockquote>{article.description}</blockquote>
+      <ArticleHeader article={article} />
 
-          <Container className='relative rounded-sm'>
-            <MarkdownBlock className='my-5' htmlContent={article.htmlContent} />
+      <Container className='relative mt-24 flex flex-row justify-between'>
+        <div className='absolute -left-14 sm:h-full sm:max-w-xs'>
+          <div className='sticky top-16 left-0'>
+            <Share>
+              <FavoriteButton article={article} />
+              <span className='flex flex-col justify-center'>
+                <button
+                  aria-label='article comments'
+                  type='button'
+                  className='flex items-center justify-center rounded-md bg-white px-2 py-2 font-medium text-gray-400 shadow-md outline-none'
+                  onClick={() => scrollTo(COMMENT_VIEW_ELEMENT_ID)}
+                >
+                  <MessageSquare />
+                </button>
+                <strong className='capsize mt-1 text-center text-sm font-medium'>
+                  <CountDown num={article.commenting} />
+                </strong>
+              </span>
+            </Share>
+          </div>
+        </div>
+        <div className='max-w-full sm:max-w-3xl'>
+          <div className='relative rounded-sm'>
+            <div className='mb-8 align-middle'>
+              <MyImage
+                src={article.cover}
+                width={1216}
+                height={516}
+                objectFit='cover'
+                alt='article-header-cover'
+                className='cursor-pointer'
+                id='articleCover'
+              />
+            </div>
+            <MarkdownBlock htmlContent={article.htmlContent} />
 
             <ArticleMeta article={article} />
-
-            <div
-              id={ARTICLE_ACTIONS_ELEMENT_ID}
-              className='flex w-max scroll-m-20 flex-col items-center justify-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'
-            >
-              <FavoriteButton article={article} />
-              <Share />
-            </div>
-          </Container>
+          </div>
         </div>
 
-        <div className='hidden sm:block sm:flex-grow'>
+        <div className='hidden sm:block sm:max-w-xs sm:flex-grow'>
+          <ul className='space-y-2 bg-gray-50 p-6'>
+            <p className='mb-4 font-medium text-primary'>基本信息</p>
+            <li className='flex items-center justify-between'>
+              <span className='text-sm text-gray-400'>作者</span>
+
+              <Link href='/about'>
+                <span className='cursor-pointer text-sm transition-colors hover:text-primary'>
+                  {article.author}
+                </span>
+              </Link>
+            </li>
+
+            <li className='flex items-center justify-between'>
+              <span className='text-sm text-gray-400'>标签</span>
+
+              <div className='space-x-2'>
+                {article.tags.map(tag => (
+                  <Link key={tag.path} href={getTagRoute(tag.path)}>
+                    <span className='cursor-pointer text-sm transition-all hover:underline'>
+                      {tag.name}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </li>
+
+            <li className='flex items-center justify-between'>
+              <span className='text-sm text-gray-400'>发布时间</span>
+
+              <span className='text-sm'>
+                <ToDate date={article.createAt} to='YMDm' />
+              </span>
+            </li>
+
+            <li className='flex items-center justify-between'>
+              <span className='text-sm text-gray-400'>最后修改</span>
+
+              <span className='text-sm'>
+                <ToDate date={article.updateAt} to='YMDm' />
+              </span>
+            </li>
+          </ul>
           <ArticleAside article={article} />
         </div>
-      </div>
+      </Container>
 
-      <div className='max-w-3xl'>
-        <ArticlePagination
-          prevArticle={article.prevArticle}
-          nextArticle={article.nextArticle}
-        />
+      <Container className='my-24 border-t border-dashed border-gray-300' />
 
-        <RelateArticles relateArticles={relateArticles} />
+      <RelateArticles relateArticles={relateArticles} />
 
+      <Container className='my-24' id={COMMENT_VIEW_ELEMENT_ID}>
+        <h3 className='mb-6 text-2xl text-gray-900'>相关评论</h3>
         <CommentView articleId={article.id} />
-      </div>
+      </Container>
     </Layout>
   );
 };

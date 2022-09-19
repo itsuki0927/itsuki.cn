@@ -27,7 +27,7 @@ export interface SortSelectProps {
 const SortSelect = ({ value, onChange }: SortSelectProps) => (
   <Listbox value={value} onChange={onChange}>
     {({ open }) => (
-      <div className='relative mt-1 min-w-[100px]'>
+      <div className='relative min-w-[100px]'>
         <Listbox.Button className='relative w-full cursor-pointer rounded-sm bg-gray-50 py-2 pl-3 pr-10 text-left transition-all hover:bg-gray-100 sm:text-sm'>
           <span className='block truncate'>{value.label}</span>
           <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>

@@ -1,33 +1,23 @@
 .ejector {
   @apply flex h-8 w-8 items-center justify-center rounded-sm text-center text-white opacity-90 transition-all hover:opacity-100;
 
-  &.qq {
-    color: #1abcfa;
-    background-color: white;
+  &.like {
+    background-color: #f04438;
+    color: white;
+  }
 
-    &:hover {
-      background-color: #1abcfa;
-      color: white;
-    }
+  &.qq {
+    background-color: #1abcfa;
+    color: white;
   }
 
   &.wechat {
-    color: #2bae67;
-    background-color: white;
-
-    &:hover {
-      background-color: #2bae67;
-      color: white;
-    }
+    background-color: #2bae67;
+    color: white;
   }
 
   &.douban {
-    color: #05d212;
-    background-color: white;
-
-    &:hover {
-      background-color: #05d212;
-      color: white;
-    }
+    background-color: #05d212;
+    color: white;
   }
 }

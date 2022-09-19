@@ -77,9 +77,7 @@ export const getDayTotals = () => {
 
   const dayInYear = daysOfYear(new Date());
   const dayInYearTotal = daysInYear(date.getFullYear());
-  console.log(dayInWeek, dayInWeekTotal);
-  console.log(dayInMonth, dayInMonthTotal);
-  console.log(dayInYear, dayInYearTotal);
+
   return {
     dayInWeek,
     dayInWeekTotal,

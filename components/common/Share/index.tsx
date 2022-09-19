@@ -1,6 +1,7 @@
+import { ReactNode } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { Icon } from '@/components/icons';
+import { DoubanOutlined, QQOutlined, WechatOutlined } from '@/components/icons';
 import { useUI } from '@/components/ui/context';
 import { META } from '@/configs/app';
 import { GAEventCategories } from '@/constants/gtag';
@@ -14,6 +15,7 @@ enum SocialMedia {
   Wechat = 'wechat',
   Douban = 'douban',
 }
+
 interface ShareParams {
   url: string;
   title: string;
@@ -25,6 +27,7 @@ interface SocialItem {
   id: SocialMedia;
   name: string;
   class: string;
+  icon?: ReactNode;
   url?: (share: ShareParams) => string;
   asyncUrl?: (share: ShareParams) => Promise<string>;
 }
@@ -34,6 +37,7 @@ const socials: SocialItem[] = [
     id: SocialMedia.QQ,
     name: 'QQ',
     class: 'qq',
+    icon: <QQOutlined size={24} />,
     url: ({ url, description, title, cover }) =>
       `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?${stringifyParams({
         url,
@@ -47,12 +51,14 @@ const socials: SocialItem[] = [
     id: SocialMedia.Wechat,
     name: '微信',
     class: 'wechat',
+    icon: <WechatOutlined size={24} />,
     asyncUrl: params => renderTextToQRCodeDataURL(params.url),
   },
   {
     id: SocialMedia.Douban,
     name: '豆瓣',
     class: 'douban',
+    icon: <DoubanOutlined size={24} />,
     url: params =>
       `https://www.douban.com/recommend/?${stringifyParams({
         url: params.url,
@@ -63,17 +69,39 @@ const socials: SocialItem[] = [
   },
 ];
 
-const Share = () => {
+interface SocialButtonProps {
+  social: SocialItem;
+  onClick?: (social: SocialItem) => void;
+}
+
+const SocialButton = ({ social, onClick }: SocialButtonProps) => (
+  <button
+    aria-label={`share to ${social.name}`}
+    type='button'
+    key={social.id}
+    className={classNames(s.ejector, s[social.id])}
+    title={`分享到${social.name}`}
+    onClick={() => onClick?.(social)}
+  >
+    {social.icon}
+  </button>
+);
+
+interface ShareProps {
+  children?: ReactNode;
+}
+const Share = ({ children }: ShareProps) => {
   const { openPopup, setPopupView } = useUI();
   const router = useRouter();
-  const getURL = () => getPageUrl(router.asPath);
-  const getTitle = () => document.title || META.title;
-  const getDescription = () =>
-    document.getElementsByName('description')?.[0].getAttribute('content') || '';
-  const getCover = () =>
-    document.getElementsByName('cover')?.[0].getAttribute('content') || '';
 
   const handleShare = async (social: SocialItem) => {
+    const getURL = () => getPageUrl(router.asPath);
+    const getTitle = () => document.title || META.title;
+    const getDescription = () =>
+      document.getElementsByName('description')?.[0].getAttribute('content') || '';
+    const getCover = () =>
+      document.getElementsByName('cover')?.[0].getAttribute('content') || '';
+
     const shareParams: ShareParams = {
       url: getURL(),
       title: getTitle(),
@@ -94,18 +122,10 @@ const Share = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'>
+    <div className='flex flex-col justify-center space-y-4'>
+      {children}
       {socials.map(social => (
-        <button
-          aria-label={`share to ${social.name}`}
-          type='button'
-          key={social.id}
-          className={classNames(s.ejector, s[social.id])}
-          title={`分享到${social.name}`}
-          onClick={() => handleShare(social)}
-        >
-          <Icon className='capsize text-lg' name={social.id} />
-        </button>
+        <SocialButton social={social} onClick={handleShare} />
       ))}
     </div>
   );

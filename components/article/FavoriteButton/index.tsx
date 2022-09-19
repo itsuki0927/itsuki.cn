@@ -1,7 +1,7 @@
+import { Heart } from 'react-feather';
 import classNames from 'classnames';
 import toast from 'react-hot-toast';
 import { CountDown } from '@/components/common';
-import { LikeFilled, LikeOutlined } from '@/components/icons';
 import { GAEventCategories } from '@/constants/gtag';
 import { ArticleDetailResponse } from '@/entities/article';
 import { useLikeArticle } from '@/hooks/article';
@@ -30,22 +30,24 @@ const FavoriteButton = ({ article }: FavoriteButtonProps) => {
   };
 
   return (
-    <button
-      aria-label='favorite article'
-      type='button'
-      className={classNames(
-        'flex min-w-[100px] items-center justify-center rounded-sm bg-danger px-6 py-2 text-sm font-medium text-white outline-none',
-        isLike
-          ? 'cursor-not-allowed'
-          : 'transition-colors duration-300 hover:bg-danger-hover'
-      )}
-      onClick={handleLike}
-    >
-      {isLike ? <LikeFilled className='mr-2' /> : <LikeOutlined className='mr-2' />}
-      <strong className='capsize font-medium'>
+    <span className='flex flex-col justify-center'>
+      <button
+        aria-label='favorite article'
+        type='button'
+        className={classNames(
+          'flex items-center justify-center rounded-sm bg-gray-25 px-2 py-2 text-sm font-medium text-gray-400 shadow-md outline-none',
+          isLike
+            ? 'cursor-not-allowed'
+            : 'transition-colors duration-300 hover:bg-danger-hover'
+        )}
+        onClick={handleLike}
+      >
+        {isLike ? <Heart /> : <Heart />}
+      </button>
+      <strong className='capsize mt-1 text-center text-sm font-medium'>
         <CountDown num={article.liking} />
       </strong>
-    </button>
+    </span>
   );
 };
 

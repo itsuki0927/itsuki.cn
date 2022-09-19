@@ -19,6 +19,7 @@ const useScrollTo = (config?: SpringConfig) => {
         y = value;
       } else if (typeof value === 'string' || value?.nodeType === 1) {
         if (typeof value === 'string') {
+          value = value.startsWith('#') ? value : `#${value}`;
           target = document.querySelector(value);
         }
         if (!target) {

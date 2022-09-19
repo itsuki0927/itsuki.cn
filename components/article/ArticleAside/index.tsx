@@ -4,11 +4,7 @@ import { ArticleDetailResponse } from '@/entities/article';
 import { useArticle } from '@/hooks/article';
 import { ArticleHeading } from '@/hooks/article/useArticle';
 import { useScrollTo } from '@/hooks';
-import {
-  COMMENT_VIEW_ELEMENT_ID,
-  ARTICLE_ACTIONS_ELEMENT_ID,
-  getElementId,
-} from '@/constants/anchor';
+import { ARTICLE_ACTIONS_ELEMENT_ID, getElementId } from '@/constants/anchor';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
 
@@ -67,7 +63,8 @@ const ArticleAside = ({ article }: ArticleAsideProps) => {
   };
 
   return (
-    <Container className='sticky top-16 text-gray-400'>
+    <div className='sticky top-16 p-6 text-gray-400'>
+      <p className='mb-4 font-medium text-primary'>目录</p>
       <ul className='max-h-[calc(100vh-148px)] space-y-1 overflow-y-scroll'>
         {data?.headings.map(heading => (
           <HeadingArchor
@@ -77,16 +74,7 @@ const ArticleAside = ({ article }: ArticleAsideProps) => {
           />
         ))}
       </ul>
-
-      <div
-        tabIndex={0}
-        role='button'
-        className='mt-2 cursor-pointer transition-colors hover:text-primary'
-        onClick={() => handleScrollTo(COMMENT_VIEW_ELEMENT_ID)}
-      >
-        <span className='text-sm'>评论区</span>
-      </div>
-    </Container>
+    </div>
   );
 };
 

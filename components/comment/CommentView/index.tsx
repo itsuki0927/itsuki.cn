@@ -10,17 +10,19 @@ import CommentList from '../CommentList';
 import { CommentFormSkeletion, CommentListSkeleton } from '../CommentSkeleton';
 import CommentPublisher from '../CommentPublisher';
 import SortSelect, { SortItem, sortList } from '@/components/ui/SortSelect';
-import { SigninIcon } from '@/components/common';
+import { GithubIcon } from '@/components/common';
 import SorrySvg from '@/components/icons/SorrySvg';
+import Status from '@/components/ui/Status';
 
 const getCommentTitleSuffixText = (articleId: number) =>
   articleId === GUESTBOOK ? '留言板' : '评论区';
 
 type CommentProps = {
   articleId: number;
+  className?: string;
 };
 
-const CommentView = ({ articleId }: CommentProps) => {
+const CommentView = ({ articleId, className = '' }: CommentProps) => {
   const { postComment, ...rest } = useCreateComment(articleId);
   const { data: session } = useSession();
   const { data, isLoading, isFetching, treeData, updateSort } = useComments(articleId);
@@ -49,24 +51,21 @@ const CommentView = ({ articleId }: CommentProps) => {
   }
 
   return (
-    <div id={COMMENT_VIEW_ELEMENT_ID}>
+    <div id={COMMENT_VIEW_ELEMENT_ID} className={className}>
       {session?.user ? (
-        <div className='pt-12'>
-          <CommentPublisher
-            articleId={articleId}
-            loading={rest.isLoading}
-            onPost={postComment}
-          />
-        </div>
+        <CommentPublisher
+          articleId={articleId}
+          loading={rest.isLoading}
+          onPost={postComment}
+        />
       ) : (
-        <div className='mt-12 bg-gray-50 p-4 sm:p-6'>
-          <SorrySvg />
-
-          <div className='mt-2 text-xl font-medium text-gray-900'>请先登陆</div>
-          <div className='text-gray-600 '>仅使用你的邮箱、头像和昵称</div>
-
-          <SigninIcon />
-        </div>
+        <Status
+          icon={<SorrySvg />}
+          title='请先登陆'
+          description='仅使用你的邮箱、头像和昵称'
+        >
+          <GithubIcon className='mt-4' />
+        </Status>
       )}
 
       <CommentList

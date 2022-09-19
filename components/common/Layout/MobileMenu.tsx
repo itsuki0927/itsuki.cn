@@ -92,7 +92,7 @@ const MobileMenu = () => {
         <div
           className={cn(
             styles.menu,
-            'absolute flex flex-col bg-white',
+            'fixed flex flex-col bg-white',
             isMenuRendered && styles.menuRendered
           )}
         >
@@ -102,15 +102,15 @@ const MobileMenu = () => {
               style={{ transitionDelay: '150ms' }}
             >
               <Link href='/'>
-                <a className='flex w-auto pb-4'>首页</a>
+                <a className='flex w-auto py-4'>首页</a>
               </Link>
             </li>
             <li
               className='border-b border-gray-300 text-sm font-semibold text-gray-900'
               style={{ transitionDelay: '150ms' }}
             >
-              <Link href='/'>
-                <a className='flex w-auto pb-4'>文章</a>
+              <Link href='/blog'>
+                <a className='flex w-auto py-4'>文章</a>
               </Link>
             </li>
             <li
@@ -118,7 +118,7 @@ const MobileMenu = () => {
               style={{ transitionDelay: '250ms' }}
             >
               <Link href='/guestbook'>
-                <a className='flex w-auto pb-4'>留言板</a>
+                <a className='flex w-auto py-4'>留言板</a>
               </Link>
             </li>
             <li
@@ -126,7 +126,7 @@ const MobileMenu = () => {
               style={{ transitionDelay: '275ms' }}
             >
               <Link href='/archive'>
-                <a className='flex w-auto pb-4'>归档</a>
+                <a className='flex w-auto py-4'>归档</a>
               </Link>
             </li>
             <li
@@ -134,7 +134,7 @@ const MobileMenu = () => {
               style={{ transitionDelay: '300ms' }}
             >
               <Link href='/about'>
-                <a className='flex w-auto pb-4'>关于</a>
+                <a className='flex w-auto py-4'>关于</a>
               </Link>
             </li>
           </ul>

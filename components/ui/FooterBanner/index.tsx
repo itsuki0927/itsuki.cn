@@ -2,10 +2,10 @@ import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
 interface FooterBannerProps {
-  theme: 'normal' | 'reverse';
+  theme?: 'normal' | 'reverse';
 }
 
-const FooterBanner = ({ theme }: FooterBannerProps) => {
+const FooterBanner = ({ theme = 'normal' }: FooterBannerProps) => {
   const router = useRouter();
 
   return (

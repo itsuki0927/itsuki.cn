@@ -10,6 +10,7 @@ import { articleKeys, tagKeys } from '@/constants/queryKeys';
 import { useArticles } from '@/hooks/article';
 import useTags from '@/hooks/tag';
 import BlogList from '@/components/blog/BlogList';
+import FooterBanner from '@/components/ui/FooterBanner';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -141,6 +142,8 @@ const BlogPage = () => {
           />
         </div>
       </div>
+
+      <FooterBanner />
     </Layout>
   );
 };

@@ -25,7 +25,6 @@ const PopupUI: React.FC = () => {
 };
 
 export interface PageProps {
-  hero?: ReactNode;
   banner?: ReactNode;
   className?: string;
   headerTheme?: 'white' | 'gray';
@@ -34,14 +33,12 @@ export interface PageProps {
 
 const Layout = ({
   children,
-  hero,
   banner,
   className = '',
   headerTheme = 'white',
   footerTheme = 'normal',
 }: PropsWithChildren<PageProps>) => (
   <div className='app'>
-    {hero}
     <Navbar theme={headerTheme} />
     {banner}
 

@@ -24,6 +24,7 @@ import useSiteSummary from '@/hooks/useSummary';
 import { gtag } from '@/utils/gtag';
 import { getBlogDetailRoute, getTagRoute } from '@/utils/url';
 import { getDayTotals } from '@/utils/date';
+import FooterBanner from '@/components/ui/FooterBanner';
 
 const todoList = [
   { name: '新版UI', percent: '60%' },
@@ -257,6 +258,8 @@ const HomePage = () => {
           </PtnContainer>
         </div>
       </Container>
+
+      <FooterBanner />
     </Layout>
   );
 };

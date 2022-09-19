@@ -68,18 +68,15 @@ const ArticleTagPage = ({
   }
 
   return (
-    <Layout
-      hero={
-        <div className='space-y-20 bg-white py-10'>
-          <Navbar />
-          <Banner
-            className='container'
-            title={`标签: ${tag?.name} (${tag?.count})`}
-            description={tag?.description}
-          />
-        </div>
-      }
-    >
+    <Layout>
+      <div className='space-y-20 bg-white py-10'>
+        <Navbar />
+        <Banner
+          className='container'
+          title={`标签: ${tag?.name} (${tag?.count})`}
+          description={tag?.description}
+        />
+      </div>
       <div className='space-y-6'>
         <NextSeo title={tag?.name} />
 

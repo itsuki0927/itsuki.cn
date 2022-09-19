@@ -8,6 +8,7 @@ import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys } from '@/constants/queryKeys';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
+import FooterBanner from '@/components/ui/FooterBanner';
 
 const useEmploymentDays = () => {
   const startTime = new Date('06/20/2022');
@@ -96,6 +97,8 @@ const AboutPage = () => {
       </div>
 
       <AboutView />
+
+      <FooterBanner />
     </Layout>
   );
 };

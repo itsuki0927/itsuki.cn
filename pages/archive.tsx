@@ -12,6 +12,7 @@ import { gtag } from '@/utils/gtag';
 import useSiteSummary from '@/hooks/useSummary';
 import { SiteSummary } from '@/entities/summary';
 import { Container } from '@/components/ui';
+import FooterBanner from '@/components/ui/FooterBanner';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -90,6 +91,8 @@ const ArchivePage = () => {
       <Banner summary={summary} />
 
       <ArchiveView archives={archives.data} />
+
+      <FooterBanner theme='reverse' />
     </Layout>
   );
 };

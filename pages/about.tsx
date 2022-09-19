@@ -48,7 +48,7 @@ const AboutPage = () => {
           className='max-h-[402px] w-full object-cover'
           alt='about banner'
         />
-        <div className='container absolute top-0 bottom-0 right-0 left-0 flex h-[402px] w-full flex-col items-end justify-center'>
+        <div className='container absolute top-0 bottom-0 right-0 left-0 flex w-full flex-col items-end justify-center sm:h-[402px]'>
           <h1 className='mb-6 text-3xl font-medium tracking-tight text-gray-100 sm:text-5xl'>
             关于
           </h1>

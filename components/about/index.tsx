@@ -95,13 +95,15 @@ const AboutView = () => {
               </button>
             </div>
 
-            <MyImage
-              src='/love.jpg'
-              width={392}
-              height={262}
-              className='hidden max-h-[262px] max-w-[601px] object-cover sm:block'
-              alt='pc love img'
-            />
+            <div className='hidden sm:block'>
+              <MyImage
+                src='/love.jpg'
+                width={392}
+                height={262}
+                className='max-h-[262px] max-w-[601px] object-cover'
+                alt='pc love img'
+              />
+            </div>
           </div>
         </div>
       </section>

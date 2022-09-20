@@ -40,7 +40,7 @@ const ArchiveCard = ({ article, index }: ArchiveCardProps) => {
 };
 
 const ArchiveView = ({ archives = new Map() }: ArchivePageProps) => (
-  <ul className='container space-y-8 py-8 md:py-16'>
+  <ul className='container space-y-12 py-8 md:py-16'>
     {[...archives.entries()].map(([year, articles]) => (
       <li key={year} className='flex flex-col rounded-sm md:flex-row md:items-start'>
         <h3 className={classNames(styles.year)}>

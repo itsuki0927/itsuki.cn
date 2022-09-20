@@ -9,7 +9,7 @@ import { getAllTags } from '@/api/tag';
 import { ArticleSkeletonList } from '@/components/article';
 import BlogCard from '@/components/blog/BlogCard';
 import CommentList from '@/components/comment/CommentList';
-import { HomeSlider, Layout, MyImage } from '@/components/common';
+import { HomeSlider, Layout, MyImage, ToDate } from '@/components/common';
 import { Container } from '@/components/ui';
 import PtnContainer from '@/components/ui/PtnContainer';
 import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
@@ -125,7 +125,9 @@ const HomePage = () => {
                 <span className='ml-2 text-sm text-gray-500'>条评论</span>
               </span>
               <span className='mr-4 items-center '>
-                <strong className='text-2xl text-gray-900'>{siteSummary?.reading}</strong>
+                <strong className='text-2xl text-gray-900'>
+                  {((siteSummary?.reading ?? 0) / 1000).toFixed(1)}K
+                </strong>
                 <span className='ml-2 text-sm text-gray-500'>次阅读</span>
               </span>
               <span className='mr-4 items-center '>
@@ -135,8 +137,10 @@ const HomePage = () => {
                 <span className='ml-2 text-sm text-gray-500'>条留言</span>
               </span>
               <span className='mr-4 items-center '>
-                <strong className='text-2xl text-gray-900'>{siteSummary?.diffDay}</strong>
-                <span className='ml-2 text-sm text-gray-500'>天前建站</span>
+                <strong className='text-2xl text-gray-900'>
+                  <ToDate date={siteSummary?.startTime ?? new Date()} to='ago' />
+                </strong>
+                <span className='ml-2 text-sm text-gray-500'>建站</span>
               </span>
             </div>
           </PtnContainer>

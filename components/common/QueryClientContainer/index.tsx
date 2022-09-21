@@ -34,6 +34,7 @@ const QueryClientContainer = ({
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
+            staleTime: 1000 * 60 * 60,
             onError: handlerError,
           },
           mutations: {

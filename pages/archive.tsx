@@ -1,4 +1,4 @@
-import { Edit2, Eye, MessageCircle, MessageSquare, Tag, ThumbsUp } from 'react-feather';
+import { Coffee, Edit2, Eye, MessageCircle, MessageSquare, Tag } from 'react-feather';
 import { dehydrate, QueryClient } from 'react-query';
 import { NextSeo } from 'next-seo';
 import { getArchives } from '@/api/article';
@@ -31,7 +31,7 @@ interface BannerProps {
 }
 const Banner = ({ summary }: BannerProps) => {
   const list = [
-    { title: '建站天数', count: summary?.diffDay, icon: <ThumbsUp size={16} /> },
+    { title: '建站天数', count: summary?.diffDay, icon: <Coffee size={16} /> },
     { title: '全站文章', count: summary?.article, icon: <Edit2 size={16} /> },
     { title: '全站标签', count: summary?.tag, icon: <Tag size={16} /> },
     { title: '全站阅读', count: summary?.reading, icon: <Eye size={16} /> },

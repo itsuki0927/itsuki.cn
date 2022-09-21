@@ -3,12 +3,12 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getHotArticles } from '@/api/article';
 import AboutView from '@/components/about';
 import { Layout, MyImage } from '@/components/common';
+import FooterBanner from '@/components/ui/FooterBanner';
 import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys } from '@/constants/queryKeys';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
-import FooterBanner from '@/components/ui/FooterBanner';
 
 const useEmploymentDays = () => {
   const startTime = new Date('06/20/2022');
@@ -52,10 +52,10 @@ const AboutPage = () => {
           <h1 className='mb-6 text-3xl font-medium tracking-tight text-gray-100 sm:text-5xl'>
             关于
           </h1>
-          <p className='text-xl text-gray-200'>
-            有时候幸福需要等一等
+          <p className='text-xl text-gray-200 sm:max-w-sm'>
+            我们不是平庸的在活着，我们从生下来的那一刻，就已经有了意义，而那意义就是，珍惜当下的每一刻
             <span className='mx-1'> - </span>
-            <span className='text-lg text-gray-300'> 《幸福终点站》</span>
+            <span className='text-lg text-gray-300'> 《心灵奇旅》</span>
           </p>
         </div>
       </div>

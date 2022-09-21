@@ -5,16 +5,16 @@ import { dehydrate, QueryClient } from 'react-query';
 import { getArticles } from '@/api/article';
 import { getAllTagPaths, getAllTags } from '@/api/tag';
 import { ArticleSkeletonList } from '@/components/article';
+import BlogList from '@/components/blog/BlogList';
 import { Layout } from '@/components/common';
 import { BannerSkeleton, Container } from '@/components/ui';
+import FooterBanner from '@/components/ui/FooterBanner';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, tagKeys } from '@/constants/queryKeys';
 import { useMount } from '@/hooks';
 import { useTagArticles } from '@/hooks/article';
 import useTags from '@/hooks/tag';
 import { gtag } from '@/utils/gtag';
-import BlogList from '@/components/blog/BlogList';
-import FooterBanner from '@/components/ui/FooterBanner';
 
 export const getStaticPaths = async () => {
   const paths = await getAllTagPaths();

@@ -5,8 +5,8 @@ import {
   ArticleArchiveResponse,
   BlogCardStyle,
 } from '@/entities/article';
-import styles from './index.module.scss';
 import { getBlogDetailRoute } from '@/utils/url';
+import styles from './index.module.scss';
 
 interface ArchivePageProps {
   archives?: ArticleArchiveResponse;

@@ -1,9 +1,9 @@
-import { MessageSquare } from 'react-feather';
-import Link from 'next/link';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ArticleJsonLd, NextSeo } from 'next-seo';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { MessageSquare } from 'react-feather';
 import { dehydrate, QueryClient } from 'react-query';
 import { getAllArticlePathsWithPath, getArticle, readArticle } from '@/api/article';
 import { getBlackList } from '@/api/blacklist';
@@ -12,6 +12,7 @@ import { ArticleSkeleton } from '@/components/article';
 import ArticleAside from '@/components/article/ArticleAside';
 import ArticleHeader from '@/components/article/ArticleHeader';
 import ArticleMeta from '@/components/article/ArticleMeta';
+import FavoriteButton from '@/components/article/FavoriteButton';
 import RelateArticles, {
   RelateArticleSkeleton,
 } from '@/components/article/RelateArticles';
@@ -23,14 +24,13 @@ import {
 import { CountDown, Layout, MyImage, Share, ToDate } from '@/components/common';
 import { Container, MarkdownBlock } from '@/components/ui';
 import { META } from '@/configs/app';
+import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, blacklistKeys, tagKeys } from '@/constants/queryKeys';
-import { useArticles, useArticle } from '@/hooks/article';
+import { useScrollTo } from '@/hooks';
+import { useArticle, useArticles } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
 import { getArticleDetailFullUrl, getTagRoute } from '@/utils/url';
-import FavoriteButton from '@/components/article/FavoriteButton';
-import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
-import { useScrollTo } from '@/hooks';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePathsWithPath();

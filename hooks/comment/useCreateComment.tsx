@@ -1,37 +1,41 @@
-import toast from 'react-hot-toast';
-import { useCallback } from 'react';
 import { GraphQLError } from 'graphql';
-import { useMutation, useQueryClient } from 'react-query';
+import { useCallback } from 'react';
+import toast from 'react-hot-toast';
+import { QueryKey, useMutation, useQueryClient } from 'react-query';
 import { createComment } from '@/api/comment';
+import { GAEventCategories } from '@/constants/gtag';
 import { commentKeys } from '@/constants/queryKeys';
 import { Comment, PostCommentBody, QueryCommentsResponse } from '@/entities/comment';
 import { gtag } from '@/utils/gtag';
-import { GAEventCategories } from '@/constants/gtag';
 
 const useCreateComment = (articleId: number) => {
   const queryClient = useQueryClient();
+  const commentKey = commentKeys.lists(articleId) as QueryKey;
   const mutation = useMutation<Comment, GraphQLError, PostCommentBody>(
     newComment => createComment(newComment),
     {
-      onSuccess: newData => {
-        // queryCient.invalidateQueries([{ articleId }, 'comments']);
+      onMutate: async newComment => {
+        await queryClient.cancelQueries(commentKey);
+
+        const previousComments = queryClient.getQueryData(commentKey);
+
         queryClient.setQueryData<QueryCommentsResponse['comments']>(
-          commentKeys.lists(articleId),
-          oldData => {
-            if (!oldData) {
-              return {
-                data: [],
-                total: 0,
-                filter: null,
-              } as QueryCommentsResponse['comments'];
-            }
-            return {
-              ...oldData,
-              data: [newData, ...oldData.data],
-              total: oldData.total + 1,
-            };
-          }
+          commentKey,
+          oldData => ({
+            ...oldData,
+            data: [newComment as Comment, ...(oldData?.data ?? [])],
+            total: (oldData?.total ?? 0) + 1,
+            filter: null,
+          })
         );
+
+        return { previousComments };
+      },
+      onError: (err, _, context: any) => {
+        queryClient.setQueryData(commentKey, context?.previousComments);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries(commentKey);
       },
     }
   );

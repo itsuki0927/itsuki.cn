@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import useHotArticles from '@/hooks/article/useHotArticles';
+import { getBlogDetailRoute } from '@/utils/url';
+import { MyImage } from '../common';
 import ExperienceList from './ExperienceList';
 import HoobyList from './HoobyList';
 import ProjectList from './ProjectList';
 import ToolList from './ToolList';
-import { getBlogDetailRoute } from '@/utils/url';
-import { MyImage } from '../common';
 
 const AboutView = () => {
   const { data } = useHotArticles();

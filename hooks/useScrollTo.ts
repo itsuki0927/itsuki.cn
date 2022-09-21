@@ -1,5 +1,5 @@
-import { useSpring, SpringConfig } from '@react-spring/web';
 import { useCallback, useRef } from 'react';
+import { useSpring, SpringConfig } from '@react-spring/web';
 
 const useScrollTo = (config?: SpringConfig) => {
   const [, api] = useSpring(() => ({ y: 0 }));

@@ -21,10 +21,9 @@ import useRecentArticles from '@/hooks/article/useRecentArticles';
 import { useRecentComments } from '@/hooks/comment';
 import useTags from '@/hooks/tag';
 import useSiteSummary from '@/hooks/useSummary';
+import { getDayTotals } from '@/utils/date';
 import { gtag } from '@/utils/gtag';
 import { getBlogDetailRoute, getTagRoute } from '@/utils/url';
-import { getDayTotals } from '@/utils/date';
-import FooterBanner from '@/components/ui/FooterBanner';
 
 const todoList = [
   { name: '新版UI', percent: '60%' },
@@ -77,7 +76,7 @@ const HomePage = () => {
   }
 
   return (
-    <Layout className='mb-8 space-y-8'>
+    <Layout className='mb-12 space-y-8' footerTheme='reverse'>
       <NextSeo defaultTitle='五块木头' />
       <Container className='flex flex-col space-y-8 pt-8 sm:flex-row sm:space-y-0 sm:space-x-8'>
         <HomeSlider articles={bannerArticles?.data} />
@@ -262,8 +261,6 @@ const HomePage = () => {
           </PtnContainer>
         </div>
       </Container>
-
-      <FooterBanner />
     </Layout>
   );
 };

@@ -50,6 +50,7 @@ const CommentPublisher = ({
   const email = session?.user?.email ?? '';
   const avatar = session?.user?.image ?? '';
   const nickname = session?.user?.name ?? '';
+
   const ensureCommentCanPush = useCallback(() => {
     const sensitiveKeyword = blacklist?.keyword.find(k => content.includes(k));
     if (sensitiveKeyword) {

@@ -54,62 +54,64 @@ const BlogPage = () => {
   };
 
   return (
-    <Layout
-      headerTheme='white'
-      banner={
-        <div className='max-h-[402px] bg-gray-50'>
-          <div className='container min-h-[402px] overflow-hidden py-16 sm:flex sm:flex-row sm:items-start sm:justify-between sm:py-24'>
-            <div className='flex flex-col justify-center'>
-              <h1 className='text-3xl font-medium tracking-tight text-gray-900 md:text-5xl'>
-                文章
-              </h1>
-              <p className='mt-4 max-w-sm text-lg text-gray-600 sm:hidden'>
-                这里的每一个文字, 都是我走过的路 这里的每一个文字, 都是我走过的路
-                这里的每一个文字, 都是我走过的路
-              </p>
-              <div className='mt-10 flex flex-col sm:flex-row sm:items-start'>
-                <div className='flex w-full flex-col'>
-                  <div className='relative'>
-                    <input
-                      aria-label='Search articles'
-                      type='text'
-                      value={searchValue}
-                      onChange={e => setSearchValue(e.target.value)}
-                      placeholder='搜索文章'
-                      className='block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 placeholder:text-gray-500 sm:w-96'
-                    />
-                    <Search className='absolute top-3 right-4 text-gray-400 sm:right-6' />
-                  </div>
-                  <div className='mt-2 flex text-sm text-gray-600'>
-                    输入你想了解的内容, 比如说
-                    <div className='ml-1'>
-                      {keywordList.map((keyword, idx) => (
-                        <>
-                          <button
-                            type='button'
-                            onClick={() => fillKeyword(keyword)}
-                            className='cursor-pointer underline hover:text-gray-900'
-                          >
-                            {keyword}
-                          </button>
-                          {idx !== keywordList.length - 1 ? '、' : ''}
-                        </>
-                      ))}
-                    </div>
+    <Layout headerTheme='white'>
+      <NextSeo title='文章' />
+
+      <div className='max-h-[402px] bg-gray-50'>
+        <div className='container min-h-[402px] overflow-hidden py-16 sm:flex sm:flex-row sm:items-start sm:justify-between sm:py-24'>
+          <div className='flex flex-col justify-center'>
+            <h1 className='text-3xl font-medium tracking-tight text-gray-900 md:text-5xl'>
+              文章
+            </h1>
+            <p className='mt-4 max-w-sm text-lg text-gray-600 sm:hidden'>
+              不管全世界所有人怎么说, 我都认为自己的感受才是最正确的, 无论别人怎么看,
+              我绝不打乱自己的节奏, 喜欢的事自然可以坚持, 不喜欢的怎么也长久不了.
+              <span className='mx-1'> - </span>
+              <span className='text-lg text-gray-500'> 村上春树</span>
+            </p>
+            <div className='mt-10 flex flex-col sm:flex-row sm:items-start'>
+              <div className='flex w-full flex-col'>
+                <div className='relative'>
+                  <input
+                    aria-label='Search articles'
+                    type='text'
+                    value={searchValue}
+                    onChange={e => setSearchValue(e.target.value)}
+                    placeholder='搜索文章'
+                    className='block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 placeholder:text-gray-500 sm:w-96'
+                  />
+                  <Search className='absolute top-3 right-4 text-gray-400 sm:right-6' />
+                </div>
+                <div className='mt-2 flex text-sm text-gray-600'>
+                  输入你想了解的内容, 比如说
+                  <div className='ml-1'>
+                    {keywordList.map((keyword, idx) => (
+                      <>
+                        <button
+                          type='button'
+                          onClick={() => fillKeyword(keyword)}
+                          className='cursor-pointer underline hover:text-gray-900'
+                        >
+                          {keyword}
+                        </button>
+                        {idx !== keywordList.length - 1 ? '、' : ''}
+                      </>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
-
-            <p className='hidden max-w-sm text-xl text-gray-600 sm:block'>
-              这里的每一个文字, 都是我走过的路 这里的每一个文字, 都是我走过的路
-              这里的每一个文字, 都是我走过的路
-            </p>
           </div>
+
+          <p className='hidden max-w-sm text-xl text-gray-600 sm:block'>
+            不管全世界所有人怎么说, 我都认为自己的感受才是最正确的, 无论别人怎么看,
+            我绝不打乱自己的节奏, 喜欢的事自然可以坚持, 不喜欢的怎么也长久不了.
+            <span className='mx-1'> - </span>
+            <span className='text-lg text-gray-500'> 村上春树</span>
+          </p>
         </div>
-      }
-    >
-      <NextSeo title='文章' />
+      </div>
+
       <div className='container py-24' id='dashboard'>
         <div className='mb-16 hidden sm:block'>
           <div className='flex space-x-3'>
@@ -119,7 +121,7 @@ const BlogPage = () => {
                 onClick={() => setActiveTagName(tag.name)}
                 className={classNames(
                   'rounded-md px-6 py-2 transition-colors hover:bg-gray-50',
-                  activeTagName === tag?.path ? 'bg-gray-50' : ''
+                  activeTagName === tag?.name ? 'bg-gray-50' : ''
                 )}
                 key={tag.path}
               >

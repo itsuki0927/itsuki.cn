@@ -5,7 +5,7 @@ import { StandardProps } from '@/types/common';
 interface StatusProps extends StandardProps {
   icon?: ReactNode;
   title?: ReactNode;
-  description: ReactNode;
+  description?: ReactNode;
 }
 
 interface StatusButtonProps extends StandardProps {

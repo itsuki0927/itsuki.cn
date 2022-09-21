@@ -1,7 +1,8 @@
 import { ArticleSkeletonList } from '@/components/article';
-import BlogCard from '../BlogCard';
-import { Empty } from '@/components/ui';
+import SearchSvg from '@/components/icons/SearchSvg';
+import Status from '@/components/ui/Status';
 import { UseArticles } from '@/hooks/article/useArticles';
+import BlogCard from '../BlogCard';
 
 type ArticleListProps = UseArticles;
 
@@ -11,7 +12,7 @@ const BlogList = ({ data, ...rest }: ArticleListProps) => {
   }
 
   if (data?.total === 0) {
-    return <Empty />;
+    return <Status title='空空如也' icon={<SearchSvg />} description='江郎才尽' />;
   }
 
   return (

@@ -7,6 +7,6 @@ export const LikeArticlesKey = 'LikeArticlesKey';
 export const initialLikeValue = {};
 
 // 类型推断
-export type LikeArticles = Record<number, boolean>;
+export type LikeArticles = Record<number, number>;
 
 export type LikeComments = Record<number, boolean>;

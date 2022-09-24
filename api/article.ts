@@ -1,5 +1,6 @@
 import request from 'graphql-request';
 import {
+  LikeArticleBody,
   LikeArticleResponse,
   QueryArticleResponse,
   QueryArticleSearch,
@@ -71,8 +72,8 @@ export const getRecentArticles = () => getArticles({ recent: true });
 
 export const getHotArticles = () => getArticles({ hot: true });
 
-export const likeArticle = (id: number) =>
-  request<LikeArticleResponse, ID>(endpoint, LIKE_ARTICLE, { id });
+export const likeArticle = (body: LikeArticleBody) =>
+  request<LikeArticleResponse, LikeArticleBody>(endpoint, LIKE_ARTICLE, body);
 
 export const readArticle = (id: number) =>
   request<ReadArticleResponse, ID>(endpoint, READ_ARTICLE, { id });

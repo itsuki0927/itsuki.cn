@@ -1,0 +1,38 @@
+.share {
+  box-shadow: rgb(0 0 0 / 10%) 0 2px 10px 0;
+}
+
+.ejector {
+  @apply flex h-8 w-8 items-center justify-center rounded-sm text-center text-xl text-white opacity-90 transition-all hover:opacity-100;
+
+  i {
+    @apply text-xl;
+  }
+
+  &.qq {
+    color: #1abcfa;
+
+    &:hover {
+      background-color: #1abcfa;
+      color: white;
+    }
+  }
+
+  &.wechat {
+    color: #2bae67;
+
+    &:hover {
+      background-color: #2bae67;
+      color: white;
+    }
+  }
+
+  &.douban {
+    color: #05d212;
+
+    &:hover {
+      background-color: #05d212;
+      color: white;
+    }
+  }
+}

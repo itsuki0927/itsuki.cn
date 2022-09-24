@@ -2,7 +2,7 @@ import { Head, Html, Main, NextScript } from 'next/document';
 import { ICONFONT_URL, META } from '@/configs/app';
 
 const Document = () => (
-  <Html className='dark' lang='zh'>
+  <Html lang='zh'>
     <Head>
       <link
         rel='preload'

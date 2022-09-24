@@ -44,10 +44,7 @@ export type ArticleDetailResponse = Article & {
   prevArticle: Article | null;
   nextArticle: Article | null;
   htmlContent: string;
-};
-
-export type LikeArticleBody = {
-  articleId: number;
+  originLiking: number;
 };
 
 export type ArticleTypes = {
@@ -82,6 +79,11 @@ export type QueryArticleResponse = {
 
 export type QueryArticlesResponse = {
   articles: SearchResponse<Article>;
+};
+
+export type LikeArticleBody = {
+  id: number;
+  count: number;
 };
 
 export type LikeArticleResponse = {

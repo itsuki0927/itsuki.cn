@@ -3,7 +3,6 @@ import { ArticleJsonLd, NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { MessageSquare } from 'react-feather';
 import { dehydrate, QueryClient } from 'react-query';
 import { getAllArticlePathsWithPath, getArticle, readArticle } from '@/api/article';
 import { getBlackList } from '@/api/blacklist';
@@ -12,7 +11,6 @@ import { ArticleSkeleton } from '@/components/article';
 import ArticleAside from '@/components/article/ArticleAside';
 import ArticleHeader from '@/components/article/ArticleHeader';
 import ArticleMeta from '@/components/article/ArticleMeta';
-import FavoriteButton from '@/components/article/FavoriteButton';
 import RelateArticles, {
   RelateArticleSkeleton,
 } from '@/components/article/RelateArticles';
@@ -21,16 +19,16 @@ import {
   CommentListSkeleton,
   CommentView,
 } from '@/components/comment';
-import { CountDown, Layout, MyImage, Share, ToDate } from '@/components/common';
+import { Layout, MyImage, ToDate } from '@/components/common';
 import { Container, MarkdownBlock } from '@/components/ui';
 import { META } from '@/configs/app';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, blacklistKeys, tagKeys } from '@/constants/queryKeys';
-import { useScrollTo } from '@/hooks';
 import { useArticle, useArticles } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
 import { getArticleDetailFullUrl, getTagRoute } from '@/utils/url';
+import ArticleAction from '@/components/article/ArticleAction';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePathsWithPath();
@@ -71,7 +69,6 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
   const { isFallback } = useRouter();
   const { data } = useArticles();
   const relateArticles = data?.data.slice(0, 3) ?? [];
-  const { scrollTo } = useScrollTo();
 
   useEffect(() => {
     if (article) {
@@ -141,38 +138,25 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
 
       <Container className='relative mt-24 flex flex-row justify-between'>
         <div className='absolute -left-14 sm:h-full sm:max-w-xs'>
-          <div className='sticky top-16 left-0'>
-            <Share>
-              <FavoriteButton article={article} />
-              <span className='flex flex-col justify-center'>
-                <button
-                  aria-label='article comments'
-                  type='button'
-                  className='flex items-center justify-center rounded-md bg-white px-2 py-2 font-medium text-gray-400 shadow-md outline-none'
-                  onClick={() => scrollTo(COMMENT_VIEW_ELEMENT_ID)}
-                >
-                  <MessageSquare />
-                </button>
-                <strong className='capsize mt-1 text-center text-sm font-medium'>
-                  <CountDown num={article.commenting} />
-                </strong>
-              </span>
-            </Share>
+          <div className='sticky top-20 left-0'>
+            <ArticleAction article={article} />
           </div>
         </div>
         <div className='max-w-full sm:max-w-3xl'>
           <div className='relative rounded-sm'>
-            <div className='mb-8 align-middle'>
-              <MyImage
-                src={article.cover}
-                width={1216}
-                height={516}
-                objectFit='cover'
-                alt='article-header-cover'
-                className='cursor-pointer'
-                id='articleCover'
-              />
-            </div>
+            {article.cover && (
+              <div className='mb-8 align-middle'>
+                <MyImage
+                  src={article.cover}
+                  width={1216}
+                  height={516}
+                  objectFit='cover'
+                  alt='article-header-cover'
+                  className='cursor-pointer'
+                  id='articleCover'
+                />
+              </div>
+            )}
             <MarkdownBlock htmlContent={article.htmlContent} />
 
             <ArticleMeta article={article} />

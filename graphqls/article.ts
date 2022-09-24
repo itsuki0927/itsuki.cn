@@ -82,8 +82,8 @@ export const QUERY_ARTICLE = gql`
 `;
 
 export const LIKE_ARTICLE = gql`
-  mutation likeArticle($id: ID!) {
-    likeArticle(id: $id)
+  mutation likeArticle($id: ID!, $count: Int!) {
+    likeArticle(id: $id, count: $count)
   }
 `;
 

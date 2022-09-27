@@ -29,7 +29,6 @@ const useArticle = (articlePath: string) =>
         ...data,
         htmlContent,
         headings,
-        originLiking: data.originLiking || data.liking,
       };
     },
     enabled: !!articlePath,

@@ -10,20 +10,20 @@ interface FavoriteButtonProps {
 }
 
 const FavoriteButton = ({ article }: FavoriteButtonProps) => {
-  const { mutation, allowLike } = useLikeArticle({
+  const { mutation, liking } = useLikeArticle({
     articleId: article.id,
     articlePath: article.path,
   });
-  const [like, setLike] = useState(article.liking);
-  const diff = allowLike ? like - article.originLiking : LIKE_NUMBER_MAX;
+  const [like, setLike] = useState(liking);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [display, setDisplay] = useState(false);
 
   const handleLike = () => {
+    const allowLike = like < LIKE_NUMBER_MAX;
     if (!display) {
       setDisplay(true);
     }
-    if (diff < LIKE_NUMBER_MAX && allowLike) {
+    if (allowLike) {
       setLike(v => v + 1);
     }
     if (timerRef.current) {
@@ -32,8 +32,8 @@ const FavoriteButton = ({ article }: FavoriteButtonProps) => {
     }
     timerRef.current = setTimeout(() => {
       setDisplay(false);
-      if (allowLike) {
-        mutation.mutate({ count: diff });
+      if (allowLike || like - liking) {
+        mutation.mutate({ count: like - liking });
       }
     }, 500);
   };
@@ -51,14 +51,13 @@ const FavoriteButton = ({ article }: FavoriteButtonProps) => {
         <span>
           <Heart
             className={classNames(
-              'fill-danger stroke-transparent transition-transform duration-200',
-              display ? 'scale-110' : 'scale-100'
+              'scale-100 fill-danger stroke-transparent transition-transform duration-200 hover:scale-110'
             )}
           />
         </span>
       </button>
       <strong className='capsize mt-1 text-center text-xs font-medium text-gray-500'>
-        {like}
+        {article.liking + like - liking}
       </strong>
       <span
         className={classNames(
@@ -66,7 +65,7 @@ const FavoriteButton = ({ article }: FavoriteButtonProps) => {
           display ? 'translate-y-4 opacity-100' : 'translate-y-8 opacity-0'
         )}
       >
-        +{diff}
+        +{Math.min(like, LIKE_NUMBER_MAX)}
       </span>
     </div>
   );

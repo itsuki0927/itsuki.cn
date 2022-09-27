@@ -40,15 +40,22 @@ const useLikeArticle = ({ articleId, articlePath }: UseLikeArticleParams) => {
           return {
             ...oldArticle,
             liking: oldArticle.liking + count,
-            originLiking: oldArticle.liking,
           };
         }
       );
+      setLikeArticles(oldLikeArticles => ({
+        ...oldLikeArticles,
+        [articleId]: (oldLikeArticles[articleId] ?? 0) + count,
+      }));
 
-      return { previousBlog };
+      return { previousBlog, count };
     },
     onError: (err, _, context: any) => {
       queryClient.setQueryData(detailKey, context?.previousBlog);
+      setLikeArticles(oldLikeArticles => ({
+        ...oldLikeArticles,
+        [articleId]: Math.min((oldLikeArticles[articleId] ?? 0) - context.count ?? 0, 0),
+      }));
     },
     onSettled: () => {
       queryClient.invalidateQueries(detailKey);
@@ -61,13 +68,13 @@ const useLikeArticle = ({ articleId, articlePath }: UseLikeArticleParams) => {
       });
       setLikeArticles(oldLikeArticles => ({
         ...oldLikeArticles,
-        [articleId]: (oldLikeArticles[articleId] || 0) + count,
+        [articleId]: (oldLikeArticles[articleId] ?? 0) + count,
       }));
     },
   });
 
   return {
-    allowLike: (likeArticles[articleId] ?? 0) < LIKE_NUMBER_MAX,
+    liking: likeArticles[articleId] ?? 0,
     mutation,
   } as const;
 };

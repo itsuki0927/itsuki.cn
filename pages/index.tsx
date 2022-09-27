@@ -88,7 +88,11 @@ const HomePage = () => {
                 <div className='text-gray-500'>要做一个很酷的人</div>
                 <div className='text-2xl text-gray-900'>
                   你好, 我是
-                  <span className='ml-1 font-semibold text-primary'>五块木头</span>
+                  <Link href='/about'>
+                    <span className='ml-1 cursor-pointer font-semibold text-primary'>
+                      五块木头
+                    </span>
+                  </Link>
                 </div>
               </div>
 

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { ArticleDetailResponse } from '@/entities/article';
 import { useLikeArticle } from '@/hooks/article';
 import { LIKE_NUMBER_MAX } from '@/hooks/article/useLikeArticle';
+import styles from './style.module.scss';
 
 interface FavoriteButtonProps {
   article: ArticleDetailResponse;
@@ -44,24 +45,25 @@ const FavoriteButton = ({ article }: FavoriteButtonProps) => {
         aria-label='favorite article'
         type='button'
         className={classNames(
-          'flex items-center justify-center rounded-sm text-sm font-medium text-gray-400 outline-none transition-colors duration-300'
+          'relative flex items-center justify-center rounded-sm text-sm font-medium text-gray-400 outline-none transition-colors duration-300',
+          styles.like
         )}
         onClick={handleLike}
       >
-        <span>
-          <Heart
-            className={classNames(
-              'scale-100 fill-danger stroke-transparent transition-transform duration-200 hover:scale-110'
-            )}
-          />
-        </span>
+        <Heart
+          fill='#3E4373'
+          className={classNames(
+            'scale-100 stroke-transparent transition-transform duration-200 hover:scale-110'
+          )}
+        />
+        <span className={classNames(styles.motion, display ? styles.bubbleMotion : '')} />
       </button>
       <strong className='capsize mt-1 text-center text-xs font-medium text-gray-500'>
         {article.liking + like - liking}
       </strong>
       <span
         className={classNames(
-          'absolute -left-12 top-3 rounded-full bg-gray-900 p-2 text-xs text-white transition-all',
+          'absolute -left-12 top-3 rounded-full bg-gray-900 p-1 text-xs text-white transition-all',
           display ? 'translate-y-4 opacity-100' : 'translate-y-8 opacity-0'
         )}
       >

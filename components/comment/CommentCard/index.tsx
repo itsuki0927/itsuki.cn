@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { MouseEvent, useEffect, useState } from 'react';
 import { Smile } from 'react-feather';
 import toast from 'react-hot-toast';
-import { ToDate } from '@/components/common';
+import { GithubIcon, ToDate } from '@/components/common';
 import { MarkdownBlock } from '@/components/ui';
 import { getCommentElementId } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
@@ -48,7 +48,15 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
 
   const isNotLogin = () => {
     if (!email) {
-      toast.loading('请先登陆');
+      toast.loading(t => (
+        <span>
+          请先登录...
+          <GithubIcon className='ml-2 text-primary' onClick={() => toast.dismiss(t.id)}>
+            一键登录
+          </GithubIcon>
+        </span>
+      ));
+      /* toast.loading('请先登陆'); */
       return true;
     }
     return false;

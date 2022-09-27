@@ -1,42 +1,39 @@
 import classNames from 'classnames';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { GithubOutlined } from '@/components/icons';
 import { GAEventCategories } from '@/constants/gtag';
 import { gtag } from '@/utils/gtag';
 import { getPageUrl } from '@/utils/url';
+import { StandardProps } from '@/types/common';
 
-interface GithubIconProps {
+interface GithubIconProps extends StandardProps {
   className?: string;
+  onClick?: (e: any) => void;
 }
 
-const GithubIcon = ({ className = '' }: GithubIconProps) => {
+const GithubIcon = ({ className = '', onClick, children }: GithubIconProps) => {
   const router = useRouter();
 
-  const handleSigin = (e: any, type: string) => {
+  const handleSigin = (e: any) => {
     e.preventDefault();
-    const params = `?type=${type}`;
-    const path = router.asPath.replaceAll(params, '');
+    const path = router.asPath;
     gtag.event('login', {
       category: GAEventCategories.Comment,
-      label: `login_${type}`,
+      label: `login_github`,
     });
     signIn('github', {
-      callbackUrl: `${getPageUrl(path)}${params}`,
+      callbackUrl: `${getPageUrl(path)}`,
     });
+    onClick?.(e);
   };
 
   return (
     <a
       href='/api/auth/sign/github'
-      className={classNames(
-        'inline-flex items-center rounded-sm bg-github px-4 py-2 text-sm text-white opacity-90 transition-opacity hover:opacity-100',
-        className
-      )}
-      onClick={e => handleSigin(e, 'github')}
+      className={classNames('', className)}
+      onClick={e => handleSigin(e)}
     >
-      <GithubOutlined className='mr-1' />
-      <span className=''>Github</span>
+      {children}
     </a>
   );
 };

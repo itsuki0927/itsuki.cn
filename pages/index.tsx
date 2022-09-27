@@ -245,7 +245,7 @@ const HomePage = () => {
                     tabIndex={0}
                     role='button'
                     key={tag.path}
-                    className='mr-4 mb-4 rounded-sm bg-white-2 py-1 px-4 align-bottom hover:bg-white-3 sm:py-[6px] sm:px-6'
+                    className='mr-4 mb-4 rounded-sm bg-gray-100 py-1 px-4 align-bottom hover:bg-gray-200 sm:py-[6px] sm:px-6'
                     onClick={() => {
                       gtag.event('tag', {
                         category: GAEventCategories.Tag,

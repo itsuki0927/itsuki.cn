@@ -8,6 +8,7 @@ import { getAllArticlePathsWithPath, getArticle, readArticle } from '@/api/artic
 import { getBlackList } from '@/api/blacklist';
 import { getAllTags } from '@/api/tag';
 import { ArticleSkeleton } from '@/components/article';
+import ArticleAction from '@/components/article/ArticleAction';
 import ArticleAside from '@/components/article/ArticleAside';
 import ArticleHeader from '@/components/article/ArticleHeader';
 import ArticleMeta from '@/components/article/ArticleMeta';
@@ -28,7 +29,6 @@ import { articleKeys, blacklistKeys, tagKeys } from '@/constants/queryKeys';
 import { useArticle, useArticles } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
 import { getArticleDetailFullUrl, getTagRoute } from '@/utils/url';
-import ArticleAction from '@/components/article/ArticleAction';
 
 export const getStaticPaths = async () => {
   const paths = await getAllArticlePathsWithPath();

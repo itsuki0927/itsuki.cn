@@ -13,6 +13,7 @@ import SortSelect, { SortItem, sortList } from '@/components/ui/SortSelect';
 import { GithubIcon } from '@/components/common';
 import SorrySvg from '@/components/icons/SorrySvg';
 import Status from '@/components/ui/Status';
+import { GithubOutlined } from '@/components/icons';
 
 const getCommentTitleSuffixText = (articleId: number) =>
   articleId === GUESTBOOK ? '留言板' : '评论区';
@@ -64,7 +65,12 @@ const CommentView = ({ articleId, className = '' }: CommentProps) => {
           title='请先登陆'
           description='仅使用你的邮箱、头像和昵称'
         >
-          <GithubIcon className='mt-4' />
+          <GithubIcon className='mt-4 block'>
+            <span className='inline-flex items-center rounded-sm bg-github px-4 py-2 text-sm text-white opacity-90 transition-opacity hover:opacity-100'>
+              <GithubOutlined className='mr-1' />
+              <span>Github</span>
+            </span>
+          </GithubIcon>
         </Status>
       )}
 

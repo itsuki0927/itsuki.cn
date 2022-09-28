@@ -39,7 +39,7 @@ const AboutPage = () => {
   });
 
   return (
-    <Layout>
+    <Layout footerTheme='reverse'>
       <NextSeo title='关于' />
 
       <div className='relative max-h-72 overflow-hidden bg-gray-50 sm:max-h-[402px]'>
@@ -98,7 +98,7 @@ const AboutPage = () => {
 
       <AboutView />
 
-      <FooterBanner />
+      <FooterBanner theme='reverse' />
     </Layout>
   );
 };

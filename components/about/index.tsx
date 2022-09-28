@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Link from 'next/link';
 import useHotArticles from '@/hooks/article/useHotArticles';
 import { getBlogDetailRoute } from '@/utils/url';
@@ -6,6 +7,26 @@ import ExperienceList from './ExperienceList';
 import HoobyList from './HoobyList';
 import ProjectList from './ProjectList';
 import ToolList from './ToolList';
+import { StandardProps } from '@/types/common';
+import { Container } from '@/components/ui';
+
+const Title = ({ children, className = '', style }: StandardProps) => (
+  <h2 className={classNames('text-4xl text-gray-900', className)} style={style}>
+    {children}
+  </h2>
+);
+
+const Description = ({ children, className = '', style }: StandardProps) => (
+  <p className={classNames('mt-5 text-xl text-gray-600', className)} style={style}>
+    {children}
+  </p>
+);
+
+const AboutCard = ({ children, className, style }: StandardProps) => (
+  <section className={className} style={style}>
+    <Container className='py-12'>{children}</Container>
+  </section>
+);
 
 const AboutView = () => {
   const { data } = useHotArticles();
@@ -34,79 +55,69 @@ const AboutView = () => {
         </div>
       </section>
 
-      <section className='bg-gray-50'>
-        <div className='container py-12'>
-          <h2 className='text-4xl text-gray-900'>几个爱好</h2>
-          <p className='mt-5 text-xl text-gray-600'>没有销声匿迹, 我在热爱生活</p>
-          <HoobyList />
-        </div>
-      </section>
+      <AboutCard className='bg-gray-50'>
+        <Title>几个爱好</Title>
+        <Description>没有销声匿迹, 我在热爱生活</Description>
+        <HoobyList />
+      </AboutCard>
 
-      <section>
-        <div className='container py-12'>
-          <h2 className='text-4xl text-gray-900'>几段经历</h2>
-          <p className='mt-5 text-xl text-gray-600'>要相信, 一切都会越来越好</p>
-          <ExperienceList />
-        </div>
-      </section>
+      <AboutCard>
+        <Title>几段经历</Title>
+        <Description>要相信, 一切都会越来越好</Description>
+        <ExperienceList />
+      </AboutCard>
 
-      <section className='bg-gray-50'>
-        <div className='container py-12'>
-          <h2 className='text-4xl text-gray-900'>二三项目</h2>
-          <p className='mt-5 text-xl text-gray-600'>没有销声匿迹, 我在热爱生活</p>
-          <ProjectList />
-        </div>
-      </section>
+      <AboutCard className='bg-gray-50'>
+        <Title>二三项目</Title>
+        <Description>再小的努力, 坚持都会变得很伟大</Description>
+        <ProjectList />
+      </AboutCard>
 
-      <section>
-        <div className='container py-12'>
-          <h2 className='text-4xl text-gray-900'>几个工具</h2>
-          <p className='mt-5 text-xl text-gray-600'>工欲善其事, 必先利其器</p>
-          <ToolList />
-        </div>
-      </section>
+      <AboutCard>
+        <Title>几个工具</Title>
+        <Description>工欲善其事, 必先利其器</Description>
+        <ToolList />
+      </AboutCard>
 
-      <section>
-        <div className='container py-12'>
-          <div className='flex items-start justify-between'>
-            <div>
-              <h2 className='text-4xl text-gray-900'>初来博客?</h2>
-              <p className='mt-5 text-xl text-gray-600'>如果可以, 请好好拥抱这个世界</p>
-              <img
-                src='/love.jpg'
-                className='mt-4 block object-cover sm:hidden'
-                alt='mobile love img'
-              />
-              <div className='mt-8 flex flex-col space-y-2'>
-                {data?.data.map((blog, index) => (
-                  <Link href={getBlogDetailRoute(blog.path)}>
-                    <span className='cursor-pointer transition-colors hover:text-primary'>
-                      {index + 1}. {blog.title}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-
-              <button
-                type='button'
-                className='mt-4 rounded-sm bg-primary px-9 py-2 text-white opacity-80 transition-opacity hover:opacity-100'
-              >
-                <Link href='/blog'>查看更多</Link>
-              </button>
+      <AboutCard className='bg-gray-50'>
+        <div className='flex items-start justify-between'>
+          <div>
+            <Title>初来博客?</Title>
+            <Description>如果可以, 请好好拥抱这个世界</Description>
+            <img
+              src='/love.jpg'
+              className='mt-4 block object-cover sm:hidden'
+              alt='mobile love img'
+            />
+            <div className='mt-8 flex flex-col space-y-2'>
+              {data?.data.map((blog, index) => (
+                <Link href={getBlogDetailRoute(blog.path)}>
+                  <span className='cursor-pointer transition-colors hover:text-primary'>
+                    {index + 1}. {blog.title}
+                  </span>
+                </Link>
+              ))}
             </div>
 
-            <div className='hidden sm:block'>
-              <MyImage
-                src='/love.jpg'
-                width={392}
-                height={262}
-                className='max-h-[262px] max-w-[601px] object-cover'
-                alt='pc love img'
-              />
-            </div>
+            <button
+              type='button'
+              className='mt-4 rounded-sm bg-primary px-9 py-2 text-white opacity-80 transition-opacity hover:opacity-100'
+            >
+              <Link href='/blog'>查看更多</Link>
+            </button>
+          </div>
+
+          <div className='hidden sm:block'>
+            <MyImage
+              src='/love.jpg'
+              width={392}
+              height={262}
+              className='max-h-[262px] max-w-[601px] object-cover'
+              alt='pc love img'
+            />
           </div>
         </div>
-      </section>
+      </AboutCard>
     </div>
   );
 };

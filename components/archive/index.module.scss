@@ -1,5 +1,5 @@
 .year {
-  @apply flex h-auto items-center justify-center bg-gray-300/50 py-3 text-left text-2xl font-semibold tracking-tighter text-gray-700 sm:text-center md:block md:h-24 md:w-28 md:flex-shrink-0 md:py-4 md:text-3xl md:font-semibold;
+  @apply flex h-auto items-center justify-center bg-gray-200 py-3 text-left text-2xl font-semibold tracking-tighter text-gray-700 sm:text-center md:block md:h-24 md:w-28 md:flex-shrink-0 md:py-4 md:text-3xl md:font-semibold;
 
   .count {
     @apply ml-2 inline-block text-sm font-normal tracking-tighter text-primary before:hidden md:ml-0 md:block md:text-base md:leading-8 md:before:block;
@@ -49,7 +49,7 @@
 }
 
 .inner {
-  @apply block h-full w-full bg-gray-100 opacity-95;
+  @apply block h-full w-full bg-gray-50 opacity-95;
 
   transition: all 0.15s cubic-bezier(0.8, 0, 0.2, 1);
   transform-style: preserve-3d;

@@ -2,8 +2,9 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { PropsWithChildren } from 'react';
-import { Activity, Rss } from 'react-feather';
+import { Rss } from 'react-feather';
 import MobileMenu from '../Layout/MobileMenu';
+import CommandIcon from './CommandIcon';
 import { Logo } from '@/components/common';
 import { GAEventCategories } from '@/constants/gtag';
 import { gtag } from '@/utils/gtag';
@@ -45,24 +46,25 @@ export const IconContent = ({ className = '' }: IconNavProps) => {
 
   return (
     <div className={`${className} space-x-6`}>
-      <a
-        tabIndex={0}
-        role='button'
-        key='activity'
-        className='text-center'
-        onClick={() => handleIconClick('activity', 'activity')}
-      >
-        <Activity size={20} />
-      </a>
+      {/* <a */}
+      {/*   tabIndex={0} */}
+      {/*   role='button' */}
+      {/*   key='activity' */}
+      {/*   className='text-center' */}
+      {/*   onClick={() => handleIconClick('activity', 'activity')} */}
+      {/* > */}
+      {/*   <Activity size={20} /> */}
+      {/* </a> */}
+      <CommandIcon onClick={handleIconClick} />
       <a
         tabIndex={0}
         role='button'
         key='rss'
-        className='text-center'
+        className='rounded-md p-2 text-center transition-colors hover:bg-gray-100'
         href='/rss.xml'
         onClick={() => handleIconClick('rss', 'rss')}
       >
-        <Rss size={20} />
+        <Rss size={18} />
       </a>
     </div>
   );

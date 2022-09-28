@@ -43,7 +43,10 @@ const Banner = ({ summary }: BannerProps) => {
     <div className='bg-white'>
       <Container className='flex flex-row flex-wrap'>
         {list.map(item => (
-          <div className='w-1/2 py-6 px-7 md:w-auto md:py-12 md:px-14' key={item.title}>
+          <div
+            className='w-1/2 py-6 px-7 transition-colors hover:bg-gray-50 md:w-auto md:py-12 md:px-14'
+            key={item.title}
+          >
             <p className='flex items-center space-x-2 text-sm text-gray-400'>
               <span className='text-gray-500'>{item.title}</span>
               {item.icon}

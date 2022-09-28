@@ -89,7 +89,7 @@ const HomePage = () => {
                 <div className='text-2xl text-gray-900'>
                   你好, 我是
                   <Link href='/about'>
-                    <span className='ml-1 cursor-pointer font-semibold text-primary'>
+                    <span className='ml-1 cursor-pointer font-semibold text-primary transition-colors hover:text-primary-hover'>
                       五块木头
                     </span>
                   </Link>

@@ -3,7 +3,7 @@ import { ArticleJsonLd, NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { dehydrate, QueryClient } from 'react-query';
+import { dehydrate } from 'react-query';
 import { getAllArticlePathsWithPath, getArticle, readArticle } from '@/api/article';
 import { getBlackList } from '@/api/blacklist';
 import { getAllTags } from '@/api/tag';
@@ -21,11 +21,13 @@ import {
   CommentView,
 } from '@/components/comment';
 import { Layout, MyImage, ToDate } from '@/components/common';
+import { createQueryClient } from '@/components/common/QueryClientContainer';
 import { Container, MarkdownBlock } from '@/components/ui';
 import { META } from '@/configs/app';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, blacklistKeys, tagKeys } from '@/constants/queryKeys';
+import { TIMESTAMP } from '@/constants/value';
 import { useArticle, useArticles } from '@/hooks/article';
 import { gtag } from '@/utils/gtag';
 import { getArticleDetailFullUrl, getTagRoute } from '@/utils/url';
@@ -48,7 +50,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     };
   }
 
-  const queryClient = new QueryClient();
+  const queryClient = createQueryClient();
   await Promise.all([
     queryClient.prefetchQuery(articleKeys.detailByPath(path), () => getArticle(path)),
     queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags()),
@@ -60,7 +62,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
       path,
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 60 * 60 * 24, // 一个小时
+    revalidate: TIMESTAMP.DAY / 1000,
   };
 };
 

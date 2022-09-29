@@ -1,19 +1,21 @@
-import { Search } from 'react-feather';
+import classNames from 'classnames';
 import { NextSeo } from 'next-seo';
 import { useState } from 'react';
-import { dehydrate, QueryClient } from 'react-query';
-import classNames from 'classnames';
+import { Search } from 'react-feather';
+import { dehydrate } from 'react-query';
 import { getArticles } from '@/api/article';
 import { getAllTags } from '@/api/tag';
+import BlogList from '@/components/blog/BlogList';
 import { Layout } from '@/components/common';
+import { createQueryClient } from '@/components/common/QueryClientContainer';
+import FooterBanner from '@/components/ui/FooterBanner';
 import { articleKeys, tagKeys } from '@/constants/queryKeys';
+import { TIMESTAMP } from '@/constants/value';
 import { useArticles } from '@/hooks/article';
 import useTags from '@/hooks/tag';
-import BlogList from '@/components/blog/BlogList';
-import FooterBanner from '@/components/ui/FooterBanner';
 
 export const getStaticProps = async () => {
-  const queryClient = new QueryClient();
+  const queryClient = createQueryClient();
 
   await queryClient.prefetchQuery(articleKeys.lists(), () => getArticles());
   await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
@@ -22,7 +24,7 @@ export const getStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 60 * 60 * 24,
+    revalidate: TIMESTAMP.DAY / 1000,
   };
 };
 

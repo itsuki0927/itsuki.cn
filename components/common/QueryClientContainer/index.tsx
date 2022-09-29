@@ -1,9 +1,16 @@
+import merge from 'lodash.merge';
 import { GraphQLError } from 'graphql';
 import { PropsWithChildren, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientConfig,
+  QueryClientProvider,
+} from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { isDev } from '@/configs/environment';
+import { TIMESTAMP } from '@/constants/value';
 
 interface QueryClientContainerProps {
   pageProps?: any;
@@ -24,24 +31,34 @@ const handlerError = (error: any) => {
   });
 };
 
+const defaultConfig: QueryClientConfig = {
+  defaultOptions: {
+    queries: {
+      staleTime: TIMESTAMP.HOUR,
+    },
+  },
+};
+export const createQueryClient = (config?: QueryClientConfig) => {
+  const mergedConfig = merge({}, defaultConfig, config);
+  return new QueryClient(mergedConfig);
+};
+
 const QueryClientContainer = ({
   children,
   pageProps,
 }: PropsWithChildren<QueryClientContainerProps>) => {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false,
-            staleTime: 1000 * 60 * 60,
-            onError: handlerError,
-          },
-          mutations: {
-            onError: handlerError,
-          },
+  const [queryClient] = useState(() =>
+    createQueryClient({
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+          onError: handlerError,
         },
-      })
+        mutations: {
+          onError: handlerError,
+        },
+      },
+    })
   );
 
   return (

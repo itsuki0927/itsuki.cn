@@ -1,18 +1,19 @@
+import { NextSeo } from 'next-seo';
 import { Coffee, Edit2, Eye, MessageCircle, MessageSquare, Tag } from 'react-feather';
 import { dehydrate, QueryClient } from 'react-query';
-import { NextSeo } from 'next-seo';
 import { getArchives } from '@/api/article';
 import ArchiveView from '@/components/archive';
 import { Layout } from '@/components/common';
-import { GAEventCategories } from '@/constants/gtag';
-import { articleKeys } from '@/constants/queryKeys';
-import { useMount } from '@/hooks';
-import { useArchives } from '@/hooks/article';
-import { gtag } from '@/utils/gtag';
-import useSiteSummary from '@/hooks/useSummary';
-import { SiteSummary } from '@/entities/summary';
 import { Container } from '@/components/ui';
 import FooterBanner from '@/components/ui/FooterBanner';
+import { GAEventCategories } from '@/constants/gtag';
+import { articleKeys } from '@/constants/queryKeys';
+import { TIMESTAMP } from '@/constants/value';
+import { SiteSummary } from '@/entities/summary';
+import { useMount } from '@/hooks';
+import { useArchives } from '@/hooks/article';
+import useSiteSummary from '@/hooks/useSummary';
+import { gtag } from '@/utils/gtag';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -22,7 +23,7 @@ export const getStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 3600,
+    revalidate: TIMESTAMP.DAY / 1000,
   };
 };
 

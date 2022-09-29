@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router';
+/* eslint-disable import/extensions */
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
-/* eslint-disable import/extensions */
 import { GA, LayoutTransition, MyHead, QueryClientContainer } from '@/components/common';
 import { PageLoadingProgress } from '@/components/ui';
 import { ManagedUIContext } from '@/components/ui/context';

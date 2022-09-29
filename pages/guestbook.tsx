@@ -1,14 +1,15 @@
-import { dehydrate, QueryClient } from 'react-query';
 import { NextSeo } from 'next-seo';
+import { dehydrate } from 'react-query';
 import { getBlackList } from '@/api/blacklist';
 import { getComments } from '@/api/comment';
 import { CommentView } from '@/components/comment';
 import { Layout } from '@/components/common';
+import { createQueryClient } from '@/components/common/QueryClientContainer';
 import { blacklistKeys, commentKeys } from '@/constants/queryKeys';
-import { GUESTBOOK } from '@/constants/value';
+import { GUESTBOOK, TIMESTAMP } from '@/constants/value';
 
 export const getStaticProps = async () => {
-  const queryClient = new QueryClient();
+  const queryClient = createQueryClient();
   await queryClient.prefetchQuery(commentKeys.lists(GUESTBOOK), () =>
     getComments({ articleId: GUESTBOOK })
   );
@@ -18,6 +19,7 @@ export const getStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: TIMESTAMP.DAY / 1000,
   };
 };
 

@@ -1,16 +1,18 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
-import { dehydrate, QueryClient } from 'react-query';
+import { dehydrate } from 'react-query';
 import { getArticles } from '@/api/article';
 import { getAllTagPaths, getAllTags } from '@/api/tag';
 import { ArticleSkeletonList } from '@/components/article';
 import BlogList from '@/components/blog/BlogList';
 import { Layout } from '@/components/common';
+import { createQueryClient } from '@/components/common/QueryClientContainer';
 import { BannerSkeleton, Container } from '@/components/ui';
 import FooterBanner from '@/components/ui/FooterBanner';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, tagKeys } from '@/constants/queryKeys';
+import { TIMESTAMP } from '@/constants/value';
 import { useMount } from '@/hooks';
 import { useTagArticles } from '@/hooks/article';
 import useTags from '@/hooks/tag';
@@ -28,7 +30,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const tagPath = (params?.name ?? '') as string;
 
-  const queryClient = new QueryClient();
+  const queryClient = createQueryClient();
   await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
   await queryClient.prefetchQuery(articleKeys.tag(tagPath), () =>
     getArticles({ tagPath })
@@ -39,7 +41,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
       tagPath,
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 200,
+    revalidate: TIMESTAMP.DAY / 1000,
   };
 };
 

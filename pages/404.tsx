@@ -1,11 +1,11 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ArrowLeft, ArrowRight, Edit2, MessageSquare } from 'react-feather';
-import Link from 'next/link';
 import { Layout } from '@/components/common';
+import { Container } from '@/components/ui';
 import { GAEventCategories } from '@/constants/gtag';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
-import { Container } from '@/components/ui';
 
 const NotFound = () => {
   const router = useRouter();
@@ -101,7 +101,7 @@ const NotFound = () => {
       </Container>
 
       <div className='mt-24 bg-gray-50 p-6'>
-        <Container>一个很普通的banner</Container>
+        <Container>小装饰品</Container>
       </div>
     </Layout>
   );

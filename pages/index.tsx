@@ -1,7 +1,7 @@
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { ArrowRight } from 'react-feather';
-import { dehydrate, QueryClient } from 'react-query';
+import { dehydrate } from 'react-query';
 import { getBannerArticles, getHotArticles, getRecentArticles } from '@/api/article';
 import { getRecentComments } from '@/api/comment';
 import { getSiteSummary } from '@/api/summary';
@@ -10,11 +10,13 @@ import { ArticleSkeletonList } from '@/components/article';
 import BlogCard from '@/components/blog/BlogCard';
 import CommentList from '@/components/comment/CommentList';
 import { HomeSlider, Layout, MyImage, ToDate } from '@/components/common';
+import { createQueryClient } from '@/components/common/QueryClientContainer';
 import { Container } from '@/components/ui';
 import PtnContainer from '@/components/ui/PtnContainer';
 import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, commentKeys, summaryKeys, tagKeys } from '@/constants/queryKeys';
+import { TIMESTAMP } from '@/constants/value';
 import useBannerArticles from '@/hooks/article/useBannerArticles';
 import useHotArticles from '@/hooks/article/useHotArticles';
 import useRecentArticles from '@/hooks/article/useRecentArticles';
@@ -32,7 +34,7 @@ const todoList = [
 ];
 
 export const getStaticProps = async () => {
-  const queryClient = new QueryClient();
+  const queryClient = createQueryClient();
 
   await queryClient.prefetchQuery(articleKeys.recent(), () => getRecentArticles());
   await queryClient.prefetchQuery(articleKeys.hot(), () => getHotArticles());
@@ -45,7 +47,7 @@ export const getStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 60 * 60 * 24,
+    revalidate: TIMESTAMP.DAY / 1000,
   };
 };
 
@@ -67,7 +69,7 @@ const HomePage = () => {
     hourInDay,
   } = getDayTotals();
 
-  if (articles.isLoading || articles.isFetching) {
+  if (articles.isFetching) {
     return (
       <Layout>
         <ArticleSkeletonList />
@@ -174,7 +176,7 @@ const HomePage = () => {
 
           <div className='flex items-center justify-between bg-gray-50 p-6'>
             <span className='text-2xl text-gray-900'>最近留言</span>
-            <Link href='/blog'>
+            <Link href='/guestbook'>
               <span className='flex cursor-pointer items-center text-primary transition-colors duration-100 hover:text-primary'>
                 查看更多
                 <ArrowRight size={16} className='ml-2' />

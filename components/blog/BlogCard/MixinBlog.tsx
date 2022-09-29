@@ -14,7 +14,13 @@ const MixinBlog = ({ blog, className, style }: BlogCardProps) => {
       className={classNames('w-full self-stretch bg-gray-50 sm:max-w-sm', className)}
       style={style}
     >
-      <MyImage width={392} height={220} src={blog?.cover ?? ''} alt={blog.title} />
+      <MyImage
+        objectFit='cover'
+        width={392}
+        height={220}
+        src={blog?.cover ?? ''}
+        alt={blog.title}
+      />
       <div className='px-6 py-8'>
         <Link href={getBlogDetailRoute(blog.path)}>
           <h3 className='mt-0 cursor-pointer text-2xl font-semibold text-gray-900 transition-colors hover:text-primary'>

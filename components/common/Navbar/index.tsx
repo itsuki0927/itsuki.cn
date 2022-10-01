@@ -16,7 +16,7 @@ const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => 
   return (
     <li
       className={classNames(
-        'capsize relative hidden cursor-pointer px-5 text-center tracking-widest transition-colors duration-500 hover:text-primary-hover md:inline-block',
+        'capsize relative hidden cursor-pointer px-5 text-center leading-8 tracking-widest transition-colors duration-500 hover:text-primary-hover md:inline-block',
         isActive ? 'text-primary' : 'text-dark-2'
       )}
     >
@@ -64,7 +64,7 @@ export const IconContent = ({ className = '' }: IconNavProps) => {
         href='/rss.xml'
         onClick={() => handleIconClick('rss', 'rss')}
       >
-        <Rss size={18} />
+        <Rss size={16} />
       </a>
     </div>
   );
@@ -76,7 +76,7 @@ interface HeaderProps {
 const Header = ({ theme = 'white' }: HeaderProps) => (
   <header
     className={classNames(
-      'sticky inset-x-0 top-0 z-50 h-16 backdrop-blur-[20px] backdrop-saturate-150 ',
+      'sticky inset-x-0 top-0 z-50 h-16 shadow-md backdrop-blur-[20px] backdrop-saturate-150',
       theme === 'white' ? 'bg-white' : 'bg-gray-50 '
     )}
   >

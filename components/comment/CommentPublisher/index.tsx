@@ -129,7 +129,7 @@ const CommentPublisher = ({
             onClick={() => onPreview(true)}
             className={classNames(
               'rounded-sm px-4 py-[2px]  text-sm',
-              preview && 'bg-primary-light text-primary'
+              preview && 'cursor-default bg-primary-light text-primary'
             )}
           >
             预览
@@ -139,7 +139,7 @@ const CommentPublisher = ({
             onClick={() => onPreview(false)}
             className={classNames(
               'rounded-sm px-4 py-[2px] text-sm',
-              !preview && 'bg-primary-light text-primary'
+              !preview && 'cursor-default bg-primary-light text-primary'
             )}
           >
             {' '}
@@ -153,19 +153,30 @@ const CommentPublisher = ({
 
   const renderFooter = useCallback(
     ({ codeRef }: any) => (
-      <div className='flex justify-between border-t border-dashed border-gray-200 py-1 px-3'>
-        <div className='flex items-center space-x-2'>
-          <IconButton className='px-1 py-1 hover:bg-gray-100'>
-            <Code size={16} />
+      <div className='flex justify-between border-t border-dashed border-gray-200 px-3'>
+        <div>
+          <IconButton
+            className='px-2 py-2 hover:bg-gray-100'
+            onClick={() => codeRef.current?.insertMarkdownOption('bc')}
+          >
+            <Code size={18} />
           </IconButton>
-          <IconButton className='px-1 py-1 hover:bg-gray-100'>
-            <Image size={16} />
+          <IconButton
+            className='px-2 py-2 hover:bg-gray-100'
+            onClick={() => codeRef.current?.insertMarkdownOption('image')}
+          >
+            <Image size={18} />
           </IconButton>
-          <IconButton className='px-1 py-1 hover:bg-gray-100'>
-            <Link size={16} />
+          <IconButton
+            className='px-2 py-2 hover:bg-gray-100'
+            onClick={() => codeRef.current?.insertMarkdownOption('link')}
+          >
+            <Link size={18} />
           </IconButton>
           <EmojiButton
-            className='px-1 py-1 hover:bg-gray-100'
+            size={18}
+            className='px-2 py-2 hover:bg-gray-100'
+            emojiClassName='bottom-[34px] top-10'
             onInsertEmoji={emoji => {
               codeRef.current?.insertEmoji(emoji);
             }}
@@ -173,11 +184,11 @@ const CommentPublisher = ({
         </div>
 
         <SendButton
-          className='space-x-2 rounded-sm px-8'
+          className='space-x-2 px-8'
           onConfirm={handleConfirm}
           loading={loading}
         >
-          发射
+          <span className='capsize'>发射</span>
         </SendButton>
       </div>
     ),

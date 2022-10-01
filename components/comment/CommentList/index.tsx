@@ -1,33 +1,40 @@
-import { Plus } from 'react-feather';
 import { ReactNode } from 'react';
+import { Plus } from 'react-feather';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import MessageSvg from '@/components/icons/MessageSvg';
 import CommentCard from '../CommentCard';
 import { CommentTree } from '../CommentView/utils';
+import MessageSvg from '@/components/icons/MessageSvg';
 import Status from '@/components/ui/Status';
 
 type CommentListProps = {
   className?: string;
   data?: CommentTree[];
-  onClick?: () => void;
   header?: ReactNode;
+  renderEmpty?: () => JSX.Element;
 };
 
-const CommentList = ({ data, className, onClick, header }: CommentListProps) => {
+export const defaultRenderEmpty = () => (
+  <Status
+    className='mt-12'
+    title='空空如也'
+    icon={<MessageSvg />}
+    description='我也想展示评论, 奈何数据库一条都没得'
+  >
+    <Status.Button className='mt-4'>
+      <Plus size={16} className='mr-1' />
+      <span>添加评论</span>
+    </Status.Button>
+  </Status>
+);
+
+const CommentList = ({
+  data,
+  className,
+  header,
+  renderEmpty = defaultRenderEmpty,
+}: CommentListProps) => {
   if (!data || !data?.length) {
-    return (
-      <Status
-        className='mt-12'
-        title='空空如也'
-        icon={<MessageSvg />}
-        description='我也想展示评论, 奈何数据库一条都没得'
-      >
-        <Status.Button className='mt-4' onClick={onClick}>
-          <Plus size={16} className='mr-1' />
-          <span>添加评论</span>
-        </Status.Button>
-      </Status>
-    );
+    return renderEmpty?.();
   }
 
   const renderHeader = () => {

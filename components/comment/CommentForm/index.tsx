@@ -118,7 +118,18 @@ const CommentForm = ({
     ({ preview, onPreview, codeRef }: any) => (
       <div className='flex justify-between bg-gray-100 leading-9'>
         <div className='flex'>
-          <IconButton onClick={() => onPreview(!preview)}>
+          <EmojiButton
+            className='px-3 hover:bg-gray-200'
+            emojiClassName='bottom-8'
+            onInsertEmoji={emoji => {
+              codeRef.current?.insertEmoji(emoji);
+            }}
+          />
+
+          <IconButton
+            className='px-3 hover:bg-gray-200'
+            onClick={() => onPreview(!preview)}
+          >
             <SwitchTransition mode='out-in'>
               <CSSTransition
                 key={preview ? 'preview' : 'edit'}
@@ -135,12 +146,6 @@ const CommentForm = ({
               </CSSTransition>
             </SwitchTransition>
           </IconButton>
-
-          <EmojiButton
-            onInsertEmoji={emoji => {
-              codeRef.current?.insertEmoji(emoji);
-            }}
-          />
         </div>
         <SendButton onConfirm={handleConfirm} loading={loading}>
           {loading ? '正在发布中...' : `以 ${nickname} 的身份发布`}

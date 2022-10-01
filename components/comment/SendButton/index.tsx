@@ -21,7 +21,7 @@ const SendButton = ({ onConfirm, loading, children, className }: SendButtonProps
     )}
     onClick={onConfirm}
   >
-    <span className='capsize'>{children}</span>
+    {children}
     {loading ? <Loader className='animate-spin' size={16} /> : <Send size={16} />}
   </button>
 );

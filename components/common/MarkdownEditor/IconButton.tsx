@@ -11,10 +11,7 @@ const IconButton = ({ children, onClick, className }: IconButtonProps) => (
   <button
     type='button'
     onClick={onClick}
-    className={classNames(
-      'px-3 text-xxs text-gray-500 hover:bg-gray-200 hover:text-gray-600',
-      className
-    )}
+    className={classNames('text-xxs text-gray-500 hover:text-gray-600', className)}
   >
     {children}
   </button>

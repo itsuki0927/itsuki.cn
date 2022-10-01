@@ -56,7 +56,6 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
           </GithubIcon>
         </span>
       ));
-      /* toast.loading('请先登陆'); */
       return true;
     }
     return false;
@@ -121,7 +120,7 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
     if (isNotLogin()) {
       return;
     }
-    setActive(true);
+    setActive(v => !v);
   };
 
   useEffect(() => {
@@ -147,8 +146,8 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
       <div className='relative flex-col space-y-2 rounded-sm'>
         <div className='flex items-center justify-between pl-4 sm:pl-6'>
           <CommentAvatar avatar={comment.avatar} />
-          <span className='ml-2 flex flex-grow items-center font-medium text-gray-900 line-clamp-1'>
-            {comment.nickname}
+          <span className='ml-2 flex flex-grow items-center font-medium text-gray-900'>
+            <span>{comment.nickname}</span>
             {isAdminEmail(comment.email) && (
               <Link href='/about'>
                 <small className='cursor-pointert ml-1 rounded-sm bg-primary-light px-1 py-[2px] text-xs text-primary opacity-90 transition-opacity hover:opacity-100'>

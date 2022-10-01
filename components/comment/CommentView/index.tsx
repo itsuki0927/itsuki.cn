@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -14,9 +13,10 @@ import { GithubIcon } from '@/components/common';
 import SorrySvg from '@/components/icons/SorrySvg';
 import Status from '@/components/ui/Status';
 import { GithubOutlined } from '@/components/icons';
+import MessageSvg from '@/components/icons/MessageSvg';
 
 const getCommentTitleSuffixText = (articleId: number) =>
-  articleId === GUESTBOOK ? '留言板' : '评论区';
+  articleId === GUESTBOOK ? '留言' : '评论';
 
 type CommentProps = {
   articleId: number;
@@ -77,9 +77,14 @@ const CommentView = ({ articleId, className = '' }: CommentProps) => {
       <CommentList
         className='space-y-8 sm:space-y-12'
         data={treeData}
-        onClick={() => {
-          toast.loading('聚焦输入框的点击事件正在实现的路上...');
-        }}
+        renderEmpty={() => (
+          <Status
+            className='mt-12'
+            title='空空如也'
+            icon={<MessageSvg />}
+            description='我也想展示评论, 奈何数据库一条都没得'
+          />
+        )}
         header={
           <>
             <span>

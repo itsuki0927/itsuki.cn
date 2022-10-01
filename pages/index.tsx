@@ -1,7 +1,8 @@
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
-import { ArrowRight } from 'react-feather';
+import { ArrowRight, Plus } from 'react-feather';
 import { dehydrate } from 'react-query';
+import { useRouter } from 'next/router';
 import { getBannerArticles, getHotArticles, getRecentArticles } from '@/api/article';
 import { getRecentComments } from '@/api/comment';
 import { getSiteSummary } from '@/api/summary';
@@ -26,6 +27,8 @@ import useSiteSummary from '@/hooks/useSummary';
 import { getDayTotals } from '@/utils/date';
 import { gtag } from '@/utils/gtag';
 import { getBlogDetailRoute, getTagRoute } from '@/utils/url';
+import Status from '@/components/ui/Status';
+import MessageSvg from '@/components/icons/MessageSvg';
 
 const todoList = [
   { name: '新版UI', percent: '60%' },
@@ -68,6 +71,7 @@ const HomePage = () => {
     hourInDayTotal,
     hourInDay,
   } = getDayTotals();
+  const router = useRouter();
 
   if (articles.isFetching) {
     return (
@@ -188,6 +192,21 @@ const HomePage = () => {
             <CommentList
               data={comments?.data.slice(0, 2)}
               className='space-y-6 sm:space-y-8'
+              renderEmpty={() => (
+                <Status
+                  title='空空如也'
+                  icon={<MessageSvg />}
+                  description='我也想展示评论, 奈何数据库一条都没得'
+                >
+                  <Status.Button
+                    className='mt-4'
+                    onClick={() => router.push('/guestbook')}
+                  >
+                    <Plus size={16} className='mr-1' />
+                    <span>添加评论</span>
+                  </Status.Button>
+                </Status>
+              )}
             />
           </div>
         </div>

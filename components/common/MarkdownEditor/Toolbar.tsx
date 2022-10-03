@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { ReactNode } from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import { EyeCloseFilled, EyeFilled } from '@/components/icons';
 
 type ToolbarProps = {
   preview?: boolean;
@@ -35,9 +34,7 @@ const Toolbar = ({ preview, onPreview, children }: ToolbarProps) => (
               node.addEventListener('transitionend', done, false)
             }
             classNames='move'
-          >
-            {preview ? <EyeCloseFilled key='edit' /> : <EyeFilled key='preview' />}
-          </CSSTransition>
+          />
         </SwitchTransition>
       </button>
     </div>

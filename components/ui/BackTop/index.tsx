@@ -1,4 +1,4 @@
-import { ToTopOutlined } from '@/components/icons';
+import { ArrowUp } from 'react-feather';
 import { useScrollTo } from '@/hooks';
 
 const BackTop = () => {
@@ -14,7 +14,7 @@ const BackTop = () => {
         className='rounded-sm bg-primary px-3 py-1 text-white opacity-40 transition-opacity duration-300 hover:opacity-100'
         onClick={backToTop}
       >
-        <ToTopOutlined />
+        <ArrowUp />
       </button>
     </div>
   );

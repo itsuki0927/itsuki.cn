@@ -1,3 +1,4 @@
+import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -237,24 +238,50 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
 
           <span className='text-gray-200 dark:text-gray-800'>/</span>
 
-          <button type='button' className='text-sm text-gray-400' onClick={handleReply}>
-            {isReply ? '取消回复' : '回复'}
-          </button>
+          <SwitchTransition mode='out-in'>
+            <CSSTransition
+              key={isReply ? 'replyText' : 'cancelReplyText'}
+              addEndListener={(node, done) => {
+                node.addEventListener('transitionend', done, false);
+              }}
+              classNames='fade'
+            >
+              <button
+                type='button'
+                className='text-sm text-gray-400'
+                onClick={handleReply}
+              >
+                {isReply ? '取消回复' : '回复'}
+              </button>
+            </CSSTransition>
+          </SwitchTransition>
         </div>
       </div>
 
-      {isReply ? (
-        <CommentForm
-          parentId={parentId}
-          onPost={postComment}
-          loading={isLoading}
-          articleId={comment.articleId}
-          className={styles.form}
-          onSuccess={() => {
-            setReply(false);
+      <SwitchTransition mode='out-in'>
+        <CSSTransition
+          key={isReply ? 'reply' : 'noReply'}
+          addEndListener={(node, done) => {
+            node.addEventListener('transitionend', done, false);
           }}
-        />
-      ) : null}
+          classNames='fade'
+        >
+          {isReply ? (
+            <CommentForm
+              parentId={parentId}
+              onPost={postComment}
+              loading={isLoading}
+              articleId={comment.articleId}
+              className={styles.form}
+              onSuccess={() => {
+                setReply(false);
+              }}
+            />
+          ) : (
+            <div />
+          )}
+        </CSSTransition>
+      </SwitchTransition>
 
       {!!comment.children?.length && <CommentList data={comment.children} />}
     </div>

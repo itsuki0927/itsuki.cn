@@ -1,9 +1,5 @@
-export { default as Affix } from './Affix';
 export { default as BackTop } from './BackTop';
-export { default as Banner } from './Banner';
-export { default as BannerSkeleton } from './Banner/Skeleton';
 export { default as Container } from './Container';
-export { default as Empty } from './Empty';
 export { default as Popup } from './Popup';
 export { default as MarkdownBlock } from './MarkdownBlock';
 export { default as PageLoadingProgress } from './PageLoadingProgress';

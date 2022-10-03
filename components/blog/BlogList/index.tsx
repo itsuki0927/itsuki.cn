@@ -4,9 +4,9 @@ import Status from '@/components/ui/Status';
 import { UseArticles } from '@/hooks/article/useArticles';
 import BlogCard from '../BlogCard';
 
-type ArticleListProps = UseArticles;
+type BlogListProps = UseArticles;
 
-const BlogList = ({ data, ...rest }: ArticleListProps) => {
+const BlogList = ({ data, ...rest }: BlogListProps) => {
   if (rest.isFetching || rest.isLoading) {
     return <ArticleSkeletonList />;
   }

@@ -8,7 +8,7 @@ import { ArticleSkeletonList } from '@/components/article';
 import BlogList from '@/components/blog/BlogList';
 import { Layout } from '@/components/common';
 import { createQueryClient } from '@/components/common/QueryClientContainer';
-import { BannerSkeleton, Container } from '@/components/ui';
+import { Container } from '@/components/ui';
 import FooterBanner from '@/components/ui/FooterBanner';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, tagKeys } from '@/constants/queryKeys';
@@ -64,7 +64,6 @@ const ArticleTagPage = ({
     return (
       <Layout>
         <div className='space-y-6'>
-          <BannerSkeleton />
           <ArticleSkeletonList />
         </div>
       </Layout>

@@ -153,30 +153,30 @@ const CommentPublisher = ({
 
   const renderFooter = useCallback(
     ({ codeRef }: any) => (
-      <div className='flex justify-between border-t border-dashed border-gray-200 px-3'>
+      <div className='flex justify-between border-t border-dashed border-gray-200 px-3 py-1'>
         <div>
           <IconButton
-            className='px-2 py-2 hover:bg-gray-100'
+            className='rounded-sm px-2 py-2 hover:bg-gray-100'
             onClick={() => codeRef.current?.insertMarkdownOption('bc')}
           >
             <Code size={18} />
           </IconButton>
           <IconButton
-            className='px-2 py-2 hover:bg-gray-100'
+            className='rounded-sm px-2 py-2 hover:bg-gray-100'
             onClick={() => codeRef.current?.insertMarkdownOption('image')}
           >
             <Image size={18} />
           </IconButton>
           <IconButton
-            className='px-2 py-2 hover:bg-gray-100'
+            className='rounded-sm px-2 py-2 hover:bg-gray-100'
             onClick={() => codeRef.current?.insertMarkdownOption('link')}
           >
             <Link size={18} />
           </IconButton>
           <EmojiButton
             size={18}
-            className='px-2 py-2 hover:bg-gray-100'
-            emojiClassName='bottom-[34px] top-10'
+            className='rounded-sm px-2 py-2 hover:bg-gray-100'
+            emojiClassName='bottom-[42px] top-10'
             onInsertEmoji={emoji => {
               codeRef.current?.insertEmoji(emoji);
             }}
@@ -184,7 +184,7 @@ const CommentPublisher = ({
         </div>
 
         <SendButton
-          className='space-x-2 px-8'
+          className='space-x-2 rounded-sm px-8 py-2'
           onConfirm={handleConfirm}
           loading={loading}
         >
@@ -198,6 +198,7 @@ const CommentPublisher = ({
   return (
     <div id='commentForm' className={className}>
       <DynamicMarkdown
+        contentClassName='max-h-[200px] min-h-[150px] '
         code={content}
         onChange={setContent}
         className='flex-grow'

@@ -116,7 +116,7 @@ const CommentForm = ({
 
   const renderFooter = useCallback(
     ({ preview, onPreview, codeRef }: any) => (
-      <div className='flex justify-between bg-gray-100 leading-9'>
+      <div className='flex justify-between bg-gray-100 leading-8'>
         <div className='flex'>
           <EmojiButton
             className='px-3 hover:bg-gray-200'
@@ -147,8 +147,10 @@ const CommentForm = ({
             </SwitchTransition>
           </IconButton>
         </div>
-        <SendButton onConfirm={handleConfirm} loading={loading}>
-          {loading ? '正在发布中...' : `以 ${nickname} 的身份发布`}
+        <SendButton className='py-2 px-3' onConfirm={handleConfirm} loading={loading}>
+          <span className='capsize'>
+            {loading ? '正在发布中...' : `以 ${nickname} 的身份发布`}
+          </span>
         </SendButton>
       </div>
     ),
@@ -158,6 +160,7 @@ const CommentForm = ({
   return (
     <div id='commentForm' className={className}>
       <DynamicMarkdown
+        contentClassName='max-h-[200px] min-h-[150px]'
         code={content}
         onChange={setContent}
         className='flex-grow'

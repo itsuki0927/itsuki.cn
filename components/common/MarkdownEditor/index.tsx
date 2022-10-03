@@ -24,6 +24,7 @@ export type MarkdownEditorProps = {
   children?: AppendArgument<RenderProps, JSX.Element>;
   header?: RenderProps;
   footer?: RenderProps;
+  contentClassName?: string;
 };
 type AppendArgument<Fn, A> = Fn extends (...args: infer P) => infer R
   ? (...args: [A, ...P]) => R
@@ -41,6 +42,7 @@ const MarkdownEditor = ({
   children = dom => dom,
   header,
   footer,
+  contentClassName = '',
   ...props
 }: MarkdownEditorProps) => {
   const [preview, setPreview] = useState(false);
@@ -57,7 +59,8 @@ const MarkdownEditor = ({
         placeholder={placeholder}
         className={classNames(
           s.root,
-          'max-h-[150px] min-h-[120px] overflow-y-scroll  p-3 text-base leading-5 sm:max-h-[460px]'
+          'overflow-y-scroll p-3 text-base leading-5 sm:max-h-[460px]',
+          contentClassName
         )}
         ref={editorRef as any}
       />

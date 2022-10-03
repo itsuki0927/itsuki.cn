@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { ReactNode } from 'react';
+import { ReactNode, MouseEvent } from 'react';
 
 interface IconButtonProps {
   children?: ReactNode;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent) => void;
   className?: string;
 }
 

@@ -15,7 +15,7 @@ const SendButton = ({ onConfirm, loading, children, className }: SendButtonProps
     disabled={loading}
     type='button'
     className={classNames(
-      'flex select-none items-center space-x-1 bg-primary py-2 px-3 text-sm text-white outline-none transition-colors',
+      'flex select-none items-center space-x-1 bg-primary text-sm text-white outline-none transition-colors',
       loading ? 'cursor-not-allowed opacity-80' : 'cursor-pointer hover:bg-primary-hover',
       className
     )}

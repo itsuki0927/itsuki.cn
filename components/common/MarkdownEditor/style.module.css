@@ -11,11 +11,3 @@
 .root:not(:empty):focus::before {
   content: '';
 }
-
-.emojiList {
-  display: none;
-}
-
-.emoji:hover > .emojiList {
-  display: block;
-}

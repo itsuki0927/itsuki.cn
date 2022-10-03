@@ -1,25 +1,14 @@
-import Link from 'next/link';
 import { ReactNode } from 'react';
 import classNames from 'classnames';
 import useTags from '@/hooks/tag';
 import { getTagRoute } from '@/utils/url';
 import ExternalLink from '../ExternalLink';
 import Logo from '../Logo';
+import InternalLink from '../InternalLink';
 
 interface CommonProps {
   children?: ReactNode;
 }
-
-type InternalLinkProps = CommonProps & {
-  href: string;
-};
-const InternalLink = ({ children, href }: InternalLinkProps) => (
-  <Link href={href}>
-    <a className='cursor-pointer text-gray-600 transition hover:text-gray-700'>
-      {children}
-    </a>
-  </Link>
-);
 
 const Title = ({ children }: CommonProps) => (
   <span className='font-medium text-gray-500'>{children}</span>

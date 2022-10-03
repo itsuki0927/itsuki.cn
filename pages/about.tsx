@@ -89,11 +89,11 @@ const AboutPage = () => {
           {defaultSocials.map(social => (
             <SocialButton
               social={social}
-              className='mr-4 mt-4 px-6 py-[6px]'
+              className='mr-4 mt-4 px-6 py-2'
               key={social.name}
             >
               {social.icon}
-              <span className='ml-2'>{social.name}</span>
+              <span className='capsize ml-2'>{social.name}</span>
             </SocialButton>
           ))}
         </div>

@@ -10,11 +10,11 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => (
     <Container>
       <header>
         <div className='mb-4 inline-block space-x-2 rounded-md bg-primary-light p-1 px-2'>
-          <span className='rounded-sm bg-white py-[2px] px-2 text-sm text-primary'>
+          <span className='rounded-sm bg-white py-1 px-2 text-sm text-primary'>
             {article.reading} 人阅读
           </span>
 
-          <span className='rounded-sm py-[2px] text-sm text-primary'>8 分钟阅读</span>
+          <span className='rounded-sm py-1 text-sm text-primary'>8 分钟阅读</span>
         </div>
 
         <h1 className='max-w-3xl text-5xl font-medium'>{article.title}</h1>

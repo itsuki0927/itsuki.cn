@@ -15,7 +15,7 @@ import { articleKeys, tagKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
 import { useMount } from '@/hooks';
 import { useTagArticles } from '@/hooks/article';
-import useTags from '@/hooks/tag';
+import { useTags } from '@/hooks/tag';
 import { gtag } from '@/utils/gtag';
 
 export const getStaticPaths = async () => {

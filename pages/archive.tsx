@@ -12,7 +12,7 @@ import { TIMESTAMP } from '@/constants/value';
 import { SiteSummary } from '@/entities/summary';
 import { useMount } from '@/hooks';
 import { useArchives } from '@/hooks/article';
-import useSiteSummary from '@/hooks/useSummary';
+import { useSiteSummary } from '@/hooks/summary';
 import { gtag } from '@/utils/gtag';
 
 export const getStaticProps = async () => {

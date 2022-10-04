@@ -12,7 +12,7 @@ import FooterBanner from '@/components/ui/FooterBanner';
 import { articleKeys, tagKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
 import { useArticles } from '@/hooks/article';
-import useTags from '@/hooks/tag';
+import { useTags } from '@/hooks/tag';
 
 export const getStaticProps = async () => {
   const queryClient = createQueryClient();

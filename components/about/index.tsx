@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import useHotArticles from '@/hooks/article/useHotArticles';
+import { useHotArticles } from '@/hooks/article';
 import { getBlogDetailRoute } from '@/utils/url';
 import { MyImage } from '../common';
 import ExperienceList from './ExperienceList';

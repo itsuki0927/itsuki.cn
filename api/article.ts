@@ -68,7 +68,7 @@ export const getAllArticlePathsWithPath = async () => {
 
 export const getBannerArticles = () => getArticles({ banner: 1 });
 
-export const getRecentArticles = () => getArticles({ recent: true });
+export const getRecentArticles = () => getArticles({ recent: true, pageSize: 4 });
 
 export const getHotArticles = () => getArticles({ hot: true });
 

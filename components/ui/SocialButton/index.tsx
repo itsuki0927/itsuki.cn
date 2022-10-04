@@ -9,7 +9,7 @@ import {
   SifouOutlined,
   JuejinOutlined,
 } from '@/components/icons';
-import { copyTextToClipboard } from '@/hooks/useCopyToClipboard';
+import { useCopyToClipboard } from '@/hooks';
 import { useUI } from '../context';
 import { GAEventCategories } from '@/constants/gtag';
 import { gtag } from '@/utils/gtag';
@@ -77,6 +77,7 @@ const SocialButton = ({
 }: SocialButtonProps) => {
   const { openPopup, setPopupView } = useUI();
   const router = useRouter();
+  const [, copyTextToClipboard] = useCopyToClipboard();
   const handleSocialClick = (e: MouseEvent) => {
     if (social.name === 'Wechat') {
       e.preventDefault();

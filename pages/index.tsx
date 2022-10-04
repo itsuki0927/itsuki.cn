@@ -1,8 +1,8 @@
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ArrowRight, Plus } from 'react-feather';
 import { dehydrate } from 'react-query';
-import { useRouter } from 'next/router';
 import { getBannerArticles, getHotArticles, getRecentArticles } from '@/api/article';
 import { getRecentComments } from '@/api/comment';
 import { getSiteSummary } from '@/api/summary';
@@ -12,23 +12,21 @@ import BlogCard from '@/components/blog/BlogCard';
 import CommentList from '@/components/comment/CommentList';
 import { HomeSlider, Layout, MyImage, ToDate } from '@/components/common';
 import { createQueryClient } from '@/components/common/QueryClientContainer';
+import MessageSvg from '@/components/icons/MessageSvg';
 import { Container } from '@/components/ui';
 import PtnContainer from '@/components/ui/PtnContainer';
 import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
+import Status from '@/components/ui/Status';
 import { GAEventCategories } from '@/constants/gtag';
 import { articleKeys, commentKeys, summaryKeys, tagKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
-import useBannerArticles from '@/hooks/article/useBannerArticles';
-import useHotArticles from '@/hooks/article/useHotArticles';
-import useRecentArticles from '@/hooks/article/useRecentArticles';
+import { useBannerArticles, useHotArticles, useRecentArticles } from '@/hooks/article';
 import { useRecentComments } from '@/hooks/comment';
-import useTags from '@/hooks/tag';
-import useSiteSummary from '@/hooks/useSummary';
+import { useSiteSummary } from '@/hooks/summary';
+import { useTags } from '@/hooks/tag';
 import { getDayTotals } from '@/utils/date';
 import { gtag } from '@/utils/gtag';
 import { getBlogDetailRoute, getTagRoute } from '@/utils/url';
-import Status from '@/components/ui/Status';
-import MessageSvg from '@/components/icons/MessageSvg';
 
 const todoList = [
   { name: '新版UI', percent: '60%' },
@@ -261,7 +259,7 @@ const HomePage = () => {
             ))}
           </ul>
 
-          <PtnContainer className='space-y-4 p-6'>
+          <div className='space-y-4 bg-gray-50 p-6'>
             <div className='text-xl font-medium text-gray-900'>标签</div>
             <ul className='flex flex-wrap'>
               {tags?.map(tag => (
@@ -283,7 +281,7 @@ const HomePage = () => {
                 </Link>
               ))}
             </ul>
-          </PtnContainer>
+          </div>
         </div>
       </Container>
     </Layout>

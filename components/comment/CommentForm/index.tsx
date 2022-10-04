@@ -1,22 +1,25 @@
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import { Eye, EyeOff } from 'react-feather';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
+import { Eye, EyeOff } from 'react-feather';
 import toast from 'react-hot-toast';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
+import IconButton from '@/components/common/MarkdownEditor/IconButton';
 import { PostCommentBody } from '@/entities/comment';
+import { useLocalStorage } from '@/hooks';
 import useBlackList from '@/hooks/blacklist';
 import purifyDomString from '@/libs/purify';
-import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
+import { remove } from '@/utils/storage';
 import SendButton from '../SendButton';
-import IconButton from '@/components/common/MarkdownEditor/IconButton';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
 });
 
 export interface CommentFormProps {
+  cacheId: string;
   className?: string;
   articleId: number;
   loading?: boolean;
@@ -40,10 +43,11 @@ const CommentForm = ({
   parentId = 0,
   onSuccess,
   onError,
+  cacheId,
 }: CommentFormProps) => {
   const loginType = useLoginType();
   const { data: session } = useSession();
-  const [content, setContent] = useState('');
+  const [content, setContent] = useLocalStorage(cacheId, '');
   const { data: blacklist } = useBlackList();
 
   const email = session?.user?.email ?? '';
@@ -72,89 +76,72 @@ const CommentForm = ({
     return true;
   }, [blacklist?.email, blacklist?.keyword, content, session?.user?.email]);
 
-  const handleConfirm = useCallback(
-    () =>
-      new Promise<boolean>((resolve, reject) => {
-        const params: PostCommentBody = {
-          articleId,
-          loginType,
-          email,
-          avatar,
-          nickname,
-          parentId,
-          agent: navigator.userAgent,
-          content: purifyDomString(content),
-        };
+  const handleConfirm = () =>
+    new Promise<boolean>((resolve, reject) => {
+      const params: PostCommentBody = {
+        articleId,
+        loginType,
+        email,
+        avatar,
+        nickname,
+        parentId,
+        agent: navigator.userAgent,
+        content: purifyDomString(content),
+      };
 
-        if (ensureCommentCanPush()) {
-          onPost?.(params).then(result => {
-            if (result) {
-              setContent('');
-              onSuccess?.();
-              resolve(true);
-            } else {
-              onError?.();
-              reject();
-            }
-          }, reject);
-        }
-      }),
-    [
-      articleId,
-      avatar,
-      content,
-      email,
-      ensureCommentCanPush,
-      loginType,
-      nickname,
-      onError,
-      onPost,
-      onSuccess,
-      parentId,
-    ]
-  );
+      if (ensureCommentCanPush()) {
+        onPost?.(params).then(result => {
+          if (result) {
+            setContent('');
+            onSuccess?.();
+            remove(cacheId);
+            resolve(true);
+          } else {
+            onError?.();
+            reject();
+          }
+        }, reject);
+      }
+    });
 
-  const renderFooter = useCallback(
-    ({ preview, onPreview, codeRef }: any) => (
-      <div className='flex justify-between bg-gray-100 leading-8'>
-        <div className='flex'>
-          <EmojiButton
-            className='px-3 hover:bg-gray-200'
-            emojiClassName='bottom-8'
-            onInsertEmoji={emoji => {
-              codeRef.current?.insertEmoji(emoji);
-            }}
-          />
+  const renderFooter = ({ preview, onPreview, codeRef }: any) => (
+    <div className='flex justify-between bg-gray-50 leading-8'>
+      <div className='flex'>
+        <EmojiButton
+          className='px-3 hover:bg-gray-100'
+          emojiClassName='bottom-8'
+          onInsertEmoji={emoji => {
+            codeRef.current?.insertEmoji(emoji);
+          }}
+        />
 
-          <IconButton
-            className='px-3 hover:bg-gray-200'
-            onClick={() => onPreview(!preview)}
-          >
-            <SwitchTransition mode='out-in'>
-              <CSSTransition
-                key={preview ? 'preview' : 'edit'}
-                addEndListener={(node, done) =>
-                  node.addEventListener('transitionend', done, false)
-                }
-                classNames='move'
-              >
-                {preview ? (
-                  <EyeOff key='edit' size={16} />
-                ) : (
-                  <Eye key='preview' size={16} />
-                )}
-              </CSSTransition>
-            </SwitchTransition>
-          </IconButton>
-        </div>
-        <SendButton className='py-2 px-3' onConfirm={handleConfirm} loading={loading}>
-          <span className='capsize'>
-            {loading ? '正在发布中...' : `以 ${nickname} 的身份发布`}
-          </span>
-        </SendButton>
+        <IconButton
+          className='px-3 hover:bg-gray-100'
+          onClick={() => onPreview(!preview)}
+        >
+          <SwitchTransition mode='out-in'>
+            <CSSTransition
+              key={preview ? 'preview' : 'edit'}
+              addEndListener={(node, done) =>
+                node.addEventListener('transitionend', done, false)
+              }
+              classNames='move'
+            >
+              {preview ? (
+                <EyeOff key='edit' size={16} />
+              ) : (
+                <Eye key='preview' size={16} />
+              )}
+            </CSSTransition>
+          </SwitchTransition>
+        </IconButton>
       </div>
-    ),
-    [handleConfirm, loading, nickname]
+      <SendButton className='py-2 px-3' onConfirm={handleConfirm} loading={loading}>
+        <span className='capsize'>
+          {loading ? '正在发布中...' : `以 ${nickname} 的身份发布`}
+        </span>
+      </SendButton>
+    </div>
   );
 
   return (

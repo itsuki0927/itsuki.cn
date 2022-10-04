@@ -3,7 +3,7 @@ import { Code, Image, Link } from 'react-feather';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { PostCommentBody } from '@/entities/comment';
 import useBlackList from '@/hooks/blacklist';
@@ -12,6 +12,8 @@ import SendButton from '../SendButton';
 import CommentAvatar from '../CommentAvatar';
 import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
 import IconButton from '@/components/common/MarkdownEditor/IconButton';
+import { useLocalStorage } from '@/hooks';
+import { remove } from '@/utils/storage';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -44,7 +46,9 @@ const CommentPublisher = ({
 }: CommentFormProps) => {
   const loginType = useLoginType();
   const { data: session } = useSession();
-  const [content, setContent] = useState('');
+  const router = useRouter();
+  const cacheContentKey = `${router.asPath}-comment-publisher-${parentId}`;
+  const [content, setContent] = useLocalStorage(cacheContentKey, '');
   const { data: blacklist } = useBlackList();
 
   const email = session?.user?.email ?? '';
@@ -73,47 +77,33 @@ const CommentPublisher = ({
     return true;
   }, [blacklist?.email, blacklist?.keyword, content, session?.user?.email]);
 
-  const handleConfirm = useCallback(
-    () =>
-      new Promise<boolean>((resolve, reject) => {
-        const params: PostCommentBody = {
-          articleId,
-          loginType,
-          email,
-          avatar,
-          nickname,
-          parentId,
-          agent: navigator.userAgent,
-          content: purifyDomString(content),
-        };
+  const handleConfirm = () =>
+    new Promise<boolean>((resolve, reject) => {
+      const params: PostCommentBody = {
+        articleId,
+        loginType,
+        email,
+        avatar,
+        nickname,
+        parentId,
+        agent: navigator.userAgent,
+        content: purifyDomString(content),
+      };
 
-        if (ensureCommentCanPush()) {
-          onPost?.(params).then(result => {
-            if (result) {
-              setContent('');
-              onSuccess?.();
-              resolve(true);
-            } else {
-              onError?.();
-              reject();
-            }
-          }, reject);
-        }
-      }),
-    [
-      articleId,
-      avatar,
-      content,
-      email,
-      ensureCommentCanPush,
-      loginType,
-      nickname,
-      onError,
-      onPost,
-      onSuccess,
-      parentId,
-    ]
-  );
+      if (ensureCommentCanPush()) {
+        onPost?.(params).then(result => {
+          if (result) {
+            setContent('');
+            onSuccess?.();
+            remove(cacheContentKey);
+            resolve(true);
+          } else {
+            onError?.();
+            reject();
+          }
+        }, reject);
+      }
+    });
 
   const renderHeader = useCallback(
     ({ preview, onPreview }: any) => (
@@ -151,48 +141,45 @@ const CommentPublisher = ({
     [avatar, nickname]
   );
 
-  const renderFooter = useCallback(
-    ({ codeRef }: any) => (
-      <div className='flex justify-between border-t border-dashed border-gray-200 px-3 py-1'>
-        <div>
-          <IconButton
-            className='rounded-sm px-2 py-2 hover:bg-gray-100'
-            onClick={() => codeRef.current?.insertMarkdownOption('bc')}
-          >
-            <Code size={18} />
-          </IconButton>
-          <IconButton
-            className='rounded-sm px-2 py-2 hover:bg-gray-100'
-            onClick={() => codeRef.current?.insertMarkdownOption('image')}
-          >
-            <Image size={18} />
-          </IconButton>
-          <IconButton
-            className='rounded-sm px-2 py-2 hover:bg-gray-100'
-            onClick={() => codeRef.current?.insertMarkdownOption('link')}
-          >
-            <Link size={18} />
-          </IconButton>
-          <EmojiButton
-            size={18}
-            className='rounded-sm px-2 py-2 hover:bg-gray-100'
-            emojiClassName='bottom-[42px] top-10'
-            onInsertEmoji={emoji => {
-              codeRef.current?.insertEmoji(emoji);
-            }}
-          />
-        </div>
-
-        <SendButton
-          className='space-x-2 rounded-sm px-8 py-2'
-          onConfirm={handleConfirm}
-          loading={loading}
+  const renderFooter = ({ codeRef }: any) => (
+    <div className='flex justify-between border-t border-dashed border-gray-200 px-3 py-1'>
+      <div>
+        <IconButton
+          className='rounded-sm px-2 py-2 hover:bg-gray-100'
+          onClick={() => codeRef.current?.insertMarkdownOption('bc')}
         >
-          <span className='capsize'>发射</span>
-        </SendButton>
+          <Code size={18} />
+        </IconButton>
+        <IconButton
+          className='rounded-sm px-2 py-2 hover:bg-gray-100'
+          onClick={() => codeRef.current?.insertMarkdownOption('image')}
+        >
+          <Image size={18} />
+        </IconButton>
+        <IconButton
+          className='rounded-sm px-2 py-2 hover:bg-gray-100'
+          onClick={() => codeRef.current?.insertMarkdownOption('link')}
+        >
+          <Link size={18} />
+        </IconButton>
+        <EmojiButton
+          size={18}
+          className='rounded-sm px-2 py-2 hover:bg-gray-100'
+          emojiClassName='bottom-[42px] top-10'
+          onInsertEmoji={emoji => {
+            codeRef.current?.insertEmoji(emoji);
+          }}
+        />
       </div>
-    ),
-    [handleConfirm, loading]
+
+      <SendButton
+        className='space-x-2 rounded-sm px-8 py-2'
+        onConfirm={handleConfirm}
+        loading={loading}
+      >
+        <span className='capsize'>发射</span>
+      </SendButton>
+    </div>
   );
 
   return (

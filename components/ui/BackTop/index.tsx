@@ -11,10 +11,10 @@ const BackTop = () => {
       <button
         aria-label='back to top'
         type='button'
-        className='rounded-sm bg-primary px-3 py-1 text-white opacity-40 transition-opacity duration-300 hover:opacity-100'
+        className='rounded-sm bg-primary px-3 py-2 text-white opacity-40 transition-opacity duration-300 hover:opacity-100'
         onClick={backToTop}
       >
-        <ArrowUp />
+        <ArrowUp size={16} />
       </button>
     </div>
   );

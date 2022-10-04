@@ -1,3 +1,6 @@
+import { useRouter } from 'next/router';
+import useMeasure from 'react-use-measure';
+import { useSpring, a } from '@react-spring/web';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
@@ -45,6 +48,14 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
   const [emojiMap, setEmojiMap] = useState<Record<string, Record<string, number>>>({});
   const { data } = useSession();
   const email = data?.user?.email ?? '';
+  const [ref, { height: viewHeight }] = useMeasure();
+  const router = useRouter();
+
+  const animProps = useSpring({
+    height: isReply ? viewHeight : 0,
+    config: { tension: 250, friction: 32, clamp: true, duration: 150 },
+    opacity: isReply ? 1 : 0,
+  });
 
   const isNotLogin = () => {
     if (!email) {
@@ -257,16 +268,11 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
         </div>
       </div>
 
-      <SwitchTransition mode='out-in'>
-        <CSSTransition
-          key={isReply ? 'reply' : 'noReply'}
-          addEndListener={(node, done) => {
-            node.addEventListener('transitionend', done, false);
-          }}
-          classNames='fade'
-        >
+      <a.div style={{ overflow: 'hidden', ...animProps }}>
+        <div ref={ref}>
           {isReply ? (
             <CommentForm
+              cacheId={`${router.asPath}-comment-form-${parentId}`}
               parentId={parentId}
               onPost={postComment}
               loading={isLoading}
@@ -276,11 +282,9 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
                 setReply(false);
               }}
             />
-          ) : (
-            <div />
-          )}
-        </CSSTransition>
-      </SwitchTransition>
+          ) : null}
+        </div>
+      </a.div>
 
       {!!comment.children?.length && <CommentList data={comment.children} />}
     </div>

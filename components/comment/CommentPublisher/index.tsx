@@ -1,6 +1,5 @@
-import classNames from 'classnames';
-import { Code, Image, Link } from 'react-feather';
-import { useSession } from 'next-auth/react';
+import { SwitchTransition, CSSTransition } from 'react-transition-group';
+import { Code, Eye, EyeOff, Image, Link } from 'react-feather';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
@@ -14,6 +13,7 @@ import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
 import IconButton from '@/components/common/MarkdownEditor/IconButton';
 import { useLocalStorage } from '@/hooks';
 import { remove } from '@/utils/storage';
+import { useAuth } from '@/libs/auth';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -45,15 +45,15 @@ const CommentPublisher = ({
   onError,
 }: CommentFormProps) => {
   const loginType = useLoginType();
-  const { data: session } = useSession();
+  const { user, signout } = useAuth();
   const router = useRouter();
   const cacheContentKey = `${router.asPath}-comment-publisher-${parentId}`;
   const [content, setContent] = useLocalStorage(cacheContentKey, '');
   const { data: blacklist } = useBlackList();
 
-  const email = session?.user?.email ?? '';
-  const avatar = session?.user?.image ?? '';
-  const nickname = session?.user?.name ?? '';
+  const email = user?.email ?? '';
+  const avatar = user?.avatar ?? '';
+  const nickname = user?.nickname ?? '';
 
   const ensureCommentCanPush = useCallback(() => {
     const sensitiveKeyword = blacklist?.keyword.find(k => content.includes(k));
@@ -63,7 +63,7 @@ const CommentPublisher = ({
       });
       return false;
     }
-    if (blacklist?.email.includes(session?.user?.email ?? '')) {
+    if (blacklist?.email.includes(user?.email ?? '')) {
       toast.error(`老铁, 做了坏事情, 被拉黑了\n`, {
         duration: 2500,
       });
@@ -75,7 +75,7 @@ const CommentPublisher = ({
     }
 
     return true;
-  }, [blacklist?.email, blacklist?.keyword, content, session?.user?.email]);
+  }, [blacklist?.email, blacklist?.keyword, content, user?.email]);
 
   const handleConfirm = () =>
     new Promise<boolean>((resolve, reject) => {
@@ -106,7 +106,7 @@ const CommentPublisher = ({
     });
 
   const renderHeader = useCallback(
-    ({ preview, onPreview }: any) => (
+    () => (
       <div className='flex justify-between border-b border-dashed border-gray-200 px-3 py-1'>
         <div className='flex items-center'>
           <CommentAvatar avatar={avatar} />
@@ -116,32 +116,18 @@ const CommentPublisher = ({
         <div className='flex items-center'>
           <button
             type='button'
-            onClick={() => onPreview(true)}
-            className={classNames(
-              'rounded-sm px-4 py-[2px]  text-sm',
-              preview && 'cursor-default bg-primary-light text-primary'
-            )}
+            className='transition-all hover:text-gray-900 hover:underline'
+            onClick={signout}
           >
-            预览
-          </button>
-          <button
-            type='button'
-            onClick={() => onPreview(false)}
-            className={classNames(
-              'rounded-sm px-4 py-[2px] text-sm',
-              !preview && 'cursor-default bg-primary-light text-primary'
-            )}
-          >
-            {' '}
-            编辑{' '}
+            退出
           </button>
         </div>
       </div>
     ),
-    [avatar, nickname]
+    [avatar, nickname, signout]
   );
 
-  const renderFooter = ({ codeRef }: any) => (
+  const renderFooter = ({ codeRef, preview, onPreview }: any) => (
     <div className='flex justify-between border-t border-dashed border-gray-200 px-3 py-1'>
       <div>
         <IconButton
@@ -170,6 +156,26 @@ const CommentPublisher = ({
             codeRef.current?.insertEmoji(emoji);
           }}
         />
+        <IconButton
+          className='rounded-sm px-2 py-2 hover:bg-gray-100'
+          onClick={() => onPreview(!preview)}
+        >
+          <SwitchTransition mode='out-in'>
+            <CSSTransition
+              key={preview ? 'preview' : 'edit'}
+              addEndListener={(node, done) =>
+                node.addEventListener('transitionend', done, false)
+              }
+              classNames='move'
+            >
+              {preview ? (
+                <EyeOff key='edit' size={18} />
+              ) : (
+                <Eye key='preview' size={18} />
+              )}
+            </CSSTransition>
+          </SwitchTransition>
+        </IconButton>
       </div>
 
       <SendButton

@@ -1,4 +1,3 @@
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
@@ -12,8 +11,9 @@ import SortSelect, { SortItem, sortList } from '@/components/ui/SortSelect';
 import { GithubIcon } from '@/components/common';
 import SorrySvg from '@/components/icons/SorrySvg';
 import Status from '@/components/ui/Status';
-import { GithubOutlined } from '@/components/icons';
 import MessageSvg from '@/components/icons/MessageSvg';
+import { useAuth } from '@/libs/auth';
+import GoogleIcon from '@/components/common/GoogleIcon';
 
 const getCommentTitleSuffixText = (articleId: number) =>
   articleId === GUESTBOOK ? '留言' : '评论';
@@ -25,7 +25,7 @@ type CommentProps = {
 
 const CommentView = ({ articleId, className = '' }: CommentProps) => {
   const { postComment, ...rest } = useCreateComment(articleId);
-  const { data: session } = useSession();
+  const { user } = useAuth();
   const { data, isLoading, isFetching, treeData, updateSort } = useComments(articleId);
   const { pathname, asPath } = useRouter();
   const { scrollTo } = useScrollTo();
@@ -53,7 +53,7 @@ const CommentView = ({ articleId, className = '' }: CommentProps) => {
 
   return (
     <div id={COMMENT_VIEW_ELEMENT_ID} className={className}>
-      {session?.user ? (
+      {user ? (
         <CommentPublisher
           articleId={articleId}
           loading={rest.isLoading}
@@ -65,12 +65,10 @@ const CommentView = ({ articleId, className = '' }: CommentProps) => {
           title='请先登陆'
           description='仅使用你的邮箱、头像和昵称'
         >
-          <GithubIcon className='mt-4 block'>
-            <span className='inline-flex items-center rounded-sm bg-github px-4 py-2 text-sm text-white opacity-90 transition-opacity hover:opacity-100'>
-              <GithubOutlined className='mr-1' />
-              <span>Github</span>
-            </span>
-          </GithubIcon>
+          <div className='mt-4 flex space-x-3'>
+            <GithubIcon />
+            <GoogleIcon />
+          </div>
         </Status>
       )}
 

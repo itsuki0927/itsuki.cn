@@ -1,4 +1,3 @@
-import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
@@ -13,6 +12,7 @@ import useBlackList from '@/hooks/blacklist';
 import purifyDomString from '@/libs/purify';
 import { remove } from '@/utils/storage';
 import SendButton from '../SendButton';
+import { useAuth } from '@/libs/auth';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
@@ -46,13 +46,13 @@ const CommentForm = ({
   cacheId,
 }: CommentFormProps) => {
   const loginType = useLoginType();
-  const { data: session } = useSession();
+  const { user } = useAuth();
   const [content, setContent] = useLocalStorage(cacheId, '');
   const { data: blacklist } = useBlackList();
 
-  const email = session?.user?.email ?? '';
-  const avatar = session?.user?.image ?? '';
-  const nickname = session?.user?.name ?? '';
+  const email = user?.email ?? '';
+  const avatar = user?.avatar ?? '';
+  const nickname = user?.nickname ?? '';
 
   const ensureCommentCanPush = useCallback(() => {
     const sensitiveKeyword = blacklist?.keyword.find(k => content.includes(k));
@@ -62,7 +62,7 @@ const CommentForm = ({
       });
       return false;
     }
-    if (blacklist?.email.includes(session?.user?.email ?? '')) {
+    if (blacklist?.email.includes(user?.email ?? '')) {
       toast.error(`老铁, 做了坏事情, 被拉黑了\n`, {
         duration: 2500,
       });
@@ -74,7 +74,7 @@ const CommentForm = ({
     }
 
     return true;
-  }, [blacklist?.email, blacklist?.keyword, content, session?.user?.email]);
+  }, [blacklist?.email, blacklist?.keyword, content, user?.email]);
 
   const handleConfirm = () =>
     new Promise<boolean>((resolve, reject) => {

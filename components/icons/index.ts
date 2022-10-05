@@ -2,6 +2,7 @@ export { default as AlipayOutlined } from './AlipayOutlined';
 export { default as DoubanOutlined } from './DoubanOutlined';
 export { default as GithubIcon } from './GithubIcon';
 export { default as GithubOutlined } from './GithubOutlined';
+export { default as GoogleOutlined } from './GoogleOutlined';
 export { default as Icon } from './Icon/index';
 export { default as JuejinOutlined } from './JuejinOutlined';
 export { default as MessageSvg } from './MessageSvg';

@@ -3,12 +3,11 @@ import useMeasure from 'react-use-measure';
 import { useSpring, a } from '@react-spring/web';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { MouseEvent, useEffect, useState } from 'react';
 import { Smile } from 'react-feather';
 import toast from 'react-hot-toast';
-import { GithubIcon, ToDate } from '@/components/common';
+import { ToDate } from '@/components/common';
 import { MarkdownBlock } from '@/components/ui';
 import { getCommentElementId } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
@@ -21,6 +20,7 @@ import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';
 import { CommentTree } from '../CommentView/utils';
 import styles from './index.module.scss';
+import { useAuth } from '@/libs/auth';
 
 const emojiList = ['👍', '👎', '😄', '🎉', '😕', '👀'];
 
@@ -46,8 +46,8 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
   const [isReply, setReply] = useState(false);
   const [active, setActive] = useState(false);
   const [emojiMap, setEmojiMap] = useState<Record<string, Record<string, number>>>({});
-  const { data } = useSession();
-  const email = data?.user?.email ?? '';
+  const { user } = useAuth();
+  const email = user?.email ?? '';
   const [ref, { height: viewHeight }] = useMeasure();
   const router = useRouter();
 
@@ -59,14 +59,7 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
 
   const isNotLogin = () => {
     if (!email) {
-      toast.loading(t => (
-        <span>
-          请先登录...
-          <GithubIcon className='ml-2 text-primary' onClick={() => toast.dismiss(t.id)}>
-            一键登录
-          </GithubIcon>
-        </span>
-      ));
+      toast.loading('请先登陆...');
       return true;
     }
     return false;

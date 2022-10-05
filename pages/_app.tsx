@@ -1,5 +1,4 @@
 /* eslint-disable import/extensions */
-import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
@@ -50,13 +49,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       />
 
       <AuthProvider>
-        <SessionProvider session={(pageProps as any).session}>
-          <ManagedUIContext>
-            <QueryClientContainer pageProps={pageProps}>
-              <LayoutTransition items={items} />
-            </QueryClientContainer>
-          </ManagedUIContext>
-        </SessionProvider>
+        <ManagedUIContext>
+          <QueryClientContainer pageProps={pageProps}>
+            <LayoutTransition items={items} />
+          </QueryClientContainer>
+        </ManagedUIContext>
       </AuthProvider>
     </>
   );

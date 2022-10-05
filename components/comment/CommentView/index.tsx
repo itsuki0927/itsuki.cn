@@ -14,6 +14,7 @@ import Status from '@/components/ui/Status';
 import MessageSvg from '@/components/icons/MessageSvg';
 import { useAuth } from '@/libs/auth';
 import GoogleIcon from '@/components/common/GoogleIcon';
+import { LoadingDots } from '@/components/ui';
 
 const getCommentTitleSuffixText = (articleId: number) =>
   articleId === GUESTBOOK ? '留言' : '评论';
@@ -25,7 +26,7 @@ type CommentProps = {
 
 const CommentView = ({ articleId, className = '' }: CommentProps) => {
   const { postComment, ...rest } = useCreateComment(articleId);
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const { data, isLoading, isFetching, treeData, updateSort } = useComments(articleId);
   const { pathname, asPath } = useRouter();
   const { scrollTo } = useScrollTo();
@@ -51,26 +52,40 @@ const CommentView = ({ articleId, className = '' }: CommentProps) => {
     );
   }
 
-  return (
-    <div id={COMMENT_VIEW_ELEMENT_ID} className={className}>
-      {user ? (
+  const renderCommentPublisher = () => {
+    if (loading && !user) {
+      return (
+        <div className='bg-gray-50 p-6'>
+          <LoadingDots />
+        </div>
+      );
+    }
+    if (user) {
+      return (
         <CommentPublisher
           articleId={articleId}
           loading={rest.isLoading}
           onPost={postComment}
         />
-      ) : (
-        <Status
-          icon={<SorrySvg />}
-          title='请先登陆'
-          description='仅使用你的邮箱、头像和昵称'
-        >
-          <div className='mt-4 flex space-x-3'>
-            <GithubIcon />
-            <GoogleIcon />
-          </div>
-        </Status>
-      )}
+      );
+    }
+    return (
+      <Status
+        icon={<SorrySvg />}
+        title='请先登陆'
+        description='仅使用你的邮箱、头像和昵称'
+      >
+        <div className='mt-4 flex space-x-3'>
+          <GithubIcon />
+          <GoogleIcon />
+        </div>
+      </Status>
+    );
+  };
+
+  return (
+    <div id={COMMENT_VIEW_ELEMENT_ID} className={className}>
+      {renderCommentPublisher()}
 
       <CommentList
         className='space-y-8 sm:space-y-12'

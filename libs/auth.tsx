@@ -95,6 +95,7 @@ const useProvideAuth = () => {
   };
 
   const signInWithGithub = () => {
+    setLoading(true);
     signInWithPopup(auth, githubProvider)
       .then(result => {
         const rawUser = result.user;
@@ -119,6 +120,7 @@ const useProvideAuth = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const unsubscribe = auth.onIdTokenChanged(handleUser);
 
     return () => unsubscribe();

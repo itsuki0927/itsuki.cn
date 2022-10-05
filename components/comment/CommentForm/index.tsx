@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
-import { Eye, EyeOff } from 'react-feather';
+import { Code, Eye, EyeOff, Link, Image } from 'react-feather';
 import toast from 'react-hot-toast';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
@@ -107,18 +107,32 @@ const CommentForm = ({
   const renderFooter = ({ preview, onPreview, codeRef }: any) => (
     <div className='flex justify-between bg-gray-50 leading-8'>
       <div className='flex'>
+        <IconButton
+          className='rounded-sm p-2 hover:bg-gray-100'
+          onClick={() => codeRef.current?.insertMarkdownOption('bc')}
+        >
+          <Code size={16} />
+        </IconButton>
+        <IconButton
+          className='rounded-sm p-2 hover:bg-gray-100'
+          onClick={() => codeRef.current?.insertMarkdownOption('image')}
+        >
+          <Image size={16} />
+        </IconButton>
+        <IconButton
+          className='rounded-sm p-2 hover:bg-gray-100'
+          onClick={() => codeRef.current?.insertMarkdownOption('link')}
+        >
+          <Link size={16} />
+        </IconButton>
         <EmojiButton
-          className='px-3 hover:bg-gray-100'
+          className='p-2 hover:bg-gray-100'
           emojiClassName='bottom-8'
           onInsertEmoji={emoji => {
             codeRef.current?.insertEmoji(emoji);
           }}
         />
-
-        <IconButton
-          className='px-3 hover:bg-gray-100'
-          onClick={() => onPreview(!preview)}
-        >
+        <IconButton className='p-2 hover:bg-gray-100' onClick={() => onPreview(!preview)}>
           <SwitchTransition mode='out-in'>
             <CSSTransition
               key={preview ? 'preview' : 'edit'}
@@ -136,6 +150,7 @@ const CommentForm = ({
           </SwitchTransition>
         </IconButton>
       </div>
+
       <SendButton className='py-2 px-3' onConfirm={handleConfirm} loading={loading}>
         <span className='capsize'>
           {loading ? '正在发布中...' : `以 ${nickname} 的身份发布`}

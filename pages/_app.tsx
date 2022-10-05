@@ -11,6 +11,7 @@ import { META } from '@/configs/app';
 import config from '@/configs/seo';
 import { useCopyright, useMount, useUnMount } from '@/hooks';
 import '@/styles/global.css';
+import { AuthProvider } from '@/libs/auth';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { enableCopyright, disableCopyright } = useCopyright();
@@ -48,13 +49,15 @@ function MyApp({ Component, pageProps }: AppProps) {
         }}
       />
 
-      <SessionProvider session={(pageProps as any).session}>
-        <ManagedUIContext>
-          <QueryClientContainer pageProps={pageProps}>
-            <LayoutTransition items={items} />
-          </QueryClientContainer>
-        </ManagedUIContext>
-      </SessionProvider>
+      <AuthProvider>
+        <SessionProvider session={(pageProps as any).session}>
+          <ManagedUIContext>
+            <QueryClientContainer pageProps={pageProps}>
+              <LayoutTransition items={items} />
+            </QueryClientContainer>
+          </ManagedUIContext>
+        </SessionProvider>
+      </AuthProvider>
     </>
   );
 }

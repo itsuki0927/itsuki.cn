@@ -29,7 +29,19 @@ export const NEXTAUTH_GITHUB_CLIENT_ID = process.env.NEXTAUTH_GITHUB_CLIENT_ID ?
 export const NEXTAUTH_GITHUB_CLIENT_SECRET =
   process.env.NEXTAUTH_GITHUB_CLIENT_SECRET ?? '';
 
+// 邮箱
 export const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? '';
+
+// firebase
+export const FIREBASE = {
+  API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? '',
+  AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ?? '',
+  PROJECT_ID: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? '',
+  STORAGE_BUCKET: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ?? '',
+  MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? '',
+  APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID ?? '',
+  MEASUREMENT_ID: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID ?? '',
+};
 
 // blog meta
 export const META = {

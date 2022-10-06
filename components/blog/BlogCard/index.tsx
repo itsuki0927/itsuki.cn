@@ -1,11 +1,11 @@
 import { CSSProperties } from 'react';
-import { Article, BlogCardStyle } from '@/entities/article';
+import { Blog, BlogCardStyle } from '@/entities/blog';
 import ImageBlog from './ImageBlog';
 import MixinBlog from './MixinBlog';
 import TextBlog from './TextBlog';
 
 export interface BlogCardProps {
-  blog?: Article;
+  blog?: Blog;
   style?: CSSProperties;
   className?: string;
 }

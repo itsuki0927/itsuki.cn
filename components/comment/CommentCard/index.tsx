@@ -36,11 +36,11 @@ type CommentCardProps = {
 };
 
 const CommentCard = ({ data: comment, className }: CommentCardProps) => {
-  const articleId = Number(comment.articleId);
+  const blogId = Number(comment.blogId);
   const commentId = Number(comment.id);
-  const { postComment, isLoading } = useCreateComment(articleId);
+  const { postComment, isLoading } = useCreateComment(blogId);
   const mutation = useLikeComment({
-    articleId,
+    blogId,
     commentId,
   });
   const [isReply, setReply] = useState(false);
@@ -270,7 +270,7 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
               parentId={parentId}
               onPost={postComment}
               loading={isLoading}
-              articleId={comment.articleId}
+              blogId={comment.blogId}
               className={styles.form}
               onSuccess={() => {
                 setReply(false);

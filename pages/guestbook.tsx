@@ -11,7 +11,7 @@ import { GUESTBOOK, TIMESTAMP } from '@/constants/value';
 export const getStaticProps = async () => {
   const queryClient = createQueryClient();
   await queryClient.prefetchQuery(commentKeys.lists(GUESTBOOK), () =>
-    getComments({ articleId: GUESTBOOK })
+    getComments({ blogId: GUESTBOOK })
   );
   await queryClient.prefetchQuery(blacklistKeys.list, () => getBlackList());
 
@@ -46,7 +46,7 @@ const GuestBookPage = () => (
     </div>
 
     <div className='mx-auto my-12 max-w-4xl'>
-      <CommentView articleId={GUESTBOOK} />
+      <CommentView blogId={GUESTBOOK} />
     </div>
   </Layout>
 );

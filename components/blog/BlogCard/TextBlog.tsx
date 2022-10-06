@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { ToDate } from '@/components/common';
-import { Article } from '@/entities/article';
+import { Blog } from '@/entities/blog';
 import { getBlogDetailRoute } from '@/utils/url';
 import styles from './index.module.scss';
 import { BlogCardProps } from '.';
 
 type TextBlogProps = BlogCardProps & {
-  blog?: Article;
+  blog?: Blog;
   bgStyle?: 'gray' | 'ptn';
 };
 

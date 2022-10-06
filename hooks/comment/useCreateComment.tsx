@@ -8,9 +8,9 @@ import { commentKeys } from '@/constants/queryKeys';
 import { Comment, PostCommentBody, QueryCommentsResponse } from '@/entities/comment';
 import { gtag } from '@/utils/gtag';
 
-const useCreateComment = (articleId: number) => {
+const useCreateComment = (blogId: number) => {
   const queryClient = useQueryClient();
-  const commentKey = commentKeys.lists(articleId) as QueryKey;
+  const commentKey = commentKeys.lists(blogId) as QueryKey;
   const mutation = useMutation<Comment, GraphQLError, PostCommentBody>(
     newComment => createComment(newComment),
     {
@@ -44,7 +44,7 @@ const useCreateComment = (articleId: number) => {
     (params: PostCommentBody) => {
       gtag.event('push_comment', {
         category: GAEventCategories.Comment,
-        label: `article_id: ${articleId}`,
+        label: `blog_id: ${blogId}`,
       });
       return toast
         .promise(mutation.mutateAsync(params), {
@@ -57,7 +57,7 @@ const useCreateComment = (articleId: number) => {
           () => false
         );
     },
-    [articleId, mutation]
+    [blogId, mutation]
   );
 
   return { ...mutation, postComment } as const;

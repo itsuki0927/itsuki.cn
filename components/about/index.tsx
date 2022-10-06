@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useHotArticles } from '@/hooks/article';
+import { useHotBlogs } from '@/hooks/blog';
 import { getBlogDetailRoute } from '@/utils/url';
 import { MyImage } from '../common';
 import ExperienceList from './ExperienceList';
@@ -29,7 +29,7 @@ const AboutCard = ({ children, className, style }: StandardProps) => (
 );
 
 const AboutView = () => {
-  const { data } = useHotArticles();
+  const { data } = useHotBlogs();
 
   return (
     <div className='mx-auto max-w-full tracking-wider'>

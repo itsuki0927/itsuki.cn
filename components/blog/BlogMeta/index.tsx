@@ -1,20 +1,20 @@
 import { useRouter } from 'next/router';
 import { ExternalLink } from '@/components/common';
 import { WEB_URL } from '@/configs/app';
-import { ArticleDetailResponse } from '@/entities/article';
+import { BlogDetailResponse } from '@/entities/blog';
 
 interface BlogMetaProps {
-  article: ArticleDetailResponse;
+  blog: BlogDetailResponse;
 }
 
-const BlogMeta = ({ article }: BlogMetaProps) => {
+const BlogMeta = ({ blog }: BlogMetaProps) => {
   const router = useRouter();
   return (
     <div className='my-4 flex flex-col space-y-3 text-sm text-gray-2'>
       <div>
         <span>永久地址: </span>
         <span className='underline'>
-          {WEB_URL + router.pathname.replace('[path]', `${article.path}`)}
+          {WEB_URL + router.pathname.replace('[path]', `${blog.path}`)}
         </span>
       </div>
 

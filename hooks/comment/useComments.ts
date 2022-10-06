@@ -6,9 +6,9 @@ import { convertToCommentTreeData } from '@/components/comment/CommentView/utils
 import { QueryCommentsResponse } from '@/entities/comment';
 import { Sort } from '@/components/ui/SortSelect';
 
-const useComments = (articleId: number) => {
+const useComments = (blogId: number) => {
   const queryClient = useQueryClient();
-  const res = useQuery(commentKeys.lists(articleId), () => getComments({ articleId }), {
+  const res = useQuery(commentKeys.lists(blogId), () => getComments({ blogId }), {
     onSuccess: resData => ({
       ...resData,
       data: resData.data.map(comment => ({
@@ -21,7 +21,7 @@ const useComments = (articleId: number) => {
 
   const updateSort = (sort: Sort) => {
     queryClient.setQueryData<QueryCommentsResponse['comments']>(
-      commentKeys.lists(articleId),
+      commentKeys.lists(blogId),
       oldData => {
         // 1 最新
         if (sort === Sort.Latest) {

@@ -6,11 +6,11 @@ import { Comment, LikeCommentResponse } from '@/entities/comment';
 import { SearchResponse } from '@/types/response';
 
 type UseLikeCommentHook = {
-  articleId: number;
+  blogId: number;
   commentId: number;
 };
 
-const useLikeComment = ({ articleId, commentId }: UseLikeCommentHook) => {
+const useLikeComment = ({ blogId, commentId }: UseLikeCommentHook) => {
   const queryClient = useQueryClient();
   const mutation = useMutation<LikeCommentResponse, GraphQLError, { emoji: string }>(
     variables => likeComment(commentId, variables.emoji),
@@ -21,7 +21,7 @@ const useLikeComment = ({ articleId, commentId }: UseLikeCommentHook) => {
         // 1. queryClient.invalidateQueries()
         // 2. queryClient.setQueryData()
         queryClient.setQueryData<SearchResponse<Comment>>(
-          commentKeys.lists(articleId),
+          commentKeys.lists(blogId),
           oldComments => {
             if (!oldComments) return { total: 0, data: [], filter: null };
             return {

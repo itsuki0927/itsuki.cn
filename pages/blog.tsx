@@ -3,21 +3,21 @@ import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 import { Search } from 'react-feather';
 import { dehydrate } from 'react-query';
-import { getArticles } from '@/api/article';
+import { getBlogs } from '@/api/blog';
 import { getAllTags } from '@/api/tag';
 import BlogList from '@/components/blog/BlogList';
 import { Layout } from '@/components/common';
 import { createQueryClient } from '@/components/common/QueryClientContainer';
 import FooterBanner from '@/components/ui/FooterBanner';
-import { articleKeys, tagKeys } from '@/constants/queryKeys';
+import { blogKeys, tagKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
-import { useArticles } from '@/hooks/article';
+import { useBlogs } from '@/hooks/blog';
 import { useTags } from '@/hooks/tag';
 
 export const getStaticProps = async () => {
   const queryClient = createQueryClient();
 
-  await queryClient.prefetchQuery(articleKeys.lists(), () => getArticles());
+  await queryClient.prefetchQuery(blogKeys.lists(), () => getBlogs());
   await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
 
   return {
@@ -31,7 +31,7 @@ export const getStaticProps = async () => {
 const keywordList = ['网易', '字节', '校招'];
 
 const BlogPage = () => {
-  const { data, ...rest } = useArticles();
+  const { data, ...rest } = useBlogs();
   const { data: tags } = useTags();
   const [searchValue, setSearchValue] = useState('');
   const [activeTagName, setActiveTagName] = useState<string>('all');
@@ -75,7 +75,7 @@ const BlogPage = () => {
               <div className='flex w-full flex-col'>
                 <div className='relative'>
                   <input
-                    aria-label='Search articles'
+                    aria-label='Search blogs'
                     type='text'
                     value={searchValue}
                     onChange={e => setSearchValue(e.target.value)}

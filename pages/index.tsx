@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ArrowRight, Plus } from 'react-feather';
 import { dehydrate } from 'react-query';
-import { getBannerArticles, getHotArticles, getRecentArticles } from '@/api/article';
+import { getBannerBlogs, getHotBlogs, getRecentBlogs } from '@/api/blog';
 import { getRecentComments } from '@/api/comment';
 import { getSiteSummary } from '@/api/summary';
 import { getAllTags } from '@/api/tag';
@@ -18,9 +18,9 @@ import PtnContainer from '@/components/ui/PtnContainer';
 import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
 import Status from '@/components/ui/Status';
 import { GAEventCategories } from '@/constants/gtag';
-import { articleKeys, commentKeys, summaryKeys, tagKeys } from '@/constants/queryKeys';
+import { blogKeys, commentKeys, summaryKeys, tagKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
-import { useBannerArticles, useHotArticles, useRecentArticles } from '@/hooks/article';
+import { useBannerBlogs, useHotBlogs, useRecentBlogs } from '@/hooks/blog';
 import { useRecentComments } from '@/hooks/comment';
 import { useSiteSummary } from '@/hooks/summary';
 import { useTags } from '@/hooks/tag';
@@ -37,10 +37,10 @@ const todoList = [
 export const getStaticProps = async () => {
   const queryClient = createQueryClient();
 
-  await queryClient.prefetchQuery(articleKeys.recent(), () => getRecentArticles());
-  await queryClient.prefetchQuery(articleKeys.hot(), () => getHotArticles());
+  await queryClient.prefetchQuery(blogKeys.recent(), () => getRecentBlogs());
+  await queryClient.prefetchQuery(blogKeys.hot(), () => getHotBlogs());
   await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
-  await queryClient.prefetchQuery(articleKeys.banner(), () => getBannerArticles());
+  await queryClient.prefetchQuery(blogKeys.banner(), () => getBannerBlogs());
   await queryClient.prefetchQuery(commentKeys.recent(), () => getRecentComments());
   await queryClient.prefetchQuery(summaryKeys.summary(), () => getSiteSummary());
 
@@ -53,10 +53,10 @@ export const getStaticProps = async () => {
 };
 
 const HomePage = () => {
-  const articles = useRecentArticles();
+  const blogs = useRecentBlogs();
   const { data: tags } = useTags();
-  const { data: bannerArticles } = useBannerArticles();
-  const { data: hotArticles } = useHotArticles();
+  const { data: bannerBlogs } = useBannerBlogs();
+  const { data: hotBlogs } = useHotBlogs();
   const { data: comments } = useRecentComments();
   const { data: siteSummary } = useSiteSummary();
   const {
@@ -71,7 +71,7 @@ const HomePage = () => {
   } = getDayTotals();
   const router = useRouter();
 
-  if (articles.isFetching) {
+  if (blogs.isFetching) {
     return (
       <Layout>
         <BlogSkeletonList />
@@ -83,7 +83,7 @@ const HomePage = () => {
     <Layout className='mb-12 space-y-8' footerTheme='reverse'>
       <NextSeo defaultTitle='五块木头' />
       <Container className='flex flex-col space-y-8 pt-8 sm:flex-row sm:space-y-0 sm:space-x-8'>
-        <HomeSlider articles={bannerArticles?.data} />
+        <HomeSlider blogs={bannerBlogs?.data} />
 
         <div className='flex flex-col justify-between sm:mt-0 sm:w-1/3'>
           <div className='bg-gray-50 p-6'>
@@ -120,7 +120,7 @@ const HomePage = () => {
             <div className='mb-2 text-gray-500'>博客概览</div>
             <div className='flex flex-wrap '>
               <span className='mr-4 items-center'>
-                <strong className='text-2xl text-gray-900'>{siteSummary?.article}</strong>
+                <strong className='text-2xl text-gray-900'>{siteSummary?.blog}</strong>
                 <span className='ml-2 text-sm text-gray-500'>篇博客</span>
               </span>
               <span className='mr-4 items-center '>
@@ -167,7 +167,7 @@ const HomePage = () => {
           </div>
 
           <div className='flex flex-wrap items-center gap-6 sm:gap-8 sm:space-y-0'>
-            {articles.data?.data.slice(0, 4).map((blog, i) => (
+            {blogs.data?.data.slice(0, 4).map((blog, i) => (
               <BlogCard
                 blog={blog}
                 key={blog.id}
@@ -233,7 +233,7 @@ const HomePage = () => {
 
           <PtnContainer as='ul' className='flex flex-col space-y-2 p-6'>
             <div className='text-xl font-medium text-gray-900'>热门</div>
-            {hotArticles?.data.slice(0, 6).map(blog => (
+            {hotBlogs?.data.slice(0, 6).map(blog => (
               <Link href={getBlogDetailRoute(blog.path)}>
                 <li
                   key={blog.id}

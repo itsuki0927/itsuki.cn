@@ -1,7 +1,7 @@
 import { Comment } from './comment';
 import { IdentifiableEntity, SearchRequest, SearchResponse } from '../types/response';
 import { Tag } from './tag';
-import { PublishState } from '@/constants/article/publish';
+import { PublishState } from '@/constants/blog/publish';
 
 export enum BlogCardStyle {
   Image,
@@ -9,7 +9,7 @@ export enum BlogCardStyle {
   Mixin,
 }
 
-export type Article = IdentifiableEntity<{
+export type Blog = IdentifiableEntity<{
   title: string;
   path: string;
   description: string;
@@ -28,7 +28,7 @@ export type Article = IdentifiableEntity<{
   cardStyle?: BlogCardStyle;
 }>;
 
-export type SearchArticlesBody = {
+export type SearchBlogsBody = {
   search?: string;
   name?: string;
   tagPath?: string;
@@ -40,21 +40,21 @@ export type SearchArticlesBody = {
   publish?: PublishState;
 };
 
-export type ArticleDetailResponse = Article & {
-  prevArticle: Article | null;
-  nextArticle: Article | null;
+export type BlogDetailResponse = Blog & {
+  prevBlog: Blog | null;
+  nextBlog: Blog | null;
   htmlContent: string;
   originLiking: number;
 };
 
-export type ArticleTypes = {
-  article: Article;
-  searchBody: SearchArticlesBody;
-  likeBody: LikeArticleBody;
+export type BlogTypes = {
+  blog: Blog;
+  searchBody: SearchBlogsBody;
+  likeBody: LikeBlogBody;
 };
 
-export type ArticleArchive = Pick<
-  Article,
+export type BlogArchive = Pick<
+  Blog,
   | 'id'
   | 'reading'
   | 'title'
@@ -67,29 +67,29 @@ export type ArticleArchive = Pick<
   | 'cardStyle'
 >;
 
-export type ArticleArchiveResponse = Map<string, ArticleArchive[]>;
+export type BlogArchiveResponse = Map<string, BlogArchive[]>;
 
-export type GetAllArticlePathsQuery = SearchResponse<Article>;
+export type GetAllBlogPathsQuery = SearchResponse<Blog>;
 
-export type QueryArticleSearch = SearchRequest<SearchArticlesBody>;
+export type QueryBlogSearch = SearchRequest<SearchBlogsBody>;
 
-export type QueryArticleResponse = {
-  article: ArticleDetailResponse;
+export type QueryBlogResponse = {
+  blog: BlogDetailResponse;
 };
 
-export type QueryArticlesResponse = {
-  articles: SearchResponse<Article>;
+export type QueryBlogsResponse = {
+  blogs: SearchResponse<Blog>;
 };
 
-export type LikeArticleBody = {
+export type LikeBlogBody = {
   id: number;
   count: number;
 };
 
-export type LikeArticleResponse = {
-  likeArticle: number;
+export type LikeBlogResponse = {
+  likeBlog: number;
 };
 
-export type ReadArticleResponse = {
-  readArticle: number;
+export type ReadBlogResponse = {
+  readBlog: number;
 };

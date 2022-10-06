@@ -10,7 +10,7 @@ import { renderTextToQRCodeDataURL } from '@/libs/qrcode';
 import { gtag } from '@/utils/gtag';
 import { getPageUrl, stringifyParams } from '@/utils/url';
 import s from './style.module.scss';
-import { ArticleDetailResponse } from '@/entities/article';
+import { BlogDetailResponse } from '@/entities/blog';
 import FavoriteButton from '../FavoriteButton';
 import { useScrollTo } from '@/hooks';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
@@ -93,9 +93,9 @@ const SocialButton = ({ social, onClick }: SocialButtonProps) => (
 );
 
 interface BlogActionProps {
-  article: ArticleDetailResponse;
+  blog: BlogDetailResponse;
 }
-const BlogAction = ({ article }: BlogActionProps) => {
+const BlogAction = ({ blog }: BlogActionProps) => {
   const { openPopup, setPopupView } = useUI();
   const router = useRouter();
   const { scrollTo } = useScrollTo();
@@ -131,11 +131,11 @@ const BlogAction = ({ article }: BlogActionProps) => {
     <div
       className={`flex flex-col justify-center space-y-4 bg-white py-4 px-2 ${s.share}`}
     >
-      <FavoriteButton article={article} />
+      <FavoriteButton blog={blog} />
       <span className='border-b border-solid border-gray-200'> </span>
       <span className='flex flex-col justify-center'>
         <button
-          aria-label='article comments'
+          aria-label='blog comments'
           type='button'
           className='flex items-center justify-center font-medium text-gray-400 outline-none'
           onClick={() => scrollTo(COMMENT_VIEW_ELEMENT_ID)}
@@ -143,7 +143,7 @@ const BlogAction = ({ article }: BlogActionProps) => {
           <MessageCircle className='fill-primary stroke-transparent' />
         </button>
         <strong className='capsize text-center text-xs font-medium text-gray-500'>
-          {article.commenting}
+          {blog.commenting}
         </strong>
       </span>
       <span className='border-b border-solid border-gray-200'> </span>

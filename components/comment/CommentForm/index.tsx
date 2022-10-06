@@ -20,7 +20,7 @@ const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor
 export interface CommentFormProps {
   cacheId: string;
   className?: string;
-  articleId: number;
+  blogId: number;
   loading?: boolean;
   parentId?: number;
   onPost?: (params: PostCommentBody) => Promise<boolean>;
@@ -30,7 +30,7 @@ export interface CommentFormProps {
 
 const CommentForm = ({
   className,
-  articleId,
+  blogId,
   onPost,
   loading,
   parentId = 0,
@@ -73,7 +73,7 @@ const CommentForm = ({
       if (user) {
         const { provider } = user;
         const params: PostCommentBody = {
-          articleId,
+          blogId,
           provider,
           email,
           avatar,

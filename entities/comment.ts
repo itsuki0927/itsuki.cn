@@ -22,14 +22,14 @@ export type Comment = IdentifiableEntity<{
   expand: string;
   parentId: number;
   parentNickName: string;
-  articleId: number;
-  articleTitle: string;
-  articleDescription: string;
+  blogId: number;
+  blogTitle: string;
+  blogDescription: string;
   provider: string;
 }>;
 
 export type SearchCommentsBody = {
-  articleId?: number;
+  blogId?: number;
   recent?: boolean;
 };
 
@@ -41,7 +41,7 @@ export type PostCommentBody = {
   nickname: string;
   email: string;
   content: string;
-  articleId: number;
+  blogId: number;
   agent: string;
   avatar: string;
   provider: string;

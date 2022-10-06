@@ -2,7 +2,7 @@ import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { dehydrate } from 'react-query';
-import { getArticles } from '@/api/article';
+import { getBlogs } from '@/api/blog';
 import { getAllTagPaths, getAllTags } from '@/api/tag';
 import { BlogSkeletonList } from '@/components/blog';
 import BlogList from '@/components/blog/BlogList';
@@ -11,10 +11,10 @@ import { createQueryClient } from '@/components/common/QueryClientContainer';
 import { Container } from '@/components/ui';
 import FooterBanner from '@/components/ui/FooterBanner';
 import { GAEventCategories } from '@/constants/gtag';
-import { articleKeys, tagKeys } from '@/constants/queryKeys';
+import { blogKeys, tagKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
 import { useMount } from '@/hooks';
-import { useTagArticles } from '@/hooks/article';
+import { useTagBlogs } from '@/hooks/blog';
 import { useTags } from '@/hooks/tag';
 import { gtag } from '@/utils/gtag';
 
@@ -32,9 +32,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
   const queryClient = createQueryClient();
   await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
-  await queryClient.prefetchQuery(articleKeys.tag(tagPath), () =>
-    getArticles({ tagPath })
-  );
+  await queryClient.prefetchQuery(blogKeys.tag(tagPath), () => getBlogs({ tagPath }));
 
   return {
     props: {
@@ -45,10 +43,8 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   };
 };
 
-const ArticleTagPage = ({
-  tagPath,
-}: InferGetServerSidePropsType<typeof getStaticProps>) => {
-  const articles = useTagArticles(tagPath);
+const BlogTagPage = ({ tagPath }: InferGetServerSidePropsType<typeof getStaticProps>) => {
+  const blogs = useTagBlogs(tagPath);
   const { data } = useTags();
   const { isFallback } = useRouter();
   const tag = data ? data.find(item => item.path === tagPath) : undefined;
@@ -60,7 +56,7 @@ const ArticleTagPage = ({
     });
   });
 
-  if (isFallback || articles.isFetching || articles.isLoading) {
+  if (isFallback || blogs.isFetching || blogs.isLoading) {
     return (
       <Layout>
         <div className='space-y-6'>
@@ -92,7 +88,7 @@ const ArticleTagPage = ({
       </div>
 
       <Container className='py-24'>
-        <BlogList {...articles} />
+        <BlogList {...blogs} />
       </Container>
 
       <FooterBanner />
@@ -100,4 +96,4 @@ const ArticleTagPage = ({
   );
 };
 
-export default ArticleTagPage;
+export default BlogTagPage;

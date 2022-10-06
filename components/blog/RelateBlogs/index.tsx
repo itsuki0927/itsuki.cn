@@ -1,11 +1,11 @@
 import { ArrowRight } from 'react-feather';
 import Link from 'next/link';
 import { Container } from '@/components/ui';
-import { Article } from '@/entities/article';
-import BlogCard from '@/components/blog/BlogCard';
+import { Blog } from '@/entities/blog';
+import { BlogCard } from '@/components/blog';
 
 interface RelateBlogsProps {
-  relateBlogs: Article[];
+  relateBlogs: Blog[];
 }
 
 const RelateBlogs = ({ relateBlogs }: RelateBlogsProps) => (
@@ -19,8 +19,8 @@ const RelateBlogs = ({ relateBlogs }: RelateBlogsProps) => (
       </Link>
     </div>
     <div className='flex flex-col justify-between space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'>
-      {relateBlogs.map(article => (
-        <BlogCard blog={article} />
+      {relateBlogs.map(blog => (
+        <BlogCard blog={blog} />
       ))}
     </div>
   </Container>

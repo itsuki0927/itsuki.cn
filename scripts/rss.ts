@@ -1,10 +1,10 @@
 import { Feed } from 'feed';
-import { getArticles } from '@/api/article';
+import { getBlogs } from '@/api/blog';
 import { META } from '@/configs/app';
 import { getBlogDetailFullUrl } from '@/utils/url';
 
 const generateRSSFeed = async () => {
-  const articles = await getArticles();
+  const blogs = await getBlogs();
   const now = new Date();
 
   const baseUrl = META.url;
@@ -29,17 +29,8 @@ const generateRSSFeed = async () => {
     copyright,
   });
 
-  articles.data?.forEach(article => {
-    const {
-      title,
-      tags,
-      content,
-      cover: image,
-      createAt,
-      id,
-      path,
-      description,
-    } = article;
+  blogs.data?.forEach(blog => {
+    const { title, tags, content, cover: image, createAt, id, path, description } = blog;
     const link = getBlogDetailFullUrl(path);
     const date = new Date(createAt);
 

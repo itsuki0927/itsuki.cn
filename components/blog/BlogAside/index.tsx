@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { Container } from '@/components/ui';
-import { ArticleDetailResponse } from '@/entities/article';
-import { useArticle } from '@/hooks/article';
-import { ArticleHeading } from '@/hooks/article/useArticle';
+import { BlogDetailResponse } from '@/entities/blog';
+import { useBlog } from '@/hooks/blog';
+import { BlogHeading } from '@/hooks/blog/useBlog';
 import { useScrollTo } from '@/hooks';
-import { ARTICLE_ACTIONS_ELEMENT_ID, getElementId } from '@/constants/anchor';
+import { BLOG_ACTIONS_ELEMENT_ID, getElementId } from '@/constants/anchor';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
 
@@ -14,7 +14,7 @@ const HeadingArchor = ({
   heading,
   onClick,
 }: {
-  heading: ArticleHeading;
+  heading: BlogHeading;
   onClick: () => void;
 }) => (
   <li
@@ -43,23 +43,23 @@ const BlogAsideSkeleton = () => (
 );
 
 interface BlogAsideProps {
-  article: ArticleDetailResponse;
+  blog: BlogDetailResponse;
 }
 
-const BlogAside = ({ article }: BlogAsideProps) => {
-  const articleId = article.id;
-  const articlePath = article.path;
-  const { data, isLoading, isFetching } = useArticle(articlePath);
+const BlogAside = ({ blog }: BlogAsideProps) => {
+  const blogId = blog.id;
+  const blogPath = blog.path;
+  const { data, isLoading, isFetching } = useBlog(blogPath);
   const { scrollTo } = useScrollTo();
 
-  if (Number.isNaN(articleId) || !articlePath) return <div>Error</div>;
+  if (Number.isNaN(blogId) || !blogPath) return <div>Error</div>;
   if (isFetching || isLoading) return <BlogAsideSkeleton />;
 
   const handleScrollTo = (id: string) => {
-    gtag.event('article_aside', {
-      category: GAEventCategories.Article,
+    gtag.event('blog_aside', {
+      category: GAEventCategories.Blog,
     });
-    scrollTo(getElementId(id), id === ARTICLE_ACTIONS_ELEMENT_ID ? -200 : 0);
+    scrollTo(getElementId(id), id === BLOG_ACTIONS_ELEMENT_ID ? -200 : 0);
   };
 
   return (

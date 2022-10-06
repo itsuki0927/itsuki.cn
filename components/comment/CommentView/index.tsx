@@ -16,18 +16,18 @@ import { useAuth } from '@/libs/auth';
 import GoogleIcon from '@/components/common/GoogleIcon';
 import { LoadingDots } from '@/components/ui';
 
-const getCommentTitleSuffixText = (articleId: number) =>
-  articleId === GUESTBOOK ? '留言' : '评论';
+const getCommentTitleSuffixText = (blogId: number) =>
+  blogId === GUESTBOOK ? '留言' : '评论';
 
 type CommentProps = {
-  articleId: number;
+  blogId: number;
   className?: string;
 };
 
-const CommentView = ({ articleId, className = '' }: CommentProps) => {
-  const { postComment, ...rest } = useCreateComment(articleId);
+const CommentView = ({ blogId, className = '' }: CommentProps) => {
+  const { postComment, ...rest } = useCreateComment(blogId);
   const { user, loading } = useAuth();
-  const { data, isLoading, isFetching, treeData, updateSort } = useComments(articleId);
+  const { data, isLoading, isFetching, treeData, updateSort } = useComments(blogId);
   const { pathname, asPath } = useRouter();
   const { scrollTo } = useScrollTo();
   const [sort, setSort] = useState<SortItem>(sortList[0]);
@@ -62,11 +62,7 @@ const CommentView = ({ articleId, className = '' }: CommentProps) => {
     }
     if (user) {
       return (
-        <CommentPublisher
-          articleId={articleId}
-          loading={rest.isLoading}
-          onPost={postComment}
-        />
+        <CommentPublisher blogId={blogId} loading={rest.isLoading} onPost={postComment} />
       );
     }
     return (
@@ -102,7 +98,7 @@ const CommentView = ({ articleId, className = '' }: CommentProps) => {
           <>
             <span>
               <strong className='text-primary'>{data?.total}</strong> 条
-              {getCommentTitleSuffixText(articleId)}
+              {getCommentTitleSuffixText(blogId)}
             </span>
             <SortSelect
               value={sort}

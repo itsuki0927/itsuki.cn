@@ -5,7 +5,7 @@ interface SponsorButtonProps {
 }
 const SponsorButton = ({ onClick }: SponsorButtonProps) => (
   <button
-    aria-label='sponsor article'
+    aria-label='sponsor blog'
     type='button'
     className='h-8 items-center rounded-sm bg-white px-2 text-sm font-medium text-danger outline-none transition-colors hover:bg-danger hover:text-white'
     onClick={onClick}

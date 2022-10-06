@@ -1,19 +1,19 @@
 import { useRef, useState } from 'react';
 import { Heart } from 'react-feather';
 import classNames from 'classnames';
-import { ArticleDetailResponse } from '@/entities/article';
-import { useLikeArticle } from '@/hooks/article';
-import { LIKE_NUMBER_MAX } from '@/hooks/article/useLikeArticle';
+import { BlogDetailResponse } from '@/entities/blog';
+import { useLikeBlog } from '@/hooks/blog';
+import { LIKE_NUMBER_MAX } from '@/hooks/blog/useLikeBlog';
 import styles from './style.module.scss';
 
 interface FavoriteButtonProps {
-  article: ArticleDetailResponse;
+  blog: BlogDetailResponse;
 }
 
-const FavoriteButton = ({ article }: FavoriteButtonProps) => {
-  const { mutation, liking } = useLikeArticle({
-    articleId: article.id,
-    articlePath: article.path,
+const FavoriteButton = ({ blog }: FavoriteButtonProps) => {
+  const { mutation, liking } = useLikeBlog({
+    blogId: blog.id,
+    blogPath: blog.path,
   });
   const [like, setLike] = useState(liking);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -42,7 +42,7 @@ const FavoriteButton = ({ article }: FavoriteButtonProps) => {
   return (
     <div className='flex flex-col justify-center'>
       <button
-        aria-label='favorite article'
+        aria-label='favorite blog'
         type='button'
         className={classNames(
           'relative flex items-center justify-center rounded-sm text-sm font-medium text-gray-400 outline-none transition-colors duration-300',
@@ -59,7 +59,7 @@ const FavoriteButton = ({ article }: FavoriteButtonProps) => {
         <span className={classNames(styles.motion, display ? styles.bubbleMotion : '')} />
       </button>
       <strong className='capsize mt-1 text-center text-xs font-medium text-gray-500'>
-        {article.liking + like - liking}
+        {blog.liking + like - liking}
       </strong>
       <span
         className={classNames(

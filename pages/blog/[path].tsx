@@ -4,18 +4,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { dehydrate } from 'react-query';
-import { getAllArticlePathsWithPath, getArticle, readArticle } from '@/api/article';
+import { getAllBlogPathsWithPath, getBlog, readBlog } from '@/api/blog';
 import { getBlackList } from '@/api/blacklist';
 import { getAllTags } from '@/api/tag';
-import {
-  BlogSkeleton,
-  BlogHeader,
-  BlogAside,
-  BlogMeta,
-  BlogAction,
-  RelateBlogSkeleton,
-  RelateBlogs,
-} from '@/components/blog';
+import { BlogSkeleton } from '@/components/blog';
+import BlogAction from '@/components/blog/BlogAction';
+import BlogAside from '@/components/blog/BlogAside';
+import BlogHeader from '@/components/blog/BlogHeader';
+import BlogMeta from '@/components/blog/BlogMeta';
+import RelateBlogs, { RelateBlogSkeleton } from '@/components/blog/RelateBlogs';
 import {
   CommentFormSkeletion,
   CommentListSkeleton,
@@ -27,14 +24,14 @@ import { Container, MarkdownBlock } from '@/components/ui';
 import { META } from '@/configs/app';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
-import { articleKeys, blacklistKeys, tagKeys } from '@/constants/queryKeys';
+import { blogKeys, blacklistKeys, tagKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
-import { useArticle, useArticles } from '@/hooks/article';
+import { useBlog, useBlogs } from '@/hooks/blog';
 import { gtag } from '@/utils/gtag';
-import { getArticleDetailFullUrl, getTagRoute } from '@/utils/url';
+import { getBlogDetailFullUrl, getTagRoute } from '@/utils/url';
 
 export const getStaticPaths = async () => {
-  const paths = await getAllArticlePathsWithPath();
+  const paths = await getAllBlogPathsWithPath();
 
   return {
     paths,
@@ -53,7 +50,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
   const queryClient = createQueryClient();
   await Promise.all([
-    queryClient.prefetchQuery(articleKeys.detailByPath(path), () => getArticle(path)),
+    queryClient.prefetchQuery(blogKeys.detailByPath(path), () => getBlog(path)),
     queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags()),
     queryClient.prefetchQuery(blacklistKeys.list, () => getBlackList()),
   ]);
@@ -67,23 +64,23 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   };
 };
 
-const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data: article, isLoading } = useArticle(path);
+const BlogPage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { data: blog, isLoading } = useBlog(path);
   const { isFallback } = useRouter();
-  const { data } = useArticles();
+  const { data } = useBlogs();
   const relateBlogs = data?.data.slice(0, 3) ?? [];
 
   useEffect(() => {
-    if (article) {
-      readArticle(article.id);
-      gtag.event('article_view', {
-        category: GAEventCategories.Article,
-        label: article?.title,
+    if (blog) {
+      readBlog(blog.id);
+      gtag.event('blog_view', {
+        category: GAEventCategories.Blog,
+        label: blog?.title,
       });
     }
-  }, [article]);
+  }, [blog]);
 
-  if (isFallback || isLoading || !article)
+  if (isFallback || isLoading || !blog)
     return (
       <Layout>
         <div className='container space-y-6'>
@@ -98,71 +95,71 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
   return (
     <Layout footerTheme='reverse'>
       <NextSeo
-        title={article.title}
-        description={article.description}
+        title={blog.title}
+        description={blog.description}
         additionalMetaTags={[
-          { name: 'keywords', content: article.keywords },
+          { name: 'keywords', content: blog.keywords },
           {
             name: 'cover',
-            content: article.cover,
+            content: blog.cover,
           },
         ]}
         openGraph={{
-          title: article.title,
-          description: article.description,
-          url: getArticleDetailFullUrl(article.id),
-          type: 'article',
+          title: blog.title,
+          description: blog.description,
+          url: getBlogDetailFullUrl(blog.path),
+          type: 'blog',
           article: {
-            publishedTime: article.createAt.toString(),
-            modifiedTime: article.updateAt.toString(),
-            expirationTime: article.updateAt.toString(),
+            publishedTime: blog.createAt.toString(),
+            modifiedTime: blog.updateAt.toString(),
+            expirationTime: blog.updateAt.toString(),
             authors: [META.url],
-            tags: article.tags.map(v => v.name),
+            tags: blog.tags.map(v => v.name),
           },
           images: [
             {
-              url: article.cover,
+              url: blog.cover,
             },
           ],
         }}
       />
       <ArticleJsonLd
-        url={getArticleDetailFullUrl(article.id)}
-        title={article.title}
-        images={[article.cover]}
-        datePublished={article.createAt.toString()}
-        dateModified={article.updateAt.toString()}
-        authorName={[{ name: article.author, url: META.url }]}
-        description={article.description}
-        publisherName={article.title}
+        url={getBlogDetailFullUrl(blog.path)}
+        title={blog.title}
+        images={[blog.cover]}
+        datePublished={blog.createAt.toString()}
+        dateModified={blog.updateAt.toString()}
+        authorName={[{ name: blog.author, url: META.url }]}
+        description={blog.description}
+        publisherName={blog.title}
       />
 
-      <BlogHeader article={article} />
+      <BlogHeader blog={blog} />
 
       <Container className='relative mt-24 flex flex-row justify-between'>
         <div className='absolute -left-14 sm:h-full sm:max-w-xs'>
           <div className='sticky top-20 left-0'>
-            <BlogAction article={article} />
+            <BlogAction blog={blog} />
           </div>
         </div>
         <div className='max-w-full sm:max-w-3xl'>
           <div className='relative rounded-sm'>
-            {article.cover && (
+            {blog.cover && (
               <div className='mb-8 align-middle'>
                 <MyImage
-                  src={article.cover}
+                  src={blog.cover}
                   width={1216}
                   height={516}
                   objectFit='cover'
-                  alt='article-header-cover'
+                  alt='blog-header-cover'
                   className='cursor-pointer'
-                  id='articleCover'
+                  id='blogCover'
                 />
               </div>
             )}
-            <MarkdownBlock htmlContent={article.htmlContent} />
+            <MarkdownBlock htmlContent={blog.htmlContent} />
 
-            <BlogMeta article={article} />
+            <BlogMeta blog={blog} />
           </div>
         </div>
 
@@ -174,7 +171,7 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
 
               <Link href='/about'>
                 <span className='cursor-pointer text-sm transition-colors hover:text-primary'>
-                  {article.author}
+                  {blog.author}
                 </span>
               </Link>
             </li>
@@ -183,7 +180,7 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
               <span className='text-sm text-gray-400'>标签</span>
 
               <div className='space-x-2'>
-                {article.tags.map(tag => (
+                {blog.tags.map(tag => (
                   <Link key={tag.path} href={getTagRoute(tag.path)}>
                     <span className='cursor-pointer text-sm transition-all hover:underline'>
                       {tag.name}
@@ -197,7 +194,7 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
               <span className='text-sm text-gray-400'>发布时间</span>
 
               <span className='text-sm'>
-                <ToDate date={article.createAt} to='YMDm' />
+                <ToDate date={blog.createAt} to='YMDm' />
               </span>
             </li>
 
@@ -205,11 +202,11 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
               <span className='text-sm text-gray-400'>最后修改</span>
 
               <span className='text-sm'>
-                <ToDate date={article.updateAt} to='YMDm' />
+                <ToDate date={blog.updateAt} to='YMDm' />
               </span>
             </li>
           </ul>
-          <BlogAside article={article} />
+          <BlogAside blog={blog} />
         </div>
       </Container>
 
@@ -219,10 +216,10 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
 
       <Container className='my-24' id={COMMENT_VIEW_ELEMENT_ID}>
         <h3 className='mb-6 text-2xl text-gray-900'>相关评论</h3>
-        <CommentView articleId={article.id} />
+        <CommentView blogId={blog.id} />
       </Container>
     </Layout>
   );
 };
 
-export default ArticlePage;
+export default BlogPage;

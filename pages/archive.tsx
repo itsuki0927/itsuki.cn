@@ -1,23 +1,23 @@
 import { NextSeo } from 'next-seo';
 import { Coffee, Edit2, Eye, MessageCircle, MessageSquare, Tag } from 'react-feather';
 import { dehydrate, QueryClient } from 'react-query';
-import { getArchives } from '@/api/article';
+import { getArchives } from '@/api/blog';
 import ArchiveView from '@/components/archive';
 import { Layout } from '@/components/common';
 import { Container } from '@/components/ui';
 import FooterBanner from '@/components/ui/FooterBanner';
 import { GAEventCategories } from '@/constants/gtag';
-import { articleKeys } from '@/constants/queryKeys';
+import { blogKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
 import { SiteSummary } from '@/entities/summary';
 import { useMount } from '@/hooks';
-import { useArchives } from '@/hooks/article';
+import { useArchives } from '@/hooks/blog';
 import { useSiteSummary } from '@/hooks/summary';
 import { gtag } from '@/utils/gtag';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(articleKeys.archive(), () => getArchives());
+  await queryClient.prefetchQuery(blogKeys.archive(), () => getArchives());
 
   return {
     props: {
@@ -33,7 +33,7 @@ interface BannerProps {
 const Banner = ({ summary }: BannerProps) => {
   const list = [
     { title: '建站天数', count: summary?.diffDay, icon: <Coffee size={16} /> },
-    { title: '全站文章', count: summary?.article, icon: <Edit2 size={16} /> },
+    { title: '全站文章', count: summary?.blog, icon: <Edit2 size={16} /> },
     { title: '全站标签', count: summary?.tag, icon: <Tag size={16} /> },
     { title: '全站阅读', count: summary?.reading, icon: <Eye size={16} /> },
     { title: '全站留言', count: summary?.guestbook, icon: <MessageCircle size={16} /> },

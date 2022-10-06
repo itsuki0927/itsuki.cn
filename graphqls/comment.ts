@@ -22,11 +22,11 @@ export const QUERY_COMMENTS = gql`
         province
         fix
         expand
-        articleTitle
-        articleDescription
+        blogTitle
+        blogDescription
         parentNickName
         parentId
-        articleId
+        blogId
       }
     }
   }
@@ -51,11 +51,11 @@ export const CREATE_COMMENT = gql`
       province
       fix
       expand
-      articleTitle
-      articleDescription
+      blogTitle
+      blogDescription
       parentNickName
       parentId
-      articleId
+      blogId
     }
   }
 `;

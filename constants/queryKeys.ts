@@ -1,23 +1,22 @@
-export const articleKeys = {
-  article: ['article'] as const,
-  lists: () => [...articleKeys.article, 'list'] as const,
-  recent: () => [...articleKeys.article, 'recent'] as const,
-  pagination: (current: number) => [...articleKeys.article, 'page', current] as const,
-  tag: (tag: string) => [...articleKeys.article, 'tag', tag] as const,
-  detail: (path: string) => [...articleKeys.article, 'detail', path] as const,
-  detailByPath: (path: string) =>
-    [...articleKeys.article, 'detail-by-path', path] as const,
-  publish: () => [...articleKeys.lists(), 'publish'] as const,
-  banner: () => [...articleKeys.lists(), 'banner'] as const,
-  hot: () => [...articleKeys.lists(), 'hot'] as const,
-  search: (keywords: string) => [...articleKeys.article, 'search', keywords] as const,
-  archive: () => [...articleKeys.article, 'archive'] as const,
+export const blogKeys = {
+  blog: ['blog'] as const,
+  lists: () => [...blogKeys.blog, 'list'] as const,
+  recent: () => [...blogKeys.blog, 'recent'] as const,
+  pagination: (current: number) => [...blogKeys.blog, 'page', current] as const,
+  tag: (tag: string) => [...blogKeys.blog, 'tag', tag] as const,
+  detail: (path: string) => [...blogKeys.blog, 'detail', path] as const,
+  detailByPath: (path: string) => [...blogKeys.blog, 'detail-by-path', path] as const,
+  publish: () => [...blogKeys.lists(), 'publish'] as const,
+  banner: () => [...blogKeys.lists(), 'banner'] as const,
+  hot: () => [...blogKeys.lists(), 'hot'] as const,
+  search: (keywords: string) => [...blogKeys.blog, 'search', keywords] as const,
+  archive: () => [...blogKeys.blog, 'archive'] as const,
 };
 
 export const commentKeys = {
   comment: ['comment'] as const,
-  lists: (articleId: number) =>
-    [...articleKeys.article, articleId, ...commentKeys.comment, 'list'] as const,
+  lists: (blogId: number) =>
+    [...blogKeys.blog, blogId, ...commentKeys.comment, 'list'] as const,
   like: (id: number) => [...commentKeys.comment, id, 'like'] as const,
   recent: () => [...commentKeys.comment, 'recent'] as const,
 };

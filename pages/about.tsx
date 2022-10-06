@@ -1,13 +1,13 @@
 import { NextSeo } from 'next-seo';
 import { dehydrate } from 'react-query';
-import { getHotArticles } from '@/api/article';
+import { getHotBlogs } from '@/api/blog';
 import AboutView from '@/components/about';
 import { Layout, MyImage } from '@/components/common';
 import { createQueryClient } from '@/components/common/QueryClientContainer';
 import FooterBanner from '@/components/ui/FooterBanner';
 import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
 import { GAEventCategories } from '@/constants/gtag';
-import { articleKeys } from '@/constants/queryKeys';
+import { blogKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
 import { useMount } from '@/hooks';
 import { gtag } from '@/utils/gtag';
@@ -22,7 +22,7 @@ const useEmploymentDays = () => {
 export const getStaticProps = async () => {
   const queryClient = createQueryClient();
 
-  await queryClient.prefetchQuery(articleKeys.hot(), () => getHotArticles());
+  await queryClient.prefetchQuery(blogKeys.hot(), () => getHotBlogs());
 
   return {
     props: {

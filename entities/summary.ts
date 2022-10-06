@@ -1,5 +1,5 @@
 export type SiteSummary = {
-  article: number;
+  blog: number;
   tag: number;
   comment: number;
   guestbook: number;

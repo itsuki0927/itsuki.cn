@@ -3,7 +3,7 @@ export enum GAEventCategories {
   Share = 'share',
   Widget = 'widget',
   Global = 'global',
-  Article = 'page_article',
+  Blog = 'page_blog',
   Index = 'page_index',
   About = 'page_about',
   Category = 'page_category',

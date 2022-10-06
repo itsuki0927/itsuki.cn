@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request';
 
-export const QUERY_ARTICLES = gql`
-  query findArticles($search: ArticleSearchRequest) {
-    articles(search: $search) {
+export const QUERY_BLOGS = gql`
+  query findBlogs($search: BlogSearchRequest) {
+    blogs(search: $search) {
       data {
         id
         createAt
@@ -25,9 +25,9 @@ export const QUERY_ARTICLES = gql`
   }
 `;
 
-export const QUERY_ARTICLE_PATHS = gql`
-  query findArticles {
-    articles {
+export const QUERY_BLOG_PATHS = gql`
+  query findBlogs {
+    blogs {
       data {
         id
       }
@@ -35,9 +35,9 @@ export const QUERY_ARTICLE_PATHS = gql`
   }
 `;
 
-export const QUERY_ARTICLE_PATHS_WITH_PATH = gql`
-  query findArticles {
-    articles {
+export const QUERY_BLOG_PATHS_WITH_PATH = gql`
+  query findBlogs {
+    blogs {
       data {
         path
       }
@@ -45,9 +45,9 @@ export const QUERY_ARTICLE_PATHS_WITH_PATH = gql`
   }
 `;
 
-export const QUERY_ARTICLE = gql`
-  query findArticle($path: String!) {
-    article(path: $path) {
+export const QUERY_BLOG = gql`
+  query findBlog($path: String!) {
+    blog(path: $path) {
       id
       createAt
       updateAt
@@ -69,12 +69,12 @@ export const QUERY_ARTICLE = gql`
         id
         path
       }
-      prevArticle {
+      prevBlog {
         id
         title
         path
       }
-      nextArticle {
+      nextBlog {
         id
         title
         path
@@ -83,14 +83,14 @@ export const QUERY_ARTICLE = gql`
   }
 `;
 
-export const LIKE_ARTICLE = gql`
-  mutation likeArticle($id: ID!, $count: Int!) {
-    likeArticle(id: $id, count: $count)
+export const LIKE_BLOG = gql`
+  mutation likeBlog($id: ID!, $count: Int!) {
+    likeBlog(id: $id, count: $count)
   }
 `;
 
-export const READ_ARTICLE = gql`
-  mutation readArticle($id: ID!) {
-    readArticle(id: $id)
+export const READ_BLOG = gql`
+  mutation readBlog($id: ID!) {
+    readBlog(id: $id)
   }
 `;

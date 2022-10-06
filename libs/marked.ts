@@ -66,7 +66,7 @@ const getRenderer = (options?: Partial<RendererGetterOption>) => {
   // 解析图片
   renderer.image = function renderImage(src: string, title: string, text: string) {
     return `<img
-              name=${`article-cover-${title || text}`}
+              name=${`blog-cover-${title || text}`}
               src=${src}
               title=${title || text}
               alt=${title || text}

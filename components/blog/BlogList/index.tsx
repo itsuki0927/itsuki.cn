@@ -1,10 +1,10 @@
 import { BlogSkeletonList } from '@/components/blog';
 import SearchSvg from '@/components/icons/SearchSvg';
 import Status from '@/components/ui/Status';
-import { UseArticles } from '@/hooks/article/useArticles';
+import { UseBlogs } from '@/hooks/blog/useBlogs';
 import BlogCard from '../BlogCard';
 
-type BlogListProps = UseArticles;
+type BlogListProps = UseBlogs;
 
 const BlogList = ({ data, ...rest }: BlogListProps) => {
   if (rest.isFetching || rest.isLoading) {

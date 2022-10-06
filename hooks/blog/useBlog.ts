@@ -1,23 +1,23 @@
 import { useQuery } from 'react-query';
-import { getArticle } from '@/api/article';
-import { getArticleHeadingElementId } from '@/constants/anchor';
-import { articleKeys } from '@/constants/queryKeys';
+import { getBlog } from '@/api/blog';
+import { getBlogHeadingElementId } from '@/constants/anchor';
+import { blogKeys } from '@/constants/queryKeys';
 import markedToHtml from '@/libs/marked';
 
-export interface ArticleHeading {
+export interface BlogHeading {
   text: string;
   level: number;
   id: string;
 }
 
-const useArticle = (articlePath: string) =>
-  useQuery(articleKeys.detail(articlePath), () => getArticle(articlePath), {
+const useBlog = (blogPath: string) =>
+  useQuery(blogKeys.detail(blogPath), () => getBlog(blogPath), {
     select: data => {
-      const headings: ArticleHeading[] = [];
+      const headings: BlogHeading[] = [];
       const htmlContent = markedToHtml(data.content, {
         purify: true,
         headingIDRenderer: (_, level, raw) => {
-          const id = getArticleHeadingElementId(
+          const id = getBlogHeadingElementId(
             level,
             raw.toLowerCase().replace(/[^a-zA-Z0-9\u4E00-\u9FA5]+/g, '-')
           );
@@ -31,7 +31,7 @@ const useArticle = (articlePath: string) =>
         headings,
       };
     },
-    enabled: !!articlePath,
+    enabled: !!blogPath,
   });
 
-export default useArticle;
+export default useBlog;

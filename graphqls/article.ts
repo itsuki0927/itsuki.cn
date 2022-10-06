@@ -15,6 +15,7 @@ export const QUERY_ARTICLES = gql`
         reading
         author
         path
+        cardStyle
         tags {
           name
         }
@@ -62,6 +63,7 @@ export const QUERY_ARTICLE = gql`
       liking
       commenting
       path
+      cardStyle
       tags {
         name
         id

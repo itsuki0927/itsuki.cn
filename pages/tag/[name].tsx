@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { dehydrate } from 'react-query';
 import { getArticles } from '@/api/article';
 import { getAllTagPaths, getAllTags } from '@/api/tag';
-import { ArticleSkeletonList } from '@/components/article';
+import { BlogSkeletonList } from '@/components/blog';
 import BlogList from '@/components/blog/BlogList';
 import { Layout } from '@/components/common';
 import { createQueryClient } from '@/components/common/QueryClientContainer';
@@ -64,7 +64,7 @@ const ArticleTagPage = ({
     return (
       <Layout>
         <div className='space-y-6'>
-          <ArticleSkeletonList />
+          <BlogSkeletonList />
         </div>
       </Layout>
     );

@@ -4,11 +4,11 @@ import { Container } from '@/components/ui';
 import { Article } from '@/entities/article';
 import BlogCard from '@/components/blog/BlogCard';
 
-interface RelateArticlesProps {
-  relateArticles: Article[];
+interface RelateBlogsProps {
+  relateBlogs: Article[];
 }
 
-const RelateArticles = ({ relateArticles }: RelateArticlesProps) => (
+const RelateBlogs = ({ relateBlogs }: RelateBlogsProps) => (
   <Container>
     <div className='mb-6 flex justify-between'>
       <h3 className='text-2xl text-gray-900'>相关文章</h3>
@@ -19,14 +19,14 @@ const RelateArticles = ({ relateArticles }: RelateArticlesProps) => (
       </Link>
     </div>
     <div className='flex flex-col justify-between space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'>
-      {relateArticles.map(article => (
+      {relateBlogs.map(article => (
         <BlogCard blog={article} />
       ))}
     </div>
   </Container>
 );
 
-export const RelateArticleSkeleton = () => (
+export const RelateBlogSkeleton = () => (
   <div className='mx-auto w-full rounded-sm bg-white p-4'>
     <div className='animate-pulse'>
       <div className='my-2 mx-auto h-3 w-40 rounded-sm bg-skeleton' />
@@ -54,4 +54,4 @@ export const RelateArticleSkeleton = () => (
   </div>
 );
 
-export default RelateArticles;
+export default RelateBlogs;

@@ -1,11 +1,11 @@
 import { ArticleDetailResponse } from '@/entities/article';
 import { Container } from '@/components/ui';
 
-interface ArticleHeaderProps {
+interface BlogHeaderProps {
   article: ArticleDetailResponse;
 }
 
-const ArticleHeader = ({ article }: ArticleHeaderProps) => (
+const BlogHeader = ({ article }: BlogHeaderProps) => (
   <div className='bg-gray-50 py-24'>
     <Container>
       <header>
@@ -25,4 +25,4 @@ const ArticleHeader = ({ article }: ArticleHeaderProps) => (
   </div>
 );
 
-export default ArticleHeader;
+export default BlogHeader;

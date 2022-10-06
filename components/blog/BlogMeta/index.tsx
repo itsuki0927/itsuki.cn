@@ -3,11 +3,11 @@ import { ExternalLink } from '@/components/common';
 import { WEB_URL } from '@/configs/app';
 import { ArticleDetailResponse } from '@/entities/article';
 
-interface ArticleMetaProps {
+interface BlogMetaProps {
   article: ArticleDetailResponse;
 }
 
-const ArticleMeta = ({ article }: ArticleMetaProps) => {
+const BlogMeta = ({ article }: BlogMetaProps) => {
   const router = useRouter();
   return (
     <div className='my-4 flex flex-col space-y-3 text-sm text-gray-2'>
@@ -31,4 +31,4 @@ const ArticleMeta = ({ article }: ArticleMetaProps) => {
   );
 };
 
-export default ArticleMeta;
+export default BlogMeta;

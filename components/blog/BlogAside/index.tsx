@@ -28,7 +28,7 @@ const HeadingArchor = ({
   </li>
 );
 
-const ArticleAsideSkeleton = () => (
+const BlogAsideSkeleton = () => (
   <Container className='animate-pulse'>
     <div className='mx-auto mb-4 h-5 max-w-[40%] rounded-sm bg-skeleton' />
     <div className='space-y-2'>
@@ -42,18 +42,18 @@ const ArticleAsideSkeleton = () => (
   </Container>
 );
 
-interface ArticleAsideProps {
+interface BlogAsideProps {
   article: ArticleDetailResponse;
 }
 
-const ArticleAside = ({ article }: ArticleAsideProps) => {
+const BlogAside = ({ article }: BlogAsideProps) => {
   const articleId = article.id;
   const articlePath = article.path;
   const { data, isLoading, isFetching } = useArticle(articlePath);
   const { scrollTo } = useScrollTo();
 
   if (Number.isNaN(articleId) || !articlePath) return <div>Error</div>;
-  if (isFetching || isLoading) return <ArticleAsideSkeleton />;
+  if (isFetching || isLoading) return <BlogAsideSkeleton />;
 
   const handleScrollTo = (id: string) => {
     gtag.event('article_aside', {
@@ -63,7 +63,7 @@ const ArticleAside = ({ article }: ArticleAsideProps) => {
   };
 
   return (
-    <div className='sticky top-16 p-6 text-gray-400'>
+    <div className='top-16 hidden p-6 text-gray-400 sm:sticky'>
       <p className='mb-4 font-medium text-primary'>目录</p>
       <ul className='max-h-[calc(100vh-148px)] space-y-1 overflow-y-scroll'>
         {data?.headings.map(heading => (
@@ -78,4 +78,4 @@ const ArticleAside = ({ article }: ArticleAsideProps) => {
   );
 };
 
-export default ArticleAside;
+export default BlogAside;

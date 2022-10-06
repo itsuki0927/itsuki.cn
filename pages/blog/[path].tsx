@@ -7,14 +7,15 @@ import { dehydrate } from 'react-query';
 import { getAllArticlePathsWithPath, getArticle, readArticle } from '@/api/article';
 import { getBlackList } from '@/api/blacklist';
 import { getAllTags } from '@/api/tag';
-import { ArticleSkeleton } from '@/components/article';
-import ArticleAction from '@/components/article/ArticleAction';
-import ArticleAside from '@/components/article/ArticleAside';
-import ArticleHeader from '@/components/article/ArticleHeader';
-import ArticleMeta from '@/components/article/ArticleMeta';
-import RelateArticles, {
-  RelateArticleSkeleton,
-} from '@/components/article/RelateArticles';
+import {
+  BlogSkeleton,
+  BlogHeader,
+  BlogAside,
+  BlogMeta,
+  BlogAction,
+  RelateBlogSkeleton,
+  RelateBlogs,
+} from '@/components/blog';
 import {
   CommentFormSkeletion,
   CommentListSkeleton,
@@ -70,7 +71,7 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
   const { data: article, isLoading } = useArticle(path);
   const { isFallback } = useRouter();
   const { data } = useArticles();
-  const relateArticles = data?.data.slice(0, 3) ?? [];
+  const relateBlogs = data?.data.slice(0, 3) ?? [];
 
   useEffect(() => {
     if (article) {
@@ -86,8 +87,8 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
     return (
       <Layout>
         <div className='container space-y-6'>
-          <ArticleSkeleton />
-          <RelateArticleSkeleton />
+          <BlogSkeleton />
+          <RelateBlogSkeleton />
           <CommentFormSkeletion />
           <CommentListSkeleton />
         </div>
@@ -136,12 +137,12 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
         publisherName={article.title}
       />
 
-      <ArticleHeader article={article} />
+      <BlogHeader article={article} />
 
       <Container className='relative mt-24 flex flex-row justify-between'>
         <div className='absolute -left-14 sm:h-full sm:max-w-xs'>
           <div className='sticky top-20 left-0'>
-            <ArticleAction article={article} />
+            <BlogAction article={article} />
           </div>
         </div>
         <div className='max-w-full sm:max-w-3xl'>
@@ -161,7 +162,7 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
             )}
             <MarkdownBlock htmlContent={article.htmlContent} />
 
-            <ArticleMeta article={article} />
+            <BlogMeta article={article} />
           </div>
         </div>
 
@@ -208,13 +209,13 @@ const ArticlePage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) =
               </span>
             </li>
           </ul>
-          <ArticleAside article={article} />
+          <BlogAside article={article} />
         </div>
       </Container>
 
       <Container className='my-24 border-t border-dashed border-gray-300' />
 
-      <RelateArticles relateArticles={relateArticles} />
+      <RelateBlogs relateBlogs={relateBlogs} />
 
       <Container className='my-24' id={COMMENT_VIEW_ELEMENT_ID}>
         <h3 className='mb-6 text-2xl text-gray-900'>相关评论</h3>

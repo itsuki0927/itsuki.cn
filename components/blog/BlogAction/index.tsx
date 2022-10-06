@@ -92,10 +92,10 @@ const SocialButton = ({ social, onClick }: SocialButtonProps) => (
   </button>
 );
 
-interface ArticleActionProps {
+interface BlogActionProps {
   article: ArticleDetailResponse;
 }
-const ArticleAction = ({ article }: ArticleActionProps) => {
+const BlogAction = ({ article }: BlogActionProps) => {
   const { openPopup, setPopupView } = useUI();
   const router = useRouter();
   const { scrollTo } = useScrollTo();
@@ -154,4 +154,4 @@ const ArticleAction = ({ article }: ArticleActionProps) => {
   );
 };
 
-export default ArticleAction;
+export default BlogAction;

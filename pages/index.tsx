@@ -7,7 +7,7 @@ import { getBannerArticles, getHotArticles, getRecentArticles } from '@/api/arti
 import { getRecentComments } from '@/api/comment';
 import { getSiteSummary } from '@/api/summary';
 import { getAllTags } from '@/api/tag';
-import { ArticleSkeletonList } from '@/components/article';
+import { BlogSkeletonList } from '@/components/blog';
 import BlogCard from '@/components/blog/BlogCard';
 import CommentList from '@/components/comment/CommentList';
 import { HomeSlider, Layout, MyImage, ToDate } from '@/components/common';
@@ -74,7 +74,7 @@ const HomePage = () => {
   if (articles.isFetching) {
     return (
       <Layout>
-        <ArticleSkeletonList />
+        <BlogSkeletonList />
       </Layout>
     );
   }

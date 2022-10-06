@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ReactNode, useCallback, useEffect } from 'react';
+import { KeyboardEvent, ReactNode, useCallback, useEffect } from 'react';
 import { off, on } from '@/utils/events';
 import { useUI } from '../context';
 
@@ -20,8 +20,8 @@ const Popup = ({ children }: PopupProps) => {
   );
 
   const handleKeydown = useCallback(
-    (e: any) => {
-      if (e.keyCode === 27) {
+    (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === 'esc') {
         closePopup();
       }
     },

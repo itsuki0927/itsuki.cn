@@ -1,4 +1,4 @@
-import { ArticleSkeletonList } from '@/components/article';
+import { BlogSkeletonList } from '@/components/blog';
 import SearchSvg from '@/components/icons/SearchSvg';
 import Status from '@/components/ui/Status';
 import { UseArticles } from '@/hooks/article/useArticles';
@@ -8,7 +8,7 @@ type BlogListProps = UseArticles;
 
 const BlogList = ({ data, ...rest }: BlogListProps) => {
   if (rest.isFetching || rest.isLoading) {
-    return <ArticleSkeletonList />;
+    return <BlogSkeletonList />;
   }
 
   if (data?.total === 0) {

@@ -1,4 +1,4 @@
-export const ArticleSkeletonCard = () => (
+export const BlogSkeletonCard = () => (
   <div className='mx-auto w-full rounded-sm bg-white p-4'>
     <div className='flex animate-pulse space-x-4'>
       <div className='h-[200px] w-[286px] rounded-sm bg-skeleton' />
@@ -15,19 +15,19 @@ export const ArticleSkeletonCard = () => (
   </div>
 );
 
-interface ArticleSkeletonListProps {
+interface BlogSkeletonListProps {
   count?: number;
 }
 
-export const ArticleSkeletonList = ({ count = 6 }: ArticleSkeletonListProps) => (
+export const BlogSkeletonList = ({ count = 6 }: BlogSkeletonListProps) => (
   <div className='space-y-6'>
     {Array.from({ length: count }, (_, i) => (
-      <ArticleSkeletonCard key={i} />
+      <BlogSkeletonCard key={i} />
     ))}
   </div>
 );
 
-export const ArticleSkeleton = () => (
+export const BlogSkeleton = () => (
   <div className='mx-auto w-full rounded-sm bg-white p-4'>
     <div className='flex animate-pulse flex-col items-center space-y-4'>
       <div className='my-1 h-6 w-[60%] rounded-sm bg-skeleton' />

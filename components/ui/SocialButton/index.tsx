@@ -78,21 +78,30 @@ const SocialButton = ({
   const { openPopup, setPopupView } = useUI();
   const router = useRouter();
   const [, copyTextToClipboard] = useCopyToClipboard();
+
+  const clickWechat = (e: MouseEvent) => {
+    e.preventDefault();
+    setPopupView('WECHAT_VIEW');
+    openPopup();
+    gtag.event('wechat_popup', {
+      category: GAEventCategories.Widget,
+    });
+  };
+
+  const clickWebsite = () => {
+    if (router.pathname === '/about') {
+      copyTextToClipboard('https://itsuki.cn');
+      toast.success('🔗 链接复制成功, 快去分享给其他小伙伴吧~');
+    } else {
+      router.push('/about');
+    }
+  };
+
   const handleSocialClick = (e: MouseEvent) => {
     if (social.name === 'Wechat') {
-      e.preventDefault();
-      setPopupView('WECHAT_VIEW');
-      openPopup();
-      gtag.event('wechat_popup', {
-        category: GAEventCategories.Widget,
-      });
+      clickWechat(e);
     } else if (social.name === 'Website') {
-      if (router.pathname === '/about') {
-        copyTextToClipboard('https://itsuki.cn');
-        toast.success('🔗 链接复制成功, 快去分享给其他小伙伴吧~');
-      } else {
-        router.push('/about');
-      }
+      clickWebsite();
     } else {
       window.open(social.url);
     }

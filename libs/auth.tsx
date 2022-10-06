@@ -45,12 +45,14 @@ const githubProvider = new GithubAuthProvider();
 
 const formatUser = async (user: User) => {
   const token = await user.getIdToken();
+  const { providerId } = user.providerData[0];
+  const provider = providerId.replace('.com', '');
   return {
     uid: user.uid,
     email: user.email,
     nickname: user.displayName,
-    provider: user.providerData[0].providerId,
     avatar: user.photoURL,
+    provider,
     token,
   };
 };

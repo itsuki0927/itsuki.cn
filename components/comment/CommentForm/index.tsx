@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { Code, Eye, EyeOff, Link, Image } from 'react-feather';
 import toast from 'react-hot-toast';
@@ -29,12 +28,6 @@ export interface CommentFormProps {
   onError?: () => void;
 }
 
-const useLoginType = () => {
-  const router = useRouter();
-  const loginType = String(router.query?.type ?? 'github');
-  return loginType;
-};
-
 const CommentForm = ({
   className,
   articleId,
@@ -45,7 +38,6 @@ const CommentForm = ({
   onError,
   cacheId,
 }: CommentFormProps) => {
-  const loginType = useLoginType();
   const { user } = useAuth();
   const [content, setContent] = useLocalStorage(cacheId, '');
   const { data: blacklist } = useBlackList();
@@ -78,29 +70,32 @@ const CommentForm = ({
 
   const handleConfirm = () =>
     new Promise<boolean>((resolve, reject) => {
-      const params: PostCommentBody = {
-        articleId,
-        loginType,
-        email,
-        avatar,
-        nickname,
-        parentId,
-        agent: navigator.userAgent,
-        content: purifyDomString(content),
-      };
+      if (user) {
+        const { provider } = user;
+        const params: PostCommentBody = {
+          articleId,
+          provider,
+          email,
+          avatar,
+          nickname,
+          parentId,
+          agent: navigator.userAgent,
+          content: purifyDomString(content),
+        };
 
-      if (ensureCommentCanPush()) {
-        onPost?.(params).then(result => {
-          if (result) {
-            setContent('');
-            onSuccess?.();
-            remove(cacheId);
-            resolve(true);
-          } else {
-            onError?.();
-            reject();
-          }
-        }, reject);
+        if (ensureCommentCanPush()) {
+          onPost?.(params).then(result => {
+            if (result) {
+              setContent('');
+              onSuccess?.();
+              remove(cacheId);
+              resolve(true);
+            } else {
+              onError?.();
+              reject();
+            }
+          }, reject);
+        }
       }
     });
 

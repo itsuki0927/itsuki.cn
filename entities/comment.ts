@@ -25,7 +25,7 @@ export type Comment = IdentifiableEntity<{
   articleId: number;
   articleTitle: string;
   articleDescription: string;
-  loginType: string;
+  provider: string;
 }>;
 
 export type SearchCommentsBody = {
@@ -44,7 +44,7 @@ export type PostCommentBody = {
   articleId: number;
   agent: string;
   avatar: string;
-  loginType: string;
+  provider: string;
   parentId?: number;
 };
 

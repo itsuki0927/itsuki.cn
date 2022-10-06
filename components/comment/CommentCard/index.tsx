@@ -150,16 +150,17 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
       <div className='relative flex-col space-y-2 rounded-sm'>
         <div className='flex items-center justify-between pl-4 sm:pl-6'>
           <CommentAvatar avatar={comment.avatar} />
-          <span className='ml-2 flex flex-grow items-center font-medium text-gray-900'>
+          <div className='ml-2 flex flex-grow items-center font-medium text-gray-900'>
             <span>{comment.nickname}</span>
+            {/* TODO: display provider */}
             {isAdminEmail(comment.email) && (
               <Link href='/about'>
-                <small className='cursor-pointert ml-1 rounded-sm bg-primary-light px-1 py-[2px] text-xs text-primary opacity-90 transition-opacity hover:opacity-100'>
+                <small className='capsize cursor-pointert ml-1 rounded-sm bg-primary-light px-1 py-[2px] text-xs text-primary opacity-90 transition-opacity hover:opacity-100'>
                   博主
                 </small>
               </Link>
             )}
-          </span>
+          </div>
 
           <div className='flex items-center pr-2 sm:pr-6'>
             <span className='flex items-center text-xs text-gray-400 sm:text-sm'>

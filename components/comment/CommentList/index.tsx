@@ -40,7 +40,7 @@ const CommentList = ({
   const renderHeader = () => {
     if (header) {
       return (
-        <div className='flex items-center justify-between py-4 sm:flex-row sm:py-6'>
+        <div className='flex items-center justify-between px-4 py-4 sm:flex-row sm:px-0 sm:py-6'>
           {header}
         </div>
       );

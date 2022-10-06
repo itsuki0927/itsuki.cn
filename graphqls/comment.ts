@@ -14,7 +14,7 @@ export const QUERY_COMMENTS = gql`
         content
         liking
         emoji
-        loginType
+        provider
         avatar
         ip
         agent
@@ -43,7 +43,7 @@ export const CREATE_COMMENT = gql`
       email
       content
       liking
-      loginType
+      provider
       avatar
       ip
       agent

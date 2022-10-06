@@ -16,7 +16,7 @@ const NotFound = () => {
   });
 
   return (
-    <Layout>
+    <Layout footerTheme='reverse'>
       <Container className='py-24'>
         <p className='mb-3 text-primary'>404 错误</p>
         <h1 className='mb-6 text-3xl font-medium tracking-tight text-gray-900 md:text-5xl'>
@@ -34,12 +34,12 @@ const NotFound = () => {
             className='inline-flex cursor-pointer items-center rounded-md border border-solid border-gray-300 bg-white py-4 px-9 text-center text-lg font-bold tracking-widest text-gray-900 transition-all hover:bg-gray-50'
           >
             <ArrowLeft size={20} />
-            <span>上一页</span>
+            <span className='capsize'>上一页</span>
           </button>
           <Link href='/'>
             <button
               type='button'
-              className='inline-block cursor-pointer rounded-md border border-solid border-primary bg-primary py-4 px-9 text-center  text-lg font-bold tracking-widest text-white transition-all hover:bg-primary-hover dark:text-white'
+              className='capsize inline-block cursor-pointer rounded-md border border-solid border-primary bg-primary py-4 px-9 text-center  text-lg font-bold tracking-widest text-white transition-all hover:bg-primary-hover dark:text-white'
             >
               回到首页
             </button>
@@ -47,43 +47,43 @@ const NotFound = () => {
         </div>
       </Container>
 
-      <Container className='flex flex-col space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8'>
+      <Container className='flex flex-col space-y-8 pb-24 sm:flex-row sm:space-y-0 sm:space-x-8'>
         <div className='flex-grow bg-gray-50 p-6 sm:max-w-sm'>
-          <div className='inline-block rounded-sm bg-primary p-2 text-white'>
+          <div className='inline-block rounded-md bg-primary p-2 text-white'>
             <Edit2 size={18} />
           </div>
           <div className='mt-12 text-xl text-gray-900'>文章</div>
-          <div className='mt-2'>这里的每一篇文章, 都是我走过的路</div>
+          <div className='mt-2'>这里的每一个文字, 都是我走过的路</div>
           <Link href='/blog'>
             <button
               type='button'
               className='mt-4 flex cursor-pointer items-center text-primary hover:text-primary-hover'
             >
-              <span className='mr-2'>查看更多</span>
+              <span className='capsize mr-2'>查看更多</span>
               <ArrowRight size={14} />
             </button>
           </Link>
         </div>
 
         <div className='flex-grow bg-gray-50 p-6 sm:max-w-sm'>
-          <div className='inline-block rounded-sm bg-primary p-2 text-white'>
+          <div className='inline-block rounded-md bg-primary p-2 text-white'>
             <MessageSquare size={18} />
           </div>
           <div className='mt-12 text-xl text-gray-900'>留言</div>
-          <div className='mt-2'>感谢你的留言</div>
+          <div className='mt-2'>我们穷极一生, 我们要学会的, 不过是彼此拥抱</div>
           <Link href='/guestbook'>
             <button
               type='button'
               className='mt-4 flex cursor-pointer items-center text-primary hover:text-primary-hover'
             >
-              <span className='mr-2'>查看更多</span>
+              <span className='capsize mr-2'>查看更多</span>
               <ArrowRight size={14} />
             </button>
           </Link>
         </div>
 
         <div className='flex-grow bg-gray-50 p-6 sm:max-w-sm'>
-          <div className='inline-block rounded-sm bg-primary p-2 text-white'>
+          <div className='inline-block rounded-md bg-primary p-2 text-white'>
             <Edit2 size={18} />
           </div>
           <div className='mt-12 text-xl text-gray-900'>关于</div>
@@ -93,16 +93,12 @@ const NotFound = () => {
               type='button'
               className='mt-4 flex cursor-pointer items-center text-primary hover:text-primary-hover'
             >
-              <span className='mr-2'>查看更多</span>
+              <span className='capsize mr-2'>查看更多</span>
               <ArrowRight size={14} />
             </button>
           </Link>
         </div>
       </Container>
-
-      <div className='mt-24 bg-gray-50 p-6'>
-        <Container>小装饰品</Container>
-      </div>
     </Layout>
   );
 };

@@ -20,13 +20,13 @@ export const getStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: TIMESTAMP.DAY / 1000,
+    revalidate: TIMESTAMP.MINIUTE / 1000,
   };
 };
 
 const GuestBookPage = () => (
   <Layout footerTheme='reverse'>
-    <NextSeo title='留言板' />
+    <NextSeo title='留言' />
 
     <Hero>
       <Hero.BackgroundImage url='/guestbook-banner.jpg' />

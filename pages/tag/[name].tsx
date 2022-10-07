@@ -39,7 +39,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
       tagPath,
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: TIMESTAMP.DAY / 1000,
+    revalidate: TIMESTAMP.MINIUTE / 1000,
   };
 };
 

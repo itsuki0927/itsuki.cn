@@ -60,7 +60,7 @@ const formatUser = async (user: User) => {
   return {
     uid: user.uid,
     email: user.email,
-    nickname: user.displayName,
+    nickname: user.displayName || user.email,
     avatar: user.photoURL,
     provider,
     token,

@@ -34,7 +34,7 @@ const handlerError = (error: any) => {
 const defaultConfig: QueryClientConfig = {
   defaultOptions: {
     queries: {
-      staleTime: TIMESTAMP.HOUR,
+      staleTime: TIMESTAMP.MINIUTE,
     },
   },
 };

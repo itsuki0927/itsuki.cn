@@ -166,8 +166,8 @@ const HomePage = () => {
             </Link>
           </div>
 
-          <div className='flex flex-wrap items-center gap-6 sm:gap-8 sm:space-y-0'>
-            {blogs.data?.data.slice(0, 4).map((blog, i) => (
+          <div className='flex flex-grow flex-wrap items-center gap-6 sm:gap-8 sm:space-y-0'>
+            {blogs.data?.data.map((blog, i) => (
               <BlogCard
                 blog={blog}
                 key={blog.id}

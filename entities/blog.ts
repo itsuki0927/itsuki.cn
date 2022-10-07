@@ -25,7 +25,7 @@ export type Blog = IdentifiableEntity<{
   commenting: number;
   tags: Tag[];
   comments: Comment[];
-  cardStyle?: BlogCardStyle;
+  cardStyle: BlogCardStyle;
 }>;
 
 export type SearchBlogsBody = {

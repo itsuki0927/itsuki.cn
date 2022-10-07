@@ -15,6 +15,8 @@ const BlogCard = ({ blog, ...rest }: BlogCardProps) => {
     return <div>null</div>;
   }
 
+  // TODO: cardStyle是string类型
+  // TODO: 目前采用mixin card
   if (blog.cardStyle === BlogCardStyle.Image) {
     return <ImageBlog blog={blog} {...rest} />;
   }

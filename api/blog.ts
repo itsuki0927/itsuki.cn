@@ -70,7 +70,7 @@ export const getBannerBlogs = () => getBlogs({ banner: 1 });
 
 export const getRecentBlogs = () => getBlogs({ recent: true, pageSize: 4 });
 
-export const getHotBlogs = () => getBlogs({ hot: true });
+export const getHotBlogs = () => getBlogs({ hot: true, pageSize: 3 });
 
 export const likeBlog = (body: LikeBlogBody) =>
   request<LikeBlogResponse, LikeBlogBody>(endpoint, LIKE_BLOG, body);

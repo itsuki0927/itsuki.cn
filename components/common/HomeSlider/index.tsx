@@ -18,7 +18,7 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
   <div className={classNames('w-full sm:max-w-[800px]', s.slider)}>
     <Swiper
       lazy
-      /* autoplay */
+      autoplay
       loop
       modules={[Pagination, A11y, Autoplay, Lazy, Keyboard]}
       pagination={{

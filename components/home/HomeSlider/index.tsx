@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import Image from 'next/future/image';
 import router from 'next/router';
 import { A11y, Autoplay, Keyboard, Lazy } from 'swiper';
 import 'swiper/css';
@@ -9,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Blog } from '@/entities/blog';
 import { getBlogDetailRoute } from '@/utils/url';
 import Pagination from './Pagination';
+import { MyImage } from '@/components/common';
 
 type HomeSliderProps = {
   blogs?: Blog[];
@@ -37,7 +37,7 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
           key={blog.id}
         >
           <div className='max-w-full sm:max-h-[334px]'>
-            <Image
+            <MyImage
               src={blog?.cover}
               alt='banner cover'
               className='object-cover sm:max-h-[334px]'
@@ -51,7 +51,7 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
             </div>
 
             <h3
-              className='mt-0 mb-2 cursor-pointer text-2xl font-semibold text-gray-900 transition-colors duration-500 line-clamp-1 hover:text-primary'
+              className='mt-0 mb-2 cursor-pointer text-2xl font-semibold text-gray-900 transition-colors duration-500 hover:text-primary'
               onClick={() => router.push(getBlogDetailRoute(blog?.path))}
             >
               {blog?.title}

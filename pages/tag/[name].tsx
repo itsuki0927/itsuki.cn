@@ -28,7 +28,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const tagPath = (params?.name ?? '') as string;
+  const tagPath = String(params?.name ?? '');
 
   const queryClient = createQueryClient();
   await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
@@ -59,9 +59,9 @@ const BlogTagPage = ({ tagPath }: InferGetServerSidePropsType<typeof getStaticPr
   if (isFallback || blogs.isFetching || blogs.isLoading) {
     return (
       <Layout>
-        <div className='space-y-6'>
+        <Container className='space-y-6'>
           <BlogSkeletonList />
-        </div>
+        </Container>
       </Layout>
     );
   }
@@ -69,9 +69,10 @@ const BlogTagPage = ({ tagPath }: InferGetServerSidePropsType<typeof getStaticPr
   return (
     <Layout>
       <NextSeo title={tag?.name} />
+      {/* TODO: 引入Hero */}
 
       <div className='bg-gray-50'>
-        <div className='container overflow-hidden py-16 sm:flex sm:flex-row sm:items-start sm:justify-between sm:py-24'>
+        <div className='container overflow-hidden py-16 sm:flex sm:flex-row sm:items-center sm:justify-between sm:py-24'>
           <div className='flex flex-col justify-center'>
             <h1 className='text-3xl font-medium tracking-tight text-gray-900 md:text-5xl'>
               标签: {tag?.name} ({tag?.count})

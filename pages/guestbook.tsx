@@ -7,6 +7,7 @@ import { Layout } from '@/components/common';
 import { createQueryClient } from '@/components/common/QueryClientContainer';
 import { blacklistKeys, commentKeys } from '@/constants/queryKeys';
 import { GUESTBOOK, TIMESTAMP } from '@/constants/value';
+import { Hero } from '@/components/ui';
 
 export const getStaticProps = async () => {
   const queryClient = createQueryClient();
@@ -27,23 +28,17 @@ const GuestBookPage = () => (
   <Layout footerTheme='reverse'>
     <NextSeo title='留言板' />
 
-    <div className='relative max-h-72 items-center overflow-hidden sm:max-h-[402px]'>
-      <img
-        src='/guestbook-banner.jpg'
-        className='max-h-[402px] w-full object-cover'
-        alt='archive banner'
-      />
-      <div className='container absolute top-0 bottom-0  left-0 right-0 flex flex-col justify-center px-4'>
-        <h1 className='mb-6 text-3xl font-medium tracking-tight text-gray-100 sm:text-5xl'>
-          留言
-        </h1>
-        <p className='text-xl text-gray-200'>
+    <Hero>
+      <Hero.BackgroundImage url='/guestbook-banner.jpg' />
+      <Hero.Container>
+        <Hero.Title>留言</Hero.Title>
+        <Hero.Description className='sm:max-w-full'>
           我们穷尽一生，我们要学会的，不过是彼此拥抱
           <span className='mx-1'> - </span>
           <span className='text-lg text-gray-300'> 《超脱》</span>
-        </p>
-      </div>
-    </div>
+        </Hero.Description>
+      </Hero.Container>
+    </Hero>
 
     <div className='mx-auto my-12 max-w-4xl'>
       <CommentView blogId={GUESTBOOK} />

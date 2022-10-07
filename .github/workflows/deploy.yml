@@ -78,7 +78,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
-          source: 'build,package.json,public'
+          source: 'build,package.json,public,yarn.lock'
           target: '~/blog/web'
 
   # 发布

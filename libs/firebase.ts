@@ -5,7 +5,7 @@ import { FIREBASE } from '@/configs/app';
 export const createFirebaseApp = () => {
   const apps = getApps();
   // 如果没有app进行init
-  if (apps.length === 0) {
+  if (apps.length <= 0) {
     const firebaseConfig: FirebaseOptions = {
       apiKey: FIREBASE.API_KEY,
       authDomain: FIREBASE.AUTH_DOMAIN,

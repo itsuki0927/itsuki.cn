@@ -1,8 +1,10 @@
 import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { Member } from './auth';
-import { db } from './firebase';
+import { createFirestore } from './firebase';
 
 const USER_DB_NAME = 'users';
+
+const db = createFirestore();
 
 export async function createUser(uid: string, user: Omit<Member, 'token'>) {
   setDoc(doc(db, USER_DB_NAME, uid), user, { merge: true });

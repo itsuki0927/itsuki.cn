@@ -1,9 +1,8 @@
 import { FirebaseOptions, initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { FIREBASE } from '@/configs/app';
 
-const initApp = () => {
+export const createFirebaseApp = () => {
   const apps = getApps();
   // 如果没有app进行init
   if (apps.length === 0) {
@@ -22,6 +21,4 @@ const initApp = () => {
   return getApp();
 };
 
-export const app = initApp();
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+export const createFirestore = () => getFirestore(createFirebaseApp());

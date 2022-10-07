@@ -3,10 +3,19 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
   User,
+  getAuth,
+  Auth,
 } from 'firebase/auth';
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { createUser } from './db';
-import { auth } from './firebase';
+import { createFirebaseApp } from './firebase';
 
 export interface Member {
   email: string | null;
@@ -24,6 +33,7 @@ interface AuthContextType {
   user: Member | null;
   loading: boolean;
 }
+
 const AuthContext = createContext<AuthContextType>({
   signInWithGoogle: () => {},
   signInWithGithub: () => {},
@@ -60,6 +70,7 @@ const formatUser = async (user: User) => {
 const useProvideAuth = () => {
   const [user, setUser] = useState<Member | null>(null);
   const [loading, setLoading] = useState(false);
+  const authRef = useRef<Auth | null>(null);
 
   const handleUser = useCallback(async (rawUser: User | null) => {
     if (rawUser) {
@@ -78,51 +89,60 @@ const useProvideAuth = () => {
   }, []);
 
   const signInWithGoogle = () => {
-    setLoading(true);
-    signInWithPopup(auth, googleProvider)
-      .then(result => {
-        const rawUser = result.user;
-        handleUser(rawUser);
-      })
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const { email } = error.customData;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log('errorCode:', errorCode);
-        console.log('errorMessage:', errorMessage);
-        console.log('email:', email);
-        console.log('credential:', credential);
-      });
+    if (authRef.current) {
+      setLoading(true);
+      signInWithPopup(authRef.current, googleProvider)
+        .then(result => {
+          const rawUser = result.user;
+          handleUser(rawUser);
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const { email } = error.customData;
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          console.log('errorCode:', errorCode);
+          console.log('errorMessage:', errorMessage);
+          console.log('email:', email);
+          console.log('credential:', credential);
+        });
+    }
   };
 
   const signInWithGithub = () => {
-    setLoading(true);
-    signInWithPopup(auth, githubProvider)
-      .then(result => {
-        const rawUser = result.user;
-        handleUser(rawUser);
-      })
-      .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const { email } = error.customData;
-        const credential = GithubAuthProvider.credentialFromError(error);
-        console.log('errorCode:', errorCode);
-        console.log('errorMessage:', errorMessage);
-        console.log('email:', email);
-        console.log('credential:', credential);
-      });
+    if (authRef.current) {
+      setLoading(true);
+      signInWithPopup(authRef.current, githubProvider)
+        .then(result => {
+          const rawUser = result.user;
+          handleUser(rawUser);
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const { email } = error.customData;
+          const credential = GithubAuthProvider.credentialFromError(error);
+          console.log('errorCode:', errorCode);
+          console.log('errorMessage:', errorMessage);
+          console.log('email:', email);
+          console.log('credential:', credential);
+        });
+    }
   };
 
   const signout = () => {
-    auth.signOut().then(() => {
+    setLoading(true);
+    authRef.current?.signOut().then(() => {
       handleUser(null);
+      setLoading(false);
     });
   };
 
   useEffect(() => {
     setLoading(true);
+    const firebaseApp = createFirebaseApp();
+    const auth = getAuth(firebaseApp);
+    authRef.current = auth;
     const unsubscribe = auth.onIdTokenChanged(handleUser);
 
     return () => unsubscribe();

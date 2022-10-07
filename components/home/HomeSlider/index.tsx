@@ -1,30 +1,26 @@
 import classNames from 'classnames';
 import Image from 'next/future/image';
 import router from 'next/router';
-import { A11y, Autoplay, Keyboard, Lazy, Pagination } from 'swiper';
+import { A11y, Autoplay, Keyboard, Lazy } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Blog } from '@/entities/blog';
 import { getBlogDetailRoute } from '@/utils/url';
-import s from './style.module.css';
+import Pagination from './Pagination';
 
 type HomeSliderProps = {
   blogs?: Blog[];
 };
 
 const HomeSlider = ({ blogs }: HomeSliderProps) => (
-  <div className={classNames('w-full sm:max-w-[800px]', s.slider)}>
+  <div className={classNames('w-full sm:max-w-[800px]')}>
     <Swiper
       lazy
       autoplay
       loop
-      modules={[Pagination, A11y, Autoplay, Lazy, Keyboard]}
-      pagination={{
-        clickable: true,
-        type: 'bullets',
-      }}
+      modules={[A11y, Autoplay, Lazy, Keyboard]}
       keyboard={{
         enabled: true,
         onlyInViewport: true,
@@ -37,7 +33,7 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
       {blogs?.map(blog => (
         <SwiperSlide
           role='banner'
-          className='group relative flex flex-col pb-6 opacity-90 transition-opacity sm:flex-row sm:pb-0 md:flex-row'
+          className='group relative flex flex-col opacity-90 transition-opacity sm:flex-row sm:pb-0 md:flex-row'
           key={blog.id}
         >
           <div className='max-w-full sm:max-h-[334px]'>
@@ -64,6 +60,8 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
             <p className='capsize mt-0 mb-3 cursor-pointer text-gray-600'>
               {blog?.description}
             </p>
+
+            <Pagination />
           </div>
         </SwiperSlide>
       ))}

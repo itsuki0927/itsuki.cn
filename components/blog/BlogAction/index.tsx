@@ -148,7 +148,7 @@ const BlogAction = ({ blog }: BlogActionProps) => {
       </span>
       <span className='border-b border-solid border-gray-200'> </span>
       {socials.map(social => (
-        <SocialButton social={social} onClick={handleShare} />
+        <SocialButton key={social.id} social={social} onClick={handleShare} />
       ))}
     </div>
   );

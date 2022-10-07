@@ -10,7 +10,7 @@ import { getAllTags } from '@/api/tag';
 import { BlogSkeletonList } from '@/components/blog';
 import BlogCard from '@/components/blog/BlogCard';
 import CommentList from '@/components/comment/CommentList';
-import { HomeSlider, Layout, MyImage, ToDate } from '@/components/common';
+import { Layout, MyImage, ToDate } from '@/components/common';
 import { createQueryClient } from '@/components/common/QueryClientContainer';
 import MessageSvg from '@/components/icons/MessageSvg';
 import { Container } from '@/components/ui';
@@ -27,6 +27,7 @@ import { useTags } from '@/hooks/tag';
 import { getDayTotals } from '@/utils/date';
 import { gtag } from '@/utils/gtag';
 import { getBlogDetailRoute, getTagRoute } from '@/utils/url';
+import { HomeSlider } from '@/components/home';
 
 const todoList = [
   { name: '新版UI', percent: '60%' },

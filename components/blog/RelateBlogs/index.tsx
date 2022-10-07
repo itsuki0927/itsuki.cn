@@ -20,7 +20,7 @@ const RelateBlogs = ({ relateBlogs }: RelateBlogsProps) => (
     </div>
     <div className='flex flex-col justify-between space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'>
       {relateBlogs.map(blog => (
-        <BlogCard blog={blog} />
+        <BlogCard key={blog.id} blog={blog} />
       ))}
     </div>
   </Container>

@@ -41,6 +41,7 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
               src={blog?.cover}
               alt='banner cover'
               className='object-cover sm:max-h-[334px]'
+              objectFit='cover'
               width={535}
               height={334}
             />

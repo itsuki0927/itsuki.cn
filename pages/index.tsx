@@ -10,7 +10,7 @@ import { getAllTags } from '@/api/tag';
 import { BlogSkeletonList } from '@/components/blog';
 import BlogCard from '@/components/blog/BlogCard';
 import CommentList from '@/components/comment/CommentList';
-import { Layout, MyImage, ToDate } from '@/components/common';
+import { Layout, MyImage } from '@/components/common';
 import { createQueryClient } from '@/components/common/QueryClientContainer';
 import MessageSvg from '@/components/icons/MessageSvg';
 import { Container } from '@/components/ui';
@@ -134,7 +134,7 @@ const HomePage = () => {
               </span>
               <span className='mr-4 items-center '>
                 <strong className='text-2xl text-gray-900'>
-                  {((siteSummary?.reading ?? 0) / 1000).toFixed(1)}K
+                  {((siteSummary?.reading ?? 0) / 1000).toFixed(1)}k
                 </strong>
                 <span className='ml-2 text-sm text-gray-500'>次阅读</span>
               </span>
@@ -143,12 +143,6 @@ const HomePage = () => {
                   {siteSummary?.guestbook}
                 </strong>
                 <span className='ml-2 text-sm text-gray-500'>条留言</span>
-              </span>
-              <span className='mr-4 items-center '>
-                <strong className='text-2xl text-gray-900'>
-                  <ToDate date={siteSummary?.startTime ?? new Date()} to='ago' />
-                </strong>
-                <span className='ml-2 text-sm text-gray-500'>建站</span>
               </span>
             </div>
           </PtnContainer>

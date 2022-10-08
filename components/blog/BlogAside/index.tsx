@@ -63,7 +63,7 @@ const BlogAside = ({ blog }: BlogAsideProps) => {
   };
 
   return (
-    <div className='top-16 hidden p-6 text-gray-400 sm:sticky'>
+    <div className='top-16 p-6 text-gray-400 sm:sticky'>
       <p className='mb-4 font-medium text-primary'>目录</p>
       <ul className='max-h-[calc(100vh-148px)] space-y-1 overflow-y-scroll'>
         {data?.headings.map(heading => (

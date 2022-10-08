@@ -40,7 +40,11 @@ module.exports = withBundleAnalyzer({
                 ? packageInformation[1]
                 : 'node_vendors';
 
-              const requestVendorsList = ['graphql', 'graphql-request', 'react-query'];
+              const requestVendorsList = [
+                'graphql',
+                'graphql-request',
+                '@tanstack/react-query',
+              ];
               if (requestVendorsList.includes(packageName)) {
                 return `request_vendors`;
               }

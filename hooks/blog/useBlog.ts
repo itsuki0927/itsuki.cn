@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getBlog } from '@/api/blog';
 import { getBlogHeadingElementId } from '@/constants/anchor';
 import { blogKeys } from '@/constants/queryKeys';

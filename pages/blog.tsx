@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 import { Search } from 'react-feather';
-import { dehydrate } from 'react-query';
+import { dehydrate } from '@tanstack/react-query';
 import { getBlogs } from '@/api/blog';
 import { getAllTags } from '@/api/tag';
 import BlogList from '@/components/blog/BlogList';
@@ -40,15 +40,15 @@ const BlogPage = () => {
   const filteredBlogPosts =
     data?.data.filter(post => {
       const lowerSearchValue = searchValue.toLowerCase();
-      const macthKeyword = post.title.toLowerCase().includes(lowerSearchValue);
+      const matchKeyword = post.title.toLowerCase().includes(lowerSearchValue);
       if (activeTagName !== 'all') {
         const includeTag = post.tags.some(tag => tag.name === activeTagName);
         if (lowerSearchValue) {
-          return includeTag && macthKeyword;
+          return includeTag && matchKeyword;
         }
         return includeTag;
       }
-      return macthKeyword;
+      return matchKeyword;
     }) ?? [];
 
   const fillKeyword = (keyword: string) => {

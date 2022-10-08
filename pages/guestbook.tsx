@@ -1,5 +1,5 @@
 import { NextSeo } from 'next-seo';
-import { dehydrate } from 'react-query';
+import { dehydrate } from '@tanstack/react-query';
 import { getBlackList } from '@/api/blacklist';
 import { getComments } from '@/api/comment';
 import { CommentView } from '@/components/comment';

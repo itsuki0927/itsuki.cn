@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import { GraphQLError } from 'graphql';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { likeBlog } from '@/api/blog';
 import { initialLikeValue, LikeBlogs, LikeBlogsKey } from '@/constants/like';
 import { blogKeys } from '@/constants/queryKeys';

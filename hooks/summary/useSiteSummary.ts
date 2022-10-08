@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { summaryKeys } from '@/constants/queryKeys';
 import { getSiteSummary } from '@/api/summary';
 import { getDaysDiffBetweenDates } from '@/utils/date';

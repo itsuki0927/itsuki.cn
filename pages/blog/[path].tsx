@@ -3,7 +3,7 @@ import { ArticleJsonLd, NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { dehydrate } from 'react-query';
+import { dehydrate } from '@tanstack/react-query';
 import { getAllBlogPathsWithPath, getBlog, readBlog } from '@/api/blog';
 import { getBlackList } from '@/api/blacklist';
 import { getAllTags } from '@/api/tag';

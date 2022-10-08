@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo';
 import { Coffee, Edit2, Eye, MessageCircle, MessageSquare, Tag } from 'react-feather';
-import { dehydrate, QueryClient } from 'react-query';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { getArchives } from '@/api/blog';
 import ArchiveView from '@/components/archive';
 import { Layout } from '@/components/common';

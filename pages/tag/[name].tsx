@@ -1,7 +1,7 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
-import { dehydrate } from 'react-query';
+import { dehydrate } from '@tanstack/react-query';
 import { getBlogs } from '@/api/blog';
 import { getAllTagPaths, getAllTags } from '@/api/tag';
 import { BlogSkeletonList } from '@/components/blog';

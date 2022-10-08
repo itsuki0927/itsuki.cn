@@ -1,5 +1,5 @@
 import { NextSeo } from 'next-seo';
-import { dehydrate } from 'react-query';
+import { dehydrate } from '@tanstack/react-query';
 import { getHotBlogs } from '@/api/blog';
 import AboutView from '@/components/about';
 import { Layout, MyImage } from '@/components/common';

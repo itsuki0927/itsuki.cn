@@ -25,14 +25,12 @@ export const getBlogs = async (params?: SearchBlogsBody) => {
   const { blogs } = await request<QueryBlogsResponse, QueryBlogSearch>(
     endpoint,
     QUERY_BLOGS,
-    params
-      ? {
-          search: {
-            ...params,
-            publish: PublishState.Published,
-          },
-        }
-      : undefined
+    {
+      search: {
+        ...(params || {}),
+        publish: PublishState.Published,
+      },
+    }
   );
   return blogs;
 };
@@ -51,15 +49,12 @@ export const getBlog = async (path: string) => {
 export const getArchives = () => getBlogs({ current: DEFAULT_CURRENT, pageSize: 500 });
 
 export const getAllBlogPaths = async () => {
-  const { blogs } = await request<QueryBlogsResponse, QueryBlogSearch>(
-    endpoint,
-    QUERY_BLOG_PATHS
-  );
+  const { blogs } = await request<QueryBlogsResponse>(endpoint, QUERY_BLOG_PATHS);
   return blogs.data.map(item => `/blog/${item.id}`);
 };
 
 export const getAllBlogPathsWithPath = async () => {
-  const { blogs } = await request<QueryBlogsResponse, QueryBlogSearch>(
+  const { blogs } = await request<QueryBlogsResponse>(
     endpoint,
     QUERY_BLOG_PATHS_WITH_PATH
   );

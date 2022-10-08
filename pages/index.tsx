@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ArrowRight, Plus } from 'react-feather';
-import { dehydrate } from 'react-query';
+import { dehydrate } from '@tanstack/react-query';
 import { getBannerBlogs, getHotBlogs, getRecentBlogs } from '@/api/blog';
 import { getRecentComments } from '@/api/comment';
 import { getSiteSummary } from '@/api/summary';
@@ -32,7 +32,7 @@ import { HomeSlider } from '@/components/home';
 const todoList = [
   { name: '新版UI', percent: '60%' },
   { name: '不知道写什么博客', percent: '10%' },
-  { name: '阅读React-Query中', percent: '50%' },
+  { name: '阅读@tanstack/react-query中', percent: '50%' },
 ];
 
 export const getStaticProps = async () => {

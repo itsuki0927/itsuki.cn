@@ -28,7 +28,7 @@ function BlogEntry({ body, url, name, tag }: BlogEntryProps) {
 
 const projects: BlogEntryProps[] = [
   {
-    body: '基于 Next.js、React-Query、TailwindCss、Graphql 的 ISR 应用',
+    body: '基于 Next.js、@tanstack/react-query、TailwindCss、Graphql 的 ISR 应用',
     url: 'https://github.com/itsuki0927/itsuki.cn',
     name: 'itsuki.cn',
     tag: '前端',

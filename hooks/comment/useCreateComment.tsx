@@ -1,7 +1,7 @@
 import { GraphQLError } from 'graphql';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
-import { QueryKey, useMutation, useQueryClient } from 'react-query';
+import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';
 import { createComment } from '@/api/comment';
 import { GAEventCategories } from '@/constants/gtag';
 import { commentKeys } from '@/constants/queryKeys';

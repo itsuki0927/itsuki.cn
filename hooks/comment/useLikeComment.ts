@@ -1,5 +1,5 @@
 import { GraphQLError } from 'graphql';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { likeComment } from '@/api/comment';
 import { commentKeys } from '@/constants/queryKeys';
 import { Comment, LikeCommentResponse } from '@/entities/comment';

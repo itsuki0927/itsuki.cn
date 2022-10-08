@@ -7,8 +7,8 @@ import {
   QueryClient,
   QueryClientConfig,
   QueryClientProvider,
-} from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { isDev } from '@/configs/environment';
 import { TIMESTAMP } from '@/constants/value';
 

@@ -133,7 +133,7 @@ const BlogPage = () => {
           </div>
         </div>
 
-        <div className='prose max-w-full'>
+        <div className='max-w-full'>
           <BlogList
             {...rest}
             data={

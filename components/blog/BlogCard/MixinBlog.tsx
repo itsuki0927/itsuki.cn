@@ -22,11 +22,11 @@ const MixinBlog = ({ blog, className, style }: BlogCardProps) => {
         alt={blog.title}
       />
       <div className='px-6 py-8'>
-        <Link href={getBlogDetailRoute(blog.path)}>
-          <h3 className='mt-0 cursor-pointer text-2xl font-semibold text-gray-900 transition-colors hover:text-primary'>
+        <h3 className='mt-0 mb-2 cursor-pointer text-2xl font-semibold  transition-colors hover:text-primary'>
+          <Link legacyBehavior href={getBlogDetailRoute(blog.path)}>
             {blog.title}
-          </h3>
-        </Link>
+          </Link>
+        </h3>
         <p className='max-h-13 mb-6 text-gray-600 line-clamp-2'>{blog.description}</p>
         <div className='text-gray-400'>
           <ToDate date={blog.createAt} />

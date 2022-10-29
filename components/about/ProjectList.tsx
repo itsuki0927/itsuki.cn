@@ -35,13 +35,13 @@ const projects: BlogEntryProps[] = [
   },
   {
     body: '基于 SpringBoot、SpringBootJPA、Mysql、Graphql 的后端应用',
-    url: 'https://github.com/itsuki0927/itsuki-server.cn',
+    url: 'https://github.com/itsuki0927/itsuki-server',
     name: 'itsuki-server',
     tag: '后端',
   },
   {
     body: '基于 React.js、Vite、Pro-Components、Graphql 的 Web 应用',
-    url: 'https://github.com/itsuki0927/itsuki-admin.cn',
+    url: 'https://github.com/itsuki0927/itsuki-admin',
     name: 'itsuki-admin',
     tag: '后台',
   },

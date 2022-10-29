@@ -21,7 +21,7 @@
     "next:lint": "next lint",
     "lint": "eslint .",
     "prepare": "husky install",
-    "format": "prettier --write . '**/*.{ts,js,tsx,md,scss}'",
+    "format": "prettier --write . '**/*.{ts,js,tsx,md,scss.yml}'",
     "fix": "eslint --fix .",
     "stylelint-check": "stylelint-config-prettier-check",
     "check-lint": "eslint --fix",

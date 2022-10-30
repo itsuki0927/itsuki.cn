@@ -3,7 +3,7 @@ import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 import { Search } from 'react-feather';
 import { dehydrate } from '@tanstack/react-query';
-import { getBlogs } from '@/api/blog';
+import { getAllBlogs } from '@/api/blog';
 import { getAllTags } from '@/api/tag';
 import BlogList from '@/components/blog/BlogList';
 import { Layout } from '@/components/common';
@@ -11,14 +11,14 @@ import { createQueryClient } from '@/components/common/QueryClientContainer';
 import FooterBanner from '@/components/ui/FooterBanner';
 import { blogKeys, tagKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
-import { useBlogs } from '@/hooks/blog';
+import { useAllBlogs } from '@/hooks/blog';
 import { useTags } from '@/hooks/tag';
 
 export const getStaticProps = async () => {
   const queryClient = createQueryClient();
 
-  await queryClient.prefetchQuery(blogKeys.lists(), () => getBlogs());
-  await queryClient.prefetchQuery(tagKeys.lists(), () => getAllTags());
+  await queryClient.prefetchQuery(blogKeys.lists(), getAllBlogs);
+  await queryClient.prefetchQuery(tagKeys.lists(), getAllTags);
 
   return {
     props: {
@@ -31,10 +31,11 @@ export const getStaticProps = async () => {
 const keywordList = ['网易', '字节', '校招'];
 
 const BlogPage = () => {
-  const { data, ...rest } = useBlogs();
+  const { data, ...rest } = useAllBlogs();
   const { data: tags } = useTags();
   const [searchValue, setSearchValue] = useState('');
   const [activeTagName, setActiveTagName] = useState<string>('all');
+  console.log('data22222:', data);
 
   const allTags = [{ name: 'all', path: 'all' }].concat(tags ?? []);
   const filteredBlogPosts =

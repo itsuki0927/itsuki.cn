@@ -48,6 +48,8 @@ export const getBlog = async (path: string) => {
 
 export const getArchives = () => getBlogs({ current: DEFAULT_CURRENT, pageSize: 500 });
 
+export const getAllBlogs = () => getBlogs({ pageSize: 1000 });
+
 export const getAllBlogPaths = async () => {
   const { blogs } = await request<QueryBlogsResponse>(endpoint, QUERY_BLOG_PATHS);
   return blogs.data.map(item => `/blog/${item.id}`);

@@ -1,6 +1,6 @@
 export { default as useArchives } from './useArchives';
 export { default as useBlog } from './useBlog';
-export { default as useBlogs } from './useBlogs';
+export { default as useAllBlogs } from './useAllBlogs';
 export { default as useBannerBlogs } from './useBannerBlogs';
 export { default as useHotBlogs } from './useHotBlogs';
 export { default as useLikeBlog } from './useLikeBlog';

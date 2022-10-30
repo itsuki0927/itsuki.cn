@@ -26,12 +26,13 @@ import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { GAEventCategories } from '@/constants/gtag';
 import { blogKeys, blacklistKeys, tagKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
-import { useBlog, useBlogs } from '@/hooks/blog';
+import { useBlog, useAllBlogs } from '@/hooks/blog';
 import { gtag } from '@/utils/gtag';
 import { getBlogDetailFullUrl, getTagRoute } from '@/utils/url';
 
 export const getStaticPaths = async () => {
   const paths = await getAllBlogPathsWithPath();
+  console.log('paths:', paths);
 
   return {
     paths,
@@ -67,7 +68,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 const BlogPage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { data: blog, isLoading } = useBlog(path);
   const { isFallback } = useRouter();
-  const { data } = useBlogs();
+  const { data } = useAllBlogs();
   const relateBlogs = data?.data.slice(0, 3) ?? [];
 
   useEffect(() => {

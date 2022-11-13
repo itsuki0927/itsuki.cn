@@ -25,11 +25,9 @@ const ImageBlog = ({ blog, className, style }: BlogCardProps) => {
         className='absolute top-0 left-0 right-0 bottom-0'
       />
 
-      <Link href={getBlogDetailRoute(blog.path)}>
-        <h3 className='absolute top-0 left-0 right-0 mt-0 cursor-pointer p-4 text-2xl font-semibold text-white transition-colors hover:text-primary'>
-          {blog.title}
-        </h3>
-      </Link>
+      <h3 className='absolute top-0 left-0 right-0 mt-0 cursor-pointer p-4 text-2xl font-semibold text-white transition-colors hover:text-primary'>
+        <Link href={getBlogDetailRoute(blog.path)}>{blog.title}</Link>
+      </h3>
 
       <div className='absolute right-6 bottom-6 bg-gray-800 px-2 text-sm text-gray-300'>
         <ToDate date={blog.createAt} />

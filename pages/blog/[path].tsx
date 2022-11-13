@@ -81,11 +81,9 @@ const BlogPage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <span className='font-bold'>{title}: </span>
       {pageBlog ? (
         <Link href={pageBlog.path ?? ''}>
-          <a>
-            <span className='cursor-pointer text-primary transition-all hover:text-primary-hover hover:underline'>
-              {pageBlog.title}
-            </span>
-          </a>
+          <span className='cursor-pointer text-primary transition-all hover:text-primary-hover hover:underline'>
+            {pageBlog.title}
+          </span>
         </Link>
       ) : (
         <span>无</span>

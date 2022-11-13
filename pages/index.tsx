@@ -258,22 +258,22 @@ const HomePage = () => {
             <div className='text-xl font-medium text-gray-900'>标签</div>
             <ul className='flex flex-wrap'>
               {tags?.map(tag => (
-                <Link key={tag.path} href={getTagRoute(tag.path)}>
-                  <a
-                    tabIndex={0}
-                    role='button'
-                    key={tag.path}
-                    className='mr-4 mb-4 rounded-sm bg-gray-100 py-1 px-4 align-bottom hover:bg-gray-200 sm:py-[6px] sm:px-6'
-                    onClick={() => {
-                      gtag.event('tag', {
-                        category: GAEventCategories.Tag,
-                        label: tag.name,
-                      });
-                    }}
-                  >
+                <span
+                  tabIndex={0}
+                  role='button'
+                  key={tag.path}
+                  className='mr-4 mb-4 rounded-sm bg-gray-100 py-1 px-4 align-bottom hover:bg-gray-200 sm:py-[6px] sm:px-6'
+                  onClick={() => {
+                    gtag.event('tag', {
+                      category: GAEventCategories.Tag,
+                      label: tag.name,
+                    });
+                  }}
+                >
+                  <Link key={tag.path} href={getTagRoute(tag.path)}>
                     {tag.name}
-                  </a>
-                </Link>
+                  </Link>
+                </span>
               ))}
             </ul>
           </div>

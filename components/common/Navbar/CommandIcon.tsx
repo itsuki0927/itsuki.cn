@@ -124,8 +124,9 @@ const CommandIcon = ({ onClick }: CommandIconProps) => {
                     <div className='relative grid gap-2 bg-white '>
                       {filteredPages.map(page => (
                         <Link href={page.href} key={page.name}>
-                          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-                          <a
+                          <span
+                            role='button'
+                            tabIndex={0}
                             onClick={closeModal}
                             className='focus-visible:ring-orange-500 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-opacity-50'
                           >
@@ -138,7 +139,7 @@ const CommandIcon = ({ onClick }: CommandIconProps) => {
                               </p>
                               <p className='text-sm text-gray-500'>{page.description}</p>
                             </div>
-                          </a>
+                          </span>
                         </Link>
                       ))}
                     </div>

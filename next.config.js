@@ -24,6 +24,9 @@ module.exports = withBundleAnalyzer({
     // 生产环境清除console.log
     removeConsole: isProd ? { exclude: ['error', 'debug'] } : false,
   },
+  experimental: {
+    appDir: true,
+  },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.optimization = {
       ...config.optimization,

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import useMeasure from 'react-use-measure';
-import { useSpring, a } from '@react-spring/web';
+import { motion } from 'framer-motion';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -51,11 +51,10 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
   const [ref, { height: viewHeight }] = useMeasure();
   const router = useRouter();
 
-  const animProps = useSpring({
-    height: isReply ? viewHeight : 0,
-    config: { tension: 250, friction: 32, clamp: true, duration: 150 },
-    opacity: isReply ? 1 : 0,
-  });
+  const variants = {
+    visible: { opacity: 1, height: viewHeight },
+    hidden: { opacity: 0, height: 0 },
+  };
 
   const isNotLogin = () => {
     if (!email) {
@@ -262,7 +261,12 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
         </div>
       </div>
 
-      <a.div style={{ overflow: 'hidden', ...animProps }}>
+      <motion.div
+        style={{ overflow: 'hidden' }}
+        initial='hidden'
+        animate='visible'
+        variants={variants}
+      >
         <div ref={ref}>
           {isReply ? (
             <CommentForm
@@ -278,7 +282,7 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
             />
           ) : null}
         </div>
-      </a.div>
+      </motion.div>
 
       {!!comment.children?.length && <CommentList data={comment.children} />}
     </div>

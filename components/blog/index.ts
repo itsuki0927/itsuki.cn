@@ -1,10 +1,6 @@
-export { default as BlogAction } from './BlogAction';
 export { default as BlogCard } from './BlogCard';
 export { default as BlogList } from './BlogList';
-export { default as BlogMeta } from './BlogMeta';
-export { default as BlogAside } from './BlogAside';
+export { default as TableOfContent } from './TableOfContent';
 export { default as BlogHeader } from './BlogHeader';
 export { default as FavoriteButton } from './FavoriteButton';
-export { default as RelateBlogs } from './RelateBlogs';
 export * from './BlogSkeleton';
-export * from './RelateBlogs';

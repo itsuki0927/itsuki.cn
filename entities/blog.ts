@@ -2,6 +2,7 @@ import { Comment } from './comment';
 import { IdentifiableEntity, SearchRequest, SearchResponse } from '../types/response';
 import { Tag } from './tag';
 import { PublishState } from '@/constants/blog/publish';
+import { BlogHeading } from '@/hooks/blog/useBlog';
 
 export enum BlogCardStyle {
   Image,
@@ -45,6 +46,7 @@ export type BlogDetailResponse = Blog & {
   nextBlog: Blog | null;
   htmlContent: string;
   originLiking: number;
+  headings?: BlogHeading[];
 };
 
 export type BlogTypes = {

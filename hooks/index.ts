@@ -6,3 +6,5 @@ export { default as useMount } from './useMount';
 export { default as useScrollTo } from './useScrollTo';
 export { default as useTheme } from './useTheme';
 export { default as useUnMount } from './useUnMount';
+export { default as useProgress } from './useProgress';
+export { default as useScrollSpy } from './useScrollSpy';

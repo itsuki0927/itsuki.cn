@@ -1,36 +1,33 @@
-import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useCallback, useEffect } from 'react';
 import { GA_TRACKING_ID } from '@/configs/app';
 import { isProd } from '@/configs/environment';
 import { CustomWindow } from '@/types/window';
-import { gtag } from '@/utils/gtag';
 
 declare const window: CustomWindow;
 
 const GA = () => {
-  const router = useRouter();
+  /* const router = useRouter(); */
   const needGA = !!(isProd && GA_TRACKING_ID);
 
-  const handleRouteChange = useCallback(
-    (url: string) => {
-      if (needGA && !!window.gtag) {
-        gtag.pageview(url);
-      }
-    },
-    [needGA]
-  );
-
-  useEffect(() => {
-    router.events.on('routeChangeStart', handleRouteChange);
-    router.events.on('routeChangeComplete', handleRouteChange);
-    router.events.on('routeChangeError', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-      router.events.off('routeChangeComplete', handleRouteChange);
-      router.events.off('routeChangeError', handleRouteChange);
-    };
-  }, [handleRouteChange, router.events]);
+  /* const handleRouteChange = useCallback( */
+  /*   (url: string) => { */
+  /*     if (needGA && !!window.gtag) { */
+  /*       gtag.pageview(url); */
+  /*     } */
+  /*   }, */
+  /*   [needGA] */
+  /* ); */
+  /**/
+  /* useEffect(() => { */
+  /*   router.events.on('routeChangeStart', handleRouteChange); */
+  /*   router.events.on('routeChangeComplete', handleRouteChange); */
+  /*   router.events.on('routeChangeError', handleRouteChange); */
+  /*   return () => { */
+  /*     router.events.off('routeChangeStart', handleRouteChange); */
+  /*     router.events.off('routeChangeComplete', handleRouteChange); */
+  /*     router.events.off('routeChangeError', handleRouteChange); */
+  /*   }; */
+  /* }, [handleRouteChange, router.events]); */
 
   return needGA ? (
     <Script

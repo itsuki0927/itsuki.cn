@@ -1,3 +1,5 @@
+'use client';
+
 import { ReactNode } from 'react';
 import { Plus } from 'react-feather';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';

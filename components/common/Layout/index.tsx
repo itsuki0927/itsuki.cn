@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames';
 import React, { PropsWithChildren, ReactNode } from 'react';
 import { BackTop, Popup } from '@/components/ui';

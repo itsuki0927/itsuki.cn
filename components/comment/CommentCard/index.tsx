@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import useMeasure from 'react-use-measure';
 import { motion } from 'framer-motion';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';

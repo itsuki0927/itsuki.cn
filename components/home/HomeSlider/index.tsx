@@ -1,5 +1,7 @@
+'use client';
+
 import classNames from 'classnames';
-import router from 'next/router';
+import router from 'next/navigation';
 import { A11y, Autoplay, Keyboard, Lazy } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';

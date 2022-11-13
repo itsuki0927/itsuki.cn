@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import classNames from 'classnames';
 import Container from '../Container';
 

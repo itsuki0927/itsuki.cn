@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, useState } from 'react';
 import { Heart } from 'react-feather';
 import classNames from 'classnames';

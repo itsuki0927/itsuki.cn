@@ -1,7 +1,7 @@
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { Code, Eye, EyeOff, Image, Link } from 'react-feather';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { PostCommentBody } from '@/entities/comment';

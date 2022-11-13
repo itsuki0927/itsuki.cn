@@ -1,20 +1,17 @@
+'use client';
+
 import merge from 'lodash.merge';
 import { GraphQLError } from 'graphql';
 import { PropsWithChildren, useState } from 'react';
 import toast from 'react-hot-toast';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
-  Hydrate,
   QueryClient,
   QueryClientConfig,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { isDev } from '@/configs/environment';
 import { TIMESTAMP } from '@/constants/value';
-
-interface QueryClientContainerProps {
-  pageProps?: any;
-}
 
 const handlerError = (error: any) => {
   error.response?.errors?.forEach((e: GraphQLError) => {
@@ -38,15 +35,13 @@ const defaultConfig: QueryClientConfig = {
     },
   },
 };
+
 export const createQueryClient = (config?: QueryClientConfig) => {
   const mergedConfig = merge({}, defaultConfig, config);
   return new QueryClient(mergedConfig);
 };
 
-const QueryClientContainer = ({
-  children,
-  pageProps,
-}: PropsWithChildren<QueryClientContainerProps>) => {
+const QueryClientContainer = ({ children }: PropsWithChildren<any>) => {
   const [queryClient] = useState(() =>
     createQueryClient({
       defaultOptions: {
@@ -63,7 +58,7 @@ const QueryClientContainer = ({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>{children}</Hydrate>
+      {children}
       {isDev && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 export const BlogSkeletonCard = () => (
   <div className='mx-auto w-full rounded-sm bg-white p-4'>
     <div className='flex animate-pulse space-x-4'>

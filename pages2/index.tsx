@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { ArrowRight, Plus } from 'react-feather';
 import { dehydrate } from '@tanstack/react-query';
 import { getBannerBlogs, getHotBlogs, getRecentBlogs } from '@/api/blog';

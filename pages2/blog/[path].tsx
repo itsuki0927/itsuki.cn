@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ArticleJsonLd, NextSeo } from 'next-seo';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { dehydrate } from '@tanstack/react-query';
 import { getAllBlogPathsWithPath, getBlog, readBlog } from '@/api/blog';

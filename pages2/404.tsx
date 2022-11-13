@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { ArrowLeft, ArrowRight, Edit2, MessageSquare } from 'react-feather';
 import { Layout } from '@/components/common';
 import { Container } from '@/components/ui';

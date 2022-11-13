@@ -1,3 +1,5 @@
+'use client';
+
 import { CSSProperties } from 'react';
 import { Blog, BlogCardStyle } from '@/entities/blog';
 import ImageBlog from './ImageBlog';

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import { Rss } from 'react-feather';
 import MobileMenu from '../Layout/MobileMenu';

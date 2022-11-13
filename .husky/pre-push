@@ -20,12 +20,12 @@ yarn check-lint ||
 )
 
 # Check tsconfig standards
-yarn check-types ||
-(
-    echo '🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
-            Are you seriously trying to write that? Make the changes required above.'
-    false;
-)
+# yarn check-types ||
+# (
+#     echo '🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
+#             Are you seriously trying to write that? Make the changes required above.'
+#     false;
+# )
 
 # If everything passes... Now we can push
 # echo '🤔🤔🤔🤔... Alright... Code looks good to me... Trying to build now. 🤔🤔🤔🤔'

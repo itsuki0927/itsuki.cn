@@ -1,15 +1,12 @@
 import { NextSeo } from 'next-seo';
-import { Coffee, Edit2, Eye, MessageCircle, MessageSquare, Tag } from 'react-feather';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { getArchives } from '@/api/blog';
-import ArchiveView from '@/components/archive';
+import { ArchiveView, Statistics } from '@/components/archive';
 import { Layout } from '@/components/common';
-import { Container, Hero } from '@/components/ui';
-import FooterBanner from '@/components/ui/FooterBanner';
+import { Hero } from '@/components/ui';
 import { GAEventCategories } from '@/constants/gtag';
 import { blogKeys } from '@/constants/queryKeys';
 import { TIMESTAMP } from '@/constants/value';
-import { SiteSummary } from '@/entities/summary';
 import { useMount } from '@/hooks';
 import { useArchives } from '@/hooks/blog';
 import { useSiteSummary } from '@/hooks/summary';
@@ -27,39 +24,6 @@ export const getStaticProps = async () => {
   };
 };
 
-interface BannerProps {
-  summary?: SiteSummary;
-}
-const Banner = ({ summary }: BannerProps) => {
-  const list = [
-    { title: '建站天数', count: summary?.diffDay, icon: <Coffee size={16} /> },
-    { title: '全站文章', count: summary?.blog, icon: <Edit2 size={16} /> },
-    { title: '全站标签', count: summary?.tag, icon: <Tag size={16} /> },
-    { title: '全站阅读', count: summary?.reading, icon: <Eye size={16} /> },
-    { title: '全站留言', count: summary?.guestbook, icon: <MessageCircle size={16} /> },
-    { title: '全站评论', count: summary?.comment, icon: <MessageSquare size={16} /> },
-  ];
-
-  return (
-    <div className='bg-white'>
-      <Container className='flex flex-row flex-wrap'>
-        {list.map(item => (
-          <div
-            className='w-1/2 py-6 px-7 transition-colors hover:bg-gray-50 md:w-auto md:py-12 md:px-14'
-            key={item.title}
-          >
-            <p className='flex items-center space-x-2 text-sm text-gray-400'>
-              <span className='text-gray-500'>{item.title}</span>
-              {item.icon}
-            </p>
-            <div className='mt-2 text-3xl font-medium text-gray-700'>{item.count}</div>
-          </div>
-        ))}
-      </Container>
-    </div>
-  );
-};
-
 const ArchivePage = () => {
   const archives = useArchives();
   const { data: summary } = useSiteSummary();
@@ -71,7 +35,7 @@ const ArchivePage = () => {
   });
 
   return (
-    <Layout className='bg-gray-50' footerTheme='reverse'>
+    <Layout className='bg-gray-50'>
       <NextSeo title='归档' />
 
       <Hero>
@@ -86,11 +50,11 @@ const ArchivePage = () => {
         </Hero.Container>
       </Hero>
 
-      <Banner summary={summary} />
+      <Statistics summary={summary} />
 
       <ArchiveView archives={archives.data} />
 
-      <FooterBanner theme='reverse' />
+      {/* <FooterBanner theme='reverse' /> */}
     </Layout>
   );
 };

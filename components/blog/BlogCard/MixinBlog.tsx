@@ -11,7 +11,10 @@ const MixinBlog = ({ blog, className, style }: BlogCardProps) => {
 
   return (
     <article
-      className={classNames('w-full self-stretch bg-gray-50 sm:max-w-sm', className)}
+      className={classNames(
+        'group w-full self-stretch bg-gray-50 sm:max-w-sm',
+        className
+      )}
       style={style}
     >
       <MyImage
@@ -20,6 +23,7 @@ const MixinBlog = ({ blog, className, style }: BlogCardProps) => {
         height={220}
         src={blog?.cover ?? ''}
         alt={blog.title}
+        imgClassName='transition-transform group-hover:scale-110'
       />
       <div className='px-6 py-8'>
         <h3 className='mt-0 mb-2 cursor-pointer text-2xl font-semibold  transition-colors hover:text-primary'>

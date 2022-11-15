@@ -9,7 +9,7 @@ export function convertToCommentTreeData(list: Comment[]) {
   const roots: CommentTree[] = [];
 
   const commentTreeList = list.map((comment, idx) => {
-    map.set(comment.id, idx);
+    map.set(Number(comment.id), idx);
     return {
       ...comment,
       children: [],
@@ -18,7 +18,7 @@ export function convertToCommentTreeData(list: Comment[]) {
 
   commentTreeList.forEach(comment => {
     if (Number(comment.parentId) !== 0) {
-      const parentIdx = map.get(comment.parentId);
+      const parentIdx = map.get(Number(comment.parentId));
       if (parentIdx && commentTreeList[parentIdx]) {
         commentTreeList[parentIdx].children?.push(comment);
       }

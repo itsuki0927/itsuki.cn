@@ -12,10 +12,10 @@ type CommentListProps = {
   className?: string;
   data?: CommentTree[];
   header?: ReactNode;
-  renderEmpty?: () => JSX.Element;
+  renderEmpty?: JSX.Element;
 };
 
-export const defaultRenderEmpty = () => (
+export const defaultRenderEmpty = (
   <Status
     className='mt-12'
     title='空空如也'
@@ -36,7 +36,7 @@ const CommentList = ({
   renderEmpty = defaultRenderEmpty,
 }: CommentListProps) => {
   if (!data || !data?.length) {
-    return renderEmpty?.();
+    return renderEmpty;
   }
 
   const renderHeader = () => {

@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames';
 import React, { ReactNode, useState } from 'react';
 import { MarkdownBlock } from '@/components/ui';

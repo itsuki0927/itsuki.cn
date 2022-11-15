@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import Image, { ImageLoaderProps, ImageProps } from 'next/image';
-import { useEffect, useState } from 'react';
 
 export type MyImageProps = Omit<
   ImageProps,
@@ -48,14 +47,6 @@ const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
 const MyImage = ({ className, imgClassName, circle, src, ...rest }: MyImageProps) => {
   const placeholderProps: Pick<ImageProps, 'placeholder' | 'blurDataURL'> = {};
   const { width = 0, height = 0 } = rest;
-  const [innerSrc, setInnerSrc] = useState(src);
-
-  useEffect(() => {
-    if (src !== innerSrc) {
-      setInnerSrc(src);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [src]);
 
   if (width > 40 || height > 40) {
     placeholderProps.placeholder = 'blur';
@@ -69,16 +60,12 @@ const MyImage = ({ className, imgClassName, circle, src, ...rest }: MyImageProps
     <Image
       {...rest}
       {...placeholderProps}
-      src={innerSrc}
+      src={src}
       loading='lazy'
       loader={imageLoader}
       className={classNames(imgClassName, {
         'rounded-full': circle,
       })}
-      onError={() => {
-        setInnerSrc('/anonymous.jpeg');
-        console.error('[image]: load error', src);
-      }}
     />
   );
 };

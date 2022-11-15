@@ -86,14 +86,14 @@ const CommentView = ({ blogId, className = '' }: CommentProps) => {
       <CommentList
         className='space-y-8 sm:space-y-12'
         data={treeData}
-        renderEmpty={() => (
+        renderEmpty={
           <Status
             className='mt-12'
             title='空空如也'
             icon={<MessageSvg />}
             description='我也想展示评论, 奈何数据库一条都没得'
           />
-        )}
+        }
         header={
           <>
             <span>

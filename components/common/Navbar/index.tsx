@@ -1,17 +1,18 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import { Rss } from 'react-feather';
 import MobileMenu from '../Layout/MobileMenu';
 import CommandIcon from './CommandIcon';
-import { Logo } from '@/components/common';
+import Logo from '@/components/common/Logo';
 import { GAEventCategories } from '@/constants/gtag';
 import { gtag } from '@/utils/gtag';
 
 const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => {
-  const { asPath } = useRouter();
-  const isActive = href === asPath;
+  const pathname = usePathname();
+  /* const { asPath } = useRouter(); */
+  const isActive = href === pathname;
 
   return (
     <li

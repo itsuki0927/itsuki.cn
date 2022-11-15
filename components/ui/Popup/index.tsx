@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames';
 import { KeyboardEvent, ReactNode, useCallback, useEffect } from 'react';
 import { off, on } from '@/utils/events';

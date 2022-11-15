@@ -1,4 +1,3 @@
-import { cloneElement } from 'react';
 import classNames from 'classnames';
 import Link, { LinkProps } from 'next/link';
 import { StandardProps } from '@/types/common';
@@ -12,10 +11,12 @@ const InternalLink = ({
   style,
   ...rest
 }: InternalLinkProps) => (
-  <Link href={href} {...rest}>
-    {cloneElement(children as any, {
-      className: classNames('cursor-pointer transition', className),
-    })}
+  <Link
+    className={classNames('cursor-pointer transition', className)}
+    href={href}
+    {...rest}
+  >
+    {children}
   </Link>
 );
 

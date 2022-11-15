@@ -11,11 +11,14 @@ import { useCopyright, useMount, useUnMount } from '@/hooks';
 import '@/styles/global.css';
 import { AuthProvider } from '@/libs/auth';
 
-function AppLayout({ children }: any) {
+function AppLayout({ children, ...rest }: any) {
   const { enableCopyright, disableCopyright } = useCopyright();
 
   useMount(enableCopyright);
   useUnMount(disableCopyright);
+
+  console.log('children:', children);
+  console.log('rest:', rest);
 
   return (
     <>

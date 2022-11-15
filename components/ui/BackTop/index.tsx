@@ -1,5 +1,7 @@
+'use client';
+
 import { ArrowUp } from 'react-feather';
-import { useScrollTo } from '@/hooks';
+import useScrollTo from '@/hooks/useScrollTo';
 
 const BackTop = () => {
   const { scrollTo } = useScrollTo();

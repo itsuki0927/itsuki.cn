@@ -1,7 +1,7 @@
 'use client';
 
+import Link from 'next/link';
 import classNames from 'classnames';
-import router from 'next/navigation';
 import { A11y, Autoplay, Keyboard, Lazy } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
@@ -53,11 +53,8 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
               {blog?.tags?.map(v => v.name).join('、')}
             </div>
 
-            <h3
-              className='mt-0 mb-2 cursor-pointer text-2xl font-semibold text-gray-900 transition-colors duration-500 hover:text-primary'
-              onClick={() => router.push(getBlogDetailRoute(blog?.path))}
-            >
-              {blog?.title}
+            <h3 className='mt-0 mb-2 cursor-pointer text-2xl font-semibold text-gray-900 transition-colors duration-500 hover:text-primary'>
+              <Link href={getBlogDetailRoute(blog?.path)}>{blog?.title}</Link>
             </h3>
 
             <p className='capsize mt-0 mb-3 cursor-pointer text-gray-600'>

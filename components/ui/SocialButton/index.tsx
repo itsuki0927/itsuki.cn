@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { MouseEvent } from 'react';
 import toast from 'react-hot-toast';
 import classNames from 'classnames';
@@ -76,6 +76,7 @@ const SocialButton = ({
   children,
 }: SocialButtonProps) => {
   const { openPopup, setPopupView } = useUI();
+  const pathname = usePathname();
   const router = useRouter();
   const [, copyTextToClipboard] = useCopyToClipboard();
 
@@ -89,7 +90,7 @@ const SocialButton = ({
   };
 
   const clickWebsite = () => {
-    if (router.pathname === '/about') {
+    if (pathname === '/about') {
       copyTextToClipboard('https://itsuki.cn');
       toast.success('🔗 链接复制成功, 快去分享给其他小伙伴吧~');
     } else {

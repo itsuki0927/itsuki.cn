@@ -48,6 +48,7 @@ const QueryClientContainer = ({ children }: PropsWithChildren<any>) => {
         queries: {
           refetchOnWindowFocus: false,
           onError: handlerError,
+          staleTime: TIMESTAMP.MINIUTE,
         },
         mutations: {
           onError: handlerError,
@@ -59,6 +60,7 @@ const QueryClientContainer = ({ children }: PropsWithChildren<any>) => {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
+      {/* <Hydrate state={state}>{children}</Hydrate> */}
       {isDev && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );

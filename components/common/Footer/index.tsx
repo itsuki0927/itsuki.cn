@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames';
-import { useTags } from '@/hooks/tag';
+import useTags from '@/hooks/tag/useTags';
 import { getTagRoute } from '@/utils/url';
 import ExternalLink from '../ExternalLink';
 import Logo from '../Logo';

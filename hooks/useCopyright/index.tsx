@@ -1,3 +1,5 @@
+'use client';
+
 import { META } from '@/configs/app';
 import { off, on } from '@/utils/events';
 import { getSelection } from '@/utils/editor/cursor';

@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import { AreaHTMLAttributes, ReactNode } from 'react';
 
 type ExternalLinkProps = Omit<
-  React.AreaHTMLAttributes<HTMLAnchorElement>,
+  AreaHTMLAttributes<HTMLAnchorElement>,
   'href' | 'children'
 > & {
   href: string;

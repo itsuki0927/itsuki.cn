@@ -5,7 +5,6 @@ import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Plus } from 'react-feather';
-import { BlogSkeletonList } from '@/components/blog/BlogSkeleton';
 import BlogCard from '@/components/blog/BlogCard';
 import CommentList from '@/components/comment/CommentList';
 import { HomeSlider } from '@/components/home';
@@ -15,17 +14,16 @@ import PtnContainer from '@/components/ui/PtnContainer';
 import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
 import Status from '@/components/ui/Status';
 import { GAEventCategories } from '@/constants/gtag';
-import useBannerBlogs from '@/hooks/blog/useBannerBlogs';
-import useHotBlogs from '@/hooks/blog/useHotBlogs';
-import useRecentBlogs from '@/hooks/blog/useRecentBlogs';
-import useRecentComments from '@/hooks/comment/useRecentComments';
-import useSiteSummary from '@/hooks/summary/useSiteSummary';
-import useTags from '@/hooks/tag/useTags';
 import { getDayTotals } from '@/utils/date';
 import { gtag } from '@/utils/gtag';
 import { getBlogDetailRoute, getTagRoute } from '@/utils/url';
 import Layout from '@/components/common/Layout';
 import MyImage from '@/components/common/MyImage';
+import { Blog } from '@/entities/blog';
+import { Comment } from '@/entities/comment';
+import { SiteSummary } from '@/entities/summary';
+import { SearchResponse } from '@/types/response';
+import { Tag } from '@/entities/tag';
 
 const todoList = [
   { name: '新版UI', percent: '60%' },
@@ -33,13 +31,23 @@ const todoList = [
   { name: '阅读@tanstack/react-query中', percent: '50%' },
 ];
 
-const HomePage = () => {
-  const blogs = useRecentBlogs();
-  const { data: tags } = useTags();
-  const { data: bannerBlogs } = useBannerBlogs();
-  const { data: hotBlogs } = useHotBlogs();
-  const { data: comments } = useRecentComments();
-  const { data: siteSummary } = useSiteSummary();
+interface HomePageProps {
+  blogs: SearchResponse<Blog>;
+  tags: Tag[];
+  bannerBlogs: SearchResponse<Blog>;
+  hotBlogs: SearchResponse<Blog>;
+  comments: SearchResponse<Comment>;
+  siteSummary: SiteSummary;
+}
+
+const HomePage = ({
+  tags,
+  bannerBlogs,
+  hotBlogs,
+  comments,
+  siteSummary,
+  blogs,
+}: HomePageProps) => {
   const {
     dayInYearTotal,
     dayInYear,
@@ -51,16 +59,6 @@ const HomePage = () => {
     hourInDay,
   } = getDayTotals();
   const router = useRouter();
-
-  console.log('blogs', blogs);
-
-  if (!blogs || blogs.isFetching) {
-    return (
-      <Layout>
-        <BlogSkeletonList />
-      </Layout>
-    );
-  }
 
   return (
     <Layout className='mb-12 space-y-8' footerTheme='reverse'>
@@ -144,7 +142,7 @@ const HomePage = () => {
           </div>
 
           <div className='flex flex-grow flex-wrap items-center gap-6 sm:gap-8 sm:space-y-0'>
-            {blogs.data.data?.map((blog, i) => (
+            {blogs.data.map((blog, i) => (
               <BlogCard
                 blog={blog}
                 key={blog.id}
@@ -167,7 +165,7 @@ const HomePage = () => {
             <CommentList
               data={comments?.data.slice(0, 2)}
               className='space-y-6 sm:space-y-8'
-              renderEmpty={() => (
+              renderEmpty={
                 <Status
                   title='空空如也'
                   icon={<MessageSvg />}
@@ -181,7 +179,7 @@ const HomePage = () => {
                     <span>添加评论</span>
                   </Status.Button>
                 </Status>
-              )}
+              }
             />
           </div>
         </div>

@@ -23,7 +23,7 @@ const LastestContent = ({
           </Link>
         </div>
 
-        <div className='flex flex-grow flex-wrap items-center gap-6 sm:gap-8 sm:space-y-0'>
+        <div className='flex flex-grow flex-wrap items-start gap-6 sm:gap-8 sm:space-y-0'>
           {blogs.data.map((blog, i) => (
             <BlogCard
               blog={blog}

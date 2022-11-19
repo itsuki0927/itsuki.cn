@@ -42,8 +42,7 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
             <MyImage
               src={blog?.cover}
               alt='banner cover'
-              className='object-cover sm:max-h-[334px]'
-              objectFit='cover'
+              className='object-cover sm:max-h-[334px] sm:min-h-[334px]'
               width={535}
               height={334}
             />

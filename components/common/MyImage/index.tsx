@@ -7,7 +7,6 @@ export type MyImageProps = Omit<
   ImageProps,
   'loader' | 'loading' | 'placeholder' | 'blurDataURL'
 > & {
-  imgClassName?: string;
   circle?: boolean;
 };
 
@@ -46,7 +45,7 @@ const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
   return isAbsoluteUrl ? `${src}?${getImageParams({ width, quality })}` : src;
 };
 
-const MyImage = ({ className, imgClassName, circle, src, ...rest }: MyImageProps) => {
+const MyImage = ({ className = '', circle, src, ...rest }: MyImageProps) => {
   const placeholderProps: Pick<ImageProps, 'placeholder' | 'blurDataURL'> = {};
   const { width = 0, height = 0 } = rest;
 
@@ -65,7 +64,7 @@ const MyImage = ({ className, imgClassName, circle, src, ...rest }: MyImageProps
       src={src}
       loading='lazy'
       loader={imageLoader}
-      className={classNames(imgClassName, {
+      className={classNames(className, {
         'rounded-full': circle,
       })}
     />

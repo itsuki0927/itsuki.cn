@@ -6,7 +6,6 @@ import PtnContainer from '@/components/ui/PtnContainer';
 import { SocialButtons } from '@/components/ui/SocialButton';
 import { HomePageProps } from '@/app/page';
 
-/* console.log('defaultSocials:', defaultSocials); */
 const HomeBanner = ({
   bannerBlogs,
   siteSummary,

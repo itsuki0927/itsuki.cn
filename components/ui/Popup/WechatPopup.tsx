@@ -5,8 +5,9 @@ const WechatPopup = () => (
   <Container className='min-w-[24rem] max-w-[90%] border-8 border-white-3 bg-white-1'>
     <div className='my-8 text-center'>
       <MyImage
+        alt='wechat popup'
         src='/wechat.png'
-        imgClassName='rounded-sm opacity-80'
+        className='rounded-sm opacity-80'
         width={150}
         height={150}
       />

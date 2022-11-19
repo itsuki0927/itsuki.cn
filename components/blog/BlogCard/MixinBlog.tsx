@@ -17,14 +17,15 @@ const MixinBlog = ({ blog, className, style }: BlogCardProps) => {
       )}
       style={style}
     >
-      <MyImage
-        objectFit='cover'
-        width={392}
-        height={220}
-        src={blog?.cover ?? ''}
-        alt={blog.title}
-        imgClassName='transition-transform group-hover:scale-110'
-      />
+      <figure className='overflow-hidden'>
+        <MyImage
+          width={392}
+          height={220}
+          src={blog?.cover ?? ''}
+          alt={blog.title}
+          className='object-cover transition-transform group-hover:scale-110 sm:max-h-[220px] sm:min-h-[220px]'
+        />
+      </figure>
       <div className='px-6 py-8'>
         <h3 className='mt-0 mb-2 cursor-pointer text-2xl font-semibold  transition-colors hover:text-primary'>
           <Link legacyBehavior href={getBlogDetailRoute(blog.path)}>

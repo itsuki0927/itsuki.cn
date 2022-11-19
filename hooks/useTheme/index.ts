@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import useLocalStorage from '../useLocalStorage';
 import useMount from '../useMount';

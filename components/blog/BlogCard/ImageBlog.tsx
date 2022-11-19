@@ -19,7 +19,6 @@ const ImageBlog = ({ blog, className, style }: BlogCardProps) => {
     >
       <MyImage
         layout='fill'
-        objectFit='cover'
         src={blog?.cover ?? ''}
         alt={blog.title}
         className='absolute top-0 left-0 right-0 bottom-0'

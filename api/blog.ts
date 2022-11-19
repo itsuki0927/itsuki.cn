@@ -20,6 +20,9 @@ import {
   READ_BLOG,
 } from '@/graphqls/blog';
 import { DEFAULT_CURRENT } from '@/constants/value';
+import { BlogHeading } from '@/hooks/blog/useBlog';
+import markedToHtml from '@/libs/marked';
+import { getBlogHeadingElementId } from '@/constants/anchor';
 
 export const getBlogs = async (params?: SearchBlogsBody) => {
   const { blogs } = await request<QueryBlogsResponse, QueryBlogSearch>(
@@ -43,7 +46,23 @@ export const getBlog = async (path: string) => {
       path,
     }
   );
-  return blog;
+  const headings: BlogHeading[] = [];
+  const htmlContent = markedToHtml(blog.content, {
+    purify: true,
+    headingIDRenderer: (_, level, raw) => {
+      const id = getBlogHeadingElementId(
+        level,
+        raw.toLowerCase().replace(/[^a-zA-Z0-9\u4E00-\u9FA5]+/g, '-')
+      );
+      headings.push({ level, id, text: raw });
+      return id;
+    },
+  });
+  return {
+    ...blog,
+    htmlContent,
+    headings,
+  };
 };
 
 export const getArchives = () => getBlogs({ current: DEFAULT_CURRENT, pageSize: 500 });
@@ -60,7 +79,7 @@ export const getAllBlogPathsWithPath = async () => {
     endpoint,
     QUERY_BLOG_PATHS_WITH_PATH
   );
-  return blogs.data.map(item => `/blog/${item.path}`);
+  return blogs.data.map(item => ({ path: `/blog/${item.path}` }));
 };
 
 export const getBannerBlogs = () => getBlogs({ banner: 1 });

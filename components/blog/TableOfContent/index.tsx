@@ -1,7 +1,11 @@
+'use client';
+
 import { useReducedMotion, motion } from 'framer-motion';
 import classNames from 'classnames';
 import { BlogDetailResponse } from '@/entities/blog';
-import { useProgress, useScrollSpy, useScrollTo } from '@/hooks';
+import useProgress from '@/hooks/useProgress';
+import useScrollSpy from '@/hooks/useScrollSpy';
+import useScrollTo from '@/hooks/useScrollTo';
 import { BLOG_ACTIONS_ELEMENT_ID, getElementId } from '@/constants/anchor';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
@@ -15,8 +19,15 @@ interface BlogAsideProps {
 const OFFSET = 150;
 
 const TableOfContent = ({ blog, className = '' }: BlogAsideProps) => {
+  const h2Headings = blog?.headings?.filter(heading => heading.level === 2);
   const shouldReduceMotion = useReducedMotion();
   const readingProgress = useProgress();
+  const [currentActiveIndex] = useScrollSpy(
+    h2Headings?.map(item => document.querySelector(`#${item.id}`)!) ?? [],
+    { offset: OFFSET }
+  );
+
+  const { scrollTo } = useScrollTo();
 
   const shouldDisplayTableOfContent = readingProgress > 0.07 && readingProgress < 0.95;
 
@@ -28,15 +39,6 @@ const TableOfContent = ({ blog, className = '' }: BlogAsideProps) => {
       opacity: shouldReduceMotion || shouldDisplayTableOfContentParam ? 1 : 0,
     }),
   };
-
-  const h2Headings = blog?.headings?.filter(heading => heading.level === 2);
-
-  const [currentActiveIndex] = useScrollSpy(
-    h2Headings?.map(item => document.querySelector(`#${item.id}`)!) ?? [],
-    { offset: OFFSET }
-  );
-
-  const { scrollTo } = useScrollTo();
 
   const handleScrollTo = (id: string) => {
     gtag.event('blog_aside', {

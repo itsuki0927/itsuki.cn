@@ -154,7 +154,6 @@ const BlogPage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) => {
                   src={blog.cover}
                   width={1216}
                   height={516}
-                  objectFit='cover'
                   alt='blog-header-cover'
                   className='cursor-pointer'
                   id='blogCover'

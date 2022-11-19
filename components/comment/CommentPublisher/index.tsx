@@ -1,3 +1,5 @@
+'use client';
+
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { Code, Eye, EyeOff, Image, Link } from 'react-feather';
 import dynamic from 'next/dynamic';
@@ -11,7 +13,7 @@ import SendButton from '../SendButton';
 import CommentAvatar from '../CommentAvatar';
 import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
 import IconButton from '@/components/common/MarkdownEditor/IconButton';
-import { useLocalStorage } from '@/hooks';
+import useLocalStorage from '@/hooks/useLocalStorage';
 import { remove } from '@/utils/storage';
 import { useAuth } from '@/libs/auth';
 

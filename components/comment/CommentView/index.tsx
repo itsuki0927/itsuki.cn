@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';

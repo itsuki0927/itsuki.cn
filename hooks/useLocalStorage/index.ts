@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable no-console */
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { getJSON, setJSON } from '@/utils/storage';

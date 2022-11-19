@@ -1,77 +1,9 @@
-'use client';
-
 import classNames from 'classnames';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { PropsWithChildren } from 'react';
-import { Rss } from 'react-feather';
-import MobileMenu from '../Layout/MobileMenu';
-import CommandIcon from './CommandIcon';
 import Logo from '@/components/common/Logo';
-import { GAEventCategories } from '@/constants/gtag';
-import { gtag } from '@/utils/gtag';
-
-const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => {
-  const pathname = usePathname();
-  /* const { asPath } = useRouter(); */
-  const isActive = href === pathname;
-
-  return (
-    <li
-      className={classNames(
-        'capsize relative hidden cursor-pointer px-5 text-center leading-8 tracking-widest transition-colors duration-500 hover:text-primary-hover md:inline-block',
-        isActive ? 'text-primary' : 'text-dark-2'
-      )}
-    >
-      <Link href={href}>{children}</Link>
-    </li>
-  );
-};
-
-const DEFAULT_NAV_LIST = [
-  /* { path: '/blog', name: '文章' }, */
-  /* { path: '/archive', name: '归档' }, */
-  { path: '/guestbook', name: '留言' },
-  /* { path: '/about', name: '关于' }, */
-];
-
-interface IconNavProps {
-  className?: string;
-}
-
-export const IconContent = ({ className = '' }: IconNavProps) => {
-  const handleIconClick = (action: string, label: string) => {
-    gtag.event(action, {
-      category: GAEventCategories.Widget,
-      label,
-    });
-  };
-
-  return (
-    <div className={`${className} space-x-6`}>
-      {/* <a */}
-      {/*   tabIndex={0} */}
-      {/*   role='button' */}
-      {/*   key='activity' */}
-      {/*   className='text-center' */}
-      {/*   onClick={() => handleIconClick('activity', 'activity')} */}
-      {/* > */}
-      {/*   <Activity size={20} /> */}
-      {/* </a> */}
-      <CommandIcon onClick={handleIconClick} />
-      <a
-        tabIndex={0}
-        role='button'
-        key='rss'
-        className='rounded-md p-2 text-center transition-colors hover:bg-gray-100'
-        href='/rss.xml'
-        onClick={() => handleIconClick('rss', 'rss')}
-      >
-        <Rss size={16} />
-      </a>
-    </div>
-  );
-};
+import MobileMenu from '../Layout/MobileMenu';
+import IconContent from './IconContent';
+import NavbarItem from './NavbarItem';
+import { DEFAULT_ROUTE_LIST } from '@/constants/value';
 
 interface HeaderProps {
   theme?: 'white' | 'gray';
@@ -87,7 +19,7 @@ const Header = ({ theme = 'white' }: HeaderProps) => (
       <div className='relative flex flex-grow items-center justify-between md:justify-start'>
         <Logo />
         <ul className='ml-5'>
-          {DEFAULT_NAV_LIST.map(item => (
+          {DEFAULT_ROUTE_LIST.map(item => (
             <NavbarItem key={item.path} href={item.path}>
               {item.name}
             </NavbarItem>

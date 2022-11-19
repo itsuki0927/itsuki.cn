@@ -1,7 +1,11 @@
+'use client';
+
 import { Dialog, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Book, Command, Edit2, Home, MessageSquare, User } from 'react-feather';
+import { GAEventCategories } from '@/constants/gtag';
+import { gtag } from '@/utils/gtag';
 
 const pages = [
   {
@@ -36,11 +40,7 @@ const pages = [
   },
 ];
 
-export interface CommandIconProps {
-  onClick?: (action: string, type: string) => void;
-}
-
-const CommandIcon = ({ onClick }: CommandIconProps) => {
+const CommandIcon = () => {
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [value, setValue] = useState('');
@@ -78,7 +78,10 @@ const CommandIcon = ({ onClick }: CommandIconProps) => {
         className='rounded-md p-2 text-center transition-colors hover:bg-gray-100'
         onClick={() => {
           openModal();
-          onClick?.('command', 'command');
+          gtag.event('command', {
+            category: GAEventCategories.Widget,
+            label: 'command',
+          });
         }}
       >
         <Command size={16} />

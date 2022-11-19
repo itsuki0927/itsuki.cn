@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames';
-import useTags from '@/hooks/tag/useTags';
 import { getTagRoute } from '@/utils/url';
 import ExternalLink from '../ExternalLink';
 import Logo from '../Logo';
 import InternalLink from '../InternalLink';
+import { DEFAULT_ROUTE_LIST_WITH_HOME } from '@/constants/value';
 
 interface CommonProps {
   children?: ReactNode;
@@ -19,7 +19,8 @@ interface FooterProps {
 }
 
 const Footer = ({ theme = 'normal' }: FooterProps) => {
-  const { data } = useTags();
+  // TODO:
+  const data: any[] = [];
   return (
     <footer className=''>
       <div className={classNames(theme === 'normal' ? 'bg-white' : 'bg-gray-50')}>
@@ -43,11 +44,11 @@ const Footer = ({ theme = 'normal' }: FooterProps) => {
               </div>
               <div className='flex flex-col space-y-2 sm:mr-8 sm:space-y-4 md:w-36'>
                 <Title>导航</Title>
-                <InternalLink href='/'>Home</InternalLink>
-                <InternalLink href='/blog'>Blog</InternalLink>
-                <InternalLink href='/guestbook'>Guestbook</InternalLink>
-                <InternalLink href='/archive'>Archive</InternalLink>
-                <InternalLink href='/about'>About</InternalLink>
+                {DEFAULT_ROUTE_LIST_WITH_HOME.map(route => (
+                  <InternalLink href={route.path} key={route.path}>
+                    {route.en}
+                  </InternalLink>
+                ))}
               </div>
               <div className='mt-8 flex flex-col space-y-2 sm:mt-0 sm:space-y-4 md:w-36'>
                 <Title>社区</Title>

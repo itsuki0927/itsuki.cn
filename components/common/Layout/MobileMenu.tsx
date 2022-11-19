@@ -5,7 +5,7 @@ import Link from 'next/link';
 import useDelayedRender from 'use-delayed-render';
 import { useState, useEffect } from 'react';
 import styles from './mobile-menu.module.css';
-import { IconContent } from '../Navbar';
+import IconContent from '../Navbar/IconContent';
 
 const MenuIcon = (props: JSX.IntrinsicElements['svg']) => (
   <svg

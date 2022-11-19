@@ -1,15 +1,14 @@
-import { BlogSkeletonList } from '@/components/blog';
 import SearchSvg from '@/components/icons/SearchSvg';
 import Status from '@/components/ui/Status';
 import { UseAllBlogs } from '@/hooks/blog/useAllBlogs';
 import BlogCard from '../BlogCard';
 
-type BlogListProps = UseAllBlogs;
+type BlogListProps = Pick<UseAllBlogs, 'data'>;
 
-const BlogList = ({ data, ...rest }: BlogListProps) => {
-  if (rest.isFetching || rest.isLoading) {
-    return <BlogSkeletonList />;
-  }
+const BlogList = ({ data }: BlogListProps) => {
+  /* if (rest.isFetching || rest.isLoading) { */
+  /*   return <BlogSkeletonList />; */
+  /* } */
 
   if (data?.total === 0) {
     return <Status title='空空如也' icon={<SearchSvg />} description='江郎才尽' />;

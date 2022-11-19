@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames';
 import Image, { ImageLoaderProps, ImageProps } from 'next/image';
 

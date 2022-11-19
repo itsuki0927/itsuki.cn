@@ -1,5 +1,3 @@
-'use client';
-
 import classNames from 'classnames';
 import { WithAsProps } from '@/types/common';
 import styles from './index.module.scss';

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   PropsWithChildren,
@@ -102,7 +104,7 @@ function uiReducer(state: State, action: Action) {
   }
 }
 
-export const UIProvider = (props: PropsWithChildren<Record<string, any>>) => {
+const UIProvider = (props: PropsWithChildren<Record<string, any>>) => {
   const [state, dispatch] = useReducer(uiReducer, initialState);
 
   const openPopup = useCallback(

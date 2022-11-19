@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Blog } from '@/entities/blog';
 import { getBlogDetailRoute } from '@/utils/url';
 import Pagination from './Pagination';
-import { MyImage } from '@/components/common';
+import MyImage from '@/components/common/MyImage';
 
 type HomeSliderProps = {
   blogs?: Blog[];
@@ -20,7 +20,7 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
   <div className={classNames('w-full sm:max-w-[800px]')}>
     <Swiper
       lazy
-      autoplay
+      /* autoplay */
       loop
       modules={[A11y, Autoplay, Lazy, Keyboard]}
       keyboard={{

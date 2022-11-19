@@ -1,3 +1,5 @@
+'use client';
+
 import { usePathname, useRouter } from 'next/navigation';
 import { MouseEvent } from 'react';
 import toast from 'react-hot-toast';
@@ -9,7 +11,7 @@ import {
   SifouOutlined,
   JuejinOutlined,
 } from '@/components/icons';
-import { useCopyToClipboard } from '@/hooks';
+import { copyTextToClipboard } from '@/hooks/useCopyToClipboard';
 import { useUI } from '../context';
 import { GAEventCategories } from '@/constants/gtag';
 import { gtag } from '@/utils/gtag';
@@ -78,7 +80,7 @@ const SocialButton = ({
   const { openPopup, setPopupView } = useUI();
   const pathname = usePathname();
   const router = useRouter();
-  const [, copyTextToClipboard] = useCopyToClipboard();
+  /* const [, copyTextToClipboard] = useCopyToClipboard(); */
 
   const clickWechat = (e: MouseEvent) => {
     e.preventDefault();
@@ -127,5 +129,19 @@ const SocialButton = ({
     </button>
   );
 };
+
+export const SocialButtons = () => (
+  <div className='flex flex-row items-center space-x-2 border-t border-dashed border-gray-300 pt-4 sm:space-x-4'>
+    {defaultSocials.map(social => (
+      <SocialButton
+        social={social}
+        className='flex-shrink px-5 py-1 text-center'
+        key={social.name}
+      >
+        {social.icon}
+      </SocialButton>
+    ))}
+  </div>
+);
 
 export default SocialButton;

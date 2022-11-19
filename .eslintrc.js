@@ -68,5 +68,7 @@ module.exports = {
     'react/no-unescaped-entities': OFF,
     // 允许 使用any
     '@typescript-eslint/no-explicit-any': OFF,
+    // 禁用调用arrow body风格
+    'arrow-body-style': OFF,
   },
 };

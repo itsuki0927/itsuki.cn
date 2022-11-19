@@ -3,14 +3,15 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, ArrowRight, Edit2, MessageSquare } from 'react-feather';
-import { Layout } from '@/components/common';
-import { Container } from '@/components/ui';
+import Layout from '@/components/common/Layout';
+import Container from '@/components/ui/Container';
 import { GAEventCategories } from '@/constants/gtag';
-import { useMount } from '@/hooks';
+import useMount from '@/hooks/useMount';
 import { gtag } from '@/utils/gtag';
 
 const NotFound = () => {
   const router = useRouter();
+
   useMount(() => {
     gtag.event('404', {
       category: GAEventCategories.NotFound,

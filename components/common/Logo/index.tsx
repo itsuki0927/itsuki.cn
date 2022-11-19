@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { LogoJsonLd } from 'next-seo';
-import { WEB_URL } from '@/configs/app';
+/* import { LogoJsonLd } from 'next-seo'; */
+/* import { WEB_URL } from '@/configs/app'; */
 
 const Logo = () => (
   <Link href='/'>
@@ -9,7 +9,7 @@ const Logo = () => (
       <span className='capsize ml-1 inline-block text-lg font-medium leading-8 text-primary'>
         五块木头
       </span>
-      <LogoJsonLd logo='/logo.png' url={WEB_URL} />
+      {/* <LogoJsonLd logo='/logo.png' url={WEB_URL} /> */}
     </div>
   </Link>
 );

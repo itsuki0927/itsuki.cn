@@ -1,8 +1,9 @@
-'use client';
-
+/* 'use client'; */
 import { META } from '@/configs/app';
 import { off, on } from '@/utils/events';
 import { getSelection } from '@/utils/editor/cursor';
+import useMount from '../useMount';
+import useUnMount from '../useUnMount';
 
 const copyrightText = () =>
   [
@@ -32,10 +33,8 @@ const useCopyright = () => {
   const enableCopyright = () => on(document, 'copy', handleCopyright);
   const disableCopyright = () => off(document, 'copy', handleCopyright);
 
-  return {
-    enableCopyright,
-    disableCopyright,
-  } as const;
+  useMount(enableCopyright);
+  useUnMount(disableCopyright);
 };
 
 export default useCopyright;

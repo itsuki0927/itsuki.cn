@@ -16,6 +16,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { toast } from 'react-hot-toast';
 import { createUser } from './db';
 import { createFirebaseApp } from './firebase';
 
@@ -90,7 +91,7 @@ const useProvideAuth = () => {
     return false;
   }, []);
 
-  const signInWithGoogle = () => {
+  const signInWithGoogle = useCallback(() => {
     if (authRef.current) {
       setLoading(true);
       signInWithPopup(authRef.current, googleProvider)
@@ -103,15 +104,18 @@ const useProvideAuth = () => {
           const errorMessage = error.message;
           const { email } = error.customData;
           const credential = GoogleAuthProvider.credentialFromError(error);
+          setLoading(false);
+          handleUser(null);
+          toast.error(`登录失败：${errorCode}`);
           console.log('errorCode:', errorCode);
           console.log('errorMessage:', errorMessage);
           console.log('email:', email);
           console.log('credential:', credential);
         });
     }
-  };
+  }, [handleUser]);
 
-  const signInWithGithub = () => {
+  const signInWithGithub = useCallback(() => {
     if (authRef.current) {
       setLoading(true);
       signInWithPopup(authRef.current, githubProvider)
@@ -124,21 +128,24 @@ const useProvideAuth = () => {
           const errorMessage = error.message;
           const { email } = error.customData;
           const credential = GithubAuthProvider.credentialFromError(error);
+          toast.error(`登录失败：${errorCode}`);
+          setLoading(false);
+          handleUser(null);
           console.log('errorCode:', errorCode);
           console.log('errorMessage:', errorMessage);
           console.log('email:', email);
           console.log('credential:', credential);
         });
     }
-  };
+  }, [handleUser]);
 
-  const signout = () => {
+  const signout = useCallback(() => {
     setLoading(true);
     authRef.current?.signOut().then(() => {
       handleUser(null);
       setLoading(false);
     });
-  };
+  }, [handleUser]);
 
   useEffect(() => {
     setLoading(true);

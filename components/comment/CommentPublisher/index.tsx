@@ -2,7 +2,7 @@
 
 import CommentPublisherUI from './CommentPublisherUI';
 import GoogleIcon from '@/components/common/GoogleIcon';
-import GithubIcon from '@/components/icons/GithubIcon';
+import GithubIcon from '@/components/common/GithubIcon';
 import SorrySvg from '@/components/icons/SorrySvg';
 import LoadingDots from '@/components/ui/LoadingDots';
 import Status from '@/components/ui/Status';

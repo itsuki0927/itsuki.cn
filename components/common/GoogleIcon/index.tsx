@@ -14,6 +14,7 @@ const GoogleIcon = ({ className = '', onClick }: GoogleIconProps) => {
 
   const handleSignIn = (e: MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     gtag.event('login', {
       category: GAEventCategories.Comment,
       label: `login_google`,

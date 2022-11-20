@@ -10,7 +10,6 @@ import useCopyright from '@/hooks/useCopyright';
 import '@/styles/global.css';
 import { AuthProvider } from '@/libs/auth';
 import GA from '@/components/common/GA';
-import QueryClientContainer from '@/components/common/QueryClientContainer';
 
 function AppLayout({ children }: any) {
   useCopyright();
@@ -37,9 +36,7 @@ function AppLayout({ children }: any) {
       />
 
       <AuthProvider>
-        <ManagedUIContext>
-          <QueryClientContainer>{children}</QueryClientContainer>
-        </ManagedUIContext>
+        <ManagedUIContext>{children}</ManagedUIContext>
       </AuthProvider>
     </>
   );

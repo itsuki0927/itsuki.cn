@@ -11,12 +11,11 @@ import MyImage from '@/components/common/MyImage';
 import Container from '@/components/ui/Container';
 import MarkdownBlock from '@/components/ui/MarkdownBlock';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
-/* import { GAEventCategories } from '@/constants/gtag'; */
 import { Blog } from '@/entities/blog';
-/* import { gtag } from '@/utils/gtag'; */
-import { canUseDOM } from '@/utils/query';
 import { PageProps } from '@/types/common';
 import { getComments } from '@/api/comment';
+import BlogClient from '@/components/blog/BlogClient';
+import { getBlogDetailRoute } from '@/utils/url';
 
 export const dynamicParams = true;
 
@@ -37,10 +36,6 @@ const fetchData = async (path?: string) => {
   const comments = await getComments({ blogId: blog.id });
 
   readBlog(blog.id);
-  /* gtag.event('blog_view', { */
-  /*   category: GAEventCategories.Blog, */
-  /*   label: blog?.title, */
-  /* }); */
 
   return {
     blog,
@@ -50,6 +45,8 @@ const fetchData = async (path?: string) => {
   };
 };
 
+/* const getCanUseDOM = () => canUseDOM; */
+
 const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
   const { blog, comments } = await fetchData(params.path);
 
@@ -57,7 +54,7 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
     <p className={!pageBlog ? 'text-gray-400' : ''}>
       <span className='font-bold'>{title}: </span>
       {pageBlog ? (
-        <Link href={pageBlog.path ?? ''}>
+        <Link href={getBlogDetailRoute(pageBlog.path)}>
           <span className='cursor-pointer text-primary transition-all hover:text-primary-hover hover:underline'>
             {pageBlog.title}
           </span>
@@ -70,45 +67,7 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
 
   return (
     <Layout footerTheme='reverse'>
-      {/* <NextSeo */}
-      {/*   title={blog.title} */}
-      {/*   description={blog.description} */}
-      {/*   additionalMetaTags={[ */}
-      {/*     { name: 'keywords', content: blog.keywords }, */}
-      {/*     { */}
-      {/*       name: 'cover', */}
-      {/*       content: blog.cover, */}
-      {/*     }, */}
-      {/*   ]} */}
-      {/*   openGraph={{ */}
-      {/*     title: blog.title, */}
-      {/*     description: blog.description, */}
-      {/*     url: getBlogDetailFullUrl(blog.path), */}
-      {/*     type: 'blog', */}
-      {/*     article: { */}
-      {/*       publishedTime: blog.createAt.toString(), */}
-      {/*       modifiedTime: blog.updateAt.toString(), */}
-      {/*       expirationTime: blog.updateAt.toString(), */}
-      {/*       authors: [META.url], */}
-      {/*       tags: blog.tags.map(v => v.name), */}
-      {/*     }, */}
-      {/*     images: [ */}
-      {/*       { */}
-      {/*         url: blog.cover, */}
-      {/*       }, */}
-      {/*     ], */}
-      {/*   }} */}
-      {/* /> */}
-      {/* <ArticleJsonLd */}
-      {/*   url={getBlogDetailFullUrl(blog.path)} */}
-      {/*   title={blog.title} */}
-      {/*   images={[blog.cover]} */}
-      {/*   datePublished={blog.createAt.toString()} */}
-      {/*   dateModified={blog.updateAt.toString()} */}
-      {/*   authorName={[{ name: blog.author, url: META.url }]} */}
-      {/*   description={blog.description} */}
-      {/*   publisherName={blog.title} */}
-      {/* /> */}
+      <BlogClient blog={blog} />
 
       <BlogHeader blog={blog} />
 
@@ -129,7 +88,7 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
             )}
             <MarkdownBlock htmlContent={blog.htmlContent} />
 
-            {canUseDOM && <TableOfContent blog={blog} />}
+            <TableOfContent blog={blog} />
           </div>
         </div>
       </Container>

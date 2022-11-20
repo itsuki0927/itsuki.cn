@@ -4,15 +4,16 @@ import {
   CommentListSkeleton,
 } from '@/components/comment/CommentSkeleton';
 import Layout from '@/components/common/Layout';
+import { Container } from '@/components/ui';
 
 const Loading = () => {
   return (
     <Layout>
-      <div className='container space-y-6'>
+      <Container className='space-y-6'>
         <BlogSkeleton />
         <CommentFormSkeleton />
         <CommentListSkeleton />
-      </div>
+      </Container>
     </Layout>
   );
 };

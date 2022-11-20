@@ -10,6 +10,7 @@ import { BLOG_ACTIONS_ELEMENT_ID, getElementId } from '@/constants/anchor';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
 import ProgressBar from './ProgressBar';
+import { canUseDOM } from '@/utils/query';
 
 interface BlogAsideProps {
   blog: BlogDetailResponse;
@@ -23,7 +24,8 @@ const TableOfContent = ({ blog, className = '' }: BlogAsideProps) => {
   const shouldReduceMotion = useReducedMotion();
   const readingProgress = useProgress();
   const [currentActiveIndex] = useScrollSpy(
-    h2Headings?.map(item => document.querySelector(`#${item.id}`)!) ?? [],
+    (canUseDOM ? h2Headings?.map(item => document.querySelector(`#${item.id}`)!) : []) ??
+      [],
     { offset: OFFSET }
   );
 

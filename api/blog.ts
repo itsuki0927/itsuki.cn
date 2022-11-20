@@ -1,5 +1,8 @@
 import request from 'graphql-request';
 import {
+  Blog,
+  BlogArchive,
+  BlogArchiveResponse,
   LikeBlogBody,
   LikeBlogResponse,
   QueryBlogResponse,
@@ -65,7 +68,23 @@ export const getBlog = async (path: string) => {
   };
 };
 
-export const getArchives = () => getBlogs({ current: DEFAULT_CURRENT, pageSize: 500 });
+const convertToArchiveData = (data: Blog[]) => {
+  const result: BlogArchiveResponse = new Map();
+
+  data.forEach(blog => {
+    const createAt = new Date(blog.createAt);
+    const year = `${createAt.getFullYear()}`;
+    const blogs: BlogArchive[] = result.get(year) ?? [];
+    result.set(year, blogs.concat(blog));
+  });
+
+  return result;
+};
+
+export const getArchives = async () => {
+  const data = await getBlogs({ current: DEFAULT_CURRENT, pageSize: 500 });
+  return convertToArchiveData(data.data);
+};
 
 export const getAllBlogs = () => getBlogs({ pageSize: 1000 });
 

@@ -1,4 +1,4 @@
-import { Edit2, Eye, MessageSquare, Tag } from 'react-feather';
+import { Edit2, Eye, MessageCircle, MessageSquare, Tag } from 'react-feather';
 import { SiteSummary } from '@/entities/summary';
 
 interface BannerProps {
@@ -7,12 +7,12 @@ interface BannerProps {
 
 const Statistics = ({ summary }: BannerProps) => {
   const list = [
-    /* { title: '建站天数', count: summary?.diffDay, icon: <Coffee size={16} /> }, */
-    /* { title: '全站留言', count: summary?.guestbook, icon: <MessageCircle size={16} /> }, */
+    /* { title: '建站天数', count: summary?.diffDay ?? 300, icon: <Coffee size={16} /> }, */
     { title: '全站文章', count: summary?.blog, icon: <Edit2 size={16} /> },
     { title: '全站阅读', count: summary?.reading, icon: <Eye size={16} /> },
     { title: '全站标签', count: summary?.tag, icon: <Tag size={16} /> },
     { title: '全站评论', count: summary?.comment, icon: <MessageSquare size={16} /> },
+    { title: '全站留言', count: summary?.guestbook, icon: <MessageCircle size={16} /> },
   ];
 
   return (

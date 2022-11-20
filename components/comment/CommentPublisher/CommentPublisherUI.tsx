@@ -3,11 +3,9 @@
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { Code, Eye, EyeOff, Image, Link } from 'react-feather';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useCallback } from 'react';
-import toast from 'react-hot-toast';
 import { PostCommentBody } from '@/entities/comment';
-import useBlackList from '@/hooks/blacklist';
 import purifyDomString from '@/libs/purify';
 import SendButton from '../SendButton';
 import CommentAvatar from '../CommentAvatar';
@@ -19,6 +17,7 @@ import { useAuth } from '@/libs/auth';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
+  suspense: true,
 });
 
 export interface CommentFormProps {
@@ -41,36 +40,13 @@ const CommentPublisherUI = ({
   onError,
 }: CommentFormProps) => {
   const { user, signout } = useAuth();
-  const router = useRouter();
-  const cacheContentKey = `${router.asPath}-comment-publisher-${parentId}`;
+  const pathname = usePathname();
+  const cacheContentKey = `${pathname}-comment-publisher-${parentId}`;
   const [content, setContent] = useLocalStorage(cacheContentKey, '');
-  const { data: blacklist } = useBlackList();
 
   const email = user?.email ?? '';
   const avatar = user?.avatar ?? '';
   const nickname = user?.nickname ?? '';
-
-  const ensureCommentCanPush = useCallback(() => {
-    const sensitiveKeyword = blacklist?.keyword.find(k => content.includes(k));
-    if (sensitiveKeyword) {
-      toast.error(`老铁, 评论内容有敏感词: ${sensitiveKeyword}\n`, {
-        duration: 2500,
-      });
-      return false;
-    }
-    if (blacklist?.email.includes(user?.email ?? '')) {
-      toast.error(`老铁, 做了坏事情, 被拉黑了\n`, {
-        duration: 2500,
-      });
-      return false;
-    }
-    if (!content) {
-      toast.error(`老铁, 内容呢?\n`);
-      return false;
-    }
-
-    return true;
-  }, [blacklist?.email, blacklist?.keyword, content, user?.email]);
 
   const handleConfirm = () =>
     new Promise<boolean>((resolve, reject) => {
@@ -87,19 +63,17 @@ const CommentPublisherUI = ({
           content: purifyDomString(content),
         };
 
-        if (ensureCommentCanPush()) {
-          onPost?.(params).then(result => {
-            if (result) {
-              setContent('');
-              onSuccess?.();
-              remove(cacheContentKey);
-              resolve(true);
-            } else {
-              onError?.();
-              reject();
-            }
-          }, reject);
-        }
+        onPost?.(params).then(result => {
+          if (result) {
+            setContent('');
+            onSuccess?.();
+            remove(cacheContentKey);
+            resolve(true);
+          } else {
+            onError?.();
+            reject();
+          }
+        }, reject);
       }
     });
 

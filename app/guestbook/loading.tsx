@@ -1,18 +1,17 @@
-import { BlogSkeleton } from '@/components/blog/BlogSkeleton';
 import {
   CommentFormSkeleton,
   CommentListSkeleton,
 } from '@/components/comment/CommentSkeleton';
 import Layout from '@/components/common/Layout';
+import Container from '@/components/ui/Container';
 
 const Loading = () => {
   return (
     <Layout>
-      <div className='container space-y-6'>
-        <BlogSkeleton />
+      <Container className='sm:max-w-5xl'>
         <CommentFormSkeleton />
         <CommentListSkeleton />
-      </div>
+      </Container>
     </Layout>
   );
 };

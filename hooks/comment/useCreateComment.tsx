@@ -1,66 +1,74 @@
-import { GraphQLError } from 'graphql';
-import { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { use, useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
-import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';
 import { createComment } from '@/api/comment';
 import { GAEventCategories } from '@/constants/gtag';
-import { commentKeys } from '@/constants/queryKeys';
-import { Comment, PostCommentBody, QueryCommentsResponse } from '@/entities/comment';
+import { PostCommentBody } from '@/entities/comment';
 import { gtag } from '@/utils/gtag';
+import { getBlackList } from '@/api/blacklist';
 
 const useCreateComment = (blogId: number) => {
-  const queryClient = useQueryClient();
-  const commentKey = commentKeys.lists(blogId) as QueryKey;
-  const mutation = useMutation<Comment, GraphQLError, PostCommentBody>(
-    newComment => createComment(newComment),
-    {
-      onMutate: async newComment => {
-        await queryClient.cancelQueries(commentKey);
+  const router = useRouter();
+  const [isLoading, setLoading] = useState(false);
 
-        const previousComments = queryClient.getQueryData(commentKey);
-
-        queryClient.setQueryData<QueryCommentsResponse['comments']>(
-          commentKey,
-          oldData => ({
-            ...oldData,
-            data: [newComment as Comment, ...(oldData?.data ?? [])],
-            total: (oldData?.total ?? 0) + 1,
-            filter: null,
-          })
-        );
-
-        return { previousComments };
-      },
-      onError: (err, _, context: any) => {
-        queryClient.setQueryData(commentKey, context?.previousComments);
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries(commentKey);
-      },
+  // TODO: use 使用错误
+  const ensureCommentCanPush = useCallback(({ content, email }: PostCommentBody) => {
+    const { blacklist } = use(getBlackList());
+    const sensitiveKeyword = blacklist?.keyword.find(k => content.includes(k));
+    if (sensitiveKeyword) {
+      toast.error(`老铁, 评论内容有敏感词: ${sensitiveKeyword}\n`, {
+        duration: 2500,
+      });
+      return false;
     }
-  );
+    if (blacklist?.email.includes(email)) {
+      toast.error(`老铁, 做了坏事情, 被拉黑了\n`, {
+        duration: 2500,
+      });
+      return false;
+    }
+    if (!content) {
+      toast.error(`老铁, 内容呢?\n`);
+      return false;
+    }
+    return true;
+  }, []);
 
   const postComment = useCallback(
     (params: PostCommentBody) => {
+      if (!params.email) {
+        toast.loading('请先登陆...');
+        return Promise.resolve(false);
+      }
       gtag.event('push_comment', {
         category: GAEventCategories.Comment,
         label: `blog_id: ${blogId}`,
       });
-      return toast
-        .promise(mutation.mutateAsync(params), {
-          loading: '发射中...',
-          success: <b>👏 发射成功</b>,
-          error: <b>🙌 发射失败</b>,
-        })
-        .then(
-          () => true,
-          () => false
-        );
+      if (ensureCommentCanPush(params)) {
+        setLoading(true);
+        return toast
+          .promise(createComment(params), {
+            loading: '发射中...',
+            success: <b>👏 发射成功</b>,
+            error: <b>🙌 发射失败</b>,
+          })
+          .then(
+            () => {
+              router.refresh();
+              return true;
+            },
+            () => false
+          )
+          .finally(() => {
+            setLoading(false);
+          });
+      }
+      return Promise.resolve(false);
     },
-    [blogId, mutation]
+    [blogId, ensureCommentCanPush, router]
   );
 
-  return { ...mutation, postComment } as const;
+  return { postComment, isLoading } as const;
 };
 
 export default useCreateComment;

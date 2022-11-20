@@ -27,7 +27,7 @@ import { useTags } from '@/hooks/tag';
 import { getDayTotals } from '@/utils/date';
 import { gtag } from '@/utils/gtag';
 import { getBlogDetailRoute, getTagRoute } from '@/utils/url';
-import { HomeSlider } from '@/components/home';
+import HomeSlider from '@/components/home/HomeSlider';
 
 const todoList = [
   { name: '新版UI', percent: '60%' },
@@ -101,7 +101,7 @@ const HomePage = () => {
                 </div>
               </div>
 
-              <MyImage src='/avatar.jpeg' width={60} height={60} circle />
+              <MyImage alt='avatar' src='/avatar.jpeg' width={60} height={60} circle />
             </div>
 
             <div className='flex flex-row items-center space-x-2 border-t border-dashed border-gray-300 pt-4 sm:space-x-4'>
@@ -185,7 +185,7 @@ const HomePage = () => {
             <CommentList
               data={comments?.data.slice(0, 2)}
               className='space-y-6 sm:space-y-8'
-              renderEmpty={() => (
+              renderEmpty={
                 <Status
                   title='空空如也'
                   icon={<MessageSvg />}
@@ -199,7 +199,7 @@ const HomePage = () => {
                     <span>添加评论</span>
                   </Status.Button>
                 </Status>
-              )}
+              }
             />
           </div>
         </div>

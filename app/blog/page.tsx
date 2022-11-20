@@ -7,7 +7,7 @@ import Layout from '@/components/common/Layout';
 import FooterBanner from '@/components/ui/FooterBanner';
 import { getTagRoute } from '@/utils/url';
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 const fetchData = async () => {
   const blogs = await getAllBlogs();

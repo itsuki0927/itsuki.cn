@@ -22,7 +22,7 @@ export const CommentListSkeleton = ({ count = 4 }: CommentSkeletonListProps) => 
   </div>
 );
 
-export const CommentFormSkeletion = () => (
+export const CommentFormSkeleton = () => (
   <div className='m-full rounded-sm bg-white p-6'>
     <div className='flex animate-pulse space-x-6 '>
       <div className='h-14 w-14 rounded-full bg-skeleton' />

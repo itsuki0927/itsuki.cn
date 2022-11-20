@@ -1,46 +1,72 @@
-import { GraphQLError } from 'graphql';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { likeComment } from '@/api/comment';
-import { commentKeys } from '@/constants/queryKeys';
-import { Comment, LikeCommentResponse } from '@/entities/comment';
-import { SearchResponse } from '@/types/response';
+import omit from 'lodash.omit';
+import { useCallback, useState } from 'react';
+import { likeComment as likeCommentApi } from '@/api/comment';
+import { GAEventCategories } from '@/constants/gtag';
+import { useAuth } from '@/libs/auth';
+import { gtag } from '@/utils/gtag';
+import { Comment } from '@/entities/comment';
+import usePrevious from '../usePrevious';
 
 type UseLikeCommentHook = {
-  blogId: number;
-  commentId: number;
+  comment: Comment;
 };
 
-const useLikeComment = ({ blogId, commentId }: UseLikeCommentHook) => {
-  const queryClient = useQueryClient();
-  const mutation = useMutation<LikeCommentResponse, GraphQLError, { emoji: string }>(
-    variables => likeComment(commentId, variables.emoji),
-    {
-      onSuccess: ({ likeComment: emoji }) => {
-        /* setLikeComments({ ...likeComments, [commentId]: true }); */
-        // NOTE: 有两种方式更新
-        // 1. queryClient.invalidateQueries()
-        // 2. queryClient.setQueryData()
-        queryClient.setQueryData<SearchResponse<Comment>>(
-          commentKeys.lists(blogId),
-          oldComments => {
-            if (!oldComments) return { total: 0, data: [], filter: null };
-            return {
-              ...oldComments,
-              data: oldComments.data.map(comment => {
-                if (Number(comment.id) === commentId) {
-                  return { ...comment, emoji, emojiMap: JSON.parse(emoji) };
-                }
-                return comment;
-              }),
-              filter: null,
-            };
-          }
-        );
-      },
-    }
+const useLikeComment = ({ comment }: UseLikeCommentHook) => {
+  const [emojiMap, setEmojiMap] = useState(comment.emojiMap || {});
+  const { user } = useAuth();
+  const prevEmojiMap = usePrevious(emojiMap);
+  const email = user?.email ?? '';
+
+  const getLatestEmojiMap = useCallback(
+    async (emoji: string) => {
+      const emojiMap2 = emojiMap[emoji] || {};
+      const value = emojiMap2[email] || 0;
+      if (value) {
+        const total = Object.keys(emojiMap2).reduce((r, k) => emojiMap2[k] + r, 0);
+        // 如果总数只有1的话, 表示直接删除该emoji
+        if (total === 1) return omit(emojiMap, emoji);
+        // value == 1 删除该emoji下的email
+        if (value === 1) return { ...emojiMap, [emoji]: omit(emojiMap2, email) };
+        return {
+          ...emojiMap,
+          [emoji]: {
+            ...emojiMap2,
+            [email]: value - 1,
+          },
+        };
+      }
+      return {
+        ...emojiMap,
+        [emoji]: {
+          ...emojiMap2,
+          [email]: value + 1,
+        },
+      };
+    },
+    [emojiMap, email]
   );
 
-  return mutation;
+  const likeComment = useCallback(
+    async (emoji: string) => {
+      if (!email) {
+        return;
+      }
+      try {
+        gtag.event('like_comment', {
+          category: GAEventCategories.Comment,
+        });
+        const lastestEmojiMap = await getLatestEmojiMap(emoji);
+        likeCommentApi(comment.id, JSON.stringify(lastestEmojiMap));
+        setEmojiMap(lastestEmojiMap);
+      } catch (err: any) {
+        // rollback
+        setEmojiMap(prevEmojiMap);
+      }
+    },
+    [comment.id, email, getLatestEmojiMap, prevEmojiMap]
+  );
+
+  return { likeComment, emojiMap };
 };
 
 export default useLikeComment;

@@ -21,3 +21,7 @@ export const DEFAULT_ROUTE_LIST_WITH_HOME = [
   { path: '/', name: '首页', en: 'Home' },
   ...DEFAULT_ROUTE_LIST,
 ];
+
+export const COMMENT_WITH_GUESTBOOK = {
+  blogId: GUESTBOOK,
+};

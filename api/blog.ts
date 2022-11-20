@@ -79,7 +79,7 @@ export const getAllBlogPathsWithPath = async () => {
     endpoint,
     QUERY_BLOG_PATHS_WITH_PATH
   );
-  return blogs.data.map(item => ({ path: `/blog/${item.path}` }));
+  return blogs.data.map(item => ({ path: `${item.path}` }));
 };
 
 export const getBannerBlogs = () => getBlogs({ banner: 1 });

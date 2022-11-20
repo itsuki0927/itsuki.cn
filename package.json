@@ -76,6 +76,7 @@
     "@types/lodash.debounce": "^4.0.7",
     "@types/lodash.escape": "^4.0.7",
     "@types/lodash.merge": "^4.6.7",
+    "@types/lodash.omit": "^4.5.7",
     "@types/lodash.throttle": "^4.1.7",
     "@types/marked": "^4.0.3",
     "@types/node": "^18.11.9",

@@ -17,6 +17,7 @@ const SponsorPopup = () => {
           )}
         >
           <MyImage
+            alt='sponsor popup'
             src={`/${type}.png`}
             className='rounded-sm opacity-80'
             width={150}

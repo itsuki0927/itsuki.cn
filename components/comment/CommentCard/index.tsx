@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import useMeasure from 'react-use-measure';
 import { motion } from 'framer-motion';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
@@ -10,10 +10,8 @@ import toast from 'react-hot-toast';
 import { ToDate } from '@/components/common';
 import { MarkdownBlock } from '@/components/ui';
 import { getCommentElementId } from '@/constants/anchor';
-import { GAEventCategories } from '@/constants/gtag';
 import { useCreateComment, useLikeComment } from '@/hooks/comment';
 import markedToHtml from '@/libs/marked';
-import { gtag } from '@/utils/gtag';
 import { isAdminEmail } from '@/utils/validate';
 import CommentAvatar from '../CommentAvatar';
 import CommentForm from '../CommentForm';
@@ -24,12 +22,6 @@ import { useAuth } from '@/libs/auth';
 
 const emojiList = ['👍', '👎', '😄', '🎉', '😕', '👀'];
 
-function omit<T extends Record<string, any>>(target: T, key: keyof T) {
-  return Object.keys(target)
-    .filter(k => k !== key)
-    .reduce((r, k) => ({ ...r, [k]: target[k] }), {});
-}
-
 type CommentCardProps = {
   className?: string;
   data: CommentTree;
@@ -37,19 +29,14 @@ type CommentCardProps = {
 
 const CommentCard = ({ data: comment, className }: CommentCardProps) => {
   const blogId = Number(comment.blogId);
-  const commentId = Number(comment.id);
   const { postComment, isLoading } = useCreateComment(blogId);
-  const mutation = useLikeComment({
-    blogId,
-    commentId,
-  });
   const [isReply, setReply] = useState(false);
   const [active, setActive] = useState(false);
-  const [emojiMap, setEmojiMap] = useState<Record<string, Record<string, number>>>({});
+  const pathname = usePathname();
+  const { likeComment, emojiMap } = useLikeComment({ comment });
   const { user } = useAuth();
   const email = user?.email ?? '';
   const [ref, { height: viewHeight }] = useMeasure();
-  const router = useRouter();
 
   const variants = {
     visible: { opacity: 1, height: viewHeight },
@@ -69,53 +56,6 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
       return;
     }
     setReply(v => !v);
-  };
-
-  const getLatestEmojiMap = (emoji: string) => {
-    const emojiMap2 = emojiMap[emoji] || {};
-    const value = emojiMap2[email] || 0;
-    if (value) {
-      const total = Object.keys(emojiMap2).reduce((r, k) => emojiMap2[k] + r, 0);
-      // 如果总数只有1的话, 表示直接删除该emoji
-      if (total === 1) return omit(emojiMap, emoji);
-      // value == 1 删除该emoji下的email
-      if (value === 1) return { ...emojiMap, [emoji]: omit(emojiMap2, email) };
-      return {
-        ...emojiMap,
-        [emoji]: {
-          ...emojiMap2,
-          [email]: value - 1,
-        },
-      };
-    }
-    return {
-      ...emojiMap,
-      [emoji]: {
-        ...emojiMap2,
-        [email]: value + 1,
-      },
-    };
-  };
-
-  const handleEmojiClick = (emoji: string) => {
-    if (isNotLogin()) {
-      return;
-    }
-    gtag.event('like_comment', {
-      category: GAEventCategories.Comment,
-    });
-    const lastestEmojiMap = getLatestEmojiMap(emoji);
-    console.log('lastestEmojiMap', lastestEmojiMap);
-    mutation.mutateAsync(
-      {
-        emoji: JSON.stringify(lastestEmojiMap),
-      },
-      {
-        onSuccess: () => {
-          setEmojiMap(lastestEmojiMap);
-        },
-      }
-    );
   };
 
   const openEmojiPopover = (e: MouseEvent) => {
@@ -195,19 +135,19 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
             </button>
 
             <ul className='ml-1 flex space-x-1 sm:ml-2 sm:space-x-2'>
-              {Object.keys(emojiMap).map(key => (
+              {Object.keys(emojiMap ?? {}).map(key => (
                 <li>
                   <button
                     type='button'
                     className={classNames(
                       'flex items-center rounded-md border border-solid border-gray-300 py-[2px] px-1 hover:bg-gray-200'
                     )}
-                    onClick={() => handleEmojiClick(key)}
+                    onClick={() => likeComment(key)}
                   >
                     <span className='text-xs'>{key}</span>
                     <span className='ml-[2px] text-xs text-gray-600'>
-                      {Object.keys(emojiMap[key]).reduce(
-                        (r, k) => r + emojiMap[key][k] || 0,
+                      {Object.keys(emojiMap?.[key] || {}).reduce(
+                        (r, k) => r + (emojiMap?.[key]?.[k] || 0),
                         0
                       )}
                     </span>
@@ -228,9 +168,9 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
                     type='button'
                     className={classNames(
                       'my-1 mx-[2px] h-8 w-8 rounded-md p-1 transition-colors hover:bg-gray-100',
-                      emojiMap[`${emoji}-${email}`] ? 'bg-primary-light' : ''
+                      emojiMap?.[`${emoji}-${email}`] ? 'bg-primary-light' : ''
                     )}
-                    onClick={() => handleEmojiClick(emoji)}
+                    onClick={() => likeComment(emoji)}
                   >
                     {emoji}
                   </button>
@@ -270,7 +210,7 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
         <div ref={ref}>
           {isReply ? (
             <CommentForm
-              cacheId={`${router.asPath}-comment-form-${parentId}`}
+              cacheId={`${pathname}-comment-form-${parentId}`}
               parentId={parentId}
               onPost={postComment}
               loading={isLoading}

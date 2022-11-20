@@ -12,7 +12,7 @@ export type Comment = IdentifiableEntity<{
   content: string;
   liking: number;
   emoji: string;
-  emojiMap?: Record<string, number>;
+  emojiMap?: Record<string, Record<string, number>>;
   ip: string;
   city: string;
   province: string;

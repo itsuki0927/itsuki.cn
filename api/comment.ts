@@ -1,4 +1,5 @@
 import request from 'graphql-request';
+import { cache } from 'react';
 import {
   CreateCommentInput,
   CreateCommentResponse,
@@ -6,12 +7,14 @@ import {
   PostCommentBody,
   QueryCommentsResponse,
   QueryCommentsSearch,
+  Comment,
 } from '@/entities/comment';
+import { convertToCommentTreeData } from '@/components/comment/CommentView/utils';
 import { CREATE_COMMENT, LIKE_COMMENT, QUERY_COMMENTS } from '@/graphqls/comment';
 import { endpoint } from './service';
 import { ID } from '@/types/response';
 
-export const getComments = async (search: QueryCommentsSearch['search']) => {
+export const getComments = cache(async (search: QueryCommentsSearch['search']) => {
   const { comments } = await request<QueryCommentsResponse, QueryCommentsSearch>(
     endpoint,
     QUERY_COMMENTS,
@@ -19,8 +22,19 @@ export const getComments = async (search: QueryCommentsSearch['search']) => {
       search,
     }
   );
-  return comments;
-};
+  const parsedComments = comments.data.map(comment => ({
+    ...comment,
+    emojiMap: (comment.emoji ? JSON.parse(comment.emoji) : {}) as Comment['emojiMap'],
+  }));
+  if (search.blogId) {
+    console.log('fetch getComments ', parsedComments, ' blogId', search.blogId);
+  }
+  return {
+    ...comments,
+    originData: parsedComments as Comment[],
+    data: convertToCommentTreeData(parsedComments),
+  };
+});
 
 export const getRecentComments = () => getComments({ recent: true });
 

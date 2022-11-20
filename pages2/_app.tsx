@@ -8,16 +8,13 @@ import { PageLoadingProgress } from '@/components/ui';
 import { ManagedUIContext } from '@/components/ui/context';
 import { META } from '@/configs/app';
 import config from '@/configs/seo';
-import { useCopyright, useMount, useUnMount } from '@/hooks';
+import { useCopyright } from '@/hooks';
 import '@/styles/global.css';
 import { AuthProvider } from '@/libs/auth';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { enableCopyright, disableCopyright } = useCopyright();
+  useCopyright();
   const { route } = useRouter();
-
-  useMount(enableCopyright);
-  useUnMount(disableCopyright);
 
   const items = {
     pageProps,

@@ -16,10 +16,11 @@ import { Blog } from '@/entities/blog';
 /* import { gtag } from '@/utils/gtag'; */
 import { canUseDOM } from '@/utils/query';
 import { PageProps } from '@/types/common';
+import { getComments } from '@/api/comment';
 
 export const dynamicParams = true;
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const paths = await getAllBlogPathsWithPath();
@@ -33,6 +34,7 @@ const fetchData = async (path?: string) => {
   const blog = await getBlog(path);
   const tags = await getAllTags();
   const blacklist = await getBlackList();
+  const comments = await getComments({ blogId: blog.id });
 
   readBlog(blog.id);
   /* gtag.event('blog_view', { */
@@ -44,11 +46,12 @@ const fetchData = async (path?: string) => {
     blog,
     tags,
     blacklist,
+    comments,
   };
 };
 
 const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
-  const { blog } = await fetchData(params.path);
+  const { blog, comments } = await fetchData(params.path);
 
   const renderPagination = (pageBlog: Blog | null, title: string) => (
     <p className={!pageBlog ? 'text-gray-400' : ''}>
@@ -139,7 +142,7 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
       <Container className='my-24 border-t border-dashed border-gray-300 sm:max-w-4xl' />
 
       <div className='my-24 mx-auto sm:max-w-4xl' id={COMMENT_VIEW_ELEMENT_ID}>
-        <CommentView blogId={blog.id} />
+        <CommentView comments={comments.data} total={comments.total} blogId={blog.id} />
       </div>
     </Layout>
   );

@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
-import { useRouter } from 'next/navigation';
 import { dehydrate } from '@tanstack/react-query';
 import { getBlogs } from '@/api/blog';
 import { getAllTagPaths, getAllTags } from '@/api/tag';
@@ -46,7 +45,6 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 const BlogTagPage = ({ tagPath }: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const blogs = useTagBlogs(tagPath);
   const { data } = useTags();
-  const { isFallback } = useRouter();
   const tag = data ? data.find(item => item.path === tagPath) : undefined;
 
   useMount(() => {
@@ -56,7 +54,7 @@ const BlogTagPage = ({ tagPath }: InferGetServerSidePropsType<typeof getStaticPr
     });
   });
 
-  if (isFallback || blogs.isFetching || blogs.isLoading) {
+  if (blogs.isFetching || blogs.isLoading) {
     return (
       <Layout>
         <Container className='space-y-6'>

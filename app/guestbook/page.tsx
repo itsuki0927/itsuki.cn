@@ -2,18 +2,18 @@ import { getBlackList } from '@/api/blacklist';
 import { getComments } from '@/api/comment';
 import Layout from '@/components/common/Layout';
 import Hero from '@/components/ui/Hero';
-import CommentView from './CommentView';
-import { GUESTBOOK } from '@/constants/value';
-import { convertToCommentTreeData } from '@/components/comment/CommentView/utils';
+import CommentView from '@/components/comment/CommentView';
+import { COMMENT_WITH_GUESTBOOK, GUESTBOOK } from '@/constants/value';
+
+export const revalidate = 3600;
 
 const fetchData = async () => {
-  const comments = await getComments({ blogId: GUESTBOOK });
+  const comments = await getComments(COMMENT_WITH_GUESTBOOK);
   const blacklist = await getBlackList();
 
-  console.log('comments:', comments, convertToCommentTreeData(comments.data));
   return {
     total: comments.total,
-    comments: convertToCommentTreeData(comments.data),
+    comments: comments.data,
     blacklist,
   };
 };

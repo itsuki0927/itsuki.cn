@@ -1,13 +1,10 @@
 import dynamic from 'next/dynamic';
-import { useCallback } from 'react';
 import { Code, Eye, EyeOff, Link, Image } from 'react-feather';
-import toast from 'react-hot-toast';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
 import IconButton from '@/components/common/MarkdownEditor/IconButton';
 import { PostCommentBody } from '@/entities/comment';
 import { useLocalStorage } from '@/hooks';
-import useBlackList from '@/hooks/blacklist';
 import purifyDomString from '@/libs/purify';
 import { remove } from '@/utils/storage';
 import SendButton from '../SendButton';
@@ -40,33 +37,10 @@ const CommentForm = ({
 }: CommentFormProps) => {
   const { user } = useAuth();
   const [content, setContent] = useLocalStorage(cacheId, '');
-  const { data: blacklist } = useBlackList();
 
   const email = user?.email ?? '';
   const avatar = user?.avatar ?? '';
   const nickname = user?.nickname ?? '';
-
-  const ensureCommentCanPush = useCallback(() => {
-    const sensitiveKeyword = blacklist?.keyword.find(k => content.includes(k));
-    if (sensitiveKeyword) {
-      toast.error(`老铁, 评论内容有敏感词: ${sensitiveKeyword}\n`, {
-        duration: 2500,
-      });
-      return false;
-    }
-    if (blacklist?.email.includes(user?.email ?? '')) {
-      toast.error(`老铁, 做了坏事情, 被拉黑了\n`, {
-        duration: 2500,
-      });
-      return false;
-    }
-    if (!content) {
-      toast.error(`老铁, 内容呢?\n`);
-      return false;
-    }
-
-    return true;
-  }, [blacklist?.email, blacklist?.keyword, content, user?.email]);
 
   const handleConfirm = () =>
     new Promise<boolean>((resolve, reject) => {
@@ -83,19 +57,17 @@ const CommentForm = ({
           content: purifyDomString(content),
         };
 
-        if (ensureCommentCanPush()) {
-          onPost?.(params).then(result => {
-            if (result) {
-              setContent('');
-              onSuccess?.();
-              remove(cacheId);
-              resolve(true);
-            } else {
-              onError?.();
-              reject();
-            }
-          }, reject);
-        }
+        onPost?.(params).then(result => {
+          if (result) {
+            setContent('');
+            onSuccess?.();
+            remove(cacheId);
+            resolve(true);
+          } else {
+            onError?.();
+            reject();
+          }
+        }, reject);
       }
     });
 

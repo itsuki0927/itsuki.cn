@@ -14,7 +14,7 @@ import { SiteSummary } from '@/entities/summary';
 import { SearchResponse } from '@/types/response';
 import { Tag } from '@/entities/tag';
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 const fetchData = async () => {
   const promise = await Promise.all([

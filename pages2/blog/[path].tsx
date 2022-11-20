@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ArticleJsonLd, NextSeo } from 'next-seo';
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { dehydrate } from '@tanstack/react-query';
 import { getAllBlogPathsWithPath, getBlog, readBlog } from '@/api/blog';
@@ -10,7 +9,7 @@ import { getAllTags } from '@/api/tag';
 import { TableOfContent, BlogSkeleton } from '@/components/blog';
 import BlogHeader from '@/components/blog/BlogHeader';
 import {
-  CommentFormSkeletion,
+  CommentFormSkeleton,
   CommentListSkeleton,
   CommentView,
 } from '@/components/comment';
@@ -64,7 +63,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
 const BlogPage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { data: blog, isLoading } = useBlog(path);
-  const { isFallback } = useRouter();
+  // const { isFallback } = useRouter();
 
   useEffect(() => {
     if (blog) {
@@ -91,12 +90,12 @@ const BlogPage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) => {
     </p>
   );
 
-  if (isFallback || isLoading || !blog)
+  if (isLoading || !blog)
     return (
       <Layout>
         <div className='container space-y-6'>
           <BlogSkeleton />
-          <CommentFormSkeletion />
+          <CommentFormSkeleton />
           <CommentListSkeleton />
         </div>
       </Layout>
@@ -175,7 +174,7 @@ const BlogPage = ({ path }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <Container className='my-24 border-t border-dashed border-gray-300 sm:max-w-4xl' />
 
       <div className='my-24 mx-auto sm:max-w-4xl' id={COMMENT_VIEW_ELEMENT_ID}>
-        <CommentView blogId={blog.id} />
+        <CommentView comments={[]} total={0} blogId={blog.id} />
       </div>
     </Layout>
   );

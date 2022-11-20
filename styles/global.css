@@ -1,6 +1,5 @@
 @import './transition';
 @import './scrollbar';
-@import './font';
 @import './base';
 
 @tailwind base;

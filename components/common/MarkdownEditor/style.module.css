@@ -1,5 +1,5 @@
 .root {
-  font-family: 'Fira Code';
+  font-family: 'var(--font-fira)';
 }
 
 .root:empty::before {

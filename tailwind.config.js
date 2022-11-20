@@ -55,7 +55,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'IBM Plex Sans', ...fontFamily.sans],
+        sans: ['var(--font-ibm)', 'var(--font-fira)', ...fontFamily.sans],
       },
       typography: ({ theme }) => {
         const [fontSize, { lineHeight }] = theme('fontSize.sm');
@@ -75,12 +75,12 @@ module.exports = {
               },
               pre: {
                 borderRadius: theme('borderRadius.sm'),
-                fontFamily: 'Fira Code',
+                fontFamily: 'var(--font-fira)',
               },
               code: {
                 fontSize,
                 lineHeight,
-                fontFamily: 'Fira Code',
+                fontFamily: 'var(--font-fira)',
               },
               img: {
                 textAlign: 'center',

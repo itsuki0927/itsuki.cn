@@ -1,26 +1,24 @@
 // eslint-disable-next-line import/extensions
 import 'styles/global.css';
+import { IBM_Plex_Sans, Fira_Code } from '@next/font/google';
 import { StandardProps } from '@/types/common';
 import AppLayout from './AppLayout';
 import { ICONFONT_URL, META } from '@/configs/app';
 
+const ibm = IBM_Plex_Sans({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-ibm',
+});
+
+const firaCode = Fira_Code({
+  subsets: ['latin'],
+  variable: '--font-fira',
+});
+
 const Layout = ({ children }: Pick<StandardProps, 'children'>) => (
   <html lang='en'>
     <head>
-      <link
-        rel='preload'
-        href='/fonts/ibm-plex-sans-var.woff2'
-        as='font'
-        type='font/woff2'
-        crossOrigin='anonymous'
-      />
-      <link
-        rel='preload'
-        href='/fonts/FiraCode.ttf'
-        as='font'
-        type='font/ttf'
-        crossOrigin='anonymous'
-      />
       <link rel='icon' href='/favicon.ico' />
       <link rel='manifest' href='/site.webmanifest' key='site-manifest' />
       <link
@@ -38,7 +36,7 @@ const Layout = ({ children }: Pick<StandardProps, 'children'>) => (
       />
       <link rel='stylesheet' href={`${ICONFONT_URL}.css`} />
     </head>
-    <body>
+    <body className={`${ibm.variable} font-sans ${firaCode.variable} font-sans`}>
       <AppLayout>{children}</AppLayout>
     </body>
   </html>

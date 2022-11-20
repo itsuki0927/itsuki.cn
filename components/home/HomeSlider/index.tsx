@@ -56,7 +56,7 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
               <Link href={getBlogDetailRoute(blog?.path)}>{blog?.title}</Link>
             </h3>
 
-            <p className='capsize mt-0 mb-3 cursor-pointer text-gray-600'>
+            <p className='capsize mt-0 mb-3 cursor-pointer overflow-hidden text-ellipsis text-gray-600 sm:max-h-36'>
               {blog?.description}
             </p>
 

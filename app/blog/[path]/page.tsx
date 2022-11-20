@@ -5,7 +5,7 @@ import { getAllBlogPathsWithPath, getBlog, readBlog } from '@/api/blog';
 import { getAllTags } from '@/api/tag';
 import TableOfContent from '@/components/blog/TableOfContent';
 import BlogHeader from '@/components/blog/BlogHeader';
-/* import CommentView from '@/components/comment/CommentView'; */
+import CommentView from '@/components/comment/CommentView';
 import Layout from '@/components/common/Layout';
 import MyImage from '@/components/common/MyImage';
 import Container from '@/components/ui/Container';
@@ -15,6 +15,7 @@ import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { Blog } from '@/entities/blog';
 /* import { gtag } from '@/utils/gtag'; */
 import { canUseDOM } from '@/utils/query';
+import { PageProps } from '@/types/common';
 
 export const dynamicParams = true;
 
@@ -46,8 +47,7 @@ const fetchData = async (path?: string) => {
   };
 };
 
-const BlogPage = async ({ params }: any) => {
-  console.log('params:', params);
+const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
   const { blog } = await fetchData(params.path);
 
   const renderPagination = (pageBlog: Blog | null, title: string) => (
@@ -139,7 +139,7 @@ const BlogPage = async ({ params }: any) => {
       <Container className='my-24 border-t border-dashed border-gray-300 sm:max-w-4xl' />
 
       <div className='my-24 mx-auto sm:max-w-4xl' id={COMMENT_VIEW_ELEMENT_ID}>
-        {/* <CommentView blogId={blog.id} /> */}
+        <CommentView blogId={blog.id} />
       </div>
     </Layout>
   );

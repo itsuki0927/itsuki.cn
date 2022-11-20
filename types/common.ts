@@ -10,3 +10,7 @@ export interface WithAsProps<As extends ElementType | string = ElementType>
   extends StandardProps {
   as?: As;
 }
+
+export interface PageProps<T> {
+  params: T;
+}

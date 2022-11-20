@@ -1,50 +1,33 @@
-import { NextSeo } from 'next-seo';
-import { dehydrate } from '@tanstack/react-query';
 import { getHotBlogs } from '@/api/blog';
 import AboutView from '@/components/about';
-import { Layout, MyImage } from '@/components/common';
-import { createQueryClient } from '@/components/common/QueryClientContainer';
+import Layout from '@/components/common/Layout';
+import MyImage from '@/components/common/MyImage';
 import FooterBanner from '@/components/ui/FooterBanner';
-import SocialButton, { defaultSocials } from '@/components/ui/SocialButton';
-import { GAEventCategories } from '@/constants/gtag';
-import { blogKeys } from '@/constants/queryKeys';
-import { TIMESTAMP } from '@/constants/value';
-import { useMount } from '@/hooks';
-import { gtag } from '@/utils/gtag';
-import { Hero } from '@/components/ui';
+import { SocialButtons2 } from '@/components/ui/SocialButton';
+import Hero from '@/components/ui/Hero';
+import AboutClient from '@/components/about/AboutClient';
 
-const useEmploymentDays = () => {
+export const dynamic = 'force-static';
+
+const getEmploymentDays = () => {
   const startTime = new Date('06/20/2022');
   const ile = Date.now() - startTime.getTime();
   const days = Math.floor(ile / (1000 * 60 * 60 * 24));
   return days + 1;
 };
 
-export const getStaticProps = async () => {
-  const queryClient = createQueryClient();
-
-  await queryClient.prefetchQuery(blogKeys.hot(), () => getHotBlogs());
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-    revalidate: TIMESTAMP.MINIUTE / 1000,
-  };
+const fetchData = async () => {
+  const hotBlogs = await getHotBlogs();
+  return { hotBlogs };
 };
 
-const AboutPage = () => {
-  const days = useEmploymentDays();
-
-  useMount(() => {
-    gtag.event('about', {
-      category: GAEventCategories.About,
-    });
-  });
+const AboutPage = async () => {
+  const { hotBlogs } = await fetchData();
+  const days = getEmploymentDays();
 
   return (
     <Layout footerTheme='reverse'>
-      <NextSeo title='关于' />
+      <AboutClient />
 
       <Hero>
         <Hero.BackgroundImage url='/about-banner.jpg' />
@@ -80,21 +63,10 @@ const AboutPage = () => {
           <span className='font-semibold'>{days}</span> day)
         </h2>
 
-        <div className='flex flex-row flex-wrap '>
-          {defaultSocials.map(social => (
-            <SocialButton
-              social={social}
-              className='mr-4 mt-4 px-6 py-2'
-              key={social.name}
-            >
-              {social.icon}
-              <span className='capsize ml-2'>{social.name}</span>
-            </SocialButton>
-          ))}
-        </div>
+        <SocialButtons2 />
       </div>
 
-      <AboutView />
+      <AboutView hotBlogs={hotBlogs} />
 
       <FooterBanner theme='reverse' />
     </Layout>

@@ -80,7 +80,6 @@ const SocialButton = ({
   const { openPopup, setPopupView } = useUI();
   const pathname = usePathname();
   const router = useRouter();
-  /* const [, copyTextToClipboard] = useCopyToClipboard(); */
 
   const clickWechat = (e: MouseEvent) => {
     e.preventDefault();
@@ -139,6 +138,17 @@ export const SocialButtons = () => (
         key={social.name}
       >
         {social.icon}
+      </SocialButton>
+    ))}
+  </div>
+);
+
+export const SocialButtons2 = () => (
+  <div className='flex flex-row flex-wrap '>
+    {defaultSocials.map(social => (
+      <SocialButton social={social} className='mr-4 mt-4 px-6 py-2' key={social.name}>
+        {social.icon}
+        <span className='capsize ml-2'>{social.name}</span>
       </SocialButton>
     ))}
   </div>

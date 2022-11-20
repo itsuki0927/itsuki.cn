@@ -14,7 +14,7 @@ export const DEFAULT_ROUTE_LIST = [
   { path: '/blog', name: '文章', en: 'Blog' },
   /* { path: '/archive', name: '归档',en:'Archive' }, */
   { path: '/guestbook', name: '留言', en: 'Guestbook' },
-  /* { path: '/about', name: '关于', en:'About' }, */
+  { path: '/about', name: '关于', en: 'About' },
 ];
 
 export const DEFAULT_ROUTE_LIST_WITH_HOME = [

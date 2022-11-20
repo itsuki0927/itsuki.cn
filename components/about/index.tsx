@@ -1,14 +1,15 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useHotBlogs } from '@/hooks/blog';
 import { getBlogDetailRoute } from '@/utils/url';
-import { MyImage } from '../common';
+import MyImage from '../common/MyImage';
 import ExperienceList from './ExperienceList';
 import HoobyList from './HoobyList';
 import ProjectList from './ProjectList';
 import ToolList from './ToolList';
 import { StandardProps } from '@/types/common';
-import { Container } from '@/components/ui';
+import Container from '@/components/ui/Container';
+import { SearchResponse } from '@/types/response';
+import { Blog } from '@/entities/blog';
 
 const Title = ({ children, className = '', style }: StandardProps) => (
   <h2 className={classNames('text-4xl text-gray-900', className)} style={style}>
@@ -28,9 +29,11 @@ const AboutCard = ({ children, className, style }: StandardProps) => (
   </section>
 );
 
-const AboutView = () => {
-  const { data } = useHotBlogs();
+export interface AboutViewProps {
+  hotBlogs: SearchResponse<Blog>;
+}
 
+const AboutView = ({ hotBlogs }: AboutViewProps) => {
   return (
     <div className='mx-auto max-w-full tracking-wider'>
       <section className='container py-12'>
@@ -90,7 +93,7 @@ const AboutView = () => {
               alt='mobile love img'
             />
             <div className='mt-8 flex flex-col space-y-2'>
-              {data?.data.map((blog, index) => (
+              {hotBlogs.data.map((blog, index) => (
                 <Link href={getBlogDetailRoute(blog.path)}>
                   <span className='cursor-pointer transition-colors hover:text-primary'>
                     {index + 1}. {blog.title}

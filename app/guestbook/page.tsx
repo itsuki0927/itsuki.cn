@@ -21,7 +21,7 @@ const fetchData = async () => {
 const GuestBookPage = async () => {
   const { comments, total } = await fetchData();
   return (
-    <Layout>
+    <Layout footerTheme='reverse'>
       <Hero>
         <Hero.BackgroundImage url='/guestbook-banner.jpg' />
         <Hero.Container>

@@ -93,11 +93,9 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
             <span>{comment.nickname}</span>
             {/* TODO: display provider */}
             {isAdminEmail(comment.email) && (
-              <Link href='/about'>
-                <small className='capsize cursor-pointert ml-1 rounded-sm bg-primary-light px-1 py-[2px] text-xs text-primary opacity-90 transition-opacity hover:opacity-100'>
-                  博主
-                </small>
-              </Link>
+              <small className='cursor-pointert ml-1 rounded-sm bg-primary-light px-1 py-[2px] text-xs text-primary opacity-90 transition-opacity hover:opacity-100'>
+                <Link href='/about'>博主</Link>
+              </small>
             )}
           </div>
 

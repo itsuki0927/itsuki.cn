@@ -17,7 +17,6 @@ import { useAuth } from '@/libs/auth';
 
 const DynamicMarkdown = dynamic(() => import('@/components/common/MarkdownEditor'), {
   ssr: false,
-  suspense: true,
 });
 
 export interface CommentFormProps {

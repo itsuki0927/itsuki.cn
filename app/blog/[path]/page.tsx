@@ -11,7 +11,7 @@ import MyImage from '@/components/common/MyImage';
 import Container from '@/components/ui/Container';
 import MarkdownBlock from '@/components/ui/MarkdownBlock';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
-import { Blog } from '@/entities/blog';
+import { Blog, BlogDetailResponse } from '@/entities/blog';
 import { PageProps } from '@/types/common';
 import { getComments } from '@/api/comment';
 import BlogClient from '@/components/blog/BlogClient';
@@ -30,7 +30,12 @@ const fetchData = async (path?: string) => {
   if (!path) {
     return notFound();
   }
-  const blog = await getBlog(path);
+  let blog: BlogDetailResponse;
+  try {
+    blog = await getBlog(path);
+  } catch (err) {
+    notFound();
+  }
   const tags = await getAllTags();
   const blacklist = await getBlackList();
   const comments = await getComments({ blogId: blog.id });

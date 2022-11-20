@@ -13,28 +13,28 @@ export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const paths = await getAllTagPaths();
-  console.log('paths:', paths);
   return paths;
 }
 
 const fetchData = async (tagPath?: string) => {
   if (!tagPath) {
-    return notFound();
+    notFound();
   }
 
   const tags = await getAllTags();
+  const tag = tags ? tags.find(item => item.path === tagPath) : undefined;
+
+  if (!tag) {
+    notFound();
+  }
+
   const blogs = await getBlogs({ tagPath });
 
-  return { tags, blogs };
+  return { tags, blogs, tag };
 };
 
 const BlogTagPage = async ({ params }: PageProps<{ path?: string }>) => {
-  const { tags, blogs } = await fetchData(params.path);
-  const tag = tags ? tags.find(item => item.path === params.path) : undefined;
-
-  if (!tag) {
-    return notFound();
-  }
+  const { blogs, tag } = await fetchData(params.path);
 
   return (
     <Layout footerTheme='reverse'>

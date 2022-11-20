@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, ArrowRight, Edit2, MessageSquare } from 'react-feather';
-import Layout from '@/components/common/Layout';
 import Container from '@/components/ui/Container';
 import { GAEventCategories } from '@/constants/gtag';
 import useMount from '@/hooks/useMount';
@@ -19,7 +18,7 @@ const NotFound = () => {
   });
 
   return (
-    <Layout footerTheme='reverse'>
+    <div>
       <Container className='py-24'>
         <p className='mb-3 text-primary'>404 错误</p>
         <h1 className='mb-6 text-3xl font-medium tracking-tight text-gray-900 md:text-5xl'>
@@ -102,7 +101,7 @@ const NotFound = () => {
           </Link>
         </div>
       </Container>
-    </Layout>
+    </div>
   );
 };
 

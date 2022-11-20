@@ -48,12 +48,12 @@ const BlogPage = async () => {
 
       <div className='container py-24' id='dashboard'>
         <div className='mb-16 hidden sm:block'>
-          <div className='flex space-x-3'>
+          <div className='flex space-x-6'>
             {tags?.map(tag => (
               <Link
                 href={getTagRoute(tag.path)}
                 className={classNames(
-                  'rounded-md px-6 py-2 transition-colors hover:bg-gray-100'
+                  'rounded-md bg-gray-100/70 px-6 py-2 transition-colors hover:bg-gray-200'
                 )}
                 key={tag.path}
               >

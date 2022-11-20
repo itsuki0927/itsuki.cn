@@ -20,7 +20,7 @@ const FooterBanner = ({ theme = 'normal' }: FooterBannerProps) => {
           <p className='text-base text-gray-600'>我们俩之间只差一条留言的距离</p>
         </div>
         <Link
-          href='/guest'
+          href='/guestbook'
           type='button'
           className='mt-4 rounded-sm bg-primary px-9 py-2 text-white opacity-80 transition-opacity hover:opacity-100 sm:mt-0'
         >

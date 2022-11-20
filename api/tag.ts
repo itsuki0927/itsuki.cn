@@ -7,7 +7,7 @@ export const getAllTagPaths = async () => {
   const { tags } = await request<QueryTagResponse, any>(endpoint, QUERY_TAG_PATHS, {
     search: {},
   });
-  return tags.data.map(item => `/tag/${item.path}`);
+  return tags.data.map(item => ({ path: item.path }));
 };
 
 export const getAllTags = async () => {

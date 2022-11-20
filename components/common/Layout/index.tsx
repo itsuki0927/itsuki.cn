@@ -22,6 +22,8 @@ const Layout = ({
 
     <main className={classNames(className)}>{children}</main>
 
+    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+    {/* @ts-ignore */}
     <Footer theme={footerTheme} />
 
     <PopupUI />

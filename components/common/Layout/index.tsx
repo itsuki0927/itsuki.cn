@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, Suspense } from 'react';
 import BackTop from '@/components/ui/BackTop';
 import Footer from '../Footer';
 import PopupUI from '@/components/ui/PopupUI';
@@ -22,9 +22,10 @@ const Layout = ({
 
     <main className={classNames(className)}>{children}</main>
 
-    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-    {/* @ts-ignore */}
-    <Footer theme={footerTheme} />
+    <Suspense fallback={<div>Footer Loading...</div>}>
+      {/* @ts-expect-error Async Server Component */}
+      <Footer theme={footerTheme} />
+    </Suspense>
 
     <PopupUI />
     <BackTop />

@@ -1,21 +1,20 @@
+import { Suspense } from 'react';
 import { getArchives } from '@/api/blog';
 import { ArchiveView, Statistics } from '@/components/archive';
 import Layout from '@/components/common/Layout';
 import Hero from '@/components/ui/Hero';
-import { getSiteSummary } from '@/api/summary';
 import ArchiveClient from '@/components/archive/ArchiveClient';
 
 export const revalidate = 3600;
 
 const fetchData = async () => {
   const archives = await getArchives();
-  const siteSummary = await getSiteSummary();
 
-  return { archives, siteSummary };
+  return { archives };
 };
 
 const ArchivePage = async () => {
-  const { archives, siteSummary } = await fetchData();
+  const { archives } = await fetchData();
 
   return (
     <Layout className='bg-gray-50'>
@@ -33,7 +32,10 @@ const ArchivePage = async () => {
         </Hero.Container>
       </Hero>
 
-      <Statistics summary={siteSummary} />
+      <Suspense fallback={<div>Loading...</div>}>
+        {/* @ts-expect-error Async Server Component */}
+        <Statistics />
+      </Suspense>
 
       <ArchiveView archives={archives} />
 

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getBlackList } from '@/api/blacklist';
+import { Suspense } from 'react';
 import { getAllBlogPathsWithPath, getBlog, readBlog } from '@/api/blog';
 import { getAllTags } from '@/api/tag';
 import TableOfContent from '@/components/blog/TableOfContent';
@@ -13,7 +13,7 @@ import MarkdownBlock from '@/components/ui/MarkdownBlock';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { Blog, BlogDetailResponse } from '@/entities/blog';
 import { PageProps } from '@/types/common';
-import { getComments } from '@/api/comment';
+import { CommentListSkeleton } from '@/components/comment/CommentSkeleton';
 import BlogClient from '@/components/blog/BlogClient';
 import { getBlogDetailRoute } from '@/utils/url';
 
@@ -37,23 +37,21 @@ const fetchData = async (path?: string) => {
     notFound();
   }
   const tags = await getAllTags();
-  const blacklist = await getBlackList();
-  const comments = await getComments({ blogId: blog.id });
+  /* const blacklist = await getBlackList(); */
+  /* const comments = await getComments({ blogId: blog.id }); */
 
   readBlog(blog.id);
 
   return {
     blog,
     tags,
-    blacklist,
-    comments,
+    /* blacklist, */
+    /* comments, */
   };
 };
 
-/* const getCanUseDOM = () => canUseDOM; */
-
 const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
-  const { blog, comments } = await fetchData(params.path);
+  const { blog } = await fetchData(params.path);
 
   const renderPagination = (pageBlog: Blog | null, title: string) => (
     <p className={!pageBlog ? 'text-gray-400' : ''}>
@@ -106,7 +104,10 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
       <Container className='my-24 border-t border-dashed border-gray-300 sm:max-w-4xl' />
 
       <div className='my-24 mx-auto sm:max-w-4xl' id={COMMENT_VIEW_ELEMENT_ID}>
-        <CommentView comments={comments.data} total={comments.total} blogId={blog.id} />
+        <Suspense fallback={<CommentListSkeleton />}>
+          {/* @ts-expect-error Async Server Component */}
+          <CommentView blogId={blog.id} />
+        </Suspense>
       </div>
     </Layout>
   );

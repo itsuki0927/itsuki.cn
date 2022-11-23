@@ -1,11 +1,8 @@
 import { Edit2, Eye, MessageCircle, MessageSquare, Tag } from 'react-feather';
-import { SiteSummary } from '@/entities/summary';
+import { getSiteSummary } from '@/api/summary';
 
-interface BannerProps {
-  summary?: SiteSummary;
-}
-
-const Statistics = ({ summary }: BannerProps) => {
+const Statistics = async () => {
+  const summary = await getSiteSummary();
   const list = [
     /* { title: '建站天数', count: summary?.diffDay ?? 300, icon: <Coffee size={16} /> }, */
     { title: '全站文章', count: summary?.blog, icon: <Edit2 size={16} /> },

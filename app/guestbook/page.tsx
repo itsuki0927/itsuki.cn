@@ -1,25 +1,13 @@
-import { getBlackList } from '@/api/blacklist';
-import { getComments } from '@/api/comment';
+import { Suspense } from 'react';
 import Layout from '@/components/common/Layout';
 import Hero from '@/components/ui/Hero';
 import CommentView from '@/components/comment/CommentView';
-import { COMMENT_WITH_GUESTBOOK, GUESTBOOK } from '@/constants/value';
+import { GUESTBOOK } from '@/constants/value';
+import { CommentListSkeleton } from '@/components/comment/CommentSkeleton';
 
 export const revalidate = 3600;
 
-const fetchData = async () => {
-  const comments = await getComments(COMMENT_WITH_GUESTBOOK);
-  const blacklist = await getBlackList();
-
-  return {
-    total: comments.total,
-    comments: comments.data,
-    blacklist,
-  };
-};
-
 const GuestBookPage = async () => {
-  const { comments, total } = await fetchData();
   return (
     <Layout footerTheme='reverse'>
       <Hero>
@@ -35,7 +23,10 @@ const GuestBookPage = async () => {
       </Hero>
 
       <div className='mx-auto my-12 max-w-4xl'>
-        <CommentView total={total} blogId={GUESTBOOK} comments={comments} />
+        <Suspense fallback={<CommentListSkeleton />}>
+          {/* @ts-expect-error Async Server Component */}
+          <CommentView blogId={GUESTBOOK} />
+        </Suspense>
       </div>
     </Layout>
   );

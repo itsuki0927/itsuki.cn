@@ -20,7 +20,7 @@ const HomeSlider = ({ blogs }: HomeSliderProps) => (
   <div className={classNames('w-full sm:max-w-[800px]')}>
     <Swiper
       lazy
-      /* autoplay */
+      autoplay
       loop
       modules={[A11y, Autoplay, Lazy, Keyboard]}
       keyboard={{

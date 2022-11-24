@@ -23,7 +23,6 @@ import {
   READ_BLOG,
 } from '@/graphqls/blog';
 import { DEFAULT_CURRENT } from '@/constants/value';
-import { BlogHeading } from '@/hooks/blog/useBlog';
 import markedToHtml from '@/libs/marked';
 import { getBlogHeadingElementId } from '@/constants/anchor';
 
@@ -40,6 +39,12 @@ export const getBlogs = async (params?: SearchBlogsBody) => {
   );
   return blogs;
 };
+
+export interface BlogHeading {
+  text: string;
+  level: number;
+  id: string;
+}
 
 export const getBlog = async (path: string) => {
   const { blog } = await request<QueryBlogResponse, { path: string }>(

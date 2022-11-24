@@ -9,5 +9,4 @@ export { default as MarkdownEditor } from './MarkdownEditor';
 export { default as MyHead } from './MyHead';
 export { default as MyImage } from './MyImage';
 export { default as Navbar } from './Navbar';
-export { default as QueryClientContainer } from './QueryClientContainer';
 export { default as ToDate } from './ToDate';

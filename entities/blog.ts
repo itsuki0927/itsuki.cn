@@ -2,7 +2,7 @@ import { Comment } from './comment';
 import { IdentifiableEntity, SearchRequest, SearchResponse } from '../types/response';
 import { Tag } from './tag';
 import { PublishState } from '@/constants/blog/publish';
-import { BlogHeading } from '@/hooks/blog/useBlog';
+import { BlogHeading } from '@/api/blog';
 
 export enum BlogCardStyle {
   Image,

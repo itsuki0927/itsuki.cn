@@ -1,3 +1,5 @@
+import { serialize } from 'next-mdx-remote/serialize';
+/* import remarkShikiTwoslash from 'remark-shiki-twoslash'; */
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -9,13 +11,14 @@ import CommentView from '@/components/comment/CommentView';
 import Layout from '@/components/common/Layout';
 import MyImage from '@/components/common/MyImage';
 import Container from '@/components/ui/Container';
-import MarkdownBlock from '@/components/ui/MarkdownBlock';
+// import MarkdownBlock from '@/components/ui/MarkdownBlock';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { Blog, BlogDetailResponse } from '@/entities/blog';
 import { PageProps } from '@/types/common';
 import { CommentListSkeleton } from '@/components/comment/CommentSkeleton';
 import BlogClient from '@/components/blog/BlogClient';
 import { getBlogDetailRoute } from '@/utils/url';
+import BlogContent from '@/components/blog/BlogContent';
 
 export const dynamicParams = true;
 
@@ -37,21 +40,25 @@ const fetchData = async (path?: string) => {
     notFound();
   }
   const tags = await getAllTags();
-  /* const blacklist = await getBlackList(); */
-  /* const comments = await getComments({ blogId: blog.id }); */
 
   readBlog(blog.id);
+  const mdxSource = await serialize(blog.content, {
+    mdxOptions: {
+      /* remarkPlugins: [[remarkShikiTwoslash, { theme: 'dark-plus' }]], */
+      remarkPlugins: [],
+      rehypePlugins: [],
+    },
+  });
 
   return {
     blog,
     tags,
-    /* blacklist, */
-    /* comments, */
+    source: mdxSource,
   };
 };
 
 const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
-  const { blog } = await fetchData(params.path);
+  const { blog, source } = await fetchData(params.path);
 
   const renderPagination = (pageBlog: Blog | null, title: string) => (
     <p className={!pageBlog ? 'text-gray-400' : ''}>
@@ -75,7 +82,7 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
       <BlogHeader blog={blog} />
 
       <Container className='relative mt-24 flex flex-row justify-between'>
-        <div className='mx-auto max-w-full sm:max-w-4xl'>
+        <div className='prose mx-auto max-w-full sm:max-w-4xl'>
           <div className='relative rounded-sm'>
             {blog.cover && (
               <div className='mb-8 align-middle'>
@@ -89,7 +96,8 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
                 />
               </div>
             )}
-            <MarkdownBlock htmlContent={blog.htmlContent} />
+            <BlogContent source={source} />
+            {/* <MarkdownBlock htmlContent={content} /> */}
 
             <TableOfContent blog={blog} />
           </div>

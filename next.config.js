@@ -26,6 +26,7 @@ module.exports = withBundleAnalyzer({
   },
   experimental: {
     appDir: true,
+    enableUndici: true,
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     /* config.optimization = { */

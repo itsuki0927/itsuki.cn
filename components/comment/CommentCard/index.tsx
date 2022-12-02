@@ -116,7 +116,7 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
 
         <MarkdownBlock
           className='pl-4 sm:pl-6'
-          htmlContent={markedToHtml(comment.content)}
+          htmlContent={markedToHtml(comment.content, { purify: true })}
         />
 
         <div className='flex items-center space-x-2 pl-4 sm:space-x-3 sm:pl-6'>

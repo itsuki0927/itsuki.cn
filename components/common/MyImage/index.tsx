@@ -2,6 +2,8 @@
 
 import classNames from 'classnames';
 import Image, { ImageLoaderProps, ImageProps } from 'next/image';
+import { useState } from 'react';
+import { canUseDOM } from '@/utils/query';
 
 export type MyImageProps = Omit<
   ImageProps,
@@ -25,7 +27,7 @@ const shimmer = (w: ImageProps['width'], h: ImageProps['height']) => `
 </svg>`;
 
 const toBase64 = (str: string) =>
-  typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
+  canUseDOM ? window.btoa(str) : Buffer.from(str).toString('base64');
 
 const buildBase64 = (width: ImageProps['width'], height: ImageProps['height']) =>
   toBase64(shimmer(width, height));
@@ -45,9 +47,10 @@ const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
   return isAbsoluteUrl ? `${src}?${getImageParams({ width, quality })}` : src;
 };
 
-const MyImage = ({ className = '', circle, src, ...rest }: MyImageProps) => {
+const MyImage = ({ className = '', circle, src: srcProp, ...rest }: MyImageProps) => {
   const placeholderProps: Pick<ImageProps, 'placeholder' | 'blurDataURL'> = {};
   const { width = 0, height = 0 } = rest;
+  const [src, setSrc] = useState(srcProp);
 
   if (width > 40 || height > 40) {
     placeholderProps.placeholder = 'blur';
@@ -67,6 +70,9 @@ const MyImage = ({ className = '', circle, src, ...rest }: MyImageProps) => {
       className={classNames(className, {
         'rounded-full': circle,
       })}
+      onError={() => {
+        setSrc('https://static.itsuki.cn/avatar.jpg');
+      }}
     />
   );
 };

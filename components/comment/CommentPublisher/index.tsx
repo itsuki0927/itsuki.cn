@@ -14,7 +14,7 @@ export interface CommentPublisherUIProps {
 }
 
 const CommentPublisher = ({ blogId }: CommentPublisherUIProps) => {
-  const { user, loading } = useAuth();
+  const { user, loading, signInWithGithub, signInWithGoogle } = useAuth();
   const { postComment, ...rest } = useCreateComment(blogId);
 
   if (loading && !user) {
@@ -32,10 +32,14 @@ const CommentPublisher = ({ blogId }: CommentPublisherUIProps) => {
   }
 
   return (
-    <Status icon={<SorrySvg />} title='请先登陆' description='仅使用你的邮箱、头像和昵称'>
+    <Status
+      icon={<SorrySvg />}
+      title='请先登陆'
+      description='仅使用你的邮箱、头像和昵称(挂一个梯子)'
+    >
       <div className='mt-4 flex space-x-3'>
-        <GithubIcon />
-        <GoogleIcon />
+        <GithubIcon onClick={signInWithGithub} />
+        <GoogleIcon onClick={signInWithGoogle} />
       </div>
     </Status>
   );

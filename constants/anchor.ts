@@ -5,8 +5,13 @@ export const getElementId = (elementId: string) => `#${elementId}`;
 
 // 文章
 export const BLOG_HEADING_ELEMENT_ID_PREFIX = 'blog-heading';
-export const getBlogHeadingElementId = (level: number, title: string) =>
-  `${BLOG_HEADING_ELEMENT_ID_PREFIX}-${level}-${title}`;
+
+// 获取id
+export const getId = (text: string) =>
+  text?.toLowerCase?.().replace(/\s/g, '-').replace(/\.|\?/g, '');
+
+export const getBlogHeadingElementId = (title: string) =>
+  `${BLOG_HEADING_ELEMENT_ID_PREFIX}-${getId(title)}`;
 export const BLOG_ACTIONS_ELEMENT_ID = 'blog-action';
 
 // 评论

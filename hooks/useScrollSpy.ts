@@ -13,7 +13,7 @@ const useScrollSpy = (
 ): [number, Element[]] => {
   const [currentActiveSectionIdx, setCurrentActiveSectionIdx] = useState(-1);
 
-  const rootMargin = `-${(options && options.offset) || 0}px 0px 0px 0px`;
+  const rootMargin = `-${options?.offset ?? 0}px 0px 0px 0px`;
 
   const scrolledSections =
     currentActiveSectionIdx > 0 ? elements.slice(0, currentActiveSectionIdx + 1) : [];

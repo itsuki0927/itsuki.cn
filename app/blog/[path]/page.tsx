@@ -1,5 +1,4 @@
 import { serialize } from 'next-mdx-remote/serialize';
-/* import remarkShikiTwoslash from 'remark-shiki-twoslash'; */
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -11,7 +10,6 @@ import CommentView from '@/components/comment/CommentView';
 import Layout from '@/components/common/Layout';
 import MyImage from '@/components/common/MyImage';
 import Container from '@/components/ui/Container';
-// import MarkdownBlock from '@/components/ui/MarkdownBlock';
 import { COMMENT_VIEW_ELEMENT_ID } from '@/constants/anchor';
 import { Blog, BlogDetailResponse } from '@/entities/blog';
 import { PageProps } from '@/types/common';
@@ -44,7 +42,6 @@ const fetchData = async (path?: string) => {
   readBlog(blog.id);
   const mdxSource = await serialize(blog.content, {
     mdxOptions: {
-      /* remarkPlugins: [[remarkShikiTwoslash, { theme: 'dark-plus' }]], */
       remarkPlugins: [],
       rehypePlugins: [],
     },
@@ -97,7 +94,6 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
               </div>
             )}
             <BlogContent source={source} />
-            {/* <MarkdownBlock htmlContent={content} /> */}
 
             <TableOfContent blog={blog} />
           </div>

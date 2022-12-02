@@ -22,7 +22,11 @@ const useScrollTo = (config?: SpringConfig) => {
       } else if (typeof value === 'string' || value?.nodeType === 1) {
         if (typeof value === 'string') {
           value = value.startsWith('#') ? value : `#${value}`;
-          target = document.querySelector(value);
+          try {
+            target = document.querySelector(value);
+          } catch (err) {
+            target = document.getElementById(value.slice(1));
+          }
         }
         if (!target) {
           console.error(`[useScrollTo]: Element not found, id:${value}`);

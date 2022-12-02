@@ -23,7 +23,6 @@ import {
   READ_BLOG,
 } from '@/graphqls/blog';
 import { DEFAULT_CURRENT } from '@/constants/value';
-import markedToHtml from '@/libs/marked';
 import { getBlogHeadingElementId } from '@/constants/anchor';
 
 export const getBlogs = async (params?: SearchBlogsBody) => {
@@ -42,9 +41,19 @@ export const getBlogs = async (params?: SearchBlogsBody) => {
 
 export interface BlogHeading {
   text: string;
-  level: number;
   id: string;
 }
+
+const getHeadings = (content: string): BlogHeading[] => {
+  return content
+    .split('\n')
+    .filter(line => line.match(/^##\s/))
+    .map(line => line.replace('##', '').trim())
+    .map(text => ({
+      text,
+      id: getBlogHeadingElementId(text),
+    }));
+};
 
 export const getBlog = async (path: string) => {
   const { blog } = await request<QueryBlogResponse, { path: string }>(
@@ -54,21 +63,10 @@ export const getBlog = async (path: string) => {
       path,
     }
   );
-  const headings: BlogHeading[] = [];
-  const htmlContent = markedToHtml(blog.content, {
-    purify: true,
-    headingIDRenderer: (_, level, raw) => {
-      const id = getBlogHeadingElementId(
-        level,
-        raw.toLowerCase().replace(/[^a-zA-Z0-9\u4E00-\u9FA5]+/g, '-')
-      );
-      headings.push({ level, id, text: raw });
-      return id;
-    },
-  });
+
+  const headings = getHeadings(blog.content);
   return {
     ...blog,
-    htmlContent,
     headings,
   };
 };

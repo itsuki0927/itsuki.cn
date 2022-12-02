@@ -2,11 +2,12 @@
 
 import { useReducedMotion, motion } from 'framer-motion';
 import classNames from 'classnames';
+import { useMemo } from 'react';
 import { BlogDetailResponse } from '@/entities/blog';
 import useProgress from '@/hooks/useProgress';
 import useScrollSpy from '@/hooks/useScrollSpy';
 import useScrollTo from '@/hooks/useScrollTo';
-import { BLOG_ACTIONS_ELEMENT_ID, getElementId } from '@/constants/anchor';
+import { getBlogHeadingElementId } from '@/constants/anchor';
 import { gtag } from '@/utils/gtag';
 import { GAEventCategories } from '@/constants/gtag';
 import ProgressBar from './ProgressBar';
@@ -20,14 +21,18 @@ interface BlogAsideProps {
 const OFFSET = 150;
 
 const TableOfContent = ({ blog, className = '' }: BlogAsideProps) => {
-  const h2Headings = blog?.headings?.filter(heading => heading.level === 2);
+  const h2Headings = blog.headings;
+
   const shouldReduceMotion = useReducedMotion();
   const readingProgress = useProgress();
-  const [currentActiveIndex] = useScrollSpy(
-    (canUseDOM ? h2Headings?.map(item => document.querySelector(`#${item.id}`)!) : []) ??
-      [],
-    { offset: OFFSET }
-  );
+  const h2HeadingsDom = useMemo(() => {
+    return canUseDOM
+      ? (h2Headings ?? []).map(
+          item => document.getElementById(getBlogHeadingElementId(item.id))!
+        )
+      : [];
+  }, [h2Headings]);
+  const [currentActiveIndex] = useScrollSpy(h2HeadingsDom, { offset: OFFSET });
 
   const { scrollTo } = useScrollTo();
 
@@ -46,7 +51,7 @@ const TableOfContent = ({ blog, className = '' }: BlogAsideProps) => {
     gtag.event('blog_aside', {
       category: GAEventCategories.Blog,
     });
-    scrollTo(getElementId(id), id === BLOG_ACTIONS_ELEMENT_ID ? -200 : 0);
+    scrollTo(id, -64 - 24);
   };
 
   return (
@@ -58,7 +63,7 @@ const TableOfContent = ({ blog, className = '' }: BlogAsideProps) => {
     >
       <ProgressBar progress={readingProgress} />
       {/* TODO: 设置显示范围 */}
-      <ul className='ml-5 hidden space-y-2 sm:block'>
+      <ul className='hidden space-y-2 sm:block'>
         {h2Headings?.map((heading, index) => (
           <motion.li
             onClick={() => handleScrollTo(heading.id)}

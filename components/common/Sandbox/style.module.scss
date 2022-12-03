@@ -1,0 +1,35 @@
+.sandbox {
+  :global {
+    --sp-colors-surface1: #fff !important;
+    --sp-colors-surface2: #d0d5dd !important;
+    --sp-colors-surface3: #f2f4f7 !important;
+    --sp-border-radius: 2px !important;
+    --sp-layout-height: 400px !important;
+    --sp-font-lineHeight: 28px;
+    --sp-space-2: 0.5rem !important;
+  }
+}
+
+.tabs {
+  border-bottom: none !important;
+}
+
+.tabButton {
+  @apply flex h-10 cursor-pointer appearance-none items-center px-2 transition-all;
+
+  color: var(--sp-colors-clickable);
+
+  &[data-active='true'],
+  &:hover {
+    color: var(--sp-colors-accent);
+  }
+}
+
+.layout {
+  display: block !important;
+}
+
+.removeBackground {
+  background: none !important;
+  background-color: transparent !important;
+}

@@ -16,7 +16,7 @@ import { PageProps } from '@/types/common';
 import { CommentListSkeleton } from '@/components/comment/CommentSkeleton';
 import BlogClient from '@/components/blog/BlogClient';
 import { getBlogDetailRoute } from '@/utils/url';
-import BlogContent from '@/components/blog/BlogContent';
+import MdxContent from '@/components/ui/Mdx';
 
 export const dynamicParams = true;
 
@@ -93,7 +93,7 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
                 />
               </div>
             )}
-            <BlogContent source={source} />
+            <MdxContent source={source} />
 
             <TableOfContent blog={blog} />
           </div>

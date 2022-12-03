@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_OPTIONS='--inspect' next start",
     "postbuild": "next-sitemap",
     "next:lint": "next lint",
     "lint": "eslint .",
@@ -32,6 +32,8 @@
     "update:deps": "yarn upgrade-interactive --latest"
   },
   "dependencies": {
+    "@codesandbox/sandpack-react": "^1.17.0",
+    "@codesandbox/sandpack-themes": "^1.17.0",
     "@headlessui/react": "^1.7.4",
     "@next/font": "^13.0.5",
     "@react-spring/web": "^9.4.5",

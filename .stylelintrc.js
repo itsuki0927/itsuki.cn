@@ -50,5 +50,7 @@ module.exports = {
         ignoreFunctions: ['-webkit-gradient', 'to', 'color-stop'],
       },
     ],
+    // 自定义属性
+    'custom-property-pattern': null,
   },
 };

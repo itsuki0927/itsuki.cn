@@ -63,7 +63,7 @@ const TableOfContent = ({ blog, className = '' }: BlogAsideProps) => {
     >
       <ProgressBar progress={readingProgress} />
       {/* TODO: 设置显示范围 */}
-      <ul className='hidden space-y-2 sm:block'>
+      <ul className='ml-5 hidden space-y-2 sm:block'>
         {h2Headings?.map((heading, index) => (
           <motion.li
             onClick={() => handleScrollTo(heading.id)}

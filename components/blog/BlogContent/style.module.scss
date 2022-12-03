@@ -1,0 +1,19 @@
+.olWrapper {
+  list-style: none;
+  counter-reset: counts 0;
+
+  > :not([hidden]) ~ :not([hidden]),
+  ol {
+    margin-top: 16px;
+  }
+}
+
+.olItem {
+  counter-increment: counts;
+  display: flex;
+
+  &::before {
+    content: counter(counts) '. ';
+    @apply pr-4 font-medium text-gray-500;
+  }
+}

@@ -32,10 +32,6 @@ textarea::placeholder {
   @apply text-[#afa99e];
 }
 
-blockquote {
-  @apply border-l-4 border-solid border-gray-500 bg-gray-100 py-1 pl-4 pr-3 indent-0;
-}
-
 .capsize::before {
   content: '';
   margin-bottom: -0.098em;

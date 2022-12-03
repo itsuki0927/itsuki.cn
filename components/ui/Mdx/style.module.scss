@@ -1,0 +1,37 @@
+.olWrapper {
+  @apply mb-6 list-none;
+
+  counter-reset: counts 0;
+
+  > :not([hidden]) ~ :not([hidden]),
+  ol {
+    margin-top: 16px;
+  }
+}
+
+.olItem {
+  @apply flex;
+
+  counter-increment: counts;
+
+  &::before {
+    content: counter(counts) '. ';
+    @apply pr-4 font-medium text-gray-400;
+  }
+}
+
+.blockquote {
+  @apply mb-4 rounded-sm border-l-4 border-solid border-gray-500 bg-gray-100 py-2 pl-4 pr-3 indent-0;
+
+  > p {
+    margin-bottom: 0;
+  }
+}
+
+.externalLink {
+  @apply text-primary no-underline transition-all hover:text-primary-hover hover:underline;
+}
+
+.internalLink {
+  @apply font-medium text-gray-600 underline hover:text-gray-800;
+}

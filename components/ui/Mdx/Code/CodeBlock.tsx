@@ -9,6 +9,7 @@ export interface CodeBlockProps {
   language: Language;
   metastring: string | null;
   lineNumber?: boolean;
+  lineHover?: boolean;
 }
 
 export interface HighlightedCodeTextProps {
@@ -16,6 +17,7 @@ export interface HighlightedCodeTextProps {
   language: Language;
   highlightLine?: (index: number) => boolean;
   lineNumber?: boolean;
+  lineHover?: boolean;
 }
 
 const HighlightedCodeText = ({
@@ -23,6 +25,7 @@ const HighlightedCodeText = ({
   language,
   highlightLine,
   lineNumber = true,
+  lineHover = true,
 }: HighlightedCodeTextProps) => {
   return (
     <Highlight {...defaultProps} theme={theme} code={codeString} language={language}>
@@ -36,21 +39,28 @@ const HighlightedCodeText = ({
         >
           {tokens.map((line, index) => {
             const { className: lineClassName, ...lineRestProps } = getLineProps({
-              className: highlightLine?.(index) ? styles.highlightLine : '',
+              className: highlightLine?.(index) ? styles.highlight : '',
               key: index,
               line,
             });
+            // 如果只有一行时, 禁用lineNumber和lineHover
+            const displayLineNumber = lineNumber && tokens.length > 1;
+            const enabledLineHover = lineHover && tokens.length > 1;
+
             return (
               <div
                 className={classNames(
                   styles.line,
-                  !lineNumber && styles.hiddenLineNumber,
-                  lineClassName
+                  lineClassName,
+                  enabledLineHover && styles.hover,
+                  !displayLineNumber && styles.hiddenLineNumber
                 )}
                 data-testid={highlightLine?.(index) ? 'highlight-line' : 'line'}
                 {...lineRestProps}
               >
-                {lineNumber ? <div className={styles.lineNumber}>{index + 1}</div> : null}
+                {displayLineNumber ? (
+                  <div className={styles.lineNumber}>{index + 1}</div>
+                ) : null}
                 <div className={styles.lineContent}>
                   {line.map((token, key) => {
                     return (

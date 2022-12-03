@@ -1,5 +1,5 @@
 .codeBlock {
-  @apply my-4 rounded-md border border-solid border-gray-300;
+  @apply my-4 rounded-sm border border-solid border-gray-300;
 }
 
 .title {
@@ -11,9 +11,13 @@
 }
 
 .line {
-  @apply table border-collapse border-l-[3px] border-l-transparent px-2 leading-7 hover:bg-gray-100/50;
+  @apply table border-collapse border-l-[3px] border-l-transparent px-2 leading-7;
 
-  &.highlightLine {
+  &.hover {
+    @apply hover:bg-gray-100/50;
+  }
+
+  &.highlight {
     // TODO: 高亮样式
 
     @apply border-l-gray-500 bg-gray-50;

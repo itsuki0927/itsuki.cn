@@ -80,7 +80,7 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
 
       <Container className='relative mt-24 flex flex-row justify-between'>
         <div className='mx-auto max-w-full sm:max-w-4xl'>
-          <div className='relative rounded-sm text-gray-800'>
+          <div className='relative rounded-sm'>
             {blog.cover && (
               <div className='mb-8 align-middle'>
                 <MyImage

@@ -44,11 +44,12 @@ export const calculateLinesToHighlight = (metastring: string | null) => {
   };
 };
 
-const RETitle = /title=[a-zA-Z\u4e00-\u9fa5](.+)/;
+const RETitle = /title=([a-zA-Z\u4e00-\u9fa5].+)/;
 
 export const hasTitle = (metastring: string | null) => {
-  if (!metastring || !RETitle.test(metastring)) {
-    return 'test copy';
+  if (!metastring) {
+    return '';
   }
-  return RETitle.exec(metastring)![0].split('title=')[1];
+  const result = RETitle.exec(metastring) || ['', ''];
+  return result[1];
 };

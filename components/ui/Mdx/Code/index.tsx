@@ -8,7 +8,7 @@ const Code = (preProps: PrePropsType) => {
   const props = preToCodeBlock(preProps);
 
   if (props) {
-    return <CodeBlock {...props} lineNumber={false} />;
+    return <CodeBlock {...props} />;
   }
 
   return null;

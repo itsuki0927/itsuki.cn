@@ -11,23 +11,12 @@
   --danger-hover: #ec0c24;
   --danger-light: #ffe2e5;
 
-  --accent-50: #fafafa;
-  --accent-100: #f4f4f5;
-  --accent-200: #e4e4e7;
-  --accent-300: #d4d4d8;
-  --accent-400: #a1a1aa;
-  --accent-500: #71717a;
-  --accent-600: #52525b;
-  --accent-700: #3f3f46;
-  --accent-800: #27272a;
-  --accent-900: #18181b;
-
   --bg-skeleton: #e5e7eb;
 }
 
 :root.dark {
   --bg--skeleton: #25282a;
-  --bg--github: var(--bg--bg-dark-2);
+  --bg--github: var(--bg--bg-gray-700);
   --bg--qq: #0489bb;
   --bg--white: #181a1b;
 
@@ -38,31 +27,14 @@
   --bg--danger-hover: #bd0a1d;
   --bg--danger-light: #440007;
 
-  --bg--accent-50: #1b1d1e;
-  --bg--accent-100: #1e2022;
-  --bg--accent-200: #262a2b;
-  --bg--accent-300: #2f3335;
-
-  --border--accent-100: #333739;
-  --border--accent-200: #373c3e;
-  --border--accent-300: #3c4143;
-  --border--accent-800: #7f7668;
   --border--wechat: #26985a;
   --border--primary: #0050a2;
 
-  --text--github: var(--text--bg-dark-2);
+  --text--github: var(--text--bg-gray-700);
   --text--qq: #2dc1fa;
   --text--wechat: #5cd794;
   --text--white: #e8e6e3;
   --text--primary: #3fa9ff;
   --text--primary-hover: #48a2ec;
   --text--danger: #f65364;
-  --text--accent-200: #d8d5cf;
-  --text--accent-300: #cecac3;
-  --text--accent-400: #afa99e;
-  --text--accent-500: #9e9589;
-  --text--accent-600: #b1aba1;
-  --text--accent-700: #beb8b0;
-  --text--accent-800: #cecac4;
-  --text--accent-900: #d8d5cf;
 }

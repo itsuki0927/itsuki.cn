@@ -14,7 +14,7 @@ const NavbarItem = ({ href, children }: PropsWithChildren<{ href: string }>) => 
     <li
       className={classNames(
         'capsize relative hidden cursor-pointer px-5 text-center leading-8 tracking-widest transition-colors duration-500 hover:text-primary-hover md:inline-block',
-        isActive ? 'text-primary' : 'text-dark-2'
+        isActive ? 'text-primary' : 'text-gray-700'
       )}
     >
       <Link href={href}>{children}</Link>

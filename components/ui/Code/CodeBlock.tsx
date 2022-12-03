@@ -80,12 +80,8 @@ const CodeBlock = ({ codeString, language, metastring, ...rest }: CodeBlockProps
   const title = hasTitle(metastring);
 
   return (
-    <div className='my-4 rounded-md border border-solid border-gray-300'>
-      {title ? (
-        <div className='flex items-center border-b border-solid border-b-gray-300 px-3 py-2'>
-          {title}
-        </div>
-      ) : null}
+    <div className={styles.codeBlock}>
+      {title ? <div className={styles.title}>{title}</div> : null}
       <HighlightedCodeText
         codeString={codeString}
         language={language}

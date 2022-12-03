@@ -8,7 +8,7 @@ const ImagePopup = ({ src }: PopupProps) =>
       id='popupImage'
       alt='popup show'
       src={src}
-      className='max-h-[80%] max-w-screen-md rounded-md border-8 border-solid border-white-3 object-cover '
+      className='max-h-[80%] max-w-screen-md rounded-md border-8 border-solid border-gray-200 object-cover '
     />
   ) : null;
 

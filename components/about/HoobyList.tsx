@@ -43,14 +43,14 @@ type HoobyProps = {
 };
 
 const HoobyCard = ({ title, description, index, icon }: HoobyProps) => (
-  <div className='transform border-b border-dashed border-gray-1 py-3 transition-all hover:scale-[1.01]'>
+  <div className='transform border-b border-dashed border-gray-300 py-3 transition-all hover:scale-[1.01]'>
     <div className='flex flex-col justify-between sm:flex-row sm:items-center'>
       <div className='flex items-center'>
-        <div className='mr-6 text-left text-gray-1'>{index}</div>
+        <div className='mr-6 text-left text-gray-300'>{index}</div>
         <h4 className='my-0 w-full text-base font-normal text-basic'>{title}</h4>
       </div>
       <div className='mt-2 flex w-full items-center justify-between sm:mt-0 sm:w-auto'>
-        <p className='my-0 mr-2 ml-9 w-64 text-sm text-gray-3 sm:ml-0 sm:text-right md:mb-0'>
+        <p className='my-0 mr-2 ml-9 w-64 text-sm text-gray-500 sm:ml-0 sm:text-right md:mb-0'>
           {description}
         </p>
         {icon}

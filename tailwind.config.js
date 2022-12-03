@@ -30,18 +30,6 @@ module.exports = {
 
       basic: '#344054',
 
-      // TODO: 删除
-      'white-1': gray['50'],
-      'white-2': gray['100'],
-      'white-3': gray['200'],
-      'gray-1': gray['300'],
-      'gray-2': gray['400'],
-      'gray-3': gray['500'],
-      'dark-1': gray['600'],
-      'dark-2': gray['700'],
-      'dark-3': gray['800'],
-      'dark-4': gray['900'],
-
       primary: 'var(--primary)',
       'primary-hover': 'var(--primary-hover)',
       'primary-light': 'var(--primary-light)',
@@ -56,40 +44,6 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-ibm)', 'var(--font-fira)', ...fontFamily.sans],
-      },
-      typography: ({ theme }) => {
-        const [fontSize, { lineHeight }] = theme('fontSize.sm');
-        return {
-          DEFAULT: {
-            css: {
-              a: {
-                color: 'var(--primary)',
-                transition: 'color 0.3s ease',
-                '&:hover': {
-                  color: 'var(--primary-hover)',
-                },
-              },
-              'blockquote p': {
-                marginTop: theme('spacing.1'),
-                marginBottom: theme('spacing.1'),
-              },
-              pre: {
-                borderRadius: theme('borderRadius.sm'),
-                fontFamily: 'var(--font-fira)',
-              },
-              code: {
-                fontSize,
-                lineHeight,
-                fontFamily: 'var(--font-fira)',
-              },
-              img: {
-                textAlign: 'center',
-                margin: '0 auto',
-                maxHeight: theme('maxHeight.96'),
-              },
-            },
-          },
-        };
       },
       backgroundColor: {
         skeleton: 'var(--bg-skeleton)',

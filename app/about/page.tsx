@@ -52,7 +52,7 @@ const AboutPage = async () => {
             className='border-4 border-solid border-gray-100'
           />
         </div>
-        <h1 className='mb-2 text-3xl font-medium tracking-tight text-dark-4 md:text-5xl'>
+        <h1 className='mb-2 text-3xl font-medium tracking-tight text-gray-900 md:text-5xl'>
           五块木头
         </h1>
         <h2 className='text-lg text-gray-500'>

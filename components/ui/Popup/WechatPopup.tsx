@@ -2,7 +2,7 @@ import { MyImage } from '@/components/common';
 import Container from '../Container';
 
 const WechatPopup = () => (
-  <Container className='min-w-[24rem] max-w-[90%] border-8 border-white-3 bg-white-1'>
+  <Container className='min-w-[24rem] max-w-[90%] border-8 border-gray-200 bg-gray-50'>
     <div className='my-8 text-center'>
       <MyImage
         alt='wechat popup'
@@ -13,7 +13,7 @@ const WechatPopup = () => (
       />
       <p className='mt-4 text-sm'>请使用微信扫码</p>
     </div>
-    <p className='text-center text-sm text-gray-2'>
+    <p className='text-center text-sm text-gray-400'>
       很高兴在这里和你相遇, 我们一起结伴前行
     </p>
   </Container>

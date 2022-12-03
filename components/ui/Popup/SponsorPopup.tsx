@@ -8,7 +8,7 @@ import s from './style.module.scss';
 const SponsorPopup = () => {
   const [type, setType] = useState<'wechatpay' | 'alipay'>('wechatpay');
   return (
-    <Container className='max-w-[90%] border-8 border-white-3 bg-white-1 sm:px-8'>
+    <Container className='max-w-[90%] border-8 border-gray-200 bg-gray-50 sm:px-8'>
       <div className='my-8 text-center sm:my-16'>
         <figure
           className={classNames(
@@ -56,7 +56,7 @@ const SponsorPopup = () => {
           />
         </li>
       </ul>
-      <p className='text-center text-sm text-gray-2'>
+      <p className='text-center text-sm text-gray-400'>
         感谢对我的肯定, 你可以选择以上两种方式进行支持.
       </p>
     </Container>

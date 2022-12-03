@@ -68,7 +68,7 @@ const MarkdownEditor = ({
       />
       <MarkdownBlock
         className={classNames(
-          'absolute left-0 right-0 top-0 bottom-0 cursor-not-allowed overflow-y-scroll bg-white-1 p-3 transition-all duration-300 ',
+          'absolute left-0 right-0 top-0 bottom-0 cursor-not-allowed overflow-y-scroll bg-gray-50 p-3 transition-all duration-300 ',
           preview ? 'z-10 h-full' : '-z-10 h-0'
         )}
         htmlContent={markedToHtml(props.code || '', {

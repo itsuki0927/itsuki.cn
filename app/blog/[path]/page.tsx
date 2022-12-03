@@ -79,8 +79,8 @@ const BlogPage = async ({ params }: PageProps<{ path?: string }>) => {
       <BlogHeader blog={blog} />
 
       <Container className='relative mt-24 flex flex-row justify-between'>
-        <div className='prose mx-auto max-w-full sm:max-w-4xl'>
-          <div className='relative rounded-sm'>
+        <div className='mx-auto max-w-full sm:max-w-4xl'>
+          <div className='relative rounded-sm text-gray-800'>
             {blog.cover && (
               <div className='mb-8 align-middle'>
                 <MyImage

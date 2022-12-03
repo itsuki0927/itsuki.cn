@@ -3,7 +3,7 @@
 }
 
 .root:empty::before {
-  @apply text-gray-2;
+  @apply text-gray-400;
 
   content: attr(placeholder);
 }

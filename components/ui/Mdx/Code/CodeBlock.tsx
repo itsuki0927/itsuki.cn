@@ -38,7 +38,11 @@ const HighlightedCodeText = ({
           }}
         >
           {tokens.map((line, index) => {
-            const { className: lineClassName, ...lineRestProps } = getLineProps({
+            const {
+              className: lineClassName,
+              key,
+              ...lineRestProps
+            } = getLineProps({
               className: highlightLine?.(index) ? styles.highlight : '',
               key: index,
               line,
@@ -49,6 +53,7 @@ const HighlightedCodeText = ({
 
             return (
               <div
+                key={key}
                 className={classNames(
                   styles.line,
                   lineClassName,
@@ -62,18 +67,12 @@ const HighlightedCodeText = ({
                   <div className={styles.lineNumber}>{index + 1}</div>
                 ) : null}
                 <div className={styles.lineContent}>
-                  {line.map((token, key) => {
-                    return (
-                      <span
-                        data-testid='content-line'
-                        // eslint-disable-next-line react/no-array-index-key
-                        key={key}
-                        {...getTokenProps({
-                          key,
-                          token,
-                        })}
-                      />
-                    );
+                  {line.map((token, idx) => {
+                    const { key: tokenKey, ...rest } = getTokenProps({
+                      key: idx,
+                      token,
+                    });
+                    return <span data-testid='content-line' key={tokenKey} {...rest} />;
                   })}
                 </div>
               </div>

@@ -2,15 +2,9 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useMount } from '@/hooks';
 import type { MarkdownEditorUtil } from '@/utils/editor';
-import hljs from '@/libs/highlight';
 import { MarkdownEditorProps } from '.';
 
-const highlight = (editor: HTMLElement) => {
-  const code = editor.textContent;
-  if (code) {
-    editor.innerHTML = hljs.highlightAuto(code, ['markdown']).value;
-  }
-};
+const highlight = () => {};
 
 const useEditor = ({ code, onChange, options }: MarkdownEditorProps) => {
   const editorRef = useRef<HTMLDivElement>(null);

@@ -5,7 +5,6 @@ import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
 import IconButton from '@/components/common/MarkdownEditor/IconButton';
 import { PostCommentBody } from '@/entities/comment';
 import { useLocalStorage } from '@/hooks';
-import purifyDomString from '@/libs/purify';
 import { remove } from '@/utils/storage';
 import SendButton from '../SendButton';
 import { useAuth } from '@/libs/auth';
@@ -54,7 +53,7 @@ const CommentForm = ({
           nickname,
           parentId,
           agent: navigator.userAgent,
-          content: purifyDomString(content),
+          content,
         };
 
         onPost?.(params).then(result => {

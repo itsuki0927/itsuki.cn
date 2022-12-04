@@ -6,7 +6,6 @@ import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import { useCallback } from 'react';
 import { PostCommentBody } from '@/entities/comment';
-import purifyDomString from '@/libs/purify';
 import SendButton from '../SendButton';
 import CommentAvatar from '../CommentAvatar';
 import EmojiButton from '@/components/common/MarkdownEditor/EmojiButton';
@@ -59,7 +58,7 @@ const CommentPublisherUI = ({
           nickname,
           parentId,
           agent: navigator.userAgent,
-          content: purifyDomString(content),
+          content,
         };
 
         onPost?.(params).then(result => {

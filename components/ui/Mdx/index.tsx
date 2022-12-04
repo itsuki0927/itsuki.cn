@@ -1,42 +1,47 @@
 'use client';
 
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote';
+import Sandbox from '@/components/common/Sandbox';
 import {
   Blockquote,
   Code,
+  H1,
   H2,
   H3,
   H4,
   Image,
   InlineCode,
+  LegacyImage,
   Link,
   OrderedList,
+  Table,
   Text,
+  UnOrderedList,
 } from './MdxComponents';
-import Sandbox from '@/components/common/Sandbox';
 
 interface MdxContentProps {
   source: MDXRemoteProps;
 }
 
-const customMdxComponents = {
+export const customMdxComponents = {
   Image,
   Sandbox,
 };
 
-const components = {
+export const markdownComponents = {
+  h1: H1,
   h2: H2,
   h3: H3,
   h4: H4,
   ol: OrderedList,
-  ul: OrderedList,
+  ul: UnOrderedList,
   p: Text,
   pre: Code,
   a: Link,
   code: InlineCode,
   blockquote: Blockquote,
-
-  ...customMdxComponents,
+  img: LegacyImage,
+  table: Table,
 };
 
 const MdxContent = ({ source }: MdxContentProps) => {
@@ -44,7 +49,8 @@ const MdxContent = ({ source }: MdxContentProps) => {
     <MDXRemote
       {...source}
       components={{
-        ...components,
+        ...markdownComponents,
+        ...customMdxComponents,
         ...source.components,
       }}
     />

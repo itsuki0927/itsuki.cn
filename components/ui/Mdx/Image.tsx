@@ -10,9 +10,11 @@ const Image = (props: MyImageProps) => {
         className={classNames('mx-auto', props.className)}
         quality={50}
       />
-      <figcaption className='pt-2 text-center text-sm leading-6 text-gray-500'>
-        {props.alt}
-      </figcaption>
+      {props.alt ? (
+        <figcaption className='pt-2 text-center text-sm leading-6 text-gray-500'>
+          {props.alt}
+        </figcaption>
+      ) : null}
     </figure>
   );
 };

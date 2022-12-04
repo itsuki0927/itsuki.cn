@@ -5,6 +5,7 @@ import { preToCodeBlock, PrePropsType } from './utils';
 const CodeBlock = dynamic(() => import('./CodeBlock'));
 
 const Code = (preProps: PrePropsType) => {
+  console.log('preProps:', preProps);
   const props = preToCodeBlock(preProps);
 
   if (props) {

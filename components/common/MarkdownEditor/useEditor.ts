@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useMount } from '@/hooks';
 import type { MarkdownEditorUtil } from '@/utils/editor';
 import hljs from '@/libs/highlight';
@@ -7,11 +7,13 @@ import { MarkdownEditorProps } from '.';
 
 const highlight = (editor: HTMLElement) => {
   const code = editor.textContent;
-  editor.innerHTML = hljs.highlightAuto(code!, ['markdown']).value;
+  if (code) {
+    editor.innerHTML = hljs.highlightAuto(code, ['markdown']).value;
+  }
 };
 
-const useEditor = (props: MarkdownEditorProps) => {
-  const editorRef = useRef<HTMLElement>(null);
+const useEditor = ({ code, onChange, options }: MarkdownEditorProps) => {
+  const editorRef = useRef<HTMLDivElement>(null);
   const codeRef = useRef<MarkdownEditorUtil | null>(null);
 
   const initMarkdownEditor = async () => {
@@ -27,10 +29,10 @@ const useEditor = (props: MarkdownEditorProps) => {
       }
     );
 
-    codeRef.current.updateCode(props.code);
+    codeRef.current.updateCode(code);
     codeRef.current.onUpdate(codeParams => {
       if (!editorRef.current) return;
-      props.onChange(codeParams);
+      onChange(codeParams);
     });
   };
 
@@ -42,19 +44,26 @@ const useEditor = (props: MarkdownEditorProps) => {
 
   useEffect(() => {
     if (!codeRef.current || !editorRef.current) return;
-    if (props.code !== editorRef.current.textContent) {
-      codeRef.current.updateCode(props.code);
+    if (code !== editorRef.current.textContent) {
+      codeRef.current.updateCode(code);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.code]);
+  }, [code]);
 
   useEffect(() => {
-    if (!codeRef.current || !props.options) return;
+    if (!codeRef.current || !options) return;
 
-    codeRef.current.updateOptions(props.options);
-  }, [props.options]);
+    codeRef.current.updateOptions(options);
+  }, [options]);
 
-  return { editorRef, codeRef };
+  const returnedValue = useMemo(
+    () => ({
+      editorRef,
+      codeRef,
+    }),
+    []
+  );
+
+  return returnedValue;
 };
 
 export default useEditor;

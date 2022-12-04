@@ -24,7 +24,7 @@ const HighlightedCodeText = ({
   codeString,
   language,
   highlightLine,
-  lineNumber = true,
+  lineNumber = false,
   lineHover = true,
 }: HighlightedCodeTextProps) => {
   return (

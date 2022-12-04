@@ -1,25 +1,26 @@
 'use client';
 
 import classNames from 'classnames';
-import React, { ReactNode, useState } from 'react';
-import MarkdownBlock from '@/components/ui/MarkdownBlock';
-import markedToHtml from '@/libs/marked';
-import { MarkdownEditorOptions } from '@/utils/editor';
+import React, {
+  MutableRefObject,
+  ReactNode,
+  RefObject,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
+import ReactMarkdown from 'react-markdown';
+import { MarkdownEditorOptions, MarkdownEditorUtil } from '@/utils/editor';
 import s from './style.module.css';
 import useEditor from './useEditor';
+import { markdownComponents } from '@/components/ui/Mdx';
 
 export { useEditor };
 
 export type MarkdownEditorProps = {
-  // eslint-disable-next-line react/no-unused-prop-types
   code: string;
-  // eslint-disable-next-line react/no-unused-prop-types
   onChange: (code: string) => void;
-  // eslint-disable-next-line react/no-unused-prop-types
-  highlight?: (e: HTMLElement) => void;
-  // eslint-disable-next-line react/no-unused-prop-types
   options?: Partial<MarkdownEditorOptions>;
-  // eslint-disable-next-line react/no-unused-prop-types
   style?: React.CSSProperties;
   placeholder?: string;
   className?: string;
@@ -28,6 +29,7 @@ export type MarkdownEditorProps = {
   footer?: RenderProps;
   contentClassName?: string;
 };
+
 type AppendArgument<Fn, A> = Fn extends (...args: infer P) => infer R
   ? (...args: [A, ...P]) => R
   : never;
@@ -35,8 +37,8 @@ type AppendArgument<Fn, A> = Fn extends (...args: infer P) => infer R
 type RenderProps = (props: {
   preview: boolean;
   onPreview: (preview: boolean) => void;
-  editorRef: any;
-  codeRef: any;
+  editorRef: RefObject<HTMLDivElement>;
+  codeRef: MutableRefObject<MarkdownEditorUtil | null>;
 }) => ReactNode;
 
 const MarkdownEditor = ({
@@ -45,17 +47,18 @@ const MarkdownEditor = ({
   header,
   footer,
   contentClassName = '',
-  ...props
+  placeholder,
+  style,
+  ...rest
 }: MarkdownEditorProps) => {
   const [preview, setPreview] = useState(false);
-  const { editorRef, codeRef } = useEditor(props);
-  const { placeholder } = props;
+  const { editorRef, codeRef } = useEditor(rest);
 
-  const onPreview = (previewProps: boolean) => {
+  const onPreview = useCallback((previewProps: boolean) => {
     setPreview(previewProps);
-  };
+  }, []);
 
-  const defualtDom = (
+  const defualtContentDom = (
     <div className='relative'>
       <div
         placeholder={placeholder}
@@ -64,21 +67,26 @@ const MarkdownEditor = ({
           'overflow-y-scroll p-3 text-base leading-5 sm:max-h-[460px]',
           contentClassName
         )}
-        ref={editorRef as any}
+        ref={editorRef}
       />
-      <MarkdownBlock
-        className={classNames(
-          'absolute left-0 right-0 top-0 bottom-0 cursor-not-allowed overflow-y-scroll bg-gray-50 p-3 transition-all duration-300 ',
-          preview ? 'z-10 h-full' : '-z-10 h-0'
-        )}
-        htmlContent={markedToHtml(props.code || '', {
-          purify: true,
-        })}
-      />
+      {preview ? (
+        <ReactMarkdown
+          className={classNames(
+            'absolute left-0 right-0 top-0 bottom-0 cursor-not-allowed overflow-y-scroll bg-gray-50 p-3 transition-all duration-300 ',
+            preview ? 'z-10 h-full' : '-z-10 h-0'
+          )}
+          components={markdownComponents}
+        >
+          {rest.code}
+        </ReactMarkdown>
+      ) : null}
     </div>
   );
 
-  const params = { preview, onPreview, codeRef, editorRef };
+  const params = useMemo(
+    () => ({ preview, onPreview, codeRef, editorRef }),
+    [codeRef, editorRef, preview, onPreview]
+  );
 
   return (
     <div
@@ -86,10 +94,11 @@ const MarkdownEditor = ({
         'relative border border-solid border-gray-200 bg-white text-sm',
         className
       )}
+      style={style}
     >
       {header?.(params)}
 
-      {children?.(defualtDom, params)}
+      {children?.(defualtContentDom, params)}
 
       {footer?.(params)}
     </div>

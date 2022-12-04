@@ -1,3 +1,4 @@
+import remarkGfm from 'remark-gfm';
 import { serialize } from 'next-mdx-remote/serialize';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -42,7 +43,7 @@ const fetchData = async (path?: string) => {
   readBlog(blog.id);
   const mdxSource = await serialize(blog.content, {
     mdxOptions: {
-      remarkPlugins: [],
+      remarkPlugins: [remarkGfm],
       rehypePlugins: [],
     },
   });

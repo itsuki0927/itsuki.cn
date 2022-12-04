@@ -1,7 +1,5 @@
 .olWrapper {
-  @apply mb-6 list-none;
-
-  counter-reset: counts 0;
+  @apply mb-6 list-decimal pl-6;
 
   > :not([hidden]) ~ :not([hidden]),
   ol {
@@ -10,14 +8,20 @@
 }
 
 .olItem {
-  @apply flex;
+  @apply pl-4 marker:text-gray-400;
+}
 
-  counter-increment: counts;
+.ulWrapper {
+  @apply mb-6 list-square pl-6;
 
-  &::before {
-    content: counter(counts) '. ';
-    @apply pr-4 font-medium text-gray-400;
+  > :not([hidden]) ~ :not([hidden]),
+  ul {
+    margin-top: 16px;
   }
+}
+
+.ulItem {
+  @apply pl-4 marker:text-gray-300;
 }
 
 .blockquote {
@@ -34,4 +38,40 @@
 
 .internalLink {
   @apply font-medium text-gray-600 underline hover:text-gray-800;
+}
+
+.table {
+  @apply mt-8 mb-8 w-full table-auto rounded-sm border border-solid border-gray-200 text-left;
+
+  th,
+  td {
+    @apply p-2;
+    @apply p-2 first:border-r first:border-solid first:border-gray-200;
+  }
+
+  thead {
+    @apply border-b border-solid border-gray-200;
+
+    th {
+      @apply align-bottom font-semibold;
+    }
+  }
+
+  tbody {
+    tr {
+      @apply border-b border-solid border-gray-200 last:border-b-0;
+    }
+
+    td {
+      @apply align-baseline;
+    }
+  }
+
+  tfoot {
+    @apply border-t border-solid border-gray-200;
+
+    td {
+      @apply align-top;
+    }
+  }
 }

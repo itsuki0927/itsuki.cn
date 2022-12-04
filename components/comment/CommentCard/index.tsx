@@ -1,3 +1,5 @@
+import remarkGfm from 'remark-gfm';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { usePathname } from 'next/navigation';
 import useMeasure from 'react-use-measure';
 import { motion } from 'framer-motion';
@@ -8,10 +10,8 @@ import { MouseEvent, useEffect, useState } from 'react';
 import { Smile } from 'react-feather';
 import toast from 'react-hot-toast';
 import { ToDate } from '@/components/common';
-import { MarkdownBlock } from '@/components/ui';
 import { getCommentElementId } from '@/constants/anchor';
 import { useCreateComment, useLikeComment } from '@/hooks/comment';
-import markedToHtml from '@/libs/marked';
 import { isAdminEmail } from '@/utils/validate';
 import CommentAvatar from '../CommentAvatar';
 import CommentForm from '../CommentForm';
@@ -19,6 +19,7 @@ import CommentList from '../CommentList';
 import { CommentTree } from '../CommentView/utils';
 import styles from './index.module.scss';
 import { useAuth } from '@/libs/auth';
+import { markdownComponents } from '@/components/ui/Mdx';
 
 const emojiList = ['👍', '👎', '😄', '🎉', '😕', '👀'];
 
@@ -114,10 +115,13 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
           </div>
         </div>
 
-        <MarkdownBlock
+        <ReactMarkdown
           className='pl-4 sm:pl-6'
-          htmlContent={markedToHtml(comment.content, { purify: true })}
-        />
+          components={markdownComponents}
+          remarkPlugins={[[remarkGfm]]}
+        >
+          {comment.content}
+        </ReactMarkdown>
 
         <div className='flex items-center space-x-2 pl-4 sm:space-x-3 sm:pl-6'>
           <div className='relative flex'>

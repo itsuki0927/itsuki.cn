@@ -1,11 +1,21 @@
 import React, { ReactNode } from 'react';
-import { StandardProps } from '@/types/common';
-import { getBlogHeadingElementId } from '@/constants/anchor';
-import styles from './style.module.scss';
-import Code from './Code';
-import Image from './Image';
 import ExternalLink from '@/components/common/ExternalLink';
 import InternalLink from '@/components/common/InternalLink';
+import { getBlogHeadingElementId } from '@/constants/anchor';
+import { StandardProps } from '@/types/common';
+import Code from './Code';
+import LegacyImage from './LegacyImage';
+import Image from './Image';
+import styles from './style.module.scss';
+
+export const H1 = ({ children }: StandardProps) => {
+  const id = getBlogHeadingElementId(String(children));
+  return (
+    <h1 id={id} className='relative mt-0 mb-10 text-4xl font-semibold'>
+      {children}
+    </h1>
+  );
+};
 
 export const H2 = ({ children }: StandardProps) => {
   const id = getBlogHeadingElementId(String(children));
@@ -51,6 +61,23 @@ export const OrderedList = ({ children }: StandardProps) => {
   );
 };
 
+export const UnOrderedList = ({ children }: StandardProps) => {
+  return (
+    <ul className={styles.ulWrapper}>
+      {React.Children.toArray(children)
+        .filter(Boolean)
+        .map((child: any, index) =>
+          child.props ? (
+            // eslint-disable-next-line react/no-array-index-key
+            <li className={styles.ulItem} key={index}>
+              <div>{child.props.children}</div>
+            </li>
+          ) : null
+        )}
+    </ul>
+  );
+};
+
 export const Text = ({ children }: StandardProps) => {
   return <p className='mb-4 leading-8'>{children}</p>;
 };
@@ -65,6 +92,7 @@ export const Blockquote = ({ children }: StandardProps) => {
 
 interface LinkProps {
   children?: ReactNode;
+  // eslint-disable-next-line react/no-unused-prop-types
   href?: string;
 }
 
@@ -83,4 +111,8 @@ export const Link = ({ href, children }: LinkProps) => {
   );
 };
 
-export { Code, Image };
+export const Table = ({ children }: LinkProps) => {
+  return <table className={styles.table}>{children}</table>;
+};
+
+export { Code, Image, LegacyImage };

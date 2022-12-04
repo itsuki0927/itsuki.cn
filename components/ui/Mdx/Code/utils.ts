@@ -5,18 +5,31 @@ export interface PrePropsType {
   children?: ReactNode;
 }
 
+type ChildrenType = ReactElement<any, string | JSXElementConstructor<any>> | undefined;
+
+const getChildren = ({ children }: PrePropsType): ChildrenType => {
+  if (Array.isArray(children)) return children[0];
+  return children as ChildrenType;
+};
+
+const getCodeString = (codeString: string | string[]) => {
+  if (Array.isArray(codeString)) {
+    return codeString.join('').trim();
+  }
+  return codeString.trim();
+};
+
 export const preToCodeBlock = (preProps: PrePropsType) => {
-  const children = preProps.children as
-    | ReactElement<any, string | JSXElementConstructor<any>>
-    | undefined;
+  const children = getChildren(preProps);
 
   if (children && children.props) {
-    const { children: codeString, className = '', ...props } = children.props;
+    const { className = '', ...props } = children.props;
+    const codeString = getCodeString(children.props.children);
 
     const matches = className.match(/language-(?<lang>.*)/);
     return {
       className,
-      codeString: codeString.trim(),
+      codeString,
       language:
         matches && matches.groups && matches.groups.lang
           ? (matches.groups.lang as Language)

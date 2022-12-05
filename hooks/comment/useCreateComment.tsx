@@ -1,15 +1,17 @@
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
-import { createComment } from '@/api/comment';
+// import { createComment } from '@/api/comment';
 import { GAEventCategories } from '@/constants/gtag';
 import { PostCommentBody } from '@/entities/comment';
 import { gtag } from '@/utils/gtag';
 import { getBlackList } from '@/api/blacklist';
+import { useAuth } from '@/libs/auth';
 
 const useCreateComment = (blogId: number) => {
   const router = useRouter();
   const [isLoading, setLoading] = useState(false);
+  const { user } = useAuth();
 
   const ensureCommentCanPush = useCallback(
     async ({ content, email }: PostCommentBody) => {
@@ -50,11 +52,22 @@ const useCreateComment = (blogId: number) => {
       if (result) {
         setLoading(true);
         return toast
-          .promise(createComment(params), {
-            loading: '发射中...',
-            success: <b>👏 发射成功</b>,
-            error: <b>🙌 发射失败</b>,
-          })
+          .promise(
+            fetch('/api/comment', {
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: user?.token ?? '',
+              },
+              method: 'post',
+              body: JSON.stringify(params),
+            }),
+            {
+              loading: '发射中...',
+              success: <b>👏 发射成功</b>,
+              error: <b>🙌 发射失败</b>,
+            }
+          )
           .then(
             () => {
               router.refresh();
@@ -65,10 +78,26 @@ const useCreateComment = (blogId: number) => {
           .finally(() => {
             setLoading(false);
           });
+        /* return toast */
+        /*   .promise(createComment(params), { */
+        /*     loading: '发射中...', */
+        /*     success: <b>👏 发射成功</b>, */
+        /*     error: <b>🙌 发射失败</b>, */
+        /*   }) */
+        /*   .then( */
+        /*     () => { */
+        /*       router.refresh(); */
+        /*       return true; */
+        /*     }, */
+        /*     () => false */
+        /*   ) */
+        /*   .finally(() => { */
+        /*     setLoading(false); */
+        /*   }); */
       }
       return false;
     },
-    [blogId, ensureCommentCanPush, router]
+    [blogId, ensureCommentCanPush, router, user]
   );
 
   return { postComment, isLoading } as const;

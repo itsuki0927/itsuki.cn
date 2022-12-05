@@ -41,6 +41,7 @@
     "eslint-config-next": "^13.0.5",
     "feed": "^4.2.2",
     "firebase": "^9.14.0",
+    "firebase-admin": "^11.3.0",
     "framer-motion": "^7.6.12",
     "graphql": "^16.5.0",
     "graphql-request": "^5.0.0",

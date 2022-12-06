@@ -1,5 +1,6 @@
 'use client';
 
+import { UserRecord } from 'firebase-admin/lib/auth/user-record';
 import {
   signInWithPopup,
   GoogleAuthProvider,
@@ -56,17 +57,15 @@ export const useAuth = () => {
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
-const formatUser = async (user: User) => {
-  const token = await user.getIdToken();
+export const formatUser = (user: User | UserRecord) => {
   const { providerId } = user.providerData[0];
   const provider = providerId.replace('.com', '');
   return {
     uid: user.uid,
-    email: user.email,
-    nickname: user.displayName || user.email,
-    avatar: user.photoURL,
+    email: user.email ?? '',
+    nickname: user.displayName || user.email || '',
+    avatar: user.photoURL || '',
     provider,
-    token,
   };
 };
 
@@ -77,11 +76,12 @@ const useProvideAuth = () => {
 
   const handleUser = useCallback(async (rawUser: User | null) => {
     if (rawUser) {
-      const formatedUser = await formatUser(rawUser);
-      const { token, ...userWithoutToken } = formatedUser;
+      const formatedUser = formatUser(rawUser);
+      const token = await rawUser.getIdToken();
+      const userWithToken = { ...formatedUser, token };
 
-      createUser(formatedUser.uid, userWithoutToken);
-      setUser(formatedUser);
+      createUser(formatedUser.uid, formatedUser);
+      setUser(userWithToken);
 
       setLoading(false);
       return formatUser;

@@ -37,37 +37,28 @@ const CommentForm = ({
   const { user } = useAuth();
   const [content, setContent] = useLocalStorage(cacheId, '');
 
-  const email = user?.email ?? '';
-  const avatar = user?.avatar ?? '';
   const nickname = user?.nickname ?? '';
 
   const handleConfirm = () =>
     new Promise<boolean>((resolve, reject) => {
-      if (user) {
-        const { provider } = user;
-        const params: PostCommentBody = {
-          blogId,
-          provider,
-          email,
-          avatar,
-          nickname,
-          parentId,
-          agent: navigator.userAgent,
-          content,
-        };
+      const params: PostCommentBody = {
+        blogId,
+        parentId,
+        agent: navigator.userAgent,
+        content,
+      };
 
-        onPost?.(params).then(result => {
-          if (result) {
-            setContent('');
-            onSuccess?.();
-            remove(cacheId);
-            resolve(true);
-          } else {
-            onError?.();
-            reject();
-          }
-        }, reject);
-      }
+      onPost?.(params).then(result => {
+        if (result) {
+          setContent('');
+          onSuccess?.();
+          remove(cacheId);
+          resolve(true);
+        } else {
+          onError?.();
+          reject();
+        }
+      }, reject);
     });
 
   const renderFooter = ({ preview, onPreview, codeRef }: any) => (

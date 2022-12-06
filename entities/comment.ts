@@ -38,13 +38,9 @@ export type LikeCommentBody = {
 };
 
 export type PostCommentBody = {
-  nickname: string;
-  email: string;
   content: string;
   blogId: number;
   agent: string;
-  avatar: string;
-  provider: string;
   parentId?: number;
 };
 

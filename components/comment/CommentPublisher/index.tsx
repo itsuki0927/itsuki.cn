@@ -15,7 +15,7 @@ export interface CommentPublisherUIProps {
 
 const CommentPublisher = ({ blogId }: CommentPublisherUIProps) => {
   const { user, loading, signInWithGithub, signInWithGoogle } = useAuth();
-  const { postComment, ...rest } = useCreateComment(blogId);
+  const { postComment, isLoading: postLoading } = useCreateComment(blogId);
 
   if (loading && !user) {
     return (
@@ -27,7 +27,7 @@ const CommentPublisher = ({ blogId }: CommentPublisherUIProps) => {
 
   if (user) {
     return (
-      <CommentPublisherUI blogId={blogId} loading={rest.isLoading} onPost={postComment} />
+      <CommentPublisherUI blogId={blogId} loading={postLoading} onPost={postComment} />
     );
   }
 

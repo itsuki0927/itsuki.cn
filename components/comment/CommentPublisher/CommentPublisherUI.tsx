@@ -42,37 +42,29 @@ const CommentPublisherUI = ({
   const cacheContentKey = `${pathname}-comment-publisher-${parentId}`;
   const [content, setContent] = useLocalStorage(cacheContentKey, '');
 
-  const email = user?.email ?? '';
   const avatar = user?.avatar ?? '';
   const nickname = user?.nickname ?? '';
 
   const handleConfirm = () =>
     new Promise<boolean>((resolve, reject) => {
-      if (user) {
-        const { provider } = user;
-        const params: PostCommentBody = {
-          blogId,
-          provider,
-          email,
-          avatar,
-          nickname,
-          parentId,
-          agent: navigator.userAgent,
-          content,
-        };
+      const params: PostCommentBody = {
+        blogId,
+        parentId,
+        agent: navigator.userAgent,
+        content,
+      };
 
-        onPost?.(params).then(result => {
-          if (result) {
-            setContent('');
-            onSuccess?.();
-            remove(cacheContentKey);
-            resolve(true);
-          } else {
-            onError?.();
-            reject();
-          }
-        }, reject);
-      }
+      onPost?.(params).then(result => {
+        if (result) {
+          setContent('');
+          onSuccess?.();
+          remove(cacheContentKey);
+          resolve(true);
+        } else {
+          onError?.();
+          reject();
+        }
+      }, reject);
     });
 
   const renderHeader = useCallback(

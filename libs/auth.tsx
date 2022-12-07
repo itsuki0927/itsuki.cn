@@ -6,20 +6,18 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
   User,
-  getAuth,
-  Auth,
 } from 'firebase/auth';
 import {
   createContext,
   useCallback,
   useContext,
   useEffect,
-  useRef,
+  useMemo,
   useState,
 } from 'react';
 import { toast } from 'react-hot-toast';
 import { createUser } from './db';
-import { createFirebaseApp } from './firebase';
+import { auth } from './firebase';
 
 export interface Member {
   email: string | null;
@@ -45,12 +43,14 @@ const AuthContext = createContext<AuthContextType>({
   user: {} as Member,
   loading: false,
 });
+AuthContext.displayName = 'AuthContext';
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('error');
   }
+  console.log('useAuth context', context);
   return context;
 };
 
@@ -72,7 +72,6 @@ export const formatUser = (user: User | UserRecord) => {
 const useProvideAuth = () => {
   const [user, setUser] = useState<Member | null>(null);
   const [loading, setLoading] = useState(false);
-  const authRef = useRef<Auth | null>(null);
 
   const handleUser = useCallback(async (rawUser: User | null) => {
     if (rawUser) {
@@ -81,20 +80,22 @@ const useProvideAuth = () => {
       const userWithToken = { ...formatedUser, token };
 
       createUser(formatedUser.uid, formatedUser);
+      console.log('userWithToken', userWithToken);
       setUser(userWithToken);
 
       setLoading(false);
       return formatUser;
     }
+    console.log('user null', rawUser);
     setUser(null);
     setLoading(false);
-    return false;
+    return null;
   }, []);
 
   const signInWithGoogle = useCallback(() => {
-    if (authRef.current) {
+    if (auth) {
       setLoading(true);
-      signInWithPopup(authRef.current, googleProvider)
+      signInWithPopup(auth, googleProvider)
         .then(result => {
           const rawUser = result.user;
           handleUser(rawUser);
@@ -104,7 +105,6 @@ const useProvideAuth = () => {
           const errorMessage = error.message;
           const { email } = error.customData;
           const credential = GoogleAuthProvider.credentialFromError(error);
-          setLoading(false);
           handleUser(null);
           toast.error(`登录失败：${errorCode}`);
           console.log('errorCode:', errorCode);
@@ -116,9 +116,9 @@ const useProvideAuth = () => {
   }, [handleUser]);
 
   const signInWithGithub = useCallback(() => {
-    if (authRef.current) {
+    if (auth) {
       setLoading(true);
-      signInWithPopup(authRef.current, githubProvider)
+      signInWithPopup(auth, githubProvider)
         .then(result => {
           const rawUser = result.user;
           handleUser(rawUser);
@@ -129,7 +129,6 @@ const useProvideAuth = () => {
           const { email } = error.customData;
           const credential = GithubAuthProvider.credentialFromError(error);
           toast.error(`登录失败：${errorCode}`);
-          setLoading(false);
           handleUser(null);
           console.log('errorCode:', errorCode);
           console.log('errorMessage:', errorMessage);
@@ -141,29 +140,35 @@ const useProvideAuth = () => {
 
   const signout = useCallback(() => {
     setLoading(true);
-    authRef.current?.signOut().then(() => {
-      handleUser(null);
-      setLoading(false);
-    });
-  }, [handleUser]);
+    auth.signOut();
+  }, []);
 
   useEffect(() => {
+    console.log('init auth', auth);
     setLoading(true);
-    const firebaseApp = createFirebaseApp();
-    const auth = getAuth(firebaseApp);
-    authRef.current = auth;
-    const unsubscribe = auth.onIdTokenChanged(handleUser);
+    const unsubscribe = auth.onIdTokenChanged(rawUser => {
+      console.log('onIdTokenChanged', rawUser);
+      handleUser(rawUser);
+    });
 
-    return () => unsubscribe();
+    return () => {
+      setLoading(false);
+      unsubscribe();
+    };
   }, [handleUser]);
 
-  return {
-    signInWithGoogle,
-    signInWithGithub,
-    signout,
-    user,
-    loading,
-  } as const;
+  const returnedValue = useMemo(
+    () => ({
+      signInWithGoogle,
+      signInWithGithub,
+      signout,
+      user,
+      loading,
+    }),
+    [loading, signInWithGithub, signInWithGoogle, signout, user]
+  );
+
+  return returnedValue;
 };
 
 export const AuthProvider = ({ children }: any) => {

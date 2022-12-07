@@ -1,5 +1,6 @@
 import { FirebaseOptions, initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import { FIREBASE } from '@/configs/app';
 
 export const createFirebaseApp = () => {
@@ -21,4 +22,7 @@ export const createFirebaseApp = () => {
   return getApp();
 };
 
-export const createFirestore = () => getFirestore(createFirebaseApp());
+export const firebaseApp = createFirebaseApp();
+export const auth = getAuth(firebaseApp);
+
+export const createFirestore = () => getFirestore(firebaseApp);

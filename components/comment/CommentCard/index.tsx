@@ -200,6 +200,62 @@ const CommentCard = ({ data: comment, className }: CommentCardProps) => {
               </button>
             </CSSTransition>
           </SwitchTransition>
+
+          <span className='text-gray-200 dark:text-gray-800'>/</span>
+
+          <button
+            type='button'
+            className='text-sm text-gray-400'
+            onClick={() => {
+              console.log('edit');
+              const input = {
+                id: comment.id,
+                uid: comment.uid,
+              };
+              fetch('/api/comment', {
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                  Authorization: user?.token ?? '',
+                },
+                method: 'patch',
+                body: JSON.stringify(input),
+              }).then(async res => {
+                const data = await res.json();
+                console.log('delete data', data);
+              });
+            }}
+          >
+            编辑
+          </button>
+
+          <span className='text-gray-200 dark:text-gray-800'>/</span>
+
+          <button
+            type='button'
+            className='text-sm text-gray-400'
+            onClick={() => {
+              console.log('delete');
+              const input = {
+                id: comment.id,
+                uid: comment.uid,
+              };
+              fetch('/api/comment', {
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                  Authorization: user?.token ?? '',
+                },
+                method: 'delete',
+                body: JSON.stringify(input),
+              }).then(async res => {
+                const data = await res.json();
+                console.log('delete data', data);
+              });
+            }}
+          >
+            删除
+          </button>
         </div>
       </div>
 

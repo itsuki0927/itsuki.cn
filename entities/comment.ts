@@ -26,6 +26,7 @@ export type Comment = IdentifiableEntity<{
   blogTitle: string;
   blogDescription: string;
   provider: string;
+  uid: string;
 }>;
 
 export type SearchCommentsBody = {
@@ -58,4 +59,13 @@ export type CreateCommentInput = MutationRequest<PostCommentBody>;
 
 export type LikeCommentResponse = {
   likeComment: string;
+};
+
+export type ValidateCommentAllowOperateInput = {
+  id: number;
+  uid: string;
+};
+
+export type ValidateCommentAllowOperateRespsone = {
+  validateCommentAllowOperate: string;
 };

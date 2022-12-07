@@ -8,9 +8,16 @@ import {
   QueryCommentsResponse,
   QueryCommentsSearch,
   Comment,
+  ValidateCommentAllowOperateRespsone,
+  ValidateCommentAllowOperateInput,
 } from '@/entities/comment';
 import { convertToCommentTreeData } from '@/components/comment/CommentView/utils';
-import { CREATE_COMMENT, LIKE_COMMENT, QUERY_COMMENTS } from '@/graphqls/comment';
+import {
+  CREATE_COMMENT,
+  LIKE_COMMENT,
+  QUERY_COMMENTS,
+  VALIDATE_COMMENT_ALLOW_OPERATE,
+} from '@/graphqls/comment';
 import { endpoint } from './service';
 import { ID } from '@/types/response';
 
@@ -53,3 +60,13 @@ export const likeComment = (id: number, emoji: string) =>
     id,
     emoji,
   });
+
+export const validateCommentAllowOperate = (id: number, uid: string) =>
+  request<ValidateCommentAllowOperateRespsone, ValidateCommentAllowOperateInput>(
+    endpoint,
+    VALIDATE_COMMENT_ALLOW_OPERATE,
+    {
+      id,
+      uid,
+    }
+  );

@@ -65,3 +65,9 @@ export const LIKE_COMMENT = gql`
     likeComment(id: $id, emoji: $emoji)
   }
 `;
+
+export const VALIDATE_COMMENT_ALLOW_OPERATE = gql`
+  query validateCommentAllowOperate($id: ID!, $uid: String!) {
+    validateCommentAllowOperate(id: $id, uid: $uid)
+  }
+`;

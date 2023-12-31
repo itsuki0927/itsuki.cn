@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@vercel/analytics": "^1.1.1",
+    "@vercel/postgres": "^0.5.1",
     "classnames": "^2.5.1",
     "framer-motion": "^10.16.16",
     "next": "14.0.4",

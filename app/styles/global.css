@@ -1,3 +1,6 @@
+@import "./prism.css";
+@import "./notion.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

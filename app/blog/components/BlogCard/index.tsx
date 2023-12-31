@@ -1,4 +1,4 @@
-import { getBlogDetailRoute } from "@/app/utils/route";
+import { getBlogDetailRoute } from "@/app/utils/url";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";

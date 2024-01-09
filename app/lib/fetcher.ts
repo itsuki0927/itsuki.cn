@@ -17,7 +17,7 @@ interface ItsukiFetcherOptions<T> {
   headers?: HeadersInit;
   path: string;
   tags?: string[];
-  variables?: T;
+  variables?: ExtractVariables<T>;
   method?: "GET" | "POST" | "PUT" | "DELETE"; // 可以扩展到其他HTTP方法
 }
 
@@ -47,7 +47,7 @@ async function itsukiFetcher<T>({
       ...headers,
     };
     requestInit.body = JSON.stringify({
-      ...(variables && { variables }),
+      ...(variables && variables),
     });
   }
 

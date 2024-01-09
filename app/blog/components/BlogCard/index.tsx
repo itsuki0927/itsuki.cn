@@ -1,5 +1,4 @@
 import { getBlogDetailRoute } from "@/app/utils/url";
-import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,9 +10,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
   const href = getBlogDetailRoute(blog.path || blog.id);
   console.log("blog:", blog);
   return (
-    <div
-      className={classNames("group relative overflow-hidden z-0 rounded-xl")}
-    >
+    <div className="group relative overflow-hidden z-0 rounded-xl">
       <Link
         className="block w-full h-0 pt-[75%] sm:pt-[55%]  rounded-xl overflow-hidden z-0"
         href={href}

@@ -3,20 +3,21 @@ import { parsePageId } from "notion-utils";
 import React from "react";
 import BlogContentRender from "./components/BlogContentRender";
 import { Metadata } from "next";
-import { getBlog, getBlogs } from "@/app/services/blog";
+import { getAllBlogs } from "@/app/db/notion";
+import getBlog from "@/app/db/notion/getBlog";
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
 export interface NotionResponse {
-  texts: { type: string; text: string }[];
-  blocks: any[];
+  // texts: { type: string; text: string }[];
+  // blocks: any[];
   recordMap: any;
 }
 
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata | undefined> {
-  const blogs = await getBlogs();
+  const blogs = (await getAllBlogs()) || [];
   const blog = blogs.find((blog) => (blog.slug || blog.path) === params.slug);
   if (!blog) {
     return;
@@ -56,8 +57,6 @@ const NotionPage = async ({ params }: BlogPageProps) => {
   const slug = parsePageId(params.slug);
 
   const notionContent = await getBlog(slug);
-
-  // console.log("notionContent:", notionContent);
 
   return (
     <div className="max-w-3xl mx-auto">

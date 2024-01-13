@@ -18,6 +18,7 @@
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tanstack/react-table": "^8.11.3",
     "@vercel/analytics": "^1.1.1",
     "@vercel/postgres": "^0.5.1",
     "class-variance-authority": "^0.7.0",

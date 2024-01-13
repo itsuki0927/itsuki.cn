@@ -1,3 +1,5 @@
+"use server";
+
 import { Database } from "@/types_db";
 import type { CookieOptions } from "@supabase/ssr";
 import {
@@ -5,7 +7,11 @@ import {
   createBrowserClient as _createBrowserClient,
 } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_noStore as noStore, revalidateTag } from "next/cache";
+import { CommentState } from "../admin/components/CommentTable/columns";
+import { InsertComment } from "../types/comment";
+import { getSession, isAdminSession } from "../db/actions";
+import { TAGS } from "@/constants/tag";
 
 export const createServerClient = (
   cookieStoreParams?: ReturnType<typeof cookies>,
@@ -51,15 +57,82 @@ export const getComments = async (blogId: Number) => {
   }
 };
 
-export const createComment = async (
-  row: Database["public"]["Tables"]["comment"]["Insert"],
-) => {
+export const getAllComments = async () => {
+  const isAdmin = await isAdminSession();
+  if (!isAdmin) {
+    return;
+  }
+  noStore();
   const supabase = createBrowserClient();
   try {
-    const { data, error } = await supabase
+    const { data: comments } = await supabase.from("comment").select("*");
+    return comments;
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+};
+
+export const createComment = async (
+  row: Pick<InsertComment, "agent" | "blogId" | "content">,
+) => {
+  const user = await getSession();
+  if (!user) {
+    return;
+  }
+  const input = { ...row, ...user };
+  const supabase = createBrowserClient();
+  try {
+    const { data } = await supabase.from("comment").insert([input]).select();
+    revalidateTag(TAGS.comment);
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+};
+
+export const updateCommentState = async (id: number, state: CommentState) => {
+  const isAdmin = await isAdminSession();
+  if (!isAdmin) {
+    return;
+  }
+  if (isNaN(id)) {
+    throw new Error("参数错误");
+  }
+
+  const supabase = createBrowserClient();
+  try {
+    const { data } = await supabase
       .from("comment")
-      .insert([row])
+      .update({ state })
+      .eq("id", id)
       .select();
+    revalidateTag(TAGS.adminComment);
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+};
+
+export const deleteComment = async (id: number) => {
+  const isAdmin = await isAdminSession();
+  if (!isAdmin) {
+    return;
+  }
+  if (isNaN(id)) {
+    throw new Error("参数错误");
+  }
+
+  const supabase = createBrowserClient();
+  try {
+    const { data } = await supabase
+      .from("comment")
+      .delete()
+      .eq("id", id)
+      .select();
+    revalidateTag(TAGS.adminComment);
     return data;
   } catch (error) {
     console.error("Error:", error);

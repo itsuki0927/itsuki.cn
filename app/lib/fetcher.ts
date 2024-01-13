@@ -18,7 +18,7 @@ interface ItsukiFetcherOptions<T> {
   path: string;
   tags?: string[];
   variables?: ExtractVariables<T>;
-  method?: "GET" | "POST" | "PUT" | "DELETE"; // 可以扩展到其他HTTP方法
+  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"; // 可以扩展到其他HTTP方法
 }
 
 async function itsukiFetcher<T>({

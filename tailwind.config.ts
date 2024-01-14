@@ -4,12 +4,10 @@ import plugin from "tailwindcss/plugin";
 const config = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx,scss}",
     "./components/**/*.{ts,tsx,scss}",
     "./app/**/*.{ts,tsx,scss}",
-    "./src/**/*.{ts,tsx,scss}",
+    "./layouts/**/*.{ts,tsx,scss}",
   ],
-  prefix: "",
   theme: {
     container: {
       center: true,

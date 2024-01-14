@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 import type { RichTextareaHandle } from "rich-textarea";
 import { useLocalStorage } from "usehooks-ts";
 import { motion } from "framer-motion";
-import markdownComponents from "@/components/ui/mdx";
+import markdownComponents from "../../../../components/markdown";
 import CommentInput from "../CommentInput";
 import EmojiPopover from "../EmojiPopover";
 import { StandardProps } from "@/types/common";

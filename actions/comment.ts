@@ -1,46 +1,11 @@
 "use server";
 
-import { Database } from "@/types_db";
-import type { CookieOptions } from "@supabase/ssr";
-import {
-  createServerClient as _createServerClient,
-  createBrowserClient as _createBrowserClient,
-} from "@supabase/ssr";
-import { cookies } from "next/headers";
-import { unstable_noStore as noStore, revalidateTag } from "next/cache";
-import { CommentEmoji, InsertComment } from "../types/comment";
-import { getSession, isAdminSession } from "../db/actions";
+import { getSession, isAdminSession } from "@/actions/session";
+import { revalidateTag, unstable_noStore as noStore } from "next/cache";
 import { TAGS } from "@/constants/tag";
+import { CommentEmoji, InsertComment } from "@/types/comment";
 import { CommentState } from "@/constants/comment";
-
-export const createServerClient = (
-  cookieStoreParams?: ReturnType<typeof cookies>,
-) => {
-  const cookieStore = cookieStoreParams || cookies();
-  return _createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-        set(name: string, value: string, options: CookieOptions) {
-          cookieStore.set({ name, value, ...options });
-        },
-        remove(name: string, options: CookieOptions) {
-          cookieStore.set({ name, value: "", ...options });
-        },
-      },
-    },
-  );
-};
-
-export const createBrowserClient = () =>
-  _createBrowserClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
+import { createBrowserClient } from "@/libs/supabase";
 
 export const getComments = async (blogId: Number) => {
   noStore();
@@ -87,7 +52,6 @@ export const getAllComments = async (params: SearchCommentParams = {}) => {
     return null;
   }
 };
-
 export const createComment = async (
   row: Pick<InsertComment, "agent" | "blogId" | "content">,
 ) => {
@@ -106,7 +70,6 @@ export const createComment = async (
     return null;
   }
 };
-
 export const updateCommentsState = async (
   ids: number[],
   state: CommentState,
@@ -133,10 +96,8 @@ export const updateCommentsState = async (
     return null;
   }
 };
-
 export const updateCommentState = (id: number, state: CommentState) =>
   updateCommentsState([id], state);
-
 export const deleteComments = async (ids: number[]) => {
   const isAdmin = await isAdminSession();
   if (!isAdmin) {
@@ -157,9 +118,7 @@ export const deleteComments = async (ids: number[]) => {
     return null;
   }
 };
-
 export const deleteComment = (id: number) => deleteComments([id]);
-
 export const likeComment = async (id: number, emoji: string) => {
   const session = await getSession();
   if (!session) {

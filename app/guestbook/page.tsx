@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import GuestbookForm from "./components/GuestbookForm";
 import GuestbookList from "./components/GuestbookList";
-import Title from "../components/Title";
+import Title from "@/layouts/AppLayout/components/Title";
 
 const CommentCardSkeleton = () => (
   <div className="flex space-x-4">

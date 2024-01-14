@@ -118,7 +118,7 @@ svg + .notion-page-title-text {
 }
 
 .notion-code {
-  @apply border border-zinc-200 dark:border-none;
+  @apply rounded dark:border-none;
   font-size: var(--prism-font-size);
   line-height: var(--prism-line-height);
 }

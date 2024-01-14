@@ -1,8 +1,8 @@
 import { useOptimistic } from "react";
 import { useSession } from "next-auth/react";
-import { Comment, CommentEmoji } from "@/app/types/comment";
+import { Comment, CommentEmoji } from "@/types/comment";
 
-const useOptimiticComment = (comment: Comment) => {
+const useOptimisticComment = (comment: Comment) => {
   const { data: session } = useSession();
   const user = session?.user;
   const userEmail = user?.email ?? "";
@@ -25,4 +25,4 @@ const useOptimiticComment = (comment: Comment) => {
   });
 };
 
-export default useOptimiticComment;
+export default useOptimisticComment;

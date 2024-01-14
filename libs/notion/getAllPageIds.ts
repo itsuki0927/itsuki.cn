@@ -17,7 +17,7 @@ function getAllPageIds(
           pageSet.add(id),
         );
       });
-      return [...pageSet];
+      return Array.from(pageSet);
     }
   }
   return [];

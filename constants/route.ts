@@ -2,6 +2,7 @@ export const ROUTE_MAP = {
   blog: "/blog",
   guestbook: "/guestbook",
   home: "/",
+  admin: "/admin",
 } as const;
 
 export const ROUTE_LIST = [

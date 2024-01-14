@@ -1,9 +1,13 @@
-@import "./prism.css";
-@import "./notion.css";
+@import "notion.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --prism-font-family: monospace;
+  --prism-line-height: 1.5em;
+}
 
 html,
 body {

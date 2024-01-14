@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import CommentStateSelector from "./CommentStateSelector";
 import CommentSearchInput from "./CommentSearchInput";
 import CommentBatchOperator from "./CommentBatchOperator";
-import { Comment } from "@/app/types/comment";
+import { Comment } from "@/types/comment";
 
 interface CommentTableProps {
   columns: ColumnDef<Comment, Comment>[];

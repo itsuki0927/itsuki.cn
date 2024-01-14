@@ -1,7 +1,7 @@
-import notion from "@/app/lib/notion";
+import index from "@/libs/notion";
 
 const getBlog = async (pageId: string) => {
-  const recordMap = await notion.getPage(pageId);
+  const recordMap = await index.getPage(pageId);
   return { recordMap };
 };
 

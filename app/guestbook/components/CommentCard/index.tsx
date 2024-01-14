@@ -11,7 +11,7 @@ import React, { startTransition } from "react";
 import CommentAvatar from "../CommentAvatar";
 import EmojiPopover from "../EmojiPopover";
 import { StandardProps } from "@/types/common";
-import { Comment, CommentEmoji } from "@/types/comment";
+import { Comment } from "@/types/comment";
 import useOptimisticComment from "./hooks/useOptimisticComment";
 import { formatDate } from "@/utils/formatDate";
 import { likeComment } from "@/actions/comment";
@@ -38,7 +38,7 @@ const CommentCard = ({
 }: CommentCardProps) => {
   const [optimisticComment, addOptimisticComment] =
     useOptimisticComment(comment);
-  const commentEmoji = (optimisticComment.emoji || {}) as CommentEmoji;
+  const commentEmoji = optimisticComment.emoji || {};
 
   const parser = new UAParser(optimisticComment.agent ?? "");
   const device = parser.getDevice();

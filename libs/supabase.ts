@@ -1,4 +1,4 @@
-import { Database } from "@/types_db";
+import { Database } from "@/types/database";
 import type { CookieOptions } from "@supabase/ssr";
 import {
   createBrowserClient as _createBrowserClient,

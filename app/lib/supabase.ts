@@ -8,10 +8,10 @@ import {
 } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { unstable_noStore as noStore, revalidateTag } from "next/cache";
-import { CommentState } from "../admin/components/CommentTable/columns";
-import { InsertComment } from "../types/comment";
+import { CommentEmoji, InsertComment } from "../types/comment";
 import { getSession, isAdminSession } from "../db/actions";
 import { TAGS } from "@/constants/tag";
+import { CommentState } from "@/constants/comment";
 
 export const createServerClient = (
   cookieStoreParams?: ReturnType<typeof cookies>,
@@ -57,15 +57,30 @@ export const getComments = async (blogId: Number) => {
   }
 };
 
-export const getAllComments = async () => {
+interface SearchCommentParams {
+  state?: CommentState;
+  blogId?: number;
+}
+
+export const getAllComments = async (params: SearchCommentParams = {}) => {
   const isAdmin = await isAdminSession();
   if (!isAdmin) {
     return;
   }
-  noStore();
+  // noStore();
   const supabase = createBrowserClient();
   try {
-    const { data: comments } = await supabase.from("comment").select("*");
+    const builder = supabase.from("comment").select("*");
+
+    if (params.state) {
+      builder.eq("state", params.state);
+    }
+    if (params.blogId) {
+      builder.eq("blogId", params.blogId);
+    }
+
+    const { data: comments } = await builder;
+
     return comments;
   } catch (error) {
     console.error("Error:", error);
@@ -92,12 +107,15 @@ export const createComment = async (
   }
 };
 
-export const updateCommentState = async (id: number, state: CommentState) => {
+export const updateCommentsState = async (
+  ids: number[],
+  state: CommentState,
+) => {
   const isAdmin = await isAdminSession();
   if (!isAdmin) {
     return;
   }
-  if (isNaN(id)) {
+  if (ids.some((id) => isNaN(id))) {
     throw new Error("参数错误");
   }
 
@@ -106,8 +124,8 @@ export const updateCommentState = async (id: number, state: CommentState) => {
     const { data } = await supabase
       .from("comment")
       .update({ state })
-      .eq("id", id)
-      .select();
+      .in("id", ids);
+
     revalidateTag(TAGS.adminComment);
     return data;
   } catch (error) {
@@ -116,9 +134,35 @@ export const updateCommentState = async (id: number, state: CommentState) => {
   }
 };
 
-export const deleteComment = async (id: number) => {
+export const updateCommentState = (id: number, state: CommentState) =>
+  updateCommentsState([id], state);
+
+export const deleteComments = async (ids: number[]) => {
   const isAdmin = await isAdminSession();
   if (!isAdmin) {
+    return;
+  }
+  if (ids.some((id) => isNaN(id))) {
+    throw new Error("参数错误");
+  }
+
+  const supabase = createBrowserClient();
+  try {
+    const { data } = await supabase.from("comment").delete().in("id", ids);
+
+    revalidateTag(TAGS.adminComment);
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+};
+
+export const deleteComment = (id: number) => deleteComments([id]);
+
+export const likeComment = async (id: number, emoji: string) => {
+  const session = await getSession();
+  if (!session) {
     return;
   }
   if (isNaN(id)) {
@@ -126,16 +170,38 @@ export const deleteComment = async (id: number) => {
   }
 
   const supabase = createBrowserClient();
-  try {
-    const { data } = await supabase
-      .from("comment")
-      .delete()
-      .eq("id", id)
-      .select();
-    revalidateTag(TAGS.adminComment);
-    return data;
-  } catch (error) {
-    console.error("Error:", error);
-    return null;
+  const { data } = await supabase.from("comment").select("*").eq("id", id);
+  const comment = data?.at(0);
+  if (!data || !comment) {
+    throw new Error("评论不存在");
   }
+
+  if (comment.state !== 0) {
+    throw new Error("评论还没发布呢");
+  }
+
+  const currentEmojiMap = (comment.emoji || {}) as CommentEmoji;
+  const email = session.email;
+
+  // 如果有 emoji
+  if (currentEmojiMap) {
+    if (currentEmojiMap[emoji]) {
+      if (currentEmojiMap[emoji].includes(email)) {
+        currentEmojiMap[emoji] = currentEmojiMap[emoji].filter(
+          (v) => v !== email,
+        );
+      } else {
+        currentEmojiMap[emoji].push(email);
+      }
+    } else {
+      currentEmojiMap[emoji] = [email];
+    }
+  }
+
+  const result = await supabase
+    .from("comment")
+    .update({ emoji: currentEmojiMap })
+    .eq("id", id);
+
+  return result;
 };

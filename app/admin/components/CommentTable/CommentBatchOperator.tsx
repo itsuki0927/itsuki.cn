@@ -21,7 +21,7 @@ import { CommentState, commentStateMap } from "@/constants/comment";
 import { Table } from "@tanstack/react-table";
 import { Comment } from "@/types/comment";
 
-import {deleteComments, updateCommentsState} from "@/actions/comment";
+import { deleteComments, updateCommentsState } from "@/actions/comment";
 
 interface CommentBatchOperatorProps {
   table: Table<Comment>;

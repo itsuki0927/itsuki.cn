@@ -13,8 +13,8 @@ import EmojiPopover from "../EmojiPopover";
 import { StandardProps } from "@/types/common";
 import { Comment, CommentEmoji } from "@/types/comment";
 import useOptimisticComment from "./hooks/useOptimisticComment";
-import {formatDate} from "@/utils/formatDate";
-import {likeComment} from "@/actions/comment";
+import { formatDate } from "@/utils/formatDate";
+import { likeComment } from "@/actions/comment";
 
 interface CommentCardProps extends StandardProps {
   comment: Comment;
@@ -36,7 +36,8 @@ const CommentCard = ({
   className = "",
   children,
 }: CommentCardProps) => {
-  const [optimisticComment, addOptimisticComment] = useOptimisticComment(comment);
+  const [optimisticComment, addOptimisticComment] =
+    useOptimisticComment(comment);
   const commentEmoji = (optimisticComment.emoji || {}) as CommentEmoji;
 
   const parser = new UAParser(optimisticComment.agent ?? "");

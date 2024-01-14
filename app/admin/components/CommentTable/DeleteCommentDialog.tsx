@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Row } from "@tanstack/react-table";
 
 import React from "react";
-import {deleteComment} from "@/actions/comment";
+import { deleteComment } from "@/actions/comment";
 
 interface DeleteCommentDialogProps {
   row: Row<Comment>;

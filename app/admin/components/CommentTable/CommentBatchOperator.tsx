@@ -29,36 +29,35 @@ interface CommentBatchOperatorProps {
 
 const operatorList = [
   { label: "标为垃圾", value: CommentState.Spam },
-  { label: "移回收站", value: CommentState.Deleted },
+  { label: "移回收站", value: CommentState.Trash },
   { label: "退回草稿", value: CommentState.Auditing },
   { label: "通过审核", value: CommentState.Published },
-  { label: "永久删除", value: 4 },
+  { label: "永久删除", value: CommentState.Deleted },
 ];
 
 const CommentBatchOperator = ({ table }: CommentBatchOperatorProps) => {
   const [open, setOpen] = useState(false);
-  const [state, setState] = useState<CommentState | -1 | 4>(-1);
-  const disabled = table.getSelectedRowModel().rows.length === 0;
+  const [state, setState] = useState<CommentState | null>(null);
+  const selectedRows = table.getSelectedRowModel().rows;
+  const selectedRowsCount = selectedRows.length;
+  const disabled = selectedRowsCount === 0;
 
   const getAlertTitle = () => {
-    if (state === -1) {
+    if (state === null) {
       return;
     }
-    if (state === 4) {
+    if (state === CommentState.Deleted) {
       return `确定要永久删除嘛？`;
     }
-    return `确定要将 6 个评论更新为「 ${commentStateMap[state].label} 」状态吗？`;
+    return `确定要将 ${selectedRowsCount} 个评论更新为「 ${commentStateMap[state].label} 」状态吗？`;
   };
 
   const confirmBatchOperator = () => {
-    const selectedIds = table
-      .getSelectedRowModel()
-      .rows.map((row) => row.original.id);
-    console.log("selected:", selectedIds);
-    if (state === -1) {
+    const selectedIds = selectedRows.map((row) => row.original.id);
+    if (state === null) {
       return;
     }
-    if (state === 4) {
+    if (state === CommentState.Deleted) {
       deleteComments(selectedIds);
       return;
     }

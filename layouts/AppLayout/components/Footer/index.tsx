@@ -1,12 +1,14 @@
 import ExternalLink from "@/components/common/ExternalLink";
-import Logo from "../Logo";
-import { ROUTE_LIST_WITH_HOME } from "@/constants/route";
-import Link from "next/link";
-import { Github } from "lucide-react";
 import Juejin from "@/components/icon/Juejin";
 import Sifou from "@/components/icon/Sifou";
+import { ROUTE_LIST_WITH_HOME } from "@/constants/route";
+import { Github } from "lucide-react";
+import Link from "next/link";
+import Logo from "../Logo";
+import LastVisitorInfo from "./LastVisitorInfo";
+import TotalPageViews from "./TotalPageViews";
 
-const Footer = () => {
+const Footer = async () => {
   return (
     <footer className="border-t border-dashed border-t-zinc-200">
       <div className="container flex w-full flex-col py-12 items-start justify-center text-sm">
@@ -29,11 +31,19 @@ const Footer = () => {
             </ExternalLink>
           </div>
         </div>
-        <div className="flex w-full flex-col mt-6 text-sm sm:flex-row items-center justify-between gap-2 text-zinc-500 dark:text-zinc-400">
-          <ExternalLink href="https://beian.miit.gov.cn text-zinc-500 dark:text-zinc-400">
-            湘ICP备2021020356号
-          </ExternalLink>
-          <span>Copyright © 五块木头 Blog {new Date().getFullYear()}</span>
+
+        <div className="flex flex-col sm:flex-row justify-between w-full mt-6 gap-2 sm:gap-0 items-center">
+          <div className="flex flex-col text-sm sm:flex-row items-center gap-2 text-zinc-500 dark:text-zinc-400">
+            <ExternalLink href="https://beian.miit.gov.cn text-zinc-500 dark:text-zinc-400">
+              湘ICP备2021020356号
+            </ExternalLink>
+            <span className="hidden md:block text-zinc-200"> / </span>
+            <span>Copyright © 五块木头 Blog {new Date().getFullYear()}</span>
+          </div>
+          <div className="flex flex-col items-center justify-start gap-2 sm:flex-row">
+            <TotalPageViews />
+            <LastVisitorInfo />
+          </div>
         </div>
       </div>
     </footer>

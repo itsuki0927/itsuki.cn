@@ -32,23 +32,13 @@ async function getAllBlogs(params?: GetAllBlogsParams) {
   } else {
     // Construct Data
     const pageIds = getAllPageIds(collectionQuery);
-    const data: Blog[] = [];
-    for (let i = 0; i < pageIds.length; i++) {
-      const id = String(pageIds[i]);
-      const properties = (await getPageProperties(id, block, schema)) || null;
 
-      if (properties) {
-        // Add fullwidth to properties
-        // properties.fullWidth =
-        //   block[id].value?.format?.page_full_width ?? false;
-        // Convert date (with timezone) to unix milliseconds timestamp
-        // properties.date = (properties.date?.start_date)
-        // ? dayjs.tz(properties.date?.start_date)
-        // : dayjs(block[id].value?.created_time)
-        // .valueOf();
-        data.push(properties as Blog);
-      }
-    }
+    const data = pageIds.map((pageId) => {
+      const id = String(pageId);
+      const properties = getPageProperties(id, block, schema) || null;
+
+      return properties as Blog;
+    });
 
     const posts = filterPublishedPosts({
       posts: data,
@@ -56,11 +46,11 @@ async function getAllBlogs(params?: GetAllBlogsParams) {
     });
 
     posts.sort((a, b) => {
-      if (a.publishAt && b.publishAt) {
-        return b.publishAt.valueOf() - a.publishAt.valueOf();
+      if (a.publishedAt && b.publishedAt) {
+        return b.publishedAt.valueOf() - a.publishedAt.valueOf();
       }
-      if (a.createAt && b.createAt) {
-        return b.createAt.valueOf() - a.createAt.valueOf();
+      if (a.createdAt && b.createdAt) {
+        return b.createdAt.valueOf() - a.createdAt.valueOf();
       }
       return -1;
     });

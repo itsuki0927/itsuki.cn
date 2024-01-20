@@ -1,19 +1,27 @@
 import { getTextContent, getDateValue } from "notion-utils";
-import index from "@/libs/notion";
 import {
   BlockMap,
   CollectionPropertySchemaMap,
   Decoration,
 } from "notion-types";
 
-async function getPageProperties(
+const getPageProperties = (
   id: string,
   block: BlockMap,
   schema?: CollectionPropertySchemaMap,
-) {
-  console.log("block", block);
+) => {
   const rawProperties = Object.entries(block?.[id]?.value?.properties || []);
-  const excludeProperties = ["date", "select", "multi_select", "person"];
+
+  const excludeProperties = [
+    "category",
+    "state",
+    "recent",
+    "tags",
+    "updatedAt",
+    "createdAt",
+    "publishedAt",
+    "mood",
+  ];
   const properties: Record<string, any> = {};
   if (!schema) {
     return {};
@@ -26,41 +34,27 @@ async function getPageProperties(
       properties[schemaKey] = getTextContent(val as Decoration[]);
     } else {
       switch (schema[key]?.type) {
+        case "last_edited_time":
+        case "created_time":
         case "date": {
           const dateProperty = getDateValue(val as any[]);
           if (dateProperty) {
-            const { type, ...restProperty } = dateProperty;
-            properties[schemaKey] = restProperty;
+            properties[schemaKey] = dateProperty.start_date;
           }
           break;
         }
-        case "select":
+        case "select": {
+          const selects = getTextContent(val as Decoration[]);
+          if (selects[0]?.length) {
+            properties[schemaKey] = selects;
+          }
+          break;
+        }
         case "multi_select": {
           const selects = getTextContent(val as Decoration[]);
           if (selects[0]?.length) {
             properties[schemaKey] = selects.split(",");
           }
-          break;
-        }
-        case "person": {
-          const rawUsers = (val as any[]).flat();
-          const users = [];
-          for (let i = 0; i < rawUsers.length; i++) {
-            if (rawUsers[i][0][1]) {
-              const userId = rawUsers[i][0];
-              const res = await index.getUsers(userId);
-              const resValue =
-                res?.recordMapWithRoles?.notion_user?.[userId[1]]?.value;
-              const user = {
-                id: resValue?.id,
-                first_name: resValue?.given_name,
-                last_name: resValue?.family_name,
-                profile_photo: resValue?.profile_photo,
-              };
-              users.push(user);
-            }
-          }
-          properties[schemaKey] = users;
           break;
         }
         default:
@@ -74,7 +68,6 @@ async function getPageProperties(
     const pageCover = block[id]?.value?.format?.page_cover;
     if (pageCover && pageCover.startsWith("/")) {
       return "https://www.notion.so" + pageCover;
-      // return pageCover;
     } else if (pageCover && pageCover.startsWith("http")) {
       // return defaultMapImageUrl(pageCover, block[id].value);
       // return "https://www.notion.so" + pageCover;
@@ -89,6 +82,6 @@ async function getPageProperties(
   delete properties.content;
 
   return properties;
-}
+};
 
 export { getPageProperties as default };

@@ -2,11 +2,17 @@
 
 import { NotionRenderer } from "react-notion-x";
 import dynamic from "next/dynamic";
-import { NotionResponse } from "../../page";
 import { useMemo } from "react";
+import { Clock, MousePointerClick } from "lucide-react";
+import { motion } from "framer-motion";
+import prettifyNumber from "@/utils/prettifyNumber";
+import { Blog } from "@/types/blog";
+import { ExtendedRecordMap } from "notion-types";
 
 interface NotionPageProps {
-  response: NotionResponse;
+  recordMap: ExtendedRecordMap;
+  blogViews: number;
+  blog?: Blog;
 }
 
 const Code = dynamic(() =>
@@ -56,7 +62,9 @@ const Collection = dynamic(() =>
   ),
 );
 
-const BlogContentRender = ({ response }: NotionPageProps) => {
+const BlogContentRender = ({ recordMap, blog, blogViews }: NotionPageProps) => {
+  console.log("blog:", blog);
+
   const components = useMemo(
     () => ({
       Collection,
@@ -65,13 +73,55 @@ const BlogContentRender = ({ response }: NotionPageProps) => {
     [],
   );
 
+  if (typeof window !== "undefined") {
+    const keys = Object.keys(recordMap?.block || {});
+    const block = recordMap?.block?.[keys[0]]?.value;
+    const g = window as any;
+    g.recordMap = recordMap;
+    g.block = block;
+  }
+
   return (
     <NotionRenderer
       disableHeader
-      recordMap={response.recordMap}
+      recordMap={recordMap}
       fullPage
       showTableOfContents
+      minTableOfContentsItems={1}
       components={components}
+      pageHeader={
+        <div className="mb-6">
+          <motion.div
+            className="flex w-full items-center space-x-4 text-sm font-medium text-zinc-700/50 dark:text-zinc-300/50"
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.15,
+              type: "spring",
+              stiffness: 150,
+              damping: 20,
+              delay: 0.255,
+            }}
+          >
+            <span
+              className="inline-flex items-center space-x-1.5"
+              title={blogViews?.toString()}
+            >
+              <MousePointerClick size={14} />
+              <span>{prettifyNumber(blogViews ?? 0, true)} 次点击</span>
+            </span>
+
+            <span className="inline-flex items-center space-x-1.5">
+              <Clock size={14} />
+              <span>
+                {blog?.publishedAt?.toLocaleString() ||
+                  blog?.createdAt?.toLocaleString()}{" "}
+                发布
+              </span>
+            </span>
+          </motion.div>
+        </div>
+      }
     />
   );
 };

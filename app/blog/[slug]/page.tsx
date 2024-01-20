@@ -1,10 +1,11 @@
-import { parsePageId } from "notion-utils";
 import React from "react";
 import BlogContentRender from "./components/BlogContentRender";
 import { Metadata } from "next";
 import getBlog from "@/libs/notion/getBlog";
 import getAllBlogs from "@/libs/notion/getAllBlogs";
 import { PageProps } from "@/types/common";
+import BlogReactions from "./components/BlogReactions";
+import { getBlogViews, getReactions } from "@/actions/blog";
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
@@ -16,16 +17,13 @@ export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata | undefined> {
   const blogs = (await getAllBlogs()) || [];
-  const blog = blogs.find((blog) => (blog.slug || blog.path) === params.slug);
+  const blog = blogs.find((blog) => blog.slug === params.slug);
   if (!blog) {
     return;
   }
 
-  let { title, publishAt, description, image } = blog;
-
-  let ogImage = image
-    ? `https://itsuki.cn${image}`
-    : `https://itsuki.cn/og?title=${title}`;
+  const { title, publishedAt, description, cover } = blog;
+  const ogImage = cover ? cover : `https://itsuki.cn/og?title=${title}`;
 
   return {
     title,
@@ -34,8 +32,8 @@ export async function generateMetadata({
       title,
       description,
       type: "article",
-      publishedTime: publishAt?.toLocaleString(),
-      url: `https://itsuki.cn/blog/${blog.slug || blog.path || params.slug}`,
+      publishedTime: publishedAt?.toLocaleString(),
+      url: `https://itsuki.cn/blog/${params.slug}`,
       images: [
         {
           url: ogImage,
@@ -52,13 +50,25 @@ export async function generateMetadata({
 }
 
 const NotionPage = async ({ params }: BlogPageProps) => {
-  const slug = parsePageId(params.slug);
-
-  const notionContent = await getBlog(slug);
+  const slug = params.slug;
+  const blogRes = await getBlog(slug);
+  const reactions = await getReactions(slug);
+  const blogViews = await getBlogViews(slug);
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <BlogContentRender params={params} response={notionContent} />
+    <div className="flex">
+      <aside className="hidden w-[90px] shrink-0 lg:block">
+        <div className="sticky top-2 flex justify-end pt-20">
+          <BlogReactions
+            id={params.slug}
+            mood={blogRes.blog.mood}
+            reactions={reactions}
+          />
+        </div>
+      </aside>
+      <div className="flex-1 container mx-auto">
+        <BlogContentRender {...blogRes} blogViews={blogViews} />
+      </div>
     </div>
   );
 };

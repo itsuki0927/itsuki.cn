@@ -2,19 +2,19 @@ import type { ReactNode } from "react";
 
 interface TitleProps {
   title: ReactNode;
-  subTitle?: ReactNode;
+  children?: ReactNode;
 }
 
-const Title = ({ title, subTitle }: TitleProps) => {
+const Title = ({ title, children }: TitleProps) => {
   return (
     <div className="max-w-2xl mb-10 md:mb-14">
       <h3 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
         {title}
       </h3>
-      {subTitle ? (
-        <p className="my-6 text-base text-zinc-600 dark:text-zinc-400">
-          <span>{subTitle}</span>
-        </p>
+      {children ? (
+        <div className="my-6 text-base text-zinc-600 dark:text-zinc-400">
+          {children}
+        </div>
       ) : null}
     </div>
   );

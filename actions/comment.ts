@@ -52,6 +52,7 @@ export const getAllComments = async (params: SearchCommentParams = {}) => {
     return null;
   }
 };
+
 export const createComment = async (
   row: Pick<InsertComment, "agent" | "blogId" | "content">,
 ) => {
@@ -70,6 +71,7 @@ export const createComment = async (
     return null;
   }
 };
+
 export const updateCommentsState = async (
   ids: number[],
   state: CommentState,
@@ -96,8 +98,10 @@ export const updateCommentsState = async (
     return null;
   }
 };
+
 export const updateCommentState = (id: number, state: CommentState) =>
   updateCommentsState([id], state);
+
 export const deleteComments = async (ids: number[]) => {
   const isAdmin = await isAdminSession();
   if (!isAdmin) {
@@ -118,7 +122,9 @@ export const deleteComments = async (ids: number[]) => {
     return null;
   }
 };
+
 export const deleteComment = (id: number) => deleteComments([id]);
+
 export const likeComment = async (id: number, emoji: string) => {
   const session = await getSession();
   if (!session) {

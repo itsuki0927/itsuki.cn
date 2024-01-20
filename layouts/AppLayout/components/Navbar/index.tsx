@@ -6,7 +6,7 @@ import { isAdminSession } from "@/actions/session";
 const Navbar = async () => {
   const isAdmin = await isAdminSession();
   return (
-    <header className="inset-x-0 h-16 bg-white z-50 sticky top-0">
+    <header className="inset-x-0 h-16">
       <nav className="container flex h-full items-center justify-between">
         <div className="relative flex flex-grow items-center justify-between md:justify-start">
           <Logo />

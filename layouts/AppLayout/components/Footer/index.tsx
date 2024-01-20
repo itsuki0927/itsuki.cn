@@ -2,6 +2,9 @@ import ExternalLink from "@/components/common/ExternalLink";
 import Logo from "../Logo";
 import { ROUTE_LIST_WITH_HOME } from "@/constants/route";
 import Link from "next/link";
+import { Github } from "lucide-react";
+import Juejin from "@/components/icon/Juejin";
+import Sifou from "@/components/icon/Sifou";
 
 const Footer = () => {
   return (
@@ -16,13 +19,13 @@ const Footer = () => {
               </Link>
             ))}
             <ExternalLink href="https://github.com/itsuki0927">
-              GitHub
+              <Github size={20} />
             </ExternalLink>
             <ExternalLink href="https://juejin.cn/user/2436173499466350">
-              Juejin
+              <Juejin size={20} />
             </ExternalLink>
             <ExternalLink href="https://segmentfault.com/u/itsuki0927">
-              Sifou
+              <Sifou size={20} />
             </ExternalLink>
           </div>
         </div>

@@ -20,7 +20,7 @@ export default async function GuestbookPage() {
 
   return (
     <section>
-      <Title title="评论管理" subTitle="感谢你的友善发言"></Title>
+      <Title title="评论管理">感谢你的友善发言</Title>
 
       <CommentTable columns={columns} data={allComments || []} />
     </section>

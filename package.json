@@ -28,7 +28,6 @@
     "@tanstack/react-table": "^8.11.6",
     "@vercel/analytics": "^1.1.1",
     "class-variance-authority": "^0.7.0",
-    "classnames": "^2.5.1",
     "clsx": "^2.1.0",
     "framer-motion": "^10.18.0",
     "lodash.debounce": "^4.0.8",

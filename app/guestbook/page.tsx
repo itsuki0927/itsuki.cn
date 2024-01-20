@@ -22,7 +22,7 @@ const CommentCardSkeleton = () => (
 const GuestbookPage = () => {
   return (
     <section className="container">
-      <Title title="留言板" subTitle="我们总会遇见" />
+      <Title title="留言板">我们总会遇见</Title>
 
       <Suspense
         fallback={

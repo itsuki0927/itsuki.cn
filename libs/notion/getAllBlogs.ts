@@ -9,10 +9,11 @@ interface GetAllBlogsParams {
   onlyNewsletter?: boolean;
   onlyPost?: boolean;
   onlyHidden?: boolean;
+  onlyRecent?: boolean;
 }
 
 async function getAllBlogs(params?: GetAllBlogsParams) {
-  const { onlyNewsletter, onlyPost, onlyHidden } = params || {};
+  const { onlyNewsletter, onlyPost, onlyHidden, onlyRecent } = params || {};
   let id = NOTION_PAGE_ID;
   const response = await index.getPage(id);
 
@@ -59,6 +60,7 @@ async function getAllBlogs(params?: GetAllBlogsParams) {
       onlyNewsletter,
       onlyPost,
       onlyHidden,
+      onlyRecent,
     });
 
     // Sort by date

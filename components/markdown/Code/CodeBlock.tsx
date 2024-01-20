@@ -1,6 +1,6 @@
 "use client";
 
-import classNames from "classnames";
+import clsx from "clsx";
 import type { Language } from "prism-react-renderer";
 import { Highlight } from "prism-react-renderer";
 import { calculateLinesToHighlight, hasTitle } from "./utils";
@@ -36,7 +36,7 @@ const HighlightedCodeText = ({
       // theme={theme}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={classNames(styles.pre, className)} style={style}>
+        <pre className={clsx(styles.pre, className)} style={style}>
           {tokens.map((line, index) => {
             const {
               className: lineClassName,
@@ -53,7 +53,7 @@ const HighlightedCodeText = ({
 
             return (
               <div
-                className={classNames(
+                className={clsx(
                   styles.line,
                   lineClassName,
                   enabledLineHover && styles.hover,

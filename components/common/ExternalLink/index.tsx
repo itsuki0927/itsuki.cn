@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import classNames from "clsx";
 import type { AreaHTMLAttributes, ReactNode } from "react";
 
 type ExternalLinkProps = Omit<

@@ -4,16 +4,14 @@ import getAllPageIds from "./getAllPageIds";
 import getPageProperties from "./getPageProperties";
 import filterPublishedPosts from "./filterPublishedBlogs";
 import { NOTION_PAGE_ID } from "@/constants/notion";
+import { Blog } from "@/types/blog";
 
-interface GetAllBlogsParams {
-  onlyNewsletter?: boolean;
-  onlyPost?: boolean;
-  onlyHidden?: boolean;
+export interface GetAllBlogsParams {
   onlyRecent?: boolean;
 }
 
 async function getAllBlogs(params?: GetAllBlogsParams) {
-  const { onlyNewsletter, onlyPost, onlyHidden, onlyRecent } = params || {};
+  const { onlyRecent } = params || {};
   let id = NOTION_PAGE_ID;
   const response = await index.getPage(id);
 
@@ -25,7 +23,6 @@ async function getAllBlogs(params?: GetAllBlogsParams) {
 
   const rawMetadata = block[id]?.value;
 
-  // Check Type
   if (
     rawMetadata?.type !== "collection_view_page" &&
     rawMetadata?.type !== "collection_view"
@@ -35,7 +32,7 @@ async function getAllBlogs(params?: GetAllBlogsParams) {
   } else {
     // Construct Data
     const pageIds = getAllPageIds(collectionQuery);
-    const data = [];
+    const data: Blog[] = [];
     for (let i = 0; i < pageIds.length; i++) {
       const id = String(pageIds[i]);
       const properties = (await getPageProperties(id, block, schema)) || null;
@@ -49,26 +46,26 @@ async function getAllBlogs(params?: GetAllBlogsParams) {
         // ? dayjs.tz(properties.date?.start_date)
         // : dayjs(block[id].value?.created_time)
         // .valueOf();
+        data.push(properties as Blog);
       }
-
-      data.push(properties);
     }
 
-    // remove all the the items doesn't meet requirements
     const posts = filterPublishedPosts({
       posts: data,
-      onlyNewsletter,
-      onlyPost,
-      onlyHidden,
       onlyRecent,
     });
 
-    // Sort by date
-    // if (BLOG.sortByDate) {
-    //   posts.sort((a, b) => b.date - a.date);
-    // }
+    posts.sort((a, b) => {
+      if (a.publishAt && b.publishAt) {
+        return b.publishAt.valueOf() - a.publishAt.valueOf();
+      }
+      if (a.createAt && b.createAt) {
+        return b.createAt.valueOf() - a.createAt.valueOf();
+      }
+      return -1;
+    });
 
-    return posts as any[];
+    return posts;
   }
 }
 

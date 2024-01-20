@@ -21,7 +21,7 @@ export async function generateMetadata({
     return;
   }
 
-  let { title, publishedAt: publishedTime, summary: description, image } = blog;
+  let { title, publishAt, description, image } = blog;
 
   let ogImage = image
     ? `https://itsuki.cn${image}`
@@ -34,7 +34,7 @@ export async function generateMetadata({
       title,
       description,
       type: "article",
-      publishedTime,
+      publishedTime: publishAt?.toLocaleString(),
       url: `https://itsuki.cn/blog/${blog.slug || blog.path || params.slug}`,
       images: [
         {
@@ -58,8 +58,7 @@ const NotionPage = async ({ params }: BlogPageProps) => {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <BlogContentRender response={notionContent} />
-      {/* <CustomNotionPageRender response={res.data} /> */}
+      <BlogContentRender params={params} response={notionContent} />
     </div>
   );
 };

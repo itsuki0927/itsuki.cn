@@ -1,7 +1,10 @@
 import { getTextContent, getDateValue } from "notion-utils";
 import index from "@/libs/notion";
-// import { defaultMapImageUrl } from "react-index-x";
-import { BlockMap, CollectionPropertySchemaMap } from "notion-types";
+import {
+  BlockMap,
+  CollectionPropertySchemaMap,
+  Decoration,
+} from "notion-types";
 
 async function getPageProperties(
   id: string,
@@ -20,25 +23,27 @@ async function getPageProperties(
     const schemaKey = schema[key]?.name ?? "";
     properties.id = id;
     if (schema[key]?.type && !excludeProperties.includes(schemaKey)) {
-      properties[schemaKey] = getTextContent(val);
+      properties[schemaKey] = getTextContent(val as Decoration[]);
     } else {
       switch (schema[key]?.type) {
         case "date": {
-          const dateProperty = getDateValue(val);
-          delete dateProperty.type;
-          properties[schemaKey] = dateProperty;
+          const dateProperty = getDateValue(val as any[]);
+          if (dateProperty) {
+            const { type, ...restProperty } = dateProperty;
+            properties[schemaKey] = restProperty;
+          }
           break;
         }
         case "select":
         case "multi_select": {
-          const selects = getTextContent(val);
+          const selects = getTextContent(val as Decoration[]);
           if (selects[0]?.length) {
             properties[schemaKey] = selects.split(",");
           }
           break;
         }
         case "person": {
-          const rawUsers = val.flat();
+          const rawUsers = (val as any[]).flat();
           const users = [];
           for (let i = 0; i < rawUsers.length; i++) {
             if (rawUsers[i][0][1]) {
@@ -69,6 +74,7 @@ async function getPageProperties(
     const pageCover = block[id]?.value?.format?.page_cover;
     if (pageCover && pageCover.startsWith("/")) {
       return "https://www.notion.so" + pageCover;
+      // return pageCover;
     } else if (pageCover && pageCover.startsWith("http")) {
       // return defaultMapImageUrl(pageCover, block[id].value);
       // return "https://www.notion.so" + pageCover;

@@ -1,4 +1,3 @@
-import { getBlogDetailRoute } from "@/utils/url";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,7 +6,7 @@ export interface BlogCardProps {
 }
 
 const BlogCard = ({ blog }: BlogCardProps) => {
-  const href = getBlogDetailRoute(blog.path || blog.id);
+  const href = `/blog/${blog.path || blog.id}` as const;
   console.log("blog:", blog);
   return (
     <div className="group relative overflow-hidden z-0 rounded-xl">

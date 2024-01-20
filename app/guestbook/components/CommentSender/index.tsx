@@ -1,6 +1,6 @@
 "use client";
 
-import classNames from "classnames";
+import clsx from "clsx";
 import { useRef, useState } from "react";
 import { Bold, Eye, Italic, Loader, Send, Smile } from "react-feather";
 import ReactMarkdown from "react-markdown";
@@ -87,7 +87,7 @@ const CommentSender = ({
   return (
     <motion.div
       animate={opacityActiveAnimation}
-      className={classNames(
+      className={clsx(
         "p-2 relative bg-white z-10 rounded-md border border-solid border-zinc-200",
         className,
       )}
@@ -135,7 +135,7 @@ const CommentSender = ({
 
         <button
           key="send"
-          className={classNames(
+          className={clsx(
             "px-4 h-6 flex justify-center items-center rounded transition-all",
             hasValue
               ? "hover:bg-blue-500 bg-blue-500 text-white hover:text-white"

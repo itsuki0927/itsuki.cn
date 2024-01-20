@@ -1,4 +1,4 @@
-import classNames from "clsx";
+import clsx from "clsx";
 import type { AreaHTMLAttributes, ReactNode } from "react";
 
 type ExternalLinkProps = Omit<
@@ -17,7 +17,7 @@ const ExternalLink = ({
 }: ExternalLinkProps) => (
   <a
     {...rest}
-    className={classNames(
+    className={clsx(
       "transition hover:text-gray-800 hover:underline",
       className,
     )}

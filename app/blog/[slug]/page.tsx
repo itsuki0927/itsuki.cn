@@ -8,11 +8,12 @@ import { getBlogViews, getReactions } from '@/actions/blog';
 import getRootPage from '@/libs/notion/getRootPage';
 import BlogTableOfContent from './components/BlogTableOfContent';
 import BlogReactions from './components/BlogReactions';
+import { ExtendedRecordMap } from 'notion-types';
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
 export interface NotionResponse {
-  recordMap: any;
+  recordMap: ExtendedRecordMap;
 }
 
 export async function generateMetadata({

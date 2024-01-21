@@ -5,6 +5,7 @@ import tencent from "@/public/home/tencent.png";
 import React from "react";
 import HomeCard from "./HomeCard";
 import { Briefcase } from "lucide-react";
+import MyImage from "@/components/common/MyImage";
 
 const EXPERIENCE_LIST = [
   {
@@ -63,13 +64,10 @@ const Work = () => {
         {EXPERIENCE_LIST.map((experience) => (
           <li key={experience.company} className="flex gap-4">
             <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-              <Image
+              <MyImage
                 alt={experience.company}
-                loading="lazy"
-                width="2000"
-                height="2000"
-                decoding="async"
-                data-nimg="1"
+                width={32}
+                height={32}
                 className="h-8 w-8 rounded-full"
                 src={experience.logo}
               />

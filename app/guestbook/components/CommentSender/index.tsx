@@ -19,7 +19,7 @@ interface IconButtonProps extends StandardProps {
 const IconButton = ({ children, onClick }: IconButtonProps) => {
   return (
     <button
-      className="text-zinc-500 w-6 h-6 flex justify-center items-center rounded hover:bg-blue-500 hover:text-white"
+      className="text-zinc-500 w-6 h-6 flex justify-center items-center rounded-md hover:bg-blue-500 hover:text-white"
       key="smile"
       type="button"
       onClick={onClick}
@@ -88,7 +88,7 @@ const CommentSender = ({
     <motion.div
       animate={opacityActiveAnimation}
       className={clsx(
-        "p-2 relative bg-white z-10 rounded-md border border-solid border-zinc-200",
+        "p-2 relative bg-white z-10 rounded-xl border border-solid border-zinc-100",
         className,
       )}
       exit={opacityInitialAnimation}
@@ -101,7 +101,7 @@ const CommentSender = ({
           animate={{
             opacity: 1,
           }}
-          className="absolute left-0 rounded-md right-0 top-0 cursor-not-allowed bg-zinc-50 overflow-y-auto p-2 sm:p-3 transition-all duration-300 z-10 bottom-[46px]"
+          className="absolute left-0 rounded-xl right-0 top-0 cursor-not-allowed bg-zinc-50 overflow-y-auto p-2 sm:p-3 transition-all duration-300 z-10 bottom-[46px]"
           exit={{ opacity: 0 }}
           initial={{
             opacity: 0,

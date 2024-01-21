@@ -1,9 +1,8 @@
 "use client";
 
+import MyImage from "@/components/common/MyImage";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import Image from "next/image";
-// import { STATIC_URL } from '@/constants/app.ts';
 
 interface CommentAvatarProps {
   avatar: string | null | undefined;
@@ -37,7 +36,7 @@ const CommentAvatar = ({
   size = 40,
   borderColor = "ring-zinc-200",
 }: CommentAvatarProps) => (
-  <motion.li
+  <motion.div
     className={clsx(
       "relative list-none max-h-[40px] max-w-[40px] rounded-full bg-zinc-200 ring-2 dark:bg-zinc-800 dark:ring-zinc-800",
       borderColor,
@@ -50,14 +49,14 @@ const CommentAvatar = ({
       transition: { ease: "easeOut" },
     }}
   >
-    <Image
+    <MyImage
       alt="cover"
       className="rounded-full"
       height={size}
       src={avatar ?? DEFAULT_AVATAR}
       width={size}
     />
-  </motion.li>
+  </motion.div>
 );
 
 export default CommentAvatar;

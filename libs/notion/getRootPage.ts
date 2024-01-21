@@ -1,4 +1,4 @@
-import { NOTION_PAGE_ID } from '@/constants/notion';
+import { NOTION_PAGE_ID } from '@/constants/env';
 import index from '.';
 
 const getRootPage = async () => {

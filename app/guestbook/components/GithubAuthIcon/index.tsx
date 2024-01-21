@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import type { MouseEvent } from "react";
-import { signIn } from "next-auth/react";
-import { Github } from "lucide-react";
+import type { MouseEvent } from 'react';
+import { signIn } from 'next-auth/react';
+import { Github } from 'lucide-react';
 
 interface GithubIconProps {
   onClick?: (e: MouseEvent) => void;

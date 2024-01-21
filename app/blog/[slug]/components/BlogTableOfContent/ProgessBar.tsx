@@ -1,5 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
-import React, { useEffect } from "react";
+import { motion, useReducedMotion } from 'framer-motion';
+import React, { useEffect } from 'react';
 
 export interface ProgressBarProps {
   progress: number;
@@ -28,7 +28,7 @@ const ProgressBar = ({ progress }: ProgressBarProps) => {
       className="h-[calc(88vh - 40px)] max-h-[425px] w-[2px] bg-gray-100"
       custom={visibility}
       initial="hide"
-      transition={{ type: "spring" }}
+      transition={{ type: 'spring' }}
       variants={progressBarWrapperVariants}
     >
       <motion.div

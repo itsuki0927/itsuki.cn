@@ -1,5 +1,5 @@
-import type { Language } from "prism-react-renderer";
-import type { ReactElement, ReactNode } from "react";
+import type { Language } from 'prism-react-renderer';
+import type { ReactElement, ReactNode } from 'react';
 
 export interface PrePropsType {
   children?: ReactNode;
@@ -14,7 +14,7 @@ const getChildren = ({ children }: PrePropsType): ChildrenType => {
 
 const getCodeString = (codeString: string | string[]) => {
   if (Array.isArray(codeString)) {
-    return codeString.join("").trim();
+    return codeString.join('').trim();
   }
   return codeString.trim();
 };
@@ -23,7 +23,7 @@ export const preToCodeBlock = (preProps: PrePropsType) => {
   const children = getChildren(preProps);
 
   if (children?.props) {
-    const { className = "", ...props } = children.props;
+    const { className = '', ...props } = children.props;
     const codeString = getCodeString(children.props.children);
 
     const matches = className.match(/language-(?<lang>.*)/);
@@ -32,7 +32,7 @@ export const preToCodeBlock = (preProps: PrePropsType) => {
       codeString,
       language: matches?.groups?.lang
         ? (matches.groups.lang as Language)
-        : ("" as Language),
+        : ('' as Language),
       ...props,
     };
   }
@@ -45,8 +45,8 @@ export const calculateLinesToHighlight = (metastring: string | null) => {
     return () => false;
   }
   const lineNumbers = RE.exec(metastring)![1]
-    .split(",")
-    .map((v) => v.split("-").map((val) => parseInt(val, 10)));
+    .split(',')
+    .map((v) => v.split('-').map((val) => parseInt(val, 10)));
   return (index: number) => {
     const lineNumber = index + 1;
     const inRange = lineNumbers.some(([start, end]) =>
@@ -60,8 +60,8 @@ const RETitle = /title=([a-zA-Z\u4e00-\u9fa5].+)/;
 
 export const hasTitle = (metastring: string | null) => {
   if (!metastring) {
-    return "";
+    return '';
   }
-  const result = RETitle.exec(metastring) || ["", ""];
+  const result = RETitle.exec(metastring) || ['', ''];
   return result[1];
 };

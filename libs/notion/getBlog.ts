@@ -1,5 +1,5 @@
-import index from "@/libs/notion";
-import getAllBlogs from "./getAllBlogs";
+import index from '@/libs/notion';
+import getAllBlogs from './getAllBlogs';
 
 const getBlog = async (slug: string) => {
   const blogs = await getAllBlogs();

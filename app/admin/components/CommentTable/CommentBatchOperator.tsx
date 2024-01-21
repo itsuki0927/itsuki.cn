@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import React, { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,24 +15,24 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { CommentState, commentStateMap } from "@/constants/comment";
-import { Table } from "@tanstack/react-table";
-import { Comment } from "@/types/comment";
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { CommentState, commentStateMap } from '@/constants/comment';
+import { Table } from '@tanstack/react-table';
+import { Comment } from '@/types/comment';
 
-import { deleteComments, updateCommentsState } from "@/actions/comment";
+import { deleteComments, updateCommentsState } from '@/actions/comment';
 
 interface CommentBatchOperatorProps {
   table: Table<Comment>;
 }
 
 const operatorList = [
-  { label: "标为垃圾", value: CommentState.Spam },
-  { label: "移回收站", value: CommentState.Trash },
-  { label: "退回草稿", value: CommentState.Auditing },
-  { label: "通过审核", value: CommentState.Published },
-  { label: "永久删除", value: CommentState.Deleted },
+  { label: '标为垃圾', value: CommentState.Spam },
+  { label: '移回收站', value: CommentState.Trash },
+  { label: '退回草稿', value: CommentState.Auditing },
+  { label: '通过审核', value: CommentState.Published },
+  { label: '永久删除', value: CommentState.Deleted },
 ];
 
 const CommentBatchOperator = ({ table }: CommentBatchOperatorProps) => {

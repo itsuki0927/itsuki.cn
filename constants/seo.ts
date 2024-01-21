@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
-import { META } from "./app";
+import type { Metadata } from 'next';
+import { META } from './app';
 
 const metadataConfig: Metadata = {
   title: {
-    default: "五块木头",
+    default: '五块木头',
     template: `%s | ${META.title}`,
   },
   authors: [{ url: META.url, name: META.title }],
@@ -13,8 +13,8 @@ const metadataConfig: Metadata = {
   alternates: {
     canonical: META.url,
     types: {
-      "application/rss+xml": [
-        { title: "RSS 订阅", url: `${META.url}/feed.xml` },
+      'application/rss+xml': [
+        { title: 'RSS 订阅', url: `${META.url}/feed.xml` },
       ],
     },
   },
@@ -25,8 +25,8 @@ const metadataConfig: Metadata = {
   openGraph: {
     title: META.title,
     description: META.description,
-    type: "website",
-    locale: "zh",
+    type: 'website',
+    locale: 'zh',
     url: META.url,
     siteName: META.title,
   },
@@ -36,7 +36,7 @@ const metadataConfig: Metadata = {
     creatorId: META.twitterCreatorId,
     description: META.description,
     title: META.title,
-    card: "summary",
+    card: 'summary',
   },
   robots: {
     index: true,
@@ -44,9 +44,9 @@ const metadataConfig: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
 };

@@ -1,19 +1,19 @@
-import { redirect } from "next/navigation";
-import { columns } from "./components/CommentTable/columns";
-import { CommentTable } from "./components/CommentTable";
-import Title from "@/layouts/AppLayout/components/Title";
-import { isAdminSession } from "@/actions/session";
-import { getAllComments } from "@/actions/comment";
+import { redirect } from 'next/navigation';
+import { columns } from './components/CommentTable/columns';
+import { CommentTable } from './components/CommentTable';
+import Title from '@/layouts/AppLayout/components/Title';
+import { isAdminSession } from '@/actions/session';
+import { getAllComments } from '@/actions/comment';
 
 export const metadata = {
-  title: "Admin",
+  title: 'Admin',
 };
 
 export default async function GuestbookPage() {
   try {
     await isAdminSession();
   } catch (err) {
-    redirect("/");
+    redirect('/');
   }
 
   const allComments = await getAllComments();

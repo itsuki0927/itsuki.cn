@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import MyImage from "@/components/common/MyImage";
-import clsx from "clsx";
-import { motion } from "framer-motion";
+import MyImage from '@/components/common/MyImage';
+import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 interface CommentAvatarProps {
   avatar: string | null | undefined;
@@ -32,21 +32,21 @@ const commentAvatarVariant = {
 
 const CommentAvatar = ({
   avatar,
-  className = "",
+  className = '',
   size = 40,
-  borderColor = "ring-zinc-200",
+  borderColor = 'ring-zinc-200',
 }: CommentAvatarProps) => (
   <motion.div
     className={clsx(
-      "relative list-none max-h-[40px] max-w-[40px] rounded-full bg-zinc-200 ring-2 dark:bg-zinc-800 dark:ring-zinc-800",
+      'relative list-none max-h-[40px] max-w-[40px] rounded-full bg-zinc-200 ring-2 dark:bg-zinc-800 dark:ring-zinc-800',
       borderColor,
       className,
     )}
     variants={commentAvatarVariant}
     whileHover={{
       // scale: 1.2,
-      marginRight: "5px",
-      transition: { ease: "easeOut" },
+      marginRight: '5px',
+      transition: { ease: 'easeOut' },
     }}
   >
     <MyImage

@@ -1,6 +1,6 @@
-import MyImage from "@/components/common/MyImage";
-import Link from "next/link";
-import React from "react";
+import MyImage from '@/components/common/MyImage';
+import Link from 'next/link';
+import React from 'react';
 
 interface LogoProps {
   size?: number;

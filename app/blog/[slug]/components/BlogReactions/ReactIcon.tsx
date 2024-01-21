@@ -1,12 +1,12 @@
-import prettifyNumber from "@/utils/prettifyNumber";
+import prettifyNumber from '@/utils/prettifyNumber';
 import {
   motion,
   useSpring,
   useTransform,
   type MotionValue,
-} from "framer-motion";
-import { ThumbsUp } from "lucide-react";
-import React from "react";
+} from 'framer-motion';
+import { ThumbsUp } from 'lucide-react';
+import React from 'react';
 
 interface ReactIconProps {
   y: MotionValue;

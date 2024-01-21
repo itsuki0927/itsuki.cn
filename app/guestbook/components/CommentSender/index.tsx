@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import clsx from "clsx";
-import { useRef, useState } from "react";
-import { Bold, Eye, Italic, Loader, Send, Smile } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import type { RichTextareaHandle } from "rich-textarea";
-import { useLocalStorage } from "usehooks-ts";
-import { motion } from "framer-motion";
-import markdownComponents from "@/components/markdown";
-import CommentInput from "../CommentInput";
-import EmojiPopover from "../EmojiPopover";
-import { StandardProps } from "@/types/common";
+import clsx from 'clsx';
+import { useRef, useState } from 'react';
+import { Bold, Eye, Italic, Loader, Send, Smile } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import type { RichTextareaHandle } from 'rich-textarea';
+import { useLocalStorage } from 'usehooks-ts';
+import { motion } from 'framer-motion';
+import markdownComponents from '@/components/markdown';
+import CommentInput from '../CommentInput';
+import EmojiPopover from '../EmojiPopover';
+import { StandardProps } from '@/types/common';
 
 interface IconButtonProps extends StandardProps {
   onClick?: () => void;
@@ -44,13 +44,13 @@ const opacityActiveAnimation = {
 };
 
 const CommentSender = ({
-  className = "",
+  className = '',
   onSend,
   isLoading,
-  cacheContentKey = "comment-sender",
+  cacheContentKey = 'comment-sender',
 }: CommentSenderProps) => {
   const [preview, setPreview] = useState(false);
-  const [content, setContent] = useLocalStorage(cacheContentKey, "");
+  const [content, setContent] = useLocalStorage(cacheContentKey, '');
   const inputRef = useRef<RichTextareaHandle | null>(null);
 
   const hasValue = Boolean(content);
@@ -88,7 +88,7 @@ const CommentSender = ({
     <motion.div
       animate={opacityActiveAnimation}
       className={clsx(
-        "p-2 relative bg-white z-10 rounded-xl border border-solid border-zinc-100",
+        'p-2 relative bg-white z-10 rounded-xl border border-solid border-zinc-100',
         className,
       )}
       exit={opacityInitialAnimation}
@@ -136,16 +136,16 @@ const CommentSender = ({
         <button
           key="send"
           className={clsx(
-            "px-4 h-6 flex justify-center items-center rounded transition-all",
+            'px-4 h-6 flex justify-center items-center rounded transition-all',
             hasValue
-              ? "hover:bg-blue-500 bg-blue-500 text-white hover:text-white"
-              : "cursor-not-allowed text-zinc-500 hover:text-zinc-400",
+              ? 'hover:bg-blue-500 bg-blue-500 text-white hover:text-white'
+              : 'cursor-not-allowed text-zinc-500 hover:text-zinc-400',
           )}
           disabled={isLoading || !hasValue}
           onClick={async () => {
             onSend(content).then((result) => {
               if (result) {
-                setContent("");
+                setContent('');
               }
             });
           }}

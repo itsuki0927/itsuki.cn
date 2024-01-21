@@ -1,6 +1,6 @@
-import { StandardProps } from "@/types/common";
-import clsx from "clsx";
-import React, { ReactNode } from "react";
+import { StandardProps } from '@/types/common';
+import clsx from 'clsx';
+import React, { ReactNode } from 'react';
 
 interface HomeCardProps extends StandardProps {
   title: ReactNode;
@@ -13,7 +13,7 @@ const HomeCard = ({ title, className, children }: HomeCardProps) => {
         {title}
       </h2>
 
-      <div className={clsx("mt-6", className)}>{children}</div>
+      <div className={clsx('mt-6', className)}>{children}</div>
     </div>
   );
 };

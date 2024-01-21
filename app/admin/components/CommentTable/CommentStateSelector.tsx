@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   Select,
@@ -6,8 +6,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { commentStateOptions } from "@/constants/comment";
+} from '@/components/ui/select';
+import { commentStateOptions } from '@/constants/comment';
 
 interface CommentStateSelectorProps {}
 

@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { likeComment } from "@/actions/comment";
-import { getCommentElementId } from "@/constants/anchor";
-import { Comment } from "@/types/comment";
-import { StandardProps } from "@/types/common";
-import { formatDate } from "@/utils/formatDate";
-import { motion } from "framer-motion";
-import { Monitor, Smartphone, Smile } from "lucide-react";
-import { startTransition } from "react";
-import ReactMarkdown from "react-markdown";
-import { UAParser } from "ua-parser-js";
-import markdownComponents from "../../../../components/markdown";
-import CommentAvatar from "../CommentAvatar";
-import EmojiPopover from "../EmojiPopover";
-import CommentEmojis from "./CommentEmojis";
-import useOptimisticComment from "./hooks/useOptimisticComment";
-import { useToast } from "@/components/ui/use-toast";
+import { likeComment } from '@/actions/comment';
+import { getCommentElementId } from '@/constants/anchor';
+import { Comment } from '@/types/comment';
+import { StandardProps } from '@/types/common';
+import { formatDate } from '@/utils/formatDate';
+import { motion } from 'framer-motion';
+import { Monitor, Smartphone, Smile } from 'lucide-react';
+import { startTransition } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { UAParser } from 'ua-parser-js';
+import markdownComponents from '../../../../components/markdown';
+import CommentAvatar from '../CommentAvatar';
+import EmojiPopover from '../EmojiPopover';
+import CommentEmojis from './CommentEmojis';
+import useOptimisticComment from './hooks/useOptimisticComment';
+import { useToast } from '@/components/ui/use-toast';
 
 interface CommentCardProps extends StandardProps {
   comment: Comment;
@@ -34,15 +34,15 @@ const commentVariant = {
 
 const CommentCard = ({
   comment,
-  className = "",
+  className = '',
   children,
 }: CommentCardProps) => {
   const [optimisticComment, addOptimisticComment] =
     useOptimisticComment(comment);
-  const parser = new UAParser(optimisticComment.agent ?? "");
+  const parser = new UAParser(optimisticComment.agent ?? '');
   const device = parser.getDevice();
   const { toast } = useToast();
-  const isMobile = device.type === "mobile";
+  const isMobile = device.type === 'mobile';
 
   const handleEmojiClick = async (emoji: string) => {
     startTransition(() => {
@@ -52,7 +52,7 @@ const CommentCard = ({
       await likeComment(optimisticComment.id, emoji);
     } catch (err: any) {
       toast({
-        title: "点赞失败",
+        title: '点赞失败',
         description: err.message,
       });
     }
@@ -72,12 +72,12 @@ const CommentCard = ({
             <span className="text-sm text-zinc-900 font-semibold">
               {optimisticComment.nickname}
             </span>
-            <span className="ml-1">{optimisticComment.ip || "未知"}</span>
+            <span className="ml-1">{optimisticComment.ip || '未知'}</span>
             <span className="mx-1">·</span>
             {isMobile ? <Smartphone size={14} /> : <Monitor size={14} />}
 
             <span className="ml-1">
-              {formatDate(optimisticComment.createdAt, "ago")}
+              {formatDate(optimisticComment.createdAt, 'ago')}
             </span>
           </div>
 

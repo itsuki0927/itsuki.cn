@@ -1,7 +1,7 @@
-import { UnOrderedList } from "@/components/markdown";
+import { UnOrderedList } from '@/components/markdown';
 
 const getEmploymentDays = () => {
-  const startTime = new Date("06/20/2022");
+  const startTime = new Date('06/20/2022');
   const diffTime = Date.now() - startTime.getTime();
   const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   return days + 1;
@@ -12,7 +12,7 @@ const AboutMe = () => {
   return (
     <UnOrderedList>
       <li>
-        <strong>师傅你是哪里的：</strong>湖南人，目前在上海字节跳动（always{" "}
+        <strong>师傅你是哪里的：</strong>湖南人，目前在上海字节跳动（always{' '}
         {days} 天 ），一年前无辣不欢，一年后只能微微辣😭。
       </li>
       <li>
@@ -30,7 +30,7 @@ const AboutMe = () => {
       </li>
       <li>
         <strong>Code 💻：</strong>很喜欢写代码，代码洁癖 + 强迫症，喜欢逛
-        github、reddit 等社区！！！。{" "}
+        github、reddit 等社区！！！。{' '}
       </li>
       <li>
         <strong>游戏🎮：</strong>
@@ -51,7 +51,7 @@ const AboutMe = () => {
         <strong>跑步🏃狂热爱好者：</strong>
         已跑两坤（五）年，全马pb：2:55:57（
         <strong>厦门</strong>），半马pb：1:21:58（<strong>无锡</strong>
-        ），更多细节可以看 ---{">"} 你喜欢跑步🏃吗？ 。
+        ），更多细节可以看 ---{'>'} 你喜欢跑步🏃吗？ 。
         <UnOrderedList>
           <li>
             长远目标：六大满贯（先梦一梦）、每个省会城市跑一次马拉松（每个城市跑好像不太现实）。

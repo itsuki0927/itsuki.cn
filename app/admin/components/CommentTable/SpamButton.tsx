@@ -1,9 +1,9 @@
-import { Comment } from "@/types/comment";
-import { Button } from "@/components/ui/button";
-import { CommentState } from "@/constants/comment";
-import { Row } from "@tanstack/react-table";
-import React from "react";
-import { updateCommentState } from "@/actions/comment";
+import { Comment } from '@/types/comment';
+import { Button } from '@/components/ui/button';
+import { CommentState } from '@/constants/comment';
+import { Row } from '@tanstack/react-table';
+import React from 'react';
+import { updateCommentState } from '@/actions/comment';
 
 interface SpamButtonProps {
   row: Row<Comment>;

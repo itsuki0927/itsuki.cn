@@ -1,8 +1,8 @@
-import { getSummary } from "@/actions/home";
-import React from "react";
-import HomeCard from "./HomeCard";
-import { PieChart } from "lucide-react";
-import { TOTAL_PAGEVIEWS_BASELINE } from "@/constants/app";
+import { getSummary } from '@/actions/home';
+import React from 'react';
+import HomeCard from './HomeCard';
+import { PieChart } from 'lucide-react';
+import { TOTAL_PAGEVIEWS_BASELINE } from '@/constants/app';
 
 interface Summary {
   count: number;
@@ -15,26 +15,26 @@ const getSummaryForRender = async () => {
   return [
     {
       count: summary.onlineDays,
-      label: "天前上线",
+      label: '天前上线',
     },
     {
       count: (
         <>
           {summary.viewCount}
           <span className="text-sm">
-            {summary.viewCount < TOTAL_PAGEVIEWS_BASELINE ? "😭" : "😄"}
+            {summary.viewCount < TOTAL_PAGEVIEWS_BASELINE ? '😭' : '😄'}
           </span>
         </>
       ),
-      label: "个浏览",
+      label: '个浏览',
     },
     {
       count: summary.blogCount,
-      label: "篇文章",
+      label: '篇文章',
     },
     {
       count: summary.commentCount,
-      label: "条评论",
+      label: '条评论',
     },
   ];
 };

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   ColumnDef,
@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
 import {
   Table,
@@ -15,12 +15,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import CommentStateSelector from "./CommentStateSelector";
-import CommentSearchInput from "./CommentSearchInput";
-import CommentBatchOperator from "./CommentBatchOperator";
-import { Comment } from "@/types/comment";
+} from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
+import CommentStateSelector from './CommentStateSelector';
+import CommentSearchInput from './CommentSearchInput';
+import CommentBatchOperator from './CommentBatchOperator';
+import { Comment } from '@/types/comment';
 
 interface CommentTableProps {
   columns: ColumnDef<Comment, Comment>[];
@@ -72,7 +72,7 @@ export function CommentTable({ columns, data }: CommentTableProps) {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -100,7 +100,7 @@ export function CommentTable({ columns, data }: CommentTableProps) {
 
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredSelectedRowModel().rows.length} of{' '}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">

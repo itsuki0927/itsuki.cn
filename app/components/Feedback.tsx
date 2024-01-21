@@ -1,5 +1,5 @@
-import React from "react";
-import HomeCard from "./HomeCard";
+import React from 'react';
+import HomeCard from './HomeCard';
 
 interface FeedbackProps {}
 

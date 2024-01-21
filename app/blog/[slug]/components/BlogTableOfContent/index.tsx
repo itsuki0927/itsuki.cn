@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { GetBlogResponse } from "@/libs/notion/getBlog";
-import clsx from "clsx";
-import { motion } from "framer-motion";
-import { BlockMap, PageBlock } from "notion-types";
-import { getPageTableOfContents, uuidToId } from "notion-utils";
-import { useMemo } from "react";
-import ProgressBar from "./ProgessBar";
-import useProgress from "./useProgress";
-import useScrollSpy from "./useScrollSpy";
+import { GetBlogResponse } from '@/libs/notion/getBlog';
+import clsx from 'clsx';
+import { motion } from 'framer-motion';
+import { BlockMap, PageBlock } from 'notion-types';
+import { getPageTableOfContents, uuidToId } from 'notion-utils';
+import { useMemo } from 'react';
+import ProgressBar from './ProgessBar';
+import useProgress from './useProgress';
+import useScrollSpy from './useScrollSpy';
 
 interface BlogTableOfContentProps extends GetBlogResponse {
   blocks: BlockMap;
@@ -49,14 +49,14 @@ const BlogTableOfContent = ({
           <motion.li
             animate="show"
             className={clsx(
-              "line-clamp-1 block cursor-pointer transition-colors hover:text-primary",
-              currentActiveIndex === index ? "text-primary" : "",
+              'line-clamp-1 block cursor-pointer transition-colors hover:text-primary',
+              currentActiveIndex === index ? 'text-primary' : '',
             )}
             key={heading.id}
             onClick={() => {
               handleScrollTo(heading.id);
             }}
-            transition={{ type: "spring" }}
+            transition={{ type: 'spring' }}
           >
             <span className="text-sm">{heading.text}</span>
           </motion.li>

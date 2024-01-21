@@ -1,10 +1,10 @@
-import { BASE_URL } from "@/constants/app";
+import { BASE_URL } from '@/constants/app';
 
 export default function robots() {
   return {
     rules: [
       {
-        userAgent: "*",
+        userAgent: '*',
       },
     ],
     sitemap: `${BASE_URL}/sitemap.xml`,

@@ -1,6 +1,6 @@
-import MyImage from "@/components/common/MyImage";
-import { Blog } from "@/types/blog";
-import Link from "next/link";
+import MyImage from '@/components/common/MyImage';
+import { Blog } from '@/types/blog';
+import Link from 'next/link';
 
 export interface BlogCardProps {
   blog: Blog;

@@ -1,12 +1,13 @@
-"use server";
+'use server';
 
-import { kvKeys } from "@/constants/kv";
-import { ratelimit, redis } from "@/libs/upstash";
-import { checkIPIsBlocked, getIP } from "./ip";
+import { kvKeys } from '@/constants/kv';
+import { ratelimit, redis } from '@/libs/upstash';
+import { checkIPIsBlocked, getIP } from './ip';
+import { VERCEL_ENV } from '@/constants/env';
 
 export const getBlogViews = async (slug: string) => {
   let views: number;
-  if (process.env.NODE_ENV === "production") {
+  if (VERCEL_ENV === 'production') {
     views = await redis.incr(kvKeys.blogViews(slug));
   } else {
     views = 30578;
@@ -16,19 +17,19 @@ export const getBlogViews = async (slug: string) => {
 
 export const updateReactions = async (id: string, index: number) => {
   if (!id || !(index >= 0 && index < 4)) {
-    throw new Error("Missing id or index");
+    throw new Error('Missing id or index');
   }
   const isBlocked = await checkIPIsBlocked();
   if (isBlocked) {
-    throw new Error("You have been blocked.");
+    throw new Error('You have been blocked.');
   }
 
   const key = kvKeys.blogReactions(id);
   const ip = getIP();
 
-  const { success } = await ratelimit.limit(key + `_${ip ?? ""}`);
+  const { success } = await ratelimit.limit(key + `_${ip ?? ''}`);
   if (!success) {
-    throw new Error("Too Many Requests");
+    throw new Error('Too Many Requests');
   }
 
   let current = await redis.get<number[]>(key);
@@ -47,9 +48,9 @@ export const getReactions = async (id: string) => {
   let reactions: number[] = [];
   try {
     const ip = getIP();
-    if (process.env.NODE_ENV === "production") {
+    if (VERCEL_ENV === 'production') {
       if (!id) {
-        throw new Error("Missing id");
+        throw new Error('Missing id');
       }
       const redisKey = kvKeys.blogReactions(id);
 
@@ -58,9 +59,9 @@ export const getReactions = async (id: string) => {
         await redis.set(redisKey, [0, 0, 0, 0]);
       }
 
-      const { success } = await ratelimit.limit(redisKey + `_${ip ?? ""}`);
+      const { success } = await ratelimit.limit(redisKey + `_${ip ?? ''}`);
       if (!success) {
-        throw new Error("Too Many Requests");
+        throw new Error('Too Many Requests');
       }
 
       if (Array.isArray(value)) {

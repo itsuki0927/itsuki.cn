@@ -1,8 +1,8 @@
-import { idToUuid } from "notion-utils";
-import type { ExtendedRecordMap } from "notion-types";
+import { idToUuid } from 'notion-utils';
+import type { ExtendedRecordMap } from 'notion-types';
 
 function getAllPageIds(
-  collectionQuery: ExtendedRecordMap["collection_query"],
+  collectionQuery: ExtendedRecordMap['collection_query'],
   viewId?: string,
 ): string[] {
   const views = Object.values(collectionQuery)[0];

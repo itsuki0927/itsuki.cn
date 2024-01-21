@@ -1,9 +1,8 @@
 import * as React from "react";
-import { CloudOff } from "react-feather";
 import * as ToastPrimitives from "@radix-ui/react-toast";
 import { cva, type VariantProps } from "class-variance-authority";
-
 import { cn } from "@/utils/cn";
+import { X } from "lucide-react";
 
 const ToastProvider = ToastPrimitives.Provider;
 
@@ -81,7 +80,7 @@ const ToastClose = React.forwardRef<
     toast-close=""
     {...props}
   >
-    <CloudOff className="h-4 w-4" />
+    <X size={16} />
   </ToastPrimitives.Close>
 ));
 ToastClose.displayName = ToastPrimitives.Close.displayName;

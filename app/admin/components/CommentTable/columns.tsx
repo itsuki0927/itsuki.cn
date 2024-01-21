@@ -5,7 +5,7 @@ import { Comment } from "@/types/comment";
 import { ColumnDef } from "@tanstack/react-table";
 import ReactMarkdown from "react-markdown";
 import CommentDrawer from "./CommentDrawer";
-import { Mail } from "react-feather";
+import { Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import DeleteCommentDialog from "./DeleteCommentDialog";
 import { CommentState, commentStateMap } from "@/constants/comment";

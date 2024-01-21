@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronDown } from "react-feather";
+import { ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,

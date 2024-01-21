@@ -11,7 +11,7 @@ const GuestbookForm = async () => {
   }
 
   return (
-    <div className="flex">
+    <div className="flex space-x-2">
       <GithubAuthIcon />
       <GoogleAuthIcon />
     </div>

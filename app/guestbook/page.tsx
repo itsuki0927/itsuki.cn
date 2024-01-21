@@ -3,6 +3,12 @@ import GuestbookForm from './components/GuestbookForm';
 import GuestbookList from './components/GuestbookList';
 import Title from '@/layouts/AppLayout/components/Title';
 
+export const metadata = {
+  title: '留言板',
+  description:
+    '留下你的想法，我热衷于听到你的声音，并与你进行深入交流，不论是技术还是生活又或是其他事情都可以。',
+};
+
 const CommentCardSkeleton = () => (
   <div className="flex space-x-4">
     <div className="rounded-full bg-zinc-200 h-10 w-10"></div>
@@ -22,7 +28,9 @@ const CommentCardSkeleton = () => (
 const GuestbookPage = () => {
   return (
     <section className="container">
-      <Title title="留言板">我们总会遇见</Title>
+      <Title title="留言板">
+        留下你的想法，我热衷于听到你的声音，并与你进行深入交流，不论是技术还是生活又或是其他事情都可以。
+      </Title>
 
       <Suspense
         fallback={

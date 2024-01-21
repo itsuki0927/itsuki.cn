@@ -6,6 +6,8 @@ export const BASE_URL = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
   : "http://localhost:3000";
 
+export const TOTAL_PAGEVIEWS_BASELINE = 10000;
+
 // blog meta
 export const META = {
   title: "五块木头",

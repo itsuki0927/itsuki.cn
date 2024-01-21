@@ -2,6 +2,7 @@ import { getSummary } from "@/actions/home";
 import React from "react";
 import HomeCard from "./HomeCard";
 import { PieChart } from "lucide-react";
+import { TOTAL_PAGEVIEWS_BASELINE } from "@/constants/app";
 
 interface Summary {
   count: number;
@@ -17,7 +18,14 @@ const getSummaryForRender = async () => {
       label: "天前上线",
     },
     {
-      count: summary.viewCount,
+      count: (
+        <>
+          {summary.viewCount}
+          <span className="text-sm">
+            {summary.viewCount < TOTAL_PAGEVIEWS_BASELINE ? "😭" : "😄"}
+          </span>
+        </>
+      ),
       label: "个浏览",
     },
     {

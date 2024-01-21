@@ -4,11 +4,10 @@ import { Metadata } from "next";
 import getBlog from "@/libs/notion/getBlog";
 import getAllBlogs from "@/libs/notion/getAllBlogs";
 import { PageProps } from "@/types/common";
-import BlogReactions from "./components/BlogReactions";
 import { getBlogViews, getReactions } from "@/actions/blog";
-import { getPageTableOfContents } from "notion-utils";
 import getRootPage from "@/libs/notion/getRootPage";
 import BlogTableOfContent from "./components/BlogTableOfContent";
+import BlogReactions from "./components/BlogReactions";
 
 type BlogPageProps = PageProps<{ slug: string }>;
 

@@ -5,6 +5,7 @@ import { Blog } from "@/types/blog";
 import { motion, useMotionValue } from "framer-motion";
 import React from "react";
 import ReactIcon from "./ReactIcon";
+import { useToast } from "@/components/ui/use-toast";
 
 function moodToReactions(mood: Blog["mood"]) {
   switch (mood) {
@@ -23,6 +24,7 @@ interface BlogReactionsProps extends Pick<Blog, "id"> {
 }
 
 const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
+  const { toast } = useToast();
   const mouseY = useMotionValue(Infinity);
   const onMouseMove = React.useCallback(
     (e: React.MouseEvent) => {
@@ -41,10 +43,18 @@ const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
         ++next[index];
         return next;
       });
-      const data = await updateReactions(id, index);
-      setCachedReactions(data);
+      try {
+        const data = await updateReactions(id, index);
+        setCachedReactions(data);
+      } catch (err: any) {
+        console.dir(err);
+        toast({
+          content: "点赞失败",
+          description: err.message,
+        });
+      }
     },
-    [id, setCachedReactions],
+    [id, toast],
   );
 
   return (

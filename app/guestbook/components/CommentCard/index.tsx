@@ -15,6 +15,7 @@ import CommentAvatar from "../CommentAvatar";
 import EmojiPopover from "../EmojiPopover";
 import CommentEmojis from "./CommentEmojis";
 import useOptimisticComment from "./hooks/useOptimisticComment";
+import { useToast } from "@/components/ui/use-toast";
 
 interface CommentCardProps extends StandardProps {
   comment: Comment;
@@ -40,13 +41,21 @@ const CommentCard = ({
     useOptimisticComment(comment);
   const parser = new UAParser(optimisticComment.agent ?? "");
   const device = parser.getDevice();
+  const { toast } = useToast();
   const isMobile = device.type === "mobile";
 
   const handleEmojiClick = async (emoji: string) => {
     startTransition(() => {
       addOptimisticComment(emoji);
     });
-    likeComment(optimisticComment.id, emoji);
+    try {
+      await likeComment(optimisticComment.id, emoji);
+    } catch (err: any) {
+      toast({
+        title: "点赞失败",
+        description: err.message,
+      });
+    }
   };
 
   return (
@@ -63,7 +72,7 @@ const CommentCard = ({
             <span className="text-sm text-zinc-900 font-semibold">
               {optimisticComment.nickname}
             </span>
-            <span className="ml-1">{optimisticComment.city || "未知"}</span>
+            <span className="ml-1">{optimisticComment.ip || "未知"}</span>
             <span className="mx-1">·</span>
             {isMobile ? <Smartphone size={14} /> : <Monitor size={14} />}
 

@@ -22,7 +22,7 @@ async function getAllBlogs({ onlyRecent }: GetAllBlogsParams = {}) {
     rawMetadata?.type !== 'collection_view'
   ) {
     console.log(`pageId '${id}' is not a database`);
-    return null;
+    return [];
   } else {
     // Construct Data
     const pageIds = getAllPageIds(collectionQuery);

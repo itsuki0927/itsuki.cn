@@ -33,6 +33,7 @@
     "@vercel/speed-insights": "^1.0.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "feed": "^4.2.2",
     "framer-motion": "^10.18.0",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.306.0",

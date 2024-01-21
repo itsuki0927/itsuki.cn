@@ -6,6 +6,7 @@ import { TAGS } from "@/constants/tag";
 import { InsertComment } from "@/types/comment";
 import { CommentState } from "@/constants/comment";
 import { createBrowserClient } from "@/libs/supabase";
+import { getIP } from "./blog";
 
 export const getComments = async (blogId: Number) => {
   noStore();
@@ -14,7 +15,8 @@ export const getComments = async (blogId: Number) => {
     const { data: comments } = await supabase
       .from("comment")
       .select("*")
-      .eq("blogId", blogId);
+      .eq("blogId", blogId)
+      .order("createdAt", { ascending: false });
     return comments;
   } catch (error) {
     console.error("Error:", error);
@@ -35,8 +37,10 @@ export const getAllComments = async (params: SearchCommentParams = {}) => {
   // noStore();
   const supabase = createBrowserClient();
   try {
-    const builder = supabase.from("comment").select("*");
-
+    const builder = supabase
+      .from("comment")
+      .select("*")
+      .order("createdAt", { ascending: false });
     if (params.state) {
       builder.eq("state", params.state);
     }
@@ -60,7 +64,9 @@ export const createComment = async (
   if (!user) {
     return;
   }
-  const input = { ...row, ...user };
+  const ip = getIP();
+  console.log("ip:", ip);
+  const input = { ...row, ...user, ip };
   const supabase = createBrowserClient();
   try {
     const { data } = await supabase.from("comment").insert([input]).select();

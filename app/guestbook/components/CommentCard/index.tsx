@@ -55,6 +55,20 @@ const CommentCard = ({
     }
   };
 
+  const renderGeo = () => {
+    if (optimisticComment.geo?.country && optimisticComment.geo?.province) {
+      return (
+        <>
+          <span className="mr-1">{optimisticComment.geo.flag || ''}</span>
+          {optimisticComment.geo?.country}
+          <span className="mx-1">·</span>
+          {optimisticComment.geo?.province}
+        </>
+      );
+    }
+    return '未知';
+  };
+
   return (
     <motion.div
       className={`transition-all p-4 duration-500 ${className}`}
@@ -69,11 +83,17 @@ const CommentCard = ({
             <span className="text-sm text-zinc-900 font-semibold">
               {optimisticComment.nickname}
             </span>
-            <span className="ml-1">{optimisticComment.ip || '未知'}</span>
-            <span className="mx-1">·</span>
-            {isMobile ? <Smartphone size={14} /> : <Monitor size={14} />}
 
-            <span className="ml-1">
+            <span className="ml-2">{renderGeo()}</span>
+
+            <span className="mx-2 sm:mx-3 flex items-center">
+              {isMobile ? <Smartphone size={14} /> : <Monitor size={14} />}
+              <span className="ml-1">
+                {optimisticComment.userAgent.os.name}
+              </span>
+            </span>
+
+            <span className="hidden sm:block">
               {formatDate(optimisticComment.createdAt, 'ago')}
             </span>
           </div>
@@ -99,6 +119,10 @@ const CommentCard = ({
         emoji={optimisticComment.emoji}
         onEmojiClick={handleEmojiClick}
       />
+
+      <div className="block mt-2 sm:hidden text-xs text-zinc-500">
+        <span>{formatDate(optimisticComment.createdAt, 'ago')}</span>
+      </div>
 
       {children}
     </motion.div>

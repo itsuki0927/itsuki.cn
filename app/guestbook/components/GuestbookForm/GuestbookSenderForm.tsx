@@ -14,7 +14,6 @@ const GuestbookSenderForm = () => {
     try {
       const result = await createComment({
         content,
-        agent: navigator.userAgent,
         blogId: 10000,
       });
       return Boolean(result);

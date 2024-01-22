@@ -11,7 +11,7 @@ export interface Database {
     Tables: {
       comment: {
         Row: {
-          agent: string;
+          userAgent: string;
           avatar: string | null;
           blogId: number;
           content: string;
@@ -27,7 +27,7 @@ export interface Database {
           updateAt: string | null;
         };
         Insert: {
-          agent: string;
+          userAgent: string;
           avatar?: string | null;
           blogId: number;
           content: string;
@@ -43,7 +43,7 @@ export interface Database {
           updateAt?: string | null;
         };
         Update: {
-          agent?: string;
+          userAgent?: string;
           avatar?: string | null;
           blogId?: number;
           content?: string;

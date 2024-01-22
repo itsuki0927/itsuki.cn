@@ -9,7 +9,6 @@ import { motion } from 'framer-motion';
 import { Monitor, Smartphone, Smile } from 'lucide-react';
 import { startTransition } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { UAParser } from 'ua-parser-js';
 import markdownComponents from '../../../../components/markdown';
 import CommentAvatar from '../CommentAvatar';
 import EmojiPopover from '../EmojiPopover';
@@ -39,10 +38,8 @@ const CommentCard = ({
 }: CommentCardProps) => {
   const [optimisticComment, addOptimisticComment] =
     useOptimisticComment(comment);
-  const parser = new UAParser(optimisticComment.agent ?? '');
-  const device = parser.getDevice();
   const { toast } = useToast();
-  const isMobile = device.type === 'mobile';
+  const isMobile = optimisticComment.userAgent.device?.type === 'mobile';
 
   const handleEmojiClick = async (emoji: string) => {
     startTransition(() => {

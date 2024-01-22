@@ -19,6 +19,7 @@ export const getComments = async (blogId: Number) => {
       .from('comment')
       .select('*')
       .eq('blogId', blogId)
+      .eq('state', CommentState.Published)
       .order('createdAt', { ascending: false });
     return comments;
   } catch (error) {

@@ -79,6 +79,7 @@ export const createComment = async (
   const headers = getHeaders();
   const userAgent = getUserAgent({ headers });
   const geo = await getGeoByIP(ip);
+  console.log('geo:', VERCEL_ENV, geo, ip);
   const input = { ...row, ...user, userAgent, geo, ip };
   const supabase = createBrowserClient();
   try {

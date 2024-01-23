@@ -52,7 +52,7 @@ const EmailLayout = ({ previewText, children }: EmailLayoutProps) => {
                 <br />
                 {META.description}
               </Text>
-              <Text className="text-center flex space-x-4 justify-center">
+              <Text className="text-center">
                 <Link
                   href={SOCIAL.github}
                   className="text-xs text-zinc-600 underline"
@@ -61,7 +61,7 @@ const EmailLayout = ({ previewText, children }: EmailLayoutProps) => {
                 </Link>
                 <Link
                   href={SOCIAL.juejin}
-                  className="text-xs text-zinc-600 underline"
+                  className="text-xs text-zinc-600 underline mx-4"
                 >
                   掘金
                 </Link>

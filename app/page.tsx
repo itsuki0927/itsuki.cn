@@ -1,14 +1,15 @@
 import ExternalLink from '@/components/common/ExternalLink';
-import Juejin from '@/components/icon/Juejin';
-import Sifou from '@/components/icon/Sifou';
 import Title from '@/layouts/AppLayout/components/Title';
-import { Github, Rss } from 'lucide-react';
+import { Rss } from 'lucide-react';
 import AboutMe from './components/AboutMe';
 import Gallery from './components/Gallery';
 import RecentBlogs from './components/RecentBlogs';
 import Summary from './components/Summary';
 import Work from './components/Work';
 import { BASE_URL } from '@/constants/app';
+import GithubExternalLink from '@/components/common/GithubExternalLink';
+import JuejinExternalLink from '@/components/common/JuejinExternalLink';
+import SifouExternalLink from '@/components/common/SifouExternalLink';
 
 const Home = async () => {
   return (
@@ -22,15 +23,9 @@ const Home = async () => {
         }
       >
         <div className="flex gap-4">
-          <ExternalLink href="https://github.com/itsuki0927">
-            <Github size={20} />
-          </ExternalLink>
-          <ExternalLink href="https://juejin.cn/user/2436173499466350">
-            <Juejin size={20} />
-          </ExternalLink>
-          <ExternalLink href="https://segmentfault.com/u/itsuki0927">
-            <Sifou size={20} />
-          </ExternalLink>
+          <GithubExternalLink />
+          <JuejinExternalLink />
+          <SifouExternalLink />
           <ExternalLink href={`${BASE_URL}/rss`}>
             <Rss size={20} />
           </ExternalLink>

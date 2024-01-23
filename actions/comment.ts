@@ -1,15 +1,16 @@
 'use server';
 
 import { getSession, isAdminSession } from '@/actions/session';
-import { revalidateTag, unstable_noStore as noStore } from 'next/cache';
-import { TAGS } from '@/constants/tag';
-import { InsertComment } from '@/types/comment';
-import { CommentState } from '@/constants/comment';
-import { createBrowserClient } from '@/libs/supabase';
-import { checkIPIsBlocked, getGeoByIP, getIP } from './ip';
-import { userAgent as getUserAgent } from 'next/server';
-import { headers as getHeaders } from 'next/headers';
+import { CommentState, GUESTBOOK } from '@/constants/comment';
 import { VERCEL_ENV } from '@/constants/env';
+import { TAGS } from '@/constants/tag';
+import { createBrowserClient } from '@/libs/supabase';
+import { InsertComment } from '@/types/comment';
+import { unstable_noStore as noStore, revalidateTag } from 'next/cache';
+import { headers as getHeaders } from 'next/headers';
+import { userAgent as getUserAgent } from 'next/server';
+import { sendGuestbookEmail } from './email';
+import { checkIPIsBlocked, getGeoByIP, getIP } from './ip';
 
 export const getComments = async (blogId: Number) => {
   noStore();
@@ -84,6 +85,11 @@ export const createComment = async (
   const supabase = createBrowserClient();
   try {
     const { data } = await supabase.from('comment').insert([input]).select();
+
+    if (input.blogId === GUESTBOOK) {
+      sendGuestbookEmail({ user, content: input.content });
+    }
+
     revalidateTag(TAGS.comment);
     return data;
   } catch (error) {

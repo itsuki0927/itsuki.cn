@@ -1,4 +1,5 @@
 import { idToUuid } from 'notion-utils';
+import { unstable_cache as cache } from 'next/cache';
 import getAllPageIds from './getAllPageIds';
 import getPageProperties from './getPageProperties';
 import filterPublishedPosts from './filterPublishedBlogs';
@@ -10,47 +11,53 @@ export interface GetAllBlogsParams {
   onlyRecent?: boolean;
 }
 
-async function getAllBlogs({ onlyRecent }: GetAllBlogsParams = {}) {
-  const { block, schema, collectionQuery } = await getRootPage();
+const getAllBlogs = cache(
+  async ({ onlyRecent }: GetAllBlogsParams = {}) => {
+    const { block, schema, collectionQuery } = await getRootPage();
 
-  const id = idToUuid(NOTION_PAGE_ID);
+    const id = idToUuid(NOTION_PAGE_ID);
 
-  const rawMetadata = block[id]?.value;
+    const rawMetadata = block[id]?.value;
 
-  if (
-    rawMetadata?.type !== 'collection_view_page' &&
-    rawMetadata?.type !== 'collection_view'
-  ) {
-    console.log(`pageId '${id}' is not a database`);
-    return [];
-  } else {
-    // Construct Data
-    const pageIds = getAllPageIds(collectionQuery);
+    if (
+      rawMetadata?.type !== 'collection_view_page' &&
+      rawMetadata?.type !== 'collection_view'
+    ) {
+      console.log(`pageId '${id}' is not a database`);
+      return [];
+    } else {
+      // Construct Data
+      const pageIds = getAllPageIds(collectionQuery);
 
-    const data = pageIds.map((pageId) => {
-      const id = String(pageId);
-      const properties = getPageProperties(id, block, schema) || null;
+      const data = pageIds.map((pageId) => {
+        const id = String(pageId);
+        const properties = getPageProperties(id, block, schema) || null;
 
-      return properties as Blog;
-    });
+        return properties as Blog;
+      });
 
-    const posts = filterPublishedPosts({
-      posts: data,
-      onlyRecent,
-    });
+      const posts = filterPublishedPosts({
+        posts: data,
+        onlyRecent,
+      });
 
-    posts.sort((a, b) => {
-      if (a.publishedAt && b.publishedAt) {
-        return b.publishedAt.valueOf() - a.publishedAt.valueOf();
-      }
-      if (a.createdAt && b.createdAt) {
-        return b.createdAt.valueOf() - a.createdAt.valueOf();
-      }
-      return -1;
-    });
+      posts.sort((a, b) => {
+        if (a.publishedAt && b.publishedAt) {
+          return b.publishedAt.valueOf() - a.publishedAt.valueOf();
+        }
+        if (a.createdAt && b.createdAt) {
+          return b.createdAt.valueOf() - a.createdAt.valueOf();
+        }
+        return -1;
+      });
 
-    return posts;
-  }
-}
+      return posts;
+    }
+  },
+  ['getAllBlogs'],
+  {
+    revalidate: 3600,
+  },
+);
 
 export default getAllBlogs;

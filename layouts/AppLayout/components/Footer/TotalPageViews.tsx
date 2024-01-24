@@ -10,7 +10,7 @@ const TotalPageViews = async () => {
   if (VERCEL_ENV === 'production') {
     views = await redis.incr(kvKeys.totalPageViews);
   } else {
-    views = 345678;
+    views = 12345;
   }
 
   return (

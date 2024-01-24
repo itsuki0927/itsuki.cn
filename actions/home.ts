@@ -4,6 +4,7 @@ import getAllBlogs from '@/libs/notion/getAllBlogs';
 import { redis } from '@/libs/upstash';
 import { kvKeys } from '@/constants/kv';
 import { unstable_cache as cache } from 'next/cache';
+import { VERCEL_ENV } from '@/constants/env';
 
 export interface SummaryResponse {
   commentCount: number;
@@ -55,7 +56,11 @@ export const getSummary = cache(
       result.blogCount = blogs.length;
     }
 
-    result.viewCount = (await redis.get(kvKeys.totalPageViews)) as number;
+    if (VERCEL_ENV === 'production') {
+      result.viewCount = (await redis.get(kvKeys.totalPageViews)) as number;
+    } else {
+      result.viewCount = 12345;
+    }
 
     return result;
   },

@@ -6,60 +6,68 @@ import { VERCEL_ENV } from '@/constants/env';
 import { TAGS } from '@/constants/tag';
 import { createBrowserClient } from '@/libs/supabase';
 import { InsertComment } from '@/types/comment';
-import { revalidateTag } from 'next/cache';
+import { revalidateTag, unstable_cache as cache } from 'next/cache';
 import { headers as getHeaders } from 'next/headers';
 import { userAgent as getUserAgent } from 'next/server';
 import { sendGuestbookEmail } from './email';
 import { checkIPIsBlocked, getGeoByIP, getIP } from './ip';
 
-export const getComments = async (blogId: Number) => {
-  const supabase = createBrowserClient();
-  try {
-    const { data: comments } = await supabase
-      .from('comment')
-      .select('*')
-      .eq('blogId', blogId)
-      .in('state', [CommentState.Published, CommentState.Auditing])
-      .order('createdAt', { ascending: false });
-    return comments;
-  } catch (error) {
-    console.error('Error:', error);
-    return null;
-  }
-};
+export const getComments = cache(
+  async (blogId: Number) => {
+    const supabase = createBrowserClient();
+    try {
+      const { data: comments } = await supabase
+        .from('comment')
+        .select('*')
+        .eq('blogId', blogId)
+        .in('state', [CommentState.Published, CommentState.Auditing])
+        .order('createdAt', { ascending: false });
+      return comments;
+    } catch (error) {
+      console.error('Error:', error);
+      return null;
+    }
+  },
+  ['getComments'],
+  { revalidate: 60 },
+);
 
 interface SearchCommentParams {
   state?: CommentState;
   blogId?: number;
 }
 
-export const getAllComments = async (params: SearchCommentParams = {}) => {
-  const isAdmin = await isAdminSession();
-  if (!isAdmin) {
-    return;
-  }
-  // noStore();
-  const supabase = createBrowserClient();
-  try {
-    const builder = supabase
-      .from('comment')
-      .select('*')
-      .order('createdAt', { ascending: false });
-    if (params.state) {
-      builder.eq('state', params.state);
+export const getAllComments = cache(
+  async (params: SearchCommentParams = {}) => {
+    const isAdmin = await isAdminSession();
+    if (!isAdmin) {
+      return;
     }
-    if (params.blogId) {
-      builder.eq('blogId', params.blogId);
+    // noStore();
+    const supabase = createBrowserClient();
+    try {
+      const builder = supabase
+        .from('comment')
+        .select('*')
+        .order('createdAt', { ascending: false });
+      if (params.state) {
+        builder.eq('state', params.state);
+      }
+      if (params.blogId) {
+        builder.eq('blogId', params.blogId);
+      }
+
+      const { data: comments } = await builder;
+
+      return comments;
+    } catch (error) {
+      console.error('Error:', error);
+      return null;
     }
-
-    const { data: comments } = await builder;
-
-    return comments;
-  } catch (error) {
-    console.error('Error:', error);
-    return null;
-  }
-};
+  },
+  ['getAllComments'],
+  { revalidate: 60 },
+);
 
 export const createComment = async (
   row: Pick<InsertComment, 'blogId' | 'content'>,

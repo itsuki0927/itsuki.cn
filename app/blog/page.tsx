@@ -25,3 +25,5 @@ const NotionPage = async () => {
 };
 
 export default NotionPage;
+
+export const revalidate = 60;

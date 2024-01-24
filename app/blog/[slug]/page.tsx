@@ -9,7 +9,6 @@ import { ExtendedRecordMap } from 'notion-types';
 import BlogContentRender from './components/BlogContentRender';
 import BlogReactions from './components/BlogReactions';
 import BlogTableOfContent from './components/BlogTableOfContent';
-import { cache } from 'react';
 
 type BlogPageProps = PageProps<{ slug: string }>;
 

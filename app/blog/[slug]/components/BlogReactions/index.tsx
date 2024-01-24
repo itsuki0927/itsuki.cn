@@ -44,7 +44,10 @@ const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
         return next;
       });
       try {
-        const data = await updateReactions(id, index);
+        const res = await fetch(`/api/reactions?id=${id}&index=${index}`, {
+          method: 'PATCH',
+        });
+        const { data } = (await res.json()) as { data: number[] };
         setCachedReactions(data);
       } catch (err: any) {
         console.dir(err);

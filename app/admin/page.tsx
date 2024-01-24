@@ -9,7 +9,7 @@ export const metadata = {
   title: 'Admin',
 };
 
-export default async function GuestbookPage() {
+async function AdminPage() {
   try {
     await isAdminSession();
   } catch (err) {
@@ -26,3 +26,5 @@ export default async function GuestbookPage() {
     </section>
   );
 }
+
+export default AdminPage;

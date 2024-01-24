@@ -11,6 +11,8 @@ import GithubExternalLink from '@/components/common/GithubExternalLink';
 import JuejinExternalLink from '@/components/common/JuejinExternalLink';
 import SifouExternalLink from '@/components/common/SifouExternalLink';
 
+export const revalidate = 60;
+
 const Home = async () => {
   return (
     <main className="container space-y-10">

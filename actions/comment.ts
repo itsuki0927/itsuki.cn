@@ -37,37 +37,34 @@ interface SearchCommentParams {
   blogId?: number;
 }
 
-export const getAllComments = cache(
-  async (params: SearchCommentParams = {}) => {
-    const isAdmin = await isAdminSession();
-    if (!isAdmin) {
-      return;
+export const getAllComments = async (params: SearchCommentParams = {}) => {
+  const isAdmin = await isAdminSession();
+  if (!isAdmin) {
+    return;
+  }
+  // noStore();
+  const supabase = createBrowserClient();
+  try {
+    const builder = supabase
+      .from('comment')
+      .select('*')
+      .order('createdAt', { ascending: false });
+    if (params.state) {
+      builder.eq('state', params.state);
     }
-    // noStore();
-    const supabase = createBrowserClient();
-    try {
-      const builder = supabase
-        .from('comment')
-        .select('*')
-        .order('createdAt', { ascending: false });
-      if (params.state) {
-        builder.eq('state', params.state);
-      }
-      if (params.blogId) {
-        builder.eq('blogId', params.blogId);
-      }
-
-      const { data: comments } = await builder;
-
-      return comments;
-    } catch (error) {
-      console.error('Error:', error);
-      return null;
+    if (params.blogId) {
+      builder.eq('blogId', params.blogId);
     }
-  },
-  ['getAllComments'],
-  { revalidate: 60 },
-);
+
+    const { data: comments } = await builder;
+
+    console.log('comments:', comments);
+    return comments;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+};
 
 export const createComment = async (
   row: Pick<InsertComment, 'blogId' | 'content'>,

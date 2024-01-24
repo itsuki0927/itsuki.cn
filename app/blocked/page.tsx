@@ -1,6 +1,6 @@
 import { ADMIN_EMAIL1 } from '@/constants/env';
 
-export const revalidate = 3600; // 1 hour
+export const dynamic = 'force-static';
 
 const BlockedPage = () => {
   return (

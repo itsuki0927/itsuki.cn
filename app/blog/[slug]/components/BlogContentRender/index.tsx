@@ -85,7 +85,7 @@ const BlogContentRender = ({ recordMap, blog, blogViews }: NotionPageProps) => {
       minTableOfContentsItems={1}
       components={components}
       pageHeader={
-        <div className="mb-6">
+        <div className="mt-6 mb-2 sm:my-4">
           <motion.div
             className="flex w-full items-center space-x-4 text-sm font-medium text-zinc-700/50 dark:text-zinc-300/50"
             initial={{ opacity: 0, y: 5 }}
@@ -102,7 +102,7 @@ const BlogContentRender = ({ recordMap, blog, blogViews }: NotionPageProps) => {
               className="inline-flex items-center space-x-1.5"
               title={blogViews?.toString()}
             >
-              <MousePointerClick size={14} />
+              <MousePointerClick className="animate-bounce" size={14} />
               <span>{prettifyNumber(blogViews ?? 0, true)} 次点击</span>
             </span>
 

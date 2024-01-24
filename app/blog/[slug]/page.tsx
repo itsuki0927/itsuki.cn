@@ -1,4 +1,4 @@
-import { getBlogViews, getReactions } from '@/actions/blog';
+import { getBlogViews } from '@/actions/blog';
 import { BASE_URL } from '@/constants/app';
 import getAllBlogs from '@/libs/notion/getAllBlogs';
 import getBlog from '@/libs/notion/getBlog';
@@ -9,12 +9,37 @@ import { ExtendedRecordMap } from 'notion-types';
 import BlogContentRender from './components/BlogContentRender';
 import BlogReactions from './components/BlogReactions';
 import BlogTableOfContent from './components/BlogTableOfContent';
+import { VERCEL_ENV } from '@/constants/env';
+import buildUrl from '@/utils/buildUrl';
+import { kvKeys } from '@/constants/kv';
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
 export interface NotionResponse {
   recordMap: ExtendedRecordMap;
 }
+
+const genMockReactions = () =>
+  Array.from({ length: 4 }, () => Math.floor(Math.random() * 50000));
+
+const getReactions = async (id: string): Promise<number[]> => {
+  try {
+    if (VERCEL_ENV === 'production') {
+      const res = await fetch(buildUrl(`/api/reactions?id=${id}`), {
+        next: {
+          tags: [kvKeys.blogReactions(id)],
+        },
+      });
+      const data = await res.json();
+      return data;
+    } else {
+      return genMockReactions();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  return genMockReactions();
+};
 
 export async function generateMetadata({
   params,

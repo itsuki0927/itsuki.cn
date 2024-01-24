@@ -1,19 +1,26 @@
 /* NOTION CSS OVERRIDE */
 
 .notion {
-  @apply text-zinc-600 dark:text-zinc-300;
-  overflow-wrap: break-word;
+  @apply text-zinc-600 dark:text-zinc-300 text-base break-words rounded-xl;
 }
 
 .notion.notion-app {
-  @apply p-4;
+  @apply p-4 font-ibm;
 }
 
 .notion,
 .notion-text,
 .notion-quote,
 .notion-h-title {
-  @apply leading-8 p-0 my-3;
+  @apply !leading-8 !p-0 !my-3;
+}
+
+.notion.notion-app .notion-page {
+  @apply w-auto p-6;
+}
+
+.notion.notion-app .notion-page-cover-wrapper {
+  @apply rounded-t-xl overflow-hidden;
 }
 
 .notion-page-link {
@@ -52,11 +59,7 @@ svg + .notion-page-title-text {
   @apply px-0;
 }
 
-.notion-page {
-  @apply w-auto px-0;
-}
-
-.notion-quote {
+.notion.notion-app .notion-quote {
   @apply bg-zinc-100 py-4 px-3 text-base;
 }
 
@@ -143,24 +146,9 @@ svg + .notion-page-title-text {
   @apply text-zinc-500 dark:text-zinc-400;
 }
 
-.notion-collection {
-  @apply max-w-full;
-}
-.notion-collection > .notion-collection-header {
-  @apply px-0 !important;
-}
-.notion-collection > .notion-table {
-  @apply max-w-full !important;
-}
-.notion-collection > .notion-table > .notion-table-view {
-  @apply px-0 !important;
-}
 .notion-collection-view-type {
   @apply hidden;
 }
 .notion-collection-row {
   @apply hidden;
-}
-
-.notion-quote {
 }

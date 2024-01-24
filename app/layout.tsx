@@ -8,7 +8,7 @@ import '../styles/global.css';
 export const metadata = metadataConfig;
 
 const ibm = IBM_Plex_Sans({
-  weight: ['400', '700'],
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
   variable: '--font-ibm',
 });

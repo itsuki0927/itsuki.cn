@@ -17,6 +17,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        ibm: ['var(--font-ibm)'],
+      },
       listStyleType: {
         square: 'square',
       },

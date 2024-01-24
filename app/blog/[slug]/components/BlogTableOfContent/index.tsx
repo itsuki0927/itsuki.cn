@@ -2,13 +2,14 @@
 
 import { GetBlogResponse } from '@/libs/notion/getBlog';
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
+import { Variants, motion, scroll } from 'framer-motion';
 import { BlockMap, PageBlock } from 'notion-types';
 import { getPageTableOfContents, uuidToId } from 'notion-utils';
 import { useMemo } from 'react';
 import ProgressBar from './ProgessBar';
 import useProgress from './useProgress';
 import useScrollSpy from './useScrollSpy';
+import useScrollTo from '@/hooks/useScrollTo';
 
 interface BlogTableOfContentProps extends GetBlogResponse {
   blocks: BlockMap;
@@ -16,41 +17,69 @@ interface BlogTableOfContentProps extends GetBlogResponse {
 
 const OFFSET = 150;
 
+const listVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      when: 'beforeChildren',
+      staggerChildren: 0.08,
+      delay: 0.255,
+      type: 'spring',
+      stiffness: 150,
+      damping: 20,
+    },
+  },
+} satisfies Variants;
+
 const BlogTableOfContent = ({
   blog,
   blocks,
   recordMap,
 }: BlogTableOfContentProps) => {
-  const tableContents = getPageTableOfContents(
+  const h2Headings = getPageTableOfContents(
     blocks[blog.id].value as PageBlock,
     recordMap,
   );
-  const h2Headings = tableContents.filter(
-    (tableContent) => tableContent.indentLevel >= 0,
-  );
-
-  const readingProgress = useProgress();
   const h2HeadingsDom = useMemo(() => {
-    return (h2Headings ?? []).map(
+    return h2Headings.map(
       (item) => document.querySelector(`[data-id="${uuidToId(item.id)}"]`)!,
     );
   }, [h2Headings]);
   const [currentActiveIndex] = useScrollSpy(h2HeadingsDom, { offset: OFFSET });
+  const scrollTo = useScrollTo();
+  const readingProgress = useProgress();
 
   const handleScrollTo = (id: string) => {
-    // scrollTo(id, -64 - 24);
+    const scrollToElement = document.querySelector(
+      `[data-id="${uuidToId(id)}"]`,
+    );
+    if (scrollToElement) {
+      scrollTo(scrollToElement);
+    }
   };
 
   return (
-    <div className="top-1/2 left-4 hidden -translate-y-1/2 p-6 text-zinc-400 sm:fixed sm:flex">
+    <div className="top-1/2 left-4 max-h-[500px] hidden -translate-y-1/2 p-6 text-zinc-400 sm:fixed sm:flex">
       <ProgressBar progress={readingProgress} />
-      <ul className="ml-4 hidden space-y-2 sm:block">
+      <motion.ul
+        className="ml-3 hidden space-y-1 sm:block group"
+        initial="hidden"
+        animate="visible"
+        variants={listVariants}
+      >
         {h2Headings.map((heading, index) => (
           <motion.li
             animate="show"
+            id={heading.id}
             className={clsx(
               'line-clamp-1 block cursor-pointer transition-colors hover:text-primary',
-              currentActiveIndex === index ? 'text-primary' : '',
+              heading.indentLevel === 1 ? 'ml-2' : '',
+              currentActiveIndex === index
+                ? 'text-primary/60 dark:text-zinc-200'
+                : 'hover:text-primary/60 dark:hover:text-zinc-400 group-hover:[&:not(:hover)]:text-zinc-400 dark:group-hover:[&:not(:hover)]:text-zinc-600',
             )}
             key={heading.id}
             onClick={() => {
@@ -58,10 +87,10 @@ const BlogTableOfContent = ({
             }}
             transition={{ type: 'spring' }}
           >
-            <span className="text-sm">{heading.text}</span>
+            <span className="text-xs">{heading.text}</span>
           </motion.li>
         ))}
-      </ul>
+      </motion.ul>
     </div>
   );
 };

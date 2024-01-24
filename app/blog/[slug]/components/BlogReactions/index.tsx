@@ -1,6 +1,5 @@
 'use client';
 
-import { updateReactions } from '@/actions/blog';
 import { Blog } from '@/types/blog';
 import { motion, useMotionValue } from 'framer-motion';
 import React from 'react';

@@ -1,15 +1,16 @@
 'use client';
 
+import useScrollTo from '@/hooks/useScrollTo';
 import { GetBlogResponse } from '@/libs/notion/getBlog';
 import clsx from 'clsx';
-import { Variants, motion, scroll } from 'framer-motion';
+import { Variants, motion } from 'framer-motion';
 import { BlockMap, PageBlock } from 'notion-types';
 import { getPageTableOfContents, uuidToId } from 'notion-utils';
 import { useMemo } from 'react';
 import ProgressBar from './ProgessBar';
 import useProgress from './useProgress';
 import useScrollSpy from './useScrollSpy';
-import useScrollTo from '@/hooks/useScrollTo';
+import canUseDOM from '@/utils/canUseDOM';
 
 interface BlogTableOfContentProps extends GetBlogResponse {
   blocks: BlockMap;
@@ -44,9 +45,11 @@ const BlogTableOfContent = ({
     recordMap,
   );
   const h2HeadingsDom = useMemo(() => {
-    return h2Headings.map(
-      (item) => document.querySelector(`[data-id="${uuidToId(item.id)}"]`)!,
-    );
+    return canUseDOM
+      ? h2Headings.map(
+          (item) => document.querySelector(`[data-id="${uuidToId(item.id)}"]`)!,
+        )
+      : [];
   }, [h2Headings]);
   const [currentActiveIndex] = useScrollSpy(h2HeadingsDom, { offset: OFFSET });
   const scrollTo = useScrollTo();

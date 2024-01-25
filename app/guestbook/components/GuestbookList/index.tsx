@@ -1,13 +1,17 @@
-import { getComments } from '@/actions/comment';
 import { GUESTBOOK } from '@/constants/comment';
+import { TAGS } from '@/constants/tag';
 import { auth } from '@/libs/auth';
+import buildUrl from '@/utils/buildUrl';
+import { MessageSquarePlus } from 'lucide-react';
 import { SessionProvider } from 'next-auth/react';
 import CommentCard from '../CommentCard';
-import { MessageSquarePlus } from 'lucide-react';
 
 const GuestbookList = async () => {
   const session = await auth();
-  const data = await getComments(GUESTBOOK);
+  const res = await fetch(buildUrl(`/api/comment?blogId=${GUESTBOOK}`), {
+    next: { tags: [TAGS.comment] },
+  });
+  const data = (await res.json()) as any[];
   return (
     <SessionProvider session={session}>
       {!data || data?.length === 0 ? (

@@ -1,6 +1,5 @@
 'use client';
 
-import { likeComment } from '@/actions/comment';
 import { getCommentElementId } from '@/constants/anchor';
 import { Comment } from '@/types/comment';
 import { StandardProps } from '@/types/common';
@@ -15,6 +14,7 @@ import EmojiPopover from '../EmojiPopover';
 import CommentEmojis from './CommentEmojis';
 import useOptimisticComment from './hooks/useOptimisticComment';
 import { useToast } from '@/components/ui/use-toast';
+import buildUrl from '@/utils/buildUrl';
 
 interface CommentCardProps extends StandardProps {
   comment: Comment;
@@ -46,7 +46,16 @@ const CommentCard = ({
       addOptimisticComment(emoji);
     });
     try {
-      await likeComment(optimisticComment.id, emoji);
+      const res = await fetch(buildUrl(`/api/comment`), {
+        method: 'PATCH',
+        body: JSON.stringify({ id: optimisticComment.id, emoji }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await res.json();
+      console.log('data:', data);
+      // await likeComment(optimisticComment.id, emoji);
     } catch (err: any) {
       toast({
         title: '点赞失败',

@@ -1,23 +1,23 @@
 'use server';
 
 import { get } from '@vercel/edge-config';
-import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
 import countries from '@/constants/countries.json';
-import { unstable_noStore } from 'next/cache';
+import { VERCEL_ENV } from '@/constants/env';
 
 export const getIP = (request?: NextRequest) => {
   if (request && request.ip) {
     return request.ip;
   }
   const FALLBACK_IP_ADDRESS = '0.0.0.0';
-  const forwardedFor = headers().get('x-forwarded-for');
-
-  if (forwardedFor) {
-    return forwardedFor.split(',')[0] ?? FALLBACK_IP_ADDRESS;
+  const xff = request?.headers.get('x-forwarded-for');
+  if (xff === '::1') {
+    return '127.0.0.1';
   }
-
-  return headers().get('x-real-ip') ?? FALLBACK_IP_ADDRESS;
+  if (VERCEL_ENV === 'development') {
+    return '221.194.171.227'; // mock
+  }
+  return FALLBACK_IP_ADDRESS;
 };
 
 export const checkIPIsBlocked = async (request?: NextRequest) => {

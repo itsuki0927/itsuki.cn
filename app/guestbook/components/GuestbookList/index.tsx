@@ -5,13 +5,14 @@ import buildUrl from '@/utils/buildUrl';
 import { MessageSquarePlus } from 'lucide-react';
 import { SessionProvider } from 'next-auth/react';
 import CommentCard from '../CommentCard';
+import { Comment } from '@/types/comment';
 
 const GuestbookList = async () => {
   const session = await auth();
   const res = await fetch(buildUrl(`/api/comment?blogId=${GUESTBOOK}`), {
     next: { tags: [TAGS.comment] },
   });
-  const data = (await res.json()) as any[];
+  const data = (await res.json()) as Comment[];
   return (
     <SessionProvider session={session}>
       {!data || data?.length === 0 ? (

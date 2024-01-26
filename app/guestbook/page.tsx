@@ -9,6 +9,8 @@ export const metadata = {
     '留下你的想法，我热衷于听到你的声音，并与你进行深入交流，不论是技术还是生活又或是其他事情都可以。',
 };
 
+export const dynamic = 'force-static';
+
 const CommentCardSkeleton = () => (
   <div className="flex space-x-4">
     <div className="rounded-full bg-zinc-200 h-10 w-10"></div>
@@ -32,24 +34,29 @@ const GuestbookPage = () => {
         留下你的想法，我热衷于听到你的声音，并与你进行深入交流，不论是技术还是生活又或是其他事情都可以。
       </Title>
 
-      <Suspense
-        fallback={
-          <div className="animate-pulse max-w-3xl flex-col space-y-4">
-            <div className="mb-10">
+      <div className="max-w-3xl gap-8 flex flex-col">
+        <Suspense
+          fallback={
+            <div className="mb-10 animate-pulse max-w-3xl">
               <div className="flex-1 h-24 mb-4 bg-zinc-200 rounded"></div>
               <div className="w-20 h-10 bg-zinc-200 rounded ml-auto"></div>
             </div>
-            <CommentCardSkeleton />
-            <CommentCardSkeleton />
-            <CommentCardSkeleton />
-          </div>
-        }
-      >
-        <div className="max-w-3xl gap-8 flex flex-col">
+          }
+        >
           <GuestbookForm />
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="animate-pulse max-w-3xl flex-col space-y-4">
+              <CommentCardSkeleton />
+              <CommentCardSkeleton />
+              <CommentCardSkeleton />
+            </div>
+          }
+        >
           <GuestbookList />
-        </div>
-      </Suspense>
+        </Suspense>
+      </div>
     </section>
   );
 };

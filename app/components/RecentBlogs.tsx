@@ -1,7 +1,7 @@
 import getAllBlogs from '@/libs/notion/getAllBlogs';
 import { Wand2 } from 'lucide-react';
 import React from 'react';
-import BlogCard from '../blog/components/BlogCard';
+import BlogCard, { BlogCardSkeleton } from '../blog/components/BlogCard';
 
 const RecentBlogs = async () => {
   const blogs = await getAllBlogs({ onlyRecent: true });

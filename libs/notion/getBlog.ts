@@ -4,6 +4,7 @@ import getAllBlogs from './getAllBlogs';
 
 const getBlog = cache(
   async (slug: string) => {
+    console.log('getBlog');
     const blogs = await getAllBlogs();
     const blog = blogs?.find((blog) => blog.slug === slug);
     if (!blog) {

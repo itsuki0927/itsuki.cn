@@ -11,11 +11,11 @@ export const getIP = (request?: NextRequest) => {
   }
   const FALLBACK_IP_ADDRESS = '0.0.0.0';
   const xff = request?.headers.get('x-forwarded-for');
-  if (xff === '::1') {
-    return '127.0.0.1';
-  }
   if (VERCEL_ENV === 'development') {
     return '221.194.171.227'; // mock
+  }
+  if (xff === '::1') {
+    return '127.0.0.1';
   }
   return FALLBACK_IP_ADDRESS;
 };
@@ -35,7 +35,21 @@ interface GetGeoByIP {
   ip: string;
   code: number;
   desc: string;
+  net: string;
+  area: string;
 }
+
+const mockGeo: Geo = {
+  ip: '',
+  isp: '',
+  net: '',
+  area: '',
+  city: '',
+  flag: '🇨🇳',
+  country: '中国',
+  province: '上海',
+  shortName: 'CN',
+};
 
 export type Geo = Omit<GetGeoByIP, 'short_name' | 'code' | 'desc'> & {
   shortName: string;
@@ -44,6 +58,9 @@ export type Geo = Omit<GetGeoByIP, 'short_name' | 'code' | 'desc'> & {
 
 export const getGeoByIP = async (ip: string): Promise<Geo | null> => {
   try {
+    if (VERCEL_ENV === 'development') {
+      return { ...mockGeo };
+    }
     const res = await fetch(`https://ip.useragentinfo.com/json?ip=${ip}`, {
       cache: 'no-store',
     });
@@ -64,5 +81,5 @@ export const getGeoByIP = async (ip: string): Promise<Geo | null> => {
   } catch (err) {
     console.error('getGeoByIP error', err);
   }
-  return null;
+  return { ...mockGeo };
 };

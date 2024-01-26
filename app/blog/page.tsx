@@ -36,6 +36,4 @@ const NotionPage = () => {
 
 export default NotionPage;
 
-export const revalidate = 60;
-
-export const dynamic = 'force-static';
+export const revalidate = 3600;

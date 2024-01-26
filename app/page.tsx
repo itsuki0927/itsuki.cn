@@ -14,6 +14,8 @@ import { Suspense } from 'react';
 import { BlogCardSkeleton } from './blog/components/BlogCard';
 import HomeCard from './components/HomeCard';
 
+export const revalidate = 3600;
+
 const Home = () => {
   return (
     <main className="container space-y-10">

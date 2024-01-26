@@ -35,5 +35,3 @@ const NotionPage = () => {
 };
 
 export default NotionPage;
-
-export const revalidate = 3600;

@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
       .eq('blogId', blogId)
       .in('state', [CommentState.Published, CommentState.Auditing])
       .order('createdAt', { ascending: false });
-    return NextResponse.json(comments);
+    return NextResponse.json({ data: comments });
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json(error, { status: 400 });

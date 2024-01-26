@@ -12,10 +12,18 @@ const GuestbookList = async () => {
   const res = await fetch(buildUrl(`/api/comment?blogId=${GUESTBOOK}`), {
     next: { tags: [TAGS.comment] },
   });
-  const data = (await res.json()) as Comment[];
+
+  let comments: Comment[] = [];
+  try {
+    const { data } = (await res.json()) as { data: Comment[] };
+    comments = data;
+  } catch (err) {
+    console.error('[GuestbookList] getComments error:', err);
+  }
+
   return (
     <SessionProvider session={session}>
-      {!data || data?.length === 0 ? (
+      {!comments || comments?.length === 0 ? (
         <div className="bg-white p-4 rounded-xl border border-solid border-zinc-100">
           <MessageSquarePlus size={24} />
           <div className="mt-2 text-sm text-zinc-800 font-medium">
@@ -27,7 +35,7 @@ const GuestbookList = async () => {
         </div>
       ) : (
         <ul className="rounded-xl overflow-hidden">
-          {data?.map((comment) => (
+          {comments?.map((comment) => (
             <CommentCard
               className="bg-white border-b border-solid border-gray-100 last:border-none"
               key={comment.id}

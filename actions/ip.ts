@@ -4,6 +4,8 @@ import { get } from '@vercel/edge-config';
 import { NextRequest } from 'next/server';
 import countries from '@/constants/countries.json';
 import { VERCEL_ENV } from '@/constants/env';
+import { getMessageFromNormalError } from '@/utils/error';
+import { IPLocation } from '@/types/database';
 
 export const getIP = (request?: NextRequest) => {
   if (request && request.ip) {
@@ -26,60 +28,99 @@ export const checkIPIsBlocked = async (request?: NextRequest) => {
   return blockedIPs.includes(ip);
 };
 
-interface GetGeoByIP {
-  country: string;
-  short_name: string;
-  province: string;
-  city: string;
-  isp: string;
-  ip: string;
-  code: number;
-  desc: string;
-  net: string;
-  area: string;
-}
-
-const mockGeo: Geo = {
-  ip: '',
-  isp: '',
-  net: '',
-  area: '',
-  city: '',
+const mockIPLocation: IPLocation = {
+  ip: '221.194.171.227',
+  city: 'Langfang',
   flag: '🇨🇳',
+  region: 'Hebei',
+  regionCode: 'HE',
   country: '中国',
-  province: '上海',
-  shortName: 'CN',
+  countryCode: 'CN',
+  zip: '',
 };
 
-export type Geo = Omit<GetGeoByIP, 'short_name' | 'code' | 'desc'> & {
-  shortName: string;
-  flag: string;
-};
-
-export const getGeoByIP = async (ip: string): Promise<Geo | null> => {
+// query by https://ip-api.com/docs/api:json
+const queryLocationByIpApi = async (ip: string): Promise<IPLocation> => {
   try {
-    if (VERCEL_ENV === 'development') {
-      return { ...mockGeo };
-    }
-    const res = await fetch(`https://ip.useragentinfo.com/json?ip=${ip}`, {
+    const res = await fetch(
+      `http://ip-api.com/json/${ip}?fields=status,message,country,countryCode,region,regionName,city,zip,query`,
+      {
+        cache: 'no-store',
+      },
+    );
+    const data = await res.json();
+    return data?.status !== 'success'
+      ? Promise.reject(data.message)
+      : Promise.resolve({
+          country: data.country,
+          countryCode: data.countryCode,
+          region: data.regionName,
+          regionCode: data.region,
+          city: data.city,
+          zip: data.zip,
+          ip: data.query,
+          flag: '',
+        });
+  } catch (error) {
+    const message = getMessageFromNormalError(error);
+    console.warn('queryLocationByIpApi failed!', `"${ip}"`, message);
+    return Promise.reject(message);
+  }
+};
+
+// query by https://ipapi.co/api/#introduction
+const queryLocationByApiCo = async (ip: string): Promise<IPLocation> => {
+  try {
+    const res = await fetch(`https://ipapi.co/${ip}/json/`, {
       cache: 'no-store',
     });
-    const data = (await res.json()) as GetGeoByIP;
-    const { code, desc, short_name, ...rest } = data;
+    const data = await res.json();
+    return data?.error
+      ? Promise.reject(data.reason)
+      : Promise.resolve({
+          country: data.country_name,
+          countryCode: data.country_code,
+          region: data.region,
+          regionCode: data.region_code,
+          city: data.city,
+          zip: data.postal,
+          ip: data.ip,
+          flag: '',
+        });
+  } catch (error) {
+    const message = getMessageFromNormalError(error);
+    console.warn('queryLocationByApiCo failed!', `"${ip}"`, message);
+    return Promise.reject(message);
+  }
+};
 
-    const shortName = short_name;
-    const countryInfo = countries.find(
-      (x) => x.cca2 === shortName.toUpperCase(),
-    );
-    const flag = countryInfo?.flag || '';
+const queryLocation = (ip: string) => {
+  return queryLocationByIpApi(ip)
+    .catch(() => queryLocationByApiCo(ip))
+    .catch(() => null);
+};
 
-    return {
-      ...rest,
-      flag,
-      shortName: short_name,
-    };
+export const getLocationByIP = async (
+  ip: string,
+): Promise<IPLocation | null> => {
+  try {
+    if (VERCEL_ENV === 'development') {
+      return { ...mockIPLocation };
+    }
+
+    const data = await queryLocation(ip);
+    if (data) {
+      const countryInfo = countries.find(
+        (x) => x.cca2 === data?.countryCode.toUpperCase(),
+      );
+      const flag = countryInfo?.flag || '';
+      return { ...data, flag };
+    }
+
+    return null;
   } catch (err) {
     console.error('getGeoByIP error', err);
   }
-  return { ...mockGeo };
+
+  return { ...mockIPLocation };
 };

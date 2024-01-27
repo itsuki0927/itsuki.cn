@@ -2,7 +2,17 @@ import { Database as DatabaseGenerated } from '@/types_db';
 import { MergeDeep } from 'type-fest';
 import { CommentEmoji } from './comment';
 import { userAgent } from 'next/server';
-import { Geo } from '@/actions/ip';
+
+export interface IPLocation {
+  country: string;
+  countryCode: string;
+  region: string;
+  regionCode: string;
+  city: string;
+  zip: string;
+  flag: string;
+  ip: string;
+}
 
 export type UserAgent = ReturnType<typeof userAgent>;
 
@@ -15,12 +25,12 @@ export type Database = MergeDeep<
           Row: {
             emoji: CommentEmoji;
             userAgent: UserAgent;
-            geo: Geo | null;
+            geo: IPLocation | null;
           };
           Insert: {
             emoji?: CommentEmoji;
             userAgent: UserAgent;
-            geo: Geo | null;
+            geo: IPLocation | null;
           };
           Update: {
             emoji?: CommentEmoji;

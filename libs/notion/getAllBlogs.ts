@@ -44,10 +44,15 @@ const getAllBlogs = cache(
 
       posts.sort((a, b) => {
         if (a.publishedAt && b.publishedAt) {
-          return b.publishedAt.valueOf() - a.publishedAt.valueOf();
+          return (
+            new Date(b.publishedAt).valueOf() -
+            new Date(a.publishedAt).valueOf()
+          );
         }
         if (a.createdAt && b.createdAt) {
-          return b.createdAt.valueOf() - a.createdAt.valueOf();
+          return (
+            new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+          );
         }
         return -1;
       });

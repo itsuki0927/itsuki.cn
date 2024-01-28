@@ -1,22 +1,20 @@
 import { GUESTBOOK } from '@/constants/comment';
-import { TAGS } from '@/constants/tag';
 import { auth } from '@/libs/auth';
-import buildUrl from '@/utils/buildUrl';
 import { MessageSquarePlus } from 'lucide-react';
 import { SessionProvider } from 'next-auth/react';
 import CommentCard from '../CommentCard';
 import { Comment } from '@/types/comment';
+import { getComments } from '@/actions/comment';
 
 const GuestbookList = async () => {
   const session = await auth();
-  const res = await fetch(buildUrl(`/api/comment?blogId=${GUESTBOOK}`), {
-    next: { tags: [TAGS.comment] },
-  });
+  const res = await getComments(GUESTBOOK);
 
   let comments: Comment[] = [];
   try {
-    const { data } = (await res.json()) as { data: Comment[] };
-    comments = data;
+    if (res.data) {
+      comments = res.data;
+    }
   } catch (err) {
     console.error('[GuestbookList] getComments error:', err);
   }

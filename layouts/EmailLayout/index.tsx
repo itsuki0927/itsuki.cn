@@ -1,3 +1,5 @@
+import { BASE_URL, SOCIAL } from '@/constants/app';
+import { META } from '@/constants/seo';
 import {
   Body,
   Container,
@@ -11,11 +13,6 @@ import {
   Tailwind,
   Text,
 } from './components';
-import { BASE_URL, SOCIAL } from '@/constants/app';
-import { Github } from 'lucide-react';
-import Juejin from '@/components/icon/Juejin';
-import Sifou from '@/components/icon/Sifou';
-import { META } from '@/constants/seo';
 
 interface EmailLayoutProps {
   previewText: string;

@@ -8,7 +8,7 @@ import { createBrowserClient } from '@/libs/supabase';
 import { redis } from '@/libs/upstash';
 import { InsertComment } from '@/types/comment';
 import { Ratelimit } from '@upstash/ratelimit';
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import {
   type NextRequest,
   NextResponse,
@@ -20,28 +20,6 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.slidingWindow(30, '10 s'),
   analytics: true,
 });
-
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const blogId = searchParams.get('blogId');
-  if (!blogId) {
-    return new Response('Missing id', { status: 400 });
-  }
-
-  const supabase = createBrowserClient();
-  try {
-    const { data: comments } = await supabase
-      .from('comment')
-      .select('*')
-      .eq('blogId', blogId)
-      .in('state', [CommentState.Published, CommentState.Auditing])
-      .order('createdAt', { ascending: false });
-    return NextResponse.json({ data: comments });
-  } catch (error) {
-    console.error('Error:', error);
-    return NextResponse.json(error, { status: 400 });
-  }
-}
 
 export async function POST(req: NextRequest) {
   const user = await getSession();
@@ -73,7 +51,8 @@ export async function POST(req: NextRequest) {
 
     if (input.blogId === GUESTBOOK) {
       sendGuestbookEmail({ user, content: input.content });
-      revalidatePath('/guestbook');
+      // revalidatePath('/guestbook');
+      revalidateTag('getComments');
     }
 
     return NextResponse.json(data);

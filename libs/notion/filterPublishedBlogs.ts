@@ -17,7 +17,7 @@ const filterPublishedPosts = ({
       }
       return true;
     })
-    .filter((post) => post.title && post?.state === BlogState.Published);
+    .filter((post) => post.title && post.state === BlogState.Published);
 };
 
 export default filterPublishedPosts;

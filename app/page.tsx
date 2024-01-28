@@ -13,6 +13,7 @@ import SifouExternalLink from '@/components/common/SifouExternalLink';
 import { Suspense } from 'react';
 import { BlogCardSkeleton } from './blog/components/BlogCard';
 import HomeCard from './components/HomeCard';
+import Uses from './components/Uses';
 
 const Home = () => {
   return (
@@ -76,6 +77,8 @@ const Home = () => {
           </Suspense>
 
           <Work />
+
+          <Uses />
         </div>
       </div>
     </main>

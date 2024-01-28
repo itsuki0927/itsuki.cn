@@ -29,8 +29,8 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-between w-full mt-6 gap-2 sm:gap-0 items-center">
-          <div className="flex flex-col text-sm sm:flex-row items-center gap-2 text-zinc-500 dark:text-zinc-400">
-            <ExternalLink href="https://beian.miit.gov.cn text-zinc-500 dark:text-zinc-400">
+          <div className="flex flex-col text-xs sm:flex-row items-center gap-2 text-zinc-500 dark:text-zinc-400">
+            <ExternalLink href="https://beian.miit.gov.cn">
               湘ICP备2021020356号
             </ExternalLink>
             <span className="hidden md:block text-zinc-200"> / </span>

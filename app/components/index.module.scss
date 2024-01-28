@@ -1,0 +1,80 @@
+.tool {
+  @apply cursor-pointer  border-none text-white transition-all overflow-hidden flex justify-center items-center rounded bg-gray-100 p-4 gap-4 h-full;
+  transition: all 0.2s cubic-bezier(0.08, 0.82, 0.2, 1);
+
+  &.neovim:hover {
+    background: #5bc591;
+  }
+
+  &.figma:hover {
+    background: #222;
+  }
+
+  &.github:hover {
+    background: #1b1f24;
+  }
+
+  &.notion:hover {
+    background: #000;
+  }
+
+  &.unsplash:hover {
+    background: #000;
+  }
+
+  &.idea:hover {
+    background: #4597ff;
+  }
+
+  &:hover {
+    @apply bg-black text-white dark:bg-white dark:text-black shadow-none;
+
+    .icon1 {
+      opacity: 0;
+    }
+
+    .icon2 {
+      opacity: 1 !important;
+    }
+
+    .content {
+      .title {
+        @apply text-white dark:text-black;
+      }
+      .desc {
+        @apply text-white/70 dark:text-black;
+      }
+    }
+  }
+
+  .icon {
+    transition: all 0.3s cubic-bezier(0.08, 0.82, 0.2, 1);
+    @apply w-6 h-6 aspect-1 relative;
+  }
+
+  .icon1,
+  .icon2 {
+    @apply absolute left-0 top-0 right-0 bottom-0 opacity-0;
+    transition: all 0.3s cubic-bezier(0.08, 0.82, 0.2, 1);
+  }
+
+  .icon1 {
+    @apply opacity-100 bg-zinc-600 dark:text-zinc-400;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center center;
+  }
+
+  .content {
+    @apply w-0 opacity-100 h-auto overflow-hidden flex-1;
+    transition: all 0.2s cubic-bezier(0.08, 0.82, 0.2, 1);
+
+    .title {
+      @apply text-zinc-900 dark:text-zinc-100 text-sm;
+    }
+
+    .desc {
+      @apply text-zinc-500 dark:text-zinc-400 text-xs line-clamp-2;
+    }
+  }
+}

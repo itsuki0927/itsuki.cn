@@ -18,7 +18,7 @@ const ExternalLink = ({
   <a
     {...rest}
     className={clsx(
-      'transition hover:text-gray-800 hover:underline',
+      'transition hover:text-zinc-800 hover:underline',
       className,
     )}
     href={href}

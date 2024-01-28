@@ -32,9 +32,9 @@ const LastVisitorInfo = async () => {
       <MousePointerClick size={16} className="h-4 w-4" />
       <span>
         最近访客来自&nbsp;
+        <span className="font-medium">{lastVisitor.flag} </span>
         {[lastVisitor.city, lastVisitor.country].filter(Boolean).join(', ')}
       </span>
-      <span className="font-medium">{lastVisitor.flag}</span>
     </span>
   );
 };

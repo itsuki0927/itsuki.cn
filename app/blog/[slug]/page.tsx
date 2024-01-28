@@ -10,6 +10,8 @@ import { Suspense } from 'react';
 import BlogContentRender from './components/BlogContentRender';
 import BlogReactionsUI from './components/BlogReactions/UI';
 import BlogTableOfContent from './components/BlogTableOfContent';
+import BlogPageHeader from './components/BlogPageHeader';
+import BlogPageHeaderUI from './components/BlogPageHeader/ui';
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
@@ -61,15 +63,22 @@ export async function generateStaticParams() {
 const NotionPage = async ({ params }: BlogPageProps) => {
   const slug = params.slug;
   const blogRes = await getBlog(slug);
-  const blogViews = await getBlogViews(slug);
-  const { block: allBlocks } = await getRootPage();
 
   return (
     <>
-      <BlogTableOfContent blocks={allBlocks} {...blogRes} />
+      <Suspense>
+        <BlogTableOfContent {...blogRes} />
+      </Suspense>
 
       <div className="max-w-4xl mx-auto">
-        <BlogContentRender {...blogRes} blogViews={blogViews} />
+        <BlogContentRender
+          {...blogRes}
+          pageHeader={
+            <Suspense fallback={<BlogPageHeaderUI blogViews={0} />}>
+              <BlogPageHeader slug={slug} blog={blogRes.blog} />
+            </Suspense>
+          }
+        />
       </div>
 
       <aside className="top-1/2 right-12 hidden -translate-y-1/2 p-6 text-gray-400 sm:fixed sm:flex w-[90px]">

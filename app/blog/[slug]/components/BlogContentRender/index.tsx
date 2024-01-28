@@ -2,14 +2,12 @@
 
 import { NotionRenderer } from 'react-notion-x';
 import dynamic from 'next/dynamic';
-import { useMemo } from 'react';
-import { Clock, MousePointerClick } from 'lucide-react';
-import { motion } from 'framer-motion';
-import prettifyNumber from '@/utils/prettifyNumber';
+import { ReactNode, useMemo } from 'react';
 import { GetBlogResponse } from '@/libs/notion/getBlog';
+import canUseDOM from '@/utils/canUseDOM';
 
 interface NotionPageProps extends GetBlogResponse {
-  blogViews: number;
+  pageHeader: ReactNode;
 }
 
 const Code = dynamic(() =>
@@ -59,7 +57,7 @@ const Collection = dynamic(() =>
   ),
 );
 
-const BlogContentRender = ({ recordMap, blog, blogViews }: NotionPageProps) => {
+const BlogContentRender = ({ recordMap, pageHeader }: NotionPageProps) => {
   const components = useMemo(
     () => ({
       Collection,
@@ -68,7 +66,7 @@ const BlogContentRender = ({ recordMap, blog, blogViews }: NotionPageProps) => {
     [],
   );
 
-  if (typeof window !== 'undefined') {
+  if (canUseDOM) {
     const keys = Object.keys(recordMap?.block || {});
     const block = recordMap?.block?.[keys[0]]?.value;
     const g = window as any;
@@ -84,39 +82,7 @@ const BlogContentRender = ({ recordMap, blog, blogViews }: NotionPageProps) => {
       showTableOfContents={false}
       minTableOfContentsItems={1}
       components={components}
-      pageHeader={
-        <div className="mt-6 mb-2 sm:my-4">
-          <motion.div
-            className="flex w-full items-center space-x-4 text-sm font-medium text-zinc-700/50 dark:text-zinc-300/50"
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.15,
-              type: 'spring',
-              stiffness: 150,
-              damping: 20,
-              delay: 0.255,
-            }}
-          >
-            <span
-              className="inline-flex items-center space-x-1.5"
-              title={blogViews?.toString()}
-            >
-              <MousePointerClick className="animate-bounce" size={14} />
-              <span>{prettifyNumber(blogViews ?? 0, true)} 次点击</span>
-            </span>
-
-            <span className="inline-flex items-center space-x-1.5">
-              <Clock size={14} />
-              <span>
-                {blog?.publishedAt?.toLocaleString() ||
-                  blog?.createdAt?.toLocaleString()}{' '}
-                发布
-              </span>
-            </span>
-          </motion.div>
-        </div>
-      }
+      pageHeader={<div className="mt-6 mb-2 sm:my-4">{pageHeader}</div>}
     />
   );
 };

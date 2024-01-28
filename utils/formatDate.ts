@@ -3,7 +3,7 @@ export type DateTransformType = 'ago' | 'YMD' | 'YMDHm';
 export type DateSeparatorType = '-' | '/';
 
 // 将输入转换为 Date 对象
-const parseToDate = (input: string | Date): Date | null =>
+const parseToDate = (input: string | Date | number): Date | null =>
   input instanceof Date ? input : new Date(input);
 
 // 将数字填充为两位字符串，例如 5 -> '05'
@@ -66,7 +66,7 @@ const formatToRelativeTime = (date: Date): string => {
 };
 
 export const formatDate = (
-  dateInput: string | Date,
+  dateInput: string | Date | number,
   transformType: DateTransformType = 'YMDHm',
   separator: DateSeparatorType = '-',
 ): string | null => {

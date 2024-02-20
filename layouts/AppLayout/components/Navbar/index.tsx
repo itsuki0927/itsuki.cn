@@ -19,7 +19,7 @@ const Navbar = async () => {
                 title={item.title}
               />
             ))}
-            <NavItem key="/guestbook" slug="/guestbook" title="留言" />
+            <NavItem key="/guestbook" slug="/guestbook" title="与你一句" />
           </ul>
           <div className="flex gap-2 sm:gap-4">
             <RssExternalLink key="rss" />

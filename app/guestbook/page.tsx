@@ -4,7 +4,7 @@ import GuestbookList from './components/GuestbookList';
 import Title from '@/layouts/AppLayout/components/Title';
 
 export const metadata = {
-  title: '留言板',
+  title: '与你一句',
   description:
     '留下你的想法，我热衷于听到你的声音，并与你进行深入交流，不论是技术还是生活又或是其他事情都可以。',
 };
@@ -28,7 +28,7 @@ const CommentCardSkeleton = () => (
 const GuestbookPage = () => {
   return (
     <section className="container">
-      <Title title="留言板">
+      <Title title="与你一句">
         留下你的想法，我热衷于听到你的声音，并与你进行深入交流，不论是技术还是生活又或是其他事情都可以。
       </Title>
 

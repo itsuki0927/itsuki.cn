@@ -2,15 +2,16 @@ import ExternalLink from '@/components/common/ExternalLink';
 import GithubExternalLink from '@/components/common/GithubExternalLink';
 import JuejinExternalLink from '@/components/common/JuejinExternalLink';
 import SifouExternalLink from '@/components/common/SifouExternalLink';
-import { ROUTE_LIST_WITH_HOME } from '@/constants/route';
 import { LoaderIcon, MousePointerClick, User } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import Logo from '../Logo';
 import LastVisitorInfo from './LastVisitorInfo';
 import TotalPageViews from './TotalPageViews';
+import { getAllCategories } from '@/actions/category';
 
-const Footer = () => {
+const Footer = async () => {
+  const data = await getAllCategories();
   return (
     <footer className="border-t border-dashed border-t-zinc-200">
       <div className="container flex w-full flex-col py-12 items-start justify-center text-sm">
@@ -20,11 +21,17 @@ const Footer = () => {
             <span className="text-zinc-800 dark:text-zinc-200">五块木头</span>
           </div>
           <div className="flex gap-6 flex-wrap items-center text-sm font-medium text-zinc-800 dark:text-zinc-200">
-            {ROUTE_LIST_WITH_HOME.map((route) => (
-              <Link href={route.path} key={route.path}>
-                {route.name}
+            <Link href="/" key="/">
+              首页
+            </Link>
+            {data?.map((route) => (
+              <Link href={route.slug} key={route.slug}>
+                {route.title}
               </Link>
             ))}
+            <Link key="/guestbook" href="/guestbook">
+              与你一句
+            </Link>
             <GithubExternalLink />
             <JuejinExternalLink />
             <SifouExternalLink />

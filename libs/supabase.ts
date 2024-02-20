@@ -8,8 +8,10 @@ import {
   createServerClient as _createServerClient,
 } from '@supabase/ssr';
 
-export const createBrowserClient = () =>
+const createBrowserClient = () =>
   _createBrowserClient<Database>(
     NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY,
   );
+
+export const supabase = createBrowserClient();

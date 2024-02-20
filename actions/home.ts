@@ -1,10 +1,10 @@
-import { createBrowserClient } from '@/libs/supabase';
 import { CommentState } from '@/constants/comment';
 import getAllBlogs from '@/libs/notion/getAllBlogs';
 import { redis } from '@/libs/upstash';
 import { kvKeys } from '@/constants/kv';
 import { unstable_cache as cache } from 'next/cache';
 import { VERCEL_ENV } from '@/constants/env';
+import { supabase } from '@/libs/supabase';
 
 export interface SummaryResponse {
   commentCount: number;
@@ -15,7 +15,6 @@ export interface SummaryResponse {
 
 const getCommentCount = cache(
   async () => {
-    const supabase = createBrowserClient();
     try {
       const { data } = await supabase
         .from('comment')

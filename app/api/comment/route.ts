@@ -4,7 +4,7 @@ import { getSession } from '@/actions/session';
 import { COMMENT_TABLE, CommentState, GUESTBOOK } from '@/constants/comment';
 import { kvKeys } from '@/constants/kv';
 import { TAGS } from '@/constants/tag';
-import { createBrowserClient } from '@/libs/supabase';
+import { supabase } from '@/libs/supabase';
 import { redis } from '@/libs/upstash';
 import { InsertComment } from '@/types/comment';
 import { Ratelimit } from '@upstash/ratelimit';
@@ -44,7 +44,6 @@ export async function POST(req: NextRequest) {
   const geo = await getLocationByIP(ip);
   console.log('geo:', req.geo, geo, ip);
   const input = { ...row, ...user, userAgent, geo, ip };
-  const supabase = createBrowserClient();
 
   try {
     const { data } = await supabase
@@ -77,7 +76,6 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: '参数错误' }, { status: 400 });
   }
 
-  const supabase = createBrowserClient();
   const { data } = await supabase.from(COMMENT_TABLE).select('*').eq('id', id);
   const comment = data?.at(0);
   if (!data || !comment) {

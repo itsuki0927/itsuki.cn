@@ -3,7 +3,7 @@
 import { isAdminSession } from '@/actions/session';
 import { COMMENT_TABLE, CommentState } from '@/constants/comment';
 import { TAGS } from '@/constants/tag';
-import { createBrowserClient } from '@/libs/supabase';
+import { supabase } from '@/libs/supabase';
 import { getMessageFromNormalError } from '@/utils/error';
 import { revalidateTag, unstable_cache } from 'next/cache';
 
@@ -17,8 +17,6 @@ export const getAllComments = async (params: SearchCommentParams = {}) => {
   if (!isAdmin) {
     return;
   }
-  // noStore();
-  const supabase = createBrowserClient();
   try {
     const builder = supabase
       .from(COMMENT_TABLE)
@@ -53,7 +51,6 @@ export const updateCommentsState = async (
     throw new Error('参数错误');
   }
 
-  const supabase = createBrowserClient();
   try {
     const { data } = await supabase
       .from(COMMENT_TABLE)
@@ -80,7 +77,6 @@ export const deleteComments = async (ids: number[]) => {
     throw new Error('参数错误');
   }
 
-  const supabase = createBrowserClient();
   try {
     const { data } = await supabase.from(COMMENT_TABLE).delete().in('id', ids);
 
@@ -100,7 +96,6 @@ export const getComments = unstable_cache(
       throw new Error('Missing id');
     }
 
-    const supabase = createBrowserClient();
     try {
       const { data: comments } = await supabase
         .from(COMMENT_TABLE)

@@ -2,7 +2,7 @@ import ExternalLink from '@/components/common/ExternalLink';
 import Juejin from '@/components/icon/Juejin';
 import Sifou from '@/components/icon/Sifou';
 import { ROUTE_LIST_WITH_HOME } from '@/constants/route';
-import { Github } from 'lucide-react';
+import { Github, Rss } from 'lucide-react';
 import Link from 'next/link';
 import Logo from '../Logo';
 import LastVisitorInfo from './LastVisitorInfo';
@@ -10,6 +10,7 @@ import TotalPageViews from './TotalPageViews';
 import GithubExternalLink from '@/components/common/GithubExternalLink';
 import JuejinExternalLink from '@/components/common/JuejinExternalLink';
 import SifouExternalLink from '@/components/common/SifouExternalLink';
+import { BASE_URL } from '@/constants/app';
 
 const Footer = async () => {
   return (
@@ -26,6 +27,9 @@ const Footer = async () => {
             <GithubExternalLink />
             <JuejinExternalLink />
             <SifouExternalLink />
+            <ExternalLink href={`${BASE_URL}/rss`}>
+              <Rss size={20} />
+            </ExternalLink>
           </div>
         </div>
 

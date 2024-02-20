@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import CommentAvatar from "@/app/guestbook/components/CommentAvatar";
-import { Comment } from "@/types/comment";
-import { ColumnDef } from "@tanstack/react-table";
-import ReactMarkdown from "react-markdown";
-import CommentDrawer from "./CommentDrawer";
-import { Mail } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import DeleteCommentDialog from "./DeleteCommentDialog";
-import { CommentState, commentStateMap } from "@/constants/comment";
-import SpamButton from "./SpamButton";
-import DeletedButton from "./DeletedButton";
-import PublishedButton from "./PublishedButton";
-import AuditingButton from "./AuditingButton";
-import { Checkbox } from "@/components/ui/checkbox";
+import CommentAvatar from '@/app/guestbook/components/CommentAvatar';
+import { Comment } from '@/types/comment';
+import { ColumnDef } from '@tanstack/react-table';
+import ReactMarkdown from 'react-markdown';
+import CommentDrawer from './CommentDrawer';
+import { Mail } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import DeleteCommentDialog from './DeleteCommentDialog';
+import { CommentState, commentStateMap } from '@/constants/comment';
+import SpamButton from './SpamButton';
+import DeletedButton from './DeletedButton';
+import PublishedButton from './PublishedButton';
+import AuditingButton from './AuditingButton';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export const columns: ColumnDef<Comment>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value: boolean) =>
           table.toggleAllPageRowsSelected(!!value)
@@ -41,17 +41,17 @@ export const columns: ColumnDef<Comment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "parentId",
-    header: "PID",
-    cell: ({ row }) => row.getValue("parentId") || "-",
+    accessorKey: 'parentId',
+    header: 'PID',
+    cell: ({ row }) => row.getValue('parentId') || '-',
   },
   {
-    accessorKey: "blogId",
-    header: "BID",
+    accessorKey: 'blogId',
+    header: 'BID',
   },
   {
-    header: "个人信息",
-    accessorKey: "avatar",
+    header: '个人信息',
+    accessorKey: 'avatar',
     cell: ({ row }) => {
       return (
         <div className="flex-col flex gap-2">
@@ -68,13 +68,13 @@ export const columns: ColumnDef<Comment>[] = [
     },
   },
   {
-    accessorKey: "content",
-    header: "Content",
+    accessorKey: 'content',
+    header: 'Content',
     cell: ({ row }) => <ReactMarkdown>{row.original.content}</ReactMarkdown>,
   },
   {
-    accessorKey: "createdAt",
-    header: "Created At",
+    accessorKey: 'createdAt',
+    header: 'Created At',
     cell: ({ row }) => (
       <div className="">
         <Badge
@@ -87,8 +87,8 @@ export const columns: ColumnDef<Comment>[] = [
     ),
   },
   {
-    id: "actions",
-    header: "Actions",
+    id: 'actions',
+    header: 'Actions',
     maxSize: 150,
     cell: ({ row }) => {
       const state = row.original.state;

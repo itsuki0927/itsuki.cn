@@ -1,13 +1,13 @@
-import ExternalLink from "@/components/common/ExternalLink";
-import Juejin from "@/components/icon/Juejin";
-import Sifou from "@/components/icon/Sifou";
-import Title from "@/layouts/AppLayout/components/Title";
-import { Github, Rss } from "lucide-react";
-import AboutMe from "./components/AboutMe";
-import Gallery from "./components/Gallery";
-import RecentBlogs from "./components/RecentBlogs";
-import Summary from "./components/Summary";
-import Work from "./components/Work";
+import ExternalLink from '@/components/common/ExternalLink';
+import Juejin from '@/components/icon/Juejin';
+import Sifou from '@/components/icon/Sifou';
+import Title from '@/layouts/AppLayout/components/Title';
+import { Github, Rss } from 'lucide-react';
+import AboutMe from './components/AboutMe';
+import Gallery from './components/Gallery';
+import RecentBlogs from './components/RecentBlogs';
+import Summary from './components/Summary';
+import Work from './components/Work';
 
 const Home = async () => {
   return (

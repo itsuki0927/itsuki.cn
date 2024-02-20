@@ -1,4 +1,4 @@
-import { Comment } from "@/types/comment";
+import { Comment } from '@/types/comment';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,12 +9,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Row } from "@tanstack/react-table";
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { Row } from '@tanstack/react-table';
 
-import React from "react";
-import { deleteComment } from "@/actions/comment";
+import React from 'react';
+import { deleteComment } from '@/actions/comment';
 
 interface DeleteCommentDialogProps {
   row: Row<Comment>;
@@ -38,7 +38,7 @@ const DeleteCommentDialog = ({ row }: DeleteCommentDialogProps) => {
           <AlertDialogAction
             onClick={async () => {
               const result = await deleteComment(row.original.id);
-              console.log("result:", result);
+              console.log('result:', result);
             }}
           >
             确认

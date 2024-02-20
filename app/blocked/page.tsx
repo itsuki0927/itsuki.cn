@@ -1,4 +1,4 @@
-import { ADMIN_EMAIL1 } from "@/constants/comment";
+import { ADMIN_EMAIL1 } from '@/constants/env';
 
 export const revalidate = 3600; // 1 hour
 
@@ -9,7 +9,7 @@ const BlockedPage = () => {
         坏家伙做坏事，已禁止你的访问权限
       </h1>
       <span className="text-sm">
-        如果你认为你不应该被禁，请联系我的邮箱{" "}
+        如果你认为你不应该被禁，请联系我的邮箱{' '}
         <a href={`mailto:${ADMIN_EMAIL1}`} className="font-bold underline">
           {ADMIN_EMAIL1}
         </a>

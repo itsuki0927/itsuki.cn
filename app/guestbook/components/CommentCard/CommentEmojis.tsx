@@ -1,12 +1,12 @@
-import { Comment } from "@/types/comment";
-import { motion } from "framer-motion";
-import clsx from "clsx";
-import React from "react";
-import EmojiPopover from "../EmojiPopover";
-import { Plus, Smile } from "lucide-react";
+import { Comment } from '@/types/comment';
+import { motion } from 'framer-motion';
+import clsx from 'clsx';
+import React from 'react';
+import EmojiPopover from '../EmojiPopover';
+import { Plus, Smile } from 'lucide-react';
 
 interface CommentEmojisProps {
-  emoji: Comment["emoji"];
+  emoji: Comment['emoji'];
   onEmojiClick: (emoji: string) => void;
 }
 
@@ -21,7 +21,7 @@ const CommentEmojis = ({ emoji, onEmojiClick }: CommentEmojisProps) => {
             <motion.li key={emoji}>
               <button
                 className={clsx(
-                  "flex mr-1 sm:mr-2 mt-1 sm:mt-2 items-center h-6 text-xs rounded-md bg-blue-100 border border-solid border-blue-100 py-[2px] pr-[6px] pl-1",
+                  'flex mr-1 sm:mr-2 mt-1 sm:mt-2 items-center h-6 text-xs rounded-md bg-blue-100 border border-solid border-blue-100 py-[2px] pr-[6px] pl-1',
                 )}
                 onClick={() => onEmojiClick(emoji)}
                 type="button"
@@ -38,7 +38,7 @@ const CommentEmojis = ({ emoji, onEmojiClick }: CommentEmojisProps) => {
           <EmojiPopover key="smile1" onEmojiClick={onEmojiClick}>
             <button
               className={clsx(
-                "flex mt-2 items-center h-6 text-xs rounded-md bg-gray-100 border border-solid border-gray-100 py-[2px] pr-[6px] pl-1 hover:bg-white",
+                'flex mt-2 items-center h-6 text-xs rounded-md bg-gray-100 border border-solid border-gray-100 py-[2px] pr-[6px] pl-1 hover:bg-white',
               )}
               type="button"
             >

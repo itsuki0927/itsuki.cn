@@ -1,10 +1,10 @@
-import { idToUuid } from "notion-utils";
-import getAllPageIds from "./getAllPageIds";
-import getPageProperties from "./getPageProperties";
-import filterPublishedPosts from "./filterPublishedBlogs";
-import { NOTION_PAGE_ID } from "@/constants/notion";
-import { Blog } from "@/types/blog";
-import getRootPage from "./getRootPage";
+import { idToUuid } from 'notion-utils';
+import getAllPageIds from './getAllPageIds';
+import getPageProperties from './getPageProperties';
+import filterPublishedPosts from './filterPublishedBlogs';
+import { Blog } from '@/types/blog';
+import getRootPage from './getRootPage';
+import { NOTION_PAGE_ID } from '@/constants/env';
 
 export interface GetAllBlogsParams {
   onlyRecent?: boolean;
@@ -18,8 +18,8 @@ async function getAllBlogs({ onlyRecent }: GetAllBlogsParams = {}) {
   const rawMetadata = block[id]?.value;
 
   if (
-    rawMetadata?.type !== "collection_view_page" &&
-    rawMetadata?.type !== "collection_view"
+    rawMetadata?.type !== 'collection_view_page' &&
+    rawMetadata?.type !== 'collection_view'
   ) {
     console.log(`pageId '${id}' is not a database`);
     return null;

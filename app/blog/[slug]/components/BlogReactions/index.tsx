@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import { updateReactions } from "@/actions/blog";
-import { Blog } from "@/types/blog";
-import { motion, useMotionValue } from "framer-motion";
-import React from "react";
-import ReactIcon from "./ReactIcon";
-import { useToast } from "@/components/ui/use-toast";
+import { updateReactions } from '@/actions/blog';
+import { Blog } from '@/types/blog';
+import { motion, useMotionValue } from 'framer-motion';
+import React from 'react';
+import ReactIcon from './ReactIcon';
+import { useToast } from '@/components/ui/use-toast';
 
-function moodToReactions(mood: Blog["mood"]) {
+function moodToReactions(mood: Blog['mood']) {
   switch (mood) {
-    case "happy":
-      return ["claps", "tada", "confetti", "fire"];
-    case "sad":
-      return ["pray", "cry", "heart", "hugs"];
+    case 'happy':
+      return ['claps', 'tada', 'confetti', 'fire'];
+    case 'sad':
+      return ['pray', 'cry', 'heart', 'hugs'];
     default:
-      return ["claps", "heart", "thumbs-up", "fire"];
+      return ['claps', 'heart', 'thumbs-up', 'fire'];
   }
 }
 
-interface BlogReactionsProps extends Pick<Blog, "id"> {
+interface BlogReactionsProps extends Pick<Blog, 'id'> {
   reactions?: number[];
-  mood: Blog["mood"];
+  mood: Blog['mood'];
 }
 
 const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
@@ -49,7 +49,7 @@ const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
       } catch (err: any) {
         console.dir(err);
         toast({
-          content: "点赞失败",
+          content: '点赞失败',
           description: err.message,
         });
       }
@@ -75,7 +75,7 @@ const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
       transition={{
         delay: 0.5,
         duration: 0.55,
-        type: "spring",
+        type: 'spring',
         damping: 15,
         stiffness: 180,
       }}

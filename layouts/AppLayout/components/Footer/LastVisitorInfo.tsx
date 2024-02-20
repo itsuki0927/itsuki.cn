@@ -1,6 +1,7 @@
-import { kvKeys } from "@/constants/kv";
-import { redis } from "@/libs/upstash";
-import { MousePointerClick } from "lucide-react";
+import { VERCEL_ENV } from '@/constants/env';
+import { kvKeys } from '@/constants/kv';
+import { redis } from '@/libs/upstash';
+import { MousePointerClick } from 'lucide-react';
 
 interface VisitorGeolocation {
   country: string;
@@ -10,7 +11,7 @@ interface VisitorGeolocation {
 
 const LastVisitorInfo = async () => {
   let lastVisitor: VisitorGeolocation | undefined = undefined;
-  if (process.env.NODE_ENV === "production") {
+  if (VERCEL_ENV === 'production') {
     const [lv, cv] = await redis.mget<VisitorGeolocation[]>(
       kvKeys.lastVisitor,
       kvKeys.currentVisitor,
@@ -21,8 +22,8 @@ const LastVisitorInfo = async () => {
 
   if (!lastVisitor) {
     lastVisitor = {
-      country: "US",
-      flag: "🇺🇸",
+      country: 'US',
+      flag: '🇺🇸',
     };
   }
 
@@ -31,7 +32,7 @@ const LastVisitorInfo = async () => {
       <MousePointerClick size={16} className="h-4 w-4" />
       <span>
         最近访客来自&nbsp;
-        {[lastVisitor.city, lastVisitor.country].filter(Boolean).join(", ")}
+        {[lastVisitor.city, lastVisitor.country].filter(Boolean).join(', ')}
       </span>
       <span className="font-medium">{lastVisitor.flag}</span>
     </span>

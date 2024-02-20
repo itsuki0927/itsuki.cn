@@ -1,12 +1,12 @@
-import ExternalLink from "@/components/common/ExternalLink";
-import Juejin from "@/components/icon/Juejin";
-import Sifou from "@/components/icon/Sifou";
-import { ROUTE_LIST_WITH_HOME } from "@/constants/route";
-import { Github } from "lucide-react";
-import Link from "next/link";
-import Logo from "../Logo";
-import LastVisitorInfo from "./LastVisitorInfo";
-import TotalPageViews from "./TotalPageViews";
+import ExternalLink from '@/components/common/ExternalLink';
+import Juejin from '@/components/icon/Juejin';
+import Sifou from '@/components/icon/Sifou';
+import { ROUTE_LIST_WITH_HOME } from '@/constants/route';
+import { Github } from 'lucide-react';
+import Link from 'next/link';
+import Logo from '../Logo';
+import LastVisitorInfo from './LastVisitorInfo';
+import TotalPageViews from './TotalPageViews';
 
 const Footer = async () => {
   return (

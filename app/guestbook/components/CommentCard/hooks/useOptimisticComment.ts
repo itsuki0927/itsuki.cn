@@ -1,11 +1,11 @@
-import { useOptimistic } from "react";
-import { useSession } from "next-auth/react";
-import { Comment, CommentEmoji } from "@/types/comment";
+import { useOptimistic } from 'react';
+import { useSession } from 'next-auth/react';
+import { Comment, CommentEmoji } from '@/types/comment';
 
 const useOptimisticComment = (comment: Comment) => {
   const { data: session } = useSession();
   const user = session?.user;
-  const userEmail = user?.email ?? "";
+  const userEmail = user?.email ?? '';
 
   return useOptimistic(comment, (state, newState: string) => {
     const emoji = (state.emoji || {}) as CommentEmoji;

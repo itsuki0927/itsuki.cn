@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import clsx from "clsx";
-import type { Language } from "prism-react-renderer";
-import { Highlight } from "prism-react-renderer";
-import { calculateLinesToHighlight, hasTitle } from "./utils";
-import styles from "./style.module.scss";
+import clsx from 'clsx';
+import type { Language } from 'prism-react-renderer';
+import { Highlight } from 'prism-react-renderer';
+import { calculateLinesToHighlight, hasTitle } from './utils';
+import styles from './style.module.scss';
 
 export interface CodeBlockProps {
   codeString: string;
@@ -43,7 +43,7 @@ const HighlightedCodeText = ({
               key,
               ...lineRestProps
             } = getLineProps({
-              className: highlightLine?.(index) ? styles.highlight : "",
+              className: highlightLine?.(index) ? styles.highlight : '',
               key: index,
               line,
             });
@@ -59,7 +59,7 @@ const HighlightedCodeText = ({
                   enabledLineHover && styles.hover,
                   !displayLineNumber && styles.hiddenLineNumber,
                 )}
-                data-testid={highlightLine?.(index) ? "highlight-line" : "line"}
+                data-testid={highlightLine?.(index) ? 'highlight-line' : 'line'}
                 key={key}
                 {...lineRestProps}
               >

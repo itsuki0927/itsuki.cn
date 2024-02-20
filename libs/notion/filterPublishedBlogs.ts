@@ -1,5 +1,5 @@
-import { Blog, BlogState } from "@/types/blog";
-import { GetAllBlogsParams } from "./getAllBlogs";
+import { Blog, BlogState } from '@/types/blog';
+import { GetAllBlogsParams } from './getAllBlogs';
 
 interface FilterPublishedPostsParams extends GetAllBlogsParams {
   posts: Blog[];
@@ -13,7 +13,7 @@ const filterPublishedPosts = ({
   return posts
     .filter((post) => {
       if (onlyRecent) {
-        return post.recent && post?.recent === "true";
+        return post.recent && post?.recent === 'true';
       }
       return true;
     })

@@ -1,9 +1,9 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable no-case-declarations */
-import clsx from "clsx";
-import { forwardRef, useMemo, useRef } from "react";
-import type { RichTextareaHandle, StyleOrRender } from "rich-textarea";
-import { RichTextarea, createRegexRenderer } from "rich-textarea";
+import clsx from 'clsx';
+import { forwardRef, useMemo, useRef } from 'react';
+import type { RichTextareaHandle, StyleOrRender } from 'rich-textarea';
+import { RichTextarea, createRegexRenderer } from 'rich-textarea';
 
 interface CommentInputProps {
   className?: string;
@@ -39,7 +39,7 @@ const CommentInput = forwardRef<RichTextareaHandle, CommentInputProps>(
       <RichTextarea
         autoHeight
         className={clsx(
-          "text-zinc-600 font-normal w-full !p-2 text-sm focus:outline-none",
+          'text-zinc-600 font-normal w-full !p-2 text-sm focus:outline-none',
           className,
         )}
         onChange={(e) => {
@@ -47,14 +47,14 @@ const CommentInput = forwardRef<RichTextareaHandle, CommentInputProps>(
         }}
         placeholder="说点什么?"
         ref={(currentRef) => {
-          if (ref && "current" in ref) {
+          if (ref && 'current' in ref) {
             ref.current = currentRef;
           }
           innerRef.current = currentRef;
         }}
         style={{
-          width: "100%",
-          minHeight: "100px",
+          width: '100%',
+          minHeight: '100px',
         }}
         value={value}
       >
@@ -64,6 +64,6 @@ const CommentInput = forwardRef<RichTextareaHandle, CommentInputProps>(
   },
 );
 
-CommentInput.displayName = "CommentInput";
+CommentInput.displayName = 'CommentInput';
 
 export default CommentInput;

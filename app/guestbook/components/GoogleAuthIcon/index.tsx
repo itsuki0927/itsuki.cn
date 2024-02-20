@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import type { MouseEvent } from "react";
-import { signIn } from "next-auth/react";
-import { Chrome } from "lucide-react";
+import type { MouseEvent } from 'react';
+import { signIn } from 'next-auth/react';
+import { Chrome } from 'lucide-react';
 
 interface GoogleIconProps {
   onClick?: (e: MouseEvent) => void;

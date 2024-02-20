@@ -1,6 +1,6 @@
-import Image, { type ImageProps } from "next/image";
+import Image, { type ImageProps } from 'next/image';
 
-const shimmer = (w: ImageProps["width"], h: ImageProps["height"]) => `
+const shimmer = (w: ImageProps['width'], h: ImageProps['height']) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <linearGradient id="g">
@@ -15,26 +15,26 @@ const shimmer = (w: ImageProps["width"], h: ImageProps["height"]) => `
 </svg>`;
 
 const toBase64 = (str: string) =>
-  typeof window !== "undefined"
+  typeof window !== 'undefined'
     ? window.btoa(str)
-    : Buffer.from(str).toString("base64");
+    : Buffer.from(str).toString('base64');
 
 const buildBase64 = (
-  width: ImageProps["width"],
-  height: ImageProps["height"],
+  width: ImageProps['width'],
+  height: ImageProps['height'],
 ) => toBase64(shimmer(width, height));
 
-type MyImageProps = Omit<ImageProps, "placeholder">;
+type MyImageProps = Omit<ImageProps, 'placeholder'>;
 
 const getNumber = (n: number | `${number}` = 0) => {
-  if (typeof n === "number") {
+  if (typeof n === 'number') {
     return n;
   }
-  return Number(n.replace("${", "").replace("}", ""));
+  return Number(n.replace('${', '').replace('}', ''));
 };
 
 const MyImage = (props: MyImageProps) => {
-  const placeholderProps: Pick<ImageProps, "placeholder"> = {};
+  const placeholderProps: Pick<ImageProps, 'placeholder'> = {};
   if (getNumber(props.width) > 40 || getNumber(props.height) > 40) {
     placeholderProps.placeholder = `data:image/svg+xml;base64,${buildBase64(
       props.width || 700,

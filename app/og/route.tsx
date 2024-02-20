@@ -1,13 +1,13 @@
-import { ImageResponse } from "next/og";
-import { NextRequest } from "next/server";
+import { ImageResponse } from 'next/og';
+import { NextRequest } from 'next/server';
 
-export const runtime = "edge";
+export const runtime = 'edge';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
-  const postTitle = searchParams.get("title");
+  const postTitle = searchParams.get('title');
   const font = fetch(
-    new URL("../../public/fonts/kaisei-tokumin-bold.ttf", import.meta.url),
+    new URL('../../public/fonts/kaisei-tokumin-bold.ttf', import.meta.url),
   ).then((res) => res.arrayBuffer());
   const fontData = await font;
 
@@ -15,27 +15,27 @@ export async function GET(req: NextRequest) {
     (
       <div
         style={{
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          justifyContent: "center",
-          backgroundImage: "url(https://itsuki.cn/og-bg.png)",
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          backgroundImage: 'url(https://itsuki.cn/og-bg.png)',
         }}
       >
         <div
           style={{
             marginLeft: 190,
             marginRight: 190,
-            display: "flex",
+            display: 'flex',
             fontSize: 130,
-            fontFamily: "Kaisei Tokumin",
-            letterSpacing: "-0.05em",
-            fontStyle: "normal",
-            color: "white",
-            lineHeight: "120px",
-            whiteSpace: "pre-wrap",
+            fontFamily: 'Kaisei Tokumin',
+            letterSpacing: '-0.05em',
+            fontStyle: 'normal',
+            color: 'white',
+            lineHeight: '120px',
+            whiteSpace: 'pre-wrap',
           }}
         >
           {postTitle}
@@ -47,9 +47,9 @@ export async function GET(req: NextRequest) {
       height: 1080,
       fonts: [
         {
-          name: "Kaisei Tokumin",
+          name: 'Kaisei Tokumin',
           data: fontData,
-          style: "normal",
+          style: 'normal',
         },
       ],
     },

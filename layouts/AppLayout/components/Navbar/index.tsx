@@ -1,7 +1,7 @@
-import Logo from "../Logo";
-import Link from "next/link";
-import { ROUTE_LIST } from "@/constants/route";
-import { isAdminSession } from "@/actions/session";
+import Logo from '../Logo';
+import Link from 'next/link';
+import { ROUTE_LIST } from '@/constants/route';
+import { isAdminSession } from '@/actions/session';
 
 const Navbar = async () => {
   const isAdmin = await isAdminSession();

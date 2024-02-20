@@ -1,10 +1,10 @@
-import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import { Input } from '@/components/ui/input';
+import React, { useState } from 'react';
 
 interface CommentSearchInputProps {}
 
 const CommentSearchInput = ({}: CommentSearchInputProps) => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
 
   return (
     <Input

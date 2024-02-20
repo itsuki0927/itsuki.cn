@@ -1,5 +1,5 @@
-import { NOTION_PAGE_ID } from "@/constants/notion";
-import index from ".";
+import { NOTION_PAGE_ID } from '@/constants/notion';
+import index from '.';
 
 const getRootPage = async () => {
   let id = NOTION_PAGE_ID;

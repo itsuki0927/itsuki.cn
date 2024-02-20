@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import CommentSender from "../CommentSender";
-import { createComment } from "@/actions/comment";
-import { useToast } from "@/components/ui/use-toast";
+import React, { useState } from 'react';
+import CommentSender from '../CommentSender';
+import { createComment } from '@/actions/comment';
+import { useToast } from '@/components/ui/use-toast';
 
 const GuestbookSenderForm = () => {
   const [isLoading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ const GuestbookSenderForm = () => {
     } catch (err: any) {
       console.dir(err);
       toast({
-        title: "发送失败",
+        title: '发送失败',
         description: err.message,
       });
     } finally {

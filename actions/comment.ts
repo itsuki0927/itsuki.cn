@@ -1,25 +1,25 @@
-"use server";
+'use server';
 
-import { getSession, isAdminSession } from "@/actions/session";
-import { revalidateTag, unstable_noStore as noStore } from "next/cache";
-import { TAGS } from "@/constants/tag";
-import { InsertComment } from "@/types/comment";
-import { CommentState } from "@/constants/comment";
-import { createBrowserClient } from "@/libs/supabase";
-import { checkIPIsBlocked, getIP } from "./ip";
+import { getSession, isAdminSession } from '@/actions/session';
+import { revalidateTag, unstable_noStore as noStore } from 'next/cache';
+import { TAGS } from '@/constants/tag';
+import { InsertComment } from '@/types/comment';
+import { CommentState } from '@/constants/comment';
+import { createBrowserClient } from '@/libs/supabase';
+import { checkIPIsBlocked, getIP } from './ip';
 
 export const getComments = async (blogId: Number) => {
   noStore();
   const supabase = createBrowserClient();
   try {
     const { data: comments } = await supabase
-      .from("comment")
-      .select("*")
-      .eq("blogId", blogId)
-      .order("createdAt", { ascending: false });
+      .from('comment')
+      .select('*')
+      .eq('blogId', blogId)
+      .order('createdAt', { ascending: false });
     return comments;
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
     return null;
   }
 };
@@ -38,27 +38,27 @@ export const getAllComments = async (params: SearchCommentParams = {}) => {
   const supabase = createBrowserClient();
   try {
     const builder = supabase
-      .from("comment")
-      .select("*")
-      .order("createdAt", { ascending: false });
+      .from('comment')
+      .select('*')
+      .order('createdAt', { ascending: false });
     if (params.state) {
-      builder.eq("state", params.state);
+      builder.eq('state', params.state);
     }
     if (params.blogId) {
-      builder.eq("blogId", params.blogId);
+      builder.eq('blogId', params.blogId);
     }
 
     const { data: comments } = await builder;
 
     return comments;
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
     return null;
   }
 };
 
 export const createComment = async (
-  row: Pick<InsertComment, "agent" | "blogId" | "content">,
+  row: Pick<InsertComment, 'agent' | 'blogId' | 'content'>,
 ) => {
   const user = await getSession();
   if (!user) {
@@ -67,17 +67,17 @@ export const createComment = async (
   const ip = getIP();
   const isBlocked = await checkIPIsBlocked();
   if (isBlocked) {
-    throw new Error("You have been blocked.");
+    throw new Error('You have been blocked.');
   }
-  console.log("ip:", ip);
+  console.log('ip:', ip);
   const input = { ...row, ...user, ip };
   const supabase = createBrowserClient();
   try {
-    const { data } = await supabase.from("comment").insert([input]).select();
+    const { data } = await supabase.from('comment').insert([input]).select();
     revalidateTag(TAGS.comment);
     return data;
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
     return null;
   }
 };
@@ -91,20 +91,20 @@ export const updateCommentsState = async (
     return;
   }
   if (ids.some((id) => isNaN(id))) {
-    throw new Error("参数错误");
+    throw new Error('参数错误');
   }
 
   const supabase = createBrowserClient();
   try {
     const { data } = await supabase
-      .from("comment")
+      .from('comment')
       .update({ state })
-      .in("id", ids);
+      .in('id', ids);
 
     revalidateTag(TAGS.adminComment);
     return data;
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
     return null;
   }
 };
@@ -118,17 +118,17 @@ export const deleteComments = async (ids: number[]) => {
     return;
   }
   if (ids.some((id) => isNaN(id))) {
-    throw new Error("参数错误");
+    throw new Error('参数错误');
   }
 
   const supabase = createBrowserClient();
   try {
-    const { data } = await supabase.from("comment").delete().in("id", ids);
+    const { data } = await supabase.from('comment').delete().in('id', ids);
 
     revalidateTag(TAGS.adminComment);
     return data;
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
     return null;
   }
 };
@@ -138,25 +138,25 @@ export const deleteComment = (id: number) => deleteComments([id]);
 export const likeComment = async (id: number, emoji: string) => {
   const isBlocked = await checkIPIsBlocked();
   if (isBlocked) {
-    throw new Error("You have been blocked.");
+    throw new Error('You have been blocked.');
   }
   const session = await getSession();
   if (!session) {
     return;
   }
   if (isNaN(id)) {
-    throw new Error("参数错误");
+    throw new Error('参数错误');
   }
 
   const supabase = createBrowserClient();
-  const { data } = await supabase.from("comment").select("*").eq("id", id);
+  const { data } = await supabase.from('comment').select('*').eq('id', id);
   const comment = data?.at(0);
   if (!data || !comment) {
-    throw new Error("评论不存在");
+    throw new Error('评论不存在');
   }
 
   if (comment.state !== 0) {
-    throw new Error("评论还没发布呢");
+    throw new Error('评论还没发布呢');
   }
 
   const currentEmojiMap = comment.emoji || {};
@@ -178,9 +178,9 @@ export const likeComment = async (id: number, emoji: string) => {
   }
 
   const result = await supabase
-    .from("comment")
+    .from('comment')
     .update({ emoji: currentEmojiMap })
-    .eq("id", id);
+    .eq('id', id);
 
   return result;
 };

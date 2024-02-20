@@ -1,13 +1,13 @@
-import React from "react";
-import BlogContentRender from "./components/BlogContentRender";
-import { Metadata } from "next";
-import getBlog from "@/libs/notion/getBlog";
-import getAllBlogs from "@/libs/notion/getAllBlogs";
-import { PageProps } from "@/types/common";
-import { getBlogViews, getReactions } from "@/actions/blog";
-import getRootPage from "@/libs/notion/getRootPage";
-import BlogTableOfContent from "./components/BlogTableOfContent";
-import BlogReactions from "./components/BlogReactions";
+import React from 'react';
+import BlogContentRender from './components/BlogContentRender';
+import { Metadata } from 'next';
+import getBlog from '@/libs/notion/getBlog';
+import getAllBlogs from '@/libs/notion/getAllBlogs';
+import { PageProps } from '@/types/common';
+import { getBlogViews, getReactions } from '@/actions/blog';
+import getRootPage from '@/libs/notion/getRootPage';
+import BlogTableOfContent from './components/BlogTableOfContent';
+import BlogReactions from './components/BlogReactions';
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
@@ -33,7 +33,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      type: "article",
+      type: 'article',
       publishedTime: publishedAt?.toLocaleString(),
       url: `https://itsuki.cn/blog/${params.slug}`,
       images: [
@@ -43,7 +43,7 @@ export async function generateMetadata({
       ],
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title,
       description,
       images: [ogImage],

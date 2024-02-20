@@ -1,7 +1,7 @@
-import { auth } from "@/libs/auth";
-import GithubAuthIcon from "../GithubAuthIcon";
-import GoogleAuthIcon from "../GoogleAuthIcon";
-import GuestbookSenderForm from "./GuestbookSenderForm";
+import { auth } from '@/libs/auth';
+import GithubAuthIcon from '../GithubAuthIcon';
+import GoogleAuthIcon from '../GoogleAuthIcon';
+import GuestbookSenderForm from './GuestbookSenderForm';
 
 const GuestbookForm = async () => {
   const session = await auth();

@@ -1,9 +1,9 @@
-import clsx from "clsx";
-import type { AreaHTMLAttributes, ReactNode } from "react";
+import clsx from 'clsx';
+import type { AreaHTMLAttributes, ReactNode } from 'react';
 
 type ExternalLinkProps = Omit<
   AreaHTMLAttributes<HTMLAnchorElement>,
-  "href" | "children"
+  'href' | 'children'
 > & {
   href: string;
   children: ReactNode;
@@ -12,13 +12,13 @@ type ExternalLinkProps = Omit<
 const ExternalLink = ({
   href,
   children,
-  className = "",
+  className = '',
   ...rest
 }: ExternalLinkProps) => (
   <a
     {...rest}
     className={clsx(
-      "transition hover:text-gray-800 hover:underline",
+      'transition hover:text-gray-800 hover:underline',
       className,
     )}
     href={href}

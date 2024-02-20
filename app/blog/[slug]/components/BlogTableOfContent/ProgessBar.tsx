@@ -25,14 +25,14 @@ const ProgressBar = ({ progress }: ProgressBarProps) => {
   return (
     <motion.div
       animate="show"
-      className="h-[calc(88vh - 40px)] max-h-[425px] w-[2px] bg-gray-100"
+      className="h-[calc(88vh - 40px)] max-h-[500px] w-[2px] bg-zinc-100"
       custom={visibility}
       initial="hide"
       transition={{ type: 'spring' }}
       variants={progressBarWrapperVariants}
     >
       <motion.div
-        className="h-full w-[2px] origin-top bg-primary"
+        className="h-full w-[2px] origin-top bg-primary/60"
         data-testid="progress-bar"
         data-testprogress={progress}
         style={{

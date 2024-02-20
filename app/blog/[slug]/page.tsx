@@ -1,14 +1,14 @@
-import React from 'react';
-import BlogContentRender from './components/BlogContentRender';
-import { Metadata } from 'next';
-import getBlog from '@/libs/notion/getBlog';
-import getAllBlogs from '@/libs/notion/getAllBlogs';
-import { PageProps } from '@/types/common';
 import { getBlogViews, getReactions } from '@/actions/blog';
+import { BASE_URL } from '@/constants/app';
+import getAllBlogs from '@/libs/notion/getAllBlogs';
+import getBlog from '@/libs/notion/getBlog';
 import getRootPage from '@/libs/notion/getRootPage';
-import BlogTableOfContent from './components/BlogTableOfContent';
-import BlogReactions from './components/BlogReactions';
+import { PageProps } from '@/types/common';
+import { Metadata } from 'next';
 import { ExtendedRecordMap } from 'notion-types';
+import BlogContentRender from './components/BlogContentRender';
+import BlogReactions from './components/BlogReactions';
+import BlogTableOfContent from './components/BlogTableOfContent';
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
@@ -26,7 +26,7 @@ export async function generateMetadata({
   }
 
   const { title, publishedAt, description, cover } = blog;
-  const ogImage = cover ? cover : `https://itsuki.cn/og?title=${title}`;
+  const ogImage = cover ? cover : `${BASE_URL}/og?title=${title}`;
 
   return {
     title,
@@ -36,7 +36,7 @@ export async function generateMetadata({
       description,
       type: 'article',
       publishedTime: publishedAt?.toLocaleString(),
-      url: `https://itsuki.cn/blog/${params.slug}`,
+      url: `${BASE_URL}/blog/${params.slug}`,
       images: [
         {
           url: ogImage,

@@ -12,7 +12,14 @@ import Work from './components/Work';
 const Home = async () => {
   return (
     <main className="container space-y-10">
-      <Title title="大家好，我是五块木头">
+      <Title
+        title={
+          <>
+            大家好，我是
+            <span className="text-gradient-primary ml-1">五块木头</span>
+          </>
+        }
+      >
         <div className="flex gap-4">
           <ExternalLink href="https://github.com/itsuki0927">
             <Github size={20} />

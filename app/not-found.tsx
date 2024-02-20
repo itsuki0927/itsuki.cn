@@ -12,7 +12,7 @@ const NotFoundPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.3 }}
       >
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-violet-500 pointer-events-none select-none">
+        <span className="text-gradient-primary pointer-events-none select-none">
           404
         </span>
       </motion.div>

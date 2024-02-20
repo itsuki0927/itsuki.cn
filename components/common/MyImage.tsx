@@ -4,9 +4,9 @@ const shimmer = (w: ImageProps["width"], h: ImageProps["height"]) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <linearGradient id="g">
-      <stop stop-color="#333" offset="20%" />
-      <stop stop-color="#222" offset="50%" />
-      <stop stop-color="#333" offset="70%" />
+      <stop stop-color="#ccc" offset="20%" />
+      <stop stop-color="#eee" offset="50%" />
+      <stop stop-color="#ccc" offset="70%" />
     </linearGradient>
   </defs>
   <rect width="${w}" height="${h}" fill="#333" />
@@ -19,7 +19,7 @@ const toBase64 = (str: string) =>
     ? window.btoa(str)
     : Buffer.from(str).toString("base64");
 
-export const buildBase64 = (
+const buildBase64 = (
   width: ImageProps["width"],
   height: ImageProps["height"],
 ) => toBase64(shimmer(width, height));
@@ -27,16 +27,16 @@ export const buildBase64 = (
 type MyImageProps = Omit<ImageProps, "placeholder" | "blurDataURL">;
 
 const MyImage = (props: MyImageProps) => {
+  const placeholderProps: Pick<ImageProps, "placeholder"> = {};
+  if (parseFloat(props.width || 0) > 40 || parseFloat(props.height || 0) > 40) {
+    placeholderProps.placeholder = `data:image/svg+xml;base64,${toBase64(
+      shimmer(props.width || 700, props.height || 475),
+    )}`;
+  }
+
   return (
     // eslint-disable-next-line jsx-a11y/alt-text
-    <Image
-      {...props}
-      // placeholder="blur"
-      // blurDataURL={blurDataURL}
-      placeholder={`data:image/svg+xml;base64,${toBase64(
-        shimmer(props.width || 700, props.height || 475),
-      )}`}
-    />
+    <Image {...props} {...placeholderProps} />
   );
 };
 

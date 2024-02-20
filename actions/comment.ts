@@ -6,7 +6,7 @@ import { TAGS } from "@/constants/tag";
 import { InsertComment } from "@/types/comment";
 import { CommentState } from "@/constants/comment";
 import { createBrowserClient } from "@/libs/supabase";
-import { getIP } from "./blog";
+import { checkIPIsBlocked, getIP } from "./ip";
 
 export const getComments = async (blogId: Number) => {
   noStore();
@@ -65,6 +65,10 @@ export const createComment = async (
     return;
   }
   const ip = getIP();
+  const isBlocked = await checkIPIsBlocked();
+  if (isBlocked) {
+    throw new Error("You have been blocked.");
+  }
   console.log("ip:", ip);
   const input = { ...row, ...user, ip };
   const supabase = createBrowserClient();
@@ -132,6 +136,10 @@ export const deleteComments = async (ids: number[]) => {
 export const deleteComment = (id: number) => deleteComments([id]);
 
 export const likeComment = async (id: number, emoji: string) => {
+  const isBlocked = await checkIPIsBlocked();
+  if (isBlocked) {
+    throw new Error("You have been blocked.");
+  }
   const session = await getSession();
   if (!session) {
     return;

@@ -12,6 +12,7 @@ const formatUser = (user: User | null) => {
     avatar: user.image || "",
   };
 };
+
 export const getSession = async () => {
   let session = await auth();
   if (!session || !session.user) {
@@ -20,6 +21,7 @@ export const getSession = async () => {
 
   return formatUser(session.user);
 };
+
 export const isAdminSession = async () => {
   try {
     const session = await getSession();

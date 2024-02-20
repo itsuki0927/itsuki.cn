@@ -2,7 +2,7 @@
 
 import { kvKeys } from "@/constants/kv";
 import { ratelimit, redis } from "@/libs/upstash";
-import { headers } from "next/headers";
+import { checkIPIsBlocked, getIP } from "./ip";
 
 export const getBlogViews = async (slug: string) => {
   let views: number;
@@ -14,20 +14,13 @@ export const getBlogViews = async (slug: string) => {
   return views;
 };
 
-export const getIP = () => {
-  const FALLBACK_IP_ADDRESS = "0.0.0.0";
-  const forwardedFor = headers().get("x-forwarded-for");
-
-  if (forwardedFor) {
-    return forwardedFor.split(",")[0] ?? FALLBACK_IP_ADDRESS;
-  }
-
-  return headers().get("x-real-ip") ?? FALLBACK_IP_ADDRESS;
-};
-
 export const updateReactions = async (id: string, index: number) => {
   if (!id || !(index >= 0 && index < 4)) {
     throw new Error("Missing id or index");
+  }
+  const isBlocked = await checkIPIsBlocked();
+  if (isBlocked) {
+    throw new Error("You have been blocked.");
   }
 
   const key = kvKeys.blogReactions(id);

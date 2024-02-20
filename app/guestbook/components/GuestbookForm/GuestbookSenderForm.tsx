@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import CommentSender from '../CommentSender';
-import { createComment } from '@/actions/comment';
+// import { createComment } from '@/actions/comment';
 import { useToast } from '@/components/ui/use-toast';
+import buildUrl from '@/utils/buildUrl';
 
 const GuestbookSenderForm = () => {
   const [isLoading, setLoading] = useState(false);
@@ -12,11 +13,18 @@ const GuestbookSenderForm = () => {
   const handleSend = async (content: string) => {
     setLoading(true);
     try {
-      const result = await createComment({
-        content,
-        blogId: 10000,
+      const res = await fetch(buildUrl(`/api/comment`), {
+        method: 'POST',
+        body: JSON.stringify({
+          content,
+          blogId: 10000,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
-      return Boolean(result);
+      const data = await res.json();
+      return Boolean(data);
     } catch (err: any) {
       console.dir(err);
       toast({

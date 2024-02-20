@@ -9,6 +9,7 @@ import { ExtendedRecordMap } from 'notion-types';
 import BlogContentRender from './components/BlogContentRender';
 import BlogReactions from './components/BlogReactions';
 import BlogTableOfContent from './components/BlogTableOfContent';
+import { cache } from 'react';
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
@@ -52,6 +53,11 @@ export async function generateMetadata({
   };
 }
 
+export async function generateStaticParams() {
+  const blogs = await getAllBlogs();
+  return blogs.map((blog) => ({ slug: blog.slug }));
+}
+
 const NotionPage = async ({ params }: BlogPageProps) => {
   const slug = params.slug;
   const blogRes = await getBlog(slug);
@@ -79,3 +85,5 @@ const NotionPage = async ({ params }: BlogPageProps) => {
 };
 
 export default NotionPage;
+
+export const revalidate = 60;

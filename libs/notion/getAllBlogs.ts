@@ -62,6 +62,7 @@ const getAllBlogs = cache(
   },
   ['getAllBlogs'],
   {
+    tags: ['getAllBlogs'],
     revalidate: 3600,
   },
 );

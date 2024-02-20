@@ -14,7 +14,7 @@ const getBlog = cache(
     return { recordMap, blog };
   },
   ['getBlog'],
-  { revalidate: 3600 },
+  { tags: ['getBlog'], revalidate: 3600 },
 );
 
 export type GetBlogResponse = Awaited<ReturnType<typeof getBlog>>;

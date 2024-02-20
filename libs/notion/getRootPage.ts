@@ -16,7 +16,7 @@ const getRootPage = cache(
     return { block, schema, collectionQuery };
   },
   ['getRootPage'],
-  { revalidate: 3600 },
+  { tags: ['getRootPage'], revalidate: 3600 },
 );
 
 export default getRootPage;

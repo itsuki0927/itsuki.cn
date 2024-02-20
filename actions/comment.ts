@@ -4,7 +4,8 @@ import { isAdminSession } from '@/actions/session';
 import { CommentState } from '@/constants/comment';
 import { TAGS } from '@/constants/tag';
 import { createBrowserClient } from '@/libs/supabase';
-import { revalidateTag } from 'next/cache';
+import { getMessageFromNormalError } from '@/utils/error';
+import { revalidateTag, unstable_cache } from 'next/cache';
 
 interface SearchCommentParams {
   state?: CommentState;
@@ -92,3 +93,27 @@ export const deleteComments = async (ids: number[]) => {
 };
 
 export const deleteComment = (id: number) => deleteComments([id]);
+
+export const getComments = unstable_cache(
+  async (blogId: number) => {
+    if (!blogId) {
+      throw new Error('Missing id');
+    }
+
+    const supabase = createBrowserClient();
+    try {
+      const { data: comments } = await supabase
+        .from('comment')
+        .select('*')
+        .eq('blogId', blogId)
+        .in('state', [CommentState.Published, CommentState.Auditing])
+        .order('createdAt', { ascending: false });
+      return { data: comments };
+    } catch (error) {
+      console.error('Error:', error);
+      throw new Error(getMessageFromNormalError(error));
+    }
+  },
+  ['getComments'],
+  { revalidate: 3600, tags: ['getComments'] },
+);

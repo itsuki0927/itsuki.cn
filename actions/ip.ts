@@ -4,6 +4,7 @@ import { get } from '@vercel/edge-config';
 import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
 import countries from '@/constants/countries.json';
+import { unstable_noStore } from 'next/cache';
 
 export const getIP = (request?: NextRequest) => {
   if (request && request.ip) {
@@ -43,6 +44,7 @@ export type Geo = Omit<GetGeoByIP, 'short_name' | 'code' | 'desc'> & {
 
 export const getGeoByIP = async (ip: string): Promise<Geo | null> => {
   try {
+    unstable_noStore();
     const res = await fetch(`https://ip.useragentinfo.com/json?ip=${ip}`);
     const data = (await res.json()) as GetGeoByIP;
     const { code, desc, short_name, ...rest } = data;

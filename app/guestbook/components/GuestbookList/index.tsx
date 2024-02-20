@@ -1,16 +1,13 @@
 import { GUESTBOOK } from '@/constants/comment';
-import { auth } from '@/libs/auth';
 import { MessageSquarePlus } from 'lucide-react';
-import { SessionProvider } from 'next-auth/react';
 import CommentCard from '../CommentCard';
 import { getAllComments } from '@/actions/comment';
 
 const GuestbookList = async () => {
-  const session = await auth();
   const comments = await getAllComments({ blogId: GUESTBOOK });
 
   return (
-    <SessionProvider session={session}>
+    <>
       {!comments || comments?.length === 0 ? (
         <div className="bg-white p-4 rounded-xl border border-solid border-zinc-100">
           <MessageSquarePlus size={24} />
@@ -32,7 +29,7 @@ const GuestbookList = async () => {
           ))}
         </ul>
       )}
-    </SessionProvider>
+    </>
   );
 };
 

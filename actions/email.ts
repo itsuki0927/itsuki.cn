@@ -1,6 +1,6 @@
 'use server';
 
-import { FormatUser } from '@/actions/session';
+import { FormatUser } from '@/utils/formatUser';
 import NewGuestbookEmail from '@/components/emails/NewGuestbookEmail';
 import { BASE_URL, RESEND_EMAIL } from '@/constants/app';
 import { ADMIN_EMAIL2, VERCEL_ENV } from '@/constants/env';

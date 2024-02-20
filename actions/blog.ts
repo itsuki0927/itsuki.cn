@@ -1,19 +1,12 @@
-'use server';
-
-import { kvKeys } from '@/constants/kv';
-import { redis } from '@/libs/upstash';
-import { VERCEL_ENV } from '@/constants/env';
-import { supabase } from '@/libs/supabase';
+import { supabaseBrowserClient } from '@/libs/supabase/client';
 import { BlogSearchParams } from '@/types/blog';
+import { getCategoryBySlug } from './category';
 
-export const getBlogViews = async (slug: string) => {
-  let views: number;
-  if (VERCEL_ENV === 'production') {
-    views = await redis.incr(kvKeys.blogViews(slug));
-  } else {
-    views = 30578;
-  }
-  return views;
+export const readBlog = async (id: number) => {
+  supabaseBrowserClient.rpc('views_increment', {
+    x: 1,
+    rowid: id,
+  });
 };
 
 export const getAllBlogs = async ({
@@ -21,19 +14,28 @@ export const getAllBlogs = async ({
   categorySlug,
   tagSlug,
 }: BlogSearchParams = {}) => {
-  const builder = supabase.from('blog').select('*');
+  const builder = supabaseBrowserClient.from('blog').select('*');
 
   if (favorite) {
     builder.eq('favorite', favorite);
   }
 
+  if (categorySlug) {
+    const category = await getCategoryBySlug(categorySlug);
+    if (category) {
+      builder.eq('categoryId', category.id);
+    }
+  }
+
   const { data } = await builder;
-  console.log('data:', data);
+
   return data || [];
 };
 
 export const getBlog = async (slug: string) => {
-  const { data } = await supabase.from('blog').select('*').eq('slug', slug);
-  console.log('data:', data);
+  const { data } = await supabaseBrowserClient
+    .from('blog')
+    .select('*')
+    .eq('slug', slug);
   return data?.at(0);
 };

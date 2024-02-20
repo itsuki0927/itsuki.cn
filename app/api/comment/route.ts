@@ -1,10 +1,10 @@
 import { sendGuestbookEmail } from '@/actions/email';
 import { getLocationByIP, getIP } from '@/actions/ip';
-import { getSession } from '@/actions/session';
-import { COMMENT_TABLE, CommentState, GUESTBOOK } from '@/constants/comment';
+import { createSupabaseServerClient } from '@/libs/supabase/server';
+import { GUESTBOOK, commentState } from '@/constants/comment';
+import { VERCEL_ENV } from '@/constants/env';
 import { kvKeys } from '@/constants/kv';
 import { TAGS } from '@/constants/tag';
-import { supabase } from '@/libs/supabase';
 import { redis } from '@/libs/upstash';
 import { InsertComment } from '@/types/comment';
 import { Ratelimit } from '@upstash/ratelimit';
@@ -14,6 +14,7 @@ import {
   NextResponse,
   userAgent as getUserAgent,
 } from 'next/server';
+import { formatUser } from '@/utils/formatUser';
 
 const ratelimit = new Ratelimit({
   redis,
@@ -22,7 +23,8 @@ const ratelimit = new Ratelimit({
 });
 
 export async function POST(req: NextRequest) {
-  const user = await getSession();
+  const supabase = createSupabaseServerClient();
+  const { data: user } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
@@ -40,16 +42,26 @@ export async function POST(req: NextRequest) {
     });
   }
 
+  const formatedUser = formatUser(user.user);
   const userAgent = getUserAgent({ headers: req.headers });
   const geo = await getLocationByIP(ip);
-  console.log('geo:', req.geo, geo, ip);
-  const input = { ...row, ...user, userAgent, geo, ip };
+  console.log('geo:', geo, ip, formatedUser);
+  const input = {
+    ...row,
+    ...formatedUser,
+    userAgent,
+    geo,
+    ip,
+    isDev: VERCEL_ENV !== 'production',
+  };
 
   try {
-    const { data } = await supabase.from(COMMENT_TABLE).insert(input).select();
+    const { data } = await supabase.from('comment_dev').insert(input).select();
+
+    console.log('data:', data);
 
     if (input.blogId === GUESTBOOK) {
-      sendGuestbookEmail({ user, content: input.content });
+      sendGuestbookEmail({ user: formatedUser, content: input.content });
       // revalidatePath('/guestbook');
       revalidateTag('getComments');
     }
@@ -65,29 +77,30 @@ export async function PATCH(req: NextRequest) {
   const body = (await req.json()) as { id: number; emoji: string };
   console.log('body:', body);
   const { id, emoji } = body;
-  const session = await getSession();
-  if (!session) {
+  const supabase = createSupabaseServerClient();
+  const { data: user } = await supabase.auth.getUser();
+  if (!user) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
   if (isNaN(id)) {
     return NextResponse.json({ error: '参数错误' }, { status: 400 });
   }
 
-  const { data } = await supabase.from(COMMENT_TABLE).select('*').eq('id', id);
+  const { data } = await supabase.from('comment_dev').select('*').eq('id', id);
   const comment = data?.at(0);
   if (!data || !comment) {
     return NextResponse.json({ error: '评论不存在' }, { status: 400 });
   }
 
   if (
-    comment.state !== CommentState.Published &&
-    comment.state !== CommentState.Auditing
+    comment.state !== commentState.published &&
+    comment.state !== commentState.auditing
   ) {
     return NextResponse.json({ error: '评论还没发布呢' }, { status: 400 });
   }
 
   const currentEmojiMap = comment.emoji || {};
-  const email = session.email;
+  const email = user.user?.email || '';
 
   // 如果有 emoji
   if (currentEmojiMap) {
@@ -105,7 +118,7 @@ export async function PATCH(req: NextRequest) {
   }
 
   const result = await supabase
-    .from(COMMENT_TABLE)
+    .from('comment_dev')
     .update({ emoji: currentEmojiMap })
     .eq('id', id);
 

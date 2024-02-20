@@ -13,14 +13,6 @@ namespace NodeJS {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: string;
     SUPABASE_SERVICE_ROLE_KEY: string;
 
-    // next auth
-    NEXTAUTH_URL: string;
-    NEXTAUTH_SECRET: string;
-    GITHUB_CLIENT_KEY: string;
-    GITHUB_CLIENT_SECRET: string;
-    GOOGLE_CLIENT_ID: string;
-    GOOGLE_CLIENT_SECRET: string;
-
     // admin email
     NEXT_PUBLIC_ADMIN_EMAIL1: string;
     ADMIN_EMAIL2: string;

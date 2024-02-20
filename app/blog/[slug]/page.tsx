@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import BlogContentSkeleton from './components/BlogContentRender/skeleton';
-import BlogHeader from './components/BlogPageHeader';
+import BlogHeader from './components/BlogHeader';
 import BlogReactionsUI from './components/BlogReactions/UI';
 import BlogTableOfContent from './components/BlogTableOfContent';
 
@@ -64,8 +64,6 @@ const fetchBlog = async (path: string) => {
     if (blog === null) {
       return notFound();
     }
-    // const newRead = await readBlog(blog.id);
-    // blog.reading = newRead || blog.reading;
   } catch (err) {
     return notFound();
   }
@@ -73,7 +71,7 @@ const fetchBlog = async (path: string) => {
   return blog;
 };
 
-const NotionPage = async ({ params }: BlogPageProps) => {
+const BlogPage = async ({ params }: BlogPageProps) => {
   const slug = params.slug;
   if (!slug) {
     notFound();
@@ -125,4 +123,4 @@ const NotionPage = async ({ params }: BlogPageProps) => {
   );
 };
 
-export default NotionPage;
+export default BlogPage;

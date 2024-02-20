@@ -2,7 +2,6 @@ import { getAllCategories, getCategoryBySlug } from '@/actions/category';
 import BlogList from '@/app/blog/components/BlogList';
 import { BASE_URL } from '@/constants/app';
 import Title from '@/layouts/AppLayout/components/Title';
-import ContentLayout from '@/layouts/ContentLayout';
 import { PageProps } from '@/types/common';
 import { Metadata } from 'next';
 
@@ -39,7 +38,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
     <div className="container">
       <Title title={category?.title}>{category?.description}</Title>
 
-      <BlogList />
+      <BlogList params={{ categorySlug: slug }} />
     </div>
   );
 };

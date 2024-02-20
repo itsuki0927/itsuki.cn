@@ -116,6 +116,7 @@ const CommentSender = ({
       <div className="py-1 px-2 flex gap-2 justify-between">
         <div className="flex gap-2 items-center">
           <EmojiPopover
+            key="emoji"
             triggerClassName="text-zinc-500 w-6 h-6 flex justify-center items-center rounded-md hover:bg-primary hover:text-white"
             onEmojiClick={handleEmoji}
           >

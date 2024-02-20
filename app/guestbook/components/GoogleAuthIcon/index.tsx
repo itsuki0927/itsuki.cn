@@ -1,8 +1,8 @@
 'use client';
 
 import type { MouseEvent } from 'react';
-import { signIn } from 'next-auth/react';
 import { Chrome } from 'lucide-react';
+import { supabaseBrowserClient } from '@/libs/supabase/client';
 
 interface GoogleIconProps {
   onClick?: (e: MouseEvent) => void;
@@ -10,8 +10,13 @@ interface GoogleIconProps {
 
 const GoogleAuthIcon = ({ onClick }: GoogleIconProps) => {
   const handleSignIn = (e: MouseEvent) => {
-    signIn();
     onClick?.(e);
+    supabaseBrowserClient.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    });
   };
 
   return (

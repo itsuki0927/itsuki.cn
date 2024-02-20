@@ -1,8 +1,8 @@
 'use client';
 
 import type { MouseEvent } from 'react';
-import { signIn } from 'next-auth/react';
 import { Github } from 'lucide-react';
+import { supabaseBrowserClient } from '@/libs/supabase/client';
 
 interface GithubIconProps {
   onClick?: (e: MouseEvent) => void;
@@ -10,8 +10,13 @@ interface GithubIconProps {
 
 const GithubAuthIcon = ({ onClick }: GithubIconProps) => {
   const handleSignIn = (e: MouseEvent) => {
-    signIn();
     onClick?.(e);
+    supabaseBrowserClient.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    });
   };
 
   return (

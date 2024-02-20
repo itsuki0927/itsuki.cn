@@ -18,8 +18,9 @@ import {
   PartyPopper,
   ThumbsUp,
 } from 'lucide-react';
+import { readBlog } from '@/actions/blog';
 
-function moodToReactions(mood?: Blog['mood']) {
+const moodToReactions = (mood?: Blog['mood']) => {
   switch (mood) {
     case 'happy':
       return ['claps', 'tada', 'confetti', 'fire'];
@@ -28,7 +29,7 @@ function moodToReactions(mood?: Blog['mood']) {
     default:
       return ['claps', 'heart', 'thumbs-up', 'fire'];
   }
-}
+};
 
 const getMoodIcon = (reaction: string) => {
   switch (reaction) {
@@ -73,32 +74,29 @@ const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
     reactions ?? [0, 0, 0, 0],
   );
 
-  const onClick = React.useCallback(
-    async (index: number) => {
-      setCachedReactions((prev) => {
-        const next = [...prev];
-        ++next[index];
-        return next;
+  const onClick = async (index: number) => {
+    setCachedReactions((prev) => {
+      const next = [...prev];
+      ++next[index];
+      return next;
+    });
+    try {
+      const res = await fetch(
+        buildUrl(`/api/reactions?id=${id}&index=${index}`),
+        {
+          method: 'PATCH',
+        },
+      );
+      const { data } = (await res.json()) as { data: number[] };
+      setCachedReactions(data);
+    } catch (err: any) {
+      console.dir(err);
+      toast({
+        content: '点赞失败',
+        description: err.message,
       });
-      try {
-        const res = await fetch(
-          buildUrl(`/api/reactions?id=${id}&index=${index}`),
-          {
-            method: 'PATCH',
-          },
-        );
-        const { data } = (await res.json()) as { data: number[] };
-        setCachedReactions(data);
-      } catch (err: any) {
-        console.dir(err);
-        toast({
-          content: '点赞失败',
-          description: err.message,
-        });
-      }
-    },
-    [id, toast],
-  );
+    }
+  };
 
   return (
     <motion.div

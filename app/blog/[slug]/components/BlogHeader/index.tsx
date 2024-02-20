@@ -1,4 +1,4 @@
-import { getBlog, getBlogViews } from '@/actions/blog';
+import { getBlog } from '@/actions/blog';
 import SmallTag from '@/components/common/SmallTag';
 import { formatDate } from '@/utils/formatDate';
 import { Clock, MessageSquare, MousePointerClick, Type } from 'lucide-react';
@@ -16,7 +16,6 @@ const getReadMinutes = (content: string) => {
 
 const BlogHeader = async ({ slug }: BlogPageHeaderProps) => {
   const blog = await getBlog(slug);
-  const blogViews = await getBlogViews(slug);
   return (
     <>
       <div className="rounded-lg">
@@ -39,10 +38,10 @@ const BlogHeader = async ({ slug }: BlogPageHeaderProps) => {
 
           <span
             className="inline-flex items-center space-x-1.5"
-            title={blogViews?.toString()}
+            title={blog?.views?.toString()}
           >
             <MousePointerClick className="animate-bounce" size={14} />
-            <span>{prettifyNumber(blogViews ?? 0, true)} 次点击</span>
+            <span>{prettifyNumber(blog?.views ?? 0, true)} 次点击</span>
           </span>
 
           <span
@@ -78,5 +77,3 @@ const BlogHeader = async ({ slug }: BlogPageHeaderProps) => {
 };
 
 export default BlogHeader;
-
-// export default BlogPageHeader;

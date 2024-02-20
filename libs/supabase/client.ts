@@ -3,10 +3,7 @@ import {
   NEXT_PUBLIC_SUPABASE_URL,
 } from '@/constants/env';
 import { Database } from '@/types/database';
-import {
-  createBrowserClient as _createBrowserClient,
-  createServerClient as _createServerClient,
-} from '@supabase/ssr';
+import { createBrowserClient as _createBrowserClient } from '@supabase/ssr';
 
 const createBrowserClient = () =>
   _createBrowserClient<Database>(
@@ -14,4 +11,4 @@ const createBrowserClient = () =>
     NEXT_PUBLIC_SUPABASE_ANON_KEY,
   );
 
-export const supabase = createBrowserClient();
+export const supabaseBrowserClient = createBrowserClient();

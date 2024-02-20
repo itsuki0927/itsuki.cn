@@ -1,29 +1,28 @@
 'use server';
 
-import { COMMENT_TABLE, CommentState } from '@/constants/comment';
-import { supabase } from '@/libs/supabase';
+import { VERCEL_ENV } from '@/constants/env';
+import { createSupabaseServerClient } from '@/libs/supabase/server';
 
 interface SearchCommentParams {
-  state?: CommentState;
   blogId?: number;
 }
 
 export const getAllComments = async (params: SearchCommentParams = {}) => {
   try {
-    const builder = supabase
-      .from(COMMENT_TABLE)
+    const builder = createSupabaseServerClient()
+      .from('comment_dev')
       .select('*')
       .order('createdAt', { ascending: false });
-    if (params.state) {
-      builder.eq('state', params.state);
-    }
+
     if (params.blogId) {
       builder.eq('blogId', params.blogId);
+    }
+    if (VERCEL_ENV === 'production') {
+      builder.eq('isDev', false);
     }
 
     const { data: comments } = await builder;
 
-    console.log('comments:', comments);
     return comments || [];
   } catch (error) {
     console.error('Error:', error);

@@ -5,7 +5,6 @@ import { userAgent } from 'next/server';
 import { BlogTag } from './blogTag';
 import { Tag } from './tag';
 import { Category } from './category';
-import { CommentState } from '@/constants/comment';
 
 export type UserAgent = ReturnType<typeof userAgent>;
 
@@ -35,6 +34,7 @@ export type Database = MergeDeep<
             tag: Tag[];
             category: Category;
             reactions: BlogReactions;
+            views: number;
           };
         };
         comment_dev: {
@@ -42,7 +42,6 @@ export type Database = MergeDeep<
             emoji: CommentEmoji;
             userAgent: UserAgent;
             geo: IPLocation | null;
-            state: CommentState;
             provider: string;
           };
           Insert: {
@@ -59,7 +58,6 @@ export type Database = MergeDeep<
             emoji: CommentEmoji;
             userAgent: UserAgent;
             geo: IPLocation | null;
-            state: CommentState;
             provider: string;
           };
           Insert: {

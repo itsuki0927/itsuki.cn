@@ -5,6 +5,7 @@ import CommentSender from '../CommentSender';
 import { useToast } from '@/components/ui/use-toast';
 import buildUrl from '@/utils/buildUrl';
 import { useRouter } from 'next/navigation';
+import { GUESTBOOK } from '@/constants/comment';
 
 const GuestbookSenderForm = () => {
   const [isLoading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const GuestbookSenderForm = () => {
         method: 'POST',
         body: JSON.stringify({
           content,
-          blogId: 10000,
+          blogId: GUESTBOOK,
         }),
         headers: {
           'Content-Type': 'application/json',

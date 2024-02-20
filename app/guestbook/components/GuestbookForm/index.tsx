@@ -1,12 +1,15 @@
-import { auth } from '@/libs/auth';
 import GithubAuthIcon from '../GithubAuthIcon';
 import GoogleAuthIcon from '../GoogleAuthIcon';
 import GuestbookSenderForm from './GuestbookSenderForm';
+import { createSupabaseServerClient } from '@/libs/supabase/server';
 
 const GuestbookForm = async () => {
-  const session = await auth();
+  const supabase = createSupabaseServerClient();
+  const { data } = await supabase.auth.getUser();
 
-  if (session) {
+  console.log('data:', data);
+
+  if (data.user) {
     return <GuestbookSenderForm />;
   }
 

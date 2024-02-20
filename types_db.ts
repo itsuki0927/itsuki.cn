@@ -208,6 +208,7 @@ export type Database = {
           geo: Json | null
           id: number
           ip: string | null
+          isDev: boolean | null
           nickname: string
           parentId: number | null
           slug: string | null
@@ -225,6 +226,7 @@ export type Database = {
           geo?: Json | null
           id?: number
           ip?: string | null
+          isDev?: boolean | null
           nickname?: string
           parentId?: number | null
           slug?: string | null
@@ -242,6 +244,7 @@ export type Database = {
           geo?: Json | null
           id?: number
           ip?: string | null
+          isDev?: boolean | null
           nickname?: string
           parentId?: number | null
           slug?: string | null
@@ -292,7 +295,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      views_increment: {
+        Args: {
+          x: number
+          row_id: number
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       blogMood: "happy" | "sad" | "neutral"

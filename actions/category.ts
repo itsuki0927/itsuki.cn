@@ -1,9 +1,7 @@
-'use server';
-
-import { supabase } from '@/libs/supabase';
+import { supabaseBrowserClient } from '@/libs/supabase/client';
 
 export const getAllCategories = async () => {
-  const { data } = await supabase.from('category').select('*');
+  const { data } = await supabaseBrowserClient.from('category').select('*');
   return data || [];
 };
 

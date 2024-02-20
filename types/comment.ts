@@ -9,3 +9,5 @@ export type InsertComment = CommentTableType['Insert'];
 export type UpdateComment = CommentTableType['Update'];
 
 export type CommentEmoji = Record<string, string[]>;
+
+export type CommentState = Database['public']['Enums']['commentState'];

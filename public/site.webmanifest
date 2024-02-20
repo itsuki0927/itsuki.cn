@@ -1,0 +1,27 @@
+{
+  "name": "五块木头",
+  "short_name": "五块木头",
+  "description": "有关于前端和个人思考的文章: TypeScript、JavaScript、React、Nextjs等等!",
+  "display": "standalone",
+  "start_url": "/",
+  "theme_color": "#1890ff",
+  "background_color": "#fafafa",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/logo-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logo-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

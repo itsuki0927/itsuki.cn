@@ -3,6 +3,7 @@ import React from 'react';
 import HomeCard from './HomeCard';
 import { PieChart } from 'lucide-react';
 import { TOTAL_PAGEVIEWS_BASELINE } from '@/constants/app';
+import prettifyNumber from '@/utils/prettifyNumber';
 
 interface Summary {
   count: number;
@@ -20,9 +21,9 @@ const getSummaryForRender = async () => {
     {
       count: (
         <>
-          {summary.viewCount}
+          {prettifyNumber(summary.viewCount, true)}
           <span className="text-sm">
-            {summary.viewCount < TOTAL_PAGEVIEWS_BASELINE ? '😭' : '😄'}
+            {summary.viewCount < TOTAL_PAGEVIEWS_BASELINE ? ' 😭' : ' 😄'}
           </span>
         </>
       ),

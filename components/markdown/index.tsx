@@ -5,12 +5,16 @@ import Code from "./Code";
 // import LegacyImage from "./LegacyImage";
 // import Image from "./Image";
 import styles from "./style.module.scss";
+import clsx from "clsx";
 
-export const H1 = ({ children, ...rest }: StandardProps) => {
+export const H1 = ({ children, className, ...rest }: StandardProps) => {
   const id = getBlogHeadingElementId(String(children));
   return (
     <h1
-      className="relative group mt-0 mb-10 text-4xl font-semibold"
+      className={clsx(
+        "relative group mt-0 mb-10 text-4xl font-semibold",
+        className,
+      )}
       id={id}
       {...rest}
     >
@@ -19,11 +23,14 @@ export const H1 = ({ children, ...rest }: StandardProps) => {
   );
 };
 
-export const H2 = ({ children, ...rest }: StandardProps) => {
+export const H2 = ({ children, className, ...rest }: StandardProps) => {
   const id = getBlogHeadingElementId(String(children));
   return (
     <h2
-      className="relative group mt-24 mb-8 text-3xl font-semibold"
+      className={clsx(
+        "relative group mt-24 mb-8 text-3xl font-semibold",
+        className,
+      )}
       id={id}
       {...rest}
     >
@@ -32,11 +39,14 @@ export const H2 = ({ children, ...rest }: StandardProps) => {
   );
 };
 
-export const H3 = ({ children, ...rest }: StandardProps) => {
+export const H3 = ({ children, className, ...rest }: StandardProps) => {
   const id = getBlogHeadingElementId(String(children));
   return (
     <h3
-      className="relative group mt-11 mb-6 text-2xl font-semibold"
+      className={clsx(
+        "relative group mt-11 mb-6 text-2xl font-semibold",
+        className,
+      )}
       id={id}
       {...rest}
     >
@@ -45,11 +55,14 @@ export const H3 = ({ children, ...rest }: StandardProps) => {
   );
 };
 
-export const H4 = ({ children, ...rest }: StandardProps) => {
+export const H4 = ({ children, className, ...rest }: StandardProps) => {
   const id = getBlogHeadingElementId(String(children));
   return (
     <h4
-      className="relative group mt-8 mb-6 text-xl font-semibold"
+      className={clsx(
+        "relative group mt-8 mb-6 text-xl font-semibold",
+        className,
+      )}
       id={id}
       {...rest}
     >
@@ -58,9 +71,13 @@ export const H4 = ({ children, ...rest }: StandardProps) => {
   );
 };
 
-export const OrderedList = ({ children, ...rest }: StandardProps) => {
+export const OrderedList = ({
+  children,
+  className,
+  ...rest
+}: StandardProps) => {
   return (
-    <ol className={styles.olWrapper} {...rest}>
+    <ol className={clsx(styles.olWrapper, className)} {...rest}>
       {React.Children.toArray(children)
         .filter(Boolean)
         .map((child: any, index) =>
@@ -75,9 +92,13 @@ export const OrderedList = ({ children, ...rest }: StandardProps) => {
   );
 };
 
-export const UnOrderedList = ({ children, ...rest }: StandardProps) => {
+export const UnOrderedList = ({
+  children,
+  className,
+  ...rest
+}: StandardProps) => {
   return (
-    <ul className={styles.ulWrapper} {...rest}>
+    <ul className={clsx(styles.ulWrapper, className)} {...rest}>
       {React.Children.toArray(children)
         .filter(Boolean)
         .map((child: any, index) =>
@@ -91,21 +112,31 @@ export const UnOrderedList = ({ children, ...rest }: StandardProps) => {
   );
 };
 
-export const Text = ({ children }: StandardProps) => {
-  return <p className="mb-1 leading-8 group relative">{children}</p>;
+export const Text = ({ children, className }: StandardProps) => {
+  return (
+    <p className={clsx("mb-1 leading-8 group relative", className)}>
+      {children}
+    </p>
+  );
 };
 
-export const InlineCode = ({ children, ...rest }: StandardProps) => {
+export const InlineCode = ({ children, className, ...rest }: StandardProps) => {
   return (
-    <code className="mx-1 rounded-sm bg-gray-200 p-1 text-sm" {...rest}>
+    <code
+      className={clsx("mx-1 rounded-sm bg-gray-200 p-1 text-sm", className)}
+      {...rest}
+    >
       {children}
     </code>
   );
 };
 
-export const Blockquote = ({ children, ...rest }: StandardProps) => {
+export const Blockquote = ({ children, className, ...rest }: StandardProps) => {
   return (
-    <blockquote className={`${styles.blockquote} group`} {...rest}>
+    <blockquote
+      className={clsx(styles.blockquote, "group", className)}
+      {...rest}
+    >
       {children}
     </blockquote>
   );
@@ -115,17 +146,17 @@ interface LinkProps extends StandardProps {
   href?: string;
 }
 
-export const Link = ({ href, children, ...rest }: LinkProps) => {
+export const Link = ({ href, children, className, ...rest }: LinkProps) => {
   return (
-    <a className={styles.externalLink} href={href} {...rest}>
+    <a className={clsx(styles.externalLink, className)} href={href} {...rest}>
       {children}
     </a>
   );
 };
 
-export const Table = ({ children, ...rest }: StandardProps) => {
+export const Table = ({ children, className, ...rest }: StandardProps) => {
   return (
-    <table className={styles.table} {...rest}>
+    <table className={clsx(styles.table, className)} {...rest}>
       {children}
     </table>
   );

@@ -6,33 +6,27 @@ import { VERCEL_ENV } from '@/constants/env';
 import { TAGS } from '@/constants/tag';
 import { createBrowserClient } from '@/libs/supabase';
 import { InsertComment } from '@/types/comment';
-import { unstable_noStore as noStore, revalidateTag } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { headers as getHeaders } from 'next/headers';
 import { userAgent as getUserAgent } from 'next/server';
 import { sendGuestbookEmail } from './email';
 import { checkIPIsBlocked, getGeoByIP, getIP } from './ip';
-import { unstable_cache as cache } from 'next/cache';
 
-export const getComments = cache(
-  async (blogId: Number) => {
-    noStore();
-    const supabase = createBrowserClient();
-    try {
-      const { data: comments } = await supabase
-        .from('comment')
-        .select('*')
-        .eq('blogId', blogId)
-        .eq('state', CommentState.Published)
-        .order('createdAt', { ascending: false });
-      return comments;
-    } catch (error) {
-      console.error('Error:', error);
-      return null;
-    }
-  },
-  ['getComments'],
-  { revalidate: 3600 },
-);
+export const getComments = async (blogId: Number) => {
+  const supabase = createBrowserClient();
+  try {
+    const { data: comments } = await supabase
+      .from('comment')
+      .select('*')
+      .eq('blogId', blogId)
+      .in('state', [CommentState.Published, CommentState.Auditing])
+      .order('createdAt', { ascending: false });
+    return comments;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+};
 
 interface SearchCommentParams {
   state?: CommentState;
@@ -176,7 +170,10 @@ export const likeComment = async (id: number, emoji: string) => {
     throw new Error('评论不存在');
   }
 
-  if (comment.state !== CommentState.Published) {
+  if (
+    comment.state !== CommentState.Published &&
+    comment.state !== CommentState.Auditing
+  ) {
     throw new Error('评论还没发布呢');
   }
 

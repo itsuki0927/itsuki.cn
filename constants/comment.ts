@@ -10,7 +10,8 @@ export enum CommentState {
   Auditing = 0, // 待审核
   Published = 1, // 通过正常
   Spam = 2, // 垃圾评论
-  Deleted = 3, // 已删除
+  Trash = 3, // 回收站
+  Deleted = 4, // 永久删除
   // 0 -> 默认状态: 以回收站、审核通过
   // 1 -> 审核通过: 以回收站、标为垃圾
   // 2 -> 标为垃圾: 移回收站

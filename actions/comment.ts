@@ -3,7 +3,7 @@
 import { getSession, isAdminSession } from "@/actions/session";
 import { revalidateTag, unstable_noStore as noStore } from "next/cache";
 import { TAGS } from "@/constants/tag";
-import { CommentEmoji, InsertComment } from "@/types/comment";
+import { InsertComment } from "@/types/comment";
 import { CommentState } from "@/constants/comment";
 import { createBrowserClient } from "@/libs/supabase";
 
@@ -139,7 +139,7 @@ export const likeComment = async (id: number, emoji: string) => {
     throw new Error("评论还没发布呢");
   }
 
-  const currentEmojiMap = (comment.emoji || {}) as CommentEmoji;
+  const currentEmojiMap = comment.emoji || {};
   const email = session.email;
 
   // 如果有 emoji

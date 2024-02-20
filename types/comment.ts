@@ -1,4 +1,4 @@
-import { Database } from "@/types_db";
+import { Database } from "./database";
 
 export type CommentTableType = Database["public"]["Tables"]["comment"];
 

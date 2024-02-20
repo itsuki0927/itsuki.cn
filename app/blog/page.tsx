@@ -27,3 +27,5 @@ const NotionPage = async () => {
 export default NotionPage;
 
 export const revalidate = 60;
+
+export const dynamic = 'force-static';

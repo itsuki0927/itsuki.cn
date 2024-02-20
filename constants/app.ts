@@ -3,6 +3,8 @@ import { ADMIN_EMAIL1, VERCEL_ENV, VERCEL_URL } from './env';
 export const BASE_URL =
   VERCEL_ENV === 'development'
     ? 'http://localhost:3000'
+    : VERCEL_ENV === 'production'
+    ? 'https://itsuki.cn'
     : `https://${VERCEL_URL}`;
 
 export const RESEND_EMAIL = 'hi@itsuki.cn';

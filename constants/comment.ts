@@ -41,10 +41,19 @@ export const commentStateMap: Record<
     badge: "destructive",
     value: CommentState.Spam,
   },
-  [CommentState.Deleted]: {
+  [CommentState.Trash]: {
     label: "回收站",
     badge: "outline",
     value: CommentState.Deleted,
   },
+  [CommentState.Deleted]: {
+    label: "永久删除",
+    badge: "outline",
+    value: CommentState.Deleted,
+  },
 };
-export const commentStateOptions = Object.values(commentStateMap);
+
+// 不需要包含永久删除的状态
+export const commentStateOptions = Object.values(commentStateMap).filter(
+  (v) => v.value !== CommentState.Deleted,
+);

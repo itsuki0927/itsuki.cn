@@ -1,3 +1,4 @@
+import { TOTAL_PAGEVIEWS_BASELINE } from "@/constants/app";
 import { kvKeys } from "@/constants/kv";
 import { redis } from "@/libs/upstash";
 import prettifyNumber from "@/utils/prettifyNumber";
@@ -17,6 +18,7 @@ const TotalPageViews = async () => {
       <span title={`${Intl.NumberFormat("en-US").format(views)}次浏览`}>
         总浏览量&nbsp;
         <span className="font-medium">{prettifyNumber(views, true)}</span>
+        {views < TOTAL_PAGEVIEWS_BASELINE ? " 😭😭😭" : " 😄😄😄"}
       </span>
     </span>
   );

@@ -13,9 +13,7 @@ const NotionPage = async () => {
       />
 
       <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-7 mt-5 md:mt-7 ">
-        {data.map((item) => (
-          <BlogCard key={item.id} blog={item} />
-        ))}
+        {data?.map((item) => <BlogCard key={item.id} blog={item} />)}
       </div>
     </div>
   );

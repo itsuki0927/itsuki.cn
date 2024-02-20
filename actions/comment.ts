@@ -11,23 +11,28 @@ import { headers as getHeaders } from 'next/headers';
 import { userAgent as getUserAgent } from 'next/server';
 import { sendGuestbookEmail } from './email';
 import { checkIPIsBlocked, getGeoByIP, getIP } from './ip';
+import { unstable_cache as cache } from 'next/cache';
 
-export const getComments = async (blogId: Number) => {
-  noStore();
-  const supabase = createBrowserClient();
-  try {
-    const { data: comments } = await supabase
-      .from('comment')
-      .select('*')
-      .eq('blogId', blogId)
-      .eq('state', CommentState.Published)
-      .order('createdAt', { ascending: false });
-    return comments;
-  } catch (error) {
-    console.error('Error:', error);
-    return null;
-  }
-};
+export const getComments = cache(
+  async (blogId: Number) => {
+    noStore();
+    const supabase = createBrowserClient();
+    try {
+      const { data: comments } = await supabase
+        .from('comment')
+        .select('*')
+        .eq('blogId', blogId)
+        .eq('state', CommentState.Published)
+        .order('createdAt', { ascending: false });
+      return comments;
+    } catch (error) {
+      console.error('Error:', error);
+      return null;
+    }
+  },
+  ['getComments'],
+  { revalidate: 3600 },
+);
 
 interface SearchCommentParams {
   state?: CommentState;

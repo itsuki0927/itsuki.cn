@@ -2,9 +2,8 @@ import ExternalLink from '@/components/common/ExternalLink';
 import GithubExternalLink from '@/components/common/GithubExternalLink';
 import JuejinExternalLink from '@/components/common/JuejinExternalLink';
 import SifouExternalLink from '@/components/common/SifouExternalLink';
-import { BASE_URL } from '@/constants/app';
 import { ROUTE_LIST_WITH_HOME } from '@/constants/route';
-import { LoaderIcon, MousePointerClick, Rss, User } from 'lucide-react';
+import { LoaderIcon, MousePointerClick, User } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import Logo from '../Logo';
@@ -17,7 +16,7 @@ const Footer = () => {
       <div className="container flex w-full flex-col py-12 items-start justify-center text-sm">
         <div className="flex w-full flex-col sm:flex-row justify-between items-center gap-6">
           <Logo />
-          <div className="flex gap-6 text-sm font-medium text-zinc-800 dark:text-zinc-200">
+          <div className="flex gap-6 flex-wrap items-center text-sm font-medium text-zinc-800 dark:text-zinc-200">
             {ROUTE_LIST_WITH_HOME.map((route) => (
               <Link href={route.path} key={route.path}>
                 {route.name}
@@ -26,9 +25,6 @@ const Footer = () => {
             <GithubExternalLink />
             <JuejinExternalLink />
             <SifouExternalLink />
-            <ExternalLink href={`${BASE_URL}/rss`}>
-              <Rss size={20} />
-            </ExternalLink>
           </div>
         </div>
 

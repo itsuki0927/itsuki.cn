@@ -1,9 +1,9 @@
-import beijing from "@/public/beijing.jpg";
-import guiyang from "@/public/guiyang.jpg";
-import dali1 from "@/public/dali1.jpg";
-import dali2 from "@/public/dali2.jpg";
-import xianggelila from "@/public/xianggelila.jpg";
-import keep from "@/public/keep.jpeg";
+import beijing from "@/public/home/beijing.jpg";
+import guiyang from "@/public/home/guiyang.jpg";
+import dali1 from "@/public/home/dali1.jpg";
+import dali2 from "@/public/home/dali2.jpg";
+import xianggelila from "@/public/home/xianggelila.jpg";
+import keep from "@/public/home/keep.jpeg";
 import Image from "next/image";
 
 const Gallery = () => {

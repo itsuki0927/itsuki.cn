@@ -7,7 +7,7 @@ interface JuejinExternalLinkProps {
   size?: number;
 }
 
-const JuejinExternalLink = ({ size }: JuejinExternalLinkProps) => {
+const JuejinExternalLink = ({ size = 20 }: JuejinExternalLinkProps) => {
   return (
     <ExternalLink href={SOCIAL.juejin}>
       <Juejin size={size} />

@@ -1,5 +1,5 @@
+import MyImage from "@/components/common/MyImage";
 import { Blog } from "@/types/blog";
-import Image from "next/image";
 import Link from "next/link";
 
 export interface BlogCardProps {
@@ -15,7 +15,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         href={href}
       >
         <div className="absolute inset-0 overflow-hidden z-0 mabeUrlOk">
-          <Image
+          <MyImage
             alt={`${blog.title} cover`}
             className="object-cover w-full h-full"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"

@@ -7,11 +7,11 @@
 }
 
 .pre {
-  @apply overflow-x-auto whitespace-pre-wrap py-2 text-sm rounded;
+  @apply overflow-x-auto whitespace-pre-wrap py-2 text-sm rounded-md;
 }
 
 .line {
-  @apply table border-collapse border-l-[3px] border-l-transparent px-2 leading-7;
+  @apply table border-collapse border-l-4 border-l-transparent px-2 leading-7;
 }
 
 .line.hover {

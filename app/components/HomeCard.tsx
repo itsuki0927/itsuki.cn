@@ -8,7 +8,7 @@ interface HomeCardProps extends StandardProps {
 
 const HomeCard = ({ title, className, children }: HomeCardProps) => {
   return (
-    <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
+    <div className="rounded-xl border border-zinc-100 p-6 dark:border-zinc-700/40">
       <h2 className="flex items-center text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         {title}
       </h2>

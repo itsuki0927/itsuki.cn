@@ -1,20 +1,20 @@
 "use client";
 
-import clsx from "clsx";
-import { Monitor, Plus, Smartphone, Smile } from "react-feather";
-import ReactMarkdown from "react-markdown";
-import { motion } from "framer-motion";
-import { UAParser } from "ua-parser-js";
+import { likeComment } from "@/actions/comment";
 import { getCommentElementId } from "@/constants/anchor";
+import { Comment } from "@/types/comment";
+import { StandardProps } from "@/types/common";
+import { formatDate } from "@/utils/formatDate";
+import { motion } from "framer-motion";
+import { Monitor, Smartphone, Smile } from "lucide-react";
+import { startTransition } from "react";
+import ReactMarkdown from "react-markdown";
+import { UAParser } from "ua-parser-js";
 import markdownComponents from "../../../../components/markdown";
-import React, { startTransition } from "react";
 import CommentAvatar from "../CommentAvatar";
 import EmojiPopover from "../EmojiPopover";
-import { StandardProps } from "@/types/common";
-import { Comment } from "@/types/comment";
+import CommentEmojis from "./CommentEmojis";
 import useOptimisticComment from "./hooks/useOptimisticComment";
-import { formatDate } from "@/utils/formatDate";
-import { likeComment } from "@/actions/comment";
 
 interface CommentCardProps extends StandardProps {
   comment: Comment;
@@ -38,8 +38,6 @@ const CommentCard = ({
 }: CommentCardProps) => {
   const [optimisticComment, addOptimisticComment] =
     useOptimisticComment(comment);
-  const commentEmoji = optimisticComment.emoji || {};
-
   const parser = new UAParser(optimisticComment.agent ?? "");
   const device = parser.getDevice();
   const isMobile = device.type === "mobile";
@@ -49,47 +47,6 @@ const CommentCard = ({
       addOptimisticComment(emoji);
     });
     likeComment(optimisticComment.id, emoji);
-  };
-
-  const renderEmojis = () => {
-    const emojis = Object.keys(commentEmoji);
-    if (emojis.length !== 0) {
-      return (
-        <motion.ul className="relative flex flex-wrap items-center">
-          {emojis.map((emoji) =>
-            commentEmoji?.[emoji]?.length ? (
-              <motion.li key={emoji}>
-                <button
-                  className={clsx(
-                    "flex mr-1 sm:mr-2 mt-1 sm:mt-2 items-center h-6 text-xs rounded-lg bg-blue-100 border border-solid border-blue-100 py-[2px] pr-[6px] pl-1",
-                  )}
-                  onClick={() => handleEmojiClick(emoji)}
-                  type="button"
-                >
-                  <span>{emoji}</span>
-                  <span className="ml-1 text-gray-600">
-                    {commentEmoji[emoji].length}
-                  </span>
-                </button>
-              </motion.li>
-            ) : null,
-          )}
-          <li key="comment-smile">
-            <EmojiPopover key="smile1" onEmojiClick={handleEmojiClick}>
-              <button
-                className={clsx(
-                  "flex mt-2 items-center h-6 text-xs rounded-lg bg-gray-100 border border-solid border-gray-100 py-[2px] pr-[6px] pl-1 hover:bg-white",
-                )}
-                type="button"
-              >
-                <Smile size={14} />
-                <Plus className="ml-1" size={10} />
-              </button>
-            </EmojiPopover>
-          </li>
-        </motion.ul>
-      );
-    }
   };
 
   return (
@@ -132,7 +89,10 @@ const CommentCard = ({
         {optimisticComment.content}
       </ReactMarkdown>
 
-      {renderEmojis()}
+      <CommentEmojis
+        emoji={optimisticComment.emoji}
+        onEmojiClick={handleEmojiClick}
+      />
 
       {children}
     </motion.div>

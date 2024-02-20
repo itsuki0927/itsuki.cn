@@ -1,16 +1,18 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable no-case-declarations */
+import clsx from "clsx";
 import { forwardRef, useMemo, useRef } from "react";
 import type { RichTextareaHandle, StyleOrRender } from "rich-textarea";
 import { RichTextarea, createRegexRenderer } from "rich-textarea";
 
 interface CommentInputProps {
+  className?: string;
   value: string;
   onChange: (value: string) => void;
 }
 
 const CommentInput = forwardRef<RichTextareaHandle, CommentInputProps>(
-  ({ value, onChange }, ref) => {
+  ({ value, onChange, className }, ref) => {
     const regexRenderer = useMemo(() => {
       const matchers: [RegExp, StyleOrRender][] = [
         [
@@ -36,7 +38,10 @@ const CommentInput = forwardRef<RichTextareaHandle, CommentInputProps>(
     return (
       <RichTextarea
         autoHeight
-        className="text-zinc-600 font-normal w-full !p-2 text-sm focus:outline-none"
+        className={clsx(
+          "text-zinc-600 font-normal w-full !p-2 text-sm focus:outline-none",
+          className,
+        )}
         onChange={(e) => {
           onChange(e.target.value);
         }}

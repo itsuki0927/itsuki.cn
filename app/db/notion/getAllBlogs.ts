@@ -66,7 +66,7 @@ async function getAllBlogs(params?: GetAllBlogsParams) {
     //   posts.sort((a, b) => b.date - a.date);
     // }
 
-    return posts;
+    return posts as any[];
   }
 }
 

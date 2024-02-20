@@ -1,9 +1,9 @@
 import Title from "../components/Title";
-import { getBlogs } from "../services/blog";
+import { getAllBlogs } from "../db/notion";
 import BlogCard from "./components/BlogCard";
 
 const NotionPage = async () => {
-  const data = await getBlogs();
+  const data = await getAllBlogs();
 
   return (
     <div className="container">

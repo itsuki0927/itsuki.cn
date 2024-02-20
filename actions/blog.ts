@@ -34,6 +34,8 @@ export const getAllBlogs = async ({
     builder.containedBy('tag.slug', [tagSlug]);
   }
 
+  builder.order('id', { ascending: false });
+
   const { data } = await builder;
 
   return data || [];

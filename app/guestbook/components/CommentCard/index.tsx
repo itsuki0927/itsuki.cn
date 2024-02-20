@@ -1,6 +1,6 @@
 "use client";
 
-import classNames from "classnames";
+import clsx from "clsx";
 import { Monitor, Plus, Smartphone, Smile } from "react-feather";
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
@@ -60,7 +60,7 @@ const CommentCard = ({
             commentEmoji?.[emoji]?.length ? (
               <motion.li key={emoji}>
                 <button
-                  className={classNames(
+                  className={clsx(
                     "flex mr-1 sm:mr-2 mt-1 sm:mt-2 items-center h-6 text-xs rounded-lg bg-blue-100 border border-solid border-blue-100 py-[2px] pr-[6px] pl-1",
                   )}
                   onClick={() => handleEmojiClick(emoji)}
@@ -77,7 +77,7 @@ const CommentCard = ({
           <li key="comment-smile">
             <EmojiPopover key="smile1" onEmojiClick={handleEmojiClick}>
               <button
-                className={classNames(
+                className={clsx(
                   "flex mt-2 items-center h-6 text-xs rounded-lg bg-gray-100 border border-solid border-gray-100 py-[2px] pr-[6px] pl-1 hover:bg-white",
                 )}
                 type="button"

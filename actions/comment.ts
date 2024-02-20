@@ -1,7 +1,7 @@
 'use server';
 
 import { isAdminSession } from '@/actions/session';
-import { CommentState } from '@/constants/comment';
+import { COMMENT_TABLE, CommentState } from '@/constants/comment';
 import { TAGS } from '@/constants/tag';
 import { createBrowserClient } from '@/libs/supabase';
 import { getMessageFromNormalError } from '@/utils/error';
@@ -21,7 +21,7 @@ export const getAllComments = async (params: SearchCommentParams = {}) => {
   const supabase = createBrowserClient();
   try {
     const builder = supabase
-      .from('comment')
+      .from(COMMENT_TABLE)
       .select('*')
       .order('createdAt', { ascending: false });
     if (params.state) {
@@ -56,7 +56,7 @@ export const updateCommentsState = async (
   const supabase = createBrowserClient();
   try {
     const { data } = await supabase
-      .from('comment')
+      .from(COMMENT_TABLE)
       .update({ state })
       .in('id', ids);
 
@@ -82,7 +82,7 @@ export const deleteComments = async (ids: number[]) => {
 
   const supabase = createBrowserClient();
   try {
-    const { data } = await supabase.from('comment').delete().in('id', ids);
+    const { data } = await supabase.from(COMMENT_TABLE).delete().in('id', ids);
 
     revalidateTag(TAGS.adminComment);
     return data;
@@ -103,7 +103,7 @@ export const getComments = unstable_cache(
     const supabase = createBrowserClient();
     try {
       const { data: comments } = await supabase
-        .from('comment')
+        .from(COMMENT_TABLE)
         .select('*')
         .eq('blogId', blogId)
         .in('state', [CommentState.Published, CommentState.Auditing])

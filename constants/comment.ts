@@ -1,6 +1,10 @@
 import { BadgeVariants } from '@/components/ui/badge';
+import { VERCEL_ENV } from './env';
 
 export const GUESTBOOK = 10000;
+
+export const COMMENT_TABLE =
+  VERCEL_ENV === 'production' ? 'comment' : 'comment_dev';
 
 export enum CommentState {
   Auditing = 0, // 待审核

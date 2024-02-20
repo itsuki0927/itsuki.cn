@@ -5,10 +5,12 @@ import CommentSender from '../CommentSender';
 // import { createComment } from '@/actions/comment';
 import { useToast } from '@/components/ui/use-toast';
 import buildUrl from '@/utils/buildUrl';
+import { useRouter } from 'next/navigation';
 
 const GuestbookSenderForm = () => {
   const [isLoading, setLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleSend = async (content: string) => {
     setLoading(true);
@@ -24,6 +26,9 @@ const GuestbookSenderForm = () => {
         },
       });
       const data = await res.json();
+      if (data) {
+        router.refresh();
+      }
       return Boolean(data);
     } catch (err: any) {
       console.dir(err);

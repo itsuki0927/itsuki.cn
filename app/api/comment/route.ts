@@ -1,7 +1,7 @@
 import { sendGuestbookEmail } from '@/actions/email';
 import { getLocationByIP, getIP } from '@/actions/ip';
 import { getSession } from '@/actions/session';
-import { CommentState, GUESTBOOK } from '@/constants/comment';
+import { COMMENT_TABLE, CommentState, GUESTBOOK } from '@/constants/comment';
 import { kvKeys } from '@/constants/kv';
 import { TAGS } from '@/constants/tag';
 import { createBrowserClient } from '@/libs/supabase';
@@ -47,7 +47,10 @@ export async function POST(req: NextRequest) {
   const supabase = createBrowserClient();
 
   try {
-    const { data } = await supabase.from('comment').insert([input]).select();
+    const { data } = await supabase
+      .from(COMMENT_TABLE)
+      .insert([input])
+      .select();
 
     if (input.blogId === GUESTBOOK) {
       sendGuestbookEmail({ user, content: input.content });
@@ -75,7 +78,7 @@ export async function PATCH(req: NextRequest) {
   }
 
   const supabase = createBrowserClient();
-  const { data } = await supabase.from('comment').select('*').eq('id', id);
+  const { data } = await supabase.from(COMMENT_TABLE).select('*').eq('id', id);
   const comment = data?.at(0);
   if (!data || !comment) {
     return NextResponse.json({ error: '评论不存在' }, { status: 400 });
@@ -107,7 +110,7 @@ export async function PATCH(req: NextRequest) {
   }
 
   const result = await supabase
-    .from('comment')
+    .from(COMMENT_TABLE)
     .update({ emoji: currentEmojiMap })
     .eq('id', id);
 

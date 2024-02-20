@@ -21,6 +21,21 @@ export type Database = MergeDeep<
   {
     public: {
       Tables: {
+        comment_dev: {
+          Row: {
+            emoji: CommentEmoji;
+            userAgent: UserAgent;
+            geo: IPLocation | null;
+          };
+          Insert: {
+            emoji?: CommentEmoji;
+            userAgent: UserAgent;
+            geo: IPLocation | null;
+          };
+          Update: {
+            emoji?: CommentEmoji;
+          };
+        };
         comment: {
           Row: {
             emoji: CommentEmoji;

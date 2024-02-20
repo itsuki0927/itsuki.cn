@@ -57,7 +57,7 @@ const NotionPage = async ({ params }: BlogPageProps) => {
 
   const notionContent = await getBlog(slug);
 
-  console.log("notionContent:", notionContent);
+  // console.log("notionContent:", notionContent);
 
   return (
     <div className="max-w-3xl mx-auto">

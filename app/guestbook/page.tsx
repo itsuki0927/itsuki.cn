@@ -27,7 +27,10 @@ const GuestbookPage = () => {
       <Suspense
         fallback={
           <div className="animate-pulse max-w-3xl flex-col space-y-4">
-            <div className="flex-1 h-20 bg-zinc-200 rounded"></div>
+            <div className="mb-10">
+              <div className="flex-1 h-24 mb-4 bg-zinc-200 rounded"></div>
+              <div className="w-20 h-10 bg-zinc-200 rounded ml-auto"></div>
+            </div>
             <CommentCardSkeleton />
             <CommentCardSkeleton />
             <CommentCardSkeleton />

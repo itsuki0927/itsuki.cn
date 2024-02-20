@@ -1,4 +1,4 @@
-import { ADMIN_EMAIL1, ADMIN_EMAIL2 } from "@/constants/env";
+import { ADMIN_EMAIL1, ADMIN_EMAIL2 } from '@/constants/env';
 
 const isAdminEmail = (email?: string | null) =>
   email && (email === ADMIN_EMAIL1 || email === ADMIN_EMAIL2);

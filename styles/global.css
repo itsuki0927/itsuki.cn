@@ -1,4 +1,4 @@
-@import "notion.css";
+@import 'notion.css';
 
 @tailwind base;
 @tailwind components;
@@ -32,13 +32,13 @@ textarea::placeholder {
 }
 
 .capsize::before {
-  content: "";
+  content: '';
   margin-bottom: -0.098em;
   display: table;
 }
 
 .capsize::after {
-  content: "";
+  content: '';
   margin-top: -0.219em;
   display: table;
 }

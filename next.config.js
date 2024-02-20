@@ -10,32 +10,32 @@ const ContentSecurityPolicy = `
 
 const securityHeaders = [
   {
-    key: "Content-Security-Policy",
-    value: ContentSecurityPolicy.replace(/\n/g, ""),
+    key: 'Content-Security-Policy',
+    value: ContentSecurityPolicy.replace(/\n/g, ''),
   },
   {
-    key: "Referrer-Policy",
-    value: "origin-when-cross-origin",
+    key: 'Referrer-Policy',
+    value: 'origin-when-cross-origin',
   },
   {
-    key: "X-Frame-Options",
-    value: "DENY",
+    key: 'X-Frame-Options',
+    value: 'DENY',
   },
   {
-    key: "X-Content-Type-Options",
-    value: "nosniff",
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
   },
   {
-    key: "X-DNS-Prefetch-Control",
-    value: "on",
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on',
   },
   {
-    key: "Strict-Transport-Security",
-    value: "max-age=31536000; includeSubDomains; preload",
+    key: 'Strict-Transport-Security',
+    value: 'max-age=31536000; includeSubDomains; preload',
   },
   {
-    key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=()",
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=()',
   },
 ];
 
@@ -53,7 +53,7 @@ const nextConfig = {
   headers() {
     return [
       {
-        source: "/(.*)",
+        source: '/(.*)',
         headers: securityHeaders,
       },
     ];
@@ -61,20 +61,20 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "www.notion.so",
+        protocol: 'https',
+        hostname: 'www.notion.so',
       },
       {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
       },
       {
-        protocol: "https",
-        hostname: "images.unsplash.com",
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
       },
       {
-        protocol: "https",
-        hostname: "lh3.googleusercontent.com",
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
       },
     ],
   },

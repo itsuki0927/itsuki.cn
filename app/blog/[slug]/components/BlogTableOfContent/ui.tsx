@@ -1,19 +1,17 @@
 'use client';
 
 import useScrollTo from '@/hooks/useScrollTo';
-import { GetBlogResponse } from '@/libs/notion/getBlog';
 import clsx from 'clsx';
 import { Variants, motion } from 'framer-motion';
-import { BlockMap, PageBlock } from 'notion-types';
-import { getPageTableOfContents, uuidToId } from 'notion-utils';
 import { useMemo } from 'react';
 import ProgressBar from './ProgessBar';
 import useProgress from './useProgress';
 import useScrollSpy from './useScrollSpy';
 import canUseDOM from '@/utils/canUseDOM';
+import { BlogHeading } from '@/utils/getHeadings';
 
-interface BlogTableOfContentProps extends GetBlogResponse {
-  blocks: BlockMap;
+interface BlogTableOfContentProps {
+  headings: BlogHeading[];
 }
 
 const OFFSET = 150;
@@ -35,19 +33,12 @@ const listVariants = {
   },
 } satisfies Variants;
 
-const BlogTableOfContentUI = ({
-  blog,
-  blocks,
-  recordMap,
-}: BlogTableOfContentProps) => {
-  const h2Headings = getPageTableOfContents(
-    blocks[blog.id].value as PageBlock,
-    recordMap,
-  );
+const BlogTableOfContentUI = ({ headings }: BlogTableOfContentProps) => {
+  const h2Headings = headings;
   const h2HeadingsDom = useMemo(() => {
     return canUseDOM
       ? h2Headings.map(
-          (item) => document.querySelector(`[data-id="${uuidToId(item.id)}"]`)!,
+          (item) => document.querySelector(`[data-id="${item.id}"]`)!,
         )
       : [];
   }, [h2Headings]);
@@ -56,9 +47,7 @@ const BlogTableOfContentUI = ({
   const readingProgress = useProgress();
 
   const handleScrollTo = (id: string) => {
-    const scrollToElement = document.querySelector(
-      `[data-id="${uuidToId(id)}"]`,
-    );
+    const scrollToElement = document.querySelector(`[data-id="${id}"]`);
     if (scrollToElement) {
       scrollTo(scrollToElement);
     }
@@ -79,7 +68,7 @@ const BlogTableOfContentUI = ({
             id={heading.id}
             className={clsx(
               'line-clamp-1 block cursor-pointer transition-colors hover:text-primary',
-              heading.indentLevel === 1 ? 'ml-2' : '',
+              heading.id === 1 ? 'ml-2' : '',
               currentActiveIndex === index
                 ? 'text-primary/60 dark:text-zinc-200'
                 : 'hover:text-primary/60 dark:hover:text-zinc-400 group-hover:[&:not(:hover)]:text-zinc-400 dark:group-hover:[&:not(:hover)]:text-zinc-600',

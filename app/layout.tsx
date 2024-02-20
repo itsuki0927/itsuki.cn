@@ -2,7 +2,6 @@ import metadataConfig from '@/constants/seo';
 import AppLayout from '@/layouts/AppLayout';
 import { StandardProps } from '@/types/common';
 import { IBM_Plex_Sans } from 'next/font/google';
-import 'react-notion-x/src/styles.css';
 import '../styles/global.css';
 import ContentLayout from '@/layouts/ContentLayout';
 

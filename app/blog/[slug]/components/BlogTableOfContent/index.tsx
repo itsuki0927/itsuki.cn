@@ -1,19 +1,13 @@
-import getRootPage from '@/libs/notion/getRootPage';
 import BlogTableOfContentUI from './ui';
-import getBlog from '@/libs/notion/getBlog';
 import { BlogPageProps } from '../../page';
+import getHeadings from '@/utils/getHeadings';
+import { getBlog } from '@/actions/blog';
 
 const BlogTableOfContent = async ({ slug }: BlogPageProps['params']) => {
-  const { blog, recordMap } = await getBlog(slug);
-  const { block: allBlocks } = await getRootPage();
+  const blog = await getBlog(slug);
+  const headings = getHeadings(blog?.content || '');
 
-  return (
-    <BlogTableOfContentUI
-      blog={blog}
-      blocks={allBlocks}
-      recordMap={recordMap}
-    />
-  );
+  return <BlogTableOfContentUI headings={headings} />;
 };
 
 export default BlogTableOfContent;

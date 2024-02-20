@@ -8,6 +8,7 @@ import Gallery from './components/Gallery';
 import RecentBlogs from './components/RecentBlogs';
 import Summary from './components/Summary';
 import Work from './components/Work';
+import { BASE_URL } from '@/constants/app';
 
 const Home = async () => {
   return (
@@ -30,7 +31,7 @@ const Home = async () => {
           <ExternalLink href="https://segmentfault.com/u/itsuki0927">
             <Sifou size={20} />
           </ExternalLink>
-          <ExternalLink href="https://itsuki.cn/rss">
+          <ExternalLink href={`${BASE_URL}/rss`}>
             <Rss size={20} />
           </ExternalLink>
         </div>

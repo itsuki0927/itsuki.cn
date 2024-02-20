@@ -9,7 +9,7 @@ import { createBrowserClient } from '@/libs/supabase';
 import { redis } from '@/libs/upstash';
 import { InsertComment } from '@/types/comment';
 import { Ratelimit } from '@upstash/ratelimit';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import {
   type NextRequest,
   NextResponse,
@@ -76,7 +76,8 @@ export async function POST(req: NextRequest) {
       sendGuestbookEmail({ user, content: input.content });
     }
 
-    revalidateTag(TAGS.comment);
+    revalidatePath('/guestbook');
+
     return NextResponse.json(data);
   } catch (error) {
     console.error('[createComment] Error:', error);

@@ -1,16 +1,14 @@
-import { PageProps } from "@/app/types";
 import { parsePageId } from "notion-utils";
 import React from "react";
 import BlogContentRender from "./components/BlogContentRender";
 import { Metadata } from "next";
-import { getAllBlogs } from "@/app/db/notion";
-import getBlog from "@/app/db/notion/getBlog";
+import getBlog from "@/libs/notion/getBlog";
+import getAllBlogs from "@/libs/notion/getAllBlogs";
+import { PageProps } from "@/types/common";
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
 export interface NotionResponse {
-  // texts: { type: string; text: string }[];
-  // blocks: any[];
   recordMap: any;
 }
 

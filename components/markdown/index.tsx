@@ -1,8 +1,7 @@
 import React from "react";
 import { getBlogHeadingElementId } from "@/constants/anchor";
 import type { StandardProps } from "@/types/common";
-// import Anchor from "@/components/common/Anchor";
-// import Code from "./Code";
+import Code from "./Code";
 // import LegacyImage from "./LegacyImage";
 // import Image from "./Image";
 import styles from "./style.module.scss";
@@ -117,7 +116,6 @@ interface LinkProps extends StandardProps {
 }
 
 export const Link = ({ href, children, ...rest }: LinkProps) => {
-  const isExternalLink = href?.startsWith("http") || href?.startsWith("https");
   return (
     <a className={styles.externalLink} href={href} {...rest}>
       {children}
@@ -133,8 +131,6 @@ export const Table = ({ children, ...rest }: StandardProps) => {
   );
 };
 
-// export { Code, Image, LegacyImage };
-
 const markdownComponents = {
   h1: H1,
   h2: H2,
@@ -143,7 +139,7 @@ const markdownComponents = {
   ol: OrderedList,
   ul: UnOrderedList,
   p: Text,
-  // pre: Code,
+  pre: Code,
   a: Link,
   code: InlineCode,
   blockquote: Blockquote,

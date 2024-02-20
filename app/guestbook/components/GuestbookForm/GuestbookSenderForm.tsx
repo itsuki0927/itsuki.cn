@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import CommentSender from "../CommentSender";
-import { createComment } from "@/app/lib/supabase";
+
+import {createComment} from "@/actions/comment";
 
 const GuestbookSenderForm = () => {
   const [isLoading, setLoading] = useState(false);

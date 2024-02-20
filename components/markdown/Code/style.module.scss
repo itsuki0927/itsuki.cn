@@ -1,0 +1,41 @@
+.codeBlock {
+  @apply my-4 relative;
+}
+
+.codeTitle {
+  @apply flex items-center border-b border-solid border-b-gray-300 px-3 py-2;
+}
+
+.pre {
+  @apply overflow-x-auto whitespace-pre-wrap py-2 text-sm rounded;
+}
+
+.line {
+  @apply table border-collapse border-l-[3px] border-l-transparent px-2 leading-7;
+}
+
+.line.hover {
+  @apply hover:bg-gray-100/10;
+}
+
+.line.highlight {
+  /* TODO: 高亮样式 */
+
+  @apply border-l-gray-500 bg-gray-50;
+}
+
+.line.hiddenLineNumber {
+  @apply block;
+}
+
+.line.line.hiddenLineNumber .lineContent {
+  @apply block;
+}
+
+.lineNumber {
+  @apply w-12 select-none px-3 text-gray-400;
+}
+
+.lineContent {
+  @apply table-cell w-full;
+}

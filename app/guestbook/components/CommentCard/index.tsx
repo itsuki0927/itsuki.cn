@@ -6,15 +6,15 @@ import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
 import { UAParser } from "ua-parser-js";
 import { getCommentElementId } from "@/constants/anchor";
-import markdownComponents from "@/components/ui/mdx";
+import markdownComponents from "../../../../components/markdown";
 import React, { startTransition } from "react";
 import CommentAvatar from "../CommentAvatar";
 import EmojiPopover from "../EmojiPopover";
 import { StandardProps } from "@/types/common";
-import { formatDate } from "@/app/utils/formate-date";
-import { likeComment } from "@/app/lib/supabase";
-import { Comment, CommentEmoji } from "@/app/types/comment";
-import useOptimiticComment from "./hooks/useOptimiticComment";
+import { Comment, CommentEmoji } from "@/types/comment";
+import useOptimisticComment from "./hooks/useOptimisticComment";
+import {formatDate} from "@/utils/formatDate";
+import {likeComment} from "@/actions/comment";
 
 interface CommentCardProps extends StandardProps {
   comment: Comment;
@@ -36,18 +36,18 @@ const CommentCard = ({
   className = "",
   children,
 }: CommentCardProps) => {
-  const [optimiticComment, addOptimiticComment] = useOptimiticComment(comment);
-  const commentEmoji = (optimiticComment.emoji || {}) as CommentEmoji;
+  const [optimisticComment, addOptimisticComment] = useOptimisticComment(comment);
+  const commentEmoji = (optimisticComment.emoji || {}) as CommentEmoji;
 
-  const parser = new UAParser(optimiticComment.agent ?? "");
+  const parser = new UAParser(optimisticComment.agent ?? "");
   const device = parser.getDevice();
   const isMobile = device.type === "mobile";
 
   const handleEmojiClick = async (emoji: string) => {
     startTransition(() => {
-      addOptimiticComment(emoji);
+      addOptimisticComment(emoji);
     });
-    likeComment(optimiticComment.id, emoji);
+    likeComment(optimisticComment.id, emoji);
   };
 
   const renderEmojis = () => {
@@ -94,23 +94,23 @@ const CommentCard = ({
   return (
     <motion.div
       className={`transition-all p-4 duration-500 ${className}`}
-      id={getCommentElementId(optimiticComment.id)}
-      key={optimiticComment.id}
+      id={getCommentElementId(optimisticComment.id)}
+      key={optimisticComment.id}
       variants={commentVariant}
     >
       <div className="flex items-center h-10 ">
-        <CommentAvatar avatar={optimiticComment.avatar} size={28} />
+        <CommentAvatar avatar={optimisticComment.avatar} size={28} />
         <div className="ml-2 sm:ml-3 dark:text-zinc-100 text-sm flex-1 flex justify-between items-center">
           <div className="flex items-center text-xs text-zinc-500">
             <span className="text-sm text-zinc-900 font-semibold">
-              {optimiticComment.nickname}
+              {optimisticComment.nickname}
             </span>
-            <span className="ml-1">{optimiticComment.city || "未知"}</span>
+            <span className="ml-1">{optimisticComment.city || "未知"}</span>
             <span className="mx-1">·</span>
             {isMobile ? <Smartphone size={14} /> : <Monitor size={14} />}
 
             <span className="ml-1">
-              {formatDate(optimiticComment.createdAt, "ago")}
+              {formatDate(optimisticComment.createdAt, "ago")}
             </span>
           </div>
 
@@ -128,7 +128,7 @@ const CommentCard = ({
         components={markdownComponents}
         // remarkPlugins={[[remarkGfm]]}
       >
-        {optimiticComment.content}
+        {optimisticComment.content}
       </ReactMarkdown>
 
       {renderEmojis()}

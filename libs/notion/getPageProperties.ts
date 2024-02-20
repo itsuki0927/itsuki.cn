@@ -1,6 +1,6 @@
 import { getTextContent, getDateValue } from "notion-utils";
-import notion from "@/app/lib/notion";
-// import { defaultMapImageUrl } from "react-notion-x";
+import index from "@/libs/notion";
+// import { defaultMapImageUrl } from "react-index-x";
 import { BlockMap, CollectionPropertySchemaMap } from "notion-types";
 
 async function getPageProperties(
@@ -43,7 +43,7 @@ async function getPageProperties(
           for (let i = 0; i < rawUsers.length; i++) {
             if (rawUsers[i][0][1]) {
               const userId = rawUsers[i][0];
-              const res = await notion.getUsers(userId);
+              const res = await index.getUsers(userId);
               const resValue =
                 res?.recordMapWithRoles?.notion_user?.[userId[1]]?.value;
               const user = {

@@ -19,12 +19,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { CommentState, commentStateMap } from "@/constants/comment";
 import { Table } from "@tanstack/react-table";
-import { Comment } from "@/app/types/comment";
-import {
-  deleteComments,
-  updateCommentState,
-  updateCommentsState,
-} from "@/app/lib/supabase";
+import { Comment } from "@/types/comment";
+
+import {deleteComments, updateCommentsState} from "@/actions/comment";
 
 interface CommentBatchOperatorProps {
   table: Table<Comment>;

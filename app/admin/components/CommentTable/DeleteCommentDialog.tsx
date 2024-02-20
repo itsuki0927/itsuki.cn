@@ -1,5 +1,4 @@
-import { deleteComment } from "@/app/lib/supabase";
-import { Comment } from "@/app/types/comment";
+import { Comment } from "@/types/comment";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Row } from "@tanstack/react-table";
 
 import React from "react";
+import {deleteComment} from "@/actions/comment";
 
 interface DeleteCommentDialogProps {
   row: Row<Comment>;

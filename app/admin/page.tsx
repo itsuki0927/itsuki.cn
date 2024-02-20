@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import { columns } from "./components/CommentTable/columns";
 import { CommentTable } from "./components/CommentTable";
-import { isAdminSession } from "../db/actions";
-import { getAllComments } from "../lib/supabase";
-import Title from "../components/Title";
+import Title from "@/layouts/AppLayout/components/Title";
+import {isAdminSession} from "@/actions/session";
+import {getAllComments} from "@/actions/comment";
 
 export const metadata = {
   title: "Admin",

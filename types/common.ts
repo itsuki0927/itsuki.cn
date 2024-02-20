@@ -5,3 +5,7 @@ export interface StandardProps {
   children?: ReactNode;
   style?: CSSProperties;
 }
+
+export interface PageProps<T> {
+  params: T;
+}

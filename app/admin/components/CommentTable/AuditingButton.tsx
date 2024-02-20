@@ -1,9 +1,9 @@
-import { updateCommentState } from "@/app/lib/supabase";
-import { Comment } from "@/app/types/comment";
+import { Comment } from "@/types/comment";
 import { Button } from "@/components/ui/button";
 import { CommentState } from "@/constants/comment";
 import { Row } from "@tanstack/react-table";
 import React from "react";
+import {updateCommentState} from "@/actions/comment";
 
 interface AuditingButtonProps {
   row: Row<Comment>;

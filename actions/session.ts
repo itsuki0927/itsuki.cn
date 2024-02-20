@@ -1,10 +1,10 @@
 "use server";
 
 import { User } from "next-auth";
-import { auth } from "../auth";
-import isAdminEmail from "../utils/isAdminEmail";
+import { auth } from "@/libs/auth";
+import isAdminEmail from "@/utils/isAdminEmail";
 
-export const formatUser = (user: User | null) => {
+const formatUser = (user: User | null) => {
   if (!user) return null;
   return {
     email: user.email ?? "",
@@ -12,9 +12,6 @@ export const formatUser = (user: User | null) => {
     avatar: user.image || "",
   };
 };
-
-export type FormatedUser = ReturnType<typeof formatUser>;
-
 export const getSession = async () => {
   let session = await auth();
   if (!session || !session.user) {
@@ -23,11 +20,11 @@ export const getSession = async () => {
 
   return formatUser(session.user);
 };
-
 export const isAdminSession = async () => {
-  const session = await getSession();
-  if (!isAdminEmail(session?.email)) {
-    throw new Error("Not auth");
+  try {
+    const session = await getSession();
+    return isAdminEmail(session?.email);
+  } catch (err) {
+    return false;
   }
-  return true;
 };

@@ -1,5 +1,4 @@
-import { auth } from "@/app/auth";
-import React from "react";
+import { auth } from "@/libs/auth";
 import GithubAuthIcon from "../GithubAuthIcon";
 import GoogleAuthIcon from "../GoogleAuthIcon";
 import GuestbookSenderForm from "./GuestbookSenderForm";

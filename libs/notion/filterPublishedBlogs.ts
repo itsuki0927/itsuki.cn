@@ -1,4 +1,9 @@
-function filterPublishedPosts({ posts, onlyNewsletter, onlyPost, onlyHidden }) {
+function filterPublishedPosts({
+  posts,
+  onlyNewsletter,
+  onlyPost,
+  onlyHidden,
+}: any) {
   if (!posts || !posts.length) return [];
   console.log("posts:", posts);
   return (
@@ -10,7 +15,7 @@ function filterPublishedPosts({ posts, onlyNewsletter, onlyPost, onlyHidden }) {
       // .filter((post) =>
       //   onlyHidden ? post?.type?.[0] === "Hidden" : post?.type?.[0] !== "Hidden",
       // )
-      .filter((post) => {
+      .filter((post: any) => {
         return post.title && post?.status === "Published";
       })
   );

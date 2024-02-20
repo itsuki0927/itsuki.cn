@@ -1,7 +1,7 @@
 "use client";
 
 import CommentAvatar from "@/app/guestbook/components/CommentAvatar";
-import { Comment } from "@/app/types/comment";
+import { Comment } from "@/types/comment";
 import { ColumnDef } from "@tanstack/react-table";
 import ReactMarkdown from "react-markdown";
 import CommentDrawer from "./CommentDrawer";

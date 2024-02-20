@@ -1,9 +1,9 @@
-import React from "react";
 import CommentCard from "../CommentCard";
 import { GUESTBOOK } from "@/constants/comment";
-import { getComments } from "@/app/lib/supabase";
 import { SessionProvider } from "next-auth/react";
-import { auth } from "@/app/auth";
+import { auth } from "@/libs/auth";
+
+import {getComments} from "@/actions/comment";
 
 const GuestbookList = async () => {
   const session = await auth();

@@ -1,5 +1,5 @@
 import { idToUuid } from "notion-utils";
-import notion from "@/app/lib/notion";
+import index from "@/libs/notion";
 import getAllPageIds from "./getAllPageIds";
 import getPageProperties from "./getPageProperties";
 import filterPublishedPosts from "./filterPublishedBlogs";
@@ -14,7 +14,7 @@ interface GetAllBlogsParams {
 async function getAllBlogs(params?: GetAllBlogsParams) {
   const { onlyNewsletter, onlyPost, onlyHidden } = params || {};
   let id = NOTION_PAGE_ID;
-  const response = await notion.getPage(id);
+  const response = await index.getPage(id);
 
   id = idToUuid(id);
   const collection = Object.values(response.collection)[0]?.value;

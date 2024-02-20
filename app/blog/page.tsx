@@ -1,6 +1,6 @@
-import Title from "../components/Title";
-import { getAllBlogs } from "../db/notion";
+import getAllBlogs from "@/libs/notion/getAllBlogs";
 import BlogCard from "./components/BlogCard";
+import Title from "@/layouts/AppLayout/components/Title";
 
 const NotionPage = async () => {
   const data = await getAllBlogs();

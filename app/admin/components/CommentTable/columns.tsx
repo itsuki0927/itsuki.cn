@@ -3,42 +3,66 @@
 import CommentAvatar from "@/app/guestbook/components/CommentAvatar";
 import { Comment } from "@/app/types/comment";
 import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
-import { deleteComment, updateCommentState } from "@/app/lib/supabase";
-
-export enum CommentState {
-  Auditing = 0, // 待审核
-  Published = 1, // 通过正常
-  Spam = 2, // 垃圾评论
-  Deleted = 3, // 已删除
-  // 0 -> 默认状态: 以回收站、审核通过
-  // 1 -> 审核通过: 以回收站、标为垃圾
-  // 2 -> 标为垃圾: 移回收站
-  // 3 -> 移回收站: 退回草稿、彻底删除
-}
+import ReactMarkdown from "react-markdown";
+import CommentDrawer from "./CommentDrawer";
+import { Mail } from "react-feather";
+import { Badge } from "@/components/ui/badge";
+import DeleteCommentDialog from "./DeleteCommentDialog";
+import { CommentState, commentStateMap } from "@/constants/comment";
+import SpamButton from "./SpamButton";
+import DeletedButton from "./DeletedButton";
+import PublishedButton from "./PublishedButton";
+import AuditingButton from "./AuditingButton";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const columns: ColumnDef<Comment>[] = [
   {
-    accessorKey: "state",
-    header: "State",
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value: boolean) =>
+          table.toggleAllPageRowsSelected(!!value)
+        }
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value: boolean) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: "parentId",
-    header: "Parent ID",
+    header: "PID",
+    cell: ({ row }) => row.getValue("parentId") || "-",
   },
   {
     accessorKey: "blogId",
-    header: "Blog ID",
+    header: "BID",
   },
   {
     header: "个人信息",
     accessorKey: "avatar",
     cell: ({ row }) => {
       return (
-        <div className="text-right font-medium">
-          <CommentAvatar avatar={row.original.avatar} />
-          <span>{row.original.nickname}</span>
-          <span>{row.original.email}</span>
+        <div className="flex-col flex gap-2">
+          <div className="flex items-center gap-3">
+            <CommentAvatar avatar={row.original.avatar} />
+            <span>{row.original.nickname}</span>
+          </div>
+          <span className="flex items-center gap-1">
+            <Mail size={14} />
+            {row.original.email}
+          </span>
         </div>
       );
     },
@@ -46,55 +70,54 @@ export const columns: ColumnDef<Comment>[] = [
   {
     accessorKey: "content",
     header: "Content",
+    cell: ({ row }) => <ReactMarkdown>{row.original.content}</ReactMarkdown>,
   },
   {
     accessorKey: "createdAt",
     header: "Created At",
     cell: ({ row }) => (
-      <span>{new Date(row.original.createdAt).toLocaleString()}</span>
+      <div className="">
+        <Badge
+          variant={commentStateMap[row.original.state as CommentState].badge}
+        >
+          {commentStateMap[row.original.state as CommentState].label}
+        </Badge>
+        <p>{new Date(row.original.createdAt).toLocaleString()}</p>
+      </div>
     ),
   },
   {
     id: "actions",
     header: "Actions",
+    maxSize: 150,
     cell: ({ row }) => {
-      // Auditing = 0, // 待审核
-      // Published = 1, // 通过正常
-      // Deleted = -1, // 已删除
-      // Spam = -2, // 垃圾评论
       const state = row.original.state;
-      console.log("row", row.original);
       return (
-        <div>
-          <Button variant="link">评论详情</Button>
-          <Button
-            variant="destructive"
-            onClick={() => {
-              updateCommentState(row.original.id, CommentState.Spam);
-            }}
-          >
-            标为垃圾
-          </Button>
+        <div className="flex flex-col gap-2 items-start">
+          <CommentDrawer />
 
-          <Button variant="outline" onClick={() => {}}>
-            审核通过
-          </Button>
+          {state === CommentState.Published ? (
+            <>
+              <SpamButton row={row} />
+              <DeletedButton row={row} />
+            </>
+          ) : null}
 
-          <Button variant="secondary">退回草稿</Button>
+          {state === CommentState.Auditing ? (
+            <>
+              <PublishedButton row={row} />
+              <SpamButton row={row} />
+              <DeletedButton row={row} />
+            </>
+          ) : null}
 
-          <Button variant="ghost">移回收站</Button>
+          {state === CommentState.Spam || state === CommentState.Deleted ? (
+            <AuditingButton row={row} />
+          ) : null}
 
-          <Button
-            variant="ghost"
-            onClick={async () => {
-              const result = await deleteComment(row.original.id);
-              console.log("result:", result);
-            }}
-          >
-            永久删除
-          </Button>
-
-          <Button variant="link">宿主页面</Button>
+          {state === CommentState.Deleted ? (
+            <DeleteCommentDialog row={row} />
+          ) : null}
         </div>
       );
     },

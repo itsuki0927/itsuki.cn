@@ -88,7 +88,7 @@ const CommentSender = ({
     <motion.div
       animate={opacityActiveAnimation}
       className={classNames(
-        "p-2 relative bg-white z-10 rounded-md border border-solid opacity-100 border-zinc-300",
+        "p-2 relative bg-white z-10 rounded-md border border-solid border-zinc-200",
         className,
       )}
       exit={opacityInitialAnimation}

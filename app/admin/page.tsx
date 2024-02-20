@@ -3,15 +3,16 @@ import { columns } from "./components/CommentTable/columns";
 import { CommentTable } from "./components/CommentTable";
 import { isAdminSession } from "../db/actions";
 import { getAllComments } from "../lib/supabase";
+import Title from "../components/Title";
 
 export const metadata = {
   title: "Admin",
 };
 
 export default async function GuestbookPage() {
-  const isAdmin = await isAdminSession();
-
-  if (!isAdmin) {
+  try {
+    await isAdminSession();
+  } catch (err) {
     redirect("/");
   }
 
@@ -19,7 +20,7 @@ export default async function GuestbookPage() {
 
   return (
     <section>
-      <h1 className="font-medium text-2xl mb-8 tracking-tighter">admin</h1>
+      <Title title="评论管理" subTitle="感谢你的友善发言"></Title>
 
       <CommentTable columns={columns} data={allComments || []} />
     </section>

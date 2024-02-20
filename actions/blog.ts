@@ -13,25 +13,3 @@ export const getBlogViews = async (slug: string) => {
   }
   return views;
 };
-
-const genMockReactions = () =>
-  Array.from({ length: 4 }, () => Math.floor(Math.random() * 50000));
-
-export const getReactions = async (id: string): Promise<number[]> => {
-  try {
-    if (VERCEL_ENV === 'production') {
-      const res = await fetch(`/api/reactions?id=${id}`, {
-        next: {
-          tags: [kvKeys.blogReactions(id)],
-        },
-      });
-      const data = await res.json();
-      return data;
-    } else {
-      return genMockReactions();
-    }
-  } catch (error) {
-    console.error(error);
-  }
-  return genMockReactions();
-};

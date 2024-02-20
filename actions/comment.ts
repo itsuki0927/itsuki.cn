@@ -7,6 +7,9 @@ import { InsertComment } from '@/types/comment';
 import { CommentState } from '@/constants/comment';
 import { createBrowserClient } from '@/libs/supabase';
 import { checkIPIsBlocked, getIP } from './ip';
+import { userAgent as getUserAgent } from 'next/server';
+import { headers as getHeaders } from 'next/headers';
+import { VERCEL_ENV } from '@/constants/env';
 
 export const getComments = async (blogId: Number) => {
   noStore();
@@ -58,19 +61,23 @@ export const getAllComments = async (params: SearchCommentParams = {}) => {
 };
 
 export const createComment = async (
-  row: Pick<InsertComment, 'agent' | 'blogId' | 'content'>,
+  row: Pick<InsertComment, 'blogId' | 'content'>,
 ) => {
   const user = await getSession();
   if (!user) {
     return;
   }
-  const ip = getIP();
+  let ip = getIP();
+  if (ip === '::1' && VERCEL_ENV === 'development') {
+    ip = '221.194.171.227';
+  }
   const isBlocked = await checkIPIsBlocked();
   if (isBlocked) {
     throw new Error('You have been blocked.');
   }
-  console.log('ip:', ip);
-  const input = { ...row, ...user, ip };
+  const headers = getHeaders();
+  const userAgent = getUserAgent({ headers });
+  const input = { ...row, ...user, userAgent, ip };
   const supabase = createBrowserClient();
   try {
     const { data } = await supabase.from('comment').insert([input]).select();

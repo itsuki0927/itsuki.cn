@@ -1,8 +1,7 @@
 'use server';
 
 import { kvKeys } from '@/constants/kv';
-import { ratelimit, redis } from '@/libs/upstash';
-import { checkIPIsBlocked, getIP } from './ip';
+import { redis } from '@/libs/upstash';
 import { VERCEL_ENV } from '@/constants/env';
 
 export const getBlogViews = async (slug: string) => {
@@ -15,68 +14,24 @@ export const getBlogViews = async (slug: string) => {
   return views;
 };
 
-export const updateReactions = async (id: string, index: number) => {
-  if (!id || !(index >= 0 && index < 4)) {
-    throw new Error('Missing id or index');
-  }
-  const isBlocked = await checkIPIsBlocked();
-  if (isBlocked) {
-    throw new Error('You have been blocked.');
-  }
+const genMockReactions = () =>
+  Array.from({ length: 4 }, () => Math.floor(Math.random() * 50000));
 
-  const key = kvKeys.blogReactions(id);
-  const ip = getIP();
-
-  const { success } = await ratelimit.limit(key + `_${ip ?? ''}`);
-  if (!success) {
-    throw new Error('Too Many Requests');
-  }
-
-  let current = await redis.get<number[]>(key);
-  if (!current) {
-    current = [0, 0, 0, 0];
-  }
-
-  current[index] += 1;
-
-  await redis.set(key, current);
-
-  return current;
-};
-
-export const getReactions = async (id: string) => {
-  let reactions: number[] = [];
+export const getReactions = async (id: string): Promise<number[]> => {
   try {
-    const ip = getIP();
     if (VERCEL_ENV === 'production') {
-      if (!id) {
-        throw new Error('Missing id');
-      }
-      const redisKey = kvKeys.blogReactions(id);
-
-      const value = await redis.get<number[]>(redisKey);
-      if (!value) {
-        await redis.set(redisKey, [0, 0, 0, 0]);
-      }
-
-      const { success } = await ratelimit.limit(redisKey + `_${ip ?? ''}`);
-      if (!success) {
-        throw new Error('Too Many Requests');
-      }
-
-      if (Array.isArray(value)) {
-        reactions = value;
-      } else {
-        reactions = [0, 0, 0, 0];
-      }
+      const res = await fetch(`/api/reactions?id=${id}`, {
+        next: {
+          tags: [kvKeys.blogReactions(id)],
+        },
+      });
+      const data = await res.json();
+      return data;
     } else {
-      reactions = Array.from({ length: 4 }, () =>
-        Math.floor(Math.random() * 50000),
-      );
+      return genMockReactions();
     }
   } catch (error) {
     console.error(error);
   }
-
-  return reactions;
+  return genMockReactions();
 };

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import bytedacne from '@/public/home/bytedance.png';
 import netease from '@/public/home/netease.png';
 import tencent from '@/public/home/tencent.png';

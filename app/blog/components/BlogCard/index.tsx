@@ -20,7 +20,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         className="block w-full h-0 pt-[75%] sm:pt-[55%]  rounded-xl overflow-hidden z-0"
         href={href}
       >
-        <div className="absolute inset-0 overflow-hidden z-0 mabeUrlOk">
+        <div className="absolute inset-0 overflow-hidden z-0">
           <MyImage
             alt={`${blog.title} cover`}
             className="object-cover w-full h-full"

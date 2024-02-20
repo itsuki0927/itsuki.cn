@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const NotFoundPage = () => {
   return (
-    <div className="pointer-events-none inset-0 flex py-24 w-full flex-col items-center justify-center">
+    <section className="pointer-events-none inset-0 flex py-24 w-full flex-col items-center justify-center">
       <motion.div
         className="text-9xl font-extrabold ..."
         initial={{ opacity: 0, y: 30 }}
@@ -22,7 +22,7 @@ const NotFoundPage = () => {
       >
         返回主页
       </Link>
-    </div>
+    </section>
   );
 };
 

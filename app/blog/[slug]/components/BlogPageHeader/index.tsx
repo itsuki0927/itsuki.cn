@@ -1,13 +1,13 @@
 import { getBlogViews } from '@/actions/blog';
-import { Blog } from '@/types/blog';
 import BlogPageHeaderUI from './ui';
+import getBlog from '@/libs/notion/getBlog';
 
 interface BlogPageHeaderProps {
   slug: string;
-  blog: Blog;
 }
 
-const BlogPageHeader = async ({ slug, blog }: BlogPageHeaderProps) => {
+const BlogPageHeader = async ({ slug }: BlogPageHeaderProps) => {
+  const { blog } = await getBlog(slug);
   const blogViews = await getBlogViews(slug);
 
   return (

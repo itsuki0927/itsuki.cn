@@ -2,15 +2,11 @@ import { VERCEL_ENV } from '@/constants/env';
 import { kvKeys } from '@/constants/kv';
 import buildUrl from '@/utils/buildUrl';
 import BlogReactions from './index';
-import { Blog } from '@/types/blog';
+import getBlog from '@/libs/notion/getBlog';
+import { BlogPageProps } from '../../page';
 
 const genMockReactions = () =>
   Array.from({ length: 4 }, () => Math.floor(Math.random() * 100));
-
-interface BlogReactionsUIProps {
-  slug: string;
-  mood?: Blog['mood'];
-}
 
 const getReactions = async (id: string): Promise<number[]> => {
   try {
@@ -31,10 +27,11 @@ const getReactions = async (id: string): Promise<number[]> => {
   return genMockReactions();
 };
 
-const BlogReactionsUI = async ({ slug, mood }: BlogReactionsUIProps) => {
+const BlogReactionsUI = async ({ slug }: BlogPageProps['params']) => {
+  const { blog } = (await getBlog(slug)) || {};
   const reactions = await getReactions(slug);
 
-  return <BlogReactions id={slug} mood={mood} reactions={reactions} />;
+  return <BlogReactions id={slug} mood={blog.mood} reactions={reactions} />;
 };
 
 export default BlogReactionsUI;

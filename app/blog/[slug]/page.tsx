@@ -1,19 +1,15 @@
-import { getBlogViews } from '@/actions/blog';
 import { BASE_URL } from '@/constants/app';
 import getAllBlogs from '@/libs/notion/getAllBlogs';
-import getBlog from '@/libs/notion/getBlog';
-import getRootPage from '@/libs/notion/getRootPage';
 import { PageProps } from '@/types/common';
 import { Metadata } from 'next';
 import { ExtendedRecordMap } from 'notion-types';
 import { Suspense } from 'react';
 import BlogContentRender from './components/BlogContentRender';
+import BlogContentSkeleton from './components/BlogContentRender/skeleton';
 import BlogReactionsUI from './components/BlogReactions/UI';
 import BlogTableOfContent from './components/BlogTableOfContent';
-import BlogPageHeader from './components/BlogPageHeader';
-import BlogPageHeaderUI from './components/BlogPageHeader/ui';
 
-type BlogPageProps = PageProps<{ slug: string }>;
+export type BlogPageProps = PageProps<{ slug: string }>;
 
 export interface NotionResponse {
   recordMap: ExtendedRecordMap;
@@ -62,28 +58,22 @@ export async function generateStaticParams() {
 
 const NotionPage = async ({ params }: BlogPageProps) => {
   const slug = params.slug;
-  const blogRes = await getBlog(slug);
 
   return (
     <>
       <Suspense>
-        <BlogTableOfContent {...blogRes} />
+        <BlogTableOfContent slug={slug} />
       </Suspense>
 
       <div className="max-w-4xl mx-auto">
-        <BlogContentRender
-          {...blogRes}
-          pageHeader={
-            <Suspense fallback={<BlogPageHeaderUI blogViews={0} />}>
-              <BlogPageHeader slug={slug} blog={blogRes.blog} />
-            </Suspense>
-          }
-        />
+        <Suspense fallback={<BlogContentSkeleton />}>
+          <BlogContentRender slug={slug} />
+        </Suspense>
       </div>
 
-      <aside className="top-1/2 right-12 hidden -translate-y-1/2 p-6 text-gray-400 sm:fixed sm:flex w-[90px]">
+      <aside className="top-1/2 right-12 hidden -translate-y-1/2 p-6 text-zinc-400 sm:fixed sm:flex w-[90px]">
         <Suspense>
-          <BlogReactionsUI slug={slug} mood={blogRes.blog.mood} />
+          <BlogReactionsUI slug={slug} />
         </Suspense>
       </aside>
     </>

@@ -3,6 +3,7 @@ import SmallTag from '@/components/common/SmallTag';
 import { formatDate } from '@/utils/formatDate';
 import {
   Clock,
+  FolderOpen,
   Hourglass,
   MessageSquareHeart,
   MousePointerClick,
@@ -64,7 +65,18 @@ const BlogHeader = async ({ slug }: BlogPageHeaderProps) => {
             </span>
           </span>
         </div>
-        <div className="flex flex-wrap space-x-2 mt-4">
+        <div className="flex flex-wrap space-x-2 mt-4 items-center">
+          <SmallTag
+            key={blog?.category.title}
+            href={`/category/${blog?.category.slug}`}
+            className="flex items-center"
+          >
+            <FolderOpen size={12} className="mr-1" />
+            {blog?.category.title}
+          </SmallTag>
+
+          <span className="bg-zinc-300 h-3 w-[1px]"></span>
+
           {blog?.tag?.map((tag) => (
             <SmallTag
               key={tag.title}

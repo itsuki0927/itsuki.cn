@@ -19,3 +19,9 @@ export const META = {
   twitterCreatorId: '6tEYlbBq544k4nu',
   email: ADMIN_EMAIL1,
 };
+
+export const SOCIAL = {
+  github: 'https://github.com/itsuki0927',
+  juejin: 'https://juejin.cn/user/2436173499466350',
+  sifou: 'https://segmentfault.com/u/itsuki0927',
+};

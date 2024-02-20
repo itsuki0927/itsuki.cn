@@ -11,7 +11,7 @@ import {
   Tailwind,
   Text,
 } from './components';
-import { BASE_URL } from '@/constants/app';
+import { BASE_URL, SOCIAL } from '@/constants/app';
 import { Github } from 'lucide-react';
 import Juejin from '@/components/icon/Juejin';
 import Sifou from '@/components/icon/Sifou';
@@ -52,15 +52,24 @@ const EmailLayout = ({ previewText, children }: EmailLayoutProps) => {
                 <br />
                 {META.description}
               </Text>
-              <Text className="text-center flex space-x-4 justify-center text-zinc-700">
-                <Link href="https://github.com/itsuki0927">
-                  <Github size={20} />
+              <Text className="text-center flex space-x-4 justify-center">
+                <Link
+                  href={SOCIAL.github}
+                  className="text-xs text-zinc-600 underline"
+                >
+                  Github
                 </Link>
-                <Link href="https://juejin.cn/user/2436173499466350">
-                  <Juejin size={20} />
+                <Link
+                  href={SOCIAL.juejin}
+                  className="text-xs text-zinc-600 underline"
+                >
+                  掘金
                 </Link>
-                <Link href="https://segmentfault.com/u/itsuki0927">
-                  <Sifou size={20} />
+                <Link
+                  href={SOCIAL.sifou}
+                  className="text-xs text-zinc-600 underline"
+                >
+                  思否
                 </Link>
               </Text>
             </Section>

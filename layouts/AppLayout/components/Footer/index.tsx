@@ -7,6 +7,9 @@ import Link from 'next/link';
 import Logo from '../Logo';
 import LastVisitorInfo from './LastVisitorInfo';
 import TotalPageViews from './TotalPageViews';
+import GithubExternalLink from '@/components/common/GithubExternalLink';
+import JuejinExternalLink from '@/components/common/JuejinExternalLink';
+import SifouExternalLink from '@/components/common/SifouExternalLink';
 
 const Footer = async () => {
   return (
@@ -20,15 +23,9 @@ const Footer = async () => {
                 {route.name}
               </Link>
             ))}
-            <ExternalLink href="https://github.com/itsuki0927">
-              <Github size={20} />
-            </ExternalLink>
-            <ExternalLink href="https://juejin.cn/user/2436173499466350">
-              <Juejin size={20} />
-            </ExternalLink>
-            <ExternalLink href="https://segmentfault.com/u/itsuki0927">
-              <Sifou size={20} />
-            </ExternalLink>
+            <GithubExternalLink />
+            <JuejinExternalLink />
+            <SifouExternalLink />
           </div>
         </div>
 

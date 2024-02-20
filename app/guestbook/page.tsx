@@ -9,7 +9,7 @@ export const metadata = {
     '留下你的想法，我热衷于听到你的声音，并与你进行深入交流，不论是技术还是生活又或是其他事情都可以。',
 };
 
-export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 const CommentCardSkeleton = () => (
   <div className="flex space-x-4">

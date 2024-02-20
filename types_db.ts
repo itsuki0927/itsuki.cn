@@ -20,6 +20,7 @@ export interface Database {
           emoji: Json | null;
           id: number;
           nickname: string;
+          ip: string;
           parentId: number | null;
           slug: string | null;
           state: number;
@@ -33,6 +34,7 @@ export interface Database {
           createdAt?: string;
           email: string;
           emoji?: Json | null;
+          ip: string;
           id?: number;
           nickname?: string;
           parentId?: number | null;
@@ -49,6 +51,7 @@ export interface Database {
           email?: string;
           emoji?: Json | null;
           id?: number;
+          ip?: string;
           nickname?: string;
           parentId?: number | null;
           slug?: string | null;

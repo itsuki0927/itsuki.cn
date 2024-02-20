@@ -33,6 +33,6 @@ export const UPSTASH_REDIS_TOKEN = process.env.UPSTASH_REDIS_TOKEN;
 
 export const VERCEL_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV;
 
-export const VERCEL_URL = process.env.VERCEL_URL;
+export const VERCEL_URL = process.env.NEXT_PUBLIC_VERCEL_URL;
 
 export const NODE_ENV = process.env.NODE_ENV;

@@ -2,7 +2,7 @@ namespace NodeJS {
   interface ProcessEnv {
     // vercel
     NEXT_PUBLIC_VERCEL_ENV: 'production' | 'development' | 'preview';
-    VERCEL_URL: string;
+    NEXT_PUBLIC_VERCEL_URL: string;
 
     // notion
     NOTION_AUTH_TOKEN: string;

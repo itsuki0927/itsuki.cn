@@ -1,13 +1,13 @@
+import { Blog } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
 
 export interface BlogCardProps {
-  blog: any;
+  blog: Blog;
 }
 
 const BlogCard = ({ blog }: BlogCardProps) => {
-  const href = `/blog/${blog.path || blog.id}` as const;
-  console.log("blog:", blog);
+  const href = `/blog/${blog.slug}` as const;
   return (
     <div className="group relative overflow-hidden z-0 rounded-xl">
       <Link
@@ -20,7 +20,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
             className="object-cover w-full h-full"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
             fill
-            src={blog.cover!}
+            src={blog.cover}
           />
         </div>
         <div className="absolute top-4 left-4" />

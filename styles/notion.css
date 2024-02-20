@@ -57,10 +57,7 @@ svg + .notion-page-title-text {
 }
 
 .notion-quote {
-  @apply bg-zinc-100;
-  padding: 0.2em 0.9em;
-  font-size: 1em;
-  line-height: 1.5rem;
+  @apply bg-zinc-100 py-4 px-3 text-base;
 }
 
 .notion-hr {
@@ -94,12 +91,18 @@ svg + .notion-page-title-text {
   animation: toc-fade-in-animation 0.5s ease-in;
 }
 
+.notion-aside-table-of-contents {
+  @apply bg-transparent;
+}
 .notion-table-of-contents {
   /* @apply 2xl:max-w-xs 2xl:fixed 2xl:z-10 2xl:top-20 2xl:inset-x-3/4; */
-  @apply bg-white dark:bg-black;
+  @apply bg-transparent dark:bg-black;
 }
 .notion-table-of-contents-item {
-  @apply rounded-lg px-2 dark:text-zinc-200;
+  @apply px-2 dark:text-zinc-200 transition-colors hover:bg-transparent;
+}
+.notion-table-of-contents-active-item {
+  @apply !text-primary;
 }
 
 .notion-bookmark {
@@ -124,10 +127,7 @@ svg + .notion-page-title-text {
 }
 
 .notion-code-copy-button {
-  @apply text-zinc-600 dark:text-zinc-400 bg-white dark:bg-black border-none;
-  padding: 0.4em;
-  font-size: 1em;
-  box-shadow: none;
+  @apply text-zinc-600 dark:text-zinc-400 bg-white dark:bg-black border-none shadow-none rounded p-1 text-sm;
 }
 
 .notion-code-copy-tooltip,
@@ -160,4 +160,7 @@ svg + .notion-page-title-text {
 }
 .notion-collection-row {
   @apply hidden;
+}
+
+.notion-quote {
 }

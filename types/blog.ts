@@ -4,19 +4,25 @@ export enum BlogState {
   Privated = "Privated",
 }
 
+export enum BlogCategory {
+  Blog = "blog",
+  Run = "run",
+}
+
 export interface Blog {
-  category: "blog" | "run";
-  state: BlogState;
+  id: string;
   title: string;
+  cover: string;
+  mood: "happy" | "sad" | "neutral";
+  category: BlogCategory;
+  state: BlogState;
   author: string;
   description: string;
-  id: string;
   keywords: string;
-  path: string;
-  recent?: "true" | "false";
   slug: string;
   tags: string[];
-  createAt: Date;
-  publishAt?: Date;
-  updateAt: Date;
+  recent?: "true" | "false";
+  createdAt?: Date;
+  publishedAt?: Date;
+  updatedAt?: Date;
 }

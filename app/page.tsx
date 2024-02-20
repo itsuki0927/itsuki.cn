@@ -1,12 +1,10 @@
-import ExternalLink from '@/components/common/ExternalLink';
 import Title from '@/layouts/AppLayout/components/Title';
-import { PieChart, Rss } from 'lucide-react';
+import { PieChart } from 'lucide-react';
 import AboutMe from './components/AboutMe';
 import Gallery from './components/Gallery';
 import RecentBlogs from './components/RecentBlogs';
 import Summary from './components/Summary';
 import Work from './components/Work';
-import { BASE_URL } from '@/constants/app';
 import GithubExternalLink from '@/components/common/GithubExternalLink';
 import JuejinExternalLink from '@/components/common/JuejinExternalLink';
 import SifouExternalLink from '@/components/common/SifouExternalLink';
@@ -30,9 +28,6 @@ const Home = () => {
           <GithubExternalLink />
           <JuejinExternalLink />
           <SifouExternalLink />
-          <ExternalLink href={`${BASE_URL}/rss`}>
-            <Rss size={20} />
-          </ExternalLink>
         </div>
       </Title>
 

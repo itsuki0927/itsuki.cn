@@ -1,7 +1,6 @@
 namespace NodeJS {
   interface ProcessEnv {
-    NEXT_PUBLIC_WEB_URL: string;
-    NEXT_PUBLIC_VERCEL_URL: string;
+    // vercel
     VERCEL_ENV: string;
     VERCEL_URL: string;
 
@@ -23,7 +22,7 @@ namespace NodeJS {
     GOOGLE_CLIENT_SECRET: string;
 
     // admin email
-    ADMIN_EMAIL1: string;
+    NEXT_PUBLIC_ADMIN_EMAIL1: string;
     ADMIN_EMAIL2: string;
 
     // upstash

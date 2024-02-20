@@ -1,8 +1,7 @@
-import { EMAIL, NEXT_PUBLIC_VERCEL_URL } from './env';
+import { ADMIN_EMAIL1, VERCEL_ENV } from './env';
 
-export const BASE_URL = NEXT_PUBLIC_VERCEL_URL
-  ? `https://${NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000';
+export const BASE_URL =
+  VERCEL_ENV === 'production' ? `https://itsuki.cn` : 'http://localhost:3000';
 
 export const TOTAL_PAGEVIEWS_BASELINE = 10000;
 
@@ -16,5 +15,5 @@ export const META = {
   author: '五块木头',
   twitterCreator: 'itsuki',
   twitterCreatorId: '6tEYlbBq544k4nu',
-  email: EMAIL,
+  email: ADMIN_EMAIL1,
 };

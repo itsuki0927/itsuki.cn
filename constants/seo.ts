@@ -1,15 +1,28 @@
 import type { Metadata } from 'next';
-import { META } from './app';
+import { BASE_URL } from './app';
+import { ADMIN_EMAIL1 } from './env';
+
+export const META = {
+  title: '五块木头',
+  keywords:
+    '五块木头,itsuki.cn,itsuki,itsuki blog,SkCode,NeoVim,前端技术博客,React,Next.js,JavaScript,TypeScript',
+  description: '一个喜欢 code 和 run 的前端 dog',
+  url: BASE_URL,
+  author: '五块木头',
+  twitterCreator: 'itsuki',
+  twitterCreatorId: '6tEYlbBq544k4nu',
+  email: ADMIN_EMAIL1,
+};
 
 const metadataConfig: Metadata = {
+  metadataBase: new URL(META.url),
   title: {
-    default: '五块木头',
+    default: META.title,
     template: `%s | ${META.title}`,
   },
   authors: [{ url: META.url, name: META.title }],
   description: META.description,
   keywords: META.keywords,
-  archives: `${META.url}/archives`,
   alternates: {
     canonical: META.url,
     types: {

@@ -1,12 +1,10 @@
-export const ADMIN_EMAIL1 = process.env.ADMIN_EMAIL1;
+export const ADMIN_EMAIL1 = process.env.NEXT_PUBLIC_ADMIN_EMAIL1;
 
 export const ADMIN_EMAIL2 = process.env.ADMIN_EMAIL2;
 
 export const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL ?? '';
 
 export const NEXT_PUBLIC_VERCEL_URL = process.env.NEXT_PUBLIC_VERCEL_URL;
-
-export const EMAIL = process.env.NEXT_PUBLIC_EMAIL ?? '';
 
 export const NOTION_PAGE_ID = process.env.NOTION_PAGE_ID ?? '';
 

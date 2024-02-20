@@ -1,8 +1,8 @@
-import beijing from '@/public/home/beijing.jpg';
+import beijing from '@/public/home/beijing.webp';
 import guiyang from '@/public/home/guiyang.jpg';
 import dali1 from '@/public/home/dali1.jpg';
-import dali2 from '@/public/home/dali2.jpg';
-import xianggelila from '@/public/home/xianggelila.jpg';
+import dali2 from '@/public/home/dali2.webp';
+import xianggelila from '@/public/home/xianggelila.webp';
 import keep from '@/public/home/keep.jpeg';
 import MyImage from '@/components/common/MyImage';
 

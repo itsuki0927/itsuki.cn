@@ -24,13 +24,21 @@ const buildBase64 = (
   height: ImageProps["height"],
 ) => toBase64(shimmer(width, height));
 
-type MyImageProps = Omit<ImageProps, "placeholder" | "blurDataURL">;
+type MyImageProps = Omit<ImageProps, "placeholder">;
+
+const getNumber = (n: number | `${number}` = 0) => {
+  if (typeof n === "number") {
+    return n;
+  }
+  return Number(n.replace("${", "").replace("}", ""));
+};
 
 const MyImage = (props: MyImageProps) => {
   const placeholderProps: Pick<ImageProps, "placeholder"> = {};
-  if (parseFloat(props.width || 0) > 40 || parseFloat(props.height || 0) > 40) {
-    placeholderProps.placeholder = `data:image/svg+xml;base64,${toBase64(
-      shimmer(props.width || 700, props.height || 475),
+  if (getNumber(props.width) > 40 || getNumber(props.height) > 40) {
+    placeholderProps.placeholder = `data:image/svg+xml;base64,${buildBase64(
+      props.width || 700,
+      props.height || 475,
     )}`;
   }
 

@@ -19,8 +19,7 @@ interface IconButtonProps extends StandardProps {
 const IconButton = ({ children, onClick }: IconButtonProps) => {
   return (
     <button
-      className="text-zinc-500 w-6 h-6 flex justify-center items-center rounded-md hover:bg-blue-500 hover:text-white"
-      key="smile"
+      className="text-zinc-500 w-6 h-6 flex justify-center items-center rounded-md hover:bg-primary hover:text-white"
       type="button"
       onClick={onClick}
     >
@@ -101,7 +100,7 @@ const CommentSender = ({
           animate={{
             opacity: 1,
           }}
-          className="absolute left-0 rounded-xl right-0 top-0 cursor-not-allowed bg-zinc-50 overflow-y-auto p-2 sm:p-3 transition-all duration-300 z-10 bottom-[46px]"
+          className="text-sm absolute left-0 rounded-xl right-0 top-0 cursor-not-allowed bg-zinc-50 overflow-y-auto p-2 sm:p-4 transition-all duration-300 z-10 bottom-[46px]"
           exit={{ opacity: 0 }}
           initial={{
             opacity: 0,
@@ -116,10 +115,11 @@ const CommentSender = ({
 
       <div className="py-1 px-2 flex gap-2 justify-between">
         <div className="flex gap-2 items-center">
-          <EmojiPopover onEmojiClick={handleEmoji}>
-            <IconButton key="smile">
-              <Smile size={16} />
-            </IconButton>
+          <EmojiPopover
+            triggerClassName="text-zinc-500 w-6 h-6 flex justify-center items-center rounded-md hover:bg-primary hover:text-white"
+            onEmojiClick={handleEmoji}
+          >
+            <Smile size={16} />
           </EmojiPopover>
           <IconButton key="bold" onClick={handleBold}>
             <Bold size={16} />
@@ -135,10 +135,11 @@ const CommentSender = ({
 
         <button
           key="send"
+          type="button"
           className={clsx(
             'px-4 h-6 flex justify-center items-center rounded transition-all',
             hasValue
-              ? 'hover:bg-blue-500 bg-blue-500 text-white hover:text-white'
+              ? 'hover:bg-primary bg-primary text-white hover:text-white'
               : 'cursor-not-allowed text-zinc-500 hover:text-zinc-400',
           )}
           disabled={isLoading || !hasValue}
@@ -149,7 +150,6 @@ const CommentSender = ({
               }
             });
           }}
-          type="button"
         >
           {isLoading ? (
             <Loader

@@ -14,7 +14,9 @@ export const getAllBlogs = async ({
   categorySlug,
   tagSlug,
 }: BlogSearchParams = {}) => {
-  const builder = supabaseBrowserClient.from('blog').select('*');
+  const builder = supabaseBrowserClient
+    .from('blog')
+    .select('*, tag (*), blogTag (*), category (*)');
 
   if (favorite) {
     builder.eq('favorite', favorite);
@@ -25,6 +27,11 @@ export const getAllBlogs = async ({
     if (category) {
       builder.eq('categoryId', category.id);
     }
+    // builder.eq('category.slug', categorySlug);
+  }
+
+  if (tagSlug) {
+    builder.containedBy('tag.slug', [tagSlug]);
   }
 
   const { data } = await builder;
@@ -35,7 +42,8 @@ export const getAllBlogs = async ({
 export const getBlog = async (slug: string) => {
   const { data } = await supabaseBrowserClient
     .from('blog')
-    .select('*')
-    .eq('slug', slug);
-  return data?.at(0);
+    .select('*, tag (*), blogTag (*), category (*)')
+    .eq('slug', slug)
+    .maybeSingle();
+  return data;
 };

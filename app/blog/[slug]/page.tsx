@@ -82,5 +82,3 @@ const NotionPage = async ({ params }: BlogPageProps) => {
 };
 
 export default NotionPage;
-
-export const revalidate = 60;

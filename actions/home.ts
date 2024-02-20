@@ -1,6 +1,8 @@
 import { createBrowserClient } from "@/libs/supabase";
 import { CommentState } from "@/constants/comment";
 import getAllBlogs from "@/libs/notion/getAllBlogs";
+import { redis } from "@/libs/upstash";
+import { kvKeys } from "@/constants/kv";
 
 export interface SummaryResponse {
   commentCount: number;
@@ -46,6 +48,8 @@ export const getSummary = async () => {
   if (blogs?.length) {
     result.blogCount = blogs.length;
   }
+
+  result.viewCount = (await redis.get(kvKeys.totalPageViews)) as number;
 
   return result;
 };

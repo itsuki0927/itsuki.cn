@@ -3,22 +3,18 @@ import SmallTag from '@/components/common/SmallTag';
 import { formatDate } from '@/utils/formatDate';
 import {
   Clock,
-  MessageSquare,
+  Hourglass,
+  MessageSquareHeart,
   MousePointerClick,
   Tag,
-  Type,
 } from 'lucide-react';
 import prettifyNumber from '@/utils/prettifyNumber';
 import MyImage from '@/components/common/MyImage';
+import getReadMinutes from '@/utils/getReadMinutes';
 
 interface BlogPageHeaderProps {
   slug: string;
 }
-
-const getReadMinutes = (content: string) => {
-  const minutes = Math.round(content.length / 600);
-  return Math.max(1, minutes);
-};
 
 const BlogHeader = async ({ slug }: BlogPageHeaderProps) => {
   const blog = await getBlog(slug);
@@ -53,12 +49,12 @@ const BlogHeader = async ({ slug }: BlogPageHeaderProps) => {
             className="inline-flex items-center space-x-1.5"
             title={blog?.comments?.toString()}
           >
-            <MessageSquare size={14} />
+            <MessageSquareHeart size={14} />
             <span>{blog?.comments} 条评论</span>
           </span>
 
           <span className="inline-flex items-center space-x-1.5">
-            <Type size={14} />
+            <Hourglass size={14} />
             <span>
               需阅读
               <span className="mx-1">

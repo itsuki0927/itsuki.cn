@@ -40,7 +40,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
       <Title
         title={
           <span className="flex items-center">
-            <FolderOpen size={48} className="mr-2" />
+            <FolderOpen size={40} className="mr-2" />
             {category?.title}
           </span>
         }

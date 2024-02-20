@@ -1,7 +1,10 @@
 import { supabaseBrowserClient } from '@/libs/supabase/client';
 
 export const getAllCategories = async () => {
-  const { data } = await supabaseBrowserClient.from('category').select('*');
+  const { data } = await supabaseBrowserClient
+    .from('category')
+    .select('*')
+    .order('sort', { ascending: false });
   return data || [];
 };
 

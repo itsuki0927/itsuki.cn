@@ -2,11 +2,10 @@ import React from 'react';
 import { getBlogHeadingElementId } from '@/constants/anchor';
 import type { StandardProps } from '@/types/common';
 import Code from './Code';
-import Image, { ImageProps } from 'next/image';
-// import LegacyImage from "./LegacyImage";
-// import Image from "./Image";
 import styles from './style.module.scss';
 import clsx from 'clsx';
+import ExternalLink from '../common/ExternalLink';
+import LegacyImage from './LegacyImage';
 
 export const H1 = ({ children, className, ...rest }: StandardProps) => {
   const id = getBlogHeadingElementId(String(children));
@@ -115,9 +114,9 @@ export const UnOrderedList = ({
 
 export const Text = ({ children, className }: StandardProps) => {
   return (
-    <p className={clsx('my-3 leading-8 group relative', className)}>
+    <div className={clsx('my-3 leading-8 group relative', className)}>
       {children}
-    </p>
+    </div>
   );
 };
 
@@ -147,11 +146,34 @@ interface LinkProps extends StandardProps {
   href?: string;
 }
 
-export const Link = ({ href, children, className, ...rest }: LinkProps) => {
+export const Link = ({
+  href = '',
+  children,
+  className,
+  ...rest
+}: LinkProps) => {
+  const isExternalLink = href.startsWith('http') || href.startsWith('https');
+
+  if (isExternalLink) {
+    return (
+      <ExternalLink
+        href={href}
+        {...rest}
+        className={clsx(styles.externalLink, className)}
+      >
+        {children}
+      </ExternalLink>
+    );
+  }
+
   return (
-    <a className={clsx(styles.externalLink, className)} href={href} {...rest}>
+    <Link
+      href={href}
+      className={clsx(styles.internalLink, className)}
+      {...rest}
+    >
       {children}
-    </a>
+    </Link>
   );
 };
 
@@ -175,14 +197,7 @@ export const markdownComponents = {
   a: Link,
   code: InlineCode,
   blockquote: Blockquote,
-  // img: (props: any) => (
-  //   <Image
-  //     sizes="100vw"
-  //     style={{ width: '100%', height: 'auto' }}
-  //     {...(props as ImageProps)}
-  //     alt={props.alt}
-  //   />
-  // ),
+  img: LegacyImage,
   table: Table,
 };
 

@@ -3,6 +3,7 @@ import BlogList from '@/app/blog/components/BlogList';
 import { BASE_URL } from '@/constants/app';
 import Title from '@/layouts/AppLayout/components/Title';
 import { PageProps } from '@/types/common';
+import { FolderOpen } from 'lucide-react';
 import { Metadata } from 'next';
 
 export type CategoryPageProps = PageProps<{ slug: string }>;
@@ -36,9 +37,18 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 
   return (
     <div className="container">
-      <Title title={category?.title}>{category?.description}</Title>
+      <Title
+        title={
+          <span className="flex items-center">
+            <FolderOpen size={48} className="mr-2" />
+            {category?.title}
+          </span>
+        }
+      >
+        {category?.description}
+      </Title>
 
-      <BlogList params={{ categorySlug: slug }} />
+      <BlogList displayCategory={false} params={{ categorySlug: slug }} />
     </div>
   );
 };

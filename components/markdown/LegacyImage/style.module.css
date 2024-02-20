@@ -1,0 +1,32 @@
+.loadingDots {
+  @apply inline-flex items-center text-center leading-7;
+}
+
+.loadingDots .dot {
+  @apply mx-1 h-3 w-3 rounded-full;
+  background-color: currentColor;
+  animation-name: blink;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+.loadingDots .dot:nth-of-type(2) {
+  animation-delay: 0.2s;
+}
+
+.loadingDots .dot::nth-of-type(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}

@@ -1,13 +1,13 @@
 import React, { Suspense } from 'react';
-import BlogCard, { BlogCardSkeleton } from '../BlogCard';
+import BlogCard, { BlogCardProps, BlogCardSkeleton } from '../BlogCard';
 import { getAllBlogs } from '@/actions/blog';
 import { BlogSearchParams } from '@/types/blog';
 
-interface BlogListParams {
+interface BlogListParams extends Pick<BlogCardProps, 'displayCategory'> {
   params?: BlogSearchParams;
 }
 
-const Main = async ({ params }: BlogListParams) => {
+const Main = async ({ params, displayCategory }: BlogListParams) => {
   const data = await getAllBlogs(params);
 
   if (data?.length === 0) {
@@ -16,7 +16,9 @@ const Main = async ({ params }: BlogListParams) => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-7 mt-5 md:mt-7 ">
-      {data?.map((item) => <BlogCard key={item.id} blog={item} />)}
+      {data?.map((item) => (
+        <BlogCard key={item.id} blog={item} displayCategory={displayCategory} />
+      ))}
     </div>
   );
 };

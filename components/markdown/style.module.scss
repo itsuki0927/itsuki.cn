@@ -35,7 +35,7 @@
 }
 
 .externalLink {
-  @apply text-blue-600 no-underline transition-all hover:text-blue-100 hover:underline;
+  @apply text-primary/90 no-underline transition-all hover:text-primary hover:underline;
 }
 
 .internalLink {

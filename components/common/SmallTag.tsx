@@ -1,32 +1,32 @@
 import classNames from 'clsx';
 import Link from 'next/link';
 import type { StandardProps } from '@/types/common';
-import { genRandomColor } from '@/utils/color';
-import { Tag } from '@/types/tag';
+import { ReactNode } from 'react';
 
 interface SmallTagProps extends Omit<StandardProps, 'children'> {
-  tag: Tag;
+  href: string;
+  children: ReactNode;
   isDark?: boolean;
 }
 
 const SmallTag = ({
-  tag,
+  href,
+  children,
   className = '',
   style,
   isDark = false,
 }: SmallTagProps) => {
-  const color = genRandomColor();
   return (
     <Link
       className={classNames(
-        'transition-colors hover:text-white dark:hover:text-black duration-300 inline-flex px-2.5 py-1 rounded-full font-medium text-xs relative my-1 text-[10px] sm:text-xs',
-        color,
+        'transition-colors hover:text-white dark:hover:text-black duration-300 inline-flex px-2.5 py-1 rounded-md font-medium text-xs relative my-1 text-[10px] sm:text-xs',
+        'text-zinc-800 bg-zinc-100 hover:bg-primary',
         className,
       )}
-      href={`/tag/${tag.slug}`}
+      href={href}
       style={style}
     >
-      {tag.title}
+      {children}
     </Link>
   );
 };

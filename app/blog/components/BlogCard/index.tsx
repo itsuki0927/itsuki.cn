@@ -1,9 +1,14 @@
 import MyImage from '@/components/common/MyImage';
+import SmallTag from '@/components/common/SmallTag';
 import { Blog } from '@/types/blog';
+import { formatDate } from '@/utils/formatDate';
+import prettifyNumber from '@/utils/prettifyNumber';
+import { Clock, FolderOpen, MousePointerClick } from 'lucide-react';
 import Link from 'next/link';
 
 export interface BlogCardProps {
   blog: Blog;
+  displayCategory?: boolean;
 }
 
 export const BlogCardSkeleton = () => {
@@ -12,7 +17,7 @@ export const BlogCardSkeleton = () => {
   );
 };
 
-const BlogCard = ({ blog }: BlogCardProps) => {
+const BlogCard = ({ blog, displayCategory = true }: BlogCardProps) => {
   const href = `/blog/${blog.slug}` as const;
   return (
     <div className="group relative overflow-hidden z-0 rounded-xl">
@@ -37,6 +42,25 @@ const BlogCard = ({ blog }: BlogCardProps) => {
       />
       <div className="absolute z-10 inset-x-0 bottom-0 p-4 sm:p-6 flex flex-col">
         <Link className="absolute inset-0" href={href} />
+        <div className="flex flex-wrap space-x-3 items-center -my-1">
+          {displayCategory && (
+            <SmallTag
+              href={`/category/${blog.category.slug}`}
+              className="flex items-center space-x-1"
+            >
+              <FolderOpen size={12} />
+              <span>{blog.category.title}</span>
+            </SmallTag>
+          )}
+          <span className="text-xs text-zinc-300 flex items-center space-x-1">
+            <Clock size={12} />
+            <span>{formatDate(blog.createdAt || Date.now())}</span>
+          </span>
+          <span className="text-xs text-zinc-300 flex items-center space-x-1">
+            <MousePointerClick size={12} />
+            <span>{prettifyNumber(blog?.views ?? 0, true)} 次点击</span>
+          </span>
+        </div>
         <h3 className="mt-3.5 relative block font-semibold text-white text-lg sm:text-xl nc-card-title">
           <Link className="line-clamp-2 " href={href} title={blog.title}>
             {blog.title}

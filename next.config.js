@@ -98,6 +98,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'static.itsuki.cn',
       },
+      {
+        protocol: 'https',
+        hostname: 'camo.githubusercontent.com',
+      },
     ],
   },
 };

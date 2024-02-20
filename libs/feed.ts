@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Feed, Item } from 'feed';
 import { BASE_URL, META } from '@/constants/app';
-import getAllBlogs from './notion/getAllBlogs';
+import { getAllBlogs } from '@/actions/blog';
 
 const generateRSSFeed = async () => {
   const blogs = await getAllBlogs();

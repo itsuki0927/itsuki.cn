@@ -15,7 +15,10 @@ const Footer = () => {
     <footer className="border-t border-dashed border-t-zinc-200">
       <div className="container flex w-full flex-col py-12 items-start justify-center text-sm">
         <div className="flex w-full flex-col sm:flex-row justify-between items-center gap-6">
-          <Logo />
+          <div className="flex items-center gap-2">
+            <Logo />
+            <span className="text-zinc-800 dark:text-zinc-200">五块木头</span>
+          </div>
           <div className="flex gap-6 flex-wrap items-center text-sm font-medium text-zinc-800 dark:text-zinc-200">
             {ROUTE_LIST_WITH_HOME.map((route) => (
               <Link href={route.path} key={route.path}>

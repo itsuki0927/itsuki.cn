@@ -2,6 +2,7 @@ import React from 'react';
 import { getBlogHeadingElementId } from '@/constants/anchor';
 import type { StandardProps } from '@/types/common';
 import Code from './Code';
+import Image, { ImageProps } from 'next/image';
 // import LegacyImage from "./LegacyImage";
 // import Image from "./Image";
 import styles from './style.module.scss';
@@ -28,7 +29,7 @@ export const H2 = ({ children, className, ...rest }: StandardProps) => {
   return (
     <h2
       className={clsx(
-        'relative group mt-24 mb-8 text-3xl font-semibold',
+        'relative group mt-16 mb-8 text-3xl font-semibold',
         className,
       )}
       id={id}
@@ -44,7 +45,7 @@ export const H3 = ({ children, className, ...rest }: StandardProps) => {
   return (
     <h3
       className={clsx(
-        'relative group mt-11 mb-6 text-2xl font-semibold',
+        'relative group mt-12 mb-6 text-2xl font-semibold',
         className,
       )}
       id={id}
@@ -114,7 +115,7 @@ export const UnOrderedList = ({
 
 export const Text = ({ children, className }: StandardProps) => {
   return (
-    <p className={clsx('mb-1 leading-8 group relative', className)}>
+    <p className={clsx('my-3 leading-8 group relative', className)}>
       {children}
     </p>
   );
@@ -162,7 +163,7 @@ export const Table = ({ children, className, ...rest }: StandardProps) => {
   );
 };
 
-const markdownComponents = {
+export const markdownComponents = {
   h1: H1,
   h2: H2,
   h3: H3,
@@ -174,7 +175,14 @@ const markdownComponents = {
   a: Link,
   code: InlineCode,
   blockquote: Blockquote,
-  // img: LegacyImage,
+  // img: (props: any) => (
+  //   <Image
+  //     sizes="100vw"
+  //     style={{ width: '100%', height: 'auto' }}
+  //     {...(props as ImageProps)}
+  //     alt={props.alt}
+  //   />
+  // ),
   table: Table,
 };
 

@@ -46,10 +46,7 @@ export async function POST(req: NextRequest) {
   const input = { ...row, ...user, userAgent, geo, ip };
 
   try {
-    const { data } = await supabase
-      .from(COMMENT_TABLE)
-      .insert([input])
-      .select();
+    const { data } = await supabase.from(COMMENT_TABLE).insert(input).select();
 
     if (input.blogId === GUESTBOOK) {
       sendGuestbookEmail({ user, content: input.content });

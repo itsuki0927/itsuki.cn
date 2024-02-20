@@ -6,9 +6,143 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
+      blog: {
+        Row: {
+          categoryId: number | null
+          comments: number | null
+          content: string
+          cover: string
+          createdAt: string | null
+          description: string
+          favorite: boolean | null
+          forbiddedComment: boolean | null
+          id: number
+          keywords: string[]
+          mood: Database["public"]["Enums"]["blogMood"] | null
+          reactions: Json | null
+          slug: string
+          state: Database["public"]["Enums"]["blogState"] | null
+          title: string
+          updatedAt: string | null
+          views: number | null
+        }
+        Insert: {
+          categoryId?: number | null
+          comments?: number | null
+          content: string
+          cover: string
+          createdAt?: string | null
+          description: string
+          favorite?: boolean | null
+          forbiddedComment?: boolean | null
+          id?: number
+          keywords: string[]
+          mood?: Database["public"]["Enums"]["blogMood"] | null
+          reactions?: Json | null
+          slug: string
+          state?: Database["public"]["Enums"]["blogState"] | null
+          title: string
+          updatedAt?: string | null
+          views?: number | null
+        }
+        Update: {
+          categoryId?: number | null
+          comments?: number | null
+          content?: string
+          cover?: string
+          createdAt?: string | null
+          description?: string
+          favorite?: boolean | null
+          forbiddedComment?: boolean | null
+          id?: number
+          keywords?: string[]
+          mood?: Database["public"]["Enums"]["blogMood"] | null
+          reactions?: Json | null
+          slug?: string
+          state?: Database["public"]["Enums"]["blogState"] | null
+          title?: string
+          updatedAt?: string | null
+          views?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_categoryId_fkey"
+            columns: ["categoryId"]
+            isOneToOne: false
+            referencedRelation: "category"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      blogTag: {
+        Row: {
+          blogId: number
+          tagId: number
+        }
+        Insert: {
+          blogId: number
+          tagId: number
+        }
+        Update: {
+          blogId?: number
+          tagId?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blogTag_blogId_fkey"
+            columns: ["blogId"]
+            isOneToOne: false
+            referencedRelation: "blog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "blogTag_tagId_fkey"
+            columns: ["tagId"]
+            isOneToOne: false
+            referencedRelation: "tag"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      category: {
+        Row: {
+          count: number
+          createdAt: string | null
+          description: string | null
+          expand: string | null
+          id: number
+          slug: string
+          sort: number | null
+          title: string
+          updatedAt: string | null
+        }
+        Insert: {
+          count?: number
+          createdAt?: string | null
+          description?: string | null
+          expand?: string | null
+          id?: never
+          slug: string
+          sort?: number | null
+          title: string
+          updatedAt?: string | null
+        }
+        Update: {
+          count?: number
+          createdAt?: string | null
+          description?: string | null
+          expand?: string | null
+          id?: never
+          slug?: string
+          sort?: number | null
+          title?: string
+          updatedAt?: string | null
+        }
+        Relationships: []
+      }
       comment: {
         Row: {
           avatar: string | null
@@ -77,7 +211,7 @@ export interface Database {
           nickname: string
           parentId: number | null
           slug: string | null
-          state: number
+          state: Database["public"]["Enums"]["commentState"] | null
           updatedAt: string | null
           userAgent: Json | null
         }
@@ -94,7 +228,7 @@ export interface Database {
           nickname?: string
           parentId?: number | null
           slug?: string | null
-          state?: number
+          state?: Database["public"]["Enums"]["commentState"] | null
           updatedAt?: string | null
           userAgent?: Json | null
         }
@@ -111,9 +245,45 @@ export interface Database {
           nickname?: string
           parentId?: number | null
           slug?: string | null
-          state?: number
+          state?: Database["public"]["Enums"]["commentState"] | null
           updatedAt?: string | null
           userAgent?: Json | null
+        }
+        Relationships: []
+      }
+      tag: {
+        Row: {
+          count: number
+          createdAt: string | null
+          description: string | null
+          expand: string | null
+          id: number
+          slug: string
+          sort: number | null
+          title: string
+          updatedAt: string | null
+        }
+        Insert: {
+          count?: number
+          createdAt?: string | null
+          description?: string | null
+          expand?: string | null
+          id?: never
+          slug: string
+          sort?: number | null
+          title: string
+          updatedAt?: string | null
+        }
+        Update: {
+          count?: number
+          createdAt?: string | null
+          description?: string | null
+          expand?: string | null
+          id?: never
+          slug?: string
+          sort?: number | null
+          title?: string
+          updatedAt?: string | null
         }
         Relationships: []
       }
@@ -125,7 +295,9 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      blogMood: "happy" | "sad" | "neutral"
+      blogState: "draft" | "published" | "trash"
+      commentState: "auditing" | "published" | "spam" | "trash" | "deleted"
     }
     CompositeTypes: {
       [_ in never]: never

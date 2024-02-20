@@ -1,30 +1,29 @@
+import { getAllBlogs, getBlog } from '@/actions/blog';
+import MdxContent from '@/components/common/MdxContent';
 import { BASE_URL } from '@/constants/app';
-import getAllBlogs from '@/libs/notion/getAllBlogs';
+import { Blog } from '@/types/blog';
 import { PageProps } from '@/types/common';
 import { Metadata } from 'next';
-import { ExtendedRecordMap } from 'notion-types';
+import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import BlogContentRender from './components/BlogContentRender';
 import BlogContentSkeleton from './components/BlogContentRender/skeleton';
+import BlogHeader from './components/BlogPageHeader';
 import BlogReactionsUI from './components/BlogReactions/UI';
 import BlogTableOfContent from './components/BlogTableOfContent';
 
 export type BlogPageProps = PageProps<{ slug: string }>;
 
-export interface NotionResponse {
-  recordMap: ExtendedRecordMap;
-}
-
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata | undefined> {
+  console.log('[fetch]: generateMetadata');
   const blogs = (await getAllBlogs()) || [];
   const blog = blogs.find((blog) => blog.slug === params.slug);
   if (!blog) {
     return;
   }
 
-  const { title, publishedAt, description, cover } = blog;
+  const { title, createdAt, description, cover } = blog;
   const ogImage = cover ? cover : `${BASE_URL}/og?title=${title}`;
 
   return {
@@ -34,7 +33,7 @@ export async function generateMetadata({
       title,
       description,
       type: 'article',
-      publishedTime: publishedAt?.toLocaleString(),
+      publishedTime: createdAt?.toLocaleString(),
       url: `${BASE_URL}/blog/${params.slug}`,
       images: [
         {
@@ -52,12 +51,51 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
+  console.log('[fetch]: getAllBlogs');
   const blogs = await getAllBlogs();
   return blogs.map((blog) => ({ slug: blog.slug }));
 }
 
+const fetchBlog = async (path: string) => {
+  let blog: Blog | null | undefined;
+
+  try {
+    blog = await getBlog(path);
+    if (blog === null) {
+      return notFound();
+    }
+    // const newRead = await readBlog(blog.id);
+    // blog.reading = newRead || blog.reading;
+  } catch (err) {
+    return notFound();
+  }
+
+  return blog;
+};
+
 const NotionPage = async ({ params }: BlogPageProps) => {
   const slug = params.slug;
+  if (!slug) {
+    notFound();
+  }
+  const blog = await fetchBlog(slug);
+
+  // const jsonLd: WithContext<BlogPosting> = {
+  //   '@context': 'https://schema.org',
+  //   '@type': 'BlogPosting',
+  //   url: `https://itsuki.cn/blog/${blog?.slug}`,
+  //   headline: blog?.title,
+  //   description: blog?.description,
+  //   dateCreated: blog?.createdAt?.toString(),
+  //   dateModified: blog?.updatedAt?.toString(),
+  //   author: [
+  //     {
+  //       '@type': 'Person',
+  //       name: META.author,
+  //       url: META.url,
+  //     },
+  //   ],
+  // };
 
   return (
     <>
@@ -65,9 +103,16 @@ const NotionPage = async ({ params }: BlogPageProps) => {
         <BlogTableOfContent slug={slug} />
       </Suspense>
 
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto bg-white text-zinc-800 p-4 rounded-xl">
+        <BlogHeader slug={slug} />
+
         <Suspense fallback={<BlogContentSkeleton />}>
-          <BlogContentRender slug={slug} />
+          <MdxContent
+            options={{
+              scope: { blog },
+            }}
+            source={blog?.content || ''}
+          />
         </Suspense>
       </div>
 

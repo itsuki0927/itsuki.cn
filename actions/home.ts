@@ -1,10 +1,9 @@
-import { CommentState } from '@/constants/comment';
-import getAllBlogs from '@/libs/notion/getAllBlogs';
 import { redis } from '@/libs/upstash';
 import { kvKeys } from '@/constants/kv';
 import { unstable_cache as cache } from 'next/cache';
 import { VERCEL_ENV } from '@/constants/env';
-import { supabase } from '@/libs/supabase';
+import { getAllBlogs } from './blog';
+import { getAllComments } from './comment';
 
 export interface SummaryResponse {
   commentCount: number;
@@ -16,10 +15,7 @@ export interface SummaryResponse {
 const getCommentCount = cache(
   async () => {
     try {
-      const { data } = await supabase
-        .from('comment')
-        .select('*')
-        .eq('state', CommentState.Published);
+      const data = await getAllComments();
       if (data?.length) {
         return data.length;
       }

@@ -3,21 +3,11 @@ import { auth } from '@/libs/auth';
 import { MessageSquarePlus } from 'lucide-react';
 import { SessionProvider } from 'next-auth/react';
 import CommentCard from '../CommentCard';
-import { Comment } from '@/types/comment';
-import { getComments } from '@/actions/comment';
+import { getAllComments } from '@/actions/comment';
 
 const GuestbookList = async () => {
   const session = await auth();
-  const res = await getComments(GUESTBOOK);
-
-  let comments: Comment[] = [];
-  try {
-    if (res.data) {
-      comments = res.data;
-    }
-  } catch (err) {
-    console.error('[GuestbookList] getComments error:', err);
-  }
+  const comments = await getAllComments({ blogId: GUESTBOOK });
 
   return (
     <SessionProvider session={session}>

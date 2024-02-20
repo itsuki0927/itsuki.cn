@@ -25,10 +25,12 @@
 }
 
 .blockquote {
-  @apply mb-4 border-l-4 border-solid border-zinc-500 py-2 pl-4 pr-3 indent-0;
+  @apply mb-4 border-l-4 border-solid border-zinc-500 py-2 pl-4 pr-3 indent-0 bg-zinc-100 rounded-md;
 
-  > div {
-    margin-bottom: 0;
+  > div,
+  p {
+    margin: 0;
+    padding: 0;
   }
 }
 

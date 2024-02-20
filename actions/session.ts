@@ -2,7 +2,6 @@
 
 import { User } from 'next-auth';
 import { auth } from '@/libs/auth';
-import isAdminEmail from '@/utils/isAdminEmail';
 
 const formatUser = (user: User | null) => {
   if (!user) return null;
@@ -22,13 +21,4 @@ export const getSession = async () => {
   }
 
   return formatUser(session.user);
-};
-
-export const isAdminSession = async () => {
-  try {
-    const session = await getSession();
-    return isAdminEmail(session?.email);
-  } catch (err) {
-    return false;
-  }
 };

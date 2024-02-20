@@ -2,12 +2,12 @@
 
 import clsx from "clsx";
 import { useRef, useState } from "react";
-import { Bold, Eye, Italic, Loader, Send, Smile } from "react-feather";
+import { Bold, Eye, Italic, Loader, Send, Smile } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import type { RichTextareaHandle } from "rich-textarea";
 import { useLocalStorage } from "usehooks-ts";
 import { motion } from "framer-motion";
-import markdownComponents from "../../../../components/markdown";
+import markdownComponents from "@/components/markdown";
 import CommentInput from "../CommentInput";
 import EmojiPopover from "../EmojiPopover";
 import { StandardProps } from "@/types/common";

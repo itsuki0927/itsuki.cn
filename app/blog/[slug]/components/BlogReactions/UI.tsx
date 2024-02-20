@@ -5,7 +5,7 @@ import BlogReactions from './index';
 import { Blog } from '@/types/blog';
 
 const genMockReactions = () =>
-  Array.from({ length: 4 }, () => Math.floor(Math.random() * 50000));
+  Array.from({ length: 4 }, () => Math.floor(Math.random() * 100));
 
 interface BlogReactionsUIProps {
   slug: string;

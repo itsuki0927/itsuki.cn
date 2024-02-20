@@ -6,16 +6,16 @@ import {
   type MotionValue,
 } from 'framer-motion';
 import { ThumbsUp } from 'lucide-react';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface ReactIconProps {
   y: MotionValue;
-  image: string;
+  icon: ReactNode;
   count?: number;
   onClick?: () => void;
 }
 
-const ReactIcon = ({ y, image, count = 0, onClick }: ReactIconProps) => {
+const ReactIcon = ({ y, count = 0, onClick, icon }: ReactIconProps) => {
   const ref = React.useRef<HTMLButtonElement>(null);
 
   const distance = useTransform(y, (val) => {
@@ -42,17 +42,8 @@ const ReactIcon = ({ y, image, count = 0, onClick }: ReactIconProps) => {
       }}
       onClick={onClick}
     >
-      <ThumbsUp />
-      {/* <Image */}
-      {/*   src={image} */}
-      {/*   alt="" */}
-      {/*   className="inline-block" */}
-      {/*   priority */}
-      {/*   fetchPriority="high" */}
-      {/*   fill */}
-      {/*   unoptimized */}
-      {/* /> */}
-      <span className="absolute -bottom-6 left-0 flex w-full items-center justify-center whitespace-nowrap text-[12px] font-semibold text-zinc-700/30 dark:text-zinc-200/25">
+      {icon ?? <ThumbsUp />}
+      <span className="absolute -bottom-6 left-0 flex w-full items-center justify-center whitespace-nowrap text-xs font-semibold text-zinc-700/30 dark:text-zinc-200/25">
         {prettifyNumber(count, true)}
       </span>
     </motion.button>

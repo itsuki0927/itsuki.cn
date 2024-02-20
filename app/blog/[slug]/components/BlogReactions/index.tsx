@@ -5,6 +5,19 @@ import { motion, useMotionValue } from 'framer-motion';
 import React from 'react';
 import ReactIcon from './ReactIcon';
 import { useToast } from '@/components/ui/use-toast';
+import buildUrl from '@/utils/buildUrl';
+import {
+  Angry,
+  Annoyed,
+  Flame,
+  Frown,
+  HandMetal,
+  Heart,
+  HeartCrack,
+  Laugh,
+  PartyPopper,
+  ThumbsUp,
+} from 'lucide-react';
 
 function moodToReactions(mood?: Blog['mood']) {
   switch (mood) {
@@ -16,6 +29,31 @@ function moodToReactions(mood?: Blog['mood']) {
       return ['claps', 'heart', 'thumbs-up', 'fire'];
   }
 }
+
+const getMoodIcon = (reaction: string) => {
+  switch (reaction) {
+    case 'claps':
+      return <HandMetal />;
+    case 'tada':
+      return <PartyPopper />;
+    case 'confetti':
+      return <Laugh />;
+    case 'fire':
+      return <Flame />;
+    case 'pray':
+      return <HeartCrack />;
+    case 'cry':
+      return <Angry />;
+    case 'hugs':
+      return <Frown />;
+    case 'thumbs-up':
+      return <ThumbsUp />;
+    case 'heart':
+      return <Heart />;
+    default:
+      return <Annoyed />;
+  }
+};
 
 interface BlogReactionsProps extends Pick<Blog, 'id'> {
   reactions?: number[];
@@ -43,9 +81,12 @@ const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
         return next;
       });
       try {
-        const res = await fetch(`/api/reactions?id=${id}&index=${index}`, {
-          method: 'PATCH',
-        });
+        const res = await fetch(
+          buildUrl(`/api/reactions?id=${id}&index=${index}`),
+          {
+            method: 'PATCH',
+          },
+        );
         const { data } = (await res.json()) as { data: number[] };
         setCachedReactions(data);
       } catch (err: any) {
@@ -86,7 +127,7 @@ const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
         <ReactIcon
           key={idx}
           y={mouseY}
-          image={`/reactions/${reaction}.png`}
+          icon={getMoodIcon(reaction)}
           count={cachedReactions[idx]}
           onClick={() => onClick(idx)}
         />

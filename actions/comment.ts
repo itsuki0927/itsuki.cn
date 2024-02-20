@@ -1,7 +1,5 @@
-'use server';
-
 import { VERCEL_ENV } from '@/constants/env';
-import { createSupabaseServerClient } from '@/libs/supabase/server';
+import { supabaseBrowserClient } from '@/libs/supabase/client';
 
 interface SearchCommentParams {
   blogId?: number;
@@ -9,7 +7,7 @@ interface SearchCommentParams {
 
 export const getAllComments = async (params: SearchCommentParams = {}) => {
   try {
-    const builder = createSupabaseServerClient()
+    const builder = supabaseBrowserClient
       .from('comment_dev')
       .select('*')
       .order('createdAt', { ascending: false });

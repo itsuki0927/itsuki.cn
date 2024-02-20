@@ -16,9 +16,7 @@ const getCommentCount = cache(
   async () => {
     try {
       const data = await getAllComments();
-      if (data?.length) {
-        return data.length;
-      }
+      return data.length;
     } catch (err) {
       console.error('getSummary --> getComment error', err);
     }
@@ -61,6 +59,6 @@ export const getSummary = cache(
   },
   ['getSummary'],
   {
-    revalidate: 60,
+    revalidate: 3600,
   },
 );

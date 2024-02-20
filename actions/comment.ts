@@ -6,7 +6,7 @@ import { TAGS } from '@/constants/tag';
 import { InsertComment } from '@/types/comment';
 import { CommentState } from '@/constants/comment';
 import { createBrowserClient } from '@/libs/supabase';
-import { checkIPIsBlocked, getIP } from './ip';
+import { checkIPIsBlocked, getGeoByIP, getIP } from './ip';
 import { userAgent as getUserAgent } from 'next/server';
 import { headers as getHeaders } from 'next/headers';
 import { VERCEL_ENV } from '@/constants/env';
@@ -69,8 +69,8 @@ export const createComment = async (
     return;
   }
   let ip = getIP();
-  if (ip === '::1' && VERCEL_ENV === 'development') {
-    ip = '221.194.171.227';
+  if (VERCEL_ENV === 'development') {
+    ip = '221.194.171.227'; // mock
   }
   const isBlocked = await checkIPIsBlocked();
   if (isBlocked) {
@@ -78,7 +78,8 @@ export const createComment = async (
   }
   const headers = getHeaders();
   const userAgent = getUserAgent({ headers });
-  const input = { ...row, ...user, userAgent, ip };
+  const geo = await getGeoByIP(ip);
+  const input = { ...row, ...user, userAgent, geo, ip };
   const supabase = createBrowserClient();
   try {
     const { data } = await supabase.from('comment').insert([input]).select();
@@ -163,7 +164,7 @@ export const likeComment = async (id: number, emoji: string) => {
     throw new Error('评论不存在');
   }
 
-  if (comment.state !== 0) {
+  if (comment.state !== CommentState.Published) {
     throw new Error('评论还没发布呢');
   }
 

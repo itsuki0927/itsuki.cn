@@ -13,6 +13,7 @@ export interface GetAllBlogsParams {
 
 const getAllBlogs = cache(
   async ({ onlyRecent }: GetAllBlogsParams = {}) => {
+    console.log('getAllBlogs');
     const { block, schema, collectionQuery } = await getRootPage();
 
     const id = idToUuid(NOTION_PAGE_ID);

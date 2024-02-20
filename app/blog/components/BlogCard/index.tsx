@@ -6,6 +6,12 @@ export interface BlogCardProps {
   blog: Blog;
 }
 
+export const BlogCardSkeleton = () => {
+  return (
+    <div className="animate-pulse bg-gray-200 rounded-lg w-full aspect-w-16 aspect-h-9"></div>
+  );
+};
+
 const BlogCard = ({ blog }: BlogCardProps) => {
   const href = `/blog/${blog.slug}` as const;
   return (

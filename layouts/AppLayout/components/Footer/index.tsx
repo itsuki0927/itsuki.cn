@@ -1,18 +1,17 @@
 import ExternalLink from '@/components/common/ExternalLink';
-import Juejin from '@/components/icon/Juejin';
-import Sifou from '@/components/icon/Sifou';
-import { ROUTE_LIST_WITH_HOME } from '@/constants/route';
-import { Github, Rss } from 'lucide-react';
-import Link from 'next/link';
-import Logo from '../Logo';
-import LastVisitorInfo from './LastVisitorInfo';
-import TotalPageViews from './TotalPageViews';
 import GithubExternalLink from '@/components/common/GithubExternalLink';
 import JuejinExternalLink from '@/components/common/JuejinExternalLink';
 import SifouExternalLink from '@/components/common/SifouExternalLink';
 import { BASE_URL } from '@/constants/app';
+import { ROUTE_LIST_WITH_HOME } from '@/constants/route';
+import { LoaderIcon, MousePointerClick, Rss, User } from 'lucide-react';
+import Link from 'next/link';
+import { Suspense } from 'react';
+import Logo from '../Logo';
+import LastVisitorInfo from './LastVisitorInfo';
+import TotalPageViews from './TotalPageViews';
 
-const Footer = async () => {
+const Footer = () => {
   return (
     <footer className="border-t border-dashed border-t-zinc-200">
       <div className="container flex w-full flex-col py-12 items-start justify-center text-sm">
@@ -42,8 +41,28 @@ const Footer = async () => {
             <span>Copyright © 五块木头 Blog {new Date().getFullYear()}</span>
           </div>
           <div className="flex flex-col items-center justify-start gap-2 sm:flex-row">
-            <TotalPageViews />
-            <LastVisitorInfo />
+            <Suspense
+              fallback={
+                <span className="flex items-center justify-center gap-1 text-xs text-zinc-500 dark:text-zinc-400 md:justify-start">
+                  <User className="h-4 w-4" />
+                  总浏览量&nbsp;
+                  <LoaderIcon size={12} className="animate-spin font-medium" />
+                </span>
+              }
+            >
+              <TotalPageViews />
+            </Suspense>
+            <Suspense
+              fallback={
+                <span className="flex items-center justify-center gap-1 text-xs text-zinc-500 dark:text-zinc-400 md:justify-start">
+                  <MousePointerClick size={16} className="h-4 w-4" />
+                  <span>最近访客来自&nbsp;</span>
+                  <LoaderIcon size={12} className="animate-spin" />
+                </span>
+              }
+            >
+              <LastVisitorInfo />
+            </Suspense>
           </div>
         </div>
       </div>

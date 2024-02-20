@@ -6,7 +6,7 @@ import React from 'react';
 import ReactIcon from './ReactIcon';
 import { useToast } from '@/components/ui/use-toast';
 
-function moodToReactions(mood: Blog['mood']) {
+function moodToReactions(mood?: Blog['mood']) {
   switch (mood) {
     case 'happy':
       return ['claps', 'tada', 'confetti', 'fire'];
@@ -19,7 +19,7 @@ function moodToReactions(mood: Blog['mood']) {
 
 interface BlogReactionsProps extends Pick<Blog, 'id'> {
   reactions?: number[];
-  mood: Blog['mood'];
+  mood?: Blog['mood'];
 }
 
 const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {

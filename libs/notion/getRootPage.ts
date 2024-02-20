@@ -4,6 +4,7 @@ import index from '.';
 
 const getRootPage = cache(
   async () => {
+    console.log('getRootPage:');
     let id = NOTION_PAGE_ID;
     const response = await index.getPage(id);
 

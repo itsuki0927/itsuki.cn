@@ -6,40 +6,16 @@ import getRootPage from '@/libs/notion/getRootPage';
 import { PageProps } from '@/types/common';
 import { Metadata } from 'next';
 import { ExtendedRecordMap } from 'notion-types';
+import { Suspense } from 'react';
 import BlogContentRender from './components/BlogContentRender';
-import BlogReactions from './components/BlogReactions';
+import BlogReactionsUI from './components/BlogReactions/UI';
 import BlogTableOfContent from './components/BlogTableOfContent';
-import { VERCEL_ENV } from '@/constants/env';
-import buildUrl from '@/utils/buildUrl';
-import { kvKeys } from '@/constants/kv';
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
 export interface NotionResponse {
   recordMap: ExtendedRecordMap;
 }
-
-const genMockReactions = () =>
-  Array.from({ length: 4 }, () => Math.floor(Math.random() * 50000));
-
-const getReactions = async (id: string): Promise<number[]> => {
-  try {
-    if (VERCEL_ENV === 'production') {
-      const res = await fetch(buildUrl(`/api/reactions?id=${id}`), {
-        next: {
-          tags: [kvKeys.blogReactions(id)],
-        },
-      });
-      const data = await res.json();
-      return data;
-    } else {
-      return genMockReactions();
-    }
-  } catch (error) {
-    console.error(error);
-  }
-  return genMockReactions();
-};
 
 export async function generateMetadata({
   params,
@@ -85,7 +61,6 @@ export async function generateStaticParams() {
 const NotionPage = async ({ params }: BlogPageProps) => {
   const slug = params.slug;
   const blogRes = await getBlog(slug);
-  const reactions = await getReactions(slug);
   const blogViews = await getBlogViews(slug);
   const { block: allBlocks } = await getRootPage();
 
@@ -98,11 +73,9 @@ const NotionPage = async ({ params }: BlogPageProps) => {
       </div>
 
       <aside className="top-1/2 right-12 hidden -translate-y-1/2 p-6 text-gray-400 sm:fixed sm:flex w-[90px]">
-        <BlogReactions
-          id={params.slug}
-          mood={blogRes.blog.mood}
-          reactions={reactions}
-        />
+        <Suspense>
+          <BlogReactionsUI slug={slug} mood={blogRes.blog.mood} />
+        </Suspense>
       </aside>
     </>
   );

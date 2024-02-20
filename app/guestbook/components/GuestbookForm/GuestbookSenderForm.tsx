@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import CommentSender from "../CommentSender";
 
-import {createComment} from "@/actions/comment";
+import { createComment } from "@/actions/comment";
 
 const GuestbookSenderForm = () => {
   const [isLoading, setLoading] = useState(false);

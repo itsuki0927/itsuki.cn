@@ -13,6 +13,8 @@ const formatUser = (user: User | null) => {
   };
 };
 
+export type FormatUser = ReturnType<typeof formatUser>;
+
 export const getSession = async () => {
   let session = await auth();
   if (!session || !session.user) {

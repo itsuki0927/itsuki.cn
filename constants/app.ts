@@ -3,6 +3,8 @@ import { ADMIN_EMAIL1, VERCEL_ENV } from './env';
 export const BASE_URL =
   VERCEL_ENV === 'production' ? `https://itsuki.cn` : 'http://localhost:3000';
 
+export const RESEND_EMAIL = 'hi@itsuki.cn';
+
 export const TOTAL_PAGEVIEWS_BASELINE = 10000;
 
 // blog meta

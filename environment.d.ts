@@ -28,5 +28,8 @@ namespace NodeJS {
     // upstash
     UPSTASH_REDIS_URL: string;
     UPSTASH_REDIS_TOKEN: string;
+
+    // resend
+    RESEND_API_KEY: string;
   }
 }

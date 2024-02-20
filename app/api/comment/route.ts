@@ -1,8 +1,7 @@
 import { sendGuestbookEmail } from '@/actions/email';
-import { getGeoByIP, getIP } from '@/actions/ip';
+import { getLocationByIP, getIP } from '@/actions/ip';
 import { getSession } from '@/actions/session';
 import { CommentState, GUESTBOOK } from '@/constants/comment';
-import { VERCEL_ENV } from '@/constants/env';
 import { kvKeys } from '@/constants/kv';
 import { TAGS } from '@/constants/tag';
 import { createBrowserClient } from '@/libs/supabase';
@@ -64,8 +63,8 @@ export async function POST(req: NextRequest) {
   }
 
   const userAgent = getUserAgent({ headers: req.headers });
-  const geo = await getGeoByIP(ip);
-  console.log('geo:', VERCEL_ENV, geo, ip);
+  const geo = await getLocationByIP(ip);
+  console.log('geo:', req.geo, geo, ip);
   const input = { ...row, ...user, userAgent, geo, ip };
   const supabase = createBrowserClient();
 
@@ -74,9 +73,8 @@ export async function POST(req: NextRequest) {
 
     if (input.blogId === GUESTBOOK) {
       sendGuestbookEmail({ user, content: input.content });
+      revalidatePath('/guestbook');
     }
-
-    revalidatePath('/guestbook');
 
     return NextResponse.json(data);
   } catch (error) {

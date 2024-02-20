@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import { Monitor, Smartphone, Smile } from 'lucide-react';
 import { startTransition } from 'react';
 import ReactMarkdown from 'react-markdown';
-import markdownComponents from '../../../../components/markdown';
+import markdownComponents from '@/components/markdown';
 import CommentAvatar from '../CommentAvatar';
 import EmojiPopover from '../EmojiPopover';
 import CommentEmojis from './CommentEmojis';
@@ -65,13 +65,13 @@ const CommentCard = ({
   };
 
   const renderGeo = () => {
-    if (optimisticComment.geo?.country && optimisticComment.geo?.province) {
+    if (optimisticComment.geo?.country && optimisticComment.geo?.region) {
       return (
         <>
           <span className="mr-1">{optimisticComment.geo.flag || ''}</span>
-          {optimisticComment.geo?.country}
+          {optimisticComment.geo?.countryCode}
           <span className="mx-1">·</span>
-          {optimisticComment.geo?.province}
+          {optimisticComment.geo?.region}
         </>
       );
     }

@@ -11,4 +11,6 @@ const getBlog = async (slug: string) => {
   return { recordMap, blog };
 };
 
+export type GetBlogResponse = Awaited<ReturnType<typeof getBlog>>;
+
 export default getBlog;

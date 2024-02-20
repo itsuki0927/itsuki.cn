@@ -6,13 +6,10 @@ import { useMemo } from "react";
 import { Clock, MousePointerClick } from "lucide-react";
 import { motion } from "framer-motion";
 import prettifyNumber from "@/utils/prettifyNumber";
-import { Blog } from "@/types/blog";
-import { ExtendedRecordMap } from "notion-types";
+import { GetBlogResponse } from "@/libs/notion/getBlog";
 
-interface NotionPageProps {
-  recordMap: ExtendedRecordMap;
+interface NotionPageProps extends GetBlogResponse {
   blogViews: number;
-  blog?: Blog;
 }
 
 const Code = dynamic(() =>
@@ -63,8 +60,6 @@ const Collection = dynamic(() =>
 );
 
 const BlogContentRender = ({ recordMap, blog, blogViews }: NotionPageProps) => {
-  console.log("blog:", blog);
-
   const components = useMemo(
     () => ({
       Collection,
@@ -86,7 +81,7 @@ const BlogContentRender = ({ recordMap, blog, blogViews }: NotionPageProps) => {
       disableHeader
       recordMap={recordMap}
       fullPage
-      showTableOfContents
+      showTableOfContents={false}
       minTableOfContentsItems={1}
       components={components}
       pageHeader={

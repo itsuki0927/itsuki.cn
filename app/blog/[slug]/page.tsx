@@ -6,6 +6,9 @@ import getAllBlogs from "@/libs/notion/getAllBlogs";
 import { PageProps } from "@/types/common";
 import BlogReactions from "./components/BlogReactions";
 import { getBlogViews, getReactions } from "@/actions/blog";
+import { getPageTableOfContents } from "notion-utils";
+import getRootPage from "@/libs/notion/getRootPage";
+import BlogTableOfContent from "./components/BlogTableOfContent";
 
 type BlogPageProps = PageProps<{ slug: string }>;
 
@@ -54,22 +57,24 @@ const NotionPage = async ({ params }: BlogPageProps) => {
   const blogRes = await getBlog(slug);
   const reactions = await getReactions(slug);
   const blogViews = await getBlogViews(slug);
+  const { block: allBlocks } = await getRootPage();
 
   return (
-    <div className="flex">
-      <aside className="hidden w-[90px] shrink-0 lg:block">
-        <div className="sticky top-2 flex justify-end pt-20">
-          <BlogReactions
-            id={params.slug}
-            mood={blogRes.blog.mood}
-            reactions={reactions}
-          />
-        </div>
-      </aside>
-      <div className="flex-1 container mx-auto">
+    <>
+      <BlogTableOfContent blocks={allBlocks} {...blogRes} />
+
+      <div className="max-w-4xl mx-auto">
         <BlogContentRender {...blogRes} blogViews={blogViews} />
       </div>
-    </div>
+
+      <aside className="top-1/2 right-12 hidden -translate-y-1/2 p-6 text-gray-400 sm:fixed sm:flex w-[90px]">
+        <BlogReactions
+          id={params.slug}
+          mood={blogRes.blog.mood}
+          reactions={reactions}
+        />
+      </aside>
+    </>
   );
 };
 

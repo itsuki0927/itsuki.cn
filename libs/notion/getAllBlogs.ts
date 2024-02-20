@@ -1,25 +1,19 @@
 import { idToUuid } from "notion-utils";
-import index from "@/libs/notion";
 import getAllPageIds from "./getAllPageIds";
 import getPageProperties from "./getPageProperties";
 import filterPublishedPosts from "./filterPublishedBlogs";
 import { NOTION_PAGE_ID } from "@/constants/notion";
 import { Blog } from "@/types/blog";
+import getRootPage from "./getRootPage";
 
 export interface GetAllBlogsParams {
   onlyRecent?: boolean;
 }
 
-async function getAllBlogs(params?: GetAllBlogsParams) {
-  const { onlyRecent } = params || {};
-  let id = NOTION_PAGE_ID;
-  const response = await index.getPage(id);
+async function getAllBlogs({ onlyRecent }: GetAllBlogsParams = {}) {
+  const { block, schema, collectionQuery } = await getRootPage();
 
-  id = idToUuid(id);
-  const collection = Object.values(response.collection)[0]?.value;
-  const collectionQuery = response.collection_query;
-  const block = response.block;
-  const schema = collection?.schema;
+  const id = idToUuid(NOTION_PAGE_ID);
 
   const rawMetadata = block[id]?.value;
 

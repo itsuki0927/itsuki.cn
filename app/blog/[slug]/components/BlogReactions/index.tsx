@@ -2,7 +2,8 @@
 
 import { Blog } from '@/types/blog';
 import { motion, useMotionValue } from 'framer-motion';
-import React from 'react';
+import { useCallback, useState } from 'react';
+import type { MouseEvent } from 'react';
 import ReactIcon from './ReactIcon';
 import { useToast } from '@/components/ui/use-toast';
 import buildUrl from '@/utils/buildUrl';
@@ -18,7 +19,7 @@ import {
   PartyPopper,
   ThumbsUp,
 } from 'lucide-react';
-import { readBlog } from '@/actions/blog';
+import useIncViews from './hooks';
 
 const moodToReactions = (mood?: Blog['mood']) => {
   switch (mood) {
@@ -64,15 +65,17 @@ interface BlogReactionsProps extends Pick<Blog, 'id'> {
 const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
   const { toast } = useToast();
   const mouseY = useMotionValue(Infinity);
-  const onMouseMove = React.useCallback(
-    (e: React.MouseEvent) => {
+  const onMouseMove = useCallback(
+    (e: MouseEvent) => {
       mouseY.set(e.clientY);
     },
     [mouseY],
   );
-  const [cachedReactions, setCachedReactions] = React.useState(
+  const [cachedReactions, setCachedReactions] = useState(
     reactions ?? [0, 0, 0, 0],
   );
+
+  useIncViews(id);
 
   const onClick = async (index: number) => {
     setCachedReactions((prev) => {

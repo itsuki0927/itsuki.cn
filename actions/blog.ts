@@ -2,10 +2,10 @@ import { supabaseBrowserClient } from '@/libs/supabase/client';
 import { BlogSearchParams } from '@/types/blog';
 import { getCategoryBySlug } from './category';
 
-export const readBlog = async (id: number) => {
-  supabaseBrowserClient.rpc('views_increment', {
+export const readBlog = (id: number) => {
+  return supabaseBrowserClient.rpc('views_increment', {
     x: 1,
-    rowid: id,
+    row_id: id,
   });
 };
 

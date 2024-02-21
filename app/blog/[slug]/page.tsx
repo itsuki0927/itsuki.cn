@@ -16,7 +16,6 @@ export type BlogPageProps = PageProps<{ slug: string }>;
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata | undefined> {
-  console.log('[fetch]: generateMetadata');
   const blogs = (await getAllBlogs()) || [];
   const blog = blogs.find((blog) => blog.slug === params.slug);
   if (!blog) {

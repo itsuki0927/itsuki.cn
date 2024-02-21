@@ -9,6 +9,11 @@ const createBrowserClient = () =>
   _createBrowserClient<Database>(
     NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    // {
+    //   auth: {
+    //     persistSession: false,
+    //   },
+    // },
   );
 
 export const supabaseBrowserClient = createBrowserClient();

@@ -8,7 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "gen-types": "npx supabase gen types typescript --project-id skfztuyhbelqtomwriol --schema public > types_db.ts",
-    "format": "prettier --write . '**/*.{ts,js,tsx,md,scss,json}'"
+    "format": "prettier --write . '**/*.{ts,js,tsx,md,scss,json}'",
+    "supabase:link": "node supabase/link.js",
+    "supabase:generate-types": "npx supabase gen types typescript --local --schema public > types_db.ts",
+    "supabase:generate-migration": "npx supabase db diff | npx supabase migration new update",
+    "supabase:migrate": "npx supabase migration up --linked"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.0.5",

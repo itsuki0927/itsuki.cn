@@ -1,3 +1,5 @@
+'use server';
+
 import {
   NEXT_PUBLIC_SUPABASE_ANON_KEY,
   NEXT_PUBLIC_SUPABASE_URL,
@@ -30,3 +32,20 @@ export const createSupabaseServerClient = () => {
     },
   );
 };
+
+export async function signOut() {
+  const supabase = createSupabaseServerClient();
+  const { error } = await supabase.auth.signOut();
+  console.log('signOut:', error);
+
+  if (error) {
+    console.log('error:', error);
+    // return getErrorRedirect(
+    //   pathName,
+    //   'Hmm... Something went wrong.',
+    //   'You could not be signed out.'
+    // );
+  }
+
+  return { path: '/guestbook' };
+}

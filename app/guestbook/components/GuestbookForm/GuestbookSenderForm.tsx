@@ -43,7 +43,13 @@ const GuestbookSenderForm = () => {
     return false;
   };
 
-  return <CommentSender onSend={handleSend} isLoading={isLoading} />;
+  return (
+    <CommentSender
+      className="p-2 relative bg-white z-10 rounded-xl border border-solid border-zinc-100"
+      onSend={handleSend}
+      isLoading={isLoading}
+    />
+  );
 };
 
 export default GuestbookSenderForm;

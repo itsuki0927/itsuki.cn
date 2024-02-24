@@ -11,6 +11,8 @@ import markdownComponents from '@/components/markdown';
 import CommentInput from '../CommentInput';
 import EmojiPopover from '../EmojiPopover';
 import { StandardProps } from '@/types/common';
+import useGetUser from '@/app/blog/[slug]/hooks/useGetUser';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface IconButtonProps extends StandardProps {
   onClick?: () => void;
@@ -51,6 +53,7 @@ const CommentSender = ({
   const [preview, setPreview] = useState(false);
   const [content, setContent] = useLocalStorage(cacheContentKey, '');
   const inputRef = useRef<RichTextareaHandle | null>(null);
+  const { data: user } = useGetUser();
 
   const hasValue = Boolean(content);
 
@@ -86,14 +89,19 @@ const CommentSender = ({
   return (
     <motion.div
       animate={opacityActiveAnimation}
-      className={clsx(
-        'p-2 relative bg-white z-10 rounded-xl border border-solid border-zinc-100',
-        className,
-      )}
+      className={clsx('p-2 relative bg-white z-10', className)}
       exit={opacityInitialAnimation}
       initial={opacityInitialAnimation}
     >
-      <CommentInput onChange={setContent} ref={inputRef} value={content} />
+      <div className="flex">
+        {user ? (
+          <Avatar className="border border-solid bg-zinc-200 ring-2 ring-zinc-200">
+            <AvatarImage src={user?.avatar} />
+            <AvatarFallback>{user?.nickname.at(0)}</AvatarFallback>
+          </Avatar>
+        ) : null}
+        <CommentInput onChange={setContent} ref={inputRef} value={content} />
+      </div>
 
       {preview ? (
         <motion.div

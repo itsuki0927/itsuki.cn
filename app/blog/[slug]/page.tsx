@@ -10,6 +10,9 @@ import BlogContentSkeleton from './components/BlogContentRender/skeleton';
 import BlogHeader from './components/BlogHeader';
 import BlogReactionsUI from './components/BlogReactions/UI';
 import BlogTableOfContent from './components/BlogTableOfContent';
+import splitPage from '@/utils/splitPage';
+import getHeadings from '@/utils/getHeadings';
+import { IndexProvider } from './components/PageSection/IndexProvider';
 
 export type BlogPageProps = PageProps<{ slug: string }>;
 
@@ -67,7 +70,9 @@ const fetchBlog = async (path: string) => {
     return notFound();
   }
 
-  return blog;
+  const headings = getHeadings(blog.content);
+
+  return { headings, blog };
 };
 
 const BlogPage = async ({ params }: BlogPageProps) => {
@@ -75,7 +80,8 @@ const BlogPage = async ({ params }: BlogPageProps) => {
   if (!slug) {
     notFound();
   }
-  const blog = await fetchBlog(slug);
+  const { blog, headings } = await fetchBlog(slug);
+  const { content, length: numSections } = splitPage(blog.content, blog.id);
 
   // const jsonLd: WithContext<BlogPosting> = {
   //   '@context': 'https://schema.org',
@@ -103,14 +109,16 @@ const BlogPage = async ({ params }: BlogPageProps) => {
       <div className="max-w-4xl mx-auto bg-white text-zinc-800 p-4 rounded-xl">
         <BlogHeader slug={slug} />
 
-        <Suspense fallback={<BlogContentSkeleton />}>
-          <MdxContent
-            options={{
-              scope: { blog },
-            }}
-            source={blog?.content || ''}
-          />
-        </Suspense>
+        <IndexProvider numSections={numSections}>
+          <Suspense fallback={<BlogContentSkeleton />}>
+            <MdxContent
+              options={{
+                scope: { blog },
+              }}
+              source={content}
+            />
+          </Suspense>
+        </IndexProvider>
       </div>
 
       <aside className="top-1/2 right-12 hidden -translate-y-1/2 p-6 text-zinc-400 sm:fixed sm:flex w-[90px]">

@@ -211,6 +211,7 @@ export type Database = {
           isDev: boolean | null
           nickname: string
           parentId: number | null
+          section: string | null
           slug: string | null
           state: Database["public"]["Enums"]["commentState"] | null
           updatedAt: string | null
@@ -229,6 +230,7 @@ export type Database = {
           isDev?: boolean | null
           nickname?: string
           parentId?: number | null
+          section?: string | null
           slug?: string | null
           state?: Database["public"]["Enums"]["commentState"] | null
           updatedAt?: string | null
@@ -247,6 +249,7 @@ export type Database = {
           isDev?: boolean | null
           nickname?: string
           parentId?: number | null
+          section?: string | null
           slug?: string | null
           state?: Database["public"]["Enums"]["commentState"] | null
           updatedAt?: string | null
@@ -271,7 +274,7 @@ export type Database = {
           createdAt?: string | null
           description?: string | null
           expand?: string | null
-          id?: never
+          id?: number
           slug: string
           sort?: number | null
           title: string
@@ -282,7 +285,7 @@ export type Database = {
           createdAt?: string | null
           description?: string | null
           expand?: string | null
-          id?: never
+          id?: number
           slug?: string
           sort?: number | null
           title?: string
@@ -295,6 +298,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      category_count_increment: {
+        Args: {
+          x: number
+          row_id: number
+        }
+        Returns: undefined
+      }
+      tag_count_increment: {
+        Args: {
+          x: number
+          row_id: number
+        }
+        Returns: undefined
+      }
       views_increment: {
         Args: {
           x: number

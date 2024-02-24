@@ -45,7 +45,7 @@ const CommentInput = forwardRef<RichTextareaHandle, CommentInputProps>(
         onChange={(e) => {
           onChange(e.target.value);
         }}
-        placeholder="说点什么?"
+        placeholder="良言一句三冬暖，恶语伤人六月寒（请友善发言)"
         ref={(currentRef) => {
           if (ref && 'current' in ref) {
             ref.current = currentRef;

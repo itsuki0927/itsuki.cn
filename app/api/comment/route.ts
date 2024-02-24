@@ -6,7 +6,7 @@ import { VERCEL_ENV } from '@/constants/env';
 import { kvKeys } from '@/constants/kv';
 import { TAGS } from '@/constants/tag';
 import { redis } from '@/libs/upstash';
-import { InsertComment } from '@/types/comment';
+import { InsertComment, InsertCommentBody } from '@/types/comment';
 import { Ratelimit } from '@upstash/ratelimit';
 import { revalidateTag } from 'next/cache';
 import {
@@ -22,14 +22,35 @@ const ratelimit = new Ratelimit({
   analytics: true,
 });
 
+export async function GET(request: NextRequest) {
+  const { searchParams } = request.nextUrl;
+  const blogId = Number(searchParams.get('blogId'));
+  const section = searchParams.get('section') ?? '';
+
+  if (!blogId) {
+    return new Response('参数错误', {
+      status: 429,
+    });
+  }
+
+  const supabase = createSupabaseServerClient();
+  const { data } = await supabase
+    .from('comment_dev')
+    .select('*')
+    .eq('blogId', Number(blogId))
+    .eq('section', section);
+
+  return NextResponse.json(data);
+}
+
 export async function POST(req: NextRequest) {
   const supabase = createSupabaseServerClient();
   const { data: user } = await supabase.auth.getUser();
-  if (!user) {
+  if (!user?.user) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
 
-  const row = (await req.json()) as Pick<InsertComment, 'blogId' | 'content'>;
+  const row = (await req.json()) as InsertCommentBody;
   const ip = getIP(req);
   const blogId = row.blogId;
 
@@ -42,11 +63,10 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const formatedUser = formatUser(user.user);
+  const formatedUser = formatUser(user.user)!;
   const userAgent = getUserAgent({ headers: req.headers });
   const geo = await getLocationByIP(ip);
-  console.log('geo:', geo, ip, formatedUser);
-  const input = {
+  const input: InsertComment = {
     ...row,
     ...formatedUser,
     userAgent,
@@ -54,11 +74,17 @@ export async function POST(req: NextRequest) {
     ip,
     isDev: VERCEL_ENV !== 'production',
   };
+  console.log('geo:', geo, ip, formatedUser);
+  console.log('input:', input);
 
   try {
-    const { data } = await supabase.from('comment_dev').insert(input).select();
+    const { data, error } = await supabase
+      .from('comment_dev')
+      .insert(input)
+      .select()
+      .maybeSingle();
 
-    console.log('data:', data);
+    console.log('data:', data, error);
 
     if (input.blogId === GUESTBOOK) {
       sendGuestbookEmail({ user: formatedUser, content: input.content });

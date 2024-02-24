@@ -15,6 +15,7 @@ import CommentEmojis from './CommentEmojis';
 import useOptimisticComment from './hooks/useOptimisticComment';
 import { useToast } from '@/components/ui/use-toast';
 import buildUrl from '@/utils/buildUrl';
+import useGetUser from '@/app/blog/[slug]/hooks/useGetUser';
 
 interface CommentCardProps extends StandardProps {
   comment: Comment;
@@ -40,8 +41,13 @@ const CommentCard = ({
     useOptimisticComment(comment);
   const { toast } = useToast();
   const isMobile = optimisticComment.userAgent.device?.type === 'mobile';
+  const { data: user } = useGetUser();
 
   const handleEmojiClick = async (emoji: string) => {
+    if (!user) {
+      toast({ title: '点赞失败', description: '该功能需要登陆' });
+      return;
+    }
     startTransition(() => {
       addOptimisticComment(emoji);
     });

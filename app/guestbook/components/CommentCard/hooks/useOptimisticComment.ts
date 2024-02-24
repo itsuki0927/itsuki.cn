@@ -1,9 +1,10 @@
 import { useOptimistic } from 'react';
 import { Comment, CommentEmoji } from '@/types/comment';
+import useGetUser from '@/app/blog/[slug]/hooks/useGetUser';
 
 const useOptimisticComment = (comment: Comment) => {
-  // TODO: bug
-  const userEmail = '';
+  const { data: user } = useGetUser();
+  const userEmail = user?.email;
 
   return useOptimistic(comment, (state, newState: string) => {
     const emoji = (state.emoji || {}) as CommentEmoji;

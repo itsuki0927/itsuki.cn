@@ -5,6 +5,7 @@ import {
   NEXT_PUBLIC_SUPABASE_URL,
 } from '@/constants/env';
 import { Database } from '@/types/database';
+import buildUrl from '@/utils/buildUrl';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
@@ -16,15 +17,19 @@ export const createSupabaseServerClient = () => {
     {
       cookies: {
         get(name: string) {
-          return cookieStore.get(name)?.value;
+          const value = cookieStore.get(name)?.value;
+          console.log('createSupabaseServerClient get:', name, value);
+          return value;
         },
         set(name: string, value: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value, ...options });
+            console.log('createSupabaseServerClient set:', name, value);
           } catch (error) {}
         },
         remove(name: string, options: CookieOptions) {
           try {
+            console.log('createSupabaseServerClient remove:', name);
             cookieStore.set({ name, value: '', ...options });
           } catch (error) {}
         },
@@ -49,3 +54,29 @@ export async function signOut() {
 
   return { path: '/guestbook' };
 }
+
+export const signInWithGithub = async () => {
+  const redirectURL = buildUrl('/auth/callback');
+  const supabaseBrowserClient = createSupabaseServerClient();
+  const { error } = await supabaseBrowserClient.auth.signInWithOAuth({
+    provider: 'github',
+    options: {
+      redirectTo: redirectURL.toString(),
+    },
+  });
+
+  console.log('error:', error);
+};
+
+export const signInWithGoogle = async () => {
+  const redirectURL = buildUrl('/auth/callback');
+  const supabaseBrowserClient = createSupabaseServerClient();
+  const { error } = await supabaseBrowserClient.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: redirectURL.toString(),
+    },
+  });
+
+  console.log('error:', error);
+};

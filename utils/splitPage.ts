@@ -3,7 +3,7 @@
  * delimited by "---".
  */
 const splitPage = (content: string, id: number) => {
-  const sections = content.split('---');
+  const sections = content.split('====');
   const parts = sections.flatMap((section, index) => {
     if (index === sections.length - 1) return [section];
     return [

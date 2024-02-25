@@ -6,6 +6,7 @@ import getReadMinutes from '@/utils/getReadMinutes';
 import prettifyNumber from '@/utils/prettifyNumber';
 import { Clock, FolderOpen, Hourglass, MousePointerClick } from 'lucide-react';
 import Link from 'next/link';
+import getBlogCover from '../../utils/getBlogCover';
 
 export interface BlogCardProps {
   blog: Blog;
@@ -32,7 +33,7 @@ const BlogCard = ({ blog, displayCategory = true }: BlogCardProps) => {
             className="object-cover w-full h-full"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
             fill
-            src={blog.cover}
+            src={getBlogCover(blog.cover)}
           />
         </div>
         <div className="absolute top-4 left-4" />

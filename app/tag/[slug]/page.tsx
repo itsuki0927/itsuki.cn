@@ -6,7 +6,9 @@ import { PageProps } from '@/types/common';
 import { Tag } from 'lucide-react';
 import { Metadata } from 'next';
 
-export type CategoryPageProps = PageProps<{ slug: string }>;
+export type TagPageProps = PageProps<{ slug: string }>;
+
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const tags = await getAllTags();
@@ -15,7 +17,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: CategoryPageProps): Promise<Metadata | undefined> {
+}: TagPageProps): Promise<Metadata | undefined> {
   const tag = await getTagBySlug(params.slug);
   const title = tag?.title;
   const description = tag?.description || '';
@@ -31,7 +33,7 @@ export async function generateMetadata({
   };
 }
 
-const CategoryPage = async ({ params }: CategoryPageProps) => {
+const CategoryPage = async ({ params }: TagPageProps) => {
   const slug = params.slug;
   const tag = await getTagBySlug(slug);
 

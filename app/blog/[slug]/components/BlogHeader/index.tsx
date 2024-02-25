@@ -12,6 +12,7 @@ import {
 import prettifyNumber from '@/utils/prettifyNumber';
 import MyImage from '@/components/common/MyImage';
 import getReadMinutes from '@/utils/getReadMinutes';
+import getBlogCover from '@/app/blog/utils/getBlogCover';
 
 interface BlogPageHeaderProps {
   slug: string;
@@ -26,7 +27,7 @@ const BlogHeader = async ({ slug }: BlogPageHeaderProps) => {
           alt={blog?.title || slug}
           className="block rounded-lg w-full h-full object-cover"
           fill
-          src={blog?.cover!}
+          src={getBlogCover(blog?.cover)}
         />
       </div>
       <header className="relative py-6 z-10 dark:bg-black">

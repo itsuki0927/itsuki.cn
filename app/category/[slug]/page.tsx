@@ -8,6 +8,8 @@ import { Metadata } from 'next';
 
 export type CategoryPageProps = PageProps<{ slug: string }>;
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const categories = await getAllCategories();
   return categories.map((category) => ({ slug: category.slug }));

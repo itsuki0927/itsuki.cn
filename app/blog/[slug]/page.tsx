@@ -16,6 +16,8 @@ import { IndexProvider } from './components/PageSection/IndexProvider';
 
 export type BlogPageProps = PageProps<{ slug: string }>;
 
+export const revalidate = 3600;
+
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata | undefined> {

@@ -2,8 +2,7 @@ import { VERCEL_ENV } from '@/constants/env';
 import { kvKeys } from '@/constants/kv';
 import buildUrl from '@/utils/buildUrl';
 import BlogReactions from './index';
-import { BlogPageProps } from '../../page';
-import { getBlog } from '@/actions/blog';
+import { Blog } from '@/types/blog';
 
 const genMockReactions = () =>
   Array.from({ length: 4 }, () => Math.floor(Math.random() * 100));
@@ -27,8 +26,12 @@ const getReactions = async (id: string): Promise<number[]> => {
   return genMockReactions();
 };
 
-const BlogReactionsUI = async ({ slug }: BlogPageProps['params']) => {
-  const blog = await getBlog(slug);
+interface BlogReactionsProps {
+  slug: string;
+  blog: Blog;
+}
+
+const BlogReactionsUI = async ({ slug, blog }: BlogReactionsProps) => {
   const reactions = await getReactions(slug);
 
   if (!blog) {

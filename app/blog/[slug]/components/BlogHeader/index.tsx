@@ -1,4 +1,3 @@
-import { getBlog } from '@/actions/blog';
 import SmallTag from '@/components/common/SmallTag';
 import { formatDate } from '@/utils/formatDate';
 import {
@@ -13,18 +12,18 @@ import prettifyNumber from '@/utils/prettifyNumber';
 import MyImage from '@/components/common/MyImage';
 import getReadMinutes from '@/utils/getReadMinutes';
 import getBlogCover from '@/app/blog/utils/getBlogCover';
+import { Blog } from '@/types/blog';
 
 interface BlogPageHeaderProps {
-  slug: string;
+  blog: Blog;
 }
 
-const BlogHeader = async ({ slug }: BlogPageHeaderProps) => {
-  const blog = await getBlog(slug);
+const BlogHeader = async ({ blog }: BlogPageHeaderProps) => {
   return (
     <>
       <div className="w-full h-64 relative">
         <MyImage
-          alt={blog?.title || slug}
+          alt={blog?.title || blog.slug}
           className="block rounded-lg w-full h-full object-cover"
           fill
           src={getBlogCover(blog?.cover)}
@@ -78,16 +77,23 @@ const BlogHeader = async ({ slug }: BlogPageHeaderProps) => {
 
           <span className="bg-zinc-300 h-3 w-[1px]"></span>
 
-          {blog?.tag?.map((tag) => (
-            <SmallTag
-              key={tag.title}
-              href={`/tag/${tag.slug}`}
-              className="flex items-center"
-            >
+          {blog?.tag.length ? (
+            blog?.tag?.map((tag) => (
+              <SmallTag
+                key={tag.title}
+                href={`/tag/${tag.slug}`}
+                className="flex items-center"
+              >
+                <Tag size={12} className="mr-1" />
+                {tag.title}
+              </SmallTag>
+            ))
+          ) : (
+            <span className="text-xs flex items-center">
               <Tag size={12} className="mr-1" />
-              {tag.title}
-            </SmallTag>
-          ))}
+              暂无标签
+            </span>
+          )}
         </div>
         <h1 className="font-semibold text-2xl md:text-4xl md:!leading-[120%] dark:text-zinc-100 max-w-4xl mt-4">
           {blog?.title}

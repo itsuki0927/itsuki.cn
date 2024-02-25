@@ -10,6 +10,7 @@ import getBlogCover from '../../utils/getBlogCover';
 
 export interface BlogCardProps {
   blog: Blog;
+  isPreview?: boolean;
   displayCategory?: boolean;
 }
 
@@ -19,8 +20,12 @@ export const BlogCardSkeleton = () => {
   );
 };
 
-const BlogCard = ({ blog, displayCategory = true }: BlogCardProps) => {
-  const href = `/blog/${blog.slug}` as const;
+const BlogCard = ({
+  blog,
+  displayCategory = true,
+  isPreview = false,
+}: BlogCardProps) => {
+  const href = isPreview ? `/preview/${blog.slug}` : `/blog/${blog.slug}`;
   return (
     <div className="group relative overflow-hidden z-0 rounded-xl">
       <Link

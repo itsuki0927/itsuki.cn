@@ -1,18 +1,11 @@
 import { getAllBlogs, getBlog } from '@/actions/blog';
-import MdxContent from '@/components/common/MdxContent';
 import { BASE_URL } from '@/constants/app';
 import { Blog } from '@/types/blog';
 import { PageProps } from '@/types/common';
+import getHeadings from '@/utils/getHeadings';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
-import BlogContentSkeleton from './components/BlogContentRender/skeleton';
-import BlogHeader from './components/BlogHeader';
-import BlogReactionsUI from './components/BlogReactions/UI';
-import BlogTableOfContent from './components/BlogTableOfContent';
-import splitPage from '@/utils/splitPage';
-import getHeadings from '@/utils/getHeadings';
-import { IndexProvider } from './components/PageSection/IndexProvider';
+import BlogDetailEntry from './components/BlogDetailEntry';
 
 export type BlogPageProps = PageProps<{ slug: string }>;
 
@@ -82,54 +75,9 @@ const BlogPage = async ({ params }: BlogPageProps) => {
   if (!slug) {
     notFound();
   }
-  const { blog, headings } = await fetchBlog(slug);
-  const { content, length: numSections } = splitPage(blog.content, blog.id);
+  const { blog } = await fetchBlog(slug);
 
-  // const jsonLd: WithContext<BlogPosting> = {
-  //   '@context': 'https://schema.org',
-  //   '@type': 'BlogPosting',
-  //   url: `https://itsuki.cn/blog/${blog?.slug}`,
-  //   headline: blog?.title,
-  //   description: blog?.description,
-  //   dateCreated: blog?.createdAt?.toString(),
-  //   dateModified: blog?.updatedAt?.toString(),
-  //   author: [
-  //     {
-  //       '@type': 'Person',
-  //       name: META.author,
-  //       url: META.url,
-  //     },
-  //   ],
-  // };
-
-  return (
-    <>
-      <Suspense>
-        <BlogTableOfContent slug={slug} />
-      </Suspense>
-
-      <div className="max-w-4xl mx-auto bg-white text-zinc-800 p-4 rounded-xl">
-        <BlogHeader slug={slug} />
-
-        <IndexProvider numSections={numSections}>
-          <Suspense fallback={<BlogContentSkeleton />}>
-            <MdxContent
-              options={{
-                scope: { blog },
-              }}
-              source={content}
-            />
-          </Suspense>
-        </IndexProvider>
-      </div>
-
-      <aside className="top-1/2 right-12 hidden -translate-y-1/2 p-6 text-zinc-400 sm:fixed sm:flex w-[90px]">
-        <Suspense>
-          <BlogReactionsUI slug={slug} />
-        </Suspense>
-      </aside>
-    </>
-  );
+  return <BlogDetailEntry blog={blog} slug={slug} />;
 };
 
 export default BlogPage;

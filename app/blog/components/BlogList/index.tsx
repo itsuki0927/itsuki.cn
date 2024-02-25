@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import BlogCard, { BlogCardProps, BlogCardSkeleton } from '../BlogCard';
 import { getAllBlogs } from '@/actions/blog';
 import { BlogSearchParams } from '@/types/blog';
+import Empty from '@/components/common/Empty';
 
 interface BlogListParams extends Pick<BlogCardProps, 'displayCategory'> {
   params?: BlogSearchParams;
@@ -11,7 +12,9 @@ const Main = async ({ params, displayCategory }: BlogListParams) => {
   const data = await getAllBlogs(params);
 
   if (data?.length === 0) {
-    return <div>空空如也</div>;
+    return (
+      <Empty>已经在绞尽脑汁的写文章了，只是速度有点慢，再等等再等等</Empty>
+    );
   }
 
   return (

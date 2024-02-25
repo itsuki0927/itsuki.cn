@@ -39,13 +39,13 @@ const CommentInput = forwardRef<RichTextareaHandle, CommentInputProps>(
       <RichTextarea
         autoHeight
         className={clsx(
-          'text-zinc-600 font-normal w-full !p-2 text-sm focus:outline-none',
+          'block flex-1 shrink-0 resize-none border-0 bg-transparent !p-2 text-sm leading-6 text-zinc-800 placeholder-zinc-400 outline-none focus:outline-none focus:ring-0 dark:text-zinc-200 dark:placeholder-zinc-500',
           className,
         )}
         onChange={(e) => {
           onChange(e.target.value);
         }}
-        placeholder="良言一句三冬暖，恶语伤人六月寒（请友善发言)"
+        placeholder="良言一句三冬暖, 恶语伤人六月寒（请友善发言)"
         ref={(currentRef) => {
           if (ref && 'current' in ref) {
             ref.current = currentRef;

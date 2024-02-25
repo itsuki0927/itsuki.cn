@@ -25,6 +25,7 @@ const ToggleSectionButton = ({
       <Tooltip>
         <TooltipTrigger>
           <Button
+            className="p-2"
             disabled={disabled}
             size="sm"
             variant="ghost"

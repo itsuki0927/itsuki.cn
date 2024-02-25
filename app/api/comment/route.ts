@@ -1,4 +1,4 @@
-import { sendGuestbookEmail } from '@/actions/email';
+import { sendBlogCommentEmail, sendGuestbookEmail } from '@/actions/email';
 import { getLocationByIP, getIP } from '@/actions/ip';
 import { createSupabaseServerClient } from '@/libs/supabase/server';
 import { GUESTBOOK, commentState } from '@/constants/comment';
@@ -15,6 +15,7 @@ import {
   userAgent as getUserAgent,
 } from 'next/server';
 import { formatUser } from '@/utils/formatUser';
+import { Blog } from '@/types/blog';
 
 const ratelimit = new Ratelimit({
   redis,
@@ -63,6 +64,28 @@ export async function POST(req: NextRequest) {
     });
   }
 
+  let blogData: Blog | null = null;
+
+  // 如果是博客的评论
+  if (blogId !== GUESTBOOK) {
+    const blogRes = await supabase
+      .from('blog')
+      .select('*')
+      .eq('id', blogId)
+      .maybeSingle();
+
+    if (!blogRes.data || blogRes.error) {
+      return new NextResponse(
+        blogRes.error?.message || `blogId:${blogId} not found`,
+        {
+          status: 400,
+        },
+      );
+    }
+
+    blogData = blogRes.data;
+  }
+
   const formatedUser = formatUser(user.user)!;
   const userAgent = getUserAgent({ headers: req.headers });
   const geo = await getLocationByIP(ip);
@@ -72,6 +95,9 @@ export async function POST(req: NextRequest) {
     userAgent,
     geo,
     ip,
+    // blog comment 相关字段，方便查询
+    blogSlug: blogData?.slug,
+    blogTitle: blogData?.title,
     isDev: VERCEL_ENV !== 'production',
   };
   console.log('geo:', geo, ip, formatedUser);
@@ -88,8 +114,13 @@ export async function POST(req: NextRequest) {
 
     if (input.blogId === GUESTBOOK) {
       sendGuestbookEmail({ user: formatedUser, content: input.content });
-      // revalidatePath('/guestbook');
-      revalidateTag('getComments');
+    } else {
+      sendBlogCommentEmail({
+        user: formatedUser,
+        content: input.content,
+        blogSlug: blogData?.slug!,
+        blogTitle: blogData?.title!,
+      });
     }
 
     return NextResponse.json(data);

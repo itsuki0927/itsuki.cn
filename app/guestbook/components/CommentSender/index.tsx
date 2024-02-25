@@ -93,7 +93,7 @@ const CommentSender = ({
       exit={opacityInitialAnimation}
       initial={opacityInitialAnimation}
     >
-      <div className="flex">
+      <div className="flex p-2">
         {user ? (
           <Avatar className="border border-solid bg-zinc-200 ring-2 ring-zinc-200">
             <AvatarImage src={user?.avatar} />

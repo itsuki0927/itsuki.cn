@@ -44,8 +44,8 @@ function PageSection({ index, children, blogId }: PageSectionProps) {
       ref={ref}
       className={classNames(
         'group relative pb-8 max-w-[100vw]',
-        'gap-y-6 lg:space-y-[1.5em]',
-        'grid grid-cols-[1fr_min(100%,60ch)_1fr] lg:block',
+        'gap-y-6 sm:space-y-[1.5em]',
+        'sm:block',
       )}
     >
       <hr className="border-gray8 border-dashed mb-10 lg:mb-16 group-first-of-type:hidden" />

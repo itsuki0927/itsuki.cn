@@ -1,10 +1,12 @@
 import BlogTableOfContentUI from './ui';
-import { BlogPageProps } from '../../page';
 import getHeadings from '@/utils/getHeadings';
-import { getBlog } from '@/actions/blog';
+import { Blog } from '@/types/blog';
 
-const BlogTableOfContent = async ({ slug }: BlogPageProps['params']) => {
-  const blog = await getBlog(slug);
+interface BlogTableOfContentProps {
+  blog: Blog;
+}
+
+const BlogTableOfContent = ({ blog }: BlogTableOfContentProps) => {
   const headings = getHeadings(blog?.content || '');
 
   return <BlogTableOfContentUI headings={headings} />;

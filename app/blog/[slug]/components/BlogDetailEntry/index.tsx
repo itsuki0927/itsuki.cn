@@ -7,6 +7,7 @@ import BlogHeader from '../BlogHeader';
 import { IndexProvider } from '../PageSection/IndexProvider';
 import BlogContentSkeleton from '../BlogContentRender/skeleton';
 import BlogReactionsUI from '../BlogReactions/UI';
+import MobileNavIsland from '../MobileNavIsland';
 
 interface BlogDetailEntryProps {
   blog: Blog;
@@ -35,9 +36,7 @@ const BlogDetailEntry = ({ blog, slug }: BlogDetailEntryProps) => {
 
   return (
     <>
-      <Suspense>
-        <BlogTableOfContent slug={slug} />
-      </Suspense>
+      <BlogTableOfContent blog={blog} />
 
       <div className="max-w-4xl mx-auto bg-white text-zinc-800 p-4 rounded-xl">
         <BlogHeader blog={blog} />
@@ -59,6 +58,10 @@ const BlogDetailEntry = ({ blog, slug }: BlogDetailEntryProps) => {
           <BlogReactionsUI slug={slug} blog={blog} />
         </Suspense>
       </aside>
+
+      <div className="fixed bottom-4 left-4 right-4 z-20 block sm:none">
+        <MobileNavIsland blog={blog} />
+      </div>
     </>
   );
 };

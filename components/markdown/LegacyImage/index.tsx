@@ -79,7 +79,7 @@ const LegacyImage = ({
         onLoad={handleLoad}
       />
       {!isError && alt ? (
-        <figcaption className="pointer-events-none select-none border-t border-dashed border-zinc-200 py-1 text-center text-sm leading-6 text-gray-600">
+        <figcaption className="px-2 text-xs pointer-events-none select-none border-t border-dashed border-zinc-200 py-1 text-center sm:text-sm leading-6 text-zinc-600">
           {alt}
         </figcaption>
       ) : null}

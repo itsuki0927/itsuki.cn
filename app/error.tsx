@@ -16,7 +16,7 @@ const Error = ({ error, reset }: ErrorProps) => {
   }, [error]);
 
   return (
-    <section className="pointer-events-none inset-0 flex py-24 w-full flex-col items-center justify-center">
+    <section className="pointer-events-none inset-0 flex py-24 px-8 w-full flex-col items-center justify-center">
       <motion.div
         className="text-4xl font-extrabold"
         initial={{ opacity: 0, y: 30 }}

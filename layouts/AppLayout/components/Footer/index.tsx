@@ -20,10 +20,7 @@ const Footer = async () => {
             <Logo />
             <span className="text-zinc-800 dark:text-zinc-200">五块木头</span>
           </div>
-          <div className="flex gap-6 flex-wrap items-center text-sm font-medium text-zinc-800 dark:text-zinc-200">
-            <Link href="/" key="/">
-              首页
-            </Link>
+          <div className="flex gap-6 flex-wrap justify-center items-center text-sm font-medium text-zinc-800 dark:text-zinc-200">
             {data?.map((route) => (
               <Link href={route.slug} key={route.slug}>
                 {route.title}

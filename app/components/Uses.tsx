@@ -13,8 +13,8 @@ interface ToolProps {
   url: string;
 }
 
-const Tool = ({ mask, name, description, img }: ToolProps) => (
-  <div className={clsx(styles.tool, styles[name.toLowerCase()])}>
+const Use = ({ mask, name, description, img }: ToolProps) => (
+  <div className={clsx(styles.use, styles[name.toLowerCase()])}>
     <div className={styles.icon}>
       <div
         className={styles.icon1}
@@ -94,7 +94,7 @@ const Uses = () => {
             href={tool.url}
             className="!no-underline"
           >
-            <Tool {...tool} />
+            <Use {...tool} />
           </ExternalLink>
         ))}
       </div>

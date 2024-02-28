@@ -1,7 +1,5 @@
-import { getBlog } from '@/actions/blog';
 import BlogDetailEntry from '@/app/blog/[slug]/components/BlogDetailEntry';
 import { VERCEL_ENV } from '@/constants/env';
-import { createSupabaseServerClient } from '@/libs/supabase/server';
 import { Blog } from '@/types/blog';
 import { PageProps } from '@/types/common';
 import getHeadings from '@/utils/getHeadings';

@@ -33,20 +33,9 @@ const generateRSSFeed = async () => {
   });
 
   blogs.forEach(
-    ({
-      title,
-      cover: image,
-      createdAt,
-      publishedAt,
-      updatedAt,
-      id,
-      slug,
-      description,
-    }) => {
+    ({ title, cover: image, createdAt, updatedAt, id, slug, description }) => {
       const link = `${BASE_URL}/blog/${slug}`;
-      const date = new Date(
-        publishedAt || updatedAt || createdAt || Date.now(),
-      );
+      const date = new Date(updatedAt || createdAt || Date.now());
 
       const item: Item = {
         title,
@@ -54,7 +43,7 @@ const generateRSSFeed = async () => {
         copyright,
         link,
         date,
-        id,
+        id: String(id),
         author: [author],
         published: date,
       };

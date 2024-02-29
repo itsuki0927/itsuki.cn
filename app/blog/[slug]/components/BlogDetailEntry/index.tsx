@@ -64,7 +64,7 @@ const BlogDetailEntry = ({ blog, slug }: BlogDetailEntryProps) => {
         </Suspense>
       </aside>
 
-      <div className="fixed bottom-4 left-4 right-4 z-20 block sm:none">
+      <div className="fixed bottom-4 left-4 right-4 z-20 block sm:hidden">
         <MobileNavIsland blog={blog} />
       </div>
     </>

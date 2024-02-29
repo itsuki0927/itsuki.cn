@@ -7,11 +7,6 @@ import { Blog } from '@/types/blog';
 const genMockReactions = () =>
   Array.from({ length: 4 }, () => Math.floor(Math.random() * 100));
 
-interface BlogReactionsUIProps {
-  slug: string;
-  mood?: Blog['mood'];
-}
-
 const getReactions = async (id: string): Promise<number[]> => {
   try {
     if (VERCEL_ENV === 'production') {
@@ -31,10 +26,19 @@ const getReactions = async (id: string): Promise<number[]> => {
   return genMockReactions();
 };
 
-const BlogReactionsUI = async ({ slug, mood }: BlogReactionsUIProps) => {
+interface BlogReactionsProps {
+  slug: string;
+  blog: Blog;
+}
+
+const BlogReactionsUI = async ({ slug, blog }: BlogReactionsProps) => {
   const reactions = await getReactions(slug);
 
-  return <BlogReactions id={slug} mood={mood} reactions={reactions} />;
+  if (!blog) {
+    return null;
+  }
+
+  return <BlogReactions id={blog.id} mood={blog?.mood} reactions={reactions} />;
 };
 
 export default BlogReactionsUI;

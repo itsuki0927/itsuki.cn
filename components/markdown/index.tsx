@@ -2,10 +2,10 @@ import React from 'react';
 import { getBlogHeadingElementId } from '@/constants/anchor';
 import type { StandardProps } from '@/types/common';
 import Code from './Code';
-// import LegacyImage from "./LegacyImage";
-// import Image from "./Image";
 import styles from './style.module.scss';
 import clsx from 'clsx';
+import ExternalLink from '../common/ExternalLink';
+import LegacyImage from './LegacyImage';
 
 export const H1 = ({ children, className, ...rest }: StandardProps) => {
   const id = getBlogHeadingElementId(String(children));
@@ -28,7 +28,7 @@ export const H2 = ({ children, className, ...rest }: StandardProps) => {
   return (
     <h2
       className={clsx(
-        'relative group mt-24 mb-8 text-3xl font-semibold',
+        'relative group mt-16 mb-8 text-3xl font-semibold',
         className,
       )}
       id={id}
@@ -44,7 +44,7 @@ export const H3 = ({ children, className, ...rest }: StandardProps) => {
   return (
     <h3
       className={clsx(
-        'relative group mt-11 mb-6 text-2xl font-semibold',
+        'relative group mt-12 mb-6 text-2xl font-semibold',
         className,
       )}
       id={id}
@@ -114,9 +114,9 @@ export const UnOrderedList = ({
 
 export const Text = ({ children, className }: StandardProps) => {
   return (
-    <p className={clsx('mb-1 leading-8 group relative', className)}>
+    <div className={clsx('my-3 leading-8 group relative', className)}>
       {children}
-    </p>
+    </div>
   );
 };
 
@@ -146,11 +146,34 @@ interface LinkProps extends StandardProps {
   href?: string;
 }
 
-export const Link = ({ href, children, className, ...rest }: LinkProps) => {
+export const Link = ({
+  href = '',
+  children,
+  className,
+  ...rest
+}: LinkProps) => {
+  const isExternalLink = href.startsWith('http') || href.startsWith('https');
+
+  if (isExternalLink) {
+    return (
+      <ExternalLink
+        href={href}
+        {...rest}
+        className={clsx(styles.externalLink, className)}
+      >
+        {children}
+      </ExternalLink>
+    );
+  }
+
   return (
-    <a className={clsx(styles.externalLink, className)} href={href} {...rest}>
+    <Link
+      href={href}
+      className={clsx(styles.internalLink, className)}
+      {...rest}
+    >
       {children}
-    </a>
+    </Link>
   );
 };
 
@@ -162,7 +185,7 @@ export const Table = ({ children, className, ...rest }: StandardProps) => {
   );
 };
 
-const markdownComponents = {
+export const markdownComponents = {
   h1: H1,
   h2: H2,
   h3: H3,
@@ -174,7 +197,7 @@ const markdownComponents = {
   a: Link,
   code: InlineCode,
   blockquote: Blockquote,
-  // img: LegacyImage,
+  img: LegacyImage,
   table: Table,
 };
 

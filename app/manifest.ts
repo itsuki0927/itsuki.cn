@@ -1,4 +1,4 @@
-import { META } from '@/constants/app';
+import { META } from '@/constants/seo';
 import { MetadataRoute } from 'next';
 
 const manifest = (): MetadataRoute.Manifest => {

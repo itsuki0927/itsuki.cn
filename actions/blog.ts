@@ -1,15 +1,51 @@
-'use server';
+import { supabaseBrowserClient } from '@/libs/supabase/client';
+import { BlogSearchParams } from '@/types/blog';
+import { getCategoryBySlug } from './category';
 
-import { kvKeys } from '@/constants/kv';
-import { redis } from '@/libs/upstash';
-import { VERCEL_ENV } from '@/constants/env';
+export const readBlog = (id: number) => {
+  return supabaseBrowserClient.rpc('views_increment', {
+    x: 1,
+    row_id: id,
+  });
+};
 
-export const getBlogViews = async (slug: string) => {
-  let views: number;
-  if (VERCEL_ENV === 'production') {
-    views = await redis.incr(kvKeys.blogViews(slug));
-  } else {
-    views = 30578;
+export const getAllBlogs = async ({
+  favorite,
+  categorySlug,
+  tagSlug,
+}: BlogSearchParams = {}) => {
+  const builder = supabaseBrowserClient
+    .from('blog')
+    .select('*, tag (*), blogTag (*), category (*)');
+
+  if (favorite) {
+    builder.eq('favorite', favorite);
   }
-  return views;
+
+  if (categorySlug) {
+    const category = await getCategoryBySlug(categorySlug);
+    if (category) {
+      builder.eq('categoryId', category.id);
+    }
+    // builder.eq('category.slug', categorySlug);
+  }
+
+  if (tagSlug) {
+    builder.containedBy('tag.slug', [tagSlug]);
+  }
+
+  builder.order('id', { ascending: false });
+
+  const { data } = await builder;
+
+  return data || [];
+};
+
+export const getBlog = async (slug: string) => {
+  const { data } = await supabaseBrowserClient
+    .from('blog')
+    .select('*, tag (*), blogTag (*), category (*)')
+    .eq('slug', slug)
+    .maybeSingle();
+  return data;
 };

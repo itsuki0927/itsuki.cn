@@ -1,17 +1,15 @@
-import getRootPage from '@/libs/notion/getRootPage';
 import BlogTableOfContentUI from './ui';
-import { GetBlogResponse } from '@/libs/notion/getBlog';
+import getHeadings from '@/utils/getHeadings';
+import { Blog } from '@/types/blog';
 
-const BlogTableOfContent = async ({ blog, recordMap }: GetBlogResponse) => {
-  const { block: allBlocks } = await getRootPage();
+interface BlogTableOfContentProps {
+  blog: Blog;
+}
 
-  return (
-    <BlogTableOfContentUI
-      blog={blog}
-      blocks={allBlocks}
-      recordMap={recordMap}
-    />
-  );
+const BlogTableOfContent = ({ blog }: BlogTableOfContentProps) => {
+  const headings = getHeadings(blog?.content || '');
+
+  return <BlogTableOfContentUI headings={headings} />;
 };
 
 export default BlogTableOfContent;

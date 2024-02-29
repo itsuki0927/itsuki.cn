@@ -15,18 +15,6 @@ export const NEXT_PUBLIC_SUPABASE_ANON_KEY =
 
 export const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-export const GITHUB_CLIENT_KEY = process.env.GITHUB_CLIENT_KEY;
-
-export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
-
-export const NEXTAUTH_URL = process.env.NEXTAUTH_URL;
-
-export const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
-
-export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-
-export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-
 export const UPSTASH_REDIS_URL = process.env.UPSTASH_REDIS_URL;
 
 export const UPSTASH_REDIS_TOKEN = process.env.UPSTASH_REDIS_TOKEN;

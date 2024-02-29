@@ -2,7 +2,8 @@
 
 import { Blog } from '@/types/blog';
 import { motion, useMotionValue } from 'framer-motion';
-import React from 'react';
+import { useCallback, useState } from 'react';
+import type { MouseEvent } from 'react';
 import ReactIcon from './ReactIcon';
 import { useToast } from '@/components/ui/use-toast';
 import buildUrl from '@/utils/buildUrl';
@@ -18,8 +19,9 @@ import {
   PartyPopper,
   ThumbsUp,
 } from 'lucide-react';
+import useIncViews from './hooks';
 
-function moodToReactions(mood?: Blog['mood']) {
+const moodToReactions = (mood?: Blog['mood']) => {
   switch (mood) {
     case 'happy':
       return ['claps', 'tada', 'confetti', 'fire'];
@@ -28,7 +30,7 @@ function moodToReactions(mood?: Blog['mood']) {
     default:
       return ['claps', 'heart', 'thumbs-up', 'fire'];
   }
-}
+};
 
 const getMoodIcon = (reaction: string) => {
   switch (reaction) {
@@ -63,42 +65,41 @@ interface BlogReactionsProps extends Pick<Blog, 'id'> {
 const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
   const { toast } = useToast();
   const mouseY = useMotionValue(Infinity);
-  const onMouseMove = React.useCallback(
-    (e: React.MouseEvent) => {
+  const onMouseMove = useCallback(
+    (e: MouseEvent) => {
       mouseY.set(e.clientY);
     },
     [mouseY],
   );
-  const [cachedReactions, setCachedReactions] = React.useState(
+  const [cachedReactions, setCachedReactions] = useState(
     reactions ?? [0, 0, 0, 0],
   );
 
-  const onClick = React.useCallback(
-    async (index: number) => {
-      setCachedReactions((prev) => {
-        const next = [...prev];
-        ++next[index];
-        return next;
+  useIncViews(id);
+
+  const onClick = async (index: number) => {
+    setCachedReactions((prev) => {
+      const next = [...prev];
+      ++next[index];
+      return next;
+    });
+    try {
+      const res = await fetch(
+        buildUrl(`/api/reactions?id=${id}&index=${index}`),
+        {
+          method: 'PATCH',
+        },
+      );
+      const { data } = (await res.json()) as { data: number[] };
+      setCachedReactions(data);
+    } catch (err: any) {
+      console.dir(err);
+      toast({
+        content: '点赞失败',
+        description: err.message,
       });
-      try {
-        const res = await fetch(
-          buildUrl(`/api/reactions?id=${id}&index=${index}`),
-          {
-            method: 'PATCH',
-          },
-        );
-        const { data } = (await res.json()) as { data: number[] };
-        setCachedReactions(data);
-      } catch (err: any) {
-        console.dir(err);
-        toast({
-          content: '点赞失败',
-          description: err.message,
-        });
-      }
-    },
-    [id, toast],
-  );
+    }
+  };
 
   return (
     <motion.div

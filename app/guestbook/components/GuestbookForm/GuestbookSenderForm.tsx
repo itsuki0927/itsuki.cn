@@ -2,13 +2,15 @@
 
 import React, { useState } from 'react';
 import CommentSender from '../CommentSender';
-// import { createComment } from '@/actions/comment';
 import { useToast } from '@/components/ui/use-toast';
 import buildUrl from '@/utils/buildUrl';
+import { useRouter } from 'next/navigation';
+import { GUESTBOOK } from '@/constants/comment';
 
 const GuestbookSenderForm = () => {
   const [isLoading, setLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleSend = async (content: string) => {
     setLoading(true);
@@ -17,18 +19,22 @@ const GuestbookSenderForm = () => {
         method: 'POST',
         body: JSON.stringify({
           content,
-          blogId: 10000,
+          blogId: GUESTBOOK,
         }),
         headers: {
           'Content-Type': 'application/json',
         },
       });
       const data = await res.json();
+      if (data) {
+        router.refresh();
+        toast({ title: '🎉🎉🎉 发送成功', duration: 2000 });
+      }
       return Boolean(data);
     } catch (err: any) {
       console.dir(err);
       toast({
-        title: '发送失败',
+        title: '☹️☹️☹️ 发送失败',
         description: err.message,
       });
     } finally {
@@ -37,7 +43,13 @@ const GuestbookSenderForm = () => {
     return false;
   };
 
-  return <CommentSender onSend={handleSend} isLoading={isLoading} />;
+  return (
+    <CommentSender
+      className="p-2 relative bg-white z-10 rounded-xl border border-solid border-zinc-100"
+      onSend={handleSend}
+      isLoading={isLoading}
+    />
+  );
 };
 
 export default GuestbookSenderForm;

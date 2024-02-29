@@ -8,7 +8,6 @@ interface CommentAvatarProps {
   avatar: string | null | undefined;
   className?: string;
   size?: number;
-  borderColor?: string;
   // provider?: string
 }
 
@@ -34,12 +33,10 @@ const CommentAvatar = ({
   avatar,
   className = '',
   size = 40,
-  borderColor = 'ring-zinc-200',
 }: CommentAvatarProps) => (
   <motion.div
     className={clsx(
-      'relative list-none max-h-[40px] max-w-[40px] rounded-full bg-zinc-200 ring-2 dark:bg-zinc-800 dark:ring-zinc-800',
-      borderColor,
+      'relative list-none max-h-[40px] max-w-[40px] rounded-full bg-zinc-200 ring-2 dark:bg-zinc-800 dark:ring-zinc-800 ring-zinc-200',
       className,
     )}
     variants={commentAvatarVariant}

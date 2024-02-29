@@ -1,5 +1,5 @@
-.tool {
-  @apply cursor-pointer  border-none text-white transition-all overflow-hidden flex justify-center items-center rounded bg-gray-100 p-4 gap-4 h-full;
+.use {
+  @apply cursor-pointer  border-none text-white transition-all overflow-hidden flex justify-center items-center rounded bg-gray-100 p-4 gap-2 sm:gap-4 h-full;
   transition: all 0.2s cubic-bezier(0.08, 0.82, 0.2, 1);
 
   &.neovim:hover {

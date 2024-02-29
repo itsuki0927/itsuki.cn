@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Feed, Item } from 'feed';
-import { BASE_URL, META } from '@/constants/app';
-import getAllBlogs from './notion/getAllBlogs';
+import { BASE_URL } from '@/constants/app';
+import { META } from '@/constants/seo';
+import { getAllBlogs } from '@/actions/blog';
 
 const generateRSSFeed = async () => {
   const blogs = await getAllBlogs();
@@ -32,20 +33,9 @@ const generateRSSFeed = async () => {
   });
 
   blogs.forEach(
-    ({
-      title,
-      cover: image,
-      createdAt,
-      publishedAt,
-      updatedAt,
-      id,
-      slug,
-      description,
-    }) => {
+    ({ title, cover: image, createdAt, updatedAt, id, slug, description }) => {
       const link = `${BASE_URL}/blog/${slug}`;
-      const date = new Date(
-        publishedAt || updatedAt || createdAt || Date.now(),
-      );
+      const date = new Date(updatedAt || createdAt || Date.now());
 
       const item: Item = {
         title,
@@ -53,7 +43,7 @@ const generateRSSFeed = async () => {
         copyright,
         link,
         date,
-        id,
+        id: String(id),
         author: [author],
         published: date,
       };

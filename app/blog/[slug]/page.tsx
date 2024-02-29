@@ -1,23 +1,15 @@
-import { getBlogViews } from '@/actions/blog';
+import { getAllBlogs, getBlog } from '@/actions/blog';
 import { BASE_URL } from '@/constants/app';
-import getAllBlogs from '@/libs/notion/getAllBlogs';
-import getBlog from '@/libs/notion/getBlog';
-import getRootPage from '@/libs/notion/getRootPage';
+import { Blog } from '@/types/blog';
 import { PageProps } from '@/types/common';
+import getHeadings from '@/utils/getHeadings';
 import { Metadata } from 'next';
-import { ExtendedRecordMap } from 'notion-types';
-import { Suspense } from 'react';
-import BlogContentRender from './components/BlogContentRender';
-import BlogReactionsUI from './components/BlogReactions/UI';
-import BlogTableOfContent from './components/BlogTableOfContent';
-import BlogPageHeader from './components/BlogPageHeader';
-import BlogPageHeaderUI from './components/BlogPageHeader/ui';
+import { notFound } from 'next/navigation';
+import BlogDetailEntry from './components/BlogDetailEntry';
 
-type BlogPageProps = PageProps<{ slug: string }>;
+export type BlogPageProps = PageProps<{ slug: string }>;
 
-export interface NotionResponse {
-  recordMap: ExtendedRecordMap;
-}
+export const revalidate = 3600;
 
 export async function generateMetadata({
   params,
@@ -28,7 +20,7 @@ export async function generateMetadata({
     return;
   }
 
-  const { title, publishedAt, description, cover } = blog;
+  const { title, createdAt, description, cover } = blog;
   const ogImage = cover ? cover : `${BASE_URL}/og?title=${title}`;
 
   return {
@@ -38,7 +30,7 @@ export async function generateMetadata({
       title,
       description,
       type: 'article',
-      publishedTime: publishedAt?.toLocaleString(),
+      publishedTime: createdAt?.toLocaleString(),
       url: `${BASE_URL}/blog/${params.slug}`,
       images: [
         {
@@ -56,38 +48,36 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
+  console.log('[fetch]: getAllBlogs');
   const blogs = await getAllBlogs();
   return blogs.map((blog) => ({ slug: blog.slug }));
 }
 
-const NotionPage = async ({ params }: BlogPageProps) => {
-  const slug = params.slug;
-  const blogRes = await getBlog(slug);
+const fetchBlog = async (path: string) => {
+  let blog: Blog | null | undefined;
 
-  return (
-    <>
-      <Suspense>
-        <BlogTableOfContent {...blogRes} />
-      </Suspense>
+  try {
+    blog = await getBlog(path);
+    if (blog === null) {
+      return notFound();
+    }
+  } catch (err) {
+    return notFound();
+  }
 
-      <div className="max-w-4xl mx-auto">
-        <BlogContentRender
-          {...blogRes}
-          pageHeader={
-            <Suspense fallback={<BlogPageHeaderUI blogViews={0} />}>
-              <BlogPageHeader slug={slug} blog={blogRes.blog} />
-            </Suspense>
-          }
-        />
-      </div>
+  const headings = getHeadings(blog.content);
 
-      <aside className="top-1/2 right-12 hidden -translate-y-1/2 p-6 text-gray-400 sm:fixed sm:flex w-[90px]">
-        <Suspense>
-          <BlogReactionsUI slug={slug} mood={blogRes.blog.mood} />
-        </Suspense>
-      </aside>
-    </>
-  );
+  return { headings, blog };
 };
 
-export default NotionPage;
+const BlogPage = async ({ params }: BlogPageProps) => {
+  const slug = params.slug;
+  if (!slug) {
+    notFound();
+  }
+  const { blog } = await fetchBlog(slug);
+
+  return <BlogDetailEntry blog={blog} slug={slug} />;
+};
+
+export default BlogPage;

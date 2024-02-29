@@ -4,6 +4,7 @@ import { kvKeys } from './constants/kv';
 import { redis } from './libs/upstash';
 import { checkIPIsBlocked } from './actions/ip';
 import { VERCEL_ENV } from './constants/env';
+import { updateSession } from './libs/supabase/middleware';
 
 const publicRoutes = [
   '/',
@@ -20,7 +21,10 @@ const publicRoutes = [
 ];
 
 export const config = {
-  matcher: ['/((?!_next|studio|.*\\..*).*)'],
+  // matcher: ['/((?!_next|studio|.*\\..*).*)'],
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 };
 
 const middleware = async (req: NextRequest) => {
@@ -56,6 +60,8 @@ const middleware = async (req: NextRequest) => {
       await redis.set(kvKeys.currentVisitor, { country, city, flag });
     }
   }
+
+  // await updateSession(req);
 
   return NextResponse.next();
 };

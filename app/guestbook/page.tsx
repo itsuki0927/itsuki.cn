@@ -2,12 +2,17 @@ import { Suspense } from 'react';
 import GuestbookForm from './components/GuestbookForm';
 import GuestbookList from './components/GuestbookList';
 import Title from '@/layouts/AppLayout/components/Title';
+import { MessageSquareHeart } from 'lucide-react';
+import { WebSite, WithContext } from 'schema-dts';
+import JsonLd from '@/components/common/JsonLd';
 
-export const metadata = {
-  title: '留言板',
+const metadataConfig = {
+  title: '与你一句',
   description:
     '留下你的想法，我热衷于听到你的声音，并与你进行深入交流，不论是技术还是生活又或是其他事情都可以。',
 };
+
+export const metadata = metadataConfig;
 
 const CommentCardSkeleton = () => (
   <div className="flex space-x-4">
@@ -26,9 +31,22 @@ const CommentCardSkeleton = () => (
 );
 
 const GuestbookPage = () => {
+  const jsonLd: WithContext<WebSite> = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    ...metadataConfig,
+  };
   return (
     <section className="container">
-      <Title title="留言板">
+      <JsonLd content={jsonLd} />
+      <Title
+        title={
+          <span className="flex items-center">
+            <MessageSquareHeart size={40} className="mr-2" />
+            与你一句
+          </span>
+        }
+      >
         留下你的想法，我热衷于听到你的声音，并与你进行深入交流，不论是技术还是生活又或是其他事情都可以。
       </Title>
 

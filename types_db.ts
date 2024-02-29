@@ -6,57 +6,293 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
+      blog: {
+        Row: {
+          categoryId: number | null;
+          comments: number | null;
+          content: string;
+          cover: string;
+          createdAt: string | null;
+          description: string;
+          favorite: boolean | null;
+          forbiddedComment: boolean | null;
+          id: number;
+          keywords: string[];
+          mood: Database['public']['Enums']['blogMood'] | null;
+          reactions: Json | null;
+          slug: string;
+          state: Database['public']['Enums']['blogState'] | null;
+          title: string;
+          updatedAt: string | null;
+          views: number | null;
+        };
+        Insert: {
+          categoryId?: number | null;
+          comments?: number | null;
+          content: string;
+          cover: string;
+          createdAt?: string | null;
+          description: string;
+          favorite?: boolean | null;
+          forbiddedComment?: boolean | null;
+          id?: number;
+          keywords: string[];
+          mood?: Database['public']['Enums']['blogMood'] | null;
+          reactions?: Json | null;
+          slug: string;
+          state?: Database['public']['Enums']['blogState'] | null;
+          title: string;
+          updatedAt?: string | null;
+          views?: number | null;
+        };
+        Update: {
+          categoryId?: number | null;
+          comments?: number | null;
+          content?: string;
+          cover?: string;
+          createdAt?: string | null;
+          description?: string;
+          favorite?: boolean | null;
+          forbiddedComment?: boolean | null;
+          id?: number;
+          keywords?: string[];
+          mood?: Database['public']['Enums']['blogMood'] | null;
+          reactions?: Json | null;
+          slug?: string;
+          state?: Database['public']['Enums']['blogState'] | null;
+          title?: string;
+          updatedAt?: string | null;
+          views?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'blog_categoryId_fkey';
+            columns: ['categoryId'];
+            isOneToOne: false;
+            referencedRelation: 'category';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      blogTag: {
+        Row: {
+          blogId: number;
+          tagId: number;
+        };
+        Insert: {
+          blogId: number;
+          tagId: number;
+        };
+        Update: {
+          blogId?: number;
+          tagId?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'blogTag_blogId_fkey';
+            columns: ['blogId'];
+            isOneToOne: false;
+            referencedRelation: 'blog';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'blogTag_tagId_fkey';
+            columns: ['tagId'];
+            isOneToOne: false;
+            referencedRelation: 'tag';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      category: {
+        Row: {
+          count: number;
+          createdAt: string | null;
+          description: string | null;
+          expand: string | null;
+          id: number;
+          slug: string;
+          sort: number | null;
+          title: string;
+          updatedAt: string | null;
+        };
+        Insert: {
+          count?: number;
+          createdAt?: string | null;
+          description?: string | null;
+          expand?: string | null;
+          id?: never;
+          slug: string;
+          sort?: number | null;
+          title: string;
+          updatedAt?: string | null;
+        };
+        Update: {
+          count?: number;
+          createdAt?: string | null;
+          description?: string | null;
+          expand?: string | null;
+          id?: never;
+          slug?: string;
+          sort?: number | null;
+          title?: string;
+          updatedAt?: string | null;
+        };
+        Relationships: [];
+      };
       comment: {
         Row: {
-          userAgent: string;
           avatar: string | null;
           blogId: number;
           content: string;
           createdAt: string;
           email: string;
           emoji: Json | null;
+          geo: Json | null;
           id: number;
+          ip: string | null;
           nickname: string;
-          ip: string;
           parentId: number | null;
-          slug: string | null;
+          blogSlug: string | null;
           state: number;
-          updateAt: string | null;
+          updatedAt: string | null;
+          userAgent: Json | null;
         };
         Insert: {
-          userAgent: string;
           avatar?: string | null;
           blogId: number;
           content: string;
           createdAt?: string;
           email: string;
           emoji?: Json | null;
-          ip: string;
+          geo?: Json | null;
           id?: number;
+          ip?: string | null;
           nickname?: string;
           parentId?: number | null;
-          slug?: string | null;
+          blogSlug?: string | null;
           state?: number;
-          updateAt?: string | null;
+          updatedAt?: string | null;
+          userAgent?: Json | null;
         };
         Update: {
-          userAgent?: string;
           avatar?: string | null;
           blogId?: number;
           content?: string;
           createdAt?: string;
           email?: string;
           emoji?: Json | null;
+          geo?: Json | null;
           id?: number;
-          ip?: string;
+          ip?: string | null;
           nickname?: string;
           parentId?: number | null;
-          slug?: string | null;
+          blogSlug?: string | null;
           state?: number;
-          updateAt?: string | null;
+          updatedAt?: string | null;
+          userAgent?: Json | null;
+        };
+        Relationships: [];
+      };
+      comment_dev: {
+        Row: {
+          avatar: string | null;
+          blogId: number;
+          content: string;
+          createdAt: string;
+          email: string;
+          emoji: Json | null;
+          geo: Json | null;
+          id: number;
+          ip: string | null;
+          isDev: boolean | null;
+          nickname: string;
+          parentId: number | null;
+          section: string | null;
+          blogSlug: string | null;
+          blogTitle: string | null;
+          state: Database['public']['Enums']['commentState'] | null;
+          updatedAt: string | null;
+          userAgent: Json | null;
+        };
+        Insert: {
+          avatar?: string | null;
+          blogId: number;
+          content: string;
+          createdAt?: string;
+          email: string;
+          emoji?: Json | null;
+          geo?: Json | null;
+          id?: number;
+          ip?: string | null;
+          isDev?: boolean | null;
+          nickname?: string;
+          parentId?: number | null;
+          section?: string | null;
+          blogSlug?: string | null;
+          blogTitle?: string | null;
+          state?: Database['public']['Enums']['commentState'] | null;
+          updatedAt?: string | null;
+          userAgent?: Json | null;
+        };
+        Update: {
+          avatar?: string | null;
+          blogId?: number;
+          content?: string;
+          createdAt?: string;
+          email?: string;
+          emoji?: Json | null;
+          geo?: Json | null;
+          id?: number;
+          ip?: string | null;
+          isDev?: boolean | null;
+          nickname?: string;
+          parentId?: number | null;
+          section?: string | null;
+          blogSlug?: string | null;
+          blogTitle?: string | null;
+          state?: Database['public']['Enums']['commentState'] | null;
+          updatedAt?: string | null;
+          userAgent?: Json | null;
+        };
+        Relationships: [];
+      };
+      tag: {
+        Row: {
+          count: number;
+          createdAt: string | null;
+          description: string | null;
+          expand: string | null;
+          id: number;
+          slug: string;
+          sort: number | null;
+          title: string;
+          updatedAt: string | null;
+        };
+        Insert: {
+          count?: number;
+          createdAt?: string | null;
+          description?: string | null;
+          expand?: string | null;
+          id?: number;
+          slug: string;
+          sort?: number | null;
+          title: string;
+          updatedAt?: string | null;
+        };
+        Update: {
+          count?: number;
+          createdAt?: string | null;
+          description?: string | null;
+          expand?: string | null;
+          id?: number;
+          slug?: string;
+          sort?: number | null;
+          title?: string;
+          updatedAt?: string | null;
         };
         Relationships: [];
       };
@@ -65,16 +301,38 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      category_count_increment: {
+        Args: {
+          x: number;
+          row_id: number;
+        };
+        Returns: undefined;
+      };
+      tag_count_increment: {
+        Args: {
+          x: number;
+          row_id: number;
+        };
+        Returns: undefined;
+      };
+      views_increment: {
+        Args: {
+          x: number;
+          row_id: number;
+        };
+        Returns: undefined;
+      };
     };
     Enums: {
-      [_ in never]: never;
+      blogMood: 'happy' | 'sad' | 'neutral';
+      blogState: 'draft' | 'published' | 'trash';
+      commentState: 'auditing' | 'published' | 'spam' | 'trash' | 'deleted';
     };
     CompositeTypes: {
       [_ in never]: never;
     };
   };
-}
+};
 
 export type Tables<
   PublicTableNameOrOptions extends

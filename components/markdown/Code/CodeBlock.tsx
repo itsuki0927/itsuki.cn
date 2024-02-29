@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import type { Language } from 'prism-react-renderer';
-import { Highlight } from 'prism-react-renderer';
+import { Highlight, themes } from 'prism-react-renderer';
 import { calculateLinesToHighlight, hasTitle } from './utils';
 import styles from './style.module.scss';
 
@@ -30,11 +30,7 @@ const HighlightedCodeText = ({
   lineHover = true,
 }: HighlightedCodeTextProps) => {
   return (
-    <Highlight
-      code={codeString}
-      language={language}
-      // theme={theme}
-    >
+    <Highlight code={codeString} language={language} theme={themes.vsDark}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={clsx(styles.pre, className)} style={style}>
           {tokens.map((line, index) => {

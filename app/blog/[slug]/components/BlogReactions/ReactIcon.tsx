@@ -6,7 +6,7 @@ import {
   type MotionValue,
 } from 'framer-motion';
 import { ThumbsUp } from 'lucide-react';
-import React, { ReactNode } from 'react';
+import { ReactNode, useRef } from 'react';
 
 interface ReactIconProps {
   y: MotionValue;
@@ -16,7 +16,7 @@ interface ReactIconProps {
 }
 
 const ReactIcon = ({ y, count = 0, onClick, icon }: ReactIconProps) => {
-  const ref = React.useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLButtonElement>(null);
 
   const distance = useTransform(y, (val) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { y: 0, height: 0 };

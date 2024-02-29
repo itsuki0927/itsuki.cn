@@ -13,8 +13,8 @@ interface ToolProps {
   url: string;
 }
 
-const Tool = ({ mask, name, description, img }: ToolProps) => (
-  <div className={clsx(styles.tool, styles[name.toLowerCase()])}>
+const Use = ({ mask, name, description, img }: ToolProps) => (
+  <div className={clsx(styles.use, styles[name.toLowerCase()])}>
     <div className={styles.icon}>
       <div
         className={styles.icon1}
@@ -37,42 +37,42 @@ const tools: ToolProps[] = [
     mask: '/tool/github.png',
     img: '/tool/github-2.png',
     name: 'Github',
-    description: '源代码就在这里',
+    description: '👆 源代码在这里',
     url: 'https://github.com/itsuki0927/itsuki.cn',
   },
   {
     mask: '/tool/notion.png',
     img: '/tool/notion-2.png',
     name: 'Notion',
-    description: '内容创作',
+    description: '✍️ 内容创作',
     url: 'https://www.notion.so/',
   },
   {
     mask: '/tool/nvim.png',
     img: '/tool/nvim-2.png',
     name: 'Neovim',
-    description: 'nvim 爱好者',
+    description: '⌨️ nvim 好者',
     url: 'https://github.com/itsuki0927/SkCode',
   },
   {
     mask: '/tool/figma.png',
     img: '/tool/figma-2.png',
     name: 'Figma',
-    description: 'UI设计',
+    description: '💡 UI设计',
     url: 'https://www.figma.com/',
   },
   {
     mask: '/tool/unsplash.png',
     img: '/tool/unsplash-2.png',
     name: 'Unsplash',
-    description: '免费又好看~',
+    description: '🔥 免费又好看~',
     url: 'https://unsplash.com/',
   },
   {
     mask: '/tool/idea.png',
     img: '/tool/idea-2.png',
     name: 'IDEA',
-    description: '偶尔写写 Java',
+    description: '🔧 偶尔写写 Java',
     url: 'https://www.jetbrains.com/idea/',
   },
 ];
@@ -94,7 +94,7 @@ const Uses = () => {
             href={tool.url}
             className="!no-underline"
           >
-            <Tool {...tool} />
+            <Use {...tool} />
           </ExternalLink>
         ))}
       </div>

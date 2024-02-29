@@ -1,5 +1,9 @@
 import { Spring, Tween } from 'framer-motion';
 
+interface UseScrollToCallback {
+  onComplete?: () => void;
+}
+
 const useScrollTo = (transition?: Spring | Tween) => {
   let isStopped = false;
 
@@ -11,6 +15,7 @@ const useScrollTo = (transition?: Spring | Tween) => {
   const scrollTo = async (
     target?: Element | number | string | null,
     offset: number = 0,
+    callback?: UseScrollToCallback,
   ) => {
     let y = 0;
 
@@ -35,6 +40,7 @@ const useScrollTo = (transition?: Spring | Tween) => {
       ...transition,
       onComplete: () => {
         isStopped = false;
+        callback?.onComplete?.();
         window.removeEventListener('wheel', onWheel);
       },
       onUpdate: (value) => {

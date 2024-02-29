@@ -1,3 +1,4 @@
+import type { WebSite, WithContext } from 'schema-dts';
 import Title from '@/layouts/AppLayout/components/Title';
 import { PieChart } from 'lucide-react';
 import AboutMe from './components/AboutMe';
@@ -12,10 +13,29 @@ import { Suspense } from 'react';
 import { BlogCardSkeleton } from './blog/components/BlogCard';
 import HomeCard from './components/HomeCard';
 import Uses from './components/Uses';
+import { META } from '@/constants/seo';
+import JsonLd from '@/components/common/JsonLd';
 
 const Home = () => {
+  const jsonLd: WithContext<WebSite> = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: META.title,
+    image: `${META.url}/logo.png`,
+    description: META.description,
+    keywords: META.keywords,
+    author: [
+      {
+        '@type': 'Person',
+        name: META.author,
+        url: META.url,
+      },
+    ],
+  };
+
   return (
     <main className="container space-y-10">
+      <JsonLd content={jsonLd} />
       <Title
         title={
           <>

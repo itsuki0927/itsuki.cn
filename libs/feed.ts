@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Feed, Item } from 'feed';
-import { BASE_URL, META } from '@/constants/app';
+import { BASE_URL } from '@/constants/app';
+import { META } from '@/constants/seo';
 import { getAllBlogs } from '@/actions/blog';
 
 const generateRSSFeed = async () => {

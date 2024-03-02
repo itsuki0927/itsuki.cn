@@ -4,6 +4,7 @@ import type { MouseEvent } from 'react';
 import { Github } from 'lucide-react';
 import { supabaseBrowserClient } from '@/libs/supabase/client';
 import clsx from 'clsx';
+import buildUrl from '@/utils/buildUrl';
 
 interface GithubIconProps {
   onClick?: (e: MouseEvent) => void;
@@ -16,7 +17,7 @@ const GithubAuthIcon = ({ onClick, className }: GithubIconProps) => {
     supabaseBrowserClient.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: buildUrl('/auth/callback').toString(),
       },
     });
   };

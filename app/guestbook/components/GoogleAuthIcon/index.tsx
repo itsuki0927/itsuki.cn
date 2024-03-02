@@ -4,6 +4,7 @@ import type { MouseEvent } from 'react';
 import { Chrome } from 'lucide-react';
 import { supabaseBrowserClient } from '@/libs/supabase/client';
 import clsx from 'clsx';
+import buildUrl from '@/utils/buildUrl';
 
 interface GoogleIconProps {
   onClick?: (e: MouseEvent) => void;
@@ -16,7 +17,7 @@ const GoogleAuthIcon = ({ onClick, className }: GoogleIconProps) => {
     supabaseBrowserClient.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: buildUrl('/auth/callback').toString(),
       },
     });
   };

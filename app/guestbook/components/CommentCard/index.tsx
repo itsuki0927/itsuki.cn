@@ -13,9 +13,9 @@ import CommentAvatar from '../CommentAvatar';
 import EmojiPopover from '../EmojiPopover';
 import CommentEmojis from './CommentEmojis';
 import useOptimisticComment from './hooks/useOptimisticComment';
-import { useToast } from '@/components/ui/use-toast';
 import buildUrl from '@/utils/buildUrl';
 import useGetUser from '@/app/blog/[slug]/hooks/useGetUser';
+import { toast } from 'sonner';
 
 interface CommentCardProps extends StandardProps {
   comment: Comment;
@@ -39,13 +39,12 @@ const CommentCard = ({
 }: CommentCardProps) => {
   const [optimisticComment, addOptimisticComment] =
     useOptimisticComment(comment);
-  const { toast } = useToast();
   const isMobile = optimisticComment.userAgent.device?.type === 'mobile';
   const { data: user } = useGetUser();
 
   const handleEmojiClick = async (emoji: string) => {
     if (!user) {
-      toast({ title: '点赞失败', description: '该功能需要登陆' });
+      toast('点赞失败, 该功能需要登陆');
       return;
     }
     startTransition(() => {
@@ -63,10 +62,7 @@ const CommentCard = ({
       console.log('data:', data);
       // await likeComment(optimisticComment.id, emoji);
     } catch (err: any) {
-      toast({
-        title: '点赞失败',
-        description: err.message,
-      });
+      toast('点赞失败: ' + err.message);
     }
   };
 

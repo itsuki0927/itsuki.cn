@@ -5,7 +5,6 @@ import { motion, useMotionValue } from 'framer-motion';
 import { useCallback, useState } from 'react';
 import type { MouseEvent } from 'react';
 import ReactIcon from './ReactIcon';
-import { useToast } from '@/components/ui/use-toast';
 import buildUrl from '@/utils/buildUrl';
 import {
   Angry,
@@ -20,6 +19,7 @@ import {
   ThumbsUp,
 } from 'lucide-react';
 import useIncViews from './hooks';
+import { toast } from 'sonner';
 
 const moodToReactions = (mood?: Blog['mood']) => {
   switch (mood) {
@@ -63,7 +63,6 @@ interface BlogReactionsProps extends Pick<Blog, 'id'> {
 }
 
 const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
-  const { toast } = useToast();
   const mouseY = useMotionValue(Infinity);
   const onMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -94,10 +93,7 @@ const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
       setCachedReactions(data);
     } catch (err: any) {
       console.dir(err);
-      toast({
-        content: '点赞失败',
-        description: err.message,
-      });
+      toast('点赞失败:' + err.message);
     }
   };
 

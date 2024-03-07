@@ -1,7 +1,7 @@
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { Analytics } from '@vercel/analytics/react';
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from '@/components/ui/sonner';
 import { StandardProps } from '@/types/common';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import TinybirdScript from './components/TinybirdScript';
@@ -14,7 +14,7 @@ const AppLayout = ({ children }: StandardProps) => {
       <Footer />
       <Analytics />
       <SpeedInsights />
-      <Toaster />
+      <Toaster position="top-center" />
       <TinybirdScript />
     </>
   );

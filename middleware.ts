@@ -61,7 +61,7 @@ const middleware = async (req: NextRequest) => {
     }
   }
 
-  // await updateSession(req);
+  await updateSession(req);
 
   return NextResponse.next();
 };

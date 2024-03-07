@@ -2,6 +2,7 @@ import GithubAuthIcon from '../GithubAuthIcon';
 import GoogleAuthIcon from '../GoogleAuthIcon';
 import GuestbookSenderForm from './GuestbookSenderForm';
 import { createSupabaseServerClient } from '@/libs/supabase/server';
+import ToastList from './ToastList';
 
 const GuestbookForm = async () => {
   const supabase = createSupabaseServerClient();
@@ -11,6 +12,7 @@ const GuestbookForm = async () => {
     return (
       <>
         <GuestbookSenderForm />
+        <ToastList />
       </>
     );
   }

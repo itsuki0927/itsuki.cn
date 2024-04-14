@@ -3,6 +3,7 @@ import GoogleAuthIcon from '../GoogleAuthIcon';
 import GuestbookSenderForm from './GuestbookSenderForm';
 import { createSupabaseServerClient } from '@/libs/supabase/server';
 import SignOutButton from './SignOutButton';
+import { ENV } from '@/constants/env';
 
 const GuestbookForm = async () => {
   const supabase = await createSupabaseServerClient();
@@ -12,7 +13,7 @@ const GuestbookForm = async () => {
     return (
       <>
         <GuestbookSenderForm />
-        <SignOutButton />
+        {ENV.isDev || ENV.isPreview ? <SignOutButton /> : null}
       </>
     );
   }

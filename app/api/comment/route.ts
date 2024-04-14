@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const { data } = await supabase
     .from('comment_dev')
     .select('*')
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const { data: user } = await supabase.auth.getUser();
   if (!user?.user) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const body = (await req.json()) as { id: number; emoji: string };
   console.log('body:', body);
   const { id, emoji } = body;

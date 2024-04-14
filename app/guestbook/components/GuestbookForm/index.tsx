@@ -5,7 +5,7 @@ import { createSupabaseServerClient } from '@/libs/supabase/server';
 import SignOutButton from './SignOutButton';
 
 const GuestbookForm = async () => {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const { data } = await supabase.auth.getUser();
 
   if (data.user) {

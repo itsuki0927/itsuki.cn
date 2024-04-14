@@ -37,9 +37,7 @@ const BlogTableOfContentUI = ({ headings }: BlogTableOfContentProps) => {
   const h2Headings = headings;
   const h2HeadingsDom = useMemo(() => {
     return canUseDOM
-      ? h2Headings.map(
-          (item) => document.querySelector(`[data-id="${item.id}"]`)!,
-        )
+      ? h2Headings.map((item) => document.querySelector(`#${item.id}`)!)
       : [];
   }, [h2Headings]);
   const [currentActiveIndex] = useScrollSpy(h2HeadingsDom, { offset: OFFSET });
@@ -47,10 +45,7 @@ const BlogTableOfContentUI = ({ headings }: BlogTableOfContentProps) => {
   const readingProgress = useProgress();
 
   const handleScrollTo = (id: string) => {
-    const scrollToElement = document.querySelector(`[data-id="${id}"]`);
-    if (scrollToElement) {
-      scrollTo(scrollToElement);
-    }
+    scrollTo(`#${id}`);
   };
 
   return (
@@ -65,7 +60,6 @@ const BlogTableOfContentUI = ({ headings }: BlogTableOfContentProps) => {
         {h2Headings.map((heading, index) => (
           <motion.li
             animate="show"
-            id={heading.id}
             className={clsx(
               'line-clamp-1 block cursor-pointer transition-colors hover:text-primary',
               // heading.id === 1 ? 'ml-2' : '',

@@ -2,10 +2,10 @@ import Title from '@/layouts/AppLayout/components/Title';
 import { Eye } from 'lucide-react';
 import BlogListUI from '../blog/components/BlogList/ui';
 import { getDraftBlogs } from './action';
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 
 const PreviewBlogsPage = async () => {
-  if (VERCEL_ENV === 'production') {
+  if (ENV.isProd) {
     return null;
   }
 

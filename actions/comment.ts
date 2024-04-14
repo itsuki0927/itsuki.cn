@@ -1,4 +1,4 @@
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 import { supabaseBrowserClient } from '@/libs/supabase/client';
 
 interface SearchCommentParams {
@@ -15,7 +15,7 @@ export const getAllComments = async (params: SearchCommentParams = {}) => {
     if (params.blogId) {
       builder.eq('blogId', params.blogId);
     }
-    if (VERCEL_ENV === 'production') {
+    if (ENV.isProd) {
       builder.eq('isDev', false);
     }
 

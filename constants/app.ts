@@ -1,11 +1,10 @@
-import { VERCEL_ENV, VERCEL_URL } from './env';
+import { ENV, VERCEL_URL } from './env';
 
-export const BASE_URL =
-  VERCEL_ENV === 'development'
-    ? 'http://localhost:3000'
-    : VERCEL_ENV === 'production'
-    ? 'https://itsuki.cn'
-    : `https://${VERCEL_URL}`;
+export const BASE_URL = ENV.isDev
+  ? 'http://localhost:3000'
+  : ENV.isProd
+  ? 'https://itsuki.cn'
+  : `https://${VERCEL_URL}`;
 
 export const RESEND_EMAIL = 'hi@itsuki.cn';
 

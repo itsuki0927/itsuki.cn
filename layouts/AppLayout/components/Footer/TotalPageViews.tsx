@@ -1,5 +1,5 @@
 import { TOTAL_PAGEVIEWS_BASELINE } from '@/constants/app';
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 import { kvKeys } from '@/constants/kv';
 import { redis } from '@/libs/upstash';
 import prettifyNumber from '@/utils/prettifyNumber';
@@ -7,7 +7,7 @@ import { User } from 'lucide-react';
 
 const TotalPageViews = async () => {
   let views: number;
-  if (VERCEL_ENV === 'production') {
+  if (ENV.isProd) {
     views = await redis.incr(kvKeys.totalPageViews);
   } else {
     views = 12345;

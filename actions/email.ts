@@ -3,7 +3,7 @@
 import { FormatUser } from '@/utils/formatUser';
 import NewGuestbookEmail from '@/components/emails/NewGuestbookEmail';
 import { BASE_URL, RESEND_EMAIL } from '@/constants/app';
-import { ADMIN_EMAIL2, VERCEL_ENV } from '@/constants/env';
+import { ADMIN_EMAIL2, ENV } from '@/constants/env';
 import { resend } from '@/libs/resend';
 import NewBlogCommentEmail from '@/components/emails/NewBlogCommentEmail';
 
@@ -16,7 +16,7 @@ export const sendGuestbookEmail = async ({
   user,
   content,
 }: SendGuestbookEmailParams) => {
-  if (VERCEL_ENV === 'production') {
+  if (ENV.isProd) {
     const { data, error } = await resend.emails.send({
       from: RESEND_EMAIL,
       to: ADMIN_EMAIL2,
@@ -48,7 +48,7 @@ export const sendBlogCommentEmail = async ({
   blogTitle,
   blogSlug,
 }: SendBlogCommentEmailParams) => {
-  if (VERCEL_ENV === 'production') {
+  if (ENV.isProd) {
     const { data, error } = await resend.emails.send({
       from: RESEND_EMAIL,
       to: ADMIN_EMAIL2,

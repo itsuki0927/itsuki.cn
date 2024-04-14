@@ -18,8 +18,8 @@ import {
   PartyPopper,
   ThumbsUp,
 } from 'lucide-react';
-import useIncViews from './hooks';
 import { toast } from 'sonner';
+import useIncViews from '../../hooks/useIncViews';
 
 const moodToReactions = (mood?: Blog['mood']) => {
   switch (mood) {

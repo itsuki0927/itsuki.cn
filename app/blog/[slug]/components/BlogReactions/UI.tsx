@@ -1,4 +1,4 @@
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 import { kvKeys } from '@/constants/kv';
 import buildUrl from '@/utils/buildUrl';
 import BlogReactions from './index';
@@ -9,7 +9,7 @@ const genMockReactions = () =>
 
 const getReactions = async (id: string): Promise<number[]> => {
   try {
-    if (VERCEL_ENV === 'production') {
+    if (ENV.isProd) {
       const res = await fetch(buildUrl(`/api/reactions?id=${id}`), {
         next: {
           tags: [kvKeys.blogReactions(id)],

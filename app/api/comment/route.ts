@@ -2,7 +2,7 @@ import { sendBlogCommentEmail, sendGuestbookEmail } from '@/actions/email';
 import { getLocationByIP, getIP } from '@/actions/ip';
 import { createSupabaseServerClient } from '@/libs/supabase/server';
 import { GUESTBOOK, commentState } from '@/constants/comment';
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 import { kvKeys } from '@/constants/kv';
 import { TAGS } from '@/constants/tag';
 import { redis } from '@/libs/upstash';
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
   }
 
   const row = (await req.json()) as InsertCommentBody;
-  const ip = getIP(req);
+  const ip = await getIP(req);
   const blogId = row.blogId;
 
   const { success } = await ratelimit.limit(
@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
     // blog comment 相关字段，方便查询
     blogSlug: blogData?.slug,
     blogTitle: blogData?.title,
-    isDev: VERCEL_ENV !== 'production',
+    isDev: ENV.isDev || ENV.isPreview,
   };
   console.log('geo:', geo, ip, formatedUser);
   console.log('input:', input);

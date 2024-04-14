@@ -1,7 +1,7 @@
 import { redis } from '@/libs/upstash';
 import { kvKeys } from '@/constants/kv';
 import { unstable_cache as cache } from 'next/cache';
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 import { getAllBlogs } from './blog';
 import { getAllComments } from './comment';
 
@@ -49,7 +49,7 @@ export const getSummary = cache(
       result.blogCount = blogs.length;
     }
 
-    if (VERCEL_ENV === 'production') {
+    if (ENV.isProd) {
       result.viewCount = (await redis.get(kvKeys.totalPageViews)) as number;
     } else {
       result.viewCount = 12345;

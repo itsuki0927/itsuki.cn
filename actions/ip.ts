@@ -3,15 +3,15 @@
 import { get } from '@vercel/edge-config';
 import { NextRequest } from 'next/server';
 import countries from '@/constants/countries.json';
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 import { getMessageFromNormalError } from '@/utils/error';
 import { IPLocation } from '@/types/database';
 
-export const getIP = (request?: NextRequest) => {
+export const getIP = async (request?: NextRequest) => {
   if (request && request.ip) {
     return request.ip;
   }
-  if (VERCEL_ENV === 'development') {
+  if (ENV.isDev) {
     return '221.194.171.227'; // mock
   }
   const FALLBACK_IP_ADDRESS = '0.0.0.0';
@@ -24,7 +24,7 @@ export const getIP = (request?: NextRequest) => {
 
 export const checkIPIsBlocked = async (request?: NextRequest) => {
   const blockedIPs = (await get<string[]>('blockedIPs')) || [];
-  const ip = getIP(request);
+  const ip = await getIP(request);
   return blockedIPs.includes(ip);
 };
 
@@ -104,7 +104,7 @@ export const getLocationByIP = async (
   ip: string,
 ): Promise<IPLocation | null> => {
   try {
-    if (VERCEL_ENV === 'development') {
+    if (ENV.isDev) {
       return { ...mockIPLocation };
     }
 

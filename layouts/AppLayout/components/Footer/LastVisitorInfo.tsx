@@ -1,4 +1,4 @@
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 import { kvKeys } from '@/constants/kv';
 import { redis } from '@/libs/upstash';
 import { MousePointerClick } from 'lucide-react';
@@ -11,7 +11,7 @@ interface VisitorGeolocation {
 
 const LastVisitorInfo = async () => {
   let lastVisitor: VisitorGeolocation | undefined = undefined;
-  if (VERCEL_ENV === 'production') {
+  if (ENV.isProd) {
     const [lv, cv] = await redis.mget<VisitorGeolocation[]>(
       kvKeys.lastVisitor,
       kvKeys.currentVisitor,

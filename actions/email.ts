@@ -1,4 +1,5 @@
-'use server';
+'use client';
+// TODO: 得这么写, 为啥呢?
 
 import { FormatUser } from '@/utils/formatUser';
 import NewGuestbookEmail from '@/components/emails/NewGuestbookEmail';

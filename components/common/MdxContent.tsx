@@ -1,5 +1,7 @@
-import type { MDXRemoteProps } from 'next-mdx-remote/rsc';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+'use client';
+
+import type { MDXRemoteProps } from 'next-mdx-remote';
+import { MDXRemote } from 'next-mdx-remote';
 import { Suspense } from 'react';
 import markdownComponents from '../markdown';
 import PageSection from '@/app/blog/[slug]/components/PageSection';

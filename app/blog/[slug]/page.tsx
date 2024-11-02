@@ -1,3 +1,4 @@
+import { serialize } from 'next-mdx-remote/serialize';
 import { getAllBlogs, getBlog } from '@/actions/blog';
 import { BASE_URL } from '@/constants/app';
 import { Blog } from '@/types/blog';
@@ -6,6 +7,7 @@ import getHeadings from '@/utils/getHeadings';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import BlogDetailEntry from './components/BlogDetailEntry';
+import splitPage from '@/utils/splitPage';
 
 export type BlogPageProps = PageProps<{ slug: string }>;
 
@@ -14,8 +16,9 @@ export const revalidate = 3600;
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata | undefined> {
+  const { slug } = await params;
   const blogs = (await getAllBlogs()) || [];
-  const blog = blogs.find((blog) => blog.slug === params.slug);
+  const blog = blogs.find((blog) => blog.slug === slug);
   if (!blog) {
     return;
   }
@@ -31,7 +34,7 @@ export async function generateMetadata({
       description,
       type: 'article',
       publishedTime: createdAt?.toLocaleString(),
-      url: `${BASE_URL}/blog/${params.slug}`,
+      url: `${BASE_URL}/blog/${slug}`,
       images: [
         {
           url: ogImage,
@@ -48,7 +51,6 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  console.log('[fetch]: getAllBlogs');
   const blogs = await getAllBlogs();
   return blogs.map((blog) => ({ slug: blog.slug }));
 }
@@ -66,18 +68,27 @@ const fetchBlog = async (path: string) => {
   }
 
   const headings = getHeadings(blog.content);
+  const { content, length: numSections } = splitPage(blog.content, blog.id);
+  const serializeContent = await serialize(content, { scope: blog });
 
-  return { headings, blog };
+  return { headings, serializeContent, blog, numSections };
 };
 
 const BlogPage = async ({ params }: BlogPageProps) => {
-  const slug = params.slug;
+  const { slug } = await params;
   if (!slug) {
     notFound();
   }
-  const { blog } = await fetchBlog(slug);
+  const { blog, serializeContent, numSections } = await fetchBlog(slug);
 
-  return <BlogDetailEntry blog={blog} slug={slug} />;
+  return (
+    <BlogDetailEntry
+      blog={blog}
+      slug={slug}
+      numSections={numSections}
+      serializeContent={serializeContent}
+    />
+  );
 };
 
 export default BlogPage;

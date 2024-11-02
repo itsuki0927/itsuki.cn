@@ -11,15 +11,21 @@ import BlogReactionsUI from '../BlogReactions/UI';
 import MobileNavIsland from '../MobileNavIsland';
 import { META } from '@/constants/seo';
 import JsonLd from '@/components/common/JsonLd';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 
 interface BlogDetailEntryProps {
   blog: Blog;
   slug: string;
+  numSections: number;
+  serializeContent: MDXRemoteSerializeResult;
 }
 
-const BlogDetailEntry = ({ blog, slug }: BlogDetailEntryProps) => {
-  const { content, length: numSections } = splitPage(blog.content, blog.id);
-
+const BlogDetailEntry = ({
+  blog,
+  slug,
+  numSections,
+  serializeContent,
+}: BlogDetailEntryProps) => {
   const jsonLd: WithContext<BlogPosting> = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -48,12 +54,7 @@ const BlogDetailEntry = ({ blog, slug }: BlogDetailEntryProps) => {
 
         <IndexProvider numSections={numSections}>
           <Suspense fallback={<BlogContentSkeleton />}>
-            <MdxContent
-              options={{
-                scope: { blog },
-              }}
-              source={content}
-            />
+            <MdxContent {...serializeContent} />
           </Suspense>
         </IndexProvider>
       </div>

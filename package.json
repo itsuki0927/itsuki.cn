@@ -50,7 +50,7 @@
     "lodash.uniqby": "^4.7.0",
     "lucide-react": "^0.306.0",
     "next": "^15.0.2",
-    "next-mdx-remote": "^4.4.1",
+    "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.2.1",
     "prism-react-renderer": "^2.4.0",
     "prism-theme-vars": "^0.2.5",

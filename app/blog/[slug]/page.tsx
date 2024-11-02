@@ -69,9 +69,8 @@ const fetchBlog = async (path: string) => {
 
   const headings = getHeadings(blog.content);
   const { content, length: numSections } = splitPage(blog.content, blog.id);
-  const serializeContent = await serialize(content, { scope: blog });
 
-  return { headings, serializeContent, blog, numSections };
+  return { headings, blog: { ...blog, content }, numSections };
 };
 
 const BlogPage = async ({ params }: BlogPageProps) => {
@@ -79,16 +78,9 @@ const BlogPage = async ({ params }: BlogPageProps) => {
   if (!slug) {
     notFound();
   }
-  const { blog, serializeContent, numSections } = await fetchBlog(slug);
+  const { blog, numSections } = await fetchBlog(slug);
 
-  return (
-    <BlogDetailEntry
-      blog={blog}
-      slug={slug}
-      numSections={numSections}
-      serializeContent={serializeContent}
-    />
-  );
+  return <BlogDetailEntry blog={blog} slug={slug} numSections={numSections} />;
 };
 
 export default BlogPage;

@@ -17,15 +17,9 @@ interface BlogDetailEntryProps {
   blog: Blog;
   slug: string;
   numSections: number;
-  serializeContent: MDXRemoteSerializeResult;
 }
 
-const BlogDetailEntry = ({
-  blog,
-  slug,
-  numSections,
-  serializeContent,
-}: BlogDetailEntryProps) => {
+const BlogDetailEntry = ({ blog, slug, numSections }: BlogDetailEntryProps) => {
   const jsonLd: WithContext<BlogPosting> = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -54,7 +48,7 @@ const BlogDetailEntry = ({
 
         <IndexProvider numSections={numSections}>
           <Suspense fallback={<BlogContentSkeleton />}>
-            <MdxContent {...serializeContent} />
+            <MdxContent options={{ scope: blog }} source={blog.content} />
           </Suspense>
         </IndexProvider>
       </div>

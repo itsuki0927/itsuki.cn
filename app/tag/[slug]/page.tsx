@@ -20,7 +20,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: TagPageProps): Promise<Metadata | undefined> {
-  const tag = await getTagBySlug(params.slug);
+  const { slug } = await params;
+  const tag = await getTagBySlug(slug);
   const title = tag?.title;
   const description = tag?.description || '';
 
@@ -30,13 +31,13 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `${BASE_URL}/tag/${params.slug}`,
+      url: `${BASE_URL}/tag/${slug}`,
     },
   };
 }
 
 const CategoryPage = async ({ params }: TagPageProps) => {
-  const slug = params.slug;
+  const { slug } = await params;
   const tag = await getTagBySlug(slug);
   const jsonLd: WithContext<WebSite> = {
     '@context': 'https://schema.org',

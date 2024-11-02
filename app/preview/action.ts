@@ -4,7 +4,7 @@ import { createSupabaseServerClient } from '@/libs/supabase/server';
 import { Blog } from '@/types/blog';
 
 export const getDraftBlogs = async () => {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const { data: blogs } = await supabase
     .from('blog')
     .select('*, tag (*), blogTag (*), category (*)')
@@ -13,7 +13,7 @@ export const getDraftBlogs = async () => {
 };
 
 export const getDraftBlog = async (slug: string) => {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const { data } = await supabase
     .from('blog')
     .select('*, tag (*), blogTag (*), category (*)')

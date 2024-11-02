@@ -1,11 +1,11 @@
 'use client';
 
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 import Script from 'next/script';
 
 const TinybirdScript = () => {
   /* <script async src="https://us.umami.is/script.js" data-website-id="cabb0777-5ca8-4451-a484-8a2cc191450e"></script> */
-  if (VERCEL_ENV === 'production') {
+  if (ENV.isProd) {
     return (
       <Script
         strategy="lazyOnload"

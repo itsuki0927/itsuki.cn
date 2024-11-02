@@ -41,6 +41,7 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['next-mdx-remote'],
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -101,6 +102,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'camo.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'skfztuyhbelqtomwriol.supabase.co',
       },
     ],
   },

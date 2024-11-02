@@ -3,7 +3,7 @@ import RssExternalLink from '@/components/common/RssExternalLink';
 import Logo from '../Logo';
 import NavItem from './NavItem';
 import { getAllCategories } from '@/actions/category';
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 
 const Navbar = async () => {
   const data = await getAllCategories();
@@ -20,7 +20,7 @@ const Navbar = async () => {
                 title={item.title}
               />
             ))}
-            {VERCEL_ENV !== 'production' ? (
+            {ENV.isDev || ENV.isPreview ? (
               <NavItem key="/preview" slug="/preview" title="多写一笔" />
             ) : null}
             <NavItem key="/guestbook" slug="/guestbook" title="与你一句" />

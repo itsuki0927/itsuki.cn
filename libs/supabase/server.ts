@@ -9,8 +9,8 @@ import buildUrl from '@/utils/buildUrl';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
-export const createSupabaseServerClient = () => {
-  const cookieStore = cookies();
+export const createSupabaseServerClient = async () => {
+  const cookieStore = await cookies();
   return createServerClient<Database>(
     NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -39,7 +39,7 @@ export const createSupabaseServerClient = () => {
 };
 
 export async function signOut() {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const { error } = await supabase.auth.signOut();
   console.log('signOut:', error);
 
@@ -57,7 +57,7 @@ export async function signOut() {
 
 export const signInWithGithub = async () => {
   const redirectURL = buildUrl('/auth/callback');
-  const supabaseBrowserClient = createSupabaseServerClient();
+  const supabaseBrowserClient = await createSupabaseServerClient();
   const { error } = await supabaseBrowserClient.auth.signInWithOAuth({
     provider: 'github',
     options: {
@@ -70,7 +70,7 @@ export const signInWithGithub = async () => {
 
 export const signInWithGoogle = async () => {
   const redirectURL = buildUrl('/auth/callback');
-  const supabaseBrowserClient = createSupabaseServerClient();
+  const supabaseBrowserClient = await createSupabaseServerClient();
   const { error } = await supabaseBrowserClient.auth.signInWithOAuth({
     provider: 'google',
     options: {

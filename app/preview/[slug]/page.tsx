@@ -1,5 +1,5 @@
 import BlogDetailEntry from '@/app/blog/[slug]/components/BlogDetailEntry';
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 import { Blog } from '@/types/blog';
 import { PageProps } from '@/types/common';
 import getHeadings from '@/utils/getHeadings';
@@ -26,7 +26,7 @@ const fetchBlog = async (slug: string) => {
 };
 
 const PreviewBlogPage = async ({ params }: PreviewBlogPageProps) => {
-  if (VERCEL_ENV === 'production') {
+  if (ENV.isProd) {
     return null;
   }
   const slug = params.slug;

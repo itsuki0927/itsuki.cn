@@ -3,7 +3,7 @@ import countries from '@/constants/countries.json';
 import { kvKeys } from './constants/kv';
 import { redis } from './libs/upstash';
 import { checkIPIsBlocked } from './actions/ip';
-import { VERCEL_ENV } from './constants/env';
+import { ENV } from './constants/env';
 import { updateSession } from './libs/supabase/middleware';
 
 const publicRoutes = [
@@ -45,12 +45,12 @@ const middleware = async (req: NextRequest) => {
     return NextResponse.rewrite(nextUrl);
   }
 
-  if (nextUrl.pathname === '/blocked' && VERCEL_ENV === 'production') {
+  if (nextUrl.pathname === '/blocked' && ENV.isProd) {
     nextUrl.pathname = '/';
     return NextResponse.redirect(nextUrl);
   }
 
-  if (geo && !isApi && VERCEL_ENV === 'production') {
+  if (geo && !isApi && ENV.isProd) {
     const country = geo.country;
     const city = geo.city;
 

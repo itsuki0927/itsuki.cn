@@ -8,7 +8,10 @@ export const BLOG_HEADING_ELEMENT_ID_PREFIX = 'blog-heading';
 
 // 获取id
 export const getId = (text: string) =>
-  text.toLowerCase().replace(/\s/g, '-').replace(/\.|\?/g, '');
+  text
+    .toLowerCase()
+    .replaceAll(/\s/g, '-')
+    .replaceAll(/[^\w\s\u4e00-\u9fa5-]/gi, '');
 
 export const getBlogHeadingElementId = (title: string) =>
   `${BLOG_HEADING_ELEMENT_ID_PREFIX}-${getId(title)}`;

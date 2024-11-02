@@ -2,7 +2,7 @@ import { sendBlogCommentEmail, sendGuestbookEmail } from '@/actions/email';
 import { getLocationByIP, getIP } from '@/actions/ip';
 import { createSupabaseServerClient } from '@/libs/supabase/server';
 import { GUESTBOOK, commentState } from '@/constants/comment';
-import { VERCEL_ENV } from '@/constants/env';
+import { ENV } from '@/constants/env';
 import { kvKeys } from '@/constants/kv';
 import { TAGS } from '@/constants/tag';
 import { redis } from '@/libs/upstash';
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const { data } = await supabase
     .from('comment_dev')
     .select('*')
@@ -45,14 +45,14 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const { data: user } = await supabase.auth.getUser();
   if (!user?.user) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
 
   const row = (await req.json()) as InsertCommentBody;
-  const ip = getIP(req);
+  const ip = await getIP(req);
   const blogId = row.blogId;
 
   const { success } = await ratelimit.limit(
@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
     // blog comment 相关字段，方便查询
     blogSlug: blogData?.slug,
     blogTitle: blogData?.title,
-    isDev: VERCEL_ENV !== 'production',
+    isDev: ENV.isDev || ENV.isPreview,
   };
   console.log('geo:', geo, ip, formatedUser);
   console.log('input:', input);
@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const body = (await req.json()) as { id: number; emoji: string };
   console.log('body:', body);
   const { id, emoji } = body;

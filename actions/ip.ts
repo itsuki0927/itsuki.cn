@@ -25,12 +25,17 @@ export const getIP = async (request: NextRequest) => {
 };
 
 export const checkIPIsBlocked = async (request: NextRequest) => {
-  const blockedIPs = (await get<string[]>('blockedIPs')) || [];
-  const ip = await getIP(request);
-  if (!ip) {
+  try {
+    const blockedIPs = (await get<string[]>('blockedIPs')) || [];
+    const ip = await getIP(request);
+    if (!ip) {
+      return false;
+    }
+    return blockedIPs.includes(ip);
+  } catch (err) {
+    console.log('checkIPIsBlocked err:', err);
     return false;
   }
-  return blockedIPs.includes(ip);
 };
 
 const mockIPLocation: IPLocation = {
@@ -51,7 +56,7 @@ const queryLocationByIpApi = async (ip: string): Promise<IPLocation> => {
       `http://ip-api.com/json/${ip}?fields=status,message,country,countryCode,region,regionName,city,zip,query`,
       {
         cache: 'no-store',
-      }
+      },
     );
     const data = await res.json();
     return data?.status !== 'success'
@@ -106,7 +111,7 @@ const queryLocation = (ip: string) => {
 };
 
 export const getLocationByIP = async (
-  ip: string
+  ip: string,
 ): Promise<IPLocation | null> => {
   try {
     if (ENV.isDev) {
@@ -116,7 +121,7 @@ export const getLocationByIP = async (
     const data = await queryLocation(ip);
     if (data) {
       const countryInfo = countries.find(
-        (x) => x.cca2 === data?.countryCode.toUpperCase()
+        (x) => x.cca2 === data?.countryCode.toUpperCase(),
       );
       const flag = countryInfo?.flag || '';
       return { ...data, flag };

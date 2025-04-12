@@ -5,7 +5,7 @@ export interface PrePropsType {
   children?: ReactNode;
 }
 
-type ChildrenType = ReactElement | undefined;
+type ChildrenType = ReactElement<any> | undefined;
 
 const getChildren = ({ children }: PrePropsType): ChildrenType => {
   if (Array.isArray(children)) return children[0];

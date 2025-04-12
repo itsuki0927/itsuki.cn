@@ -20,7 +20,7 @@ const useScrollSpy = (
       ? elements.slice(0, currentActiveSectionIdx + 1)
       : [];
 
-  const observerRef = useRef<IntersectionObserver>();
+  const observerRef = useRef<IntersectionObserver>(undefined);
 
   useEffect(() => {
     if (observerRef.current) {

@@ -1,3 +1,5 @@
+@reference "../../../styles/global.css";
+
 .loadingDots {
   @apply inline-flex items-center text-center leading-7;
 }

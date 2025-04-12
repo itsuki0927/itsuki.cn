@@ -16,7 +16,7 @@ export interface BlogCardProps {
 
 export const BlogCardSkeleton = () => {
   return (
-    <div className="animate-pulse bg-gray-200 rounded-lg w-full aspect-w-16 aspect-h-9"></div>
+    <div className="animate-pulse bg-gray-200 rounded-lg w-full aspect-video"></div>
   );
 };
 
@@ -44,7 +44,7 @@ const BlogCard = ({
         <div className="absolute top-4 left-4" />
       </Link>
       <Link
-        className="absolute inset-x-0 bottom-0 top-1/3 bg-gradient-to-t from-black/50"
+        className="absolute inset-x-0 bottom-0 top-1/3 bg-linear-to-t from-black/50"
         href={href}
       />
       <div className="absolute z-10 inset-x-0 bottom-0 p-4 sm:p-6 flex flex-col items-start">

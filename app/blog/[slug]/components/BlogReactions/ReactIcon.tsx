@@ -36,7 +36,8 @@ const ReactIcon = ({ y, count = 0, onClick, icon }: ReactIconProps) => {
       ref={ref}
       type="button"
       style={{ height }}
-      className="relative aspect-square h-8"
+      // className="relative aspect-square h-8"
+      className="relative h-8"
       whileTap={{
         scale: 1.3,
       }}

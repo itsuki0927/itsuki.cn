@@ -65,7 +65,7 @@ const BlogTableOfContentUI = ({ headings }: BlogTableOfContentProps) => {
               // heading.id === 1 ? 'ml-2' : '',
               currentActiveIndex === index
                 ? 'text-primary/60 dark:text-zinc-200'
-                : 'hover:text-primary/60 dark:hover:text-zinc-400 group-hover:[&:not(:hover)]:text-zinc-400 dark:group-hover:[&:not(:hover)]:text-zinc-600',
+                : 'hover:text-primary/60 dark:hover:text-zinc-400 [&:not(:hover)]:group-hover:text-zinc-400 dark:[&:not(:hover)]:group-hover:text-zinc-600',
             )}
             key={heading.id}
             onClick={() => {

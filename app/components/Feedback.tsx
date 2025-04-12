@@ -38,7 +38,7 @@ const Feedback = ({}: FeedbackProps) => {
         <textarea
           id="message"
           name="message"
-          className="p-2 border-2 rounded-lg focus:outline-none focus:border-blue-400"
+          className="p-2 border-2 rounded-lg focus:outline-hidden focus:border-blue-400"
         ></textarea>
       </div>
     </HomeCard>

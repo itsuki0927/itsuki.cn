@@ -9,7 +9,7 @@ import MyImage from '@/components/common/MyImage';
 const Gallery = () => {
   return (
     <div className="relative columns-1 sm:columns-3 gap-8">
-      <div className="relative aspect-w-1 aspect-h-1 ">
+      <div className="relative aspect-square">
         <MyImage
           className="object-cover rounded-xl"
           src={guiyang}
@@ -17,7 +17,7 @@ const Gallery = () => {
         />
         <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-xl" />
       </div>
-      <div className="relative aspect-w-16 aspect-h-9 mt-8">
+      <div className="relative aspect-video mt-8">
         <MyImage
           className="object-cover rounded-xl"
           src={dali2}
@@ -25,7 +25,7 @@ const Gallery = () => {
         />
         <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-xl" />
       </div>
-      <div className="relative aspect-w-16 aspect-h-9 mt-8">
+      <div className="relative aspect-video mt-8">
         <MyImage
           className="object-cover rounded-xl"
           src={keep}
@@ -33,7 +33,7 @@ const Gallery = () => {
         />
         <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-xl" />
       </div>
-      <div className="relative aspect-w-1 aspect-h-1 mt-8">
+      <div className="relative aspect-square mt-8">
         <MyImage
           className="object-cover rounded-xl"
           src={dali1}
@@ -41,7 +41,7 @@ const Gallery = () => {
         />
         <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-xl" />
       </div>
-      <div className="relative aspect-w-1 aspect-h-1 mt-8 sm:mt-0">
+      <div className="relative aspect-square mt-8 sm:mt-0">
         <MyImage
           className="object-cover rounded-xl"
           src={beijing}
@@ -49,7 +49,7 @@ const Gallery = () => {
         />
         <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-xl" />
       </div>
-      <div className="relative aspect-w-16 aspect-h-9 mt-8">
+      <div className="relative aspect-video mt-8">
         <MyImage
           className="object-cover rounded-xl"
           src={xianggelila}

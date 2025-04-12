@@ -1,3 +1,5 @@
+@reference "../../styles/global.css";
+
 .olWrapper {
   @apply mb-6 list-decimal pl-6;
 
@@ -12,7 +14,7 @@
 }
 
 .ulWrapper {
-  @apply mb-6 list-square pl-6;
+  @apply mb-6 list-[square] pl-6;
 
   > :not([hidden]) ~ :not([hidden]),
   ul {

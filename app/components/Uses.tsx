@@ -92,7 +92,7 @@ const Uses = () => {
           <ExternalLink
             key={tool.name}
             href={tool.url}
-            className="!no-underline"
+            className="no-underline!"
           >
             <Use {...tool} />
           </ExternalLink>

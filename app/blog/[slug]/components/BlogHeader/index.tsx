@@ -95,7 +95,7 @@ const BlogHeader = async ({ blog }: BlogPageHeaderProps) => {
             </span>
           )}
         </div>
-        <h1 className="font-semibold text-2xl md:text-4xl md:!leading-[120%] dark:text-zinc-100 max-w-4xl mt-4">
+        <h1 className="font-semibold text-2xl md:text-4xl md:leading-[120%]! dark:text-zinc-100 max-w-4xl mt-4">
           {blog?.title}
         </h1>
       </header>

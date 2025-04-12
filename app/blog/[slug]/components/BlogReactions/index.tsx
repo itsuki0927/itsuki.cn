@@ -99,7 +99,7 @@ const BlogReactions = ({ id, mood, reactions }: BlogReactionsProps) => {
 
   return (
     <motion.div
-      className="pointer-events-auto flex w-12 flex-col items-center justify-center gap-8 rounded-3xl bg-gradient-to-b from-zinc-100/80 to-white/90 px-1 pb-8 pt-4 ring-1 ring-zinc-400/10 backdrop-blur-lg dark:from-zinc-800/80 dark:to-zinc-950/80 dark:ring-zinc-500/10"
+      className="pointer-events-auto flex w-12 flex-col items-center justify-center gap-8 rounded-3xl bg-linear-to-b from-zinc-100/80 to-white/90 px-1 pb-8 pt-4 ring-1 ring-zinc-400/10 backdrop-blur-lg dark:from-zinc-800/80 dark:to-zinc-950/80 dark:ring-zinc-500/10"
       onMouseMove={onMouseMove}
       onMouseLeave={() => mouseY.set(Infinity)}
       initial={{

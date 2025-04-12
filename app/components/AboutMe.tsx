@@ -1,4 +1,5 @@
 import { UnOrderedList } from '@/components/markdown';
+import Link from 'next/link';
 
 const getEmploymentDays = () => {
   const startTime = new Date('06/20/2022');
@@ -12,8 +13,8 @@ const AboutMe = () => {
   return (
     <UnOrderedList>
       <li>
-        <strong>师傅你是哪里的：</strong>湖南人，目前在上海字节跳动（always{' '}
-        {days} 天 ），一年前无辣不欢，一年后只能微微辣😭。
+        <strong>师傅你是哪里的：</strong>湖南人，目前在上海字节跳动（
+        <b>always {days} 天</b> ），一年前无辣不欢，一年后只能微微辣😭。
       </li>
       <li>
         <strong>mbti：</strong>infj 绿👴，熟了小 e，不熟就是 iiiiiiii，
@@ -49,16 +50,24 @@ const AboutMe = () => {
       </li>
       <li>
         <strong>跑步🏃狂热爱好者：</strong>
-        已跑两坤（五）年，全马pb：2:55:57（
-        <strong>厦门</strong>），半马pb：1:21:58（<strong>无锡</strong>
-        ），更多细节可以看 ---{'>'} 你喜欢跑步🏃吗？ 。
+        已跑三坤（七）年，全马pb：2:53:42（
+        <strong>2024 无锡</strong>），半马pb：1:20:42（
+        <strong>2024 宿迁</strong>
+        ），更多细节可以看 ---{'>'}{' '}
+        <Link
+          href="/blog/do-you-like-running"
+          className="underline text-primary"
+        >
+          你喜欢跑步🏃吗？
+        </Link>{' '}
+        。
         <UnOrderedList>
           <li>
             长远目标：六大满贯（先梦一梦）、每个省会城市跑一次马拉松（每个城市跑好像不太现实）。
           </li>
           <li>近期目标：达标马拉松国家二级运动员，全马：2:53:00。</li>
           <li>
-            已经跑过的城市：长沙、洪江、张家界、贵阳、无锡、江阴、北京、苏州、湖州、池州、大理、香格里拉。
+            已经跑过的城市：长沙、洪江、张家界、贵阳、无锡、江阴、北京、苏州、湖州、池州、大理、香格里拉、福州、重庆、扬州。
           </li>
         </UnOrderedList>
       </li>

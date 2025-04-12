@@ -11,13 +11,13 @@
   animation-fill-mode: both;
 }
 
-.loadingDots .dot:nth-of-type(2) {
-  animation-delay: 0.2s;
-}
-
-.loadingDots .dot::nth-of-type(3) {
-  animation-delay: 0.4s;
-}
+/* .loadingDots .dot:nth-of-type(2) { */
+/*   animation-delay: 0.2s; */
+/* } */
+/**/
+/* .loadingDots .dot::nth-of-type(3) { */
+/*   animation-delay: 0.4s; */
+/* } */
 
 @keyframes blink {
   0% {

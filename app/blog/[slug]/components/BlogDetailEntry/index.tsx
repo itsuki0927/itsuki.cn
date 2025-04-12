@@ -42,7 +42,7 @@ const BlogDetailEntry = ({ blog, slug, numSections }: BlogDetailEntryProps) => {
 
       <BlogTableOfContent blog={blog} />
 
-      <div className="max-w-4xl mx-auto bg-white text-zinc-800 p-4 rounded-xl">
+      <div className="max-w-4xl mx-auto bg-white text-zinc-800 p-6 sm:p-8 rounded-xl shadow-sm">
         <BlogHeader blog={blog} />
 
         <IndexProvider numSections={numSections}>

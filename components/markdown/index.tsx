@@ -12,8 +12,8 @@ export const H1 = ({ children, className, ...rest }: StandardProps) => {
   return (
     <h1
       className={clsx(
-        'relative group mt-0 mb-10 text-4xl font-semibold',
-        className,
+        'relative group mt-0 mb-10 text-4xl font-semibold tracking-tight',
+        className
       )}
       id={id}
       {...rest}
@@ -28,8 +28,8 @@ export const H2 = ({ children, className, ...rest }: StandardProps) => {
   return (
     <h2
       className={clsx(
-        'relative group mt-16 mb-8 text-3xl font-semibold',
-        className,
+        'relative group mt-16 mb-8 text-3xl font-semibold tracking-tight',
+        className
       )}
       id={id}
       {...rest}
@@ -44,8 +44,8 @@ export const H3 = ({ children, className, ...rest }: StandardProps) => {
   return (
     <h3
       className={clsx(
-        'relative group mt-12 mb-6 text-2xl font-semibold',
-        className,
+        'relative group mt-12 mb-6 text-2xl font-semibold tracking-tight',
+        className
       )}
       id={id}
       {...rest}
@@ -60,8 +60,8 @@ export const H4 = ({ children, className, ...rest }: StandardProps) => {
   return (
     <h4
       className={clsx(
-        'relative group mt-8 mb-6 text-xl font-semibold',
-        className,
+        'relative group mt-8 mb-6 text-xl font-semibold tracking-tight',
+        className
       )}
       id={id}
       {...rest}
@@ -78,16 +78,7 @@ export const OrderedList = ({
 }: StandardProps) => {
   return (
     <ol className={clsx(styles.olWrapper, className)} {...rest}>
-      {React.Children.toArray(children)
-        .filter(Boolean)
-        .map((child: any, index) =>
-          child.props ? (
-            // eslint-disable-next-line react/no-array-index-key
-            <li className={`${styles.olItem} group`} key={index}>
-              {child.props.children}
-            </li>
-          ) : null,
-        )}
+      {children}
     </ol>
   );
 };
@@ -99,22 +90,16 @@ export const UnOrderedList = ({
 }: StandardProps) => {
   return (
     <ul className={clsx(styles.ulWrapper, className)} {...rest}>
-      {React.Children.toArray(children)
-        .filter(Boolean)
-        .map((child: any, index) =>
-          child.props ? (
-            <li className={`${styles.ulItem} group`} key={index}>
-              {child.props.children}
-            </li>
-          ) : null,
-        )}
+      {children}
     </ul>
   );
 };
 
 export const Text = ({ children, className }: StandardProps) => {
   return (
-    <div className={clsx('my-3 leading-8 group relative', className)}>
+    <div
+      className={clsx('my-4 leading-8 group relative text-zinc-700', className)}
+    >
       {children}
     </div>
   );
@@ -123,7 +108,10 @@ export const Text = ({ children, className }: StandardProps) => {
 export const InlineCode = ({ children, className, ...rest }: StandardProps) => {
   return (
     <code
-      className={clsx('mx-1 rounded-sm bg-gray-200 p-1 text-sm', className)}
+      className={clsx(
+        'mx-1 rounded-sm bg-zinc-100 px-1.5 py-0.5 text-sm font-mono text-zinc-800',
+        className
+      )}
       {...rest}
     >
       {children}
@@ -133,12 +121,19 @@ export const InlineCode = ({ children, className, ...rest }: StandardProps) => {
 
 export const Blockquote = ({ children, className, ...rest }: StandardProps) => {
   return (
-    <blockquote
-      className={clsx(styles.blockquote, 'group', className)}
-      {...rest}
-    >
+    <blockquote className={clsx(styles.blockquote, className)} {...rest}>
       {children}
     </blockquote>
+  );
+};
+
+export const Table = ({ children, className, ...rest }: StandardProps) => {
+  return (
+    <div className="overflow-x-auto">
+      <table className={clsx(styles.table, className)} {...rest}>
+        {children}
+      </table>
+    </div>
   );
 };
 
@@ -174,14 +169,6 @@ export const Link = ({
     >
       {children}
     </Link>
-  );
-};
-
-export const Table = ({ children, className, ...rest }: StandardProps) => {
-  return (
-    <table className={clsx(styles.table, className)} {...rest}>
-      {children}
-    </table>
   );
 };
 

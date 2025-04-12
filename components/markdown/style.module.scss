@@ -27,7 +27,7 @@
 }
 
 .blockquote {
-  @apply mb-4 border-l-4 border-solid border-zinc-500 py-2 pl-4 pr-3 indent-0 bg-zinc-100 rounded-md;
+  @apply mb-4 border-l-4 border-solid border-primary/50 py-2 pl-4 pr-3 indent-0 bg-zinc-50 rounded-md;
 
   > div,
   p {
@@ -45,15 +45,15 @@
 }
 
 .table {
-  @apply mt-8 mb-8 w-full table-auto rounded-lg border border-solid border-zinc-200 text-left;
+  @apply mt-8 mb-8 w-full table-auto rounded-lg border border-solid border-zinc-200 text-left overflow-hidden;
 
   th,
   td {
-    @apply p-2 first:border-r first:border-solid first:border-zinc-200;
+    @apply p-3 first:border-r first:border-solid first:border-zinc-200;
   }
 
   thead {
-    @apply border-b border-solid border-zinc-200;
+    @apply border-b border-solid border-zinc-200 bg-zinc-50;
 
     th {
       @apply align-bottom font-semibold;
@@ -62,7 +62,7 @@
 
   tbody {
     tr {
-      @apply border-b border-solid border-zinc-200 last:border-b-0;
+      @apply border-b border-solid border-zinc-200 last:border-b-0 hover:bg-zinc-50 transition-colors;
     }
 
     td {

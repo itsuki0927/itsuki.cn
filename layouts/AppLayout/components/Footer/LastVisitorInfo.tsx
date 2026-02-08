@@ -1,6 +1,7 @@
-import { ENV } from '@/constants/env';
-import { kvKeys } from '@/constants/kv';
-import { redis } from '@/libs/upstash';
+import React from 'react';
+import { ENV } from '../../../../constants/env';
+import { kvKeys } from '../../../../constants/kv';
+import { redis } from '../../../../libs/upstash';
 import { MousePointerClick } from 'lucide-react';
 
 interface VisitorGeolocation {
@@ -12,12 +13,11 @@ interface VisitorGeolocation {
 const LastVisitorInfo = async () => {
   let lastVisitor: VisitorGeolocation | undefined = undefined;
   if (ENV.isProd) {
-    const [lv, cv] = await redis.mget<VisitorGeolocation[]>(
+    const [lv, cv] = await redis.mget<[VisitorGeolocation | null, VisitorGeolocation | null]>(
       kvKeys.lastVisitor,
       kvKeys.currentVisitor,
     );
-    lastVisitor = lv;
-    await redis.set(kvKeys.lastVisitor, cv);
+    lastVisitor = lv ?? cv ?? undefined;
   }
 
   if (!lastVisitor) {

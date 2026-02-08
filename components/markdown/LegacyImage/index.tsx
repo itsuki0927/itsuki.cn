@@ -1,10 +1,9 @@
 'use client';
 
-import type { StandardProps } from '@/types/common';
+import type { StandardProps } from '../../../types/common';
 import clsx from 'clsx';
-import { useInView } from 'framer-motion';
 import { ImageOff } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import LoadingDots from './LoadingDots';
 
 interface LegacyImageProps extends StandardProps {
@@ -21,13 +20,10 @@ const LegacyImage = ({
   const imgRef = useRef<HTMLImageElement>(null);
   const [isError, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-
-  const inView = useInView(imgRef);
+  const [shouldLoad, setShouldLoad] = useState(false);
 
   const handleLoad = () => {
     setLoading(false);
-    setLoaded(true);
   };
 
   const handleError = () => {
@@ -36,21 +32,45 @@ const LegacyImage = ({
   };
 
   useEffect(() => {
-    if (inView && !loaded) {
-      const dataSrc = imgRef.current?.getAttribute('data-src');
-      if (dataSrc && imgRef.current) {
-        setLoading(true);
-        imgRef.current.src = dataSrc;
+    if (!imgRef.current || shouldLoad) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting && src) {
+          setLoading(true);
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: '200px',
+      }
+    );
+
+    observer.observe(imgRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [shouldLoad, src]);
+
+  useEffect(() => {
+    if (!src) {
+      setError(true);
+      setLoading(false);
+      if (!shouldLoad) {
+        setShouldLoad(true);
       }
     }
-  }, [inView, loaded]);
+  }, [shouldLoad, src]);
 
   return (
     <figure
       className={clsx(
         'relative mx-0 mb-9 rounded-lg border border-solid border-zinc-200',
       )}
-      key={src}
     >
       {isLoading ? (
         <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-zinc-50 z-10">
@@ -73,7 +93,10 @@ const LegacyImage = ({
           isLoading ? 'min-h-[72px]' : '',
         )}
         data-src={src}
+        decoding="async"
+        loading="lazy"
         ref={imgRef}
+        src={shouldLoad ? src : undefined}
         {...rest}
         onError={handleError}
         onLoad={handleLoad}

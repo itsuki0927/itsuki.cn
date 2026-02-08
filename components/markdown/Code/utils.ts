@@ -26,12 +26,12 @@ export const preToCodeBlock = (preProps: PrePropsType) => {
     const { className = '', ...props } = children.props;
     const codeString = getCodeString(children.props.children);
 
-    const matches = className.match(/language-(?<lang>.*)/);
+    const matches = className.match(/language-(.*)/);
     return {
       className,
       codeString,
-      language: matches?.groups?.lang
-        ? (matches.groups.lang as Language)
+      language: matches?.[1]
+        ? (matches[1] as Language)
         : ('' as Language),
       ...props,
     };

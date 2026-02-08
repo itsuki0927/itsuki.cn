@@ -1,24 +1,23 @@
-import { serialize } from 'next-mdx-remote/serialize';
-import { getAllBlogs, getBlog } from '@/actions/blog';
-import { BASE_URL } from '@/constants/app';
-import { Blog } from '@/types/blog';
-import { PageProps } from '@/types/common';
-import getHeadings from '@/utils/getHeadings';
+import { getAllBlogs, getBlog } from '../../../actions/blog';
+import { BASE_URL } from '../../../constants/app';
+import { PageProps } from '../../../types/common';
+import getHeadings from '../../../utils/getHeadings';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import React from 'react';
 import BlogDetailEntry from './components/BlogDetailEntry';
-import splitPage from '@/utils/splitPage';
+import splitPage from '../../../utils/splitPage';
 
 export type BlogPageProps = PageProps<{ slug: string }>;
 
 export const revalidate = 3600;
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata | undefined> {
-  const { slug } = await params;
-  const blogs = (await getAllBlogs()) || [];
-  const blog = blogs.find((blog) => blog.slug === slug);
+  const { slug } = params;
+  const blog = await getBlog(slug);
   if (!blog) {
     return;
   }
@@ -52,35 +51,38 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   const blogs = await getAllBlogs();
-  return blogs.map((blog) => ({ slug: blog.slug }));
+  return blogs.map((blog: any) => ({ slug: blog.slug }));
 }
 
 const fetchBlog = async (path: string) => {
-  let blog: Blog | null | undefined;
-
   try {
-    blog = await getBlog(path);
-    if (blog === null) {
+    const blog = await getBlog(path);
+    if (!blog) {
       return notFound();
     }
+
+    const headings = getHeadings(blog.content);
+    const { content, length: numSections } = splitPage(blog.content);
+
+    return { headings, blog: { ...blog, content }, numSections };
   } catch (err) {
     return notFound();
   }
-
-  const headings = getHeadings(blog.content);
-  const { content, length: numSections } = splitPage(blog.content, blog.id);
-
-  return { headings, blog: { ...blog, content }, numSections };
 };
 
 const BlogPage = async ({ params }: BlogPageProps) => {
-  const { slug } = await params;
+  const { slug } = params;
   if (!slug) {
     notFound();
   }
-  const { blog, numSections } = await fetchBlog(slug);
+  const { blog, headings, numSections } = await fetchBlog(slug);
 
-  return <BlogDetailEntry blog={blog} slug={slug} numSections={numSections} />;
+  return React.createElement(BlogDetailEntry, {
+    blog,
+    slug,
+    headings,
+    numSections,
+  });
 };
 
 export default BlogPage;

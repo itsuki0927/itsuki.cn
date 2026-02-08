@@ -1,29 +1,27 @@
-import BlogDetailEntry from '@/app/blog/[slug]/components/BlogDetailEntry';
-import { ENV } from '@/constants/env';
-import { Blog } from '@/types/blog';
-import { PageProps } from '@/types/common';
-import getHeadings from '@/utils/getHeadings';
+import BlogDetailEntry from '../../blog/[slug]/components/BlogDetailEntry';
+import { ENV } from '../../../constants/env';
+import { PageProps } from '../../../types/common';
+import getHeadings from '../../../utils/getHeadings';
 import { notFound } from 'next/navigation';
+import React from 'react';
 import { getDraftBlog } from '../action';
-import splitPage from '@/utils/splitPage';
+import splitPage from '../../../utils/splitPage';
 
 export type PreviewBlogPageProps = PageProps<{ slug: string }>;
 
 const fetchBlog = async (slug: string) => {
-  let blog: Blog | null | undefined;
-
   try {
-    blog = await getDraftBlog(slug);
-    if (blog === null) {
+    const blog = (await getDraftBlog(slug)) as any;
+    if (!blog) {
       return notFound();
     }
+
+    const headings = getHeadings(blog.content ?? '');
+
+    return { headings, blog };
   } catch (err) {
     return notFound();
   }
-
-  const headings = getHeadings(blog?.content ?? '');
-
-  return { headings, blog };
 };
 
 const PreviewBlogPage = async ({ params }: PreviewBlogPageProps) => {
@@ -34,17 +32,20 @@ const PreviewBlogPage = async ({ params }: PreviewBlogPageProps) => {
   if (!slug) {
     notFound();
   }
-  const { blog } = await fetchBlog(slug);
+  const { blog, headings } = await fetchBlog(slug);
 
   if (!blog) {
     notFound();
   }
 
-  const a = splitPage(blog.content,blog.id)
+  const { content, length: numSections } = splitPage(blog.content);
 
-  const { content, length: numSections } = splitPage(blog.content, blog.id);
-
-  return <BlogDetailEntry blog={{  ...blog, content }} slug={slug} numSections={numSections} />;
+  return React.createElement(BlogDetailEntry, {
+    blog: { ...blog, content },
+    slug,
+    headings,
+    numSections,
+  });
 };
 
 export default PreviewBlogPage;

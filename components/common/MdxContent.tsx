@@ -1,7 +1,8 @@
 import type { MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import React from 'react';
 import markdownComponents from '../markdown';
-import PageSection from '@/app/blog/[slug]/components/PageSection';
+import PageSection from '../../app/blog/[slug]/components/PageSection';
 
 export const customMdxComponents = {
   // Image,
@@ -9,16 +10,21 @@ export const customMdxComponents = {
   /* Sandbox, */
 };
 
+const baseMdxComponents = {
+  ...markdownComponents,
+  ...customMdxComponents,
+};
+
 const MdxContent = ({ components, ...rest }: MDXRemoteProps) => {
-  return (
-    <MDXRemote
-      {...rest}
-      components={{
-        ...markdownComponents,
-        ...customMdxComponents,
+  const mergedComponents = components
+    ? {
+        ...baseMdxComponents,
         ...components,
-      }}
-    />
+      }
+    : baseMdxComponents;
+
+  return (
+    <MDXRemote {...rest} components={mergedComponents} />
   );
 };
 

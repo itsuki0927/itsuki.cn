@@ -62,7 +62,7 @@ export async function PATCH(req: NextRequest) {
 
   await redis.set(key, current);
 
-  revalidateTag(key);
+  revalidateTag(key, 'max');
 
   return NextResponse.json({
     data: current,

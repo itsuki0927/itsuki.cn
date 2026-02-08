@@ -1,41 +1,25 @@
 'use client';
 
 import classNames from 'clsx';
-import { ReactNode, useEffect, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef } from 'react';
 import { useIndexContext } from './IndexProvider';
-
-const isVisible = (element: HTMLElement) => {
-  const { top } = element.getBoundingClientRect();
-  return top < window.innerHeight / 2;
-};
 
 interface PageSectionProps {
   index: number;
   children: ReactNode;
-  blogId: number;
 }
 
-function PageSection({ index, children, blogId }: PageSectionProps) {
+function PageSection({ index, children }: PageSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const { set } = useIndexContext();
+  const { registerSection } = useIndexContext();
 
   useEffect(() => {
-    if (ref.current && isVisible(ref.current)) {
-      set(index);
-    }
-  }, [index, set]);
+    registerSection(index, ref.current);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (ref.current && isVisible(ref.current)) {
-        set(index);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      registerSection(index, null);
     };
-  }, [index, set]);
+  }, [index, registerSection]);
 
   return (
     <section
@@ -47,7 +31,7 @@ function PageSection({ index, children, blogId }: PageSectionProps) {
         'sm:block',
       )}
     >
-      <hr className="border-gray8 border-dashed mb-10 lg:mb-16 group-first-of-type:hidden" />
+      <hr className="border-border border-dashed mb-10 lg:mb-16 group-first-of-type:hidden" />
 
       {children}
 

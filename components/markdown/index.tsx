@@ -109,7 +109,7 @@ export const InlineCode = ({ children, className, ...rest }: StandardProps) => {
   return (
     <code
       className={clsx(
-        'mx-1 rounded-sm bg-zinc-100 px-1.5 py-0.5 text-sm font-mono text-zinc-800',
+        'mx-1 rounded-xs bg-zinc-100 px-1.5 py-0.5 text-sm font-mono text-zinc-800',
         className
       )}
       {...rest}

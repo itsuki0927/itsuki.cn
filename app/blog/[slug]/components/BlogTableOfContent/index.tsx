@@ -1,14 +1,12 @@
 import BlogTableOfContentUI from './ui';
-import getHeadings from '@/utils/getHeadings';
-import { Blog } from '@/types/blog';
+import { BlogHeading } from '@/utils/getHeadings';
+import React from 'react';
 
 interface BlogTableOfContentProps {
-  blog: Blog;
+  headings: BlogHeading[];
 }
 
-const BlogTableOfContent = ({ blog }: BlogTableOfContentProps) => {
-  const headings = getHeadings(blog?.content || '');
-
+const BlogTableOfContent = ({ headings }: BlogTableOfContentProps) => {
   return <BlogTableOfContentUI headings={headings} />;
 };
 

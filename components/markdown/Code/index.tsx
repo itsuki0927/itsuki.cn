@@ -1,8 +1,7 @@
-import dynamic from 'next/dynamic';
+import CodeBlock from './CodeBlock';
 import type { PrePropsType } from './utils';
 import { preToCodeBlock } from './utils';
-
-const CodeBlock = dynamic(() => import('./CodeBlock'));
+import React from 'react';
 
 const Code = (preProps: PrePropsType) => {
   const props = preToCodeBlock(preProps);

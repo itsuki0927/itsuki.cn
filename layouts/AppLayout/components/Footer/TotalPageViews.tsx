@@ -1,14 +1,15 @@
-import { TOTAL_PAGEVIEWS_BASELINE } from '@/constants/app';
-import { ENV } from '@/constants/env';
-import { kvKeys } from '@/constants/kv';
-import { redis } from '@/libs/upstash';
-import prettifyNumber from '@/utils/prettifyNumber';
+import React from 'react';
+import { TOTAL_PAGEVIEWS_BASELINE } from '../../../../constants/app';
+import { ENV } from '../../../../constants/env';
+import { kvKeys } from '../../../../constants/kv';
+import { redis } from '../../../../libs/upstash';
+import prettifyNumber from '../../../../utils/prettifyNumber';
 import { User } from 'lucide-react';
 
 const TotalPageViews = async () => {
   let views: number;
   if (ENV.isProd) {
-    views = await redis.incr(kvKeys.totalPageViews);
+    views = (await redis.get<number>(kvKeys.totalPageViews)) ?? TOTAL_PAGEVIEWS_BASELINE;
   } else {
     views = 12345;
   }

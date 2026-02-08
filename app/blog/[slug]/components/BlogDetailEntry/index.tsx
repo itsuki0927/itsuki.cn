@@ -1,6 +1,6 @@
 import type { BlogPosting, WithContext } from 'schema-dts';
 import MdxContent from '@/components/common/MdxContent';
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Blog } from '@/types/blog';
 import BlogTableOfContent from '../BlogTableOfContent';
 import BlogHeader from '../BlogHeader';
@@ -10,15 +10,21 @@ import BlogReactionsUI from '../BlogReactions/UI';
 import MobileNavIsland from '../MobileNavIsland';
 import { META } from '@/constants/seo';
 import JsonLd from '@/components/common/JsonLd';
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { BlogHeading } from '@/utils/getHeadings';
 
 interface BlogDetailEntryProps {
   blog: Blog;
   slug: string;
+  headings: BlogHeading[];
   numSections: number;
 }
 
-const BlogDetailEntry = ({ blog, slug, numSections }: BlogDetailEntryProps) => {
+const BlogDetailEntry = ({
+  blog,
+  slug,
+  headings,
+  numSections,
+}: BlogDetailEntryProps) => {
   const jsonLd: WithContext<BlogPosting> = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -40,9 +46,9 @@ const BlogDetailEntry = ({ blog, slug, numSections }: BlogDetailEntryProps) => {
     <>
       <JsonLd content={jsonLd} />
 
-      <BlogTableOfContent blog={blog} />
+      <BlogTableOfContent headings={headings} />
 
-      <div className="max-w-4xl mx-auto bg-white text-zinc-800 p-6 sm:p-8 rounded-xl shadow-sm">
+      <div className="max-w-4xl mx-auto bg-white text-zinc-800 p-6 sm:p-8 rounded-xl shadow-xs">
         <BlogHeader blog={blog} />
 
         <IndexProvider numSections={numSections}>
@@ -59,7 +65,7 @@ const BlogDetailEntry = ({ blog, slug, numSections }: BlogDetailEntryProps) => {
       </aside>
 
       <div className="fixed bottom-4 left-4 right-4 z-20 block sm:hidden">
-        <MobileNavIsland blog={blog} />
+        <MobileNavIsland headings={headings} />
       </div>
     </>
   );
